@@ -1,0 +1,30 @@
+# Only skills/ and agents/ are tracked — exclude everything else
+
+# Sensitive credentials
+.credentials.json
+
+# Runtime/ephemeral
+sessions/
+session-env/
+mcp-needs-auth-cache.json
+.last-cleanup
+
+# Local history & snapshots
+file-history/
+shell-snapshots/
+backups/
+
+# Config & IDE
+settings.json
+ide/
+
+# Rules, scripts, hooks, plans, commands, ecc
+rules/
+scripts/
+hooks/
+plans/
+commands/
+ecc/
+
+# Per-project memory
+projects/

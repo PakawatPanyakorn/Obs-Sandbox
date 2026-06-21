@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="velvet-noir">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: velvet-noir</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "velvet-noir",
+    "description": "Dark Art Deco maximalist — near-black plum canvas, old gold primary, deep crimson secondary. Geometric diamond crosshatch, ornate serif hierarchy, dramatic gold glow.",
+    "createdAt": "2026-06-21T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#1A1018",
+      "image": "repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(201,168,76,0.045) 18px, rgba(201,168,76,0.045) 19px), repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(201,168,76,0.045) 18px, rgba(201,168,76,0.045) 19px)",
+      "size": "38px 38px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "grid",
+      "patternColor": "rgba(201,168,76,0.045)",
+      "patternOpacity": "0.045",
+      "patternSpacing": "38px",
+      "notes": "Diamond crosshatch in muted gold on deep plum-black"
+    },
+    "colors": {
+      "primary": "#C9A84C", "primaryLight": "#2A2015", "secondary": "#8B1A4A", "accent": "#E8C96A",
+      "background": "#1A1018", "surface": "#221520", "surfaceAlt": "#2A1B28",
+      "text": "#E8DCC8", "textMuted": "#8A7860", "textOnPrimary": "#1A1018",
+      "border": "#3A2838", "success": "#4A9A5A", "warning": "#C9A84C", "error": "#C8354A"
+    },
+    "typography": {
+      "fontFamily": "'Cormorant Garamond', Georgia, serif",
+      "fontFamilyMono": "'IBM Plex Mono', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Playfair Display', Georgia, serif",
+      "scaleBase": "17px", "headingWeight": "700", "bodyWeight": "300", "lineHeight": "1.75"
+    },
+    "spacing": {
+      "borderRadius": "2px", "cardRadius": "4px", "buttonRadius": "2px",
+      "spaceUnit": "8px", "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 2px 8px rgba(10,5,12,0.6), 0 0 0 1px rgba(201,168,76,0.08)",
+      "md": "0 4px 20px rgba(10,5,12,0.7), 0 0 0 1px rgba(201,168,76,0.12)",
+      "lg": "0 8px 40px rgba(10,5,12,0.8), 0 0 0 1px rgba(201,168,76,0.15)",
+      "xl": "0 16px 60px rgba(10,5,12,0.9), 0 0 0 1px rgba(201,168,76,0.2)",
+      "colored": "0 4px 24px rgba(201,168,76,0.28), 0 0 0 1px rgba(201,168,76,0.35)",
+      "inset": "inset 0 2px 8px rgba(10,5,12,0.8), inset 0 1px 0 rgba(201,168,76,0.05)",
+      "elevation": "dramatic"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #2D1835 0%, #1A1018 45%, #251520 100%)",
+      "card": "linear-gradient(180deg, #241622 0%, #1E1218 100%)",
+      "button": "linear-gradient(135deg, #D4B050 0%, #A8842A 100%)",
+      "text": "linear-gradient(135deg, #E8C96A 0%, #C9A84C 50%, #A8842A 100%)",
+      "accent": "linear-gradient(90deg, #8B1A4A 0%, #C9A84C 100%)"
+    },
+    "effects": {
+      "luminescence": "medium",
+      "glowColor": "#C9A84C", "glowBlur": "20px",
+      "glowSm": "0 0 8px rgba(201,168,76,0.3)",
+      "glowMd": "0 0 20px rgba(201,168,76,0.35), 0 0 40px rgba(201,168,76,0.15)",
+      "glowLg": "0 0 40px rgba(201,168,76,0.4), 0 0 80px rgba(201,168,76,0.2)",
+      "glassBlur": "0", "glassTint": "none",
+      "gradientBorder": "linear-gradient(135deg, #C9A84C, #8B1A4A, #C9A84C)",
+      "noiseOpacity": "0.02", "textShadow": "0 0 30px rgba(201,168,76,0.3)",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "150ms", "durationBase": "300ms", "durationSlow": "500ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)", "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["luxe", "dark", "maximalist", "art-deco"],
+      "borderStyle": "hairline", "iconStyle": "sharp", "imageStyle": "illustrative",
+      "surfaceTexture": "flat", "hierarchyClarity": "high",
+      "notes": "Gold gradient borders. Diamond lattice bg. Ornate display serif + refined body serif. Near-zero border radius. Deep plum shadows."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #1A1018;
+      --bg-image: repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(201,168,76,0.045) 18px, rgba(201,168,76,0.045) 19px), repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(201,168,76,0.045) 18px, rgba(201,168,76,0.045) 19px);
+      --bg-size: 38px 38px; --bg-position: 0 0; --bg-repeat: repeat;
+
+      --color-primary: #C9A84C; --color-primary-light: #2A2015; --color-secondary: #8B1A4A; --color-accent: #E8C96A;
+      --color-bg: #1A1018; --color-surface: #221520; --color-surface-alt: #2A1B28;
+      --color-text: #E8DCC8; --color-text-muted: #8A7860; --color-text-on-primary: #1A1018;
+      --color-border: #3A2838; --color-success: #4A9A5A; --color-warning: #C9A84C; --color-error: #C8354A;
+
+      --font-family: 'Cormorant Garamond', Georgia, serif;
+      --font-family-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --font-family-display: 'Playfair Display', Georgia, serif;
+      --font-size-base: 17px; --font-weight-heading: 700; --font-weight-body: 300; --line-height: 1.75;
+
+      --radius: 2px; --radius-card: 4px; --radius-button: 2px;
+
+      --shadow-sm: 0 2px 8px rgba(10,5,12,0.6), 0 0 0 1px rgba(201,168,76,0.08);
+      --shadow-md: 0 4px 20px rgba(10,5,12,0.7), 0 0 0 1px rgba(201,168,76,0.12);
+      --shadow-lg: 0 8px 40px rgba(10,5,12,0.8), 0 0 0 1px rgba(201,168,76,0.15);
+      --shadow-xl: 0 16px 60px rgba(10,5,12,0.9), 0 0 0 1px rgba(201,168,76,0.2);
+      --shadow-colored: 0 4px 24px rgba(201,168,76,0.28), 0 0 0 1px rgba(201,168,76,0.35);
+      --shadow-inset: inset 0 2px 8px rgba(10,5,12,0.8), inset 0 1px 0 rgba(201,168,76,0.05);
+
+      --gradient-hero: linear-gradient(135deg, #2D1835 0%, #1A1018 45%, #251520 100%);
+      --gradient-card: linear-gradient(180deg, #241622 0%, #1E1218 100%);
+      --gradient-button: linear-gradient(135deg, #D4B050 0%, #A8842A 100%);
+      --gradient-text: linear-gradient(135deg, #E8C96A 0%, #C9A84C 50%, #A8842A 100%);
+      --gradient-accent: linear-gradient(90deg, #8B1A4A 0%, #C9A84C 100%);
+
+      --glow-color: #C9A84C; --glow-sm: 0 0 8px rgba(201,168,76,0.3);
+      --glow-md: 0 0 20px rgba(201,168,76,0.35), 0 0 40px rgba(201,168,76,0.15);
+      --glow-lg: 0 0 40px rgba(201,168,76,0.4), 0 0 80px rgba(201,168,76,0.2);
+      --glass-blur: 0px; --glass-tint: none; --backdrop-filter: none;
+      --text-shadow: 0 0 30px rgba(201,168,76,0.3);
+      --border-gradient: linear-gradient(135deg, #C9A84C, #8B1A4A, #C9A84C);
+      --noise-opacity: 0.02;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 150ms; --duration-base: 300ms; --duration-slow: 500ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1); --border-width: 1px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-body);
+      line-height: var(--line-height);
+      padding: 3rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .tf-header {
+      background: var(--gradient-hero);
+      border: 1px solid var(--color-border);
+      padding: 2.5rem 2.5rem 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .tf-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--border-gradient);
+    }
+    .tf-header::after {
+      content: '◆  ◆  ◆';
+      position: absolute;
+      bottom: 1.25rem; right: 2.5rem;
+      color: var(--color-primary);
+      opacity: 0.35;
+      letter-spacing: 0.6em;
+      font-size: 0.65rem;
+    }
+    .tf-header h1 {
+      font-family: var(--font-family-display);
+      font-size: 3.25rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .tf-header .tf-subtitle { color: var(--color-text-muted); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; }
+    .tf-header .tf-tags { margin-top: 1.25rem; display: flex; gap: 0.5rem; }
+    .tf-tag { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.65rem; border: 1px solid var(--color-primary); color: var(--color-primary); border-radius: var(--radius); }
+
+    .tf-section { margin-bottom: 2.5rem; }
+    .tf-section-title {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--color-primary); margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .tf-section-title::after { content: '◆'; font-size: 0.45rem; }
+
+    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.75rem; }
+    .tf-swatch { border: 1px solid var(--color-border); overflow: hidden; border-radius: var(--radius); }
+    .tf-swatch-color { height: 56px; }
+    .tf-swatch-label { background: var(--color-surface); padding: 0.4rem 0.5rem; font-size: 0.62rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.68rem; margin-bottom: 0.1rem; }
+
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.75rem; }
+    .t-h1 { font-family: var(--font-family-display); font-size: 3.5rem; font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; text-shadow: var(--text-shadow); }
+    .t-h2 { font-family: var(--font-family-display); font-size: 2rem; font-weight: 700; letter-spacing: -0.01em; }
+    .t-h3 { font-family: var(--font-family-display); font-size: 1.3rem; font-weight: 400; font-style: italic; }
+    .t-body { font-size: 1.05rem; font-weight: 300; }
+    .t-small { font-size: 0.78rem; color: var(--color-text-muted); letter-spacing: 0.1em; }
+    .t-mono { font-family: var(--font-family-mono); font-size: 0.85rem; background: var(--color-surface-alt); padding: 0.25rem 0.6rem; border: 1px solid var(--color-border); border-radius: var(--radius); }
+
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .tf-btn {
+      padding: 0.6rem 1.5rem; border-radius: var(--radius-button);
+      font-family: var(--font-family); font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: none;
+      transition: all var(--duration-fast) var(--easing);
+    }
+    .tf-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); }
+    .tf-btn-primary:hover { box-shadow: var(--glow-md); }
+    .tf-btn-secondary { background: var(--color-secondary); color: #E8DCC8; }
+    .tf-btn-outline { background: transparent; color: var(--color-primary); border: 1px solid var(--color-primary); }
+    .tf-btn-ghost { background: var(--color-surface-alt); color: var(--color-text); border: 1px solid var(--color-border); }
+
+    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
+    .tf-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--color-border);
+      border-top: 2px solid var(--color-primary);
+      padding: 1.5rem; border-radius: var(--radius-card);
+      box-shadow: var(--shadow-md); position: relative;
+    }
+    .tf-card h3 { font-family: var(--font-family-display); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--color-primary); }
+    .tf-card p { color: var(--color-text-muted); font-size: 0.9rem; }
+
+    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; }
+    .tf-form label { font-size: 0.68rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.25rem; display: block; }
+    .tf-form input, .tf-form select {
+      width: 100%; padding: 0.6rem 0.75rem; border: 1px solid var(--color-border);
+      border-radius: var(--radius); background: var(--color-surface); color: var(--color-text);
+      font-family: var(--font-family); font-size: 1rem; outline: none;
+      box-shadow: var(--shadow-inset); transition: border-color var(--duration-fast);
+    }
+    .tf-form input:focus, .tf-form select:focus { border-color: var(--color-primary); }
+
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tf-badge { padding: 0.2rem 0.75rem; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid; border-radius: var(--radius); }
+    .tf-badge-primary { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-light); }
+    .tf-badge-success { border-color: var(--color-success); color: var(--color-success); background: transparent; }
+    .tf-badge-warning { border-color: var(--color-warning); color: var(--color-warning); background: transparent; }
+    .tf-badge-error { border-color: var(--color-error); color: var(--color-error); background: transparent; }
+    .tf-badge-neutral { border-color: var(--color-border); color: var(--color-text-muted); background: transparent; }
+
+    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .tf-effect-tile { border: 1px solid var(--color-border); padding: 1.25rem; border-radius: var(--radius-card); display: flex; flex-direction: column; gap: 0.5rem; }
+    .tf-effect-tile .tile-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text-muted); font-family: var(--font-family-mono); }
+    .tf-effect-tile .tile-value { font-size: 0.68rem; color: var(--color-text-muted); font-family: var(--font-family-mono); word-break: break-all; }
+    .tf-gradient-hero { height: 80px; background: var(--gradient-hero); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-card); }
+    .tf-gradient-hero span { font-family: var(--font-family-display); font-size: 1.25rem; font-weight: 700; color: var(--color-primary); letter-spacing: 0.12em; text-shadow: var(--text-shadow); }
+    .tf-glow-demo { background: var(--color-surface); border: 1px solid var(--color-border); border-top: 2px solid var(--color-primary); padding: 1rem 1.5rem; text-align: center; box-shadow: var(--glow-md); font-weight: 600; font-size: 0.9rem; color: var(--color-primary); font-family: var(--font-family-display); }
+    .tf-glass-demo { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.15); padding: 1rem 1.5rem; font-size: 0.85rem; color: var(--color-text); border-radius: var(--radius); }
+    .tf-gradient-text { font-size: 1.75rem; font-weight: 700; font-family: var(--font-family-display); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; }
+    .tf-btn-gradient { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); padding: 0.6rem 1.5rem; border: none; border-radius: var(--radius-button); font-family: var(--font-family); font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; width: 100%; }
+    .tf-inset-demo { background: var(--color-surface-alt); padding: 0.6rem 1rem; box-shadow: var(--shadow-inset); border: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-muted); font-family: var(--font-family-mono); border-radius: var(--radius); }
+  </style>
+</head>
+<body>
+
+  <div class="tf-header">
+    <div class="tf-subtitle">Theme Preview · velvet-noir</div>
+    <h1>Velvet Noir</h1>
+    <div class="tf-tags">
+      <span class="tf-tag">Dark</span>
+      <span class="tf-tag">Maximalist</span>
+      <span class="tf-tag">Art Deco</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Color Palette</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#C9A84C"></div><div class="tf-swatch-label"><strong>primary</strong>#C9A84C</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#2A2015"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#2A2015</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#8B1A4A"></div><div class="tf-swatch-label"><strong>secondary</strong>#8B1A4A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#E8C96A"></div><div class="tf-swatch-label"><strong>accent</strong>#E8C96A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#1A1018"></div><div class="tf-swatch-label"><strong>background</strong>#1A1018</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#221520"></div><div class="tf-swatch-label"><strong>surface</strong>#221520</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#2A1B28"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#2A1B28</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#E8DCC8"></div><div class="tf-swatch-label"><strong>text</strong>#E8DCC8</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#8A7860"></div><div class="tf-swatch-label"><strong>textMuted</strong>#8A7860</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#3A2838"></div><div class="tf-swatch-label"><strong>border</strong>#3A2838</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#4A9A5A"></div><div class="tf-swatch-label"><strong>success</strong>#4A9A5A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#C9A84C"></div><div class="tf-swatch-label"><strong>warning</strong>#C9A84C</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#C8354A"></div><div class="tf-swatch-label"><strong>error</strong>#C8354A</div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Typography</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">L'Atelier Doré</div>
+      <div class="t-h2">Maison de Luxe</div>
+      <div class="t-h3">Established in the Golden Age</div>
+      <div class="t-body">A refined editorial aesthetic drawn from the golden age of Art Deco — where geometry meets opulence and every detail is deeply, deliberately ornate.</div>
+      <div class="t-small">SPECIMEN NO. 1 · DISPLAY + BODY SERIF · HAIRLINE GOLD BORDERS</div>
+      <div class="t-mono">const palette = { primary: '#C9A84C' };</div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Buttons</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">Reserve Now</button>
+      <button class="tf-btn tf-btn-secondary">Collection</button>
+      <button class="tf-btn tf-btn-outline">Enquire</button>
+      <button class="tf-btn tf-btn-ghost">Archive</button>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Cards</div>
+    <div class="tf-cards">
+      <div class="tf-card"><h3>Grand Salon</h3><p>An exclusive space where craft and composition converge — designed for those with a discerning eye.</p></div>
+      <div class="tf-card"><h3>Couture Archive</h3><p>Preserved specimens from the atelier's history. Each piece catalogued by hand in ink.</p></div>
+      <div class="tf-card" style="background:var(--color-surface-alt)"><h3>Private Collection</h3><p>By appointment only. Selections available to members of the inner circle exclusively.</p></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Form Elements</div>
+    <div class="tf-form">
+      <div><label>Name</label><input type="text" placeholder="Enter full name…"></div>
+      <div><label>Collection</label><select><option>Grand Salon</option><option>Couture Archive</option><option>Private Reserve</option></select></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Badges & Status</div>
+    <div class="tf-badges">
+      <span class="tf-badge tf-badge-primary">Gold Tier</span>
+      <span class="tf-badge tf-badge-success">Confirmed</span>
+      <span class="tf-badge tf-badge-warning">Limited</span>
+      <span class="tf-badge tf-badge-error">Reserved</span>
+      <span class="tf-badge tf-badge-neutral">Archive</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Gradients & Effects</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1">
+        <div class="tile-label">Hero Gradient</div>
+        <div class="tf-gradient-hero"><span>L'Atelier Doré</span></div>
+        <div class="tile-value">linear-gradient(135deg, #2D1835, #1A1018, #251520)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Text</div>
+        <div class="tf-gradient-text">Gold Type</div>
+        <div class="tile-value">var(--gradient-text)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Button</div>
+        <button class="tf-btn-gradient">Reserve Now</button>
+        <div class="tile-value">var(--gradient-button)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gold Glow</div>
+        <div class="tf-glow-demo">Luminescent</div>
+        <div class="tile-value">var(--glow-md)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gold Tint</div>
+        <div class="tf-glass-demo">Gilded surface overlay — ambient gold illumination</div>
+        <div class="tile-value">rgba(201,168,76,0.05)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Inset Well</div>
+        <div class="tf-inset-demo">velvet-noir.surface</div>
+        <div class="tile-value">var(--shadow-inset)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Colored Shadow</div>
+        <div style="padding:0.75rem 1rem;background:var(--gradient-button);color:var(--color-text-on-primary);box-shadow:var(--shadow-colored);font-weight:600;font-size:0.78rem;text-align:center;letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius);">Gold Primary</div>
+        <div class="tile-value">var(--shadow-colored)</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

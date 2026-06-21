@@ -56,18 +56,6 @@
       vertical-align: middle;
     }
 
-    #error-msg {
-      display: none;
-      max-width: 960px;
-      margin: 0 auto 1.5rem;
-      background: #2a1a1a;
-      border: 1px solid #663333;
-      border-radius: var(--radius);
-      padding: 0.75rem 1rem;
-      font-size: 0.85rem;
-      color: #ff8080;
-    }
-
     /* ── Filters ── */
     #filters {
       max-width: 960px;
@@ -269,19 +257,40 @@
   </div>
 </div>
 
-<div id="error-msg"></div>
 <div class="grid" id="grid"></div>
 <p id="empty-msg">No themes match the selected filters.</p>
 
 <script>
-  const THEME_FILES = [
-    'themes/blue-void.html',
-    'themes/green-terminal.html',
-    'themes/horizon-sunset.html',
-    'themes/minimalist.html',
-    'themes/peach-slate.html',
-    'themes/synthwave-84.html',
-    'themes/white-paper.html',
+  /* ── THEME DATA — one object per theme; skill updates this array on extract/delete ── */
+  const THEMES = [
+    {
+      filename: 'themes/blue-void.html',
+      data: {"name":"blue-void","description":"Deep space dark — near-black navy canvas with electric cyan accent, ghost-white text, and hairline borders. Technical and precise.","createdAt":"2026-06-08T00:00:00.000Z","source":"html","sourceFile":"docs/changelog.html","colors":{"primary":"#00E5FF","primaryLight":"#003040","secondary":"#5599FF","accent":"#00FF88","background":"#07070F","surface":"#0D0D1A","surfaceAlt":"#111120","text":"#DCDCF0","textMuted":"#8080A8","textOnPrimary":"#07070F","border":"#242438","success":"#00FF88","warning":"#FFD166","error":"#FF4466"},"typography":{"fontFamily":"'Source Serif 4', Georgia, serif","fontFamilyMono":"'JetBrains Mono', 'Cascadia Code', monospace","fontFamilyDisplay":"'Syne', sans-serif","scaleBase":"16px","headingWeight":"800","bodyWeight":"400","lineHeight":"1.72"},"spacing":{"borderRadius":"2px","cardRadius":"3px","buttonRadius":"2px","spaceUnit":"8px","density":"comfortable"},"shadows":{"sm":"0 0 0 1px #242438","md":"0 0 0 1px #242438","lg":"0 0 16px rgba(0,229,255,0.08), 0 0 0 1px #242438","elevation":"flat"},"motion":{"durationFast":"150ms","durationBase":"200ms","durationSlow":"350ms","easing":"ease","feel":"subtle"},"design":{"aesthetic":"technical","personality":["dark","precise","cyberpunk","minimal"],"borderStyle":"hairline","iconStyle":"unknown","imageStyle":"none","surfaceTexture":"flat","hierarchyClarity":"high","notes":"CSS grid dot-matrix background (44px × 44px) at 30% opacity."}}
+    },
+    {
+      filename: 'themes/green-terminal.html',
+      data: {"name":"green-terminal","description":"Green-on-black phosphor terminal — near-absolute black with bright green accent, CRT scanline aesthetic, monochrome hacker palette.","createdAt":"2026-06-08T00:00:00.000Z","source":"html","sourceFile":"docs/changelog.html","colors":{"primary":"#00FF41","primaryLight":"#002200","secondary":"#00CCFF","accent":"#CCDD00","background":"#000900","surface":"#001200","surfaceAlt":"#001800","text":"#00CC33","textMuted":"#008822","textOnPrimary":"#000900","border":"#004800","success":"#00FF41","warning":"#CCDD00","error":"#FF3333"},"typography":{"fontFamily":"'Source Serif 4', Georgia, serif","fontFamilyMono":"'JetBrains Mono', 'Cascadia Code', monospace","fontFamilyDisplay":"'Syne', sans-serif","scaleBase":"16px","headingWeight":"800","bodyWeight":"400","lineHeight":"1.72"},"spacing":{"borderRadius":"2px","cardRadius":"3px","buttonRadius":"2px","spaceUnit":"8px","density":"compact"},"shadows":{"sm":"0 0 0 1px #004800","md":"0 0 0 1px #004800, 0 0 12px rgba(0,255,65,0.04)","lg":"0 0 0 1px #004800, 0 0 20px rgba(0,255,65,0.08)","elevation":"subtle"},"motion":{"durationFast":"100ms","durationBase":"200ms","durationSlow":"350ms","easing":"ease","feel":"instant"},"design":{"aesthetic":"technical","personality":["terminal","retro","hacker","monochrome"],"borderStyle":"hairline","iconStyle":"unknown","imageStyle":"none","surfaceTexture":"flat","hierarchyClarity":"high","notes":"CRT scanline overlay via body::after."}}
+    },
+    {
+      filename: 'themes/horizon-sunset.html',
+      data: {"name":"horizon-sunset","description":"Soft pastel sunset horizon — steel lavender sky melting into mauve, blush, and warm golden-peach over a glassy sea","createdAt":"2026-06-08T00:00:00.000Z","source":"screenshot","sourceFile":"","colors":{"primary":"#e07838","primaryLight":"#f5a870","secondary":"#b078b8","accent":"#f7c050","background":"#fef4ee","surface":"#fde8da","surfaceAlt":"#f8ddd4","text":"#2a1828","textMuted":"#7a5870","textOnPrimary":"#ffffff","border":"#e8c8d0","success":"#5ab885","warning":"#e8a030","error":"#c8445a"},"typography":{"fontFamily":"'Nunito', system-ui, sans-serif","fontFamilyMono":"'JetBrains Mono', 'Fira Code', monospace","fontFamilyDisplay":"'Cormorant Garamond', Georgia, serif","scaleBase":"16px","headingWeight":"700","bodyWeight":"400","lineHeight":"1.65"},"spacing":{"borderRadius":"10px","cardRadius":"16px","buttonRadius":"8px","spaceUnit":"8px","density":"spacious"},"shadows":{"sm":"0 1px 4px rgba(160,100,80,0.12)","md":"0 4px 16px rgba(160,100,80,0.16)","lg":"0 12px 40px rgba(160,100,80,0.20)","elevation":"subtle"},"motion":{"durationFast":"120ms","durationBase":"220ms","durationSlow":"400ms","easing":"cubic-bezier(0.4, 0, 0.2, 1)","feel":"subtle"},"design":{"aesthetic":"editorial","personality":["soft","ethereal","warm","serene"],"borderStyle":"hairline","iconStyle":"outlined","imageStyle":"photographic","surfaceTexture":"gradient","hierarchyClarity":"medium","notes":"Light-first pastel palette extracted from a real sunset photo."}}
+    },
+    {
+      filename: 'themes/minimalist.html',
+      data: {"name":"minimalist","description":"Warm cream base with slate blue primary and warm coral secondary — structured, warm, modern","createdAt":"2026-06-08T00:00:00.000Z","source":"text","sourceFile":"https://coolors.co/palette/2d3142-bfc0c0-ffffff-ef8354-4f5d75","colors":{"primary":"#4f5d75","primaryLight":"#d0d8e4","secondary":"#ef8354","accent":"#ef8354","background":"#FCFBF4","surface":"#F5F3EC","surfaceAlt":"#EEECE3","text":"#2d3142","textMuted":"#7a8299","textOnPrimary":"#ffffff","border":"#d6d9e0","success":"#3d9e6d","warning":"#d4980e","error":"#c94040"},"typography":{"fontFamily":"Inter, system-ui, -apple-system, sans-serif","fontFamilyMono":"'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace","fontFamilyDisplay":"Inter, system-ui, sans-serif","scaleBase":"16px","headingWeight":"700","bodyWeight":"400","lineHeight":"1.6"},"spacing":{"borderRadius":"8px","cardRadius":"12px","buttonRadius":"6px","spaceUnit":"8px","density":"comfortable"},"shadows":{"sm":"0 1px 3px rgba(45,49,66,0.08)","md":"0 4px 12px rgba(45,49,66,0.12)","lg":"0 8px 24px rgba(45,49,66,0.16)","elevation":"subtle"},"motion":{"durationFast":"100ms","durationBase":"160ms","durationSlow":"300ms","easing":"cubic-bezier(0.4, 0, 0.2, 1)","feel":"subtle"},"design":{"aesthetic":"corporate","personality":["confident","warm","structured","clean"],"borderStyle":"subtle","iconStyle":"outlined","imageStyle":"none","surfaceTexture":"flat","hierarchyClarity":"high","notes":"Light theme; coral secondary brings warmth to the cooler slate blue primary."}}
+    },
+    {
+      filename: 'themes/peach-slate.html',
+      data: {"name":"peach-slate","description":"Peachy cream canvas with coral warmth and muted teal counterpoint — airy, organic, Material You energy","createdAt":"2026-06-21T00:00:00.000Z","source":"screenshot","sourceFile":"","colors":{"primary":"#E07060","primaryLight":"#F5B0A0","secondary":"#5D9095","accent":"#C5E0DC","background":"#FAE3D4","surface":"#FDF3EC","surfaceAlt":"#F2D8C8","text":"#2B3940","textMuted":"#6B7E85","textOnPrimary":"#FFFFFF","border":"#E5CFC0","success":"#5A8C6E","warning":"#C48C3A","error":"#BE4F45"},"typography":{"fontFamily":"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif","fontFamilyMono":"'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace","fontFamilyDisplay":"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif","scaleBase":"16px","headingWeight":"700","bodyWeight":"400","lineHeight":"1.6"},"spacing":{"borderRadius":"12px","cardRadius":"16px","buttonRadius":"999px","spaceUnit":"8px","density":"spacious"},"shadows":{"sm":"0 1px 3px rgba(43,57,64,0.08)","md":"0 4px 12px rgba(43,57,64,0.10)","lg":"0 8px 24px rgba(43,57,64,0.12)","elevation":"subtle"},"motion":{"durationFast":"120ms","durationBase":"200ms","durationSlow":"350ms","easing":"cubic-bezier(0.4, 0, 0.2, 1)","feel":"subtle"},"design":{"aesthetic":"minimal","personality":["warm","airy","calm","balanced"],"borderStyle":"hairline","iconStyle":"rounded","imageStyle":"none","surfaceTexture":"flat","hierarchyClarity":"medium","notes":"Organic wavy dividers. Pill/circle shapes dominant. Chrome Material You new-tab aesthetic."}}
+    },
+    {
+      filename: 'themes/synthwave-84.html',
+      data: {"name":"synthwave-84","description":"SynthWave '84 — deep purple-dark editor background, hot pink primary, neon cyan and electric yellow accents. Retro-futuristic cyberpunk with neon glow shadows.","createdAt":"2026-06-08T00:00:00.000Z","source":"text","sourceFile":"","colors":{"primary":"#ff7edb","primaryLight":"#4d1a40","secondary":"#36f9f6","accent":"#ffe66d","background":"#262335","surface":"#2d2145","surfaceAlt":"#241b2f","text":"#cbe3f6","textMuted":"#848bbd","textOnPrimary":"#1a0f2e","border":"#433d60","success":"#72f1b8","warning":"#ffe66d","error":"#fe4450"},"typography":{"fontFamily":"'Inter', system-ui, -apple-system, sans-serif","fontFamilyMono":"'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace","fontFamilyDisplay":"'Rajdhani', 'Exo 2', 'Inter', sans-serif","scaleBase":"16px","headingWeight":"700","bodyWeight":"400","lineHeight":"1.6"},"spacing":{"borderRadius":"4px","cardRadius":"6px","buttonRadius":"4px","spaceUnit":"8px","density":"compact"},"shadows":{"sm":"0 0 8px rgba(255,126,219,0.25), 0 1px 3px rgba(0,0,0,0.5)","md":"0 0 16px rgba(255,126,219,0.30), 0 2px 8px rgba(0,0,0,0.6)","lg":"0 0 32px rgba(255,126,219,0.40), 0 4px 16px rgba(0,0,0,0.7)","elevation":"layered"},"motion":{"durationFast":"120ms","durationBase":"220ms","durationSlow":"400ms","easing":"cubic-bezier(0.4, 0, 0.2, 1)","feel":"expressive"},"design":{"aesthetic":"technical","personality":["neon","synthwave","retro-futuristic","electric"],"borderStyle":"hairline","iconStyle":"outlined","imageStyle":"illustrative","surfaceTexture":"flat","hierarchyClarity":"high","notes":"Background is a deep purple-near-black (#262335). Pink (#ff7edb) dominates as primary brand color."}}
+    },
+    {
+      filename: 'themes/white-paper.html',
+      data: {"name":"white-paper","description":"Warm cream editorial — aged paper background, dark navy accent, ink-on-parchment feel. Serif body, spacious and structured.","createdAt":"2026-06-08T00:00:00.000Z","source":"html","sourceFile":"docs/changelog.html","colors":{"primary":"#1A1A3E","primaryLight":"#DCDCE8","secondary":"#1A3E7F","accent":"#1A6B3C","background":"#F6F1E8","surface":"#EDE7DA","surfaceAlt":"#FDFCF9","text":"#18181E","textMuted":"#48485C","textOnPrimary":"#F6F1E8","border":"#C8C0B0","success":"#1A6B3C","warning":"#8B6914","error":"#B83030"},"typography":{"fontFamily":"'Source Serif 4', Georgia, serif","fontFamilyMono":"'JetBrains Mono', 'Cascadia Code', monospace","fontFamilyDisplay":"'Syne', sans-serif","scaleBase":"16px","headingWeight":"800","bodyWeight":"400","lineHeight":"1.72"},"spacing":{"borderRadius":"2px","cardRadius":"3px","buttonRadius":"2px","spaceUnit":"8px","density":"spacious"},"shadows":{"sm":"0 1px 2px rgba(0,0,0,0.06), 0 0 0 1px #DDD7CC","md":"0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px #DDD7CC","lg":"0 4px 12px rgba(0,0,0,0.10), 0 0 0 1px #C8C0B0","elevation":"subtle"},"motion":{"durationFast":"150ms","durationBase":"200ms","durationSlow":"350ms","easing":"ease","feel":"subtle"},"design":{"aesthetic":"editorial","personality":["warm","printed","scholarly","structured"],"borderStyle":"subtle","iconStyle":"unknown","imageStyle":"none","surfaceTexture":"flat","hierarchyClarity":"high","notes":"Warm cream (#F6F1E8) evokes aged paper or newsprint."}}
+    }
   ];
 
   const grid     = document.getElementById('grid');
@@ -423,26 +432,11 @@
     });
   }
 
-  /* ── Load ── */
-  async function loadTheme(filename) {
-    const res  = await fetch(filename);
-    const html = await res.text();
-    const match = html.match(/<script[^>]+id="theme-data"[^>]*>([\s\S]*?)<\/script>/);
-    if (!match) return null;
-    return JSON.parse(match[1].trim());
-  }
-
-  async function init() {
-    const results = await Promise.allSettled(
-      THEME_FILES.map(f => loadTheme(f).then(t => ({ t, f })))
-    );
-
+  /* ── Init — processes inline THEMES array, no fetch needed ── */
+  function init() {
     const aestheticSet = new Set();
 
-    for (const r of results) {
-      if (r.status !== 'fulfilled' || !r.value.t) continue;
-      const { t: theme, f: filename } = r.value;
-
+    for (const { filename, data: theme } of THEMES) {
       const c   = theme.colors || {};
       const bg  = hex(c.background);
       const p   = hex(c.primary);
@@ -461,23 +455,13 @@
       const aesthetic = (theme.design?.aesthetic) || (theme.design?.personality?.[0]) || mode;
 
       aestheticSet.add(aesthetic);
-
       allEntries.push({ theme, filename, bg, p, sec, acc, sur, txt, lum, hue, mode, aesthetic });
     }
 
     allEntries = sortEntries(allEntries);
-
     buildStyleChips(aestheticSet);
 
     countEl.textContent = `${allEntries.length} theme${allEntries.length !== 1 ? 's' : ''}`;
-
-    if (allEntries.length === 0) {
-      const err = document.getElementById('error-msg');
-      err.style.display = 'block';
-      err.textContent = 'No themes loaded. Open index.html via a local server (e.g. Live Server in VS Code) rather than directly from the filesystem — browsers block fetch() on file:// URLs.';
-      return;
-    }
-
     render();
   }
 

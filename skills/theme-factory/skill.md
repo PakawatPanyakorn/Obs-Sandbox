@@ -159,7 +159,7 @@ Mine or infer concrete CSS values for each. Absent → `'none'` or `0`. Never om
 7. **Effects** — analyze visually (shared effects table)
 8. **Design DNA** — assess overall language (shared DNA table)
 9. **Name** — ask "What would you like to name it?" (skip if auto mode or provided inline)
-10. **Write** preset HTML (template below) → **update** `index.html` `THEME_FILES` array → tell user preset path
+10. **Write** preset HTML (template below) → **update** `index.html` `THEMES` array (add new `{ filename, data }` object with the full theme JSON) → tell user preset path
 
 ---
 
@@ -244,18 +244,13 @@ Read `~/.claude/skills/theme-factory/preset-template.html` to get the full templ
 
 The template opens with `<!DOCTYPE html><html lang="en" data-theme="<name>">` — read the file for the full structure.
 
-After writing preset, output clickable markdown links using the absolute base path from the "Base Path" section above.
-
-- Gallery: `[index.html](<base>/skills/theme-factory/index.html)`
-- Preset: `[themes/<name>.html](<base>/skills/theme-factory/themes/<name>.html)`
-
-Example for this user: `Theme saved — [index.html](C:/Users/pakaw/.claude/skills/theme-factory/index.html) · [themes/mystic.html](C:/Users/pakaw/.claude/skills/theme-factory/themes/mystic.html)`
+After writing preset, tell user to look at `~/.claude/skills/theme-factory/index.html` to see the live preview and confirm the theme looks correct.
 
 ---
 
 ## List Mode
 
-Tell the user: "Open [index.html](file:///C:/Users/pakaw/.claude/skills/theme-factory/index.html) , file:///C:/Users/pakaw/.claude/skills/theme-factory/index.html in your browser (use Live Server in VS Code for live fetch support)."
+Tell the user: "Open [Theme Gallery](https://html-preview.github.io/?url=https://github.com/PakawatPanyakorn/.claude/blob/master/skills/theme-factory/index.html)"
 
 Do not read files, render swatches, or summarize themes.
 
@@ -268,7 +263,7 @@ Do not read files, render swatches, or summarize themes.
 3. Read file → show swatch summary as confirmation
 4. Ask: "Delete theme **\<name\>**? This cannot be undone. Reply 'yes' to confirm."
 5. On confirm: `Remove-Item "~/.claude/skills/theme-factory/themes/<name>.html"`
-6. Update `index.html`: remove `'themes/<name>.html'` from `THEME_FILES` array, write back
+6. Update `index.html`: remove the `{ filename: 'themes/<name>.html', data: ... }` entry from `THEMES` array, write back
 7. Confirm: "Deleted theme **\<name\>**."
 
 ---

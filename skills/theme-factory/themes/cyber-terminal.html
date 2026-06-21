@@ -1,346 +1,771 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="cyber-terminal">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Theme: cyber-terminal</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theme: cyber-terminal</title>
 
-  <script id="theme-data" type="application/json">
-  {
-    "name": "cyber-terminal",
-    "description": "Green-on-black phosphor terminal — near-absolute black with bright green accent, CRT scanline aesthetic, monochrome hacker palette.",
-    "createdAt": "2026-06-08T00:00:00.000Z",
-    "source": "html",
-    "sourceFile": "docs/changelog.html",
-    "background": {
-      "type": "pattern",
-      "baseColor": "#000900",
-      "image": "repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,255,65,0.025) 1px, rgba(0,255,65,0.025) 2px)",
-      "size": "100% 4px",
-      "position": "0 0",
-      "repeat": "repeat",
-      "patternType": "lines-h",
-      "patternColor": "rgba(0,255,65,0.025)",
-      "patternOpacity": "0.025",
-      "patternSpacing": "4px",
-      "notes": "CRT phosphor scanline overlay — horizontal lines at 4px intervals over near-absolute dark green-black"
-    },
-    "colors": {
-      "primary":        "#00FF41",
-      "primaryLight":   "#002200",
-      "secondary":      "#00CCFF",
-      "accent":         "#CCDD00",
-      "background":     "#000900",
-      "surface":        "#001200",
-      "surfaceAlt":     "#001800",
-      "text":           "#00CC33",
-      "textMuted":      "#008822",
-      "textOnPrimary":  "#000900",
-      "border":         "#004800",
-      "success":        "#00FF41",
-      "warning":        "#CCDD00",
-      "error":          "#FF3333"
-    },
-    "typography": {
-      "fontFamily":        "'JetBrains Mono', 'Cascadia Code', monospace",
-      "fontFamilyMono":    "'JetBrains Mono', 'Cascadia Code', monospace",
-      "fontFamilyDisplay": "'JetBrains Mono', 'Cascadia Code', monospace",
-      "scaleBase":         "16px",
-      "headingWeight":     "800",
-      "bodyWeight":        "400",
-      "lineHeight":        "1.72"
-    },
-    "spacing": {
-      "borderRadius": "2px",
-      "cardRadius":   "3px",
-      "buttonRadius": "2px",
-      "spaceUnit":    "8px",
-      "density":      "compact"
-    },
-    "shadows": {
-      "sm":       "0 0 0 1px #004800",
-      "md":       "0 0 0 1px #004800, 0 0 12px rgba(0,255,65,0.04)",
-      "lg":       "0 0 0 1px #004800, 0 0 20px rgba(0,255,65,0.08)",
-      "xl":       "0 0 0 1px #004800, 0 0 40px rgba(0,255,65,0.12)",
-      "colored":  "0 0 24px rgba(0,255,65,0.5), 0 0 0 1px #00FF41",
-      "inset":    "inset 0 1px 4px rgba(0,0,0,0.9)",
-      "elevation": "subtle"
-    },
-    "gradients": {
-      "hero":   "none",
-      "card":   "none",
-      "button": "none",
-      "text":   "linear-gradient(90deg, #00FF41 0%, #00CCFF 100%)",
-      "accent": "none"
-    },
-    "effects": {
-      "luminescence":   "medium",
-      "glowColor":      "#00FF41",
-      "glowBlur":       "12px",
-      "glowSm":         "0 0 6px rgba(0,255,65,0.35)",
-      "glowMd":         "0 0 12px rgba(0,255,65,0.45)",
-      "glowLg":         "0 0 24px rgba(0,255,65,0.55)",
-      "glassBlur":      "0",
-      "glassTint":      "none",
-      "gradientBorder": "none",
-      "noiseOpacity":   "0",
-      "textShadow":     "0 0 8px rgba(0,255,65,0.5)",
-      "backdropFilter": "none"
-    },
-    "motion": {
-      "durationFast": "100ms",
-      "durationBase": "200ms",
-      "durationSlow": "350ms",
-      "easing":       "ease",
-      "feel":         "instant"
-    },
-    "design": {
-      "aesthetic":        "technical",
-      "personality":      ["terminal", "retro", "hacker", "monochrome"],
-      "borderStyle":      "hairline",
-      "iconStyle":        "unknown",
-      "imageStyle":       "none",
-      "surfaceTexture":   "flat",
-      "hierarchyClarity": "high",
-      "notes": "CRT scanline overlay via body background-image (repeating-linear-gradient). Monospace font used for all text layers. Green-tinted border and surface layers — all surfaces carry the green hue at varying darkness. Monochrome green palette with cyan and yellow-green as the only other hues."
-    }
-  }
-  </script>
+    <script id="theme-data" type="application/json">
+      {
+        "name": "cyber-terminal",
+        "description": "Green-on-black phosphor terminal — near-absolute black with bright green accent, CRT scanline aesthetic, monochrome hacker palette.",
+        "createdAt": "2026-06-08T00:00:00.000Z",
+        "source": "html",
+        "sourceFile": "docs/changelog.html",
+        "background": {
+          "type": "pattern",
+          "baseColor": "#000900",
+          "image": "repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,255,65,0.025) 1px, rgba(0,255,65,0.025) 2px)",
+          "size": "100% 4px",
+          "position": "0 0",
+          "repeat": "repeat",
+          "patternType": "lines-h",
+          "patternColor": "rgba(0,255,65,0.025)",
+          "patternOpacity": "0.025",
+          "patternSpacing": "4px",
+          "notes": "CRT phosphor scanline overlay — horizontal lines at 4px intervals over near-absolute dark green-black"
+        },
+        "colors": {
+          "primary": "#00FF41",
+          "primaryLight": "#002200",
+          "secondary": "#00CCFF",
+          "accent": "#CCDD00",
+          "background": "#000900",
+          "surface": "#001200",
+          "surfaceAlt": "#001800",
+          "text": "#00CC33",
+          "textMuted": "#008822",
+          "textOnPrimary": "#000900",
+          "border": "#004800",
+          "success": "#00FF41",
+          "warning": "#CCDD00",
+          "error": "#FF3333"
+        },
+        "typography": {
+          "fontFamily": "'JetBrains Mono', 'Cascadia Code', monospace",
+          "fontFamilyMono": "'JetBrains Mono', 'Cascadia Code', monospace",
+          "fontFamilyDisplay": "'JetBrains Mono', 'Cascadia Code', monospace",
+          "scaleBase": "16px",
+          "headingWeight": "800",
+          "bodyWeight": "400",
+          "lineHeight": "1.72"
+        },
+        "spacing": {
+          "borderRadius": "2px",
+          "cardRadius": "3px",
+          "buttonRadius": "2px",
+          "spaceUnit": "8px",
+          "density": "compact"
+        },
+        "shadows": {
+          "sm": "0 0 0 1px #004800",
+          "md": "0 0 0 1px #004800, 0 0 12px rgba(0,255,65,0.04)",
+          "lg": "0 0 0 1px #004800, 0 0 20px rgba(0,255,65,0.08)",
+          "xl": "0 0 0 1px #004800, 0 0 40px rgba(0,255,65,0.12)",
+          "colored": "0 0 24px rgba(0,255,65,0.5), 0 0 0 1px #00FF41",
+          "inset": "inset 0 1px 4px rgba(0,0,0,0.9)",
+          "elevation": "subtle"
+        },
+        "gradients": {
+          "hero": "none",
+          "card": "none",
+          "button": "none",
+          "text": "linear-gradient(90deg, #00FF41 0%, #00CCFF 100%)",
+          "accent": "none"
+        },
+        "effects": {
+          "luminescence": "medium",
+          "glowColor": "#00FF41",
+          "glowBlur": "12px",
+          "glowSm": "0 0 6px rgba(0,255,65,0.35)",
+          "glowMd": "0 0 12px rgba(0,255,65,0.45)",
+          "glowLg": "0 0 24px rgba(0,255,65,0.55)",
+          "glassBlur": "0",
+          "glassTint": "none",
+          "gradientBorder": "none",
+          "noiseOpacity": "0",
+          "textShadow": "0 0 8px rgba(0,255,65,0.5)",
+          "backdropFilter": "none"
+        },
+        "motion": {
+          "durationFast": "100ms",
+          "durationBase": "200ms",
+          "durationSlow": "350ms",
+          "easing": "ease",
+          "feel": "instant"
+        },
+        "design": {
+          "aesthetic": "technical",
+          "personality": ["terminal", "retro", "hacker", "monochrome"],
+          "borderStyle": "hairline",
+          "iconStyle": "unknown",
+          "imageStyle": "none",
+          "surfaceTexture": "flat",
+          "hierarchyClarity": "high",
+          "notes": "CRT scanline overlay via body background-image (repeating-linear-gradient). Monospace font used for all text layers. Green-tinted border and surface layers — all surfaces carry the green hue at varying darkness. Monochrome green palette with cyan and yellow-green as the only other hues."
+        }
+      }
+    </script>
 
-  <style>
-    :root {
-      --bg-base:     #000900;
-      --bg-image:    repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,255,65,0.025) 1px, rgba(0,255,65,0.025) 2px);
-      --bg-size:     100% 4px;
-      --bg-position: 0 0;
-      --bg-repeat:   repeat;
+    <style>
+      :root {
+        --bg-base: #000900;
+        --bg-image: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 1px,
+          rgba(0, 255, 65, 0.025) 1px,
+          rgba(0, 255, 65, 0.025) 2px
+        );
+        --bg-size: 100% 4px;
+        --bg-position: 0 0;
+        --bg-repeat: repeat;
 
-      --color-primary:         #00FF41;
-      --color-primary-light:   #002200;
-      --color-secondary:       #00CCFF;
-      --color-accent:          #CCDD00;
-      --color-bg:              #000900;
-      --color-surface:         #001200;
-      --color-surface-alt:     #001800;
-      --color-text:            #00CC33;
-      --color-text-muted:      #008822;
-      --color-text-on-primary: #000900;
-      --color-border:          #004800;
-      --color-success:         #00FF41;
-      --color-warning:         #CCDD00;
-      --color-error:           #FF3333;
+        --color-primary: #00ff41;
+        --color-primary-light: #002200;
+        --color-secondary: #00ccff;
+        --color-accent: #ccdd00;
+        --color-bg: #000900;
+        --color-surface: #001200;
+        --color-surface-alt: #001800;
+        --color-text: #00cc33;
+        --color-text-muted: #008822;
+        --color-text-on-primary: #000900;
+        --color-border: #004800;
+        --color-success: #00ff41;
+        --color-warning: #ccdd00;
+        --color-error: #ff3333;
 
-      --font-family:         'JetBrains Mono', 'Cascadia Code', monospace;
-      --font-family-mono:    'JetBrains Mono', 'Cascadia Code', monospace;
-      --font-family-display: 'JetBrains Mono', 'Cascadia Code', monospace;
-      --font-size-base:      16px;
-      --font-weight-heading: 800;
-      --font-weight-body:    400;
-      --line-height:         1.72;
+        --font-family: "JetBrains Mono", "Cascadia Code", monospace;
+        --font-family-mono: "JetBrains Mono", "Cascadia Code", monospace;
+        --font-family-display: "JetBrains Mono", "Cascadia Code", monospace;
+        --font-size-base: 16px;
+        --font-weight-heading: 800;
+        --font-weight-body: 400;
+        --line-height: 1.72;
 
-      --radius:        2px;
-      --radius-card:   3px;
-      --radius-button: 2px;
+        --radius: 2px;
+        --radius-card: 3px;
+        --radius-button: 2px;
 
-      --shadow-sm:      0 0 0 1px #004800;
-      --shadow-md:      0 0 0 1px #004800, 0 0 12px rgba(0,255,65,0.04);
-      --shadow-lg:      0 0 0 1px #004800, 0 0 20px rgba(0,255,65,0.08);
-      --shadow-xl:      0 0 0 1px #004800, 0 0 40px rgba(0,255,65,0.12);
-      --shadow-colored: 0 0 24px rgba(0,255,65,0.5), 0 0 0 1px #00FF41;
-      --shadow-inset:   inset 0 1px 4px rgba(0,0,0,0.9);
+        --shadow-sm: 0 0 0 1px #004800;
+        --shadow-md: 0 0 0 1px #004800, 0 0 12px rgba(0, 255, 65, 0.04);
+        --shadow-lg: 0 0 0 1px #004800, 0 0 20px rgba(0, 255, 65, 0.08);
+        --shadow-xl: 0 0 0 1px #004800, 0 0 40px rgba(0, 255, 65, 0.12);
+        --shadow-colored: 0 0 24px rgba(0, 255, 65, 0.5), 0 0 0 1px #00ff41;
+        --shadow-inset: inset 0 1px 4px rgba(0, 0, 0, 0.9);
 
-      --gradient-hero:   none;
-      --gradient-card:   none;
-      --gradient-button: none;
-      --gradient-text:   linear-gradient(90deg, #00FF41 0%, #00CCFF 100%);
-      --gradient-accent: none;
+        --gradient-hero: none;
+        --gradient-card: none;
+        --gradient-button: none;
+        --gradient-text: linear-gradient(90deg, #00ff41 0%, #00ccff 100%);
+        --gradient-accent: none;
 
-      --glow-color:      #00FF41;
-      --glow-sm:         0 0 6px rgba(0,255,65,0.35);
-      --glow-md:         0 0 12px rgba(0,255,65,0.45);
-      --glow-lg:         0 0 24px rgba(0,255,65,0.55);
-      --glass-blur:      0;
-      --glass-tint:      none;
-      --backdrop-filter: none;
-      --text-shadow:     0 0 8px rgba(0,255,65,0.5);
-      --border-gradient: none;
-      --noise-opacity:   0;
+        --glow-color: #00ff41;
+        --glow-sm: 0 0 6px rgba(0, 255, 65, 0.35);
+        --glow-md: 0 0 12px rgba(0, 255, 65, 0.45);
+        --glow-lg: 0 0 24px rgba(0, 255, 65, 0.55);
+        --glass-blur: 0;
+        --glass-tint: none;
+        --backdrop-filter: none;
+        --text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+        --border-gradient: none;
+        --noise-opacity: 0;
 
-      --space-1: 4px;
-      --space-2: 8px;
-      --space-3: 12px;
-      --space-4: 16px;
-      --space-6: 24px;
-      --space-8: 32px;
-      --duration-fast: 100ms;
-      --duration-base: 200ms;
-      --duration-slow: 350ms;
-      --easing:        ease;
-      --border-width:  1px;
-    }
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-6: 24px;
+        --space-8: 32px;
+        --duration-fast: 100ms;
+        --duration-base: 200ms;
+        --duration-slow: 350ms;
+        --easing: ease;
+        --border-width: 1px;
+      }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      background-color: var(--bg-base, var(--color-bg));
-      background-image: var(--bg-image, none);
-      background-size: var(--bg-size, auto);
-      background-position: var(--bg-position, 0 0);
-      background-repeat: var(--bg-repeat, repeat);
-      color: var(--color-text);
-      font-family: var(--font-family);
-      font-size: var(--font-size-base);
-      line-height: var(--line-height);
-      padding: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
+      body {
+        background-color: var(--bg-base, var(--color-bg));
+        background-image: var(--bg-image, none);
+        background-size: var(--bg-size, auto);
+        background-position: var(--bg-position, 0 0);
+        background-repeat: var(--bg-repeat, repeat);
+        color: var(--color-text);
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        line-height: var(--line-height);
+        padding: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
 
-    .tf-header { background: var(--color-primary); color: var(--color-text-on-primary); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md); }
-    .tf-header h1 { font-family: var(--font-family-display); font-size: 2rem; font-weight: var(--font-weight-heading); margin-bottom: 0.25rem; }
-    .tf-header p  { opacity: 0.85; font-size: 0.9rem; }
+      .tf-header {
+        background: var(--color-primary);
+        color: var(--color-text-on-primary);
+        border-radius: var(--radius-card);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-md);
+      }
+      .tf-header h1 {
+        font-family: var(--font-family-display);
+        font-size: 2rem;
+        font-weight: var(--font-weight-heading);
+        margin-bottom: 0.25rem;
+      }
+      .tf-header p {
+        opacity: 0.85;
+        font-size: 0.9rem;
+      }
 
-    .tf-section { margin-bottom: 2rem; }
-    .tf-section-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border); }
+      .tf-section {
+        margin-bottom: 2rem;
+      }
+      .tf-section-title {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--color-border);
+      }
 
-    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; }
-    .tf-swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
-    .tf-swatch-color { height: 64px; width: 100%; }
-    .tf-swatch-label { background: var(--color-surface); padding: 0.4rem 0.5rem; font-size: 0.7rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
-    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.75rem; margin-bottom: 0.1rem; }
+      .tf-swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 0.75rem;
+      }
+      .tf-swatch {
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--color-border);
+        box-shadow: var(--shadow-sm);
+      }
+      .tf-swatch-color {
+        height: 64px;
+        width: 100%;
+      }
+      .tf-swatch-label {
+        background: var(--color-surface);
+        padding: 0.4rem 0.5rem;
+        font-size: 0.7rem;
+        font-family: var(--font-family-mono);
+        color: var(--color-text-muted);
+      }
+      .tf-swatch-label strong {
+        display: block;
+        color: var(--color-text);
+        font-size: 0.75rem;
+        margin-bottom: 0.1rem;
+      }
 
-    .tf-type-scale { display: flex; flex-direction: column; gap: 0.5rem; }
-    .tf-type-scale .t-h1 { font-size: 2.5rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); text-shadow: var(--text-shadow); }
-    .tf-type-scale .t-h2 { font-size: 1.75rem; font-weight: var(--font-weight-heading); }
-    .tf-type-scale .t-h3 { font-size: 1.25rem; font-weight: var(--font-weight-heading); }
-    .tf-type-scale .t-body { font-size: 1rem; }
-    .tf-type-scale .t-small { font-size: 0.85rem; color: var(--color-text-muted); }
-    .tf-type-scale .t-mono { font-family: var(--font-family-mono); font-size: 0.9rem; background: var(--color-surface-alt); padding: 0.25rem 0.5rem; border-radius: var(--radius); }
+      .tf-type-scale {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .tf-type-scale .t-h1 {
+        font-size: 2.5rem;
+        font-weight: var(--font-weight-heading);
+        font-family: var(--font-family-display);
+        text-shadow: var(--text-shadow);
+      }
+      .tf-type-scale .t-h2 {
+        font-size: 1.75rem;
+        font-weight: var(--font-weight-heading);
+      }
+      .tf-type-scale .t-h3 {
+        font-size: 1.25rem;
+        font-weight: var(--font-weight-heading);
+      }
+      .tf-type-scale .t-body {
+        font-size: 1rem;
+      }
+      .tf-type-scale .t-small {
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+      }
+      .tf-type-scale .t-mono {
+        font-family: var(--font-family-mono);
+        font-size: 0.9rem;
+        background: var(--color-surface-alt);
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--radius);
+      }
 
-    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
-    .tf-btn { padding: 0.5rem 1.25rem; border-radius: var(--radius-button); font-family: var(--font-family); font-size: 0.9rem; font-weight: 500; cursor: pointer; border: none; transition: opacity 0.15s; }
-    .tf-btn:hover { opacity: 0.85; }
-    .tf-btn-primary   { background: var(--color-primary);     color: var(--color-text-on-primary); box-shadow: var(--shadow-sm); }
-    .tf-btn-secondary { background: var(--color-secondary);   color: var(--color-text-on-primary); box-shadow: var(--shadow-sm); }
-    .tf-btn-outline   { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
-    .tf-btn-ghost     { background: var(--color-surface-alt); color: var(--color-text); }
+      .tf-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+      .tf-btn {
+        padding: 0.5rem 1.25rem;
+        border-radius: var(--radius-button);
+        font-family: var(--font-family);
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+        transition: opacity 0.15s;
+      }
+      .tf-btn:hover {
+        opacity: 0.85;
+      }
+      .tf-btn-primary {
+        background: var(--color-primary);
+        color: var(--color-text-on-primary);
+        box-shadow: var(--shadow-sm);
+      }
+      .tf-btn-secondary {
+        background: var(--color-secondary);
+        color: var(--color-text-on-primary);
+        box-shadow: var(--shadow-sm);
+      }
+      .tf-btn-outline {
+        background: transparent;
+        color: var(--color-primary);
+        border: 1.5px solid var(--color-primary);
+      }
+      .tf-btn-ghost {
+        background: var(--color-surface-alt);
+        color: var(--color-text);
+      }
 
-    .tf-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: 1.5rem; box-shadow: var(--shadow-md); }
-    .tf-card h3 { font-weight: var(--font-weight-heading); margin-bottom: 0.5rem; color: var(--color-primary); }
-    .tf-card p  { color: var(--color-text-muted); font-size: 0.9rem; line-height: var(--line-height); }
-    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+      .tf-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-card);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+      }
+      .tf-card h3 {
+        font-weight: var(--font-weight-heading);
+        margin-bottom: 0.5rem;
+        color: var(--color-primary);
+      }
+      .tf-card p {
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+        line-height: var(--line-height);
+      }
+      .tf-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1rem;
+      }
 
-    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; }
-    .tf-form label { font-size: 0.85rem; font-weight: 500; color: var(--color-text-muted); margin-bottom: 0.25rem; display: block; }
-    .tf-form input, .tf-form select { width: 100%; padding: 0.5rem 0.75rem; border: 1.5px solid var(--color-border); border-radius: var(--radius); background: var(--color-surface); color: var(--color-text); font-family: var(--font-family); font-size: 0.9rem; outline: none; transition: border-color 0.15s; }
-    .tf-form input:focus, .tf-form select:focus { border-color: var(--color-primary); }
+      .tf-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 400px;
+      }
+      .tf-form label {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--color-text-muted);
+        margin-bottom: 0.25rem;
+        display: block;
+      }
+      .tf-form input,
+      .tf-form select {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1.5px solid var(--color-border);
+        border-radius: var(--radius);
+        background: var(--color-surface);
+        color: var(--color-text);
+        font-family: var(--font-family);
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.15s;
+      }
+      .tf-form input:focus,
+      .tf-form select:focus {
+        border-color: var(--color-primary);
+      }
 
-    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
-    .tf-effect-tile { border-radius: var(--radius-card); padding: 1.25rem; border: 1px solid var(--color-border); display: flex; flex-direction: column; gap: 0.5rem; }
-    .tf-effect-tile .tile-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); font-family: var(--font-family-mono); }
-    .tf-effect-tile .tile-value { font-size: 0.75rem; color: var(--color-text); font-family: var(--font-family-mono); word-break: break-all; }
-    .tf-gradient-hero { height: 80px; border-radius: var(--radius-card); background: var(--color-surface); display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-weight: var(--font-weight-heading); font-family: var(--font-family-display); font-size: 1.1rem; border: 1px solid var(--color-border); text-shadow: var(--text-shadow); }
-    .tf-glow-demo { background: var(--color-surface); border-radius: var(--radius-card); padding: 1rem 1.5rem; text-align: center; box-shadow: var(--glow-md, var(--shadow-md)); border: 1px solid var(--color-border); font-weight: 600; color: var(--glow-color, var(--color-primary)); text-shadow: var(--text-shadow); }
-    .tf-glass-demo { border-radius: var(--radius-card); padding: 1rem 1.5rem; background: var(--glass-tint, rgba(0,255,65,0.05)); backdrop-filter: var(--backdrop-filter, none); border: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text); position: relative; overflow: hidden; }
-    .tf-glass-demo::before { content: ''; position: absolute; inset: 0; background: var(--gradient-accent, transparent); opacity: 0.15; pointer-events: none; }
-    .tf-gradient-text { font-size: 1.5rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); background: var(--gradient-text, var(--color-primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; }
-    .tf-btn-gradient { background: var(--gradient-button, var(--color-primary)); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored, var(--shadow-sm)); }
-    .tf-inset-demo { background: var(--color-surface-alt); border-radius: var(--radius); padding: 0.6rem 1rem; box-shadow: var(--shadow-inset, inset 0 1px 3px rgba(0,0,0,0.1)); border: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-muted); font-family: var(--font-family-mono); }
+      .tf-effects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .tf-effect-tile {
+        border-radius: var(--radius-card);
+        padding: 1.25rem;
+        border: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .tf-effect-tile .tile-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+        font-family: var(--font-family-mono);
+      }
+      .tf-effect-tile .tile-value {
+        font-size: 0.75rem;
+        color: var(--color-text);
+        font-family: var(--font-family-mono);
+        word-break: break-all;
+      }
+      .tf-gradient-hero {
+        height: 80px;
+        border-radius: var(--radius-card);
+        background: var(--color-surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-primary);
+        font-weight: var(--font-weight-heading);
+        font-family: var(--font-family-display);
+        font-size: 1.1rem;
+        border: 1px solid var(--color-border);
+        text-shadow: var(--text-shadow);
+      }
+      .tf-glow-demo {
+        background: var(--color-surface);
+        border-radius: var(--radius-card);
+        padding: 1rem 1.5rem;
+        text-align: center;
+        box-shadow: var(--glow-md, var(--shadow-md));
+        border: 1px solid var(--color-border);
+        font-weight: 600;
+        color: var(--glow-color, var(--color-primary));
+        text-shadow: var(--text-shadow);
+      }
+      .tf-glass-demo {
+        border-radius: var(--radius-card);
+        padding: 1rem 1.5rem;
+        background: var(--glass-tint, rgba(0, 255, 65, 0.05));
+        backdrop-filter: var(--backdrop-filter, none);
+        border: 1px solid var(--color-border);
+        font-size: 0.85rem;
+        color: var(--color-text);
+        position: relative;
+        overflow: hidden;
+      }
+      .tf-glass-demo::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--gradient-accent, transparent);
+        opacity: 0.15;
+        pointer-events: none;
+      }
+      .tf-gradient-text {
+        font-size: 1.5rem;
+        font-weight: var(--font-weight-heading);
+        font-family: var(--font-family-display);
+        background: var(--gradient-text, var(--color-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
+      }
+      .tf-btn-gradient {
+        background: var(--gradient-button, var(--color-primary));
+        color: var(--color-text-on-primary);
+        box-shadow: var(--shadow-colored, var(--shadow-sm));
+      }
+      .tf-inset-demo {
+        background: var(--color-surface-alt);
+        border-radius: var(--radius);
+        padding: 0.6rem 1rem;
+        box-shadow: var(--shadow-inset, inset 0 1px 3px rgba(0, 0, 0, 0.1));
+        border: 1px solid var(--color-border);
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+        font-family: var(--font-family-mono);
+      }
 
-    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .tf-badge { padding: 0.2rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
-    .tf-badge-primary { background: var(--color-primary-light); color: var(--color-primary); }
-    .tf-badge-success { background: var(--color-success); color: #000; }
-    .tf-badge-warning { background: var(--color-warning); color: #000; }
-    .tf-badge-error   { background: var(--color-error); color: #fff; }
-    .tf-badge-neutral { background: var(--color-surface-alt); color: var(--color-text-muted); border: 1px solid var(--color-border); }
-  </style>
-</head>
-<body>
-
-  <div class="tf-header"><h1>Theme Preview</h1><p>Colors · Typography · Components</p></div>
-
-  <div class="tf-section">
-    <div class="tf-section-title">Color Palette</div>
-    <div class="tf-swatches">
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary)"></div><div class="tf-swatch-label"><strong>primary</strong>#00FF41</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary-light)"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#002200</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-secondary)"></div><div class="tf-swatch-label"><strong>secondary</strong>#00CCFF</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-accent)"></div><div class="tf-swatch-label"><strong>accent</strong>#CCDD00</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-bg)"></div><div class="tf-swatch-label"><strong>background</strong>#000900</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface)"></div><div class="tf-swatch-label"><strong>surface</strong>#001200</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface-alt)"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#001800</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text)"></div><div class="tf-swatch-label"><strong>text</strong>#00CC33</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text-muted)"></div><div class="tf-swatch-label"><strong>textMuted</strong>#008822</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-border)"></div><div class="tf-swatch-label"><strong>border</strong>#004800</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-success)"></div><div class="tf-swatch-label"><strong>success</strong>#00FF41</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-warning)"></div><div class="tf-swatch-label"><strong>warning</strong>#CCDD00</div></div>
-      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-error)"></div><div class="tf-swatch-label"><strong>error</strong>#FF3333</div></div>
+      .tf-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .tf-badge {
+        padding: 0.2rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      .tf-badge-primary {
+        background: var(--color-primary-light);
+        color: var(--color-primary);
+      }
+      .tf-badge-success {
+        background: var(--color-success);
+        color: #000;
+      }
+      .tf-badge-warning {
+        background: var(--color-warning);
+        color: #000;
+      }
+      .tf-badge-error {
+        background: var(--color-error);
+        color: #fff;
+      }
+      .tf-badge-neutral {
+        background: var(--color-surface-alt);
+        color: var(--color-text-muted);
+        border: 1px solid var(--color-border);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tf-header">
+      <h1>Cyber Terminal</h1>
+      <p>Colors · Typography · Components</p>
     </div>
-  </div>
 
-  <div class="tf-section">
-    <div class="tf-section-title">Typography</div>
-    <div class="tf-type-scale">
-      <div class="t-h1">Display Heading</div>
-      <div class="t-h2">Section Heading</div>
-      <div class="t-h3">Subsection Heading</div>
-      <div class="t-body">Body text — the quick brown fox jumps over the lazy dog.</div>
-      <div class="t-small">Small / muted — captions, labels, timestamps</div>
-      <div class="t-mono">monospace: code(), variables, keys</div>
+    <div class="tf-section">
+      <div class="tf-section-title">Color Palette</div>
+      <div class="tf-swatches">
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-primary)"
+          ></div>
+          <div class="tf-swatch-label"><strong>primary</strong>#00FF41</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-primary-light)"
+          ></div>
+          <div class="tf-swatch-label">
+            <strong>primaryLight</strong>#002200
+          </div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-secondary)"
+          ></div>
+          <div class="tf-swatch-label"><strong>secondary</strong>#00CCFF</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-accent)"
+          ></div>
+          <div class="tf-swatch-label"><strong>accent</strong>#CCDD00</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-bg)"
+          ></div>
+          <div class="tf-swatch-label"><strong>background</strong>#000900</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-surface)"
+          ></div>
+          <div class="tf-swatch-label"><strong>surface</strong>#001200</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-surface-alt)"
+          ></div>
+          <div class="tf-swatch-label"><strong>surfaceAlt</strong>#001800</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-text)"
+          ></div>
+          <div class="tf-swatch-label"><strong>text</strong>#00CC33</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-text-muted)"
+          ></div>
+          <div class="tf-swatch-label"><strong>textMuted</strong>#008822</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-border)"
+          ></div>
+          <div class="tf-swatch-label"><strong>border</strong>#004800</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-success)"
+          ></div>
+          <div class="tf-swatch-label"><strong>success</strong>#00FF41</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-warning)"
+          ></div>
+          <div class="tf-swatch-label"><strong>warning</strong>#CCDD00</div>
+        </div>
+        <div class="tf-swatch">
+          <div
+            class="tf-swatch-color"
+            style="background: var(--color-error)"
+          ></div>
+          <div class="tf-swatch-label"><strong>error</strong>#FF3333</div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="tf-section">
-    <div class="tf-section-title">Buttons</div>
-    <div class="tf-buttons">
-      <button class="tf-btn tf-btn-primary">Primary Action</button>
-      <button class="tf-btn tf-btn-secondary">Secondary</button>
-      <button class="tf-btn tf-btn-outline">Outlined</button>
-      <button class="tf-btn tf-btn-ghost">Ghost</button>
+    <div class="tf-section">
+      <div class="tf-section-title">Typography</div>
+      <div class="tf-type-scale">
+        <div class="t-h1">Display Heading</div>
+        <div class="t-h2">Section Heading</div>
+        <div class="t-h3">Subsection Heading</div>
+        <div class="t-body">
+          Body text — the quick brown fox jumps over the lazy dog.
+        </div>
+        <div class="t-small">Small / muted — captions, labels, timestamps</div>
+        <div class="t-mono">monospace: code(), variables, keys</div>
+      </div>
     </div>
-  </div>
 
-  <div class="tf-section">
-    <div class="tf-section-title">Cards</div>
-    <div class="tf-cards">
-      <div class="tf-card"><h3>Card Title</h3><p>Standard card with surface background, border, and shadow from theme variables.</p></div>
-      <div class="tf-card"><h3>Data Card</h3><p>Every visual property references a CSS variable — swap themes by swapping :root.</p></div>
-      <div class="tf-card" style="background:var(--color-surface-alt)"><h3>Alt Surface</h3><p>surfaceAlt — sidebar panels, alternate rows, secondary containers.</p></div>
+    <div class="tf-section">
+      <div class="tf-section-title">Buttons</div>
+      <div class="tf-buttons">
+        <button class="tf-btn tf-btn-primary">Primary Action</button>
+        <button class="tf-btn tf-btn-secondary">Secondary</button>
+        <button class="tf-btn tf-btn-outline">Outlined</button>
+        <button class="tf-btn tf-btn-ghost">Ghost</button>
+      </div>
     </div>
-  </div>
 
-  <div class="tf-section">
-    <div class="tf-section-title">Form Elements</div>
-    <div class="tf-form">
-      <div><label>Text Input</label><input type="text" placeholder="Enter value…"></div>
-      <div><label>Select</label><select><option>Option A</option><option>Option B</option><option>Option C</option></select></div>
+    <div class="tf-section">
+      <div class="tf-section-title">Cards</div>
+      <div class="tf-cards">
+        <div class="tf-card">
+          <h3>Card Title</h3>
+          <p>
+            Standard card with surface background, border, and shadow from theme
+            variables.
+          </p>
+        </div>
+        <div class="tf-card">
+          <h3>Data Card</h3>
+          <p>
+            Every visual property references a CSS variable — swap themes by
+            swapping :root.
+          </p>
+        </div>
+        <div class="tf-card" style="background: var(--color-surface-alt)">
+          <h3>Alt Surface</h3>
+          <p>
+            surfaceAlt — sidebar panels, alternate rows, secondary containers.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="tf-section">
-    <div class="tf-section-title">Badges &amp; Status</div>
-    <div class="tf-badges">
-      <span class="tf-badge tf-badge-primary">Primary</span>
-      <span class="tf-badge tf-badge-success">Success</span>
-      <span class="tf-badge tf-badge-warning">Warning</span>
-      <span class="tf-badge tf-badge-error">Error</span>
-      <span class="tf-badge tf-badge-neutral">Neutral</span>
+    <div class="tf-section">
+      <div class="tf-section-title">Form Elements</div>
+      <div class="tf-form">
+        <div>
+          <label>Text Input</label
+          ><input type="text" placeholder="Enter value…" />
+        </div>
+        <div>
+          <label>Select</label
+          ><select>
+            <option>Option A</option>
+            <option>Option B</option>
+            <option>Option C</option>
+          </select>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="tf-section">
-    <div class="tf-section-title">Gradients &amp; Effects</div>
-    <div class="tf-effects-grid">
-      <div class="tf-effect-tile" style="grid-column:1/-1"><div class="tile-label">Hero Gradient</div><div class="tf-gradient-hero">Hero / Header Surface</div><div class="tile-value">var(--gradient-hero)</div></div>
-      <div class="tf-effect-tile"><div class="tile-label">Gradient Text</div><div class="tf-gradient-text">Gradient Text</div><div class="tile-value">var(--gradient-text)</div></div>
-      <div class="tf-effect-tile"><div class="tile-label">Gradient Button</div><button class="tf-btn tf-btn-gradient" style="width:100%">Gradient CTA</button><div class="tile-value">var(--gradient-button)</div></div>
-      <div class="tf-effect-tile"><div class="tile-label">Glow / Luminescence</div><div class="tf-glow-demo">Glow Element</div><div class="tile-value">var(--glow-md) · var(--glow-color)</div></div>
-      <div class="tf-effect-tile"><div class="tile-label">Glass / Frost</div><div class="tf-glass-demo">Frosted surface</div><div class="tile-value">var(--glass-blur) · var(--glass-tint)</div></div>
-      <div class="tf-effect-tile"><div class="tile-label">Inset / Well</div><div class="tf-inset-demo">inset input or well</div><div class="tile-value">var(--shadow-inset)</div></div>
-      <div class="tf-effect-tile"><div class="tile-label">Colored Shadow</div><div style="padding:0.75rem 1rem;border-radius:var(--radius-card);background:var(--color-primary);color:var(--color-text-on-primary);box-shadow:var(--shadow-colored,var(--shadow-md));font-weight:600;font-size:0.85rem;text-align:center">Primary Card</div><div class="tile-value">var(--shadow-colored)</div></div>
+    <div class="tf-section">
+      <div class="tf-section-title">Badges &amp; Status</div>
+      <div class="tf-badges">
+        <span class="tf-badge tf-badge-primary">Primary</span>
+        <span class="tf-badge tf-badge-success">Success</span>
+        <span class="tf-badge tf-badge-warning">Warning</span>
+        <span class="tf-badge tf-badge-error">Error</span>
+        <span class="tf-badge tf-badge-neutral">Neutral</span>
+      </div>
     </div>
-  </div>
 
-</body>
+    <div class="tf-section">
+      <div class="tf-section-title">Gradients &amp; Effects</div>
+      <div class="tf-effects-grid">
+        <div class="tf-effect-tile" style="grid-column: 1/-1">
+          <div class="tile-label">Hero Gradient</div>
+          <div class="tf-gradient-hero">Hero / Header Surface</div>
+          <div class="tile-value">var(--gradient-hero)</div>
+        </div>
+        <div class="tf-effect-tile">
+          <div class="tile-label">Gradient Text</div>
+          <div class="tf-gradient-text">Gradient Text</div>
+          <div class="tile-value">var(--gradient-text)</div>
+        </div>
+        <div class="tf-effect-tile">
+          <div class="tile-label">Gradient Button</div>
+          <button class="tf-btn tf-btn-gradient" style="width: 100%">
+            Gradient CTA
+          </button>
+          <div class="tile-value">var(--gradient-button)</div>
+        </div>
+        <div class="tf-effect-tile">
+          <div class="tile-label">Glow / Luminescence</div>
+          <div class="tf-glow-demo">Glow Element</div>
+          <div class="tile-value">var(--glow-md) · var(--glow-color)</div>
+        </div>
+        <div class="tf-effect-tile">
+          <div class="tile-label">Glass / Frost</div>
+          <div class="tf-glass-demo">Frosted surface</div>
+          <div class="tile-value">var(--glass-blur) · var(--glass-tint)</div>
+        </div>
+        <div class="tf-effect-tile">
+          <div class="tile-label">Inset / Well</div>
+          <div class="tf-inset-demo">inset input or well</div>
+          <div class="tile-value">var(--shadow-inset)</div>
+        </div>
+        <div class="tf-effect-tile">
+          <div class="tile-label">Colored Shadow</div>
+          <div
+            style="
+              padding: 0.75rem 1rem;
+              border-radius: var(--radius-card);
+              background: var(--color-primary);
+              color: var(--color-text-on-primary);
+              box-shadow: var(--shadow-colored, var(--shadow-md));
+              font-weight: 600;
+              font-size: 0.85rem;
+              text-align: center;
+            "
+          >
+            Primary Card
+          </div>
+          <div class="tile-value">var(--shadow-colored)</div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="verdant-lodge">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verdant Lodge — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400&family=Victor+Mono:ital,wght@0,300;0,400;0,600;1,400&display=swap">
+  <script id="theme-data" type="application/json">{
+    "name": "verdant-lodge",
+    "description": "Dark organic naturalist — deep forest canvas with grain texture, moss green primary, bark amber secondary. Field ecology meets contemplative design. Yeseva One display + Quattrocento Sans body.",
+    "createdAt": "2026-06-21T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "noise",
+      "baseColor": "#111A0F",
+      "image": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E\")",
+      "size": "256px 256px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "noise",
+      "patternColor": "rgba(92,143,58,0.045)",
+      "patternOpacity": "0.045",
+      "patternSpacing": "none",
+      "notes": "SVG fractalNoise grain on deep forest green near-black — bark and soil texture"
+    },
+    "colors": {
+      "primary": "#5C8F3A",
+      "primaryLight": "#1A2E12",
+      "secondary": "#8B6914",
+      "accent": "#A0C840",
+      "background": "#111A0F",
+      "surface": "#182418",
+      "surfaceAlt": "#1E2E1A",
+      "text": "#D8E8C8",
+      "textMuted": "#7A9A68",
+      "textOnPrimary": "#111A0F",
+      "border": "#2A3A22",
+      "success": "#48A860",
+      "warning": "#C8A020",
+      "error": "#B04040"
+    },
+    "typography": {
+      "fontFamily": "'Quattrocento Sans', Georgia, serif",
+      "fontFamilyMono": "'Victor Mono', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Yeseva One', Georgia, serif",
+      "scaleBase": "17px",
+      "headingWeight": "400",
+      "bodyWeight": "400",
+      "lineHeight": "1.72"
+    },
+    "spacing": {
+      "borderRadius": "4px",
+      "cardRadius": "6px",
+      "buttonRadius": "4px",
+      "spaceUnit": "8px",
+      "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 1px 4px rgba(8,14,6,0.6)",
+      "md": "0 4px 16px rgba(8,14,6,0.7)",
+      "lg": "0 8px 32px rgba(8,14,6,0.8)",
+      "xl": "0 16px 48px rgba(8,14,6,0.9)",
+      "colored": "0 4px 20px rgba(92,143,58,0.35)",
+      "inset": "inset 0 2px 6px rgba(8,14,6,0.8)",
+      "elevation": "layered"
+    },
+    "gradients": {
+      "hero": "linear-gradient(160deg, #1E2E1A 0%, #111A0F 50%, #0E1A0C 100%)",
+      "card": "linear-gradient(180deg, #1A2A18 0%, #161E14 100%)",
+      "button": "linear-gradient(135deg, #6AAA44 0%, #4A7A2A 100%)",
+      "text": "linear-gradient(135deg, #A0C840 0%, #5C8F3A 60%, #3A6A20 100%)",
+      "accent": "linear-gradient(90deg, #5C8F3A 0%, #8B6914 100%)"
+    },
+    "effects": {
+      "luminescence": "subtle",
+      "glowColor": "#5C8F3A",
+      "glowBlur": "16px",
+      "glowSm": "0 0 6px rgba(92,143,58,0.35)",
+      "glowMd": "0 0 16px rgba(92,143,58,0.4), 0 0 32px rgba(92,143,58,0.15)",
+      "glowLg": "0 0 32px rgba(92,143,58,0.45)",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "linear-gradient(135deg, #5C8F3A, #8B6914, #A0C840)",
+      "noiseOpacity": "0.045",
+      "textShadow": "0 0 20px rgba(92,143,58,0.35)",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "150ms",
+      "durationBase": "280ms",
+      "durationSlow": "480ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["organic", "naturalist", "contemplative", "forest"],
+      "borderStyle": "hairline",
+      "iconStyle": "outlined",
+      "imageStyle": "illustrative",
+      "surfaceTexture": "noise",
+      "hierarchyClarity": "high",
+      "notes": "Yeseva One (display serif) + Quattrocento Sans. SVG grain on forest-black. Moss green glow. Bark amber secondary. Field ecology palette."
+    }
+  }</script>
+  <style>
+    :root {
+      --color-primary: #5C8F3A;
+      --color-primary-light: #1A2E12;
+      --color-secondary: #8B6914;
+      --color-accent: #A0C840;
+      --color-bg: #111A0F;
+      --color-surface: #182418;
+      --color-surface-alt: #1E2E1A;
+      --color-text: #D8E8C8;
+      --color-text-muted: #7A9A68;
+      --color-text-on-primary: #111A0F;
+      --color-border: #2A3A22;
+      --color-success: #48A860;
+      --color-warning: #C8A020;
+      --color-error: #B04040;
+
+      --font-family: 'Quattrocento Sans', Georgia, serif;
+      --font-family-mono: 'Victor Mono', 'Courier New', monospace;
+      --font-family-display: 'Yeseva One', Georgia, serif;
+
+      --radius-sm: 2px;
+      --radius-md: 4px;
+      --radius-lg: 6px;
+      --radius-xl: 8px;
+      --radius-button: 4px;
+      --radius-card: 6px;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 1px 4px rgba(8,14,6,0.6);
+      --shadow-md: 0 4px 16px rgba(8,14,6,0.7);
+      --shadow-lg: 0 8px 32px rgba(8,14,6,0.8);
+      --shadow-xl: 0 16px 48px rgba(8,14,6,0.9);
+      --shadow-colored: 0 4px 20px rgba(92,143,58,0.35);
+      --shadow-inset: inset 0 2px 6px rgba(8,14,6,0.8);
+
+      --gradient-hero: linear-gradient(160deg, #1E2E1A 0%, #111A0F 50%, #0E1A0C 100%);
+      --gradient-card: linear-gradient(180deg, #1A2A18 0%, #161E14 100%);
+      --gradient-button: linear-gradient(135deg, #6AAA44 0%, #4A7A2A 100%);
+      --gradient-text: linear-gradient(135deg, #A0C840 0%, #5C8F3A 60%, #3A6A20 100%);
+      --gradient-accent: linear-gradient(90deg, #5C8F3A 0%, #8B6914 100%);
+      --border-gradient: linear-gradient(135deg, #5C8F3A, #8B6914, #A0C840);
+
+      --glow-sm: 0 0 6px rgba(92,143,58,0.35);
+      --glow-md: 0 0 16px rgba(92,143,58,0.4), 0 0 32px rgba(92,143,58,0.15);
+      --glow-lg: 0 0 32px rgba(92,143,58,0.45);
+      --glass-blur: 0;
+      --glass-tint: transparent;
+      --backdrop-filter: none;
+      --noise-opacity: 0.045;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 17px;
+      line-height: 1.72;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-family-display); font-weight: 400; }
+    code, pre { font-family: var(--font-family-mono); }
+
+    .vl-header {
+      background: var(--gradient-hero);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-16) var(--space-8);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .vl-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(92,143,58,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .vl-header-tag {
+      font-family: var(--font-family-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-3);
+      display: block;
+    }
+    .vl-header h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      color: var(--color-text);
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+      text-shadow: 0 0 40px rgba(92,143,58,0.3);
+    }
+    .vl-header p {
+      font-size: 1.05rem;
+      color: var(--color-text-muted);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .vl-section { padding: var(--space-12) var(--space-8); max-width: 960px; margin: 0 auto; }
+    .vl-section-title {
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: var(--space-2);
+      margin-bottom: var(--space-6);
+    }
+
+    /* Color Palette */
+    .vl-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: var(--space-2); }
+    .vl-swatch { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); }
+    .vl-swatch-color { height: 56px; }
+    .vl-swatch-label { font-family: var(--font-family-mono); font-size: 9px; padding: 5px 6px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    /* Typography */
+    .vl-type-stack > * + * { margin-top: var(--space-3); }
+    .vl-type-display { font-family: var(--font-family-display); font-size: clamp(2rem, 4vw, 3.2rem); color: var(--color-text); line-height: 1.15; }
+    .vl-type-h2 { font-family: var(--font-family-display); font-size: 1.8rem; color: var(--color-text); }
+    .vl-type-h3 { font-family: var(--font-family-display); font-size: 1.25rem; color: var(--color-text); }
+    .vl-type-body { font-size: 1rem; color: var(--color-text); line-height: 1.72; }
+    .vl-type-muted { font-size: 0.875rem; color: var(--color-text-muted); }
+    .vl-type-mono { font-family: var(--font-family-mono); font-size: 0.85rem; color: var(--color-accent); }
+    .vl-type-mono-italic { font-family: var(--font-family-mono); font-style: italic; font-size: 0.85rem; color: var(--color-text-muted); }
+
+    /* Buttons */
+    .vl-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+    .vl-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 10px 22px; border-radius: var(--radius-button);
+      font-family: var(--font-family); font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 0.02em; cursor: pointer; border: none;
+      transition: all 200ms ease; text-decoration: none;
+    }
+    .vl-btn-primary {
+      background: var(--gradient-button);
+      color: var(--color-text-on-primary);
+      box-shadow: var(--shadow-colored);
+    }
+    .vl-btn-primary:hover { box-shadow: var(--glow-md); transform: translateY(-1px); }
+    .vl-btn-secondary {
+      background: transparent;
+      color: var(--color-secondary);
+      border: 1px solid var(--color-secondary);
+    }
+    .vl-btn-secondary:hover { background: rgba(139,105,20,0.12); }
+    .vl-btn-outline {
+      background: transparent; color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+    .vl-btn-outline:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .vl-btn-ghost {
+      background: transparent; color: var(--color-text-muted); border: none;
+    }
+    .vl-btn-ghost:hover { color: var(--color-text); background: rgba(255,255,255,0.04); }
+
+    /* Cards */
+    .vl-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
+    .vl-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-md);
+      transition: box-shadow 250ms ease, transform 250ms ease;
+    }
+    .vl-card:hover { box-shadow: var(--shadow-colored); transform: translateY(-2px); }
+    .vl-card-accent { border-top: 2px solid var(--color-primary); }
+    .vl-card-tag {
+      font-family: var(--font-family-mono);
+      font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--color-accent); margin-bottom: var(--space-2); display: block;
+    }
+    .vl-card h3 { font-size: 1.1rem; color: var(--color-text); margin-bottom: var(--space-2); }
+    .vl-card p { font-size: 0.875rem; color: var(--color-text-muted); line-height: 1.6; }
+    .vl-card-meta { font-family: var(--font-family-mono); font-size: 0.78rem; color: var(--color-text-muted); margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+
+    /* Form */
+    .vl-form-group { margin-bottom: var(--space-4); }
+    .vl-label { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-2); }
+    .vl-input {
+      width: 100%; padding: 10px 14px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text);
+      font-family: var(--font-family); font-size: 0.95rem;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+    .vl-input::placeholder { color: var(--color-text-muted); }
+    .vl-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(92,143,58,0.18); }
+    .vl-select {
+      appearance: none;
+      width: 100%; padding: 10px 14px;
+      background: var(--color-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A9A68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+      border: 1px solid var(--color-border); border-radius: var(--radius-md);
+      color: var(--color-text); font-family: var(--font-family); font-size: 0.95rem;
+    }
+    .vl-select:focus { outline: none; border-color: var(--color-primary); }
+    .vl-textarea { resize: vertical; min-height: 80px; }
+    .vl-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+
+    /* Badges */
+    .vl-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .vl-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: var(--radius-sm);
+      font-family: var(--font-family-mono); font-size: 0.72rem; letter-spacing: 0.06em;
+      font-weight: 600; text-transform: uppercase;
+    }
+    .vl-badge-primary { background: var(--color-primary-light); color: var(--color-accent); border: 1px solid rgba(92,143,58,0.3); }
+    .vl-badge-secondary { background: rgba(139,105,20,0.15); color: var(--color-secondary); border: 1px solid rgba(139,105,20,0.3); }
+    .vl-badge-success { background: rgba(72,168,96,0.15); color: var(--color-success); border: 1px solid rgba(72,168,96,0.3); }
+    .vl-badge-warning { background: rgba(200,160,32,0.15); color: var(--color-warning); border: 1px solid rgba(200,160,32,0.3); }
+    .vl-badge-error { background: rgba(176,64,64,0.15); color: var(--color-error); border: 1px solid rgba(176,64,64,0.3); }
+
+    /* Effects */
+    .vl-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .vl-effect-tile {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: var(--space-3); min-height: 100px;
+      font-family: var(--font-family-mono);
+      font-size: 0.8rem; color: var(--color-text-muted);
+      text-align: center;
+    }
+    .vl-glow-demo { width: 40px; height: 40px; border-radius: 50%; background: var(--color-primary); box-shadow: var(--glow-md); }
+    .vl-gradient-text-demo {
+      font-family: var(--font-family-display);
+      font-size: 1.6rem;
+      background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .vl-gradient-bar { height: 8px; border-radius: 4px; background: var(--gradient-accent); width: 100%; }
+    .vl-noise-demo { width: 100%; height: 50px; background: var(--color-bg); border-radius: var(--radius-md); border: 1px solid var(--color-border); position: relative; overflow: hidden; }
+    .vl-noise-demo::after { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E"); background-size: 128px; }
+
+    /* Divider */
+    .vl-divider { border: none; border-top: 1px solid var(--color-border); margin: var(--space-8) 0; }
+
+    /* Stat row */
+    .vl-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-4); }
+    .vl-stat { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-5); }
+    .vl-stat-value { font-family: var(--font-family-display); font-size: 2.2rem; color: var(--color-primary); line-height: 1; margin-bottom: 4px; }
+    .vl-stat-label { font-family: var(--font-family-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); }
+  </style>
+</head>
+<body>
+
+  <header class="vl-header">
+    <span class="vl-header-tag">Field Station · Ecological Systems</span>
+    <h1>Verdant Lodge</h1>
+    <p>Long-term ecological monitoring platform for temperate forest regions. Track species diversity, soil chemistry, and canopy coverage across research transects.</p>
+  </header>
+
+  <div class="vl-section">
+    <div class="vl-section-title">Color Palette</div>
+    <div class="vl-swatches">
+      <div class="vl-swatch"><div class="vl-swatch-color" style="background:#5C8F3A"></div><div class="vl-swatch-label">Primary<br>#5C8F3A</div></div>
+      <div class="vl-swatch"><div class="vl-swatch-color" style="background:#8B6914"></div><div class="vl-swatch-label">Secondary<br>#8B6914</div></div>
+      <div class="vl-swatch"><div class="vl-swatch-color" style="background:#A0C840"></div><div class="vl-swatch-label">Accent<br>#A0C840</div></div>
+      <div class="vl-swatch"><div class="vl-swatch-color" style="background:#111A0F"></div><div class="vl-swatch-label">BG<br>#111A0F</div></div>
+      <div class="vl-swatch"><div class="vl-swatch-color" style="background:#182418"></div><div class="vl-swatch-label">Surface<br>#182418</div></div>
+      <div class="vl-swatch"><div class="vl-swatch-color" style="background:#D8E8C8"></div><div class="vl-swatch-label">Text<br>#D8E8C8</div></div>
+      <div class="vl-swatch"><div class="vl-swatch-color" style="background:#48A860"></div><div class="vl-swatch-label">Success<br>#48A860</div></div>
+      <div class="vl-swatch"><div class="vl-swatch-color" style="background:#C8A020"></div><div class="vl-swatch-label">Warning<br>#C8A020</div></div>
+      <div class="vl-swatch"><div class="vl-swatch-color" style="background:#B04040"></div><div class="vl-swatch-label">Error<br>#B04040</div></div>
+    </div>
+  </div>
+
+  <div class="vl-section">
+    <div class="vl-section-title">Typography</div>
+    <div class="vl-type-stack">
+      <div class="vl-type-display">Yeseva One — Forest Record</div>
+      <div class="vl-type-h2">Transect Analysis H2</div>
+      <div class="vl-type-h3">Species Inventory Heading H3</div>
+      <div class="vl-type-body">Quattrocento Sans body: Quercus robur specimens recorded at 47 sample points across the northern transect. Canopy coverage measurements taken at two-week intervals using hemispherical photography. Data normalized against baseline recordings from 2018 seasonal survey.</div>
+      <div class="vl-type-muted">Observation log — Field station Bravo · Lat 51.4123° N · Long 9.8847° W</div>
+      <div class="vl-type-mono">$ fieldctl --transect B4 --species all --output json</div>
+      <div class="vl-type-mono-italic">// Victor Mono italic — canopy density: 78.4% ± 2.1</div>
+    </div>
+  </div>
+
+  <div class="vl-section">
+    <div class="vl-section-title">Components — Buttons</div>
+    <div class="vl-btn-row">
+      <a href="#" class="vl-btn vl-btn-primary">Record Observation</a>
+      <a href="#" class="vl-btn vl-btn-secondary">View Transects</a>
+      <a href="#" class="vl-btn vl-btn-outline">Export Data</a>
+      <a href="#" class="vl-btn vl-btn-ghost">Dismiss</a>
+    </div>
+  </div>
+
+  <div class="vl-section">
+    <div class="vl-section-title">Field Stats</div>
+    <div class="vl-stats">
+      <div class="vl-stat"><div class="vl-stat-value">247</div><div class="vl-stat-label">Species Logged</div></div>
+      <div class="vl-stat"><div class="vl-stat-value">18.4km</div><div class="vl-stat-label">Transect Length</div></div>
+      <div class="vl-stat"><div class="vl-stat-value">78%</div><div class="vl-stat-label">Canopy Cover</div></div>
+      <div class="vl-stat"><div class="vl-stat-value">6.2</div><div class="vl-stat-label">pH Soil Avg</div></div>
+    </div>
+  </div>
+
+  <div class="vl-section">
+    <div class="vl-section-title">Observation Cards</div>
+    <div class="vl-card-grid">
+      <div class="vl-card vl-card-accent">
+        <span class="vl-card-tag">Flora · Canopy</span>
+        <h3>Quercus robur</h3>
+        <p>English oak dominant species. Average height 24m, crown spread 18m. Phenology — leaf-out April 12, senescence October 28.</p>
+        <div class="vl-card-meta">Sample N=47 · Transect B4-North</div>
+      </div>
+      <div class="vl-card">
+        <span class="vl-card-tag">Fauna · Avian</span>
+        <h3>Great Spotted Woodpecker</h3>
+        <p>Dendrocopos major, confirmed breeding pair at grid ref 14E. Three nest cavities identified in mature oak stands.</p>
+        <div class="vl-card-meta">Audio recorded · 06:40 GMT</div>
+      </div>
+      <div class="vl-card">
+        <span class="vl-card-tag">Soil · Chemistry</span>
+        <h3>Humus Layer Analysis</h3>
+        <p>Organic matter content 8.4%, nitrogen 0.34%. Earthworm density 280/m². Significant mycorrhizal network activity detected.</p>
+        <div class="vl-card-meta">Core sample C-7 · Depth 0–15cm</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vl-section">
+    <div class="vl-section-title">Log Entry Form</div>
+    <div class="vl-form-grid">
+      <div class="vl-form-group">
+        <label class="vl-label">Species Name</label>
+        <input class="vl-input" type="text" placeholder="Scientific binomial...">
+      </div>
+      <div class="vl-form-group">
+        <label class="vl-label">Grid Reference</label>
+        <input class="vl-input" type="text" placeholder="e.g. 14E / B4-N">
+      </div>
+      <div class="vl-form-group">
+        <label class="vl-label">Category</label>
+        <select class="vl-select vl-input">
+          <option>Flora</option><option>Fauna</option><option>Fungi</option><option>Soil</option>
+        </select>
+      </div>
+      <div class="vl-form-group">
+        <label class="vl-label">Observer</label>
+        <input class="vl-input" type="text" placeholder="Field researcher ID">
+      </div>
+    </div>
+    <div class="vl-form-group">
+      <label class="vl-label">Field Notes</label>
+      <textarea class="vl-input vl-textarea" placeholder="Describe habitat, behaviour, condition indicators..."></textarea>
+    </div>
+    <div class="vl-btn-row">
+      <a href="#" class="vl-btn vl-btn-primary">Submit Record</a>
+      <a href="#" class="vl-btn vl-btn-ghost">Clear Form</a>
+    </div>
+  </div>
+
+  <div class="vl-section">
+    <div class="vl-section-title">Badges & Status</div>
+    <div class="vl-badge-row">
+      <span class="vl-badge vl-badge-primary">Active Survey</span>
+      <span class="vl-badge vl-badge-secondary">Old Growth</span>
+      <span class="vl-badge vl-badge-success">Verified</span>
+      <span class="vl-badge vl-badge-warning">Pending Review</span>
+      <span class="vl-badge vl-badge-error">Invasive Species</span>
+    </div>
+  </div>
+
+  <div class="vl-section">
+    <div class="vl-section-title">Gradients & Effects</div>
+    <div class="vl-effects-grid">
+      <div class="vl-effect-tile">
+        <div class="vl-glow-demo"></div>
+        <span>Primary Glow</span>
+      </div>
+      <div class="vl-effect-tile">
+        <div class="vl-gradient-text-demo">Verdant</div>
+        <span>Gradient Text</span>
+      </div>
+      <div class="vl-effect-tile">
+        <div class="vl-gradient-bar"></div>
+        <span>Accent Gradient</span>
+      </div>
+      <div class="vl-effect-tile">
+        <div class="vl-noise-demo"></div>
+        <span>Grain Texture</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

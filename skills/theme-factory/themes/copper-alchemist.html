@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="copper-alchemist">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copper Alchemist — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Source+Code+Pro:ital,wght@0,300;0,400;1,300&display=swap">
+  <script id="theme-data" type="application/json">{
+    "name": "copper-alchemist",
+    "description": "Dark steampunk — near-black brown canvas, copper primary, verdigris patina secondary, burnished gold accent. Diagonal lattice background. Josefin Slab display + Lora body.",
+    "createdAt": "2026-06-21T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#160E08",
+      "image": "repeating-linear-gradient(45deg, rgba(200,120,48,0.05) 0, rgba(200,120,48,0.05) 1px, transparent 0, transparent 50%), repeating-linear-gradient(-45deg, rgba(200,120,48,0.05) 0, rgba(200,120,48,0.05) 1px, transparent 0, transparent 50%)",
+      "size": "20px 20px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "grid",
+      "patternColor": "rgba(200,120,48,0.05)",
+      "patternOpacity": "0.05",
+      "patternSpacing": "20px",
+      "notes": "Diagonal crosshatch lattice in muted copper on near-black — wrought iron grating over forge darkness"
+    },
+    "colors": {
+      "primary": "#C87830",
+      "primaryLight": "#3A1E08",
+      "secondary": "#4A9090",
+      "accent": "#E8B840",
+      "background": "#160E08",
+      "surface": "#1E1408",
+      "surfaceAlt": "#261A0A",
+      "text": "#D8C8A0",
+      "textMuted": "#8A7850",
+      "textOnPrimary": "#160E08",
+      "border": "#3A2810",
+      "success": "#4A8A50",
+      "warning": "#C87830",
+      "error": "#B04040"
+    },
+    "typography": {
+      "fontFamily": "'Lora', Georgia, serif",
+      "fontFamilyMono": "'Source Code Pro', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Josefin Slab', Georgia, serif",
+      "scaleBase": "16px",
+      "headingWeight": "700",
+      "bodyWeight": "400",
+      "lineHeight": "1.75"
+    },
+    "spacing": {
+      "borderRadius": "3px",
+      "cardRadius": "4px",
+      "buttonRadius": "2px",
+      "spaceUnit": "8px",
+      "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 1px 4px rgba(8,4,2,0.7)",
+      "md": "0 4px 16px rgba(8,4,2,0.75)",
+      "lg": "0 8px 32px rgba(8,4,2,0.8)",
+      "xl": "0 16px 48px rgba(8,4,2,0.85)",
+      "colored": "0 4px 20px rgba(200,120,48,0.4)",
+      "inset": "inset 0 2px 6px rgba(8,4,2,0.8)",
+      "elevation": "dramatic"
+    },
+    "gradients": {
+      "hero": "linear-gradient(160deg, #261A0A 0%, #160E08 55%, #120A04 100%)",
+      "card": "linear-gradient(180deg, #201608 0%, #1A1006 100%)",
+      "button": "linear-gradient(135deg, #D88A38 0%, #A86020 100%)",
+      "text": "linear-gradient(135deg, #E8B840 0%, #C87830 50%, #8A5018 100%)",
+      "accent": "linear-gradient(90deg, #C87830 0%, #4A9090 100%)"
+    },
+    "effects": {
+      "luminescence": "medium",
+      "glowColor": "#C87830",
+      "glowBlur": "18px",
+      "glowSm": "0 0 6px rgba(200,120,48,0.4)",
+      "glowMd": "0 0 18px rgba(200,120,48,0.45), 0 0 36px rgba(200,120,48,0.18)",
+      "glowLg": "0 0 36px rgba(200,120,48,0.5)",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "linear-gradient(135deg, #C87830, #4A9090, #E8B840)",
+      "noiseOpacity": "0",
+      "textShadow": "0 0 24px rgba(200,120,48,0.35)",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "120ms",
+      "durationBase": "220ms",
+      "durationSlow": "380ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["steampunk", "industrial", "alchemical", "warm-dark"],
+      "borderStyle": "hairline",
+      "iconStyle": "sharp",
+      "imageStyle": "illustrative",
+      "surfaceTexture": "flat",
+      "hierarchyClarity": "high",
+      "notes": "Copper/verdigris/gold triad. Josefin Slab display + Lora body = Victorian precision. Diagonal copper lattice bg. Warm forge glow."
+    }
+  }</script>
+  <style>
+    :root {
+      --color-primary: #C87830;
+      --color-primary-light: #3A1E08;
+      --color-secondary: #4A9090;
+      --color-accent: #E8B840;
+      --color-bg: #160E08;
+      --color-surface: #1E1408;
+      --color-surface-alt: #261A0A;
+      --color-text: #D8C8A0;
+      --color-text-muted: #8A7850;
+      --color-text-on-primary: #160E08;
+      --color-border: #3A2810;
+      --color-success: #4A8A50;
+      --color-warning: #C87830;
+      --color-error: #B04040;
+
+      --font-family: 'Lora', Georgia, serif;
+      --font-family-mono: 'Source Code Pro', 'Courier New', monospace;
+      --font-family-display: 'Josefin Slab', Georgia, serif;
+
+      --radius-sm: 2px; --radius-md: 3px; --radius-lg: 4px;
+      --radius-xl: 6px; --radius-button: 2px; --radius-card: 4px;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 1px 4px rgba(8,4,2,0.7);
+      --shadow-md: 0 4px 16px rgba(8,4,2,0.75);
+      --shadow-lg: 0 8px 32px rgba(8,4,2,0.8);
+      --shadow-xl: 0 16px 48px rgba(8,4,2,0.85);
+      --shadow-colored: 0 4px 20px rgba(200,120,48,0.4);
+      --shadow-inset: inset 0 2px 6px rgba(8,4,2,0.8);
+
+      --gradient-hero: linear-gradient(160deg, #261A0A 0%, #160E08 55%, #120A04 100%);
+      --gradient-card: linear-gradient(180deg, #201608 0%, #1A1006 100%);
+      --gradient-button: linear-gradient(135deg, #D88A38 0%, #A86020 100%);
+      --gradient-text: linear-gradient(135deg, #E8B840 0%, #C87830 50%, #8A5018 100%);
+      --gradient-accent: linear-gradient(90deg, #C87830 0%, #4A9090 100%);
+      --border-gradient: linear-gradient(135deg, #C87830, #4A9090, #E8B840);
+
+      --glow-sm: 0 0 6px rgba(200,120,48,0.4);
+      --glow-md: 0 0 18px rgba(200,120,48,0.45), 0 0 36px rgba(200,120,48,0.18);
+      --glow-lg: 0 0 36px rgba(200,120,48,0.5);
+      --glass-blur: 0; --glass-tint: transparent;
+      --backdrop-filter: none; --noise-opacity: 0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px; line-height: 1.75;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image: repeating-linear-gradient(45deg, rgba(200,120,48,0.05) 0, rgba(200,120,48,0.05) 1px, transparent 0, transparent 50%), repeating-linear-gradient(-45deg, rgba(200,120,48,0.05) 0, rgba(200,120,48,0.05) 1px, transparent 0, transparent 50%);
+      background-size: 20px 20px;
+      min-height: 100vh;
+    }
+
+    h1,h2,h3,h4 { font-family: var(--font-family-display); letter-spacing: 0.03em; }
+    code, pre { font-family: var(--font-family-mono); }
+
+    .ca-header {
+      background: var(--gradient-hero);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-16) var(--space-8);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .ca-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(200,120,48,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .ca-header-tag {
+      font-family: var(--font-family-mono); font-size: 10px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--color-accent); margin-bottom: var(--space-3); display: block;
+    }
+    .ca-header h1 {
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      color: var(--color-text); line-height: 1.1;
+      margin-bottom: var(--space-4);
+      text-shadow: var(--glow-md);
+    }
+    .ca-header p { font-size: 1rem; color: var(--color-text-muted); max-width: 520px; margin: 0 auto; font-style: italic; }
+
+    .ca-section { padding: var(--space-12) var(--space-8); max-width: 960px; margin: 0 auto; }
+    .ca-section-title {
+      font-family: var(--font-family-mono); font-size: 10px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: var(--space-2); margin-bottom: var(--space-6);
+    }
+
+    .ca-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: var(--space-2); }
+    .ca-swatch { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); }
+    .ca-swatch-color { height: 52px; }
+    .ca-swatch-label { font-family: var(--font-family-mono); font-size: 9px; padding: 4px 6px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    .ca-type-stack > * + * { margin-top: var(--space-3); }
+    .ca-display { font-family: var(--font-family-display); font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 700; color: var(--color-text); letter-spacing: 0.04em; line-height: 1.1; }
+    .ca-h2 { font-family: var(--font-family-display); font-size: 1.7rem; color: var(--color-text); }
+    .ca-h3 { font-family: var(--font-family-display); font-size: 1.15rem; color: var(--color-text); }
+    .ca-body { font-size: 1rem; color: var(--color-text); font-style: italic; line-height: 1.75; }
+    .ca-muted { font-size: 0.875rem; color: var(--color-text-muted); }
+    .ca-mono { font-family: var(--font-family-mono); font-size: 0.8rem; color: var(--color-accent); font-weight: 300; }
+
+    .ca-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .ca-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 10px 22px; border-radius: var(--radius-button);
+      font-family: var(--font-family-display); font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border: none;
+      transition: all 220ms ease;
+    }
+    .ca-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); }
+    .ca-btn-primary:hover { box-shadow: var(--glow-md); transform: translateY(-1px); }
+    .ca-btn-secondary { background: transparent; color: var(--color-secondary); border: 1px solid var(--color-secondary); }
+    .ca-btn-secondary:hover { background: rgba(74,144,144,0.1); }
+    .ca-btn-outline { background: transparent; color: var(--color-text); border: 1px solid var(--color-border); }
+    .ca-btn-outline:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .ca-btn-ghost { background: transparent; color: var(--color-text-muted); border: none; }
+    .ca-btn-ghost:hover { color: var(--color-text); }
+
+    .ca-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
+    .ca-card {
+      background: var(--gradient-card); border: 1px solid var(--color-border);
+      border-radius: var(--radius-card); padding: var(--space-6);
+      box-shadow: var(--shadow-md);
+      transition: box-shadow 220ms ease, transform 220ms ease;
+    }
+    .ca-card:hover { box-shadow: var(--shadow-colored); transform: translateY(-2px); }
+    .ca-card-accent { border-top: 2px solid var(--color-primary); }
+    .ca-card-tag { font-family: var(--font-family-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent); margin-bottom: var(--space-2); display: block; }
+    .ca-card h3 { font-size: 1.1rem; color: var(--color-text); margin-bottom: var(--space-2); }
+    .ca-card p { font-size: 0.875rem; color: var(--color-text-muted); line-height: 1.65; font-style: italic; }
+    .ca-card-meta { font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-muted); margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+
+    .ca-form-group { margin-bottom: var(--space-4); }
+    .ca-label { display: block; font-family: var(--font-family-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 6px; }
+    .ca-input {
+      width: 100%; padding: 10px 14px;
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); color: var(--color-text);
+      font-family: var(--font-family); font-size: 0.95rem;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+    .ca-input::placeholder { color: var(--color-text-muted); }
+    .ca-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(200,120,48,0.15); }
+    .ca-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+
+    .ca-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .ca-badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 2px; font-family: var(--font-family-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid; }
+    .ca-badge-primary { color: var(--color-accent); border-color: var(--color-primary); background: var(--color-primary-light); }
+    .ca-badge-secondary { color: var(--color-secondary); border-color: var(--color-secondary); background: rgba(74,144,144,0.1); }
+    .ca-badge-success { color: var(--color-success); border-color: var(--color-success); background: rgba(74,138,80,0.1); }
+    .ca-badge-warning { color: var(--color-warning); border-color: var(--color-warning); background: rgba(200,120,48,0.1); }
+    .ca-badge-error { color: var(--color-error); border-color: var(--color-error); background: rgba(176,64,64,0.1); }
+
+    .ca-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .ca-effect-tile {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg); padding: var(--space-6);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: var(--space-3); min-height: 100px;
+      font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-muted); text-align: center;
+    }
+    .ca-glow-demo { width: 44px; height: 44px; border-radius: 50%; background: var(--color-primary); box-shadow: var(--glow-md); }
+    .ca-gradient-text-demo { font-family: var(--font-family-display); font-size: 1.8rem; font-weight: 700; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .ca-gradient-bar { height: 8px; border-radius: 3px; background: var(--gradient-accent); width: 100%; }
+    .ca-border-demo { width: 80%; height: 2px; background: var(--border-gradient); }
+  </style>
+</head>
+<body>
+
+  <header class="ca-header">
+    <span class="ca-header-tag">The Alchemical Workshop · Transmission No. VII</span>
+    <h1>Copper Alchemist</h1>
+    <p><em>Where base metals yield to fire, and the patient hand transforms raw matter into something of enduring worth.</em></p>
+  </header>
+
+  <div class="ca-section">
+    <div class="ca-section-title">Color Palette</div>
+    <div class="ca-swatches">
+      <div class="ca-swatch"><div class="ca-swatch-color" style="background:#C87830"></div><div class="ca-swatch-label">Copper<br>#C87830</div></div>
+      <div class="ca-swatch"><div class="ca-swatch-color" style="background:#4A9090"></div><div class="ca-swatch-label">Verdigris<br>#4A9090</div></div>
+      <div class="ca-swatch"><div class="ca-swatch-color" style="background:#E8B840"></div><div class="ca-swatch-label">Gold<br>#E8B840</div></div>
+      <div class="ca-swatch"><div class="ca-swatch-color" style="background:#160E08"></div><div class="ca-swatch-label">Forge<br>#160E08</div></div>
+      <div class="ca-swatch"><div class="ca-swatch-color" style="background:#1E1408"></div><div class="ca-swatch-label">Ember<br>#1E1408</div></div>
+      <div class="ca-swatch"><div class="ca-swatch-color" style="background:#D8C8A0"></div><div class="ca-swatch-label">Parchment<br>#D8C8A0</div></div>
+      <div class="ca-swatch"><div class="ca-swatch-color" style="background:#4A8A50"></div><div class="ca-swatch-label">Patina<br>#4A8A50</div></div>
+      <div class="ca-swatch"><div class="ca-swatch-color" style="background:#B04040"></div><div class="ca-swatch-label">Cinnabar<br>#B04040</div></div>
+    </div>
+  </div>
+
+  <div class="ca-section">
+    <div class="ca-section-title">Typography</div>
+    <div class="ca-type-stack">
+      <div class="ca-display">Josefin Slab — Alchemical Index</div>
+      <div class="ca-h2">Transmutation Theory H2</div>
+      <div class="ca-h3">Workshop Inventory H3</div>
+      <div class="ca-body">Lora italic body: The reduction of cuprite ore proceeds in three stages. First, the calcination at 980°C to drive off volatile sulfides. Then the smelting reduction with charcoal, and finally the refining in an oxidising atmosphere to remove final impurities. Yield: 94.7% pure copper, suitable for wire drawing.</div>
+      <div class="ca-muted">Workshop Record · Volume XIV · Entry 2026-06-21</div>
+      <div class="ca-mono">Cu + O₂ → CuO · ΔH = −156 kJ/mol · purity=94.7%</div>
+    </div>
+  </div>
+
+  <div class="ca-section">
+    <div class="ca-section-title">Buttons</div>
+    <div class="ca-btn-row">
+      <a href="#" class="ca-btn ca-btn-primary">Begin Reduction</a>
+      <a href="#" class="ca-btn ca-btn-secondary">View Formulae</a>
+      <a href="#" class="ca-btn ca-btn-outline">Log Entry</a>
+      <a href="#" class="ca-btn ca-btn-ghost">Dismiss</a>
+    </div>
+  </div>
+
+  <div class="ca-section">
+    <div class="ca-section-title">Workshop Inventory</div>
+    <div class="ca-card-grid">
+      <div class="ca-card ca-card-accent">
+        <span class="ca-card-tag">Metal · Primary</span>
+        <h3>Cuprous Oxide</h3>
+        <p>Cu₂O, raw ore from the northern seams. Pre-calcined, moisture content below 0.3%. Ready for primary smelting furnace.</p>
+        <div class="ca-card-meta">Stock: 847 kg · Location: Bay 3-South</div>
+      </div>
+      <div class="ca-card">
+        <span class="ca-card-tag">Apparatus · Heating</span>
+        <h3>Reverberatory Furnace</h3>
+        <p>Firebrick-lined, coal-fired. Maximum continuous temperature 1,200°C. Last serviced and relined June 14th.</p>
+        <div class="ca-card-meta">Status: Ready · Temp: 820°C</div>
+      </div>
+      <div class="ca-card">
+        <span class="ca-card-tag">Product · Refined</span>
+        <h3>Drawn Wire Stock</h3>
+        <p>99.1% purity copper wire, gauge 18AWG–4AWG. Annealed for maximum ductility. Coiled and ready for dispatch.</p>
+        <div class="ca-card-meta">Batch CA-0447 · 2,340 metres</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ca-section">
+    <div class="ca-section-title">Workshop Log</div>
+    <div class="ca-form-grid">
+      <div class="ca-form-group">
+        <label class="ca-label">Process Stage</label>
+        <input class="ca-input" type="text" placeholder="Calcination, Smelting…">
+      </div>
+      <div class="ca-form-group">
+        <label class="ca-label">Temperature °C</label>
+        <input class="ca-input" type="number" placeholder="980">
+      </div>
+      <div class="ca-form-group">
+        <label class="ca-label">Input Material</label>
+        <input class="ca-input" type="text" placeholder="Cu₂O, CuFeS₂…">
+      </div>
+      <div class="ca-form-group">
+        <label class="ca-label">Yield %</label>
+        <input class="ca-input" type="number" placeholder="94.7">
+      </div>
+    </div>
+    <div class="ca-btn-row">
+      <a href="#" class="ca-btn ca-btn-primary">Record Process</a>
+      <a href="#" class="ca-btn ca-btn-ghost">Cancel</a>
+    </div>
+  </div>
+
+  <div class="ca-section">
+    <div class="ca-section-title">Badges & Status</div>
+    <div class="ca-badge-row">
+      <span class="ca-badge ca-badge-primary">Active Furnace</span>
+      <span class="ca-badge ca-badge-secondary">Patinated</span>
+      <span class="ca-badge ca-badge-success">Refined</span>
+      <span class="ca-badge ca-badge-warning">Calcining</span>
+      <span class="ca-badge ca-badge-error">Contaminated</span>
+    </div>
+  </div>
+
+  <div class="ca-section">
+    <div class="ca-section-title">Gradients & Effects</div>
+    <div class="ca-effects-grid">
+      <div class="ca-effect-tile">
+        <div class="ca-glow-demo"></div>
+        <span>Copper Forge Glow</span>
+      </div>
+      <div class="ca-effect-tile">
+        <div class="ca-gradient-text-demo">Aurum</div>
+        <span>Gradient Text</span>
+      </div>
+      <div class="ca-effect-tile">
+        <div class="ca-gradient-bar"></div>
+        <span>Copper→Verdigris</span>
+      </div>
+      <div class="ca-effect-tile">
+        <div class="ca-border-demo"></div>
+        <span>Alchemical Border</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

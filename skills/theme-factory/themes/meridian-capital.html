@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="meridian-capital">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: Meridian Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600&family=Libre+Franklin:wght@300;400;500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "meridian-capital",
+    "description": "Warm champagne canvas with cobalt-gold-rose 3-layer radial gradient mesh. Cormorant Garamond display paired with Libre Franklin body. Luxury investment bank meets editorial magazine — diagonal gold accent, overlapping metric cards, tricolor gradient border system.",
+    "createdAt": "2026-06-22T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "gradient",
+      "baseColor": "#F4EDD8",
+      "image": "radial-gradient(ellipse at 15% 25%, rgba(26,75,204,0.12) 0%, transparent 45%), radial-gradient(ellipse at 85% 15%, rgba(212,160,32,0.15) 0%, transparent 45%), radial-gradient(ellipse at 65% 80%, rgba(232,92,106,0.09) 0%, transparent 40%)",
+      "size": "cover", "position": "0 0", "repeat": "no-repeat",
+      "patternType": "none", "patternColor": "none", "patternOpacity": "0", "patternSpacing": "none",
+      "notes": "3-layer radial mesh: cobalt 12%, old gold 15%, rose-coral 9% on warm champagne #F4EDD8"
+    },
+    "colors": {
+      "primary": "#1A4BCC", "primaryLight": "#C8D8F5", "secondary": "#D4A020", "accent": "#E85C6A",
+      "background": "#F4EDD8", "surface": "#EDE4CC", "surfaceAlt": "#E5DABD",
+      "text": "#1A1E2E", "textMuted": "#6A6452", "textOnPrimary": "#F4EDD8",
+      "border": "#C8BEA0", "success": "#1E7A50", "warning": "#C88A20", "error": "#C43A2A"
+    },
+    "typography": {
+      "fontFamily": "'Libre Franklin', 'Helvetica Neue', sans-serif",
+      "fontFamilyMono": "'Courier Prime', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Cormorant Garamond', Georgia, serif",
+      "scaleBase": "16px", "headingWeight": "700", "bodyWeight": "300", "lineHeight": "1.7"
+    },
+    "spacing": { "borderRadius": "4px", "cardRadius": "8px", "buttonRadius": "3px", "spaceUnit": "8px", "density": "comfortable" },
+    "shadows": {
+      "sm": "0 2px 8px rgba(26,30,46,0.08)", "md": "0 4px 20px rgba(26,30,46,0.12)",
+      "lg": "0 8px 40px rgba(26,30,46,0.16)", "xl": "0 16px 60px rgba(26,30,46,0.20)",
+      "colored": "0 4px 24px rgba(26,75,204,0.25)", "inset": "inset 0 2px 8px rgba(26,30,46,0.08)", "elevation": "layered"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #F0E5C8 0%, #F4EDD8 50%, #EDE4CC 100%)",
+      "card": "linear-gradient(180deg, #EDE4CC 0%, #E8DFCA 100%)",
+      "button": "linear-gradient(135deg, #2A5BE0 0%, #1A3AAA 100%)",
+      "text": "linear-gradient(135deg, #1A4BCC 0%, #8A3498 50%, #D4A020 100%)",
+      "accent": "linear-gradient(90deg, #1A4BCC 0%, #E85C6A 100%)"
+    },
+    "effects": {
+      "luminescence": "subtle", "glowColor": "#D4A020", "glowBlur": "16px",
+      "glowSm": "0 0 6px rgba(212,160,32,0.2)", "glowMd": "0 0 16px rgba(212,160,32,0.3)", "glowLg": "0 0 32px rgba(212,160,32,0.35)",
+      "glassBlur": "0", "glassTint": "none", "gradientBorder": "linear-gradient(135deg, #1A4BCC, #D4A020, #E85C6A)",
+      "noiseOpacity": "0", "textShadow": "none", "backdropFilter": "none"
+    },
+    "motion": { "durationFast": "120ms", "durationBase": "240ms", "durationSlow": "400ms", "easing": "cubic-bezier(0.4, 0, 0.2, 1)", "feel": "subtle" },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["light", "formal", "super-unrealistic", "investment", "luxe"],
+      "borderStyle": "hairline", "iconStyle": "sharp", "imageStyle": "none", "surfaceTexture": "gradient", "hierarchyClarity": "high",
+      "notes": "Cormorant Garamond 700 (tall elegant serif) + Libre Franklin 300. 3-layer radial gradient mesh bg. Diagonal gold accent bar. Investment portfolio showcase."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #F4EDD8;
+      --bg-image: radial-gradient(ellipse at 15% 25%, rgba(26,75,204,0.12) 0%, transparent 45%), radial-gradient(ellipse at 85% 15%, rgba(212,160,32,0.15) 0%, transparent 45%), radial-gradient(ellipse at 65% 80%, rgba(232,92,106,0.09) 0%, transparent 40%);
+      --bg-size: cover; --bg-position: 0 0; --bg-repeat: no-repeat;
+      --color-primary: #1A4BCC; --color-primary-light: #C8D8F5; --color-secondary: #D4A020; --color-accent: #E85C6A;
+      --color-bg: #F4EDD8; --color-surface: #EDE4CC; --color-surface-alt: #E5DABD;
+      --color-text: #1A1E2E; --color-text-muted: #6A6452; --color-text-on-primary: #F4EDD8;
+      --color-border: #C8BEA0; --color-success: #1E7A50; --color-warning: #C88A20; --color-error: #C43A2A;
+      --font-family: 'Libre Franklin', 'Helvetica Neue', sans-serif;
+      --font-family-mono: 'Courier Prime', 'Courier New', monospace;
+      --font-family-display: 'Cormorant Garamond', Georgia, serif;
+      --font-size-base: 16px; --font-weight-heading: 700; --font-weight-body: 300; --line-height: 1.7;
+      --radius: 4px; --radius-card: 8px; --radius-button: 3px;
+      --shadow-sm: 0 2px 8px rgba(26,30,46,0.08); --shadow-md: 0 4px 20px rgba(26,30,46,0.12);
+      --shadow-lg: 0 8px 40px rgba(26,30,46,0.16); --shadow-xl: 0 16px 60px rgba(26,30,46,0.20);
+      --shadow-colored: 0 4px 24px rgba(26,75,204,0.25); --shadow-inset: inset 0 2px 8px rgba(26,30,46,0.08);
+      --gradient-hero: linear-gradient(135deg, #F0E5C8 0%, #F4EDD8 50%, #EDE4CC 100%);
+      --gradient-card: linear-gradient(180deg, #EDE4CC 0%, #E8DFCA 100%);
+      --gradient-button: linear-gradient(135deg, #2A5BE0 0%, #1A3AAA 100%);
+      --gradient-text: linear-gradient(135deg, #1A4BCC 0%, #8A3498 50%, #D4A020 100%);
+      --gradient-accent: linear-gradient(90deg, #1A4BCC 0%, #E85C6A 100%);
+      --glow-color: #D4A020; --glow-sm: 0 0 6px rgba(212,160,32,0.2);
+      --glow-md: 0 0 16px rgba(212,160,32,0.3); --glow-lg: 0 0 32px rgba(212,160,32,0.35);
+      --glass-blur: 0; --glass-tint: none; --backdrop-filter: none; --text-shadow: none;
+      --border-gradient: linear-gradient(135deg, #1A4BCC, #D4A020, #E85C6A); --noise-opacity: 0;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 120ms; --duration-base: 240ms; --duration-slow: 400ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1); --border-width: 1px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-base); background-image: var(--bg-image);
+      background-size: cover; background-attachment: fixed;
+      color: var(--color-text); font-family: var(--font-family);
+      font-size: var(--font-size-base); font-weight: 300; line-height: 1.7; min-height: 100vh;
+    }
+    .hero {
+      position: relative; padding: 4rem 3.5rem 3rem; overflow: hidden;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -20%; right: -40px; width: 38%; height: 140%;
+      background: linear-gradient(180deg, rgba(212,160,32,0.18) 0%, rgba(232,92,106,0.08) 100%);
+      transform: skewX(-10deg); pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 3.5rem; right: 3.5rem;
+      height: 3px; background: var(--gradient-accent);
+    }
+    .tone-tags { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .tag {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.18rem 0.6rem; border-radius: 2px; border: 1px solid;
+    }
+    .tag-light { background: rgba(26,75,204,0.08); color: #1A4BCC; border-color: rgba(26,75,204,0.3); }
+    .tag-formal { background: rgba(212,160,32,0.1); color: #9A7010; border-color: rgba(212,160,32,0.4); }
+    .tag-unrealistic { background: rgba(232,92,106,0.1); color: #B83048; border-color: rgba(232,92,106,0.35); }
+    .tag-topic { background: var(--color-surface); color: var(--color-text-muted); border-color: var(--color-border); }
+    .hero-eyebrow {
+      font-family: var(--font-family-mono); font-size: 0.72rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.5rem;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 700;
+      line-height: 0.95; letter-spacing: -0.03em;
+      background: var(--gradient-text);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 0.85rem;
+    }
+    .hero-sub {
+      font-weight: 300; font-size: 1.05rem; max-width: 520px;
+      color: var(--color-text-muted); line-height: 1.65;
+    }
+    .metrics-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem; margin-top: 2.5rem;
+    }
+    .metric-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-card); padding: 1.25rem 1.1rem;
+      box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+      transition: box-shadow var(--duration-base) var(--easing), transform var(--duration-base) var(--easing);
+    }
+    .metric-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .metric-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--gradient-accent);
+    }
+    .metric-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.45rem; }
+    .metric-value { font-family: 'Courier Prime', monospace; font-size: 2rem; font-weight: 700; color: var(--color-primary); line-height: 1; letter-spacing: -0.02em; }
+    .metric-delta { font-size: 0.75rem; margin-top: 0.3rem; font-weight: 600; }
+    .up { color: var(--color-success); } .down { color: var(--color-error); }
+    .section { padding: 2.5rem 3.5rem; border-bottom: 1px solid var(--color-border); }
+    .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600;
+      color: var(--color-text); border-left: 3px solid var(--color-secondary); padding-left: 0.85rem;
+    }
+    .section-sub { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); }
+    .type-scale { display: flex; flex-direction: column; gap: 0.7rem; }
+    .t-display { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 700; line-height: 0.95; letter-spacing: -0.03em; color: var(--color-text); }
+    .t-h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--color-text); }
+    .t-h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; font-style: italic; color: var(--color-primary); }
+    .t-body { font-weight: 300; font-size: 1rem; color: var(--color-text); max-width: 620px; line-height: 1.7; }
+    .t-small { font-size: 0.82rem; color: var(--color-text-muted); font-weight: 400; }
+    .t-mono { font-family: 'Courier Prime', monospace; font-size: 0.875rem; background: var(--color-surface-alt); padding: 0.3rem 0.6rem; border-radius: var(--radius); color: var(--color-text); display: inline-block; }
+    .swatches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 0.65rem; }
+    .swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .swatch-color { height: 52px; }
+    .swatch-info { background: var(--color-surface); padding: 0.4rem 0.5rem; }
+    .swatch-name { font-size: 0.72rem; font-weight: 600; color: var(--color-text); }
+    .swatch-hex { font-size: 0.66rem; font-family: 'Courier Prime', monospace; color: var(--color-text-muted); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .btn {
+      padding: 0.55rem 1.3rem; border-radius: var(--radius-button);
+      font-family: 'Libre Franklin', sans-serif; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; border: none; letter-spacing: 0.05em; text-transform: uppercase;
+      transition: all var(--duration-fast) var(--easing);
+    }
+    .btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); }
+    .btn-primary:hover { box-shadow: var(--glow-md); transform: translateY(-1px); }
+    .btn-secondary { background: var(--color-secondary); color: #F4EDD8; }
+    .btn-secondary:hover { opacity: 0.88; }
+    .btn-outline { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-ghost { background: var(--color-surface-alt); color: var(--color-text); }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .card {
+      background: var(--gradient-card); border: 1px solid var(--color-border);
+      border-radius: var(--radius-card); padding: 1.5rem; box-shadow: var(--shadow-md);
+      transition: box-shadow var(--duration-base) var(--easing), transform var(--duration-base) var(--easing);
+    }
+    .card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.5rem; }
+    .card p { font-size: 0.875rem; color: var(--color-text-muted); font-weight: 300; line-height: 1.6; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .data-table th {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--color-text-muted); text-align: left; padding: 0.6rem 1rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+    .data-table td { padding: 0.9rem 1rem; border-bottom: 1px solid var(--color-border); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(26,75,204,0.04); }
+    .bar-track { height: 5px; background: var(--color-surface-alt); border-radius: 3px; width: 100px; }
+    .bar-fill { height: 100%; border-radius: 3px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .badge { padding: 0.2rem 0.7rem; border-radius: 2px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid; }
+    .badge-primary { background: rgba(26,75,204,0.09); color: #1A4BCC; border-color: rgba(26,75,204,0.28); }
+    .badge-success { background: rgba(30,122,80,0.09); color: #1E7A50; border-color: rgba(30,122,80,0.28); }
+    .badge-warning { background: rgba(200,138,32,0.09); color: #9A6810; border-color: rgba(200,138,32,0.28); }
+    .badge-error { background: rgba(196,58,42,0.09); color: #C43A2A; border-color: rgba(196,58,42,0.28); }
+    .badge-accent { background: rgba(232,92,106,0.09); color: #B83048; border-color: rgba(232,92,106,0.28); }
+    .form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-label { font-size: 0.72rem; font-weight: 700; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .form-input {
+      padding: 0.55rem 0.85rem; border: 1.5px solid var(--color-border);
+      border-radius: var(--radius); background: var(--color-surface); color: var(--color-text);
+      font-family: 'Libre Franklin', sans-serif; font-size: 0.9rem; font-weight: 300;
+      box-shadow: var(--shadow-inset); outline: none;
+      transition: border-color var(--duration-fast) var(--easing);
+    }
+    .form-input:focus { border-color: var(--color-primary); }
+    .effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .effect-tile { background: var(--color-surface); border-radius: var(--radius-card); padding: 1.25rem; border: 1px solid var(--color-border); display: flex; flex-direction: column; gap: 0.75rem; }
+    .effect-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); font-family: 'Courier Prime', monospace; }
+    .gradient-text-demo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
+    .glow-demo { padding: 0.75rem 1rem; border-radius: var(--radius-card); background: var(--color-surface-alt); border: 1px solid var(--color-border); box-shadow: var(--glow-md); text-align: center; font-weight: 700; color: var(--glow-color); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; }
+    .colored-shadow-demo { padding: 0.75rem 1rem; border-radius: var(--radius); background: var(--color-primary); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); font-weight: 600; font-size: 0.85rem; text-align: center; }
+    .gb-demo {
+      padding: 0.75rem 1rem; border-radius: var(--radius-card); background: var(--color-surface);
+      position: relative; font-size: 0.82rem; color: var(--color-text-muted);
+    }
+    .gb-demo::before {
+      content: ''; position: absolute; inset: 0; border-radius: var(--radius-card); padding: 1.5px;
+      background: var(--border-gradient);
+      -webkit-mask: linear-gradient(#F4EDD8 0 0) content-box, linear-gradient(#F4EDD8 0 0);
+      mask: linear-gradient(#F4EDD8 0 0) content-box, linear-gradient(#F4EDD8 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+    }
+    .inset-demo { background: var(--color-surface-alt); border-radius: var(--radius); padding: 0.6rem 1rem; box-shadow: var(--shadow-inset); border: 1px solid var(--color-border); font-size: 0.82rem; color: var(--color-text-muted); font-family: 'Courier Prime', monospace; }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="tone-tags">
+      <span class="tag tag-light">Light</span>
+      <span class="tag tag-formal">Formal</span>
+      <span class="tag tag-unrealistic">Super-Unrealistic</span>
+      <span class="tag tag-topic">Investment</span>
+    </div>
+    <div class="hero-eyebrow">Theme Showcase · Meridian Capital</div>
+    <h1 class="hero-title">Meridian<br>Capital</h1>
+    <p class="hero-sub">Where precision portfolio management meets editorial luxury. Cobalt authority, old gold warmth, and rose-coral accent — on a three-layer gradient champagne stage.</p>
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-label">Total AUM</div>
+        <div class="metric-value">$4.2B</div>
+        <div class="metric-delta up">↑ 12.4% YTD</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Sharpe Ratio</div>
+        <div class="metric-value">2.38</div>
+        <div class="metric-delta up">↑ 0.14 vs peer</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Alpha Generated</div>
+        <div class="metric-value">+6.1%</div>
+        <div class="metric-delta up">↑ Annualized</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Max Drawdown</div>
+        <div class="metric-value">−8.3%</div>
+        <div class="metric-delta down">↓ 2024 Floor</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Typography</div>
+      <span class="section-sub">Cormorant Garamond + Libre Franklin</span>
+    </div>
+    <div class="type-scale">
+      <div class="t-display">Capital Precision</div>
+      <div class="t-h1">Portfolio Architecture 2026</div>
+      <div class="t-h2">Risk-Adjusted Returns, Q4 2025</div>
+      <div class="t-body">The fund employs a multi-factor quantitative approach to identify high-conviction opportunities across global asset classes, balancing growth capture and capital preservation through disciplined risk-parity allocation and dynamic factor tilts.</div>
+      <div class="t-small">Last rebalanced: 14 Jun 2026 · NAV $148.72 · Management fee 0.85% · Benchmark: MSCI World +3%</div>
+      <div class="t-mono">portfolio.sharpe(benchmark='MSCI', rf=0.053, period='3Y') → 2.38</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Color Palette</div>
+      <span class="section-sub">14 Design Tokens</span>
+    </div>
+    <div class="swatches-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#1A4BCC"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-hex">#1A4BCC</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C8D8F5"></div><div class="swatch-info"><div class="swatch-name">Primary Light</div><div class="swatch-hex">#C8D8F5</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#D4A020"></div><div class="swatch-info"><div class="swatch-name">Secondary</div><div class="swatch-hex">#D4A020</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E85C6A"></div><div class="swatch-info"><div class="swatch-name">Accent</div><div class="swatch-hex">#E85C6A</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#F4EDD8"></div><div class="swatch-info"><div class="swatch-name">Background</div><div class="swatch-hex">#F4EDD8</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#EDE4CC"></div><div class="swatch-info"><div class="swatch-name">Surface</div><div class="swatch-hex">#EDE4CC</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E5DABD"></div><div class="swatch-info"><div class="swatch-name">Surface Alt</div><div class="swatch-hex">#E5DABD</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#1A1E2E"></div><div class="swatch-info"><div class="swatch-name">Text</div><div class="swatch-hex">#1A1E2E</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#6A6452"></div><div class="swatch-info"><div class="swatch-name">Muted</div><div class="swatch-hex">#6A6452</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C8BEA0"></div><div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#C8BEA0</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#1E7A50"></div><div class="swatch-info"><div class="swatch-name">Success</div><div class="swatch-hex">#1E7A50</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C88A20"></div><div class="swatch-info"><div class="swatch-name">Warning</div><div class="swatch-hex">#C88A20</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C43A2A"></div><div class="swatch-info"><div class="swatch-name">Error</div><div class="swatch-hex">#C43A2A</div></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Asset Allocation</div>
+      <span class="section-sub">Holdings Breakdown</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Asset Class</th>
+          <th>Target Weight</th>
+          <th>Allocation</th>
+          <th>YTD Return</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--color-text);font-weight:600">Global Equities</strong></td>
+          <td style="font-family:'Courier Prime',monospace">62.0%</td>
+          <td><div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--gradient-button)"></div></div></td>
+          <td><span class="up" style="font-weight:600">+18.4%</span></td>
+          <td><span class="badge badge-success">Overweight</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--color-text);font-weight:600">Fixed Income</strong></td>
+          <td style="font-family:'Courier Prime',monospace">28.0%</td>
+          <td><div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--color-secondary)"></div></div></td>
+          <td><span class="up" style="font-weight:600">+4.2%</span></td>
+          <td><span class="badge badge-warning">Neutral</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--color-text);font-weight:600">Alternatives</strong></td>
+          <td style="font-family:'Courier Prime',monospace">10.0%</td>
+          <td><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--color-accent)"></div></div></td>
+          <td><span class="down" style="font-weight:600">−2.1%</span></td>
+          <td><span class="badge badge-error">Underweight</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Strategy Pillars</div></div>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>Growth Allocation</h3>
+        <p>Concentrated positions in high-conviction growth equities with asymmetric return profiles and durable competitive moats.</p>
+      </div>
+      <div class="card">
+        <h3>Risk Parity</h3>
+        <p>Equal risk contribution across asset classes, dynamically rebalanced to evolving macro regime conditions.</p>
+      </div>
+      <div class="card" style="background:linear-gradient(135deg,rgba(26,75,204,0.07) 0%,rgba(212,160,32,0.05) 100%);border-color:rgba(26,75,204,0.25)">
+        <h3>Alpha Overlay</h3>
+        <p>Systematic factor tilts — quality, momentum, low-volatility — combined with discretionary tactical positioning.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Components</div></div>
+    <div style="margin-bottom:1.5rem">
+      <div class="section-sub" style="margin-bottom:0.75rem">Buttons</div>
+      <div class="btn-row">
+        <button class="btn btn-primary">Invest Now</button>
+        <button class="btn btn-secondary">View Report</button>
+        <button class="btn btn-outline">Request Meeting</button>
+        <button class="btn btn-ghost">Learn More</button>
+      </div>
+    </div>
+    <div style="margin-bottom:1.5rem">
+      <div class="section-sub" style="margin-bottom:0.75rem">Badges</div>
+      <div class="badges">
+        <span class="badge badge-primary">Investment Grade</span>
+        <span class="badge badge-success">Outperforming</span>
+        <span class="badge badge-warning">Rebalancing Due</span>
+        <span class="badge badge-error">Risk Alert</span>
+        <span class="badge badge-accent">New Position</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;max-width:460px">
+      <div class="form-field">
+        <label class="form-label">Investment Amount</label>
+        <input class="form-input" type="text" placeholder="$500,000">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Risk Tolerance</label>
+        <input class="form-input" type="text" placeholder="Moderate">
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="border-bottom:none">
+    <div class="section-header"><div class="section-title">Gradients & Effects</div></div>
+    <div class="effects-grid">
+      <div class="effect-tile" style="grid-column:1/-1">
+        <div class="effect-label">Hero Gradient Mesh · 3-Layer Radial</div>
+        <div style="height:64px;border-radius:var(--radius);background:radial-gradient(ellipse at 12% 50%,rgba(26,75,204,0.28) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(212,160,32,0.3) 0%,transparent 50%),radial-gradient(ellipse at 60% 85%,rgba(232,92,106,0.2) 0%,transparent 45%),#F4EDD8"></div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Gradient Text</div>
+        <div class="gradient-text-demo">Meridian</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">CTA Button</div>
+        <button class="btn btn-primary" style="width:100%">Execute Trade</button>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Gold Glow</div>
+        <div class="glow-demo">+18.4% YTD</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Colored Shadow</div>
+        <div class="colored-shadow-demo">Cobalt Elevation</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Gradient Border</div>
+        <div class="gb-demo">Tricolor: cobalt → gold → rose</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Inset / Input Well</div>
+        <div class="inset-demo">portfolio.execute(type='MARKET')</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

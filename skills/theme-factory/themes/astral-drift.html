@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="astral-drift">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: Astral Drift</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "astral-drift",
+    "description": "Deep space indigo canvas with 6-layer psychedelic nebula radial mesh (magenta, pink, cyan, chartreuse, gold, violet). Cinzel Decorative arcane display + Philosopher contemplative serif body. Psychedelic surreal astral — electric violet primary, astral gold secondary, neon cyan accent. Glitch-text hero, counter-rotating conic mandala rings, dimensional entity cards, chromatic spectrum. CSS-only glitch via ::before/::after clip-path, dual conic-gradient rings with mask cutout.",
+    "createdAt": "2026-06-22T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "gradient",
+      "baseColor": "#08061A",
+      "image": "radial-gradient(ellipse at 20% 15%, rgba(200,0,255,0.28) 0%, transparent 45%), radial-gradient(ellipse at 80% 20%, rgba(255,0,136,0.18) 0%, transparent 40%), radial-gradient(ellipse at 60% 55%, rgba(0,200,255,0.15) 0%, transparent 42%), radial-gradient(ellipse at 15% 75%, rgba(64,255,128,0.12) 0%, transparent 38%), radial-gradient(ellipse at 85% 80%, rgba(230,160,40,0.14) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(100,0,220,0.2) 0%, transparent 55%)",
+      "size": "cover",
+      "position": "0 0",
+      "repeat": "no-repeat",
+      "patternType": "none", "patternColor": "none", "patternOpacity": "0", "patternSpacing": "none",
+      "notes": "6-layer fixed psychedelic nebula (magenta 28%, pink 18%, cyan 15%, chartreuse 12%, gold 14%, violet 20%) on deep space indigo #08061A"
+    },
+    "colors": {
+      "primary": "#CC00FF", "primaryLight": "#300050", "secondary": "#E8B040", "accent": "#00EEFF",
+      "background": "#08061A", "surface": "#10083A", "surfaceAlt": "#180C48",
+      "text": "#F0E8FF", "textMuted": "#8070B0", "textOnPrimary": "#08061A",
+      "border": "#2A1858", "success": "#40FF80", "warning": "#FFB000", "error": "#FF3080"
+    },
+    "typography": {
+      "fontFamily": "'Philosopher', Georgia, serif",
+      "fontFamilyMono": "'Share Tech Mono', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Cinzel Decorative', Georgia, serif",
+      "scaleBase": "16px", "headingWeight": "700", "bodyWeight": "400", "lineHeight": "1.75"
+    },
+    "spacing": { "borderRadius": "8px", "cardRadius": "12px", "buttonRadius": "6px", "spaceUnit": "8px", "density": "comfortable" },
+    "shadows": {
+      "sm": "0 2px 12px rgba(8,6,26,0.7)", "md": "0 4px 28px rgba(8,6,26,0.8)",
+      "lg": "0 8px 48px rgba(8,6,26,0.85)", "xl": "0 16px 72px rgba(8,6,26,0.9)",
+      "colored": "0 0 40px rgba(204,0,255,0.6), 0 0 80px rgba(204,0,255,0.25)", "inset": "inset 0 2px 8px rgba(8,6,26,0.8)", "elevation": "dramatic"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, rgba(16,8,58,0.95) 0%, rgba(8,6,26,0.9) 100%)",
+      "card": "linear-gradient(135deg, rgba(16,8,58,0.85) 0%, rgba(24,12,72,0.75) 100%)",
+      "button": "linear-gradient(135deg, #CC00FF 0%, #8800CC 100%)",
+      "text": "linear-gradient(135deg, #FF00CC 0%, #E8B040 33%, #00EEFF 66%, #40FF80 100%)",
+      "accent": "linear-gradient(90deg, #CC00FF 0%, #00EEFF 50%, #40FF80 100%)"
+    },
+    "effects": {
+      "luminescence": "strong", "glowColor": "#CC00FF", "glowBlur": "32px",
+      "glowSm": "0 0 10px rgba(204,0,255,0.6)", "glowMd": "0 0 28px rgba(204,0,255,0.65), 0 0 8px rgba(0,238,255,0.3)", "glowLg": "0 0 56px rgba(204,0,255,0.7), 0 0 100px rgba(204,0,255,0.3)",
+      "glassBlur": "0", "glassTint": "none", "gradientBorder": "linear-gradient(135deg, #CC00FF, #E8B040, #00EEFF, #40FF80)",
+      "noiseOpacity": "0", "textShadow": "0 0 20px rgba(204,0,255,0.9), 0 0 40px rgba(0,238,255,0.4)", "backdropFilter": "none"
+    },
+    "motion": { "durationFast": "150ms", "durationBase": "300ms", "durationSlow": "600ms", "easing": "cubic-bezier(0.4, 0, 0.2, 1)", "feel": "expressive" },
+    "design": {
+      "aesthetic": "glassmorphism",
+      "personality": ["dark", "psychedelic", "surreal", "astral", "super-unrealistic"],
+      "borderStyle": "hairline", "iconStyle": "sharp", "imageStyle": "abstract", "surfaceTexture": "gradient", "hierarchyClarity": "high",
+      "notes": "Cinzel Decorative (arcane/astronomical carved stone) + Philosopher (contemplative humanist). 6-layer nebula fixed bg. CSS glitch via clip-path pseudo-elements. Dual counter-rotating conic mandala rings with radial-gradient mask. Chromatic 4-stop gradient text. Dimensional entity cards."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --color-primary: #CC00FF; --color-primary-light: #300050; --color-secondary: #E8B040; --color-accent: #00EEFF;
+      --color-bg: #08061A; --color-surface: #10083A; --color-surface-alt: #180C48;
+      --color-text: #F0E8FF; --color-text-muted: #8070B0; --color-text-on-primary: #08061A;
+      --color-border: #2A1858; --color-success: #40FF80; --color-warning: #FFB000; --color-error: #FF3080;
+      --font-family: 'Philosopher', Georgia, serif;
+      --font-family-mono: 'Share Tech Mono', 'Courier New', monospace;
+      --font-family-display: 'Cinzel Decorative', Georgia, serif;
+      --font-size-base: 16px; --font-weight-heading: 700; --font-weight-body: 400; --line-height: 1.75;
+      --radius: 8px; --radius-card: 12px; --radius-button: 6px;
+      --shadow-sm: 0 2px 12px rgba(8,6,26,0.7); --shadow-md: 0 4px 28px rgba(8,6,26,0.8);
+      --shadow-lg: 0 8px 48px rgba(8,6,26,0.85); --shadow-xl: 0 16px 72px rgba(8,6,26,0.9);
+      --shadow-colored: 0 0 40px rgba(204,0,255,0.6), 0 0 80px rgba(204,0,255,0.25);
+      --shadow-inset: inset 0 2px 8px rgba(8,6,26,0.8);
+      --gradient-hero: linear-gradient(135deg, rgba(16,8,58,0.95) 0%, rgba(8,6,26,0.9) 100%);
+      --gradient-card: linear-gradient(135deg, rgba(16,8,58,0.85) 0%, rgba(24,12,72,0.75) 100%);
+      --gradient-button: linear-gradient(135deg, #CC00FF 0%, #8800CC 100%);
+      --gradient-text: linear-gradient(135deg, #FF00CC 0%, #E8B040 33%, #00EEFF 66%, #40FF80 100%);
+      --gradient-accent: linear-gradient(90deg, #CC00FF 0%, #00EEFF 50%, #40FF80 100%);
+      --glow-color: #CC00FF; --glow-sm: 0 0 10px rgba(204,0,255,0.6);
+      --glow-md: 0 0 28px rgba(204,0,255,0.65), 0 0 8px rgba(0,238,255,0.3);
+      --glow-lg: 0 0 56px rgba(204,0,255,0.7), 0 0 100px rgba(204,0,255,0.3);
+      --border-gradient: linear-gradient(135deg, #CC00FF, #E8B040, #00EEFF, #40FF80);
+      --text-shadow: 0 0 20px rgba(204,0,255,0.9), 0 0 40px rgba(0,238,255,0.4);
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 150ms; --duration-base: 300ms; --duration-slow: 600ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #08061A;
+      background-image:
+        radial-gradient(ellipse at 20% 15%, rgba(200,0,255,0.28) 0%, transparent 45%),
+        radial-gradient(ellipse at 80% 20%, rgba(255,0,136,0.18) 0%, transparent 40%),
+        radial-gradient(ellipse at 60% 55%, rgba(0,200,255,0.15) 0%, transparent 42%),
+        radial-gradient(ellipse at 15% 75%, rgba(64,255,128,0.12) 0%, transparent 38%),
+        radial-gradient(ellipse at 85% 80%, rgba(230,160,40,0.14) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 50%, rgba(100,0,220,0.2) 0%, transparent 55%);
+      background-attachment: fixed; background-size: cover; background-repeat: no-repeat;
+      color: var(--color-text); font-family: 'Philosopher', Georgia, serif;
+      font-size: 16px; font-weight: 400; line-height: 1.75; min-height: 100vh;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes spin-cw   { to { transform: rotate(360deg); } }
+    @keyframes spin-ccw  { to { transform: rotate(-360deg); } }
+    @keyframes pulse-orb { 0%,100% { opacity:0.7; transform:translate(-50%,-50%) scale(1); } 50% { opacity:1; transform:translate(-50%,-50%) scale(1.08); } }
+    @keyframes glitch-slide { 0%,90%,100% { clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); } 92% { clip-path: polygon(0 18%, 100% 18%, 100% 36%, 0 36%); } 94% { clip-path: polygon(0 55%, 100% 55%, 100% 70%, 0 70%); } 96% { clip-path: polygon(0 80%, 100% 80%, 100% 92%, 0 92%); } }
+    @keyframes glitch-shift { 0%,90%,100% { transform: translateX(0) skewX(0deg); opacity: 0; } 92% { transform: translateX(-5px) skewX(-2deg); opacity: 0.75; } 94% { transform: translateX(4px) skewX(1deg); opacity: 0.6; } 96% { transform: translateX(-3px); opacity: 0.8; } }
+    @keyframes drift { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+    @keyframes flicker { 0%,100% { opacity:1; } 50% { opacity:0.85; } 75% { opacity:0.92; } }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 3.5rem 4rem 3rem;
+      background: var(--gradient-hero);
+      border-bottom: 1px solid var(--color-border);
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: center;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(204,0,255,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .tone-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .tag { font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.18rem 0.6rem; border-radius: 3px; border: 1px solid; }
+    .tag-dark { background: rgba(204,0,255,0.12); color: #CC00FF; border-color: rgba(204,0,255,0.35); }
+    .tag-psychedelic { background: rgba(255,0,136,0.12); color: #FF3080; border-color: rgba(255,0,136,0.35); }
+    .tag-surreal { background: rgba(0,238,255,0.1); color: #00EEFF; border-color: rgba(0,238,255,0.3); }
+    .tag-astral { background: rgba(232,176,64,0.12); color: #E8B040; border-color: rgba(232,176,64,0.35); }
+    .tag-unrealistic { background: rgba(64,255,128,0.1); color: #40FF80; border-color: rgba(64,255,128,0.3); }
+
+    .hero-eyebrow { font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.75rem; }
+
+    /* Glitch title */
+    .glitch-wrap { position: relative; display: inline-block; margin-bottom: 1rem; }
+    .hero-title {
+      font-family: 'Cinzel Decorative', Georgia, serif;
+      font-size: clamp(2.6rem, 6.5vw, 5rem);
+      font-weight: 900; line-height: 0.95; letter-spacing: 0.04em;
+      background: var(--gradient-text);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      text-shadow: none; display: block;
+    }
+    .glitch-wrap::before {
+      content: attr(data-text);
+      position: absolute; top: 0; left: 0;
+      font-family: 'Cinzel Decorative', Georgia, serif;
+      font-size: clamp(2.6rem, 6.5vw, 5rem);
+      font-weight: 900; line-height: 0.95; letter-spacing: 0.04em;
+      color: #00EEFF; opacity: 0;
+      transform: translateX(-4px) skewX(-2deg);
+      animation: glitch-shift 6s infinite, glitch-slide 6s infinite;
+      animation-delay: 0s, 0s;
+      -webkit-text-fill-color: #00EEFF;
+    }
+    .glitch-wrap::after {
+      content: attr(data-text);
+      position: absolute; top: 0; left: 0;
+      font-family: 'Cinzel Decorative', Georgia, serif;
+      font-size: clamp(2.6rem, 6.5vw, 5rem);
+      font-weight: 900; line-height: 0.95; letter-spacing: 0.04em;
+      color: #FF3080; opacity: 0;
+      transform: translateX(4px) skewX(1deg);
+      animation: glitch-shift 6s infinite, glitch-slide 6s infinite;
+      animation-delay: 0.08s, 0.08s;
+      -webkit-text-fill-color: #FF3080;
+    }
+
+    .hero-sub { font-size: 1rem; color: var(--color-text-muted); max-width: 440px; font-style: italic; line-height: 1.7; margin-bottom: 1.75rem; }
+    .hero-coord { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: rgba(204,0,255,0.6); letter-spacing: 0.08em; margin-top: 0.75rem; }
+
+    /* Rotating mandala rings */
+    .ring-system { position: relative; width: 260px; height: 260px; flex-shrink: 0; animation: drift 8s ease-in-out infinite; }
+    .ring-outer {
+      position: absolute; inset: 0; border-radius: 50%;
+      background: conic-gradient(from 0deg, #CC00FF 0%, #FF0088 18%, #E8B040 36%, #00EEFF 54%, #40FF80 72%, #CC00FF 100%);
+      -webkit-mask: radial-gradient(transparent 42%, #000 43%, #000 47%, transparent 48%);
+      mask: radial-gradient(transparent 42%, #000 43%, #000 47%, transparent 48%);
+      animation: spin-cw 14s linear infinite;
+    }
+    .ring-mid {
+      position: absolute; inset: 30px; border-radius: 50%;
+      background: conic-gradient(from 180deg, #00EEFF 0%, #40FF80 25%, #CC00FF 50%, #FF3080 75%, #E8B040 87%, #00EEFF 100%);
+      -webkit-mask: radial-gradient(transparent 42%, #000 43%, #000 48%, transparent 49%);
+      mask: radial-gradient(transparent 42%, #000 43%, #000 48%, transparent 49%);
+      animation: spin-ccw 9s linear infinite;
+      opacity: 0.85;
+    }
+    .ring-inner {
+      position: absolute; inset: 62px; border-radius: 50%;
+      background: conic-gradient(from 90deg, #E8B040 0%, #CC00FF 33%, #00EEFF 66%, #E8B040 100%);
+      -webkit-mask: radial-gradient(transparent 40%, #000 41%, #000 48%, transparent 49%);
+      mask: radial-gradient(transparent 40%, #000 41%, #000 48%, transparent 49%);
+      animation: spin-cw 5s linear infinite;
+      opacity: 0.7;
+    }
+    .ring-orb {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 68px; height: 68px; border-radius: 50%;
+      background: radial-gradient(circle, #E8F0FF 0%, #CC00FF 40%, rgba(136,0,204,0.6) 70%, transparent 100%);
+      box-shadow: 0 0 20px rgba(204,0,255,0.9), 0 0 50px rgba(204,0,255,0.5), 0 0 100px rgba(204,0,255,0.2);
+      animation: pulse-orb 3s ease-in-out infinite;
+    }
+
+    /* ── SECTIONS ── */
+    .section { padding: 2.5rem 4rem; border-bottom: 1px solid rgba(42,24,88,0.6); }
+    .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
+    .section-title {
+      font-family: 'Cinzel Decorative', serif; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--color-text);
+      position: relative; padding-left: 1rem;
+    }
+    .section-title::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 1.1em; background: var(--gradient-accent); border-radius: 2px; }
+    .section-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-muted); }
+
+    /* ── FREQUENCY BARS ── */
+    .freq-grid { display: flex; flex-direction: column; gap: 0.85rem; }
+    .freq-row { display: grid; grid-template-columns: 180px 1fr 60px; gap: 1rem; align-items: center; }
+    .freq-label { font-family: 'Philosopher', serif; font-size: 0.88rem; font-style: italic; color: var(--color-text); }
+    .freq-track { height: 6px; background: rgba(42,24,88,0.7); border-radius: 3px; overflow: hidden; position: relative; }
+    .freq-fill { height: 100%; border-radius: 3px; position: relative; }
+    .freq-fill::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 50%; background: inherit; filter: brightness(1.5); box-shadow: 0 0 8px currentColor; }
+    .freq-val { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--color-text-muted); text-align: right; }
+
+    /* ── ENTITY CARDS ── */
+    .entity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .entity-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 1.5rem; position: relative; overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: transform var(--duration-base) var(--easing), box-shadow var(--duration-base) var(--easing);
+      animation: drift var(--drift-dur, 7s) ease-in-out infinite;
+      animation-delay: var(--drift-del, 0s);
+    }
+    .entity-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: var(--glow-md); }
+    .entity-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: var(--radius-card); padding: 1px;
+      background: var(--card-glow, var(--gradient-accent));
+      -webkit-mask: linear-gradient(#08061A 0 0) content-box, linear-gradient(#08061A 0 0);
+      mask: linear-gradient(#08061A 0 0) content-box, linear-gradient(#08061A 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+    }
+    .entity-card::after {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 50% 50%, var(--card-aura, rgba(204,0,255,0.04)) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .entity-sigil { font-size: 1.8rem; margin-bottom: 0.75rem; line-height: 1; display: block; }
+    .entity-name { font-family: 'Cinzel Decorative', serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; color: var(--color-text); margin-bottom: 0.35rem; }
+    .entity-freq { font-family: 'Share Tech Mono', monospace; font-size: 1.5rem; font-weight: 400; line-height: 1; margin-bottom: 0.25rem; }
+    .entity-type { font-size: 0.75rem; font-style: italic; color: var(--color-text-muted); }
+
+    /* ── SIGNAL TABLE ── */
+    .signal-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .signal-table th { font-family: 'Share Tech Mono', monospace; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-text-muted); text-align: left; padding: 0.6rem 1rem; border-bottom: 1px solid var(--color-border); }
+    .signal-table td { padding: 0.85rem 1rem; border-bottom: 1px solid rgba(42,24,88,0.4); }
+    .signal-table tr:hover td { background: rgba(204,0,255,0.04); }
+    .sig-entity { font-family: 'Philosopher', serif; font-style: italic; color: var(--color-text); font-size: 0.9rem; }
+    .sig-freq { font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; color: var(--color-accent); }
+    .sig-amp { font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; color: var(--color-secondary); }
+    .sig-phase { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; color: var(--color-text-muted); }
+
+    /* ── STATUS BADGES ── */
+    .status { font-family: 'Share Tech Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 3px; border: 1px solid; white-space: nowrap; }
+    .status-aligned { background: rgba(64,255,128,0.1); color: #40FF80; border-color: rgba(64,255,128,0.35); }
+    .status-surging { background: rgba(204,0,255,0.12); color: #CC00FF; border-color: rgba(204,0,255,0.4); box-shadow: var(--glow-sm); }
+    .status-dormant { background: rgba(128,112,176,0.1); color: var(--color-text-muted); border-color: rgba(128,112,176,0.2); }
+    .status-distorted { background: rgba(255,48,128,0.1); color: #FF3080; border-color: rgba(255,48,128,0.35); }
+    .status-ascending { background: rgba(0,238,255,0.1); color: #00EEFF; border-color: rgba(0,238,255,0.3); }
+
+    /* ── TYPE SCALE ── */
+    .type-scale { display: flex; flex-direction: column; gap: 0.85rem; }
+    .t-display {
+      font-family: 'Cinzel Decorative', serif; font-size: 3rem; font-weight: 900; line-height: 0.9;
+      background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .t-h1 { font-family: 'Cinzel Decorative', serif; font-size: 1.8rem; font-weight: 700; color: var(--color-text); letter-spacing: 0.04em; }
+    .t-h2 { font-family: 'Philosopher', serif; font-size: 1.3rem; font-style: italic; color: var(--color-primary); }
+    .t-body { font-size: 1rem; color: var(--color-text); max-width: 620px; line-height: 1.78; }
+    .t-small { font-size: 0.82rem; color: var(--color-text-muted); font-style: italic; }
+    .t-mono { font-family: 'Share Tech Mono', monospace; font-size: 0.875rem; background: rgba(42,24,88,0.6); border: 1px solid var(--color-border); padding: 0.3rem 0.65rem; border-radius: var(--radius); color: var(--color-accent); display: inline-block; }
+
+    /* ── SWATCHES ── */
+    .swatches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 0.65rem; }
+    .swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .swatch-color { height: 52px; position: relative; overflow: hidden; }
+    .swatch-color::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(240,232,255,0.15) 0%, transparent 50%); }
+    .swatch-info { background: rgba(16,8,58,0.9); padding: 0.4rem 0.5rem; }
+    .swatch-name { font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-text); }
+    .swatch-hex { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; color: var(--color-text-muted); }
+
+    /* ── BUTTONS ── */
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .btn { padding: 0.55rem 1.3rem; border-radius: var(--radius-button); font-family: 'Cinzel Decorative', serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; cursor: pointer; border: none; transition: all var(--duration-fast) var(--easing); }
+    .btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--glow-sm); }
+    .btn-primary:hover { box-shadow: var(--glow-md); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--color-secondary); border: 1.5px solid var(--color-secondary); }
+    .btn-accent { background: transparent; color: var(--color-accent); border: 1.5px solid var(--color-accent); box-shadow: 0 0 8px rgba(0,238,255,0.3); }
+    .btn-ghost { background: rgba(42,24,88,0.5); color: var(--color-text); border: 1px solid var(--color-border); }
+    .btn-success { background: transparent; color: var(--color-success); border: 1.5px solid var(--color-success); box-shadow: 0 0 8px rgba(64,255,128,0.3); }
+
+    /* ── EFFECTS ── */
+    .effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .effect-tile { background: rgba(16,8,58,0.7); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .effect-label { font-family: 'Share Tech Mono', monospace; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-muted); }
+    .gradient-text-demo { font-family: 'Cinzel Decorative', serif; font-size: 1.5rem; font-weight: 700; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
+    .glow-demo { padding: 0.75rem 1rem; border-radius: var(--radius-card); background: rgba(42,24,88,0.5); border: 1px solid rgba(204,0,255,0.3); box-shadow: var(--glow-md); text-align: center; font-family: 'Cinzel Decorative', serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; color: var(--color-primary); text-shadow: var(--text-shadow); animation: flicker 4s ease-in-out infinite; }
+    .gb-demo { padding: 0.75rem 1rem; border-radius: var(--radius-card); background: rgba(16,8,58,0.8); position: relative; font-size: 0.82rem; color: var(--color-text-muted); font-style: italic; }
+    .gb-demo::before { content: ''; position: absolute; inset: 0; border-radius: var(--radius-card); padding: 1.5px; background: var(--border-gradient); -webkit-mask: linear-gradient(#08061A 0 0) content-box, linear-gradient(#08061A 0 0); mask: linear-gradient(#08061A 0 0) content-box, linear-gradient(#08061A 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+    .nebula-demo { height: 64px; border-radius: var(--radius); overflow: hidden; position: relative; }
+    .nebula-demo-inner { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(204,0,255,0.5) 0%, transparent 50%), radial-gradient(ellipse at 70% 50%, rgba(0,238,255,0.4) 0%, transparent 50%), rgba(8,6,26,1); }
+    .inset-demo { background: rgba(8,6,26,0.8); border-radius: var(--radius); padding: 0.6rem 1rem; box-shadow: var(--shadow-inset); border: 1px solid rgba(42,24,88,0.6); font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--color-text-muted); }
+    .conic-demo { height: 64px; border-radius: var(--radius); background: conic-gradient(from 0deg, #CC00FF 0%, #FF0088 20%, #E8B040 40%, #00EEFF 60%, #40FF80 80%, #CC00FF 100%); }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO: GLITCH TITLE + ROTATING RINGS ── -->
+  <div class="hero">
+    <div>
+      <div class="tone-tags">
+        <span class="tag tag-dark">Dark</span>
+        <span class="tag tag-psychedelic">Psychedelic</span>
+        <span class="tag tag-surreal">Surreal</span>
+        <span class="tag tag-astral">Astral</span>
+        <span class="tag tag-unrealistic">Super-Unrealistic</span>
+      </div>
+      <div class="hero-eyebrow">Theme Showcase · Astral Drift · Dimensional Frequency: 963 Hz</div>
+      <div class="glitch-wrap" data-text="Astral Drift">
+        <span class="hero-title">Astral Drift</span>
+      </div>
+      <p class="hero-sub">Beyond the veil of the perceivable — where colour becomes frequency, where form dissolves into pure vibration, and the architecture of consciousness unfolds across eleven dimensions.</p>
+      <div class="hero-coord">RA 04h 35m 27s · DEC +16° 30′ 33″ · EPOCH J2026.47</div>
+    </div>
+    <div class="ring-system">
+      <div class="ring-outer"></div>
+      <div class="ring-mid"></div>
+      <div class="ring-inner"></div>
+      <div class="ring-orb"></div>
+    </div>
+  </div>
+
+  <!-- ── FREQUENCY SPECTRUM ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Consciousness Frequencies</div>
+      <span class="section-sub">Active Resonance · 7 Layers</span>
+    </div>
+    <div class="freq-grid">
+      <div class="freq-row">
+        <div class="freq-label">Crown Chakra</div>
+        <div class="freq-track"><div class="freq-fill" style="width:94%;background:linear-gradient(90deg,#CC00FF,#E8B040)"></div></div>
+        <div class="freq-val" style="color:#CC00FF">963 Hz</div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-label">Third Eye Signal</div>
+        <div class="freq-track"><div class="freq-fill" style="width:82%;background:linear-gradient(90deg,#8800CC,#CC00FF)"></div></div>
+        <div class="freq-val" style="color:#9A20E0">852 Hz</div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-label">Astral Bandwidth</div>
+        <div class="freq-track"><div class="freq-fill" style="width:77%;background:linear-gradient(90deg,#0088FF,#00EEFF)"></div></div>
+        <div class="freq-val" style="color:#00EEFF">741 Hz</div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-label">Heart Resonance</div>
+        <div class="freq-track"><div class="freq-fill" style="width:68%;background:linear-gradient(90deg,#20C850,#40FF80)"></div></div>
+        <div class="freq-val" style="color:#40FF80">639 Hz</div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-label">Solar Plexus</div>
+        <div class="freq-track"><div class="freq-fill" style="width:58%;background:linear-gradient(90deg,#C89000,#E8B040)"></div></div>
+        <div class="freq-val" style="color:#E8B040">528 Hz</div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-label">Void Frequency</div>
+        <div class="freq-track"><div class="freq-fill" style="width:43%;background:linear-gradient(90deg,#C8006A,#FF3080)"></div></div>
+        <div class="freq-val" style="color:#FF3080">417 Hz</div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-label">Root Ground</div>
+        <div class="freq-track"><div class="freq-fill" style="width:34%;background:linear-gradient(90deg,#8A5000,#C87030)"></div></div>
+        <div class="freq-val" style="color:#C87030">396 Hz</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DIMENSIONAL ENTITIES ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Dimensional Entities</div>
+      <span class="section-sub">6 Active · 2 Dormant</span>
+    </div>
+    <div class="entity-grid">
+      <div class="entity-card" style="--drift-dur:8s;--drift-del:0s;--card-glow:linear-gradient(135deg,#CC00FF,#FF3080);--card-aura:rgba(204,0,255,0.05)">
+        <span class="entity-sigil">◈</span>
+        <div class="entity-name">Violet Seer</div>
+        <div class="entity-freq" style="color:#CC00FF">963.4 Hz</div>
+        <div class="entity-type">Crown · Archetype I · Ascending</div>
+      </div>
+      <div class="entity-card" style="--drift-dur:6s;--drift-del:0.8s;--card-glow:linear-gradient(135deg,#00EEFF,#40FF80);--card-aura:rgba(0,238,255,0.05)">
+        <span class="entity-sigil">⟁</span>
+        <div class="entity-name">Cyan Witness</div>
+        <div class="entity-freq" style="color:#00EEFF">741.0 Hz</div>
+        <div class="entity-type">Throat · Archetype IV · Aligned</div>
+      </div>
+      <div class="entity-card" style="--drift-dur:9s;--drift-del:1.6s;--card-glow:linear-gradient(135deg,#E8B040,#FF8C00);--card-aura:rgba(232,176,64,0.05)">
+        <span class="entity-sigil">✦</span>
+        <div class="entity-name">Golden Axiom</div>
+        <div class="entity-freq" style="color:#E8B040">528.8 Hz</div>
+        <div class="entity-type">Solar · Archetype II · Surging</div>
+      </div>
+      <div class="entity-card" style="--drift-dur:7s;--drift-del:0.4s;--card-glow:linear-gradient(135deg,#40FF80,#00EEFF);--card-aura:rgba(64,255,128,0.04)">
+        <span class="entity-sigil">❋</span>
+        <div class="entity-name">Emerald Flux</div>
+        <div class="entity-freq" style="color:#40FF80">639.2 Hz</div>
+        <div class="entity-type">Heart · Archetype VI · Aligned</div>
+      </div>
+      <div class="entity-card" style="--drift-dur:10s;--drift-del:2.0s;--card-glow:linear-gradient(135deg,#FF3080,#CC00FF);--card-aura:rgba(255,48,128,0.04)">
+        <span class="entity-sigil">⊛</span>
+        <div class="entity-name">Crimson Vessel</div>
+        <div class="entity-freq" style="color:#FF3080">417.6 Hz</div>
+        <div class="entity-type">Sacral · Archetype V · Distorted</div>
+      </div>
+      <div class="entity-card" style="--drift-dur:5s;--drift-del:1.2s;--card-glow:linear-gradient(135deg,#8070B0,#2A1858);--card-aura:rgba(128,112,176,0.03)">
+        <span class="entity-sigil">◉</span>
+        <div class="entity-name">Void Anchor</div>
+        <div class="entity-freq" style="color:#8070B0">396.0 Hz</div>
+        <div class="entity-type">Root · Archetype III · Dormant</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SIGNAL TRANSMISSION TABLE ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Signal Transmission Log</div>
+      <span class="section-sub">Interplanetary · Last 7 Transits</span>
+    </div>
+    <table class="signal-table">
+      <thead>
+        <tr>
+          <th>Entity / Transit</th>
+          <th>Frequency</th>
+          <th>Amplitude</th>
+          <th>Phase</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="sig-entity">Saturn Return</div><div style="font-size:0.75rem;color:var(--color-text-muted);font-style:italic">Karmic restructuring field active</div></td>
+          <td><span class="sig-freq">963.4 Hz</span></td>
+          <td><span class="sig-amp">+2.87 Ψ</span></td>
+          <td><span class="sig-phase">φ 117°</span></td>
+          <td><span class="status status-surging">Surging</span></td>
+        </tr>
+        <tr>
+          <td><div class="sig-entity">Third Eye Opening</div><div style="font-size:0.75rem;color:var(--color-text-muted);font-style:italic">Pineal gland activation sequence</div></td>
+          <td><span class="sig-freq">852.0 Hz</span></td>
+          <td><span class="sig-amp">+1.44 Ψ</span></td>
+          <td><span class="sig-phase">φ 284°</span></td>
+          <td><span class="status status-ascending">Ascending</span></td>
+        </tr>
+        <tr>
+          <td><div class="sig-entity">Pleiadian Carrier</div><div style="font-size:0.75rem;color:var(--color-text-muted);font-style:italic">Star-system transmission lock</div></td>
+          <td><span class="sig-freq">741.7 Hz</span></td>
+          <td><span class="sig-amp">+3.12 Ψ</span></td>
+          <td><span class="sig-phase">φ 33°</span></td>
+          <td><span class="status status-aligned">Aligned</span></td>
+        </tr>
+        <tr>
+          <td><div class="sig-entity">Kundalini Ascent</div><div style="font-size:0.75rem;color:var(--color-text-muted);font-style:italic">Spinal channel energy migration</div></td>
+          <td><span class="sig-freq">528.8 Hz</span></td>
+          <td><span class="sig-amp">+0.97 Ψ</span></td>
+          <td><span class="sig-phase">φ 196°</span></td>
+          <td><span class="status status-aligned">Aligned</span></td>
+        </tr>
+        <tr>
+          <td><div class="sig-entity">Void Dissolution</div><div style="font-size:0.75rem;color:var(--color-text-muted);font-style:italic">Ego boundary erosion event</div></td>
+          <td><span class="sig-freq">417.2 Hz</span></td>
+          <td><span class="sig-amp">−0.62 Ψ</span></td>
+          <td><span class="sig-phase">φ 310°</span></td>
+          <td><span class="status status-distorted">Distorted</span></td>
+        </tr>
+        <tr>
+          <td><div class="sig-entity">Earth Node Anchor</div><div style="font-size:0.75rem;color:var(--color-text-muted);font-style:italic">Grounding protocol engaged</div></td>
+          <td><span class="sig-freq">396.0 Hz</span></td>
+          <td><span class="sig-amp">+0.18 Ψ</span></td>
+          <td><span class="sig-phase">φ 52°</span></td>
+          <td><span class="status status-dormant">Dormant</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── TYPOGRAPHY ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Typography</div>
+      <span class="section-sub">Cinzel Decorative + Philosopher + Share Tech Mono</span>
+    </div>
+    <div class="type-scale">
+      <div class="t-display">Astral Drift</div>
+      <div class="t-h1">Interdimensional Navigation Console</div>
+      <div class="t-h2">Consciousness Cartography, Vol. XI — The Chromatic Void</div>
+      <div class="t-body">The fabric of perceived reality is a standing wave interference pattern between three fundamental frequencies — violet at 963 Hz, cyan at 741 Hz, and the luminous gold resonance at 528 Hz. To navigate the astral plane is to understand that colour is not light reflected, but consciousness compressed into a vibration dense enough to register on the instruments of the body-mind complex.</div>
+      <div class="t-small">Transmission origin: Sector 7-Ψ · Confidence: 99.4% · Coherence window: 04:17–04:44 UTC</div>
+      <div class="t-mono">SIGNAL_LOCK = true; FREQ = 963.4; PHASE = 117deg; ENTITY = "VIOLET_SEER";</div>
+    </div>
+  </div>
+
+  <!-- ── CHROMATIC SPECTRUM ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Chromatic Spectrum</div>
+      <span class="section-sub">14 Frequency Tokens</span>
+    </div>
+    <div class="swatches-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#CC00FF"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-hex">#CC00FF</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#300050"></div><div class="swatch-info"><div class="swatch-name">Primary Lt</div><div class="swatch-hex">#300050</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E8B040"></div><div class="swatch-info"><div class="swatch-name">Secondary</div><div class="swatch-hex">#E8B040</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#00EEFF"></div><div class="swatch-info"><div class="swatch-name">Accent</div><div class="swatch-hex">#00EEFF</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#08061A"></div><div class="swatch-info"><div class="swatch-name">Background</div><div class="swatch-hex">#08061A</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#10083A"></div><div class="swatch-info"><div class="swatch-name">Surface</div><div class="swatch-hex">#10083A</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#180C48"></div><div class="swatch-info"><div class="swatch-name">Surface Alt</div><div class="swatch-hex">#180C48</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#F0E8FF"></div><div class="swatch-info"><div class="swatch-name">Text</div><div class="swatch-hex">#F0E8FF</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#8070B0"></div><div class="swatch-info"><div class="swatch-name">Muted</div><div class="swatch-hex">#8070B0</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#2A1858"></div><div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#2A1858</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#40FF80"></div><div class="swatch-info"><div class="swatch-name">Success</div><div class="swatch-hex">#40FF80</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FFB000"></div><div class="swatch-info"><div class="swatch-name">Warning</div><div class="swatch-hex">#FFB000</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FF3080"></div><div class="swatch-info"><div class="swatch-name">Error</div><div class="swatch-hex">#FF3080</div></div></div>
+    </div>
+  </div>
+
+  <!-- ── COMPONENTS ── -->
+  <div class="section">
+    <div class="section-header"><div class="section-title">Ritual Components</div></div>
+    <div class="btn-row" style="margin-bottom:1.5rem">
+      <button class="btn btn-primary">Open Portal</button>
+      <button class="btn btn-accent">Tune Signal</button>
+      <button class="btn btn-secondary">Channel Entity</button>
+      <button class="btn btn-success">Align</button>
+      <button class="btn btn-ghost">Archive Log</button>
+    </div>
+    <div class="btn-row">
+      <span class="status status-surging">Surging</span>
+      <span class="status status-ascending">Ascending</span>
+      <span class="status status-aligned">Aligned</span>
+      <span class="status status-dormant">Dormant</span>
+      <span class="status status-distorted">Distorted</span>
+    </div>
+  </div>
+
+  <!-- ── EFFECTS ── -->
+  <div class="section" style="border-bottom:none">
+    <div class="section-header"><div class="section-title">Dimensional Effects</div></div>
+    <div class="effects-grid">
+      <div class="effect-tile" style="grid-column:1/-1">
+        <div class="effect-label">Background · 6-Layer Psychedelic Nebula (fixed)</div>
+        <div style="height:72px;border-radius:var(--radius);overflow:hidden;position:relative">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(204,0,255,0.5) 0%,transparent 45%),radial-gradient(ellipse at 50% 50%,rgba(100,0,220,0.4) 0%,transparent 55%),radial-gradient(ellipse at 80% 50%,rgba(0,200,255,0.45) 0%,transparent 45%),radial-gradient(ellipse at 35% 80%,rgba(64,255,128,0.35) 0%,transparent 40%),radial-gradient(ellipse at 65% 20%,rgba(230,160,40,0.4) 0%,transparent 40%),#08061A"></div>
+        </div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Gradient Text</div>
+        <div class="gradient-text-demo">Astral</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Glow + Text Shadow</div>
+        <div class="glow-demo">Awaken</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">4-Stop Gradient Border</div>
+        <div class="gb-demo">Violet → Gold → Cyan → Green</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Conic Spectrum</div>
+        <div class="conic-demo"></div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Deep Void Surface</div>
+        <div class="inset-demo">signal.frequency = 963.4;</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Colored Shadow · Primary</div>
+        <div style="padding:0.75rem 1rem;border-radius:var(--radius);background:var(--gradient-button);color:var(--color-text-on-primary);font-family:'Cinzel Decorative',serif;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-align:center;box-shadow:var(--shadow-colored)">Violet Surge</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

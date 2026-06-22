@@ -1,6 +1,6 @@
 ﻿---
 name: theme-factory
-description: Manage visual theme presets. extract colors/typography from screenshots, browse with live HTML previews, delete presets, and apply any theme to HTML/reports/dashboards via CSS custom properties.
+description: Manage visual theme presets to extract, browse, delete, and apply.
 ---
 
 # Theme Factory

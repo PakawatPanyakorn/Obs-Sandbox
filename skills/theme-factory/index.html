@@ -235,8 +235,83 @@
       opacity: 0.85;
       cursor: pointer;
       transition: opacity 0.15s, transform 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
     }
     .tag:hover { opacity: 1; transform: translateY(-1px); }
+
+    .tag-del {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: none;
+      color: inherit;
+      cursor: pointer;
+      font-size: 0.75rem;
+      line-height: 1;
+      padding: 0;
+      opacity: 0;
+      transition: opacity 0.12s;
+      font-family: inherit;
+      flex-shrink: 0;
+    }
+    .card:hover .tag-del { opacity: 0.55; }
+    .tag-del:hover { opacity: 1 !important; }
+
+    .tag-add {
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      border: 1px dashed var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 600;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.12s, border-color 0.12s, color 0.12s;
+      font-family: inherit;
+      line-height: 1.6;
+    }
+    .card:hover .tag-add { opacity: 1; }
+    .tag-add:hover { border-color: var(--accent); color: var(--accent); }
+
+    .tag-input {
+      width: 70px;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      border: 1px solid var(--accent);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.68rem;
+      font-family: inherit;
+      outline: none;
+      line-height: 1.6;
+    }
+
+    .tag--confirm { border-style: solid !important; opacity: 1; }
+    .tag-preview  { border-style: dashed !important; opacity: 1; }
+
+    .tag-confirm-yes,
+    .tag-confirm-no {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 0.7rem;
+      line-height: 1;
+      padding: 0;
+      font-family: inherit;
+      flex-shrink: 0;
+      opacity: 0.85;
+      transition: opacity 0.1s;
+    }
+    .tag-confirm-yes:hover, .tag-confirm-no:hover { opacity: 1; }
+    .tag-confirm-yes { color: #4ade80; }
+    .tag-confirm-no  { color: #ef4444; }
 
     .open-link {
       font-size: 0.75rem;
@@ -347,10 +422,10 @@
     'themes/tobacco-road.html':      ['editorial', 'retro', 'nature'],
     'themes/obsidian-mono.html':     ['minimal'],
     'themes/embassy-gold.html':      ['luxe', 'corporate'],
-    'themes/acid-garden.html':       ['cosmic', 'cyber'],
+    'themes/acid-garden.html':       ['cosmic', 'cyber', 'surreal'],
     'themes/copper-alchemist.html':  ['retro', 'gothic'],
     'themes/bauhaus-konstrukt.html': ['brutalist'],
-    'themes/nocturne-nouveau.html':  ['luxe', 'gothic'],
+    'themes/nocturne-nouveau.html':  ['luxe', 'gothic', 'maximalist'],
     'themes/solarpunk-utopia.html':  ['nature', 'cosmic'],
     'themes/crypt-scholastic.html':  ['gothic', 'retro'],
     'themes/tokyo-screentone.html':  ['editorial', 'retro', 'brutalist'],
@@ -365,9 +440,10 @@
     'themes/eigenvalue.html':        ['finance', 'cyber'],
     'themes/prism-ledger.html':      ['finance', 'editorial', 'luxe'],
     'themes/astral-drift.html':      ['cosmic', 'gothic'],
+    'themes/rabbit-hole.html':       ['maximalist', 'surreal'],
   };
 
-  const TAG_ORDER = ['cyber', 'retro', 'cosmic', 'gothic', 'editorial', 'brutalist', 'luxe', 'nature', 'minimal', 'finance', 'corporate'];
+  const TAG_ORDER = ['cyber', 'retro', 'cosmic', 'gothic', 'editorial', 'brutalist', 'luxe', 'nature', 'minimal', 'finance', 'corporate', 'maximalist', 'surreal'];
 
   const TAG_COLORS = {
     cyber:      { fg: '#00e5ff', bg: '#00e5ff18', border: '#00e5ff55' },
@@ -381,7 +457,29 @@
     minimal:    { fg: '#e2e8f0', bg: '#e2e8f010', border: '#e2e8f035' },
     finance:    { fg: '#38bdf8', bg: '#38bdf818', border: '#38bdf855' },
     corporate:  { fg: '#a78bfa', bg: '#a78bfa18', border: '#a78bfa55' },
+    maximalist: { fg: '#ff2d78', bg: '#ff2d7818', border: '#ff2d7855' },
+    surreal:    { fg: '#bfff00', bg: '#bfff0018', border: '#bfff0055' },
   };
+
+  /* ── Tag persistence ── */
+  const STORAGE_KEY = 'theme-tags-v1';
+
+  function saveTagsToStorage() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(THEME_TAGS));
+  }
+
+  (function loadTagsFromStorage() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      if (stored && typeof stored === 'object') Object.assign(THEME_TAGS, stored);
+    } catch {}
+  })();
+
+  function getTagColor(tag) {
+    if (TAG_COLORS[tag]) return TAG_COLORS[tag];
+    const h = [...tag].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 360, 7);
+    return { fg: `hsl(${h},60%,68%)`, bg: `hsla(${h},60%,68%,0.09)`, border: `hsla(${h},60%,68%,0.35)` };
+  }
 
   /* ── THEME DATA — one object per theme; skill updates this array on extract/delete ── */
   const THEMES = [
@@ -639,7 +737,7 @@
         <div class="card-name">${theme.name || filename.replace('themes/','').replace('.html','')}${isFav ? '<span class="fav-pin">★ pinned</span>' : ''}</div>
         <div class="card-desc">${theme.description || ''}</div>
         <div class="card-footer">
-          <div class="card-tags">${tags.map(t => { const c = TAG_COLORS[t] || {}; return `<span class="tag" data-tag="${t}" style="color:${c.fg||'#aaa'};background:${c.bg||'transparent'};border-color:${c.border||'#aaa4'}">${t}</span>`; }).join('')}</div>
+          <div class="card-tags">${tags.map(t => { const c = getTagColor(t); return `<span class="tag" data-tag="${t}" style="color:${c.fg};background:${c.bg};border-color:${c.border}">${t}<button class="tag-del" data-tag="${t}" data-file="${filename}">×</button></span>`; }).join('')}<button class="tag-add" data-file="${filename}">+ tag</button></div>
           <span class="open-link">open
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M2 10L10 2M5 2h5v5"/>
@@ -689,8 +787,128 @@
     });
   }
 
+  /* ── Tag delete — click × to enter confirm state, then ✓/✗ ── */
+  grid.addEventListener('click', e => {
+    const del = e.target.closest('.tag-del');
+    if (!del) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const tagEl = del.closest('.tag');
+    if (tagEl.classList.contains('tag--confirm')) return; // already confirming
+    tagEl.classList.add('tag--confirm');
+    del.style.display = 'none';
+
+    const yes = document.createElement('button');
+    yes.className = 'tag-confirm-yes';
+    yes.textContent = '✓';
+    yes.title = 'Confirm remove';
+
+    const no = document.createElement('button');
+    no.className = 'tag-confirm-no';
+    no.textContent = '✗';
+    no.title = 'Cancel';
+
+    tagEl.append(yes, no);
+  });
+
+  grid.addEventListener('click', e => {
+    const yes = e.target.closest('.tag-confirm-yes');
+    if (!yes) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const tagEl = yes.closest('.tag');
+    const tagVal = tagEl.dataset.tag;
+    const file   = tagEl.querySelector('.tag-del').dataset.file;
+    THEME_TAGS[file] = (THEME_TAGS[file] || []).filter(t => t !== tagVal);
+    const entry = allEntries.find(en => en.filename === file);
+    if (entry) entry.tags = [...THEME_TAGS[file]];
+    saveTagsToStorage();
+    rebuildVibeChips();
+    render();
+  });
+
+  grid.addEventListener('click', e => {
+    const no = e.target.closest('.tag-confirm-no');
+    if (!no) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const tagEl = no.closest('.tag');
+    tagEl.classList.remove('tag--confirm');
+    tagEl.querySelector('.tag-del').style.display = '';
+    tagEl.querySelectorAll('.tag-confirm-yes, .tag-confirm-no').forEach(b => b.remove());
+  });
+
+  /* ── Tag add — type + Enter shows confirm chip, then ✓/✗ ── */
+  grid.addEventListener('click', e => {
+    const addBtn = e.target.closest('.tag-add');
+    if (!addBtn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const file = addBtn.dataset.file;
+    const input = document.createElement('input');
+    input.className = 'tag-input';
+    input.placeholder = 'new tag…';
+    input.maxLength = 24;
+    addBtn.replaceWith(input);
+    input.focus();
+
+    let done = false;
+
+    function showConfirm(val) {
+      done = true;
+      const c = getTagColor(val);
+      const preview = document.createElement('span');
+      preview.className = 'tag tag-preview';
+      preview.style.cssText = `color:${c.fg};background:${c.bg};border-color:${c.border}`;
+
+      const yes = document.createElement('button');
+      yes.className = 'tag-confirm-yes';
+      yes.textContent = '✓';
+      yes.title = 'Add tag';
+
+      const no = document.createElement('button');
+      no.className = 'tag-confirm-no';
+      no.textContent = '✗';
+      no.title = 'Cancel';
+
+      preview.append(document.createTextNode(val), yes, no);
+      input.replaceWith(preview);
+
+      yes.addEventListener('click', ev => {
+        ev.preventDefault(); ev.stopPropagation();
+        if (!THEME_TAGS[file]) THEME_TAGS[file] = [];
+        if (!THEME_TAGS[file].includes(val)) THEME_TAGS[file].push(val);
+        const entry = allEntries.find(en => en.filename === file);
+        if (entry) entry.tags = [...THEME_TAGS[file]];
+        saveTagsToStorage();
+        rebuildVibeChips();
+        render();
+      });
+
+      no.addEventListener('click', ev => {
+        ev.preventDefault(); ev.stopPropagation();
+        render();
+      });
+    }
+
+    input.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter') {
+        ev.preventDefault();
+        const val = input.value.trim().toLowerCase().replace(/\s+/g, '-');
+        if (val) showConfirm(val); else { done = true; render(); }
+      }
+      if (ev.key === 'Escape') { done = true; render(); }
+    });
+
+    input.addEventListener('blur', () => {
+      setTimeout(() => { if (!done) { done = true; render(); } }, 150);
+    });
+  });
+
   /* ── Tag click → set vibe filter ── */
   grid.addEventListener('click', e => {
+    if (e.target.closest('.tag-del') || e.target.closest('.tag-add') ||
+        e.target.closest('.tag-confirm-yes') || e.target.closest('.tag-confirm-no')) return;
     const tag = e.target.closest('.tag');
     if (!tag) return;
     e.preventDefault();
@@ -724,16 +942,30 @@
 
   wireChips('filter-vibe', v => { activeVibe = v; render(); });
 
-  /* ── Build style filter chips from loaded data ── */
-  function buildVibeChips() {
+  /* ── Rebuild vibe filter chips from live THEME_TAGS — sorted by count, auto add/remove ── */
+  function rebuildVibeChips() {
     const container = document.getElementById('filter-vibe');
-    TAG_ORDER.forEach(tag => {
-      const btn = document.createElement('button');
-      btn.className = 'chip';
-      btn.dataset.value = tag;
-      btn.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
-      container.appendChild(btn);
-    });
+
+    const counts = {};
+    for (const tags of Object.values(THEME_TAGS)) {
+      tags.forEach(t => { counts[t] = (counts[t] || 0) + 1; });
+    }
+
+    if (activeVibe && !counts[activeVibe]) activeVibe = '';
+
+    container.querySelectorAll('.chip:not([data-value=""])').forEach(c => c.remove());
+    container.querySelector('[data-value=""]').classList.toggle('active', !activeVibe);
+
+    Object.keys(counts)
+      .sort((a, b) => counts[b] - counts[a] || a.localeCompare(b))
+      .forEach(tag => {
+        const btn = document.createElement('button');
+        btn.className = 'chip' + (tag === activeVibe ? ' active' : '');
+        btn.dataset.value = tag;
+        const label = tag.charAt(0).toUpperCase() + tag.slice(1);
+        btn.textContent = `${label} ${counts[tag]}`;
+        container.appendChild(btn);
+      });
   }
 
   /* ── Load all display fonts from Google Fonts ── */
@@ -783,7 +1015,7 @@
     }
 
     allEntries = sortEntries(allEntries);  // favorites first, then A–Z
-    buildVibeChips();
+    rebuildVibeChips();
 
     countEl.textContent = `${allEntries.length} theme${allEntries.length !== 1 ? 's' : ''}`;
     render();

@@ -15,28 +15,27 @@ Gallery: `~/.claude/skills/theme-factory/index.html`
 
 Each preset is both a live browser preview and a JSON data store (`<script id="theme-data">`).
 
-## Base Path (for clickable links)
 
-Known base path for this user: `C:/Users/pakaw/.claude`
+## Activation
 
-If the base path is not yet known, ask the user at the start of any session:
+This skill activates **only** when:
+- User invokes the `/theme-factory` slash command, **or**
+- User message contains the word **"theme"** paired with an action word (see table below)
 
-> "What is the full path to your `.claude` folder? (e.g. `C:\Users\yourname\.claude`)"
-
-Use this to construct all file links: `<base>/skills/theme-factory/index.html`, `<base>/skills/theme-factory/themes/<name>.html`
+A message containing "theme" alone (no action) is **not** a trigger — do not activate.
 
 ---
 
 ## Step 1: Detect Intent
 
-| Mode        | Trigger                                                                             |
+| Mode        | Trigger (must include "theme" + one of these, or slash command)                     |
 | ----------- | ----------------------------------------------------------------------------------- |
-| **extract** | screenshot/image/HTML path provided; text description; "extract/capture/save theme" |
-| **list**    | "list/show/browse/what themes"                                                      |
-| **delete**  | "delete/remove theme \<name\>"                                                      |
-| **apply**   | "apply/use theme \<name\> to/on \<file\>"                                           |
+| **extract** | `theme extract` · `theme capture` · `theme save` · `theme design` · `theme create` · `create theme` · `design theme` · `make theme` · `new theme` · screenshot/HTML path + "theme" |
+| **list**    | `theme list` · `list themes` · `show themes` · `browse themes` · `what themes`      |
+| **delete**  | `theme delete <name>` · `delete theme <name>` · `remove theme <name>`               |
+| **apply**   | `theme apply <name>` · `apply theme <name>` · `use theme <name>` · `theme <name> on <file>` |
 
-Ambiguous → ask: "Extract from screenshot/HTML/text, list, delete, or apply a theme?"
+Ambiguous (has "theme" but action unclear) → ask: "Extract/create, list, delete, or apply a theme?"
 
 ---
 
@@ -158,8 +157,9 @@ Mine or infer concrete CSS values for each. Absent → `'none'` or `0`. Never om
 6. **Background** — inspect canvas carefully before assuming solid (shared background table)
 7. **Effects** — analyze visually (shared effects table)
 8. **Design DNA** — assess overall language (shared DNA table)
-9. **Name** — ask "What would you like to name it?" (skip if auto mode or provided inline)
-10. **Write** preset HTML (template below) → **update** `index.html` `THEMES` array (add new `{ filename, data }` object with the full theme JSON) → tell user preset path
+9. **Context gap?** — if the image lacks sufficient detail for any dimension (typography unclear, background ambiguous, effects not visible, DNA hard to read), consult the **Path C signal table** (Tone/Style/Hue/Background/Typography/Shape/Mood signals) and use contextual clues from the image (color temperature, subject matter, overall mood) to resolve gaps the same way a text description would.
+10. **Name** — ask "What would you like to name it?" (skip if auto mode or provided inline)
+11. **Write** preset HTML (template below) → **update** `index.html` `THEMES` array (add new `{ filename, data }` object with the full theme JSON) → tell user preset path
 
 ---
 
@@ -183,18 +183,35 @@ Mine or infer concrete CSS values for each. Absent → `'none'` or `0`. Never om
 7. **Typography** — `font-family`/`font-size`/`font-weight`/`line-height` on `body`/`:root`; mono from `code`/`pre`
 8. **Shape** — `border-radius` from `:root`, `.card`, `.btn`
 9. **Design DNA** — derive: density from padding/gap sizes; elevation from box-shadow frequency; motionFeel from transition durations (shared DNA table)
-10. **Name** → **Write** preset → **update** index → tell user preset path
+10. **Context gap?** — if the HTML source is sparse, missing font definitions, has no explicit effects, or DNA signals are absent, consult the **Path C signal table** (Tone/Style/Hue/Background/Typography/Shape/Mood signals) and infer the missing dimensions from the file's naming conventions, class names, content tone, and overall visual intent.
+11. **Name** → **Write** preset → **update** index → tell user preset path
 
 ---
 
 ### Path C: Text Extraction
+
+**Design quality mandate:** Create distinctive, production-grade themes. Avoid generic "AI slop" aesthetics — every decision must feel intentional and opinionated.
+
+#### 0. Intent resolution
+
+**With context** → derive tone, style, typography, color, background, and layout from the provided description.
+
+**Without context** → freely invent a distinctive theme. Pick a combination that makes a strong, coherent statement:
+
+- **Tone:** Dark · Light · Colorful · Colorless
+- **Style:** formal · Super-Unrealistic · brutally minimal · maximalist · retro-futuristic · editorial · brutalist · art deco · soft/pastel · industrial · Psychedelic Surreal _(or any other strong aesthetic direction)_
+
+Choose the pairing with the most creative tension — not the safest one.
+
+---
 
 1. **Multi-theme check** — if user implies multiple palettes, present list
 2. **Parse description** for signals:
 
    | Signal     | Examples                                   | Maps to                       |
    | ---------- | ------------------------------------------ | ----------------------------- |
-   | Tone       | dark, light, muted, vibrant, pastel        | Overall lightness/saturation  |
+   | Tone       | dark, light, colorful, colorless           | Overall lightness/saturation  |
+   | Style      | brutalist, art deco, editorial, surreal    | Aesthetic direction           |
    | Hue        | blue, teal, warm orange, purple            | `primary`, `accent`           |
    | Background | dark terminal, white paper, off-white      | `background`                  |
    | Typography | serif editorial, monospace code, geometric | font stacks                   |
@@ -202,14 +219,30 @@ Mine or infer concrete CSS values for each. Absent → `'none'` or `0`. Never om
    | Reference  | "like GitHub dark", "like Notion"          | Match known palette closely   |
    | Mood       | cyberpunk, minimal, corporate, warm        | Saturation, contrast, spacing |
 
-3. **Synthesize** all 14 slots. Ensure: ≥ 4.5:1 text/bg contrast; `primaryLight` same hue as `primary`; status colors match palette saturation; dark themes bg < 20% lightness, light > 90%
-4. **Typography** from feel:
-   - Editorial/literary → `Georgia, 'Times New Roman', serif`
-   - Clean modern → `Inter, system-ui, sans-serif`
-   - Terminal/code → `'JetBrains Mono', 'Fira Code', monospace`
-   - Geometric → `'DM Sans', Helvetica, sans-serif`
-5. **Shape** from feel: terminal=0–4px, corporate=6–8px, SaaS=8–12px, playful=16–24px
-6. **Background** — infer from description:
+3. **Synthesize** all 14 slots. Ensure: ≥ 4.5:1 text/bg contrast; `primaryLight` same hue as `primary`; status colors match palette saturation; dark themes bg < 20% lightness, light > 90%.
+
+   **Color palette rules:**
+   - Use dominant hues with sharp accents — avoid timid even distributions across the spectrum
+   - Build cohesion around 1–2 anchor hues; accents should feel deliberately chosen, not random
+   - **AVOID pure `#000000` and `#ffffff`** — use near-black / near-white with slight hue lean unless the theme's identity demands it (e.g., brutalist newspaper, high-contrast accessibility theme)
+
+4. **Typography** — choose a distinctive display + refined body font pair. **Never use:** Inter, Roboto, Arial, system-ui, Helvetica, or Space Grotesk.
+
+   | Style direction           | Display font                                 | Body font                          |
+   | ------------------------- | -------------------------------------------- | ---------------------------------- |
+   | Editorial / literary      | `'Playfair Display'`, `'Cormorant Garamond'` | `'Lora'`, `'Source Serif 4'`       |
+   | Retro-futuristic          | `'Orbitron'`, `'Exo 2'`                      | `'Rajdhani'`, `'Oxanium'`          |
+   | Art deco / formal         | `'Poiret One'`, `'Cinzel'`                   | `'Josefin Sans'`, `'Libre Baskerville'` |
+   | Brutalist                 | `'Bebas Neue'`, `'Anton'`                    | `'IBM Plex Mono'`, `'Courier Prime'` |
+   | Soft / pastel / playful   | `'Nunito'`, `'Comfortaa'`                    | `'DM Serif Display'`, `'Quicksand'` |
+   | Industrial / technical    | `'Barlow Condensed'`, `'Syncopate'`          | `'IBM Plex Sans'`, `'Syne'`        |
+   | Psychedelic / surreal     | `'Righteous'`, `'Boogaloo'`                  | `'Cabin'`, `'Varela Round'`        |
+   | Terminal / code           | `'JetBrains Mono'`, `'Fira Code'`            | `'Inconsolata'`, `'Share Tech Mono'` |
+
+   All fonts must be loaded via Google Fonts `@import` in the HTML file.
+
+5. **Shape** from feel: terminal=0–2px, brutalist=0px, corporate=4–6px, editorial=6–8px, SaaS=8–12px, art deco=2–4px, playful=16–24px
+6. **Background** — prioritize depth over solid colors. Prefer gradient meshes, noise textures, geometric patterns, or layered transparencies.
 
    | Implies                             | Generate                                    |
    | ----------------------------------- | ------------------------------------------- |
@@ -217,8 +250,8 @@ Mine or infer concrete CSS values for each. Absent → `'none'` or `0`. Never om
    | graph paper / grid                  | grid pattern; ~20px pitch                   |
    | dot grid / bullet journal           | dot-grid; 20–24px pitch                     |
    | blueprint / technical               | blueprint; dark navy + white/cyan lines     |
-   | noise / grain / textured            | noise; `patternOpacity: 0.03–0.06`          |
-   | gradient background                 | gradient; full `linear-gradient(...)`       |
+   | noise / grain / textured            | noise; `patternOpacity: 0.03–0.08`          |
+   | gradient / mesh background          | gradient; full `linear-gradient(...)` or mesh |
    | dark / light / minimal (no texture) | solid; `image: none`                        |
 
 7. **Effects** — infer from description:
@@ -233,8 +266,22 @@ Mine or infer concrete CSS values for each. Absent → `'none'` or `0`. Never om
    | minimal / flat / clean / no shadow  | All effects `none`                                                                     |
    | (nothing implies it)                | `'none'` or `0` — never invent                                                         |
 
-8. **Design DNA** from mood words (shared DNA table)
-9. **Name** → **Write** preset → **update** index → tell user preset path
+8. **Layout direction** — don't default to centered symmetric grids. Consider:
+   - Asymmetric columns, diagonal dividers, overlapping elements
+   - Grid-breaking hero sections, generous negative space or controlled density
+   - Diagonal flow lines, staggered cards, off-center typography anchors
+
+9. **Design DNA** from mood words (shared DNA table)
+
+10. **Name** — choose a name that reflects the specific aesthetic (e.g. `midnight-telegraph`, `chrome-pastoral`, `acid-ledger`), not a generic descriptor.
+
+11. **Output** — write as a standalone HTML file that showcases the full theme ability:
+    - Use the preset-template as a structural base reference, but **design freely** to express the theme's full potential — layout, custom components, section transitions, anything needed to show what this theme can do
+    - Include a visible tag block showing `tone` and `style` (e.g. `Dark · Retro-futuristic`)
+    - The showcase content should fit the theme's world — a brutalist theme gets harsh editorial blocks; a psychedelic theme gets flowing surreal sections; art deco gets ornamental dividers
+    - All tone / style / typography / color / background / layout decisions must feel cohesive — every component should reinforce the same singular aesthetic
+
+12. **Write** preset → **update** index → tell user preset path
 
 ---
 
@@ -243,6 +290,8 @@ Mine or infer concrete CSS values for each. Absent → `'none'` or `0`. Never om
 Read `~/.claude/skills/theme-factory/preset-template.html` to get the full template structure. Replace every `<placeholder>` with the actual extracted value. `<script id="theme-data">` must be valid JSON. Every CSS variable in `:root` must have a concrete value. The `<body>` must contain only the generic component showcase — no content from the extraction source.
 
 The template opens with `<!DOCTYPE html><html lang="en" data-theme="<name>">` — read the file for the full structure.
+
+For Path C themes: the template is a **base reference only** — deviate freely in layout, custom sections, and component design to express the theme's full potential. The JSON data block must still be valid and complete.
 
 After writing preset, tell user to look at `~/.claude/skills/theme-factory/index.html` to see the live preview and confirm the theme looks correct.
 

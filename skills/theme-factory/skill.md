@@ -1,7 +1,6 @@
 ﻿---
 name: theme-factory
 description: Manage visual theme presets — extract colors/typography from screenshots, browse with live HTML previews, delete presets, and apply any theme to HTML/reports/dashboards via CSS custom properties
-tools: Read, Write, Edit, Bash, Glob
 ---
 
 # Theme Factory
@@ -15,10 +14,10 @@ Gallery: `~/.claude/skills/theme-factory/index.html`
 
 Each preset is both a live browser preview and a JSON data store (`<script id="theme-data">`).
 
-
 ## Activation
 
 This skill activates **only** when:
+
 - User invokes the `/theme-factory` slash command, **or**
 - User message contains the word **"theme"** paired with an action word (see table below)
 
@@ -28,12 +27,12 @@ A message containing "theme" alone (no action) is **not** a trigger — do not a
 
 ## Step 1: Detect Intent
 
-| Mode        | Trigger (must include "theme" + one of these, or slash command)                     |
-| ----------- | ----------------------------------------------------------------------------------- |
+| Mode        | Trigger (must include "theme" + one of these, or slash command)                                                                                                                    |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **extract** | `theme extract` · `theme capture` · `theme save` · `theme design` · `theme create` · `create theme` · `design theme` · `make theme` · `new theme` · screenshot/HTML path + "theme" |
-| **list**    | `theme list` · `list themes` · `show themes` · `browse themes` · `what themes`      |
-| **delete**  | `theme delete <name>` · `delete theme <name>` · `remove theme <name>`               |
-| **apply**   | `theme apply <name>` · `apply theme <name>` · `use theme <name>` · `theme <name> on <file>` |
+| **list**    | `theme list` · `list themes` · `show themes` · `browse themes` · `what themes`                                                                                                     |
+| **delete**  | `theme delete <name>` · `delete theme <name>` · `remove theme <name>`                                                                                                              |
+| **apply**   | `theme apply <name>` · `apply theme <name>` · `use theme <name>` · `theme <name> on <file>`                                                                                        |
 
 Ambiguous (has "theme" but action unclear) → ask: "Extract/create, list, delete, or apply a theme?"
 
@@ -228,31 +227,31 @@ Choose the pairing with the most creative tension — not the safest one.
 
 4. **Typography** — choose a distinctive display + refined body font pair. **Never use:** Inter, Roboto, Arial, system-ui, Helvetica, or Space Grotesk.
 
-   | Style direction           | Display font                                 | Body font                          |
-   | ------------------------- | -------------------------------------------- | ---------------------------------- |
-   | Editorial / literary      | `'Playfair Display'`, `'Cormorant Garamond'` | `'Lora'`, `'Source Serif 4'`       |
-   | Retro-futuristic          | `'Orbitron'`, `'Exo 2'`                      | `'Rajdhani'`, `'Oxanium'`          |
-   | Art deco / formal         | `'Poiret One'`, `'Cinzel'`                   | `'Josefin Sans'`, `'Libre Baskerville'` |
-   | Brutalist                 | `'Bebas Neue'`, `'Anton'`                    | `'IBM Plex Mono'`, `'Courier Prime'` |
-   | Soft / pastel / playful   | `'Nunito'`, `'Comfortaa'`                    | `'DM Serif Display'`, `'Quicksand'` |
-   | Industrial / technical    | `'Barlow Condensed'`, `'Syncopate'`          | `'IBM Plex Sans'`, `'Syne'`        |
-   | Psychedelic / surreal     | `'Righteous'`, `'Boogaloo'`                  | `'Cabin'`, `'Varela Round'`        |
-   | Terminal / code           | `'JetBrains Mono'`, `'Fira Code'`            | `'Inconsolata'`, `'Share Tech Mono'` |
+   | Style direction         | Display font                                 | Body font                               |
+   | ----------------------- | -------------------------------------------- | --------------------------------------- |
+   | Editorial / literary    | `'Playfair Display'`, `'Cormorant Garamond'` | `'Lora'`, `'Source Serif 4'`            |
+   | Retro-futuristic        | `'Orbitron'`, `'Exo 2'`                      | `'Rajdhani'`, `'Oxanium'`               |
+   | Art deco / formal       | `'Poiret One'`, `'Cinzel'`                   | `'Josefin Sans'`, `'Libre Baskerville'` |
+   | Brutalist               | `'Bebas Neue'`, `'Anton'`                    | `'IBM Plex Mono'`, `'Courier Prime'`    |
+   | Soft / pastel / playful | `'Nunito'`, `'Comfortaa'`                    | `'DM Serif Display'`, `'Quicksand'`     |
+   | Industrial / technical  | `'Barlow Condensed'`, `'Syncopate'`          | `'IBM Plex Sans'`, `'Syne'`             |
+   | Psychedelic / surreal   | `'Righteous'`, `'Boogaloo'`                  | `'Cabin'`, `'Varela Round'`             |
+   | Terminal / code         | `'JetBrains Mono'`, `'Fira Code'`            | `'Inconsolata'`, `'Share Tech Mono'`    |
 
    All fonts must be loaded via Google Fonts `@import` in the HTML file.
 
 5. **Shape** from feel: terminal=0–2px, brutalist=0px, corporate=4–6px, editorial=6–8px, SaaS=8–12px, art deco=2–4px, playful=16–24px
 6. **Background** — prioritize depth over solid colors. Prefer gradient meshes, noise textures, geometric patterns, or layered transparencies.
 
-   | Implies                             | Generate                                    |
-   | ----------------------------------- | ------------------------------------------- |
-   | paper / notebook / lined            | lines-h; warm off-white base; ~24px spacing |
-   | graph paper / grid                  | grid pattern; ~20px pitch                   |
-   | dot grid / bullet journal           | dot-grid; 20–24px pitch                     |
-   | blueprint / technical               | blueprint; dark navy + white/cyan lines     |
-   | noise / grain / textured            | noise; `patternOpacity: 0.03–0.08`          |
+   | Implies                             | Generate                                      |
+   | ----------------------------------- | --------------------------------------------- |
+   | paper / notebook / lined            | lines-h; warm off-white base; ~24px spacing   |
+   | graph paper / grid                  | grid pattern; ~20px pitch                     |
+   | dot grid / bullet journal           | dot-grid; 20–24px pitch                       |
+   | blueprint / technical               | blueprint; dark navy + white/cyan lines       |
+   | noise / grain / textured            | noise; `patternOpacity: 0.03–0.08`            |
    | gradient / mesh background          | gradient; full `linear-gradient(...)` or mesh |
-   | dark / light / minimal (no texture) | solid; `image: none`                        |
+   | dark / light / minimal (no texture) | solid; `image: none`                          |
 
 7. **Effects** — infer from description:
 

@@ -232,8 +232,11 @@
       padding: 0.15rem 0.45rem;
       border-radius: 3px;
       border: 1px solid;
-      opacity: 0.8;
+      opacity: 0.85;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
     }
+    .tag:hover { opacity: 1; transform: translateY(-1px); }
 
     .open-link {
       font-size: 0.75rem;
@@ -329,42 +332,56 @@
 <script>
   /* ── VIBE TAGS — curated multi-tag classification (2–3 per theme) ── */
   const THEME_TAGS = {
-    'themes/space-void.html':        ['cyber', 'minimal'],
+    'themes/space-void.html':        ['cyber'],
     'themes/cyber-terminal.html':    ['cyber', 'retro'],
-    'themes/horizon-sunset.html':    ['nature', 'editorial'],
-    'themes/coral-slate.html':       ['corporate', 'editorial'],
+    'themes/horizon-sunset.html':    ['nature'],
+    'themes/coral-slate.html':       ['corporate', 'minimal'],
     'themes/peach-slate.html':       ['nature', 'minimal'],
     'themes/synthwave-84.html':      ['cyber', 'retro'],
     'themes/modern-coral.html':      ['editorial', 'nature'],
     'themes/velvet-noir.html':       ['luxe', 'gothic'],
-    'themes/chalk-press.html':       ['editorial', 'brutalist'],
+    'themes/chalk-press.html':       ['editorial', 'brutalist', 'minimal'],
     'themes/neon-foundry.html':      ['cyber', 'retro'],
-    'themes/bloc-brutus.html':       ['brutalist', 'editorial'],
+    'themes/bloc-brutus.html':       ['brutalist', 'minimal'],
     'themes/cosmica.html':           ['cosmic', 'luxe'],
     'themes/tobacco-road.html':      ['editorial', 'retro', 'nature'],
     'themes/obsidian-mono.html':     ['minimal'],
     'themes/embassy-gold.html':      ['luxe', 'corporate'],
-    'themes/acid-garden.html':       ['cosmic', 'nature'],
+    'themes/acid-garden.html':       ['cosmic', 'cyber'],
     'themes/copper-alchemist.html':  ['retro', 'gothic'],
-    'themes/bauhaus-konstrukt.html': ['brutalist', 'editorial'],
-    'themes/nocturne-nouveau.html':  ['luxe', 'gothic', 'editorial'],
-    'themes/solarpunk-utopia.html':  ['nature', 'editorial'],
-    'themes/crypt-scholastic.html':  ['gothic', 'editorial'],
+    'themes/bauhaus-konstrukt.html': ['brutalist'],
+    'themes/nocturne-nouveau.html':  ['luxe', 'gothic'],
+    'themes/solarpunk-utopia.html':  ['nature', 'cosmic'],
+    'themes/crypt-scholastic.html':  ['gothic', 'retro'],
     'themes/tokyo-screentone.html':  ['editorial', 'retro', 'brutalist'],
-    'themes/vellum-codex.html':      ['editorial', 'retro'],
+    'themes/vellum-codex.html':      ['retro', 'luxe'],
     'themes/amber-signal.html':      ['cyber', 'retro'],
     'themes/ultraviolet-rave.html':  ['cosmic', 'cyber'],
-    'themes/moss-cottage.html':      ['nature', 'editorial'],
+    'themes/moss-cottage.html':      ['nature', 'minimal'],
     'themes/titanium-cloud.html':    ['corporate', 'minimal'],
     'themes/alpha-signal.html':      ['finance', 'cyber'],
     'themes/vault-theorem.html':     ['finance', 'luxe'],
     'themes/meridian-capital.html':  ['finance', 'luxe', 'editorial'],
     'themes/eigenvalue.html':        ['finance', 'cyber'],
-    'themes/prism-ledger.html':      ['finance', 'editorial'],
+    'themes/prism-ledger.html':      ['finance', 'editorial', 'luxe'],
     'themes/astral-drift.html':      ['cosmic', 'gothic'],
   };
 
   const TAG_ORDER = ['cyber', 'retro', 'cosmic', 'gothic', 'editorial', 'brutalist', 'luxe', 'nature', 'minimal', 'finance', 'corporate'];
+
+  const TAG_COLORS = {
+    cyber:      { fg: '#00e5ff', bg: '#00e5ff18', border: '#00e5ff55' },
+    retro:      { fg: '#ff9d00', bg: '#ff9d0018', border: '#ff9d0055' },
+    cosmic:     { fg: '#c084fc', bg: '#c084fc18', border: '#c084fc55' },
+    gothic:     { fg: '#f472b6', bg: '#f472b618', border: '#f472b655' },
+    editorial:  { fg: '#94a3b8', bg: '#94a3b818', border: '#94a3b855' },
+    brutalist:  { fg: '#ef4444', bg: '#ef444418', border: '#ef444455' },
+    luxe:       { fg: '#eab308', bg: '#eab30818', border: '#eab30855' },
+    nature:     { fg: '#4ade80', bg: '#4ade8018', border: '#4ade8055' },
+    minimal:    { fg: '#e2e8f0', bg: '#e2e8f010', border: '#e2e8f035' },
+    finance:    { fg: '#38bdf8', bg: '#38bdf818', border: '#38bdf855' },
+    corporate:  { fg: '#a78bfa', bg: '#a78bfa18', border: '#a78bfa55' },
+  };
 
   /* ── THEME DATA — one object per theme; skill updates this array on extract/delete ── */
   const THEMES = [
@@ -507,8 +524,8 @@
   const emptyMsg = document.getElementById('empty-msg');
 
   let allEntries  = [];
-  let activeMode  = '';
-  let activeVibes = [];
+  let activeMode = '';
+  let activeVibe = '';
   let favorites   = new Set(JSON.parse(localStorage.getItem('theme-fav') || '[]'));
 
   /* ── Colour helpers ── */
@@ -618,7 +635,7 @@
         <div class="card-name">${theme.name || filename.replace('themes/','').replace('.html','')}${isFav ? '<span class="fav-pin">★ pinned</span>' : ''}</div>
         <div class="card-desc">${theme.description || ''}</div>
         <div class="card-footer">
-          <div class="card-tags">${tags.map(t => `<span class="tag" style="color:${p};border-color:${p}44">${t}</span>`).join('')}</div>
+          <div class="card-tags">${tags.map(t => { const c = TAG_COLORS[t] || {}; return `<span class="tag" data-tag="${t}" style="color:${c.fg||'#aaa'};background:${c.bg||'transparent'};border-color:${c.border||'#aaa4'}">${t}</span>`; }).join('')}</div>
           <span class="open-link">open
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M2 10L10 2M5 2h5v5"/>
@@ -634,7 +651,7 @@
   function render() {
     const filtered = allEntries.filter(e => {
       if (activeMode && e.mode !== activeMode) return false;
-      if (activeVibes.length > 0 && !activeVibes.some(v => e.tags.includes(v))) return false;
+      if (activeVibe && !e.tags.includes(activeVibe)) return false;
       return true;
     });
 
@@ -655,11 +672,32 @@
     container.addEventListener('click', e => {
       const chip = e.target.closest('.chip');
       if (!chip) return;
+      const value = chip.dataset.value;
+      if (chip.classList.contains('active') && value !== '') {
+        container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        container.querySelector('[data-value=""]')?.classList.add('active');
+        onChange('');
+        return;
+      }
       container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
-      onChange(chip.dataset.value);
+      onChange(value);
     });
   }
+
+  /* ── Tag click → set vibe filter ── */
+  grid.addEventListener('click', e => {
+    const tag = e.target.closest('.tag');
+    if (!tag) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const value = tag.dataset.tag;
+    activeVibe = (activeVibe === value) ? '' : value;
+    document.querySelectorAll('#filter-vibe .chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.value === activeVibe);
+    });
+    render();
+  });
 
   /* ── Favorite toggle — event delegation on grid ── */
   grid.addEventListener('click', e => {
@@ -680,29 +718,7 @@
 
   wireChips('filter-tone', v => { activeMode = v; render(); });
 
-  /* ── Vibe chips — multi-select, OR logic ── */
-  (function () {
-    const container = document.getElementById('filter-vibe');
-    container.addEventListener('click', e => {
-      const chip = e.target.closest('.chip');
-      if (!chip) return;
-      const value = chip.dataset.value;
-      if (value === '') {
-        activeVibes = [];
-        container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-      } else {
-        container.querySelector('[data-value=""]')?.classList.remove('active');
-        chip.classList.toggle('active');
-        activeVibes = [...container.querySelectorAll('.chip.active')]
-          .map(c => c.dataset.value).filter(v => v);
-        if (activeVibes.length === 0) {
-          container.querySelector('[data-value=""]')?.classList.add('active');
-        }
-      }
-      render();
-    });
-  })();
+  wireChips('filter-vibe', v => { activeVibe = v; render(); });
 
   /* ── Build style filter chips from loaded data ── */
   function buildVibeChips() {
@@ -711,7 +727,7 @@
       const btn = document.createElement('button');
       btn.className = 'chip';
       btn.dataset.value = tag;
-      btn.textContent = tag;
+      btn.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
       container.appendChild(btn);
     });
   }

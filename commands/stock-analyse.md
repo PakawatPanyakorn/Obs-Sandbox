@@ -103,12 +103,59 @@ Use this exact CSS block inside `<style>`. It is the minimalist theme from theme
 }
 ```
 
-The hero banner should use a rich dark gradient (e.g. `linear-gradient(135deg, #4f5d75, #2d3a52)`) with white text — the rest of the page uses the light theme.
+The hero banner must be a contained "big box" card — **not** a full-width stripe. It sits inside the `.page` wrapper so it is constrained to the content width and has rounded corners and a drop shadow. Use this exact CSS:
+
+```css
+.hero {
+  background: linear-gradient(135deg, #4f5d75 0%, #3d4d63 60%, #2d3a52 100%);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  color: #fff;
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-ticker  { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.65); text-transform: uppercase; margin-bottom: 6px; }
+.hero-name    { font-size: 28px; font-weight: 800; margin-bottom: 8px; color: #ffffff; }
+.hero-tagline { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 540px; margin-bottom: 20px; }
+.hero-pills   { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill         { padding: 4px 14px; border-radius: 50px; font-size: 12px; font-weight: 600; border: 1px solid; }
+.pill-blue    { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.4);  color: #ffffff; }
+.pill-green   { background: rgba(61,158,109,.25);  border-color: rgba(61,158,109,.6);   color: #7ee8b8; }
+.pill-red     { background: rgba(201,64,64,.25);   border-color: rgba(201,64,64,.6);    color: #f4a0a0; }
+.pill-yellow  { background: rgba(212,152,14,.25);  border-color: rgba(212,152,14,.6);   color: #f5d070; }
+```
+
+Place the hero as the **first child inside `<div class="page">`** — never outside it. Use this HTML structure:
+
+```html
+<div class="page">
+<div class="hero">
+  <div class="hero-ticker">NYSE: AAPL &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; June 2026</div>
+  <div class="hero-name">Apple Inc.</div>
+  <div class="hero-tagline">One sentence that explains the company like you're talking to a 10-year-old.</div>
+  <div class="hero-pills">
+    <span class="pill pill-blue">Consumer Tech</span>
+    <span class="pill pill-green">Profitable</span>
+    <span class="pill pill-yellow">Valuation Risk</span>
+  </div>
+</div>
+```
 
 ### 2. Hero Banner
-- Company name, ticker, exchange, and the current date from the system context formatted as `Month YYYY` (e.g. "NYSE: AAPL | Stock Analysis | March 2027"). Use the same month + year as the filename.
-- One-sentence tagline explaining the company like you're talking to a 10-year-old
-- Tag pills: sector, growth stage, key risk label (e.g. "High Growth", "Regulatory Risk", "Profitable")
+- Ticker meta line: `EXCHANGE: TICKER &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; Month YYYY` — use the same month + year as the filename
+- Company full name as `.hero-name`
+- One-sentence tagline (`.hero-tagline`) explaining the company to a 10-year-old — no jargon
+- Pill badges (`.hero-pills`): sector tag (`pill-blue`), growth stage (`pill-green` / `pill-yellow`), key risk label (`pill-red` / `pill-yellow`)
 
 ### 3. TL;DR Box
 Bordered card with left accent line. Use `+` (green) / `!` (yellow) / `-` (red) / `►` (blue) prefix icons. Cover:

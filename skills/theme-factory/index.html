@@ -752,7 +752,7 @@
             return orig !== curr;
           }) ||
           Object.keys(THEME_TAGS).some((k) => !(k in ORIGINAL_THEME_TAGS));
-        btn.style.display = changed ? "" : "none";
+        btn.style.display = changed ? "inline-block" : "none";
       }
 
       function getTagColor(tag) {
@@ -4193,6 +4193,211 @@
             },
           },
         },
+        {
+          filename: "themes/wisdom.html",
+          data: {
+            name: "wisdom",
+            description:
+              "Ancient Greek classicism — Platonic marble, Aegean lapis lazuli, gold inscription. Cinzel columns, EB Garamond scrolls, contemplative and dignified.",
+            createdAt: "2026-06-23T00:00:00.000Z",
+            source: "text",
+            sourceFile: "",
+            colors: {
+              primary: "#1E3B6F",
+              primaryLight: "#C8D8EC",
+              secondary: "#8B4513",
+              accent: "#B8860B",
+              background: "#F4EFE2",
+              surface: "#EBE4D1",
+              surfaceAlt: "#DDD5BC",
+              text: "#1C1812",
+              textMuted: "#6E5E48",
+              textOnPrimary: "#F4EFE2",
+              border: "#C4B59A",
+              success: "#3D6E3A",
+              warning: "#B07820",
+              error: "#8B2020",
+            },
+            typography: {
+              fontFamily: "'EB Garamond', Georgia, serif",
+              fontFamilyMono: "'Courier Prime', 'Courier New', monospace",
+              fontFamilyDisplay: "'Cinzel', 'Times New Roman', serif",
+              scaleBase: "17px",
+              headingWeight: "600",
+              bodyWeight: "400",
+              lineHeight: "1.72",
+            },
+            spacing: {
+              borderRadius: "4px",
+              cardRadius: "6px",
+              buttonRadius: "4px",
+              spaceUnit: "8px",
+              density: "comfortable",
+            },
+            shadows: {
+              sm: "0 1px 4px rgba(28,24,18,0.12)",
+              md: "0 4px 16px rgba(28,24,18,0.16)",
+              lg: "0 8px 32px rgba(28,24,18,0.20)",
+              elevation: "subtle",
+            },
+            motion: {
+              durationFast: "150ms",
+              durationBase: "250ms",
+              durationSlow: "450ms",
+              easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+              feel: "subtle",
+            },
+            design: {
+              aesthetic: "editorial",
+              personality: ["contemplative", "scholarly", "dignified", "timeless"],
+              borderStyle: "hairline",
+              iconStyle: "outlined",
+              imageStyle: "none",
+              surfaceTexture: "noise",
+              hierarchyClarity: "high",
+              notes:
+                "Platonic classicism — marble grain bg, Aegean blue primary, gold accent, Cinzel columns, EB Garamond scrolls. Gold meander border decoration. No glow, zero ornament beyond reason.",
+            },
+          },
+        },
+        {
+          filename: "themes/bauhaus-geometry.html",
+          data: {
+            name: "bauhaus-geometry",
+            description:
+              "Playful Bauhaus geometry index — classic red, blue, yellow on warm white. Instead of a color palette, showcases 16 CSS shape primitives by name so designers can discover, name, and search the right form. Bold, joyful, primary-colored.",
+            createdAt: "2026-06-23T00:00:00.000Z",
+            source: "text",
+            sourceFile: "",
+            colors: {
+              primary: "#E63329",
+              primaryLight: "#FAD9D7",
+              secondary: "#1B47D4",
+              accent: "#F5C400",
+              background: "#F5F0E8",
+              surface: "#FAFAF7",
+              surfaceAlt: "#EDE9E0",
+              text: "#1A1918",
+              textMuted: "#6B6560",
+              textOnPrimary: "#F5F0E8",
+              border: "#D4CFC4",
+              success: "#2E8B3A",
+              warning: "#C89400",
+              error: "#E63329",
+            },
+            typography: {
+              fontFamily: "'Josefin Sans', 'Futura', 'Century Gothic', sans-serif",
+              fontFamilyMono: "'IBM Plex Mono', 'Courier New', monospace",
+              fontFamilyDisplay: "'Josefin Sans', 'Futura', 'Century Gothic', sans-serif",
+              scaleBase: "16px",
+              headingWeight: "700",
+              bodyWeight: "400",
+              lineHeight: "1.6",
+            },
+            spacing: {
+              borderRadius: "0px",
+              cardRadius: "0px",
+              buttonRadius: "0px",
+              spaceUnit: "8px",
+              density: "comfortable",
+            },
+            shadows: {
+              sm: "2px 2px 0 #1A1918",
+              md: "4px 4px 0 #1A1918",
+              lg: "6px 6px 0 #1A1918",
+              colored: "4px 4px 0 #E63329",
+              elevation: "flat",
+            },
+            motion: {
+              durationFast: "80ms",
+              durationBase: "150ms",
+              durationSlow: "250ms",
+              easing: "ease",
+              feel: "instant",
+            },
+            design: {
+              aesthetic: "playful",
+              personality: ["geometric", "bold", "educational", "primary-colors"],
+              borderStyle: "bold",
+              iconStyle: "sharp",
+              imageStyle: "abstract",
+              surfaceTexture: "flat",
+              hierarchyClarity: "high",
+              notes:
+                "Unique: shows shape names (Circle, Hexagon, Trapezoid…) instead of color names. Hard offset shadows. Zero border-radius. Bauhaus triad palette. Josefin Sans — geometric sans faithful to Bauhaus typography.",
+            },
+          },
+        },
+        {
+          filename: "themes/edo-stillwater.html",
+          data: {
+            name: "edo-stillwater",
+            description:
+              "Formal Ukiyo-e woodblock — Prussian blue (gunjō) ink on cool washi paper, celadon jade accent. Cormorant Garamond hierarchy, flat ink silhouette aesthetic. Hiroshige stillness, misty mountain calm.",
+            createdAt: "2026-06-23T00:00:00.000Z",
+            source: "text",
+            sourceFile: "",
+            colors: {
+              primary: "#2B4F7A",
+              primaryLight: "#D0D9E8",
+              secondary: "#4A6E9A",
+              accent: "#5A8878",
+              background: "#EAECF0",
+              surface: "#F4F5F7",
+              surfaceAlt: "#E0E3E9",
+              text: "#1A2030",
+              textMuted: "#5A6880",
+              textOnPrimary: "#EBF0F8",
+              border: "#C4C8D4",
+              success: "#4A7A60",
+              warning: "#8A6030",
+              error: "#8A3030",
+            },
+            typography: {
+              fontFamily: "'Libre Baskerville', Georgia, serif",
+              fontFamilyMono: "'Courier Prime', 'Courier New', monospace",
+              fontFamilyDisplay: "'Cormorant Garamond', Georgia, serif",
+              scaleBase: "16px",
+              headingWeight: "600",
+              bodyWeight: "400",
+              lineHeight: "1.72",
+            },
+            spacing: {
+              borderRadius: "2px",
+              cardRadius: "3px",
+              buttonRadius: "2px",
+              spaceUnit: "8px",
+              density: "comfortable",
+            },
+            shadows: {
+              sm: "0 1px 3px rgba(26,32,48,0.10)",
+              md: "0 2px 8px rgba(26,32,48,0.12)",
+              lg: "0 4px 16px rgba(26,32,48,0.15)",
+              xl: "0 8px 32px rgba(26,32,48,0.18)",
+              colored: "0 2px 12px rgba(43,79,122,0.22)",
+              inset: "inset 0 1px 4px rgba(26,32,48,0.12)",
+              elevation: "subtle",
+            },
+            motion: {
+              durationFast: "180ms",
+              durationBase: "320ms",
+              durationSlow: "500ms",
+              easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+              feel: "subtle",
+            },
+            design: {
+              aesthetic: "editorial",
+              personality: ["formal", "serene", "restrained", "classical"],
+              borderStyle: "subtle",
+              iconStyle: "sharp",
+              imageStyle: "illustrative",
+              surfaceTexture: "flat",
+              hierarchyClarity: "high",
+              notes:
+                "Prussian blue (gunjō) anchors the palette — the defining pigment of Ukiyo-e. Celadon jade (seiheki) as restrained counterpoint. Zero glow or glass. Woodblock flatness. Cormorant Garamond italic light display. Edo color names in palette showcase.",
+            },
+          },
+        },
       ];
 
       const grid = document.getElementById("grid");
@@ -4760,7 +4965,7 @@
         "themes/horizon-sunset.html": ["nature"],
         "themes/coral-slate.html": ["corporate", "minimalist", "formal"],
         "themes/peach-slate.html": ["nature", "minimalist"],
-        "themes/synthwave-84.html": ["cyber", "retro"],
+        "themes/synthwave-84.html": ["cyber", "retro", "luminescence"],
         "themes/modern-coral.html": ["editorial", "nature"],
         "themes/velvet-noir.html": ["luxe", "gothic"],
         "themes/chalk-press.html": ["editorial", "brutalist", "minimalist"],
@@ -4814,6 +5019,12 @@
           "vibrant",
           "psychedelic",
         ],
+        "themes/wisdom.html": [
+          "editorial",
+          "luxe",
+        ],
+        "themes/bauhaus-geometry.html": ["brutalist", "editorial"],
+        "themes/edo-stillwater.html": ["editorial", "formal", "minimalist"],
       };
       const ORIGINAL_THEME_TAGS = JSON.parse(JSON.stringify(THEME_TAGS));
       loadTagsFromStorage();

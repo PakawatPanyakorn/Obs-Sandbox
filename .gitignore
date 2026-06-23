@@ -22,6 +22,7 @@ ide/
 scripts/
 plans/
 ecc/
+plugins/
 
 # Per-project memory
 projects/

@@ -677,6 +677,14 @@
           <button class="chip active" data-value="">All</button>
         </div>
       </div>
+      <div class="filter-row">
+        <span class="filter-label">Sort</span>
+        <div class="filter-divider"></div>
+        <div class="filter-chips" id="filter-sort">
+          <button class="chip active" data-value="name-asc" data-group="name">Name A→Z</button>
+          <button class="chip" data-value="date-desc" data-group="date">Date ↓ Newest</button>
+        </div>
+      </div>
     </div>
 
     <div class="grid" id="grid"></div>
@@ -4419,6 +4427,7 @@
       let allEntries = [];
       let activeMode = "";
       let activeVibe = "";
+      let activeSort = "name-asc";
       let favorites = new Set(
         JSON.parse(localStorage.getItem("theme-fav") || "[]"),
       );
@@ -4460,15 +4469,28 @@
         return { h: hue * 360, s: sat * 100, l: lig * 100 };
       }
 
-      /* ── Sort: favorites pinned first, then A–Z by theme name ── */
+      /* ── Sort: favorites pinned first, then by activeSort ── */
       function sortEntries(entries) {
         return [...entries].sort((a, b) => {
           const aFav = favorites.has(a.filename);
           const bFav = favorites.has(b.filename);
           if (aFav !== bFav) return aFav ? -1 : 1;
-          const aName = (a.theme.name || a.filename).toLowerCase();
-          const bName = (b.theme.name || b.filename).toLowerCase();
-          return aName.localeCompare(bName);
+
+          if (activeSort === "name-asc" || activeSort === "name-desc") {
+            const aName = (a.theme.name || a.filename).toLowerCase();
+            const bName = (b.theme.name || b.filename).toLowerCase();
+            const cmp = aName.localeCompare(bName);
+            return activeSort === "name-asc" ? cmp : -cmp;
+          }
+
+          if (activeSort === "date-asc" || activeSort === "date-desc") {
+            const aTime = new Date(a.theme.createdAt || 0).getTime();
+            const bTime = new Date(b.theme.createdAt || 0).getTime();
+            const cmp = aTime - bTime;
+            return activeSort === "date-asc" ? cmp : -cmp;
+          }
+
+          return 0;
         });
       }
 
@@ -4814,6 +4836,40 @@
         activeVibe = v;
         render();
       });
+
+      /* Sort chips — toggle direction on repeated click, switch chip on first click */
+      const SORT_TOGGLE = {
+        "name-asc":  { next: "name-desc", label: "Name Z→A" },
+        "name-desc": { next: "name-asc",  label: "Name A→Z" },
+        "date-desc": { next: "date-asc",  label: "Date ↑ Oldest" },
+        "date-asc":  { next: "date-desc", label: "Date ↓ Newest" },
+      };
+      const SORT_GROUP_DEFAULT = { name: "name-asc", date: "date-desc" };
+
+      (function wireSortChips() {
+        const container = document.getElementById("filter-sort");
+        container.addEventListener("click", (e) => {
+          const chip = e.target.closest(".chip");
+          if (!chip) return;
+
+          if (chip.classList.contains("active")) {
+            /* already active — toggle direction */
+            const t = SORT_TOGGLE[activeSort];
+            if (!t) return;
+            activeSort = t.next;
+            chip.dataset.value = activeSort;
+            chip.textContent = t.label;
+          } else {
+            /* switching to a different chip — activate with its stored direction */
+            container.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+            chip.classList.add("active");
+            activeSort = chip.dataset.value || SORT_GROUP_DEFAULT[chip.dataset.group] || "name-asc";
+          }
+
+          allEntries = sortEntries(allEntries);
+          render();
+        });
+      })();
 
       /* ── Rebuild vibe filter chips from live THEME_TAGS — sorted by count, auto add/remove ── */
       function rebuildVibeChips() {

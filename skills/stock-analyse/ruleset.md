@@ -41,6 +41,7 @@ Token names (e.g. `--color-accent`) refer to whatever values the active theme de
 | **Gradient headlines** | `background-clip: text` + `linear-gradient` + `-webkit-text-fill-color: transparent` | Use `color` + `font-weight` only. Display font at weight 700 is distinctive enough |
 | **Meter fill color** | `<div class="meter-fill" style="width:70%;background:#3D6E3A">` | Color via semantic class only: `<div class="meter-fill green" style="width:70%">`. Classes `green`, `yellow`, `red` map to success/warning/error tokens |
 | **Meter score placement** | Separate `<div class="meter-score">7 / 10</div>` element | Score is the second `<span>` inside `.meter-label`: `<div class="meter-label"><span>Label</span><span>7 / 10</span></div>` |
+| **Fixed grid columns** | `.grid-2 { grid-template-columns: 1fr 1fr }` with no media queries | Every report MUST include the two responsive breakpoints from `layout.md`: 760 px (2-col grids collapse to 1 col; 3-col grids collapse to 2 col) and 520 px (all grids collapse to 1 col). The `donut-wrap` must also stack vertically at 520 px |
 
 ---
 

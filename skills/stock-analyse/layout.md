@@ -16,6 +16,34 @@ All sections sit inside `<div class="page">`. Write them in this exact order.
   <!-- Google Fonts (from html-theme.md) -->
   <style>
     /* CSS from html-theme.md — paste the full block here */
+
+    /* Responsive layout — REQUIRED in every report */
+    @media (max-width: 760px) {
+      body { padding: 12px; }
+      .grid-2,
+      .debate-grid {
+        grid-template-columns: 1fr;
+      }
+      .grid-3,
+      .stat-grid,
+      .scenario-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero { padding: 24px 20px; }
+      .hero-name { font-size: 22px; }
+    }
+
+    @media (max-width: 520px) {
+      .grid-3,
+      .stat-grid,
+      .scenario-grid {
+        grid-template-columns: 1fr;
+      }
+      .donut-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 <body>
@@ -30,6 +58,16 @@ All sections sit inside `<div class="page">`. Write them in this exact order.
 </body>
 </html>
 ```
+
+**Responsive grid behaviour:**
+
+| Window width | `.grid-2` / `.debate-grid` | `.grid-3` / `.stat-grid` / `.scenario-grid` |
+|---|---|---|
+| > 760 px | 2 columns | 3 columns |
+| 521–760 px | 1 column | 2 columns |
+| ≤ 520 px | 1 column | 1 column |
+
+The donut chart (`donut-wrap`) stacks vertically below 520 px.
 
 ---
 

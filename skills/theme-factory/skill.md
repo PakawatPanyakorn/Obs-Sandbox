@@ -54,6 +54,26 @@ Do not read files, render swatches, or summarize themes.
 
 ### Apply Mode
 
+**First, detect if the file was previously themed by this skill** — grep for the comment pattern `/* Theme: <anything> - applied by theme-factory */` inside the file's `<style>` block. If the pattern matches, use **Path R** — the theme name in the comment does not need to exist in `~/.claude/skills/theme-factory/themes/` (it may have been deleted, renamed, or authored by another user with the same format).
+
+---
+
+#### Path R: Re-theme (file already has a theme-factory `:root` block)
+
+Fast swap — the structure is already harmonized; only values change.
+
+1. **Load theme** — read `~/.claude/skills/theme-factory/themes/<name>.html`, parse JSON from `<script id="theme-data">`, note background lightness
+2. **Replace token values** — find the existing `/* Theme: … - applied by theme-factory */` `:root` block and overwrite every CSS variable value in-place with the new theme's values. Update the comment to the new theme name. Use `Edit`, never rewrite the whole file.
+3. **Final touch** — scan for obvious mismatches only:
+   - Hardcoded hex colors in JS/SVG blocks that clash with the new palette → swap to nearest theme token hex
+   - Colored sections (hero, header, callout) whose gradient or bg now visually clashes → update to new theme's `--gradient-hero` or `--color-primary`
+   - Background pattern: if new theme changes `background.type` (e.g. solid → pattern), update `body` background properties to match new `--bg-*` tokens
+4. **Report** using the report format in supporting-info (note "Re-theme" in header)
+
+---
+
+#### Path F: First apply (file has never been themed by this skill)
+
 The theme is a **starting point** — designer reskin, not find-replace. Goal: page looks intentionally designed for this theme with no visible seams.
 
 **Production-grade means:** WCAG AA contrast everywhere; no color invisible after mode switch; JS SVG colors audited.

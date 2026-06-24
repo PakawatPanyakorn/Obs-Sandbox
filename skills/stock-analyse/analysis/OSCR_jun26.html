@@ -1,0 +1,1086 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oscar Health (OSCR) — Stock Analysis — June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-primary:         #1E3B6F;
+  --color-primary-light:   #C8D8EC;
+  --color-secondary:       #8B4513;
+  --color-accent:          #B8860B;
+  --color-bg:              #F4EFE2;
+  --color-surface:         #EBE4D1;
+  --color-surface-alt:     #DDD5BC;
+  --color-text:            #1C1812;
+  --color-text-muted:      #6E5E48;
+  --color-text-on-primary: #F4EFE2;
+  --color-border:          #C4B59A;
+  --color-success:         #3D6E3A;
+  --color-warning:         #B07820;
+  --color-error:           #8B2020;
+
+  --font-family:         'EB Garamond', Georgia, serif;
+  --font-family-display: 'Cinzel', 'Times New Roman', serif;
+  --font-family-mono:    'Courier Prime', 'Courier New', monospace;
+  --font-size-base:      16px;
+  --font-weight-heading: 700;
+  --line-height:         1.65;
+  --radius-card:         10px;
+  --shadow-sm:           0 1px 3px rgba(28,24,18,0.08);
+  --shadow-md:           0 4px 12px rgba(28,24,18,0.12);
+  --shadow-lg:           0 8px 24px rgba(28,24,18,0.16);
+
+  --bg:     var(--color-bg);
+  --card:   var(--color-surface);
+  --card2:  var(--color-surface-alt);
+  --border: var(--color-border);
+  --accent: var(--color-primary);
+  --green:  var(--color-success);
+  --red:    var(--color-error);
+  --yellow: var(--color-warning);
+  --text:   var(--color-text);
+  --muted:  var(--color-text-muted);
+  --radius: var(--radius-card);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: #F4EFE2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  background-repeat: repeat;
+  font-family: var(--font-family);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+}
+
+.page { max-width: 1100px; margin: 0 auto; }
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #1E3B6F 0%, #2C5298 60%, #1A3260 100%);
+  border-top: 3px solid #C9A84C;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text-on-primary);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(200,216,236,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-ticker  { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: rgba(244,239,226,0.65); text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-family-display); }
+.hero-name    { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #F4EFE2; font-family: var(--font-family-display); letter-spacing: 0.03em; }
+.hero-tagline { font-size: 15px; color: rgba(244,239,226,0.78); max-width: 540px; margin-bottom: 20px; font-style: italic; }
+.hero-pills   { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill         { padding: 4px 14px; border-radius: 50px; font-size: 11px; font-weight: 600; border: 1px solid; letter-spacing: 0.04em; font-family: var(--font-family-display); }
+.pill-blue    { background: rgba(200,216,236,.18); border-color: rgba(200,216,236,.45); color: #C8D8EC; }
+.pill-green   { background: rgba(61,110,58,.25);   border-color: rgba(61,110,58,.6);    color: #a8d5a4; }
+.pill-red     { background: rgba(139,32,32,.25);   border-color: rgba(139,32,32,.6);    color: #e8a4a4; }
+.pill-yellow  { background: rgba(176,120,32,.25);  border-color: rgba(176,120,32,.6);   color: #e8cc90; }
+
+/* ── Cards & Sections ── */
+.section { margin-bottom: 28px; }
+.section-title {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  padding: 20px 22px;
+}
+.card-accent { border-top: 3px solid var(--color-accent); }
+.card-primary { border-top: 3px solid var(--color-primary); }
+.card-green { border-top: 3px solid var(--color-success); }
+.card-red   { border-top: 3px solid var(--color-error); }
+
+.card h3 {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.card h3.green { color: var(--green); }
+.card h3.red   { color: var(--red); }
+.card h3.accent { color: var(--color-primary); }
+.card h3.yellow { color: var(--yellow); }
+
+/* ── Grid Layouts ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-stat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+@media (max-width: 700px) {
+  .grid-2, .grid-3, .grid-stat { grid-template-columns: 1fr; }
+}
+
+/* ── Stat Box ── */
+.stat-box {
+  background: var(--card2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 16px 18px;
+  text-align: center;
+}
+.stat-value {
+  font-family: var(--font-family-mono);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-family: var(--font-family-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.stat-note { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: var(--font-family-mono); }
+.green { color: var(--green); }
+.red   { color: var(--red); }
+.yellow { color: var(--yellow); }
+.blue  { color: var(--color-primary); }
+
+/* ── TL;DR Box ── */
+.tldr-box {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-md);
+  padding: 22px 24px;
+  margin-bottom: 28px;
+}
+.tldr-box h2 {
+  font-family: var(--font-family-display);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.tldr-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 9px;
+  font-size: 15px;
+}
+.tldr-icon {
+  color: var(--green);
+  font-weight: 800;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+  font-family: var(--font-family-mono);
+}
+.tldr-icon.warn  { color: var(--yellow); }
+.tldr-icon.risk  { color: var(--red); }
+.tldr-icon.info  { color: var(--color-primary); }
+
+/* ── Story Boxes ── */
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.story-box {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--color-accent);
+  padding: 20px 22px;
+}
+.story-box h4 {
+  font-family: var(--font-family-display);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.story-box p { font-size: 15px; line-height: 1.7; }
+
+/* ── Donut Chart ── */
+.donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; margin-bottom: 20px; }
+.donut-legend { flex: 1; min-width: 200px; }
+.legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 14px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Bar Chart ── */
+.bar-row { margin-bottom: 14px; }
+.bar-label { font-family: var(--font-family-display); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.bar-track { background: var(--card2); border-radius: 4px; height: 12px; overflow: hidden; margin-bottom: 3px; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+.bar-note { font-size: 11px; color: var(--muted); font-family: var(--font-family-mono); }
+
+/* ── Item Rows ── */
+.item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 13px; }
+.item-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+.item-content .item-title {
+  font-family: var(--font-family-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.item-content .item-desc { font-size: 14px; line-height: 1.6; }
+.item-content .item-meta { font-size: 11px; color: var(--muted); font-family: var(--font-family-mono); margin-top: 4px; }
+
+/* ── Meter Bars ── */
+.meter-row { margin-bottom: 14px; }
+.meter-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); }
+.meter-label span:last-child { font-weight: 700; font-family: var(--font-family-mono); }
+.meter-track { background: var(--card2); border-radius: 4px; height: 10px; overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 4px; }
+.meter-fill.green { background: var(--green); }
+.meter-fill.yellow { background: var(--yellow); }
+.meter-fill.red { background: var(--red); }
+
+/* ── Scenario Cards ── */
+.scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.scenario-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 18px 20px;
+}
+.scenario-card.bull { border-top: 3px solid var(--color-success); }
+.scenario-card.base { border-top: 3px solid var(--color-primary); }
+.scenario-card.bear { border-top: 3px solid var(--color-error); }
+.scenario-title {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.scenario-prob { font-family: var(--font-family-mono); font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.scenario-target { font-family: var(--font-family-mono); font-size: 14px; margin-bottom: 12px; color: var(--muted); }
+.scenario-card ul { padding-left: 16px; }
+.scenario-card ul li { font-size: 13px; line-height: 1.6; margin-bottom: 5px; }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 9px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-dot {
+  position: absolute;
+  left: -24px;
+  top: 3px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--card);
+}
+.tl-dot.past   { background: var(--color-primary); border-color: var(--color-primary); }
+.tl-dot.now    { background: var(--color-accent);  border-color: var(--color-accent); width: 16px; height: 16px; left: -26px; top: 1px; }
+.tl-dot.future { background: var(--card); border-color: var(--color-success); }
+.tl-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 3px; }
+.tl-event { font-size: 14px; line-height: 1.5; }
+.tl-event strong { font-family: var(--font-family-display); font-size: 12px; letter-spacing: 0.5px; }
+
+/* ── Debate Box ── */
+.debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* ── Verdict ── */
+.verdict-card {
+  background: linear-gradient(135deg, #1E3B6F 0%, #2C5298 100%);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 30px 32px;
+  color: var(--color-text-on-primary);
+  border-top: 3px solid #C9A84C;
+}
+.verdict-title {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(244,239,226,0.6);
+  margin-bottom: 18px;
+}
+.verdict-card p { font-size: 15.5px; line-height: 1.75; margin-bottom: 14px; color: rgba(244,239,226,0.9); }
+.verdict-card p:last-child { margin-bottom: 0; }
+
+
+/* ── Footer ── */
+.footer { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+.footer a { color: var(--color-primary); }
+.footer .disclaimer { margin-top: 10px; font-size: 11px; font-family: var(--font-family-mono); background: var(--card); padding: 10px 14px; border-radius: 6px; border: 1px solid var(--border); }
+
+/* ── Bullet Lists in Cards ── */
+.card ul { padding-left: 18px; }
+.card ul li { font-size: 14px; line-height: 1.65; margin-bottom: 6px; }
+
+/* ── Warning / Notice Cards ── */
+.notice {
+  background: rgba(176,120,32,0.08);
+  border: 1px solid rgba(176,120,32,0.35);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--yellow);
+  font-family: var(--font-family-mono);
+  margin-bottom: 12px;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════════════════════
+  1. HERO BANNER
+════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-ticker">NYSE: OSCR &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; June 2026</div>
+  <div class="hero-name">Oscar Health, Inc.</div>
+  <div class="hero-tagline">A tech-powered health insurance company that built a simple app to help everyday Americans buy and use their health coverage — now turning its first real profit.</div>
+  <div class="hero-pills">
+    <span class="pill pill-blue">Health Insurance</span>
+    <span class="pill pill-blue">ACA Marketplace</span>
+    <span class="pill pill-green">First Profitable Year</span>
+    <span class="pill pill-yellow">ACA Policy Risk</span>
+    <span class="pill pill-red">Trading Above Consensus</span>
+  </div>
+</div>
+
+<!-- OP-ED NOTICE -->
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:8px 14px;background:rgba(110,94,72,0.06);border:1px solid rgba(196,181,154,0.35);border-radius:4px">
+  <span style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:var(--font-family-display);flex-shrink:0">Op-Ed</span>
+  <span style="width:1px;height:12px;background:var(--border);flex-shrink:0"></span>
+  <span style="font-size:11px;color:var(--muted);font-family:var(--font-family-mono)">Scenario probabilities and investor debate content reflect editorial judgement, not statistical forecasts or verified fact.</span>
+</div>
+<!-- ═══════════════════════════════════════════
+  2. TL;DR BOX
+════════════════════════════════════════════ -->
+<div class="tldr-box section">
+  <h2>TL;DR — The 30-Second Read</h2>
+  <div class="tldr-row">
+    <span class="tldr-icon">+</span>
+    <span>Oscar Health sells health insurance on the ACA marketplace — it is the largest individual-market-only insurer in the U.S., with 3.17 million members and $4.65 billion of revenue just in Q1 2026 (+53% year over year).</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-icon">+</span>
+    <span>The key thing happening right now: Oscar just printed its first massive quarterly profit — $679 million net income in Q1 2026 — proving the tech-driven efficiency model actually works at scale after years of losses.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-icon info">&#9658;</span>
+    <span>The hidden catalyst most analysts are ignoring: Oscar quietly launched Lucie, an AI-powered health marketplace (April 2026), that positions it to capture the fast-growing ICHRA (employer health reimbursement accounts) market — projected to grow 3x–5x by 2030 — turning Oscar from an insurer into a healthcare commerce platform.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-icon risk">-</span>
+    <span>The main risk: ACA enhanced subsidies expired January 1, 2026, threatening to shrink Oscar's entire addressable market by 20–30% and leave millions of its potential members unable to afford coverage.</span>
+  </div>
+  <div class="tldr-row">
+    <span class="tldr-icon warn">!</span>
+    <span>Verdict: Stock at $27.74 trades well above the analyst consensus of ~$21, so the good news is already priced in. Barclays has a $35 target. The next binary event to watch is September 2026 earnings, when Oscar will give first financial guidance for Lucie and the ICHRA business.</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  3. FINANCIAL SNAPSHOT
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Financial Snapshot — June 2026</div>
+  <div class="grid-stat" style="margin-bottom:14px">
+    <div class="stat-box">
+      <div class="stat-value blue" style="font-family:var(--font-family-mono)">$27.74</div>
+      <div class="stat-label">Stock Price</div>
+      <div class="stat-note">NYSE: OSCR · Jun 18, 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value blue" style="font-family:var(--font-family-mono)">~$8.4B</div>
+      <div class="stat-label">Market Cap</div>
+      <div class="stat-note">Up 80%+ in 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value green" style="font-family:var(--font-family-mono)">$4.65B</div>
+      <div class="stat-label">Q1 2026 Revenue</div>
+      <div class="stat-note">+53% year over year</div>
+    </div>
+  </div>
+  <div class="grid-stat" style="margin-bottom:14px">
+    <div class="stat-box">
+      <div class="stat-value green" style="font-family:var(--font-family-mono)">$679M</div>
+      <div class="stat-label">Q1 2026 Net Income</div>
+      <div class="stat-note">+147% YoY · Record high</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value green" style="font-family:var(--font-family-mono)">$2.07</div>
+      <div class="stat-label">Q1 Diluted EPS</div>
+      <div class="stat-note">vs. $1.10 Q1 2025</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value green" style="font-family:var(--font-family-mono)">70.5%</div>
+      <div class="stat-label">Q1 Medical Loss Ratio</div>
+      <div class="stat-note">Improved from 75.4% — lower is better</div>
+    </div>
+  </div>
+  <div class="grid-stat" style="margin-bottom:14px">
+    <div class="stat-box">
+      <div class="stat-value blue" style="font-family:var(--font-family-mono)">3.17M</div>
+      <div class="stat-label">Members (Mar 31, 2026)</div>
+      <div class="stat-note">Up from 2.04M a year ago</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value green" style="font-family:var(--font-family-mono)">$4.83B</div>
+      <div class="stat-label">Cash &amp; Equivalents</div>
+      <div class="stat-note">Strong balance sheet</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value yellow" style="font-family:var(--font-family-mono)">82–83%</div>
+      <div class="stat-label">Full-Year MLR Guidance</div>
+      <div class="stat-note">Rises in H2 — seasonally normal</div>
+    </div>
+  </div>
+  <div class="grid-stat">
+    <div class="stat-box">
+      <div class="stat-value green" style="font-family:var(--font-family-mono)">$18.7–19.0B</div>
+      <div class="stat-label">FY2026 Revenue Guidance</div>
+      <div class="stat-note">Reaffirmed May 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value yellow" style="font-family:var(--font-family-mono)">$250–450M</div>
+      <div class="stat-label">FY2026 Ops Earnings</div>
+      <div class="stat-note">First full year of profitability</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value blue" style="font-family:var(--font-family-mono)">$10.69–$29.81</div>
+      <div class="stat-label">52-Week Range</div>
+      <div class="stat-note">Up 94% in 12 months</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  4. REVENUE BREAKDOWN CHART
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Revenue Mix by Segment</div>
+  <div class="card card-accent">
+    <div class="notice">Estimated mix based on Q1 2026 SEC 8-K and company disclosures. Oscar does not publicly disclose an explicit segment revenue breakdown — the +Oscar technology platform figure is an estimate based on known served-lives data. Exact breakdown not publicly disclosed.</div>
+    <div class="donut-wrap">
+      <svg width="200" height="200" viewBox="0 0 200 200">
+        <!-- ACA Individual Premiums: ~97% (345.6 of 360deg) -->
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#EBE4D1" stroke-width="32"/>
+        <!-- ACA Individual: 97% -->
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#1E3B6F" stroke-width="32"
+          stroke-dasharray="426.9 13.2" stroke-dashoffset="0"
+          transform="rotate(-90 100 100)"/>
+        <!-- +Oscar Tech Platform: 3% -->
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#B8860B" stroke-width="32"
+          stroke-dasharray="13.2 426.9" stroke-dashoffset="-426.9"
+          transform="rotate(-90 100 100)"/>
+        <!-- Center text -->
+        <text x="100" y="96" text-anchor="middle" font-family="'Courier Prime', monospace" font-size="18" font-weight="700" fill="#1C1812">FY2026</text>
+        <text x="100" y="112" text-anchor="middle" font-family="'Courier Prime', monospace" font-size="11" fill="#6E5E48">Revenue Mix</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#1E3B6F"></div>
+          <span><strong style="font-family:var(--font-family-mono)">~97%</strong> — ACA Individual Insurance Premiums</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#B8860B"></div>
+          <span><strong style="font-family:var(--font-family-mono)">~3%</strong> — +Oscar Technology Platform &amp; Fees</span>
+        </div>
+        <div class="legend-item" style="opacity:0.55;">
+          <div class="legend-dot" style="background:#3D6E3A; border: 2px dashed #3D6E3A; background: transparent;"></div>
+          <span><strong style="font-family:var(--font-family-mono)">~0%</strong> — Lucie / ICHRA Marketplace (Launched Apr 2026) <em style="font-size:12px;color:var(--muted)"> [MODEL ESTIMATE — early stage]</em></span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px">
+      <div class="bar-row">
+        <div class="bar-label">ACA Individual Premiums — Now 97% vs. Projected 2028: 88%</div>
+        <div class="bar-track"><div class="bar-fill" style="width:97%;background:#1E3B6F"></div></div>
+        <div style="height:6px"></div>
+        <div class="bar-track"><div class="bar-fill" style="width:88%;background:#2C5298;opacity:0.6"></div></div>
+        <div class="bar-note">ACA market may contract from subsidy expiry, diluting share even as absolute revenue grows</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">+Oscar Tech Platform — Now 3% vs. Projected 2028: 5%</div>
+        <div class="bar-track"><div class="bar-fill" style="width:3%;background:#B8860B"></div></div>
+        <div style="height:6px"></div>
+        <div class="bar-track"><div class="bar-fill" style="width:5%;background:#C9A84C;opacity:0.7"></div></div>
+        <div class="bar-note">Serves ~500K lives externally today; slow but steady licensing expansion</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label" id="lucie-label">Lucie / ICHRA Marketplace — Now ~0% vs. Projected 2028: 7% <span class="bar-note">[MODEL ESTIMATE]</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:0.5%;background:#3D6E3A" id="lucie-bar"></div></div>
+        <div style="height:6px"></div>
+        <div class="bar-track"><div class="bar-fill" style="width:0%;background:#3D6E3A;opacity:0.65" id="lucie-bar-future"></div></div>
+        <div class="bar-note">Guidance on Lucie financials expected September 2026 — potential step-change if ICHRA uptake accelerates</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  5. WHAT DOES THIS COMPANY DO?
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">What Does Oscar Health Actually Do?</div>
+  <div class="story-grid">
+    <div class="story-box">
+      <h4>The Simple Story</h4>
+      <p>Imagine buying health insurance the way you order an Uber — simple app, clear prices, no confusing jargon. Oscar Health built exactly that. Instead of calling a broker or drowning in a hundred-page PDF, Oscar members pick a plan on their phone, find a doctor nearby, and message their care team for free. Oscar then pays the hospitals and doctors when members need care. The government (through the ACA) helps millions of Americans pay their monthly premiums with subsidies. Oscar collects those premiums and keeps a slice after paying medical bills.</p>
+    </div>
+    <div class="story-box">
+      <h4>The Big Bet Right Now</h4>
+      <p>In 2026, Oscar is betting that its decade of technology investment is finally paying off — and it is. For the first time ever, the company is genuinely profitable at scale. But the bigger bet is Lucie: a new AI-powered shopping marketplace launched in April 2026 that lets any American — whether they get insurance through their job, are self-employed, or are between jobs — compare and buy health coverage in minutes. If Lucie becomes the Amazon of health insurance shopping, Oscar turns from a single insurer into the rails that the entire individual health insurance market runs on.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  6. BUSINESS MODEL
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Business Model</div>
+  <div class="grid-2">
+    <div class="card card-primary">
+      <h3 class="accent">How They Make Money</h3>
+      <ul>
+        <li><strong>Insurance Premiums:</strong> Members pay monthly; government subsidies top-up most of it via ACA Advanced Premium Tax Credits</li>
+        <li><strong>Underwriting Margin:</strong> Revenue minus medical costs (claims paid to hospitals/doctors) = profit; target medical loss ratio below 85%</li>
+        <li><strong>+Oscar Technology Licensing:</strong> Oscar licenses its tech platform to other health insurers serving ~500K lives outside its own membership</li>
+        <li><strong>Lucie Marketplace Fees:</strong> New (April 2026) — commissions and platform fees for connecting consumers to plans, ancillary products (dental, vision, accident)</li>
+        <li><strong>Risk Adjustment Transfers:</strong> CMS-run program that redistributes money between insurers based on member health risk; Oscar can be a net receiver if its members are sicker than average</li>
+      </ul>
+    </div>
+    <div class="card card-accent">
+      <h3 class="accent">Why the Model Is Clever</h3>
+      <ul>
+        <li><strong>Technology as a Moat:</strong> Oscar built its own claims processing, care management, and consumer app from scratch — every other insurer buys these from vendors, so Oscar's unit costs drop as it scales</li>
+        <li><strong>Direct-to-Consumer Brand:</strong> In a category where people hate their insurer, Oscar has a recognizable consumer brand — unusual and valuable</li>
+        <li><strong>Data Flywheel:</strong> More members means better risk pricing, better AI models for utilization management, and lower medical costs per member</li>
+        <li><strong>Network Effects via Lucie:</strong> If Lucie becomes the default comparison tool, every consumer who shops there is a potential Oscar customer — competitors pay to list on Oscar's platform</li>
+        <li><strong>ACA Focus = Concentrated Expertise:</strong> By doing one market (individual ACA) better than anyone else, Oscar has skills UnitedHealth or Aetna simply don't prioritize</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  7. HIDDEN CATALYST DEEP DIVE
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Hidden Catalyst Deep Dive — Lucie &amp; the ICHRA Revolution</div>
+
+  <div class="story-grid" style="margin-bottom:16px">
+    <div class="story-box">
+      <h4>What Is ICHRA and Why Does It Matter?</h4>
+      <p>Imagine your boss giving you a $500 monthly gift card that you can only spend on health insurance — and you get to pick whatever plan you want. That is basically what an ICHRA (Individual Coverage Health Reimbursement Arrangement) is. Instead of the company picking one insurance plan for everyone, they give each employee money and let them choose. Right now, only about 350,000 employers offer ICHRAs — but that number is projected to grow 3x to 5x by 2030, potentially moving millions of workers from group insurance onto the ACA individual market. Oscar's entire business benefits from every single one of those people.</p>
+    </div>
+    <div class="story-box">
+      <h4>Lucie: The Missing Shopping Layer</h4>
+      <p>The problem with ICHRAs was always complexity — workers given a stipend had no easy way to compare individual market plans across carriers. Oscar launched Lucie in April 2026 to solve exactly this. Lucie is a one-stop storefront where individuals, gig workers, and ICHRA recipients can compare every major health plan (including Oscar's competitors), add dental, vision, accident coverage, and complete their enrollment in one flow using AI-guided recommendations. Oscar earns platform fees regardless of which plan the consumer picks. It is a toll-road on the entire individual market, not just Oscar's own insurance sales.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card card-green">
+      <h3 class="green">The Opportunity — Specifics</h3>
+      <ul>
+        <li><strong>ICHRA market size today:</strong> ~350,000 employers; ~$2B in employer contributions annually (MODEL ESTIMATE)</li>
+        <li><strong>Projected 2030 size:</strong> 3x–5x growth per industry forecasts — potentially 1–1.5 million employers</li>
+        <li><strong>ACA individual market size:</strong> ~20 million enrolled today; ICHRA shift could add 5–10 million more over 5 years</li>
+        <li><strong>Lucie's fee structure:</strong> Not yet disclosed; guidance expected September 2026 earnings call</li>
+        <li><strong>Competitor exit tailwind:</strong> Cigna and Aetna pulling back from ACA markets; Oscar has "good overlap" in exiting markets for 2027 growth</li>
+        <li><strong>Supplemental products:</strong> Lucie lists Aflac and other ancillary products, creating commission revenue beyond health insurance</li>
+      </ul>
+    </div>
+    <div class="card card-accent">
+      <h3 class="accent">Why Oscar Has the Advantage</h3>
+      <ul>
+        <li><strong>Built for individual market:</strong> Oscar is the only major insurer that is 100% focused on the ACA individual market — ICHRA growth is a direct tailwind with no business model conflict</li>
+        <li><strong>Technology infrastructure already built:</strong> The Lucie platform runs on Oscar's existing tech stack; marginal cost to add ICHRA routing is low</li>
+        <li><strong>Consumer brand recognition:</strong> Oscar's brand is unusually strong for a health insurer — Lucie benefits from this trust</li>
+        <li><strong>AI-guided enrollment:</strong> Oscar's decade of member engagement data trains the AI recommendations inside Lucie — newcomers cannot replicate this quickly</li>
+        <li><strong>Network breadth:</strong> Oscar listing competitors' plans on Lucie is a strategic long-game — it builds consumer traffic that ultimately benefits Oscar enrollment while collecting platform fees</li>
+        <li><strong>CEO Mark Bertolini:</strong> Former Aetna CEO who built the industry's most sophisticated consumer health platform — he has done this before</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Catalyst Stats -->
+  <div class="grid-3" style="margin-bottom:20px">
+    <div class="stat-box">
+      <div class="stat-value blue" style="font-family:var(--font-family-mono)">3x–5x</div>
+      <div class="stat-label">ICHRA Market Growth by 2030</div>
+      <div class="stat-note">Industry projection — not Oscar-specific</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value green" style="font-family:var(--font-family-mono)">Apr 2026</div>
+      <div class="stat-label">Lucie Launch Date</div>
+      <div class="stat-note">Live in market as of April 20, 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value yellow" style="font-family:var(--font-family-mono)">Sep 2026</div>
+      <div class="stat-label">First Lucie Financial Guidance</div>
+      <div class="stat-note">CEO committed to revenue/EBIT disclosure</div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="card card-accent" style="margin-bottom:16px">
+    <h3 class="accent">Catalyst Timeline — Past to Future Inflection</h3>
+    <div style="height:14px"></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">2012–2020</div>
+        <div class="tl-event"><strong>Foundation Years</strong> — Oscar founded; builds proprietary tech stack, consumer app, and clinical care teams from scratch. Accumulates losses while investing in infrastructure.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">2021</div>
+        <div class="tl-event"><strong>IPO</strong> — Oscar goes public at $39/share. Membership growing but still deeply unprofitable. Cigna+Oscar small group partnership launches.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">2023–2024</div>
+        <div class="tl-event"><strong>Reset</strong> — Oscar exits small group market (Dec 2024), ends Cigna+Oscar partnership, focuses 100% on ACA individual. MLR improves dramatically. First quarterly profits appear.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">Jan 2026</div>
+        <div class="tl-event"><strong>ACA Enhanced Subsidies Expire</strong> — Political risk materializes. Oscar guides to manageable ~20% market shrinkage scenario vs. fear of 30%+.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot now"></div>
+        <div class="tl-date">April–June 2026 (NOW)</div>
+        <div class="tl-event"><strong>Lucie Launches + Record Q1 Profit</strong> — $679M net income, 3.17M members, Lucie goes live. Stock hits 52-week high near $29.81. Analysts still skeptical — consensus PT below current price.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot future"></div>
+        <div class="tl-date">September 2026</div>
+        <div class="tl-event"><strong>KEY BINARY EVENT: Lucie Financial Guidance</strong> — CEO Bertolini committed to providing first revenue and EBIT contribution targets for Lucie. This is the next major re-rating catalyst.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot future"></div>
+        <div class="tl-date">2027</div>
+        <div class="tl-event"><strong>Competitor Exit Opportunity</strong> — Markets where Cigna and Aetna are withdrawing open up for Oscar membership growth. ICHRA enrollment starts converting through Lucie at scale.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot future"></div>
+        <div class="tl-date">2028–2030</div>
+        <div class="tl-event"><strong>ICHRA Inflection</strong> — If ICHRA market grows 3x–5x, Lucie becomes a dominant consumer entry point. Oscar's platform revenue diversifies beyond pure insurance underwriting risk.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Catalyst Scenario Analysis -->
+  <div class="card card-accent" style="margin-bottom:12px">
+    <h3 class="accent" style="margin-bottom:14px">Catalyst Scenario — Lucie / ICHRA Outcomes</h3>
+    <div class="scenario-grid">
+      <div class="scenario-card bull">
+        <div class="scenario-title green">Bull Case — Marketplace Leader</div>
+        <div class="scenario-prob green" style="font-family:var(--font-family-mono)">30%</div>
+        <div class="scenario-target" style="font-family:var(--font-family-mono)">+40% to +60% stock impact</div>
+        <ul>
+          <li>Lucie captures 10%+ of ICHRA shopping flow within 2 years</li>
+          <li>September 2026 guidance reveals material revenue contribution</li>
+          <li>Competitor exits from ACA add 500K+ new Oscar members in 2027</li>
+          <li>ACA subsidy partial restoration reduces market shrinkage</li>
+          <li>Platform fees create a recurring, low-risk revenue stream</li>
+        </ul>
+      </div>
+      <div class="scenario-card base">
+        <div class="scenario-title blue">Base Case — Steady Growth</div>
+        <div class="scenario-prob blue" style="font-family:var(--font-family-mono)">50%</div>
+        <div class="scenario-target" style="font-family:var(--font-family-mono)">+10% to +25% stock impact</div>
+        <ul>
+          <li>Lucie grows slowly but builds a loyal ICHRA distribution channel</li>
+          <li>September 2026 guidance is modest but credible</li>
+          <li>Oscar membership flat to slightly down in 2027 from ACA headwinds</li>
+          <li>Core insurance profitability holds within guidance range</li>
+          <li>+Oscar tech licensing continues modest growth</li>
+        </ul>
+      </div>
+      <div class="scenario-card bear">
+        <div class="scenario-title red">Bear Case — Execution Gap</div>
+        <div class="scenario-prob red" style="font-family:var(--font-family-mono)">20%</div>
+        <div class="scenario-target" style="font-family:var(--font-family-mono)">-20% to -35% stock impact</div>
+        <ul>
+          <li>Lucie fails to gain consumer traction vs. Healthcare.gov and eHealth</li>
+          <li>ACA market contracts more than 25%, shrinking membership base</li>
+          <li>H2 2026 MLR spikes above guidance, threatening full-year profitability</li>
+          <li>September 2026 provides no concrete Lucie financial targets</li>
+          <li>Larger insurers (UnitedHealth) build competing ICHRA storefronts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  8. COMPETITIVE EDGE
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Competitive Edge</div>
+  <div class="card card-primary">
+    <div class="item-row">
+      <span class="item-icon">&#9733;</span>
+      <div class="item-content">
+        <div class="item-title">Proprietary Technology Stack</div>
+        <div class="item-desc">Oscar built its own claims processing, care management, and member-facing app from zero. Traditional insurers buy these from legacy vendors (EPIC, Cognizant, IBM). Oscar's marginal cost per new member falls as membership grows — a structural advantage that compounds over time.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <span class="item-icon">&#9733;</span>
+      <div class="item-content">
+        <div class="item-title">Consumer Brand in a Commodity Category</div>
+        <div class="item-desc">People typically hate their health insurer. Oscar's Net Promoter Score is unusual for the industry. A recognizable, trusted consumer brand in health insurance is rare and hard to replicate — it drives lower churn and organic member growth.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <span class="item-icon">&#10148;</span>
+      <div class="item-content">
+        <div class="item-title">ACA Individual Market Expertise</div>
+        <div class="item-desc">Oscar does exactly one thing — ACA individual market insurance. UnitedHealth, Humana, and Cigna treat ACA as a side business. Oscar has 14 years of pricing, underwriting, and clinical data exclusively from this market, giving it structural knowledge advantages on risk selection.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <span class="item-icon">&#10148;</span>
+      <div class="item-content">
+        <div class="item-title">Lucie Platform Network Effect (Underappreciated)</div>
+        <div class="item-desc">By listing competitors on Lucie, Oscar builds the largest consumer health shopping traffic source in the individual market. More shoppers attract more insurers and ancillary product providers. More product breadth attracts more shoppers. This is a classic marketplace flywheel that competitors cannot easily copy without cannibalizing their own direct sales channels.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <span class="item-icon">&#9651;</span>
+      <div class="item-content">
+        <div class="item-title">Competitor Exits Create Market Share Gift</div>
+        <div class="item-desc">Cigna and Aetna are withdrawing from ACA markets where Oscar has high overlap. Hundreds of thousands of displaced members need a new insurer in 2027. Oscar is positioned to absorb a disproportionate share of this switching cohort due to brand visibility and Lucie's shopping infrastructure.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <span class="item-icon">&#9733;</span>
+      <div class="item-content">
+        <div class="item-title">Mark Bertolini as CEO (Underappreciated)</div>
+        <div class="item-desc">The former Aetna CEO who transformed that company from a traditional insurer into a consumer health platform before the CVS merger. He joined Oscar specifically to execute this same playbook. Management credibility on the technology-meets-insurance thesis is higher than most investors assign.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  9. ANALYST SCORECARD
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Analyst Scorecard</div>
+  <div class="card">
+    <div class="meter-row">
+      <div class="meter-label"><span>Business Model Strength</span><span>7 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Revenue Growth</span><span>9 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:90%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Profitability</span><span>6 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill yellow" style="width:60%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Competitive Moat</span><span>6 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill yellow" style="width:60%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Regulatory Safety</span><span>3 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill red" style="width:30%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Management Execution</span><span>8 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:80%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Long-Term Potential</span><span>8 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:80%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  10. CURRENT SITUATION — GROWTH & RISKS
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Current Situation — Growth Drivers &amp; Active Risks</div>
+  <div class="grid-2">
+    <div class="card card-green">
+      <h3 class="green">Growth Drivers</h3>
+
+      <div class="item-row">
+        <span class="item-icon" style="color:var(--green)">&#9650;</span>
+        <div class="item-content">
+          <div class="item-title">Historic Profitability Inflection</div>
+          <div class="item-desc">Q1 2026 delivered $679M net income — the highest in company history. Full-year 2026 is on track to be Oscar's first profitable year, validating that the 14-year technology bet is paying off.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <span class="item-icon" style="color:var(--green)">&#9650;</span>
+        <div class="item-content">
+          <div class="item-title">Membership Surge (+55% YoY)</div>
+          <div class="item-desc">3.17 million members as of March 2026, up from 2.04 million a year earlier. Strong enrollment validates Oscar's pricing and brand positioning despite ACA headwinds.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <span class="item-icon" style="color:var(--green)">&#9650;</span>
+        <div class="item-content">
+          <div class="item-title">Lucie Health Marketplace (Launched Apr 2026)</div>
+          <div class="item-desc">New AI-powered shopping platform for individual health insurance and ancillary products. Addresses both ICHRA demand and direct ACA enrollment. Potential to generate platform fees independent of underwriting risk.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <span class="item-icon" style="color:var(--green)">&#9650;</span>
+        <div class="item-content">
+          <div class="item-title">Competitor Exits Open 2027 Market</div>
+          <div class="item-desc">Cigna and Aetna withdrawing from ACA markets with high Oscar overlap. Their departing members need a new carrier. Oscar is well-positioned to absorb this cohort.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-red">
+      <h3 class="red">Active Risks</h3>
+
+      <div class="item-row">
+        <span class="item-icon" style="color:var(--red)">&#9660;</span>
+        <div class="item-content">
+          <div class="item-title">ACA Enhanced Subsidy Expiration</div>
+          <div class="item-desc">Enhanced premium tax credits expired January 1, 2026, raising premiums an estimated 114% for millions of ACA enrollees. Urban Institute estimates 4.8 million additional uninsured; 7 million+ losing subsidized coverage. Oscar's total addressable market could shrink 20–30% if no extension is passed.</div>
+          <div class="item-meta">[ACTIVE RISK] Active as of Jun 2026 · Source: KFF / ASTHO / Congress.gov</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <span class="item-icon" style="color:var(--red)">&#9660;</span>
+        <div class="item-content">
+          <div class="item-title">Medical Loss Ratio Seasonality Risk</div>
+          <div class="item-desc">Q1 MLR was a very healthy 70.5%, but full-year guidance is 82.4%–83.4% — meaning costs jump significantly in H2. If medical cost trends worsen (utilization spike, GLP-1 drug costs, flu season), the full-year could miss guidance and crush the profitability narrative.</div>
+          <div class="item-meta">[ACTIVE RISK] Active as of May 2026 · Source: Oscar Q1 2026 8-K (SEC.gov)</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <span class="item-icon" style="color:var(--yellow)">&#9660;</span>
+        <div class="item-content">
+          <div class="item-title">Risk Adjustment Payment Volatility</div>
+          <div class="item-desc">CMS risk adjustment transfers funds between insurers based on relative member health risk. Oscar took a conservative reserve stance in Q1 2026. Final settlements can be materially large and can arrive unexpectedly, creating earnings volatility.</div>
+          <div class="item-meta">[ACTIVE RISK] Cautious reserves maintained · Last updated May 2026 · Source: Oscar Q1 2026 Earnings Transcript (Motley Fool)</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <span class="item-icon" style="color:var(--yellow)">&#9660;</span>
+        <div class="item-content">
+          <div class="item-title">Stock Trades Well Above Analyst Consensus</div>
+          <div class="item-desc">OSCR at $27.74 is well above the average analyst price target of ~$21. Only Barclays has a $35 target. If the Lucie growth story disappoints or ACA headwinds worsen, the stock has meaningful downside to consensus.</div>
+          <div class="item-meta">[ACTIVE RISK] Status as of Jun 18, 2026 · Source: MarketBeat / Barclays research</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  11. SCENARIO ANALYSIS (OVERALL)
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Overall Scenario Analysis</div>
+  <div class="scenario-grid">
+    <div class="scenario-card bull">
+      <div class="scenario-title green">Bull Case</div>
+      <div class="scenario-prob green" style="font-family:var(--font-family-mono)">30%</div>
+      <div class="scenario-target" style="font-family:var(--font-family-mono)">Price Target: $38–$45 [ANALYST ESTIMATE — Barclays $35 high end / MODEL ESTIMATE above]</div>
+      <ul>
+        <li>Lucie September 2026 guidance reveals $500M+ annual platform revenue potential</li>
+        <li>ACA subsidy partial restoration limits market contraction to under 10%</li>
+        <li>Full-year MLR holds at or below the low end of guidance (82.4%)</li>
+        <li>2027 membership grows 20%+ from competitor exits</li>
+        <li>Analyst consensus upgrades push PT toward $35+</li>
+        <li>ICHRA regulatory tailwind accelerates from proposed legislation</li>
+      </ul>
+    </div>
+    <div class="scenario-card base">
+      <div class="scenario-title blue">Base Case</div>
+      <div class="scenario-prob blue" style="font-family:var(--font-family-mono)">50%</div>
+      <div class="scenario-target" style="font-family:var(--font-family-mono)">Price Target: $25–$32 [MODEL ESTIMATE — based on 2026 guidance midpoint]</div>
+      <ul>
+        <li>Full-year 2026 revenue hits $18.7–19.0B guidance midpoint</li>
+        <li>Ops earnings land in $300–$350M range — profitable but not a blowout</li>
+        <li>Lucie grows steadily; September guidance is cautious but credible</li>
+        <li>ACA market shrinks ~15–20% but Oscar holds membership through pricing discipline</li>
+        <li>Stock consolidates near $25–30 as bulls wait for Lucie proof points</li>
+      </ul>
+    </div>
+    <div class="scenario-card bear">
+      <div class="scenario-title red">Bear Case</div>
+      <div class="scenario-prob red" style="font-family:var(--font-family-mono)">20%</div>
+      <div class="scenario-target" style="font-family:var(--font-family-mono)">Price Target: $12–$17 [MODEL ESTIMATE — based on ACA contraction scenario]</div>
+      <ul>
+        <li>ACA market contracts 25–30%; Oscar membership falls sharply in 2027</li>
+        <li>H2 2026 MLR spikes above 85% guidance, erasing Q1 profitability gains</li>
+        <li>Lucie fails to gain traction; September 2026 gives no clear revenue targets</li>
+        <li>Risk adjustment surprises produce unfavorable transfer payments</li>
+        <li>Stock re-rates back toward consensus PT of ~$20 or below</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  12. INVESTOR DEBATE
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Investor Debate</div>
+  <div class="debate-grid">
+    <div class="card card-green">
+      <h3 class="green">The Optimist Sees...</h3>
+      <ul>
+        <li>Oscar finally proving its technology thesis with $679M profit in a single quarter — the doubters who said it could never be profitable are silent</li>
+        <li>Lucie is a genuine category creator — the first neutral health insurance marketplace that could do for health coverage what Expedia did for flights</li>
+        <li>The ICHRA market is a free bonus that nobody is fully pricing in — regulatory momentum keeps growing regardless of ACA politics</li>
+        <li>Competitor exits from ACA are giving Oscar a free membership growth gift for 2027 without having to undercut pricing</li>
+        <li>At $8.4B market cap with $18.7B+ annual revenue and growing profits, valuation relative to growth is arguably still reasonable despite the stock's 80% run</li>
+      </ul>
+    </div>
+    <div class="card card-red">
+      <h3 class="red">The Pessimist Sees...</h3>
+      <ul>
+        <li>Q1 MLR of 70.5% was abnormally good — the full-year guide of 82–83% is a massive step up. H2 cost trends could surprise negatively, wiping out the profit story</li>
+        <li>Oscar's entire business rests on a government program (ACA) that is actively being destabilized by Washington. One bad political cycle and the addressable market collapses</li>
+        <li>Lucie is an exciting launch but has zero financial track record — markets have been burned before pricing in "platform optionality" before it generates revenue</li>
+        <li>Risk adjustment is a black box. Oscar's conservative Q1 accrual could reverse badly if CMS data shows Oscar members were healthier than average, requiring large payouts</li>
+        <li>At $27.74 the stock already trades well above the $21 analyst consensus — the bar for positive surprise is now very high, and any disappointment at September earnings will be punished severely</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  13. BOTTOM LINE VERDICT
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Bottom Line Verdict</div>
+  <div class="verdict-card">
+    <div class="verdict-title">The Verdict — June 2026</div>
+    <p>Think of Oscar Health like a surfer who spent 14 years paddling out through brutal waves (losses, regulatory uncertainty, failed partnerships) and has finally caught a great wave (the first profitable year). The question is not whether the wave is real — it clearly is. The question is whether a second, bigger wave (Lucie / ICHRA) is forming behind it, or whether the ocean is about to go flat (ACA market contraction). The answer to that question determines whether this stock is at the beginning of a multi-year run or already priced for perfection.</p>
+    <p>The long-term story is genuinely believable. Oscar has built something that could only be built once — a consumer brand with proprietary technology in a $500B+ industry. Lucie is a real product solving a real problem. The ICHRA market growth is secular and regulatory-driven, not cyclical. Management under Bertolini has executed the 2024–2026 turnaround better than most analysts expected. If Lucie proves it can generate meaningful platform revenue by 2027–2028, today's $8.4B valuation will look very cheap against an $18B+ revenue business with growing margins and a two-sided marketplace.</p>
+    <p>But the near-term pain is equally real. ACA subsidy expiration is not resolved, and the political path to restoration is uncertain. H2 medical costs will be much higher than Q1, testing whether the profitability story holds. The stock at $27.74 already trades 30%+ above analyst consensus, meaning the September 2026 earnings call must deliver credible Lucie guidance or risk a sharp pullback. For long-term investors with a 3–5 year horizon who can absorb ACA volatility, OSCR is a compelling story. For shorter-term holders, the risk/reward near all-time highs without clear Lucie monetization is genuinely two-sided.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  14. WALL STREET CONSENSUS
+════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Wall Street Consensus — June 2026</div>
+  <div class="grid-3">
+    <div class="stat-box">
+      <div class="stat-value yellow" style="font-family:var(--font-family-mono)">Hold</div>
+      <div class="stat-label">Consensus Rating</div>
+      <div class="stat-note">2 Buy · 7 Hold · 2 Sell from 11 analysts · Jun 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value yellow" style="font-family:var(--font-family-mono)">$20.71–$21.20</div>
+      <div class="stat-label">Average Price Target</div>
+      <div class="stat-note">vs. current $27.74 — stock trades 30%+ above consensus</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value green" style="font-family:var(--font-family-mono)">$35.00</div>
+      <div class="stat-label">Barclays Target (High)</div>
+      <div class="stat-note">Overweight rating; raised Jun 10, 2026 · Low PT: $13</div>
+    </div>
+  </div>
+  <div style="margin-top:12px">
+    <div class="card" style="font-size:14px;line-height:1.65;">
+      <strong style="font-family:var(--font-family-display);font-size:12px;letter-spacing:1px;text-transform:uppercase;">Key Signal:</strong> The gap between the $21 consensus and $27.74 market price tells an interesting story. The majority of sell-side analysts still model Oscar primarily as an ACA insurer with policy risk. The market is partially pricing in the Lucie / platform optionality story that most analyst models do not yet capture. September 2026 Lucie guidance will force analysts to update their models — upward if the numbers are credible, or downward if guidance is vague.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  FOOTER
+════════════════════════════════════════════ -->
+<div class="footer">
+  <strong style="font-family:var(--font-family-display);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Sources</strong>
+  <ul style="margin-top:8px;padding-left:18px;list-style:disc">
+    <li><a href="https://ir.hioscar.com/news-events-presentations/news-press-releases/news-details/2026/Oscar-Health-Announces-Strong-Financial-Results-for-First-Quarter-2026-And-Reaffirms-2026-Guidance/default.aspx">Oscar Health Q1 2026 Financial Results &amp; 2026 Guidance Reaffirmation — ir.hioscar.com</a></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/0001568651/000156865126000036/oscarhealthfirstquarter202.htm">Oscar Health Form 8-K Q1 2026 — SEC.gov</a></li>
+    <li><a href="https://seekingalpha.com/news/4587529-oscar-health-reaffirms-2026-outlook-with-18_7b-19_0b-revenue-range-as-q1-net-income-reaches">Oscar Health Reaffirms 2026 Outlook — Seeking Alpha</a></li>
+    <li><a href="https://www.fool.com/earnings/call-transcripts/2026/05/06/oscar-health-oscr-q1-2026-earnings-transcript/">Oscar Health OSCR Q1 2026 Earnings Transcript — The Motley Fool</a></li>
+    <li><a href="https://ir.hioscar.com/news-events-presentations/news-press-releases/news-details/2026/Meet-Lucie--A-New-Way-to-Shop-for-Healthcare-/default.aspx">Meet Lucie — Oscar Health Press Release — ir.hioscar.com</a></li>
+    <li><a href="https://www.healthcare-brew.com/stories/2026/05/04/oscar-health-new-shopping-platform-increase-individual-insurance-ichra">Can Oscar Health's Lucie Increase ICHRA Uptake? — Healthcare Brew</a></li>
+    <li><a href="https://www.fiercehealthcare.com/payers/oscar-unveils-lucie-one-stop-shop-individual-market-plans-and-supplemental-benefits">Oscar Unveils Lucie One-Stop Shop — Fierce Healthcare</a></li>
+    <li><a href="https://www.astho.org/communications/blog/2026/aca-enhanced-premium-tax-credits-legislative-developments-2025-2026/">ACA Enhanced Premium Tax Credits: Legislative Developments 2025–2026 — ASTHO</a></li>
+    <li><a href="https://www.kff.org/interactive/calculator-aca-enhanced-premium-tax-credit/">ACA Enhanced PTC Expiration Impact Calculator — KFF</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NYSE/OSCR/forecast/">Oscar Health (OSCR) Analyst Forecast &amp; Price Targets — MarketBeat</a></li>
+    <li><a href="https://www.ebc.com/forex/oscr-oscar-health-stock-mlr-reset-2026">OSCR Stock Up 80%+ in 2026 — EBC Financial Group</a></li>
+    <li><a href="https://simplywall.st/stocks/us/insurance/nyse-oscr/oscar-health/future">Oscar Health Stock Forecast &amp; Analyst Predictions — Simply Wall St</a></li>
+    <li><a href="https://stocktwits.com/news-articles/markets/equity/oscr-stock-5-year-high-healthy-tailwinds-2026/cZ0xDLpR7be">OSCR Hits 5-Year High on Healthy Tailwinds 2026 — StockTwits</a></li>
+    <li><a href="https://www.theglobeandmail.com/investing/markets/stocks/OSCR/pressreleases/2374172/oscar-health-reaffirms-2026-outlook-at-goldman-sachs-conference/">Oscar Health Reaffirms 2026 Outlook at Goldman Sachs Conference — Globe and Mail</a></li>
+  </ul>
+  <div class="disclaimer">
+    This analysis is for informational and educational purposes only. This is not financial advice. All figures, price targets, and scenario probabilities reflect publicly available information and editorial opinions as of June 2026. Past performance is not indicative of future results. Investors should conduct their own due diligence before making any investment decisions.
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<script>
+// Animate the Lucie bar future projection when scrolled into view
+const lucieFutureBar = document.getElementById('lucie-bar-future');
+if (lucieFutureBar) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        lucieFutureBar.style.width = '7%';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  observer.observe(lucieFutureBar);
+}
+
+// Animate Lucie launch bar
+const lucieBar = document.getElementById('lucie-bar');
+if (lucieBar) {
+  const observer2 = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        lucieBar.style.width = '0.5%';
+        observer2.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  observer2.observe(lucieBar);
+}
+</script>
+</body>
+</html>

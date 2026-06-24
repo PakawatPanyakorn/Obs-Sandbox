@@ -1,0 +1,1035 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HIMS Stock Analysis — June 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* Theme: wisdom — applied by theme-factory */
+    :root {
+      --color-primary:         #1E3B6F;
+      --color-primary-light:   #C8D8EC;
+      --color-secondary:       #8B4513;
+      --color-accent:          #B8860B;
+      --color-bg:              #F4EFE2;
+      --color-surface:         #EBE4D1;
+      --color-surface-alt:     #DDD5BC;
+      --color-text:            #1C1812;
+      --color-text-muted:      #6E5E48;
+      --color-text-on-primary: #F4EFE2;
+      --color-border:          #C4B59A;
+      --color-success:         #3D6E3A;
+      --color-warning:         #B07820;
+      --color-error:           #8B2020;
+
+      --font-family:         'EB Garamond', Georgia, serif;
+      --font-family-mono:    'Courier Prime', 'Courier New', monospace;
+      --font-family-display: 'Cinzel', 'Times New Roman', serif;
+      --font-size-base:      16px;
+      --font-weight-heading: 700;
+      --line-height:         1.68;
+
+      --radius-card:   10px;
+
+      --shadow-sm: 0 1px 4px rgba(28,24,18,0.12);
+      --shadow-md: 0 4px 16px rgba(28,24,18,0.16);
+      --shadow-lg: 0 8px 32px rgba(28,24,18,0.20);
+
+      /* Remap HIMS document variables → wisdom theme */
+      --bg:     var(--color-bg);
+      --card:   var(--color-surface);
+      --card2:  var(--color-surface-alt);
+      --border: var(--color-border);
+      --accent: var(--color-primary);
+      --green:  var(--color-success);
+      --red:    var(--color-error);
+      --yellow: var(--color-warning);
+      --text:   var(--color-text);
+      --muted:  var(--color-text-muted);
+      --radius: var(--radius-card);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #F4EFE2;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+      background-repeat: repeat;
+      color: var(--text);
+      font-family: var(--font-family);
+      padding: 20px;
+    }
+
+    .page { max-width: 1100px; margin: 0 auto; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #1E3B6F 0%, #2C5298 60%, #1A3260 100%);
+      border-top: 3px solid #C9A84C;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      color: var(--color-text-on-primary);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(200,216,236,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-ticker  { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: rgba(244,239,226,0.65); text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-family-display); }
+    .hero-name    { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #F4EFE2; font-family: var(--font-family-display); letter-spacing: 0.03em; }
+    .hero-tagline { font-size: 15px; color: rgba(244,239,226,0.78); max-width: 540px; margin-bottom: 20px; font-style: italic; }
+    .hero-pills   { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill         { padding: 4px 14px; border-radius: 50px; font-size: 11px; font-weight: 600; border: 1px solid; letter-spacing: 0.04em; font-family: var(--font-family-display); }
+    .pill-blue    { background: rgba(200,216,236,.18); border-color: rgba(200,216,236,.45); color: #C8D8EC; }
+    .pill-green   { background: rgba(61,110,58,.25);   border-color: rgba(61,110,58,.6);    color: #a8d5a4; }
+    .pill-red     { background: rgba(139,32,32,.25);   border-color: rgba(139,32,32,.6);    color: #e8a4a4; }
+    .pill-yellow  { background: rgba(176,120,32,.25);  border-color: rgba(176,120,32,.6);   color: #e8cc90; }
+
+    /* ── SECTION HEADERS ── */
+    .section-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+      font-family: var(--font-family-display);
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      font-size: 13px; font-weight: 700; margin-bottom: 10px;
+      font-family: var(--font-family-display);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .card p, .card li { color: var(--muted); font-size: 14px; }
+    .card ul { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+
+    /* ── GRID LAYOUTS ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    @media(max-width:640px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── STAT BOXES ── */
+    .stat-box {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .stat-label { font-size: 11px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 1.5px; font-family: var(--font-family-display); }
+    .stat-value { font-size: 24px; font-weight: 700; margin: 4px 0; font-family: var(--font-family-display); }
+    .stat-sub   { font-size: 12px; color: var(--muted); font-family: var(--font-family-mono); }
+    .val-green { color: var(--green); }
+    .val-red   { color: var(--red); }
+    .val-yellow{ color: var(--yellow); }
+    .val-blue  { color: var(--accent); }
+
+    /* ── STORY BOXES (kid-explain) ── */
+    .story-box {
+      background: rgba(30,59,111,.05);
+      border: 1px solid rgba(30,59,111,.18);
+      border-top: 3px solid var(--color-accent);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .story-box .story-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      color: var(--accent); text-transform: uppercase; margin-bottom: 6px;
+      font-family: var(--font-family-display);
+    }
+    .story-box p { font-size: 14px; color: var(--muted); }
+
+    /* ── RISK / GROWTH ITEMS ── */
+    .item-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .item-row:last-child { border-bottom: none; }
+    .item-icon {
+      width: 32px; height: 32px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .icon-green { background: rgba(61,110,58,.15); }
+    .icon-red   { background: rgba(139,32,32,.15); }
+    .icon-yellow{ background: rgba(176,120,32,.15); }
+    .item-body .item-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; font-family: var(--font-family-display); letter-spacing: 0.03em; }
+    .item-body .item-desc  { font-size: 13px; color: var(--muted); }
+
+    /* ── SCENARIO CARDS ── */
+    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media(max-width:640px) { .scenario-grid { grid-template-columns: 1fr; } }
+
+    .scenario-card {
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid;
+    }
+    .scenario-bull {
+      background: rgba(61,110,58,.07);
+      border-color: rgba(61,110,58,.3);
+    }
+    .scenario-base {
+      background: rgba(30,59,111,.07);
+      border-color: rgba(30,59,111,.3);
+    }
+    .scenario-bear {
+      background: rgba(139,32,32,.07);
+      border-color: rgba(139,32,32,.3);
+    }
+    .scenario-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 4px;
+      font-family: var(--font-family-display);
+    }
+    .scenario-bull .scenario-label { color: var(--green); }
+    .scenario-base .scenario-label { color: var(--accent); }
+    .scenario-bear .scenario-label { color: var(--red); }
+
+    .scenario-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; font-family: var(--font-family-display); letter-spacing: 0.03em; }
+    .scenario-prob {
+      display: inline-block; padding: 3px 10px; border-radius: 50px;
+      font-size: 12px; font-weight: 700; margin-bottom: 12px;
+      font-family: var(--font-family-mono);
+    }
+    .scenario-bull .scenario-prob { background: rgba(61,110,58,.18);  color: var(--green); }
+    .scenario-base .scenario-prob { background: rgba(30,59,111,.12);  color: var(--accent); }
+    .scenario-bear .scenario-prob { background: rgba(139,32,32,.18);  color: var(--red); }
+
+    .scenario-price { font-size: 24px; font-weight: 700; margin-bottom: 8px; font-family: var(--font-family-display); }
+    .scenario-bull .scenario-price { color: var(--green); }
+    .scenario-base .scenario-price { color: var(--accent); }
+    .scenario-bear .scenario-price { color: var(--red); }
+
+    .scenario-ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+    .scenario-ul li { font-size: 12px; color: var(--muted); padding-left: 14px; position: relative; }
+    .scenario-ul li::before { content: '•'; position: absolute; left: 0; }
+    .scenario-bull .scenario-ul li::before { color: var(--green); }
+    .scenario-base .scenario-ul li::before { color: var(--accent); }
+    .scenario-bear .scenario-ul li::before { color: var(--red); }
+
+    /* ── RATING METER ── */
+    .meter-row { margin-bottom: 14px; }
+    .meter-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); }
+    .meter-label span:last-child { font-weight: 700; font-family: var(--font-family-mono); }
+    .meter-track { height: 10px; background: var(--card2); border-radius: 6px; overflow: hidden; }
+    .meter-fill { height: 100%; border-radius: 6px; }
+    .meter-fill.green { background: var(--green); }
+    .meter-fill.yellow { background: var(--yellow); }
+    .meter-fill.red { background: var(--red); }
+
+    /* ── VERDICT ── */
+    .verdict-box {
+      background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--color-accent);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-top: 8px;
+    }
+    .verdict-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; font-family: var(--font-family-display); letter-spacing: 0.04em; }
+    .verdict-text  { font-size: 14px; color: var(--muted); line-height: 1.78; }
+
+    /* ── FOOTER ── */
+    .footer { text-align: center; margin-top: 40px; font-size: 12px; color: var(--muted); font-family: var(--font-family-mono); }
+    .footer a { color: var(--muted); }
+
+    /* ── SPACER ── */
+    .mb16 { margin-bottom: 16px; }
+    .mb24 { margin-bottom: 24px; }
+    .mb8  { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <div class="hero-ticker">NYSE: HIMS &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; June 2026</div>
+    <div class="hero-name">Hims &amp; Hers Health</div>
+    <div class="hero-tagline">A digital pharmacy that sends medicines to your door — no waiting rooms, no awkward pharmacist chats, just an app, a doctor visit online, and a pill in your mailbox.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">Telehealth</span>
+      <span class="pill pill-blue">DTC Healthcare</span>
+      <span class="pill pill-yellow">High Growth</span>
+      <span class="pill pill-red">High Risk</span>
+      <span class="pill pill-green">GLP-1 Pivot</span>
+    </div>
+  </div>
+
+  <!-- ══ TL;DR ══ -->
+  <div class="card mb24" style="border-top:3px solid var(--accent)">
+    <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-family:'Cinzel','Times New Roman',serif">TL;DR — Read This If Nothing Else</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--green);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">+</span>
+        <span style="font-size:14px;color:var(--text)"><strong>Digital pharmacy on a subscription model</strong> — doctors online, meds mailed to your door. 2.6M paying subscribers, $2.35B revenue in 2025 (+59% YoY).</span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--yellow);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">!</span>
+        <span style="font-size:14px;color:var(--text)"><strong>Big pivot happening right now</strong> — stopped selling cheap knock-off weight loss drugs, switched to real branded Wegovy with Novo Nordisk. Revenue growth slowed from 59% to 4% in Q1 2026 because of this.</span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--green);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">+</span>
+        <span style="font-size:14px;color:var(--text)"><strong>Peptides are the hidden next chapter</strong> — FDA decides July 23–24, 2026 whether to legalize 12 peptides (recovery, longevity, cognitive). HIMS already owns the only telehealth peptide factory in the US. $20B market opportunity.</span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--green);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">+</span>
+        <span style="font-size:14px;color:var(--text)"><strong>International just exploded</strong> — +969% revenue growth overseas in Q1 2026 via Eucalyptus acquisition (Australia, UK, Japan). Still tiny but growing fast.</span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <span style="color:var(--red);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">-</span>
+        <span style="font-size:14px;color:var(--text)"><strong>Risks are real</strong> — DOJ investigation still open, swung to $92M net loss in Q1 2026, Amazon entering the same space, no insurance accepted.</span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding-top:4px;border-top:1px solid var(--border)">
+        <span style="color:var(--accent);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">&#9654;</span>
+        <span style="font-size:14px;color:var(--text)"><strong>Verdict:</strong> Wall Street says HOLD at $27 target, stock trades ~$35. Good long-term story if you can hold 3–5 years and survive regulatory headlines. The July FDA peptide decision is the next big stock catalyst to watch.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ EXPLAIN LIKE A KID ══ -->
+  <div class="section-title mb8">What Does This Company Actually Do?</div>
+  <div class="story-box mb8">
+    <div class="story-title">The Simple Story</div>
+    <p>Imagine you're embarrassed to talk to a doctor about hair loss or weight gain. Hims &amp; Hers says: "Chat with a doctor from your couch. We'll mail the medicine." They charge a monthly subscription — like Netflix, but for your health.</p>
+  </div>
+  <div class="story-box mb24">
+    <div class="story-title">The Big Bet Right Now</div>
+    <p>Everyone wants the "magic weight loss shot" (semaglutide / Wegovy / Ozempic). Hims was selling a cheaper copy-cat version until the FDA said stop. Now they've switched to selling the real brand-name version in partnership with Novo Nordisk. This is their biggest make-or-break moment.</p>
+  </div>
+
+  <!-- ══ KEY METRICS ══ -->
+  <div class="section-title mb8">Financial Snapshot</div>
+  <div class="grid-3 mb24">
+    <div class="stat-box">
+      <div class="stat-label">Stock Price</div>
+      <div class="stat-value val-blue">~$35</div>
+      <div class="stat-sub">+47% in past month</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Market Cap</div>
+      <div class="stat-value val-blue">$8.2B</div>
+      <div class="stat-sub">Mid-cap territory</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">2025 Revenue</div>
+      <div class="stat-value val-green">$2.35B</div>
+      <div class="stat-sub">+59% year-over-year</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Q1 2026 Revenue</div>
+      <div class="stat-value val-yellow">$608M</div>
+      <div class="stat-sub">+4% YoY (big slowdown)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Subscribers</div>
+      <div class="stat-value val-blue">2.6M</div>
+      <div class="stat-sub">+9% year-over-year</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">2026 Revenue Guide</div>
+      <div class="stat-value val-green">$2.9B</div>
+      <div class="stat-sub">$2.8B–$3.0B range</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Q1 2026 Net Loss</div>
+      <div class="stat-value val-red">-$92M</div>
+      <div class="stat-sub">Was +$49M profit in Q1 2025</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Intl Revenue Q1</div>
+      <div class="stat-value val-green">$78M</div>
+      <div class="stat-sub">+969% — explosive growth</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">2030 Revenue Target</div>
+      <div class="stat-value val-green">$6.5B</div>
+      <div class="stat-sub">Adj EBITDA target $1.3B</div>
+    </div>
+  </div>
+
+  <!-- ══ REVENUE BREAKDOWN CHART ══ -->
+  <div class="section-title mb8">Revenue Breakdown — Where Does the Money Come From?</div>
+  <div class="card mb24">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:18px">Based on 2025 full-year revenue ($2.35B) and Q1 2026 mix. Peptide revenue is currently near zero — it is a future growth driver pending FDA approval.</p>
+
+    <!-- Donut + Legend layout -->
+    <div style="display:flex;gap:32px;align-items:center;flex-wrap:wrap">
+
+      <!-- SVG Donut Chart -->
+      <div style="flex-shrink:0">
+        <svg width="200" height="200" viewBox="0 0 200 200" style="transform:rotate(-90deg)">
+          <!-- Background circle -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--border)" stroke-width="32"/>
+          <!-- Weight Loss / GLP-1 — 42% -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#3D6E3A" stroke-width="32"
+            stroke-dasharray="184.7 439.8" stroke-dashoffset="0"/>
+          <!-- Hair Loss — 24% -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#1E3B6F" stroke-width="32"
+            stroke-dasharray="105.6 439.8" stroke-dashoffset="-184.7"/>
+          <!-- Sexual Health — 14% -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#8B4513" stroke-width="32"
+            stroke-dasharray="61.6 439.8" stroke-dashoffset="-290.3"/>
+          <!-- Skin / Derm — 9% -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#B07820" stroke-width="32"
+            stroke-dasharray="39.6 439.8" stroke-dashoffset="-351.9"/>
+          <!-- Mental Health — 5% -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#4A4B8C" stroke-width="32"
+            stroke-dasharray="22.0 439.8" stroke-dashoffset="-391.5"/>
+          <!-- International — 3% -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#2C6E8A" stroke-width="32"
+            stroke-dasharray="13.2 439.8" stroke-dashoffset="-413.5"/>
+          <!-- Other — 3% -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#9A8878" stroke-width="32"
+            stroke-dasharray="13.2 439.8" stroke-dashoffset="-426.7"/>
+          <!-- Center hole -->
+          <circle cx="100" cy="100" r="54" fill="var(--card)"/>
+        </svg>
+        <!-- Center label (rotated back) -->
+        <div style="margin-top:-115px;margin-left:0;text-align:center;transform:none;pointer-events:none">
+          <div style="font-size:18px;font-weight:700;color:var(--text);font-family:'Cinzel','Times New Roman',serif">$2.35B</div>
+          <div style="font-size:11px;color:var(--muted);font-family:'Courier Prime','Courier New',monospace">2025 Revenue</div>
+        </div>
+        <div style="height:55px"></div>
+      </div>
+
+      <!-- Legend -->
+      <div style="flex:1;min-width:220px;display:flex;flex-direction:column;gap:10px">
+
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:12px;height:12px;border-radius:3px;background:#3D6E3A;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif;font-size:12px">Weight Loss / GLP-1</div>
+            <div style="font-size:11px;color:var(--muted)">Core growth driver, now shifting to branded Wegovy</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:#3D6E3A;flex-shrink:0;font-family:'Cinzel','Times New Roman',serif">~42%</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:12px;height:12px;border-radius:3px;background:#1E3B6F;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif;font-size:12px">Hair Loss</div>
+            <div style="font-size:11px;color:var(--muted)">Finasteride, minoxidil — oldest &amp; most stable category</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:#1E3B6F;flex-shrink:0;font-family:'Cinzel','Times New Roman',serif">~24%</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:12px;height:12px;border-radius:3px;background:#8B4513;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif;font-size:12px">Sexual Health</div>
+            <div style="font-size:11px;color:var(--muted)">ED treatments — original HIMS product, still sticky</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:#8B4513;flex-shrink:0;font-family:'Cinzel','Times New Roman',serif">~14%</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:12px;height:12px;border-radius:3px;background:#B07820;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif;font-size:12px">Skin &amp; Dermatology</div>
+            <div style="font-size:11px;color:var(--muted)">Acne, anti-aging creams, prescription retinoids</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:#B07820;flex-shrink:0;font-family:'Cinzel','Times New Roman',serif">~9%</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:12px;height:12px;border-radius:3px;background:#4A4B8C;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif;font-size:12px">Mental Health</div>
+            <div style="font-size:11px;color:var(--muted)">Anxiety, depression — growing but early stage</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:#4A4B8C;flex-shrink:0;font-family:'Cinzel','Times New Roman',serif">~5%</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:12px;height:12px;border-radius:3px;background:#2C6E8A;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif;font-size:12px">International (Eucalyptus)</div>
+            <div style="font-size:11px;color:var(--muted)">Australia, UK, Japan — +969% YoY in Q1 2026</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:#2C6E8A;flex-shrink:0;font-family:'Cinzel','Times New Roman',serif">~3%</div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:12px;height:12px;border-radius:3px;background:#9A8878;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif;font-size:12px">Other / One-time</div>
+            <div style="font-size:11px;color:var(--muted)">Supplements, vitamins, non-subscription items</div>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:#9A8878;flex-shrink:0;font-family:'Cinzel','Times New Roman',serif">~3%</div>
+        </div>
+
+        <!-- Peptide placeholder -->
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px dashed var(--border);border-radius:6px;background:rgba(30,59,111,0.04)">
+          <div style="width:12px;height:12px;border-radius:3px;background:#B8860B;flex-shrink:0;opacity:0.4"></div>
+          <div style="flex:1">
+            <div style="font-size:12px;font-weight:700;color:#1E3B6F;font-family:'Cinzel','Times New Roman',serif">Peptides (Pending FDA — Jul 2026)</div>
+            <div style="font-size:11px;color:var(--muted)">Recovery, longevity, cognitive, cardiometabolic — $20B TAM</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:#1E3B6F;flex-shrink:0;font-family:'Cinzel','Times New Roman',serif">~0% now</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bar chart: 2025 vs projected 2027 mix -->
+    <div style="margin-top:28px;border-top:1px solid var(--border);padding-top:20px">
+      <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;font-family:'Cinzel','Times New Roman',serif">How the Mix Could Shift by 2027 (If Peptides Approved)</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+            <span style="font-size:12px;font-weight:600;font-family:'Cinzel','Times New Roman',serif">Weight Loss / GLP-1</span>
+            <span style="font-size:12px;color:var(--muted)">42% → 38% (branded Wegovy, lower margin)</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:50px;overflow:hidden">
+            <div style="height:100%;width:42%;background:#3D6E3A;border-radius:50px"></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+            <span style="font-size:12px;font-weight:600;font-family:'Cinzel','Times New Roman',serif">Hair Loss</span>
+            <span style="font-size:12px;color:var(--muted)">24% → 18% (stable but diluted by new categories)</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:50px;overflow:hidden">
+            <div style="height:100%;width:24%;background:#1E3B6F;border-radius:50px"></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+            <span style="font-size:12px;font-weight:600;font-family:'Cinzel','Times New Roman',serif">Peptides (new)</span>
+            <span style="font-size:12px;color:#B8860B;font-weight:700">0% → ~12% (if FDA approves July 2026)</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:50px;overflow:hidden">
+            <div style="height:100%;width:0%;background:#B8860B;border-radius:50px;transition:width 1s ease" id="peptide-bar"></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+            <span style="font-size:12px;font-weight:600;font-family:'Cinzel','Times New Roman',serif">International</span>
+            <span style="font-size:12px;color:var(--muted)">3% → ~15% (continued Eucalyptus growth)</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:50px;overflow:hidden">
+            <div style="height:100%;width:3%;background:#2C6E8A;border-radius:50px"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BUSINESS MODEL ══ -->
+  <div class="section-title mb8">Business Model</div>
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>How They Make Money</h3>
+      <ul>
+        <li><strong>Subscriptions:</strong> Customers pay monthly for treatment plans. Very sticky — once you're on a medication routine, you keep paying.</li>
+        <li><strong>One-time purchases:</strong> Skincare, vitamins, supplements sold without a subscription.</li>
+        <li><strong>Consult fees:</strong> Small fee for the online doctor visit.</li>
+        <li><strong>International:</strong> Expanded to Australia, UK, Japan via Eucalyptus acquisition.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Why the Model Is Clever</h3>
+      <ul>
+        <li><strong>No insurance headaches:</strong> Patients pay directly. Simpler, faster.</li>
+        <li><strong>No brick-and-mortar:</strong> No hospital buildings, just software and partner pharmacies.</li>
+        <li><strong>Embarrassment factor:</strong> People happily pay online for hair loss, ED, or weight meds they'd never buy in person.</li>
+        <li><strong>Lock-in effect:</strong> Once your prescription is set up, switching is a hassle.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ COMPETITIVE EDGE ══ -->
+  <div class="section-title mb8">Competitive Edge — What Makes HIMS Special?</div>
+  <div class="card mb24">
+    <div class="item-row">
+      <div class="item-icon icon-green">&#9733;</div>
+      <div class="item-body">
+        <div class="item-title">Brand &amp; Trust in "Awkward" Categories</div>
+        <div class="item-desc">Hair loss, erectile dysfunction, weight loss — people google these privately and HIMS shows up first. Millions of marketing dollars have built real brand recognition.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-icon icon-green">&#9733;</div>
+      <div class="item-body">
+        <div class="item-title">Vertically Integrated — Doctor + Pharmacy + Delivery</div>
+        <div class="item-desc">Unlike competitors who just do telemedicine, HIMS owns the full chain: the doctor visit, the prescription, the pharmacy, and the shipment. Margins improve at scale.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-icon icon-green">&#9733;</div>
+      <div class="item-body">
+        <div class="item-title">Subscriber Base Is Growing (Slowly but Stickily)</div>
+        <div class="item-desc">2.6 million paying subscribers. These people don't cancel easily — a chronic treatment like hair loss meds is a multi-year commitment.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-icon icon-green">&#9733;</div>
+      <div class="item-body">
+        <div class="item-title">New Novo Nordisk Partnership</div>
+        <div class="item-desc">Instead of fighting the pharmaceutical giant, HIMS joined them. This gives HIMS legal access to Wegovy (real semaglutide) and massive co-marketing potential.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-icon icon-yellow">&#9650;</div>
+      <div class="item-body">
+        <div class="item-title">International Wildcard</div>
+        <div class="item-desc">International revenue exploded +969% in Q1 2026. Eucalyptus acquisition puts them in Australia, UK, and Japan. Huge untapped market if executed well.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PEPTIDE DEEP DIVE ══ -->
+  <div class="section-title mb8">The Peptide Play — HIMS's Next Big Bet (Often Overlooked)</div>
+
+  <div class="story-box mb8">
+    <div class="story-title">What Are Peptides? (Plain Explanation)</div>
+    <p>Peptides are tiny chains of amino acids — the building blocks your body already makes. Think of them like "instruction messages" that tell your body to heal faster, build muscle, burn fat, sleep better, or age slower. They're not steroids. They're more like biological software patches. Biohackers and athletes have used them for years, but they've been hard to get legally.</p>
+  </div>
+  <div class="story-box mb16">
+    <div class="story-title">Why This Is a Big Deal for HIMS</div>
+    <p>The FDA is holding a major advisory committee meeting on <strong>July 23–24, 2026</strong> to decide whether 12 peptides can be legally compounded and prescribed. If approved, this unlocks a brand-new market estimated at <strong>$20 billion</strong> — and HIMS is the only telehealth company in America that already owns its own peptide manufacturing facility. Everyone else would be scrambling to build one; HIMS is already ready.</p>
+  </div>
+
+  <div class="grid-2 mb16">
+    <div class="card">
+      <h3>The Peptides Under FDA Review (July 23–24, 2026)</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--card2);border-radius:6px;border:1px solid var(--border)">
+          <span style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">BPC-157</span>
+          <span style="font-size:11px;color:var(--muted)">Gut healing, injury recovery</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--card2);border-radius:6px;border:1px solid var(--border)">
+          <span style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">TB-500</span>
+          <span style="font-size:11px;color:var(--muted)">Tissue repair, inflammation</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--card2);border-radius:6px;border:1px solid var(--border)">
+          <span style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">MOTS-c</span>
+          <span style="font-size:11px;color:var(--muted)">Metabolic health, longevity</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--card2);border-radius:6px;border:1px solid var(--border)">
+          <span style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">Semax</span>
+          <span style="font-size:11px;color:var(--muted)">Cognitive performance</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--card2);border-radius:6px;border:1px solid var(--border)">
+          <span style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">KPV &amp; Epitalon</span>
+          <span style="font-size:11px;color:var(--muted)">Anti-aging, immune support</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--card2);border-radius:6px;border:1px solid var(--border)">
+          <span style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">CJC-1295 / Ipamorelin</span>
+          <span style="font-size:11px;color:var(--muted)">Growth hormone, muscle, sleep</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Why HIMS Has an Unfair Advantage</h3>
+      <div class="item-row">
+        <div class="item-icon icon-green">&#9733;</div>
+        <div class="item-body">
+          <div class="item-title">Owns the Factory — Nobody Else Does</div>
+          <div class="item-desc">HIMS acquired a California peptide manufacturing facility in 2025. It is the ONLY telehealth company in the US that vertically controls peptide production. Competitors would need 1–2 years to replicate this.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon icon-green">&#9733;</div>
+        <div class="item-body">
+          <div class="item-title">1M+ Sq Ft Compounding Infrastructure</div>
+          <div class="item-desc">They already have the prescription + delivery + clinical network. Peptides just become another product in the same pipeline — almost zero marginal infrastructure cost.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon icon-green">&#9733;</div>
+        <div class="item-body">
+          <div class="item-title">Political Tailwind — RFK Jr. Support</div>
+          <div class="item-desc">RFK Jr. publicly signaled looser rules on peptide treatments in April 2026, which sent HIMS shares up 4–8% in one day. The regulatory environment is shifting in their favour.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon icon-yellow">&#9733;</div>
+        <div class="item-body">
+          <div class="item-title">2.6M Subscribers = Built-In Customers</div>
+          <div class="item-desc">HIMS doesn't need to acquire new customers for peptides. Their existing members focused on weight loss and longevity are natural upsell targets — higher average revenue per user (ARPU).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Peptide TAM + Timeline -->
+  <div class="card mb16">
+    <h3>Peptide Market Opportunity at a Glance</h3>
+    <div class="grid-3" style="margin-top:14px">
+      <div class="stat-box">
+        <div class="stat-label">Peptide TAM (ex-GLP-1)</div>
+        <div class="stat-value val-green">$20B</div>
+        <div class="stat-sub">Canaccord Genuity estimate, next 3–5 years</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">FDA AdCom Decision</div>
+        <div class="stat-value val-yellow">Jul 23–24</div>
+        <div class="stat-sub">2026 — Imminent binary catalyst</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">HIMS Readiness</div>
+        <div class="stat-value val-green">Ready Now</div>
+        <div class="stat-sub">Facility operational, R&amp;D in progress</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px">
+      <div style="font-size:10px;font-weight:700;margin-bottom:10px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;font-family:'Cinzel','Times New Roman',serif">The Peptide Timeline</div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;gap:16px;align-items:flex-start;padding-bottom:16px;position:relative">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:12px;height:12px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:3px"></div>
+            <div style="width:2px;flex:1;background:var(--border);margin-top:4px;min-height:24px"></div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">2025 — Factory Acquired</div>
+            <div style="font-size:12px;color:var(--muted)">HIMS bought a California peptide manufacturing facility and began onshoring R&amp;D. Silent move that barely made headlines.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding-bottom:16px;position:relative">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:12px;height:12px;border-radius:50%;background:var(--yellow);flex-shrink:0;margin-top:3px"></div>
+            <div style="width:2px;flex:1;background:var(--border);margin-top:4px;min-height:24px"></div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">April 2026 — RFK Jr. Signal</div>
+            <div style="font-size:12px;color:var(--muted)">RFK Jr. publicly signals looser peptide rules. HIMS stock jumps 4–8% in a single session. Market starts paying attention.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;padding-bottom:16px;position:relative">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:12px;height:12px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:3px"></div>
+            <div style="width:2px;flex:1;background:var(--border);margin-top:4px;min-height:24px"></div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">July 23–24, 2026 — FDA AdCom Meeting (Imminent)</div>
+            <div style="font-size:12px;color:var(--muted)">FDA Pharmacy Compounding Advisory Committee reviews 12 peptides including BPC-157, TB-500, Semax, MOTS-c. Approval = immediate green light for HIMS to ship. Rejection = delay but not death.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:12px;height:12px;border-radius:50%;background:var(--border);flex-shrink:0;margin-top:3px;border:2px dashed var(--muted)"></div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;font-family:'Cinzel','Times New Roman',serif">H2 2026 — Revenue Impact Begins (If Approved)</div>
+            <div style="font-size:12px;color:var(--muted)">HIMS begins offering subscriptions for performance, recovery, cardiometabolic, longevity, and cognitive peptide protocols. New ARPU growth engine separate from GLP-1.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Peptide-specific scenario -->
+  <div class="card mb24">
+    <h3>Peptide-Specific Scenario: What Happens on July 23–24?</h3>
+    <div class="scenario-grid" style="margin-top:14px">
+      <div class="scenario-card scenario-bull" style="margin-bottom:0">
+        <div class="scenario-label">AdCom Approves</div>
+        <div class="scenario-title">Full Compounding Access</div>
+        <div class="scenario-prob">45% probability</div>
+        <div class="scenario-price val-green" style="font-size:18px;font-weight:700;color:var(--green)">+30% to +55%</div>
+        <ul class="scenario-ul" style="margin-top:8px">
+          <li>HIMS launches peptide subscriptions by Q3 2026</li>
+          <li>First-mover advantage with owned factory</li>
+          <li>$20B TAM starts becoming real revenue in 2027</li>
+          <li>Re-rates from "recovery story" to "multi-category platform"</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-base" style="margin-bottom:0">
+        <div class="scenario-label">AdCom Partial / Deferred</div>
+        <div class="scenario-title">Mixed Outcome</div>
+        <div class="scenario-prob">35% probability</div>
+        <div class="scenario-price" style="font-size:18px;font-weight:700;color:var(--accent)">Neutral / -5%</div>
+        <ul class="scenario-ul" style="margin-top:8px">
+          <li>Some peptides approved, others deferred for more data</li>
+          <li>HIMS can still launch limited protocols</li>
+          <li>Full market access pushed to 2027</li>
+          <li>Factory still provides long-term lead time advantage</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-bear" style="margin-bottom:0">
+        <div class="scenario-label">AdCom Rejects</div>
+        <div class="scenario-title">Peptides Blocked</div>
+        <div class="scenario-prob">20% probability</div>
+        <div class="scenario-price" style="font-size:18px;font-weight:700;color:var(--red)">-10–15% stock drop</div>
+        <ul class="scenario-ul" style="margin-top:8px">
+          <li>No legal compounding access granted</li>
+          <li>Peptide factory sits idle — wasted capex</li>
+          <li>Reliance on GLP-1 / legacy products only</li>
+          <li>Market narrative shifts from "next growth engine" to "missed bet"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RATINGS ══ -->
+  <div class="section-title mb8">Analyst Scorecard</div>
+  <div class="card mb24">
+    <div class="meter-row">
+      <div class="meter-label"><span>Business Model Strength</span><span>7.5 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:75%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Revenue Growth</span><span>8.0 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:80%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Profitability</span><span>2.5 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill red" style="width:25%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Competitive Moat</span><span>6.8 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill yellow" style="width:68%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Regulatory Safety</span><span>2 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill red" style="width:20%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Management Execution</span><span>6.0 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill yellow" style="width:60%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Long-Term Potential</span><span>7.0 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+    </div>
+  </div>
+
+  <!-- ══ CURRENT SITUATION ══ -->
+  <div class="section-title mb8">Current Situation — Growth, Risks &amp; Bottlenecks</div>
+
+  <div class="grid-2 mb16">
+    <div class="card">
+      <h3 style="color:var(--green)">Growth Drivers</h3>
+      <div class="item-row">
+        <div class="item-icon icon-green">&#8593;</div>
+        <div class="item-body">
+          <div class="item-title">GLP-1 Weight Loss Mega-Trend</div>
+          <div class="item-desc">Obesity drug market could hit $100B+ by 2030. HIMS is positioned right in the middle with Wegovy access.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon icon-green">&#8593;</div>
+        <div class="item-body">
+          <div class="item-title">International Expansion</div>
+          <div class="item-desc">+969% international revenue in Q1 2026. Eucalyptus gives them a running start in 5 countries.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon icon-green">&#8593;</div>
+        <div class="item-body">
+          <div class="item-title">Peptides — $20B TAM, Factory Already Built</div>
+          <div class="item-desc">FDA advisory committee on July 23–24, 2026 could unlock legal compounding of BPC-157, TB-500, Semax and 9 more. HIMS owns the only telehealth-linked peptide factory in the US. Estimated $20B market within 3–5 years.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--red)">Risks &amp; Bottlenecks</h3>
+      <div class="item-row">
+        <div class="item-icon icon-red">&#9888;</div>
+        <div class="item-body">
+          <div class="item-title">FDA / DOJ Investigation</div>
+          <div class="item-desc">HIMS received FDA warning letters and was referred to the DOJ for marketing compounded semaglutide as equivalent to FDA-approved drugs. Still unresolved.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon icon-red">&#9888;</div>
+        <div class="item-body">
+          <div class="item-title">Gross Margin Pressure</div>
+          <div class="item-desc">Selling branded Wegovy (at real prices) instead of cheap compounded semaglutide will crush margins in the short term. Net loss swung from +$49M to -$92M in one quarter.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon icon-red">&#9888;</div>
+        <div class="item-body">
+          <div class="item-title">Amazon One Medical &amp; Big Competitors</div>
+          <div class="item-desc">Amazon has unlimited marketing budget and trust. Teladoc accepts insurance. HIMS is cash-pay only, which limits its addressable market.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon icon-yellow">&#9888;</div>
+        <div class="item-body">
+          <div class="item-title">Revenue Growth Just Slowed to 4%</div>
+          <div class="item-desc">Was growing at 59% in 2025. Q1 2026 was only +4% because they stopped advertising compounded GLP-1. This pivot may take several quarters to recover.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCENARIO ANALYSIS ══ -->
+  <div class="section-title mb8">Scenario Analysis — What Could Happen Next?</div>
+  <div class="scenario-grid mb8">
+
+    <div class="scenario-card scenario-bull">
+      <div class="scenario-label">Bull Case</div>
+      <div class="scenario-title">Everything Goes Right</div>
+      <div class="scenario-prob">30% probability</div>
+      <div class="scenario-price">$60–$80</div>
+      <ul class="scenario-ul">
+        <li>Novo Nordisk partnership drives massive Wegovy subscriber growth</li>
+        <li>DOJ investigation quietly closed with no major penalties</li>
+        <li>International revenue keeps growing 500%+ YoY</li>
+        <li>New drug categories (peptides, mental health) become meaningful revenue</li>
+        <li>Company hits $3B+ revenue, turns solidly EBITDA-positive</li>
+        <li>Market re-rates it as a real healthcare platform</li>
+      </ul>
+    </div>
+
+    <div class="scenario-card scenario-base">
+      <div class="scenario-label">Base Case</div>
+      <div class="scenario-title">Steady Execution, Slow Recovery</div>
+      <div class="scenario-prob">50% probability</div>
+      <div class="scenario-price">$30–$45</div>
+      <ul class="scenario-ul">
+        <li>GLP-1 pivot stabilizes — margins compress but subscriptions grow</li>
+        <li>DOJ matter resolved with fines but no business disruption</li>
+        <li>Revenue hits guidance of $2.8B–$3.0B in 2026</li>
+        <li>International becomes 15–20% of revenue by 2027</li>
+        <li>Stock trades sideways to modestly higher as profitability improves</li>
+        <li>Reaches $6.5B revenue target by 2030 (on track)</li>
+      </ul>
+    </div>
+
+    <div class="scenario-card scenario-bear">
+      <div class="scenario-label">Bear Case</div>
+      <div class="scenario-title">Regulatory Shock or Competition Squeeze</div>
+      <div class="scenario-prob">20% probability</div>
+      <div class="scenario-price">$10–$18</div>
+      <ul class="scenario-ul">
+        <li>DOJ brings major charges or forces business model changes</li>
+        <li>Novo Nordisk deal falls apart or proves too costly to distribute</li>
+        <li>Amazon / Teladoc undercut HIMS pricing aggressively</li>
+        <li>Gross margins collapse below 40% as compounded revenue disappears</li>
+        <li>Cash burn accelerates — dilutive stock issuance needed</li>
+        <li>Revenue misses guidance, stock de-rates back to $10–15</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ══ WHAT MAKES THIS A COIN-FLIP ══ -->
+  <div class="section-title mb8">The Big Question Investors Are Arguing About</div>
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3 style="color:var(--green)">The Optimist Sees…</h3>
+      <ul>
+        <li>A $100B+ GLP-1 market with HIMS having distribution infrastructure already built</li>
+        <li>International revenue as an entirely new growth engine nobody priced in</li>
+        <li>A company that turned $1.5B into $2.35B in one year — this team can execute</li>
+        <li>Novo Nordisk partnership as legitimacy signal — they wouldn't partner with a company about to collapse</li>
+        <li>Stock 40% below its 2025 peak despite a stronger strategic position today</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--red)">The Pessimist Sees…</h3>
+      <ul>
+        <li>A company that just flipped from +$49M profit to -$92M in one quarter</li>
+        <li>DOJ investigation that could result in fines, banned marketing, or worse</li>
+        <li>A subscription model where the core product (cheap weight loss drug) is now gone</li>
+        <li>A P/S ratio of 3.7x for a company that just barely grew 4% in the last quarter</li>
+        <li>Amazon with unlimited capital entering the same space</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ VERDICT ══ -->
+  <div class="section-title mb8">Bottom Line Verdict</div>
+  <div class="verdict-box mb24">
+    <div class="verdict-title">High-Potential, High-Turbulence — Not for the Faint of Heart</div>
+    <div class="verdict-text">
+      <p style="margin-bottom:12px">
+        Think of HIMS like a surfer who built a great surfboard and was riding the wave perfectly — then the wave (cheap GLP-1 drugs) got cut off by the government. Now they've had to quickly jump on a different, harder wave (selling the real brand-name drug). The surfing skills are real. The new wave is real. But the wipeout risk is higher than it used to be.
+      </p>
+      <p style="margin-bottom:12px">
+        The <strong style="color:var(--green)">long-term story is believable</strong>: digital health, direct-to-consumer, sticky subscriptions, international expansion, and the GLP-1 mega-trend are all legitimate tailwinds. The 2030 target of $6.5B revenue is not crazy for a company already at $2.35B growing 59%.
+      </p>
+      <p>
+        But the <strong style="color:var(--red)">near-term pain is real</strong>: the DOJ investigation is unresolved, margins just got hit hard, and revenue growth slowed sharply. <strong>Analyst consensus is HOLD at $27.</strong> Stock is currently trading ~$35 — above consensus — meaning the market is already pricing in some optimism. Suitable for investors with a <strong>3–5 year horizon</strong> who can stomach -30% drawdowns on bad regulatory news.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ WALL STREET CONSENSUS ══ -->
+  <div class="section-title mb8">What Wall Street Says (16 Analysts)</div>
+  <div class="grid-3 mb24">
+    <div class="stat-box">
+      <div class="stat-label">Consensus Rating</div>
+      <div class="stat-value val-yellow">HOLD</div>
+      <div class="stat-sub">Mixed buy / sell / hold</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Average Price Target</div>
+      <div class="stat-value val-blue">$27.32</div>
+      <div class="stat-sub">~23% below current price</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Simply Wall St Fair Value</div>
+      <div class="stat-value val-green">81% Undervalued</div>
+      <div class="stat-sub">Bullish DCF scenario</div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <p>Data sourced from SEC filings, Q1 2026 earnings, and analyst reports as of June 2026.</p>
+    <p style="margin-top:6px">
+      Sources:
+      <a href="https://investors.hims.com/news/news-details/2026/Hims--Hers-Health-Inc--Reports-First-Quarter-2026-Financial-Results/default.aspx">HIMS Q1 2026 IR</a> &nbsp;|&nbsp;
+      <a href="https://www.investing.com/news/transcripts/earnings-call-transcript-hims--hers-q1-2026-results-miss-forecasts-stock-rises-93CH-4678704">Investing.com Earnings Call</a> &nbsp;|&nbsp;
+      <a href="https://www.bipc.com/oral-semaglutide-and-the-glp-1-compounding-reckoning-from-regulatory-ambiguity-to-fda-enforcement,-doj-referrals,-and-novo-nordisk%E2%80%99s-case-against-hims-and-hers">BIPC GLP-1 Legal Analysis</a> &nbsp;|&nbsp;
+      <a href="https://www.tikr.com/blog/hims-hers-stock-closes-eucalyptus-deal-with-a-20-billion-peptide-bet-on-deck-heres-what-to-expect">TIKR Peptide $20B Bet</a> &nbsp;|&nbsp;
+      <a href="https://www.tikr.com/blog/novo-deal-eucalyptus-acquisition-fda-peptides-three-catalysts-reshaping-hims-hers-in-2026">TIKR Three Catalysts 2026</a> &nbsp;|&nbsp;
+      <a href="https://www.cnbc.com/2026/04/16/rfk-jr-peptides-hims-hers-glp-1.html">CNBC — RFK Jr. Peptide Signal</a> &nbsp;|&nbsp;
+      <a href="https://www.fda.gov/advisory-committees/advisory-committee-calendar/july-23-24-2026-meeting-pharmacy-compounding-advisory-committee-07232026">FDA AdCom July 2026</a> &nbsp;|&nbsp;
+      <a href="https://stockanalysis.com/stocks/hims/">StockAnalysis.com</a> &nbsp;|&nbsp;
+      <a href="https://simplywall.st/stocks/us/healthcare/nyse-hims/hims-hers-health">Simply Wall St</a>
+    </p>
+    <p style="margin-top:8px">This is not financial advice. For informational purposes only.</p>
+  </div>
+
+</div>
+<script>
+  // Animate peptide bar on scroll into view
+  const bar = document.getElementById('peptide-bar');
+  if (bar) {
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { bar.style.width = '12%'; obs.disconnect(); }
+    }, { threshold: 0.3 });
+    obs.observe(bar);
+  }
+</script>
+</body>
+</html>

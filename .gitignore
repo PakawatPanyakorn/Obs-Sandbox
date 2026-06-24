@@ -8,6 +8,8 @@ sessions/
 session-env/
 mcp-needs-auth-cache.json
 .last-cleanup
+.last-update-result.json
+history.jsonl
 
 # Local history & snapshots
 file-history/

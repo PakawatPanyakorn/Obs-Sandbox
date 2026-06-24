@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cosmica">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: cosmica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "cosmica",
+    "description": "Dark maximalist super-unrealistic — deep space nebula with radial gradient mesh, cosmic violet primary, cyan secondary, rose accent. Heavy glow, glass panels, sci-fi unreality.",
+    "createdAt": "2026-06-21T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "gradient",
+      "baseColor": "#06041A",
+      "image": "radial-gradient(ellipse at 20% 40%, rgba(168,85,247,0.25) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.12) 0%, transparent 45%), radial-gradient(ellipse at 60% 80%, rgba(244,63,94,0.18) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(6,4,26,0.9) 0%, #06041A 100%)",
+      "size": "cover",
+      "position": "0 0",
+      "repeat": "no-repeat",
+      "patternType": "none",
+      "patternColor": "none",
+      "patternOpacity": "0",
+      "patternSpacing": "none",
+      "notes": "Nebula mesh — 4-layer radial gradient: violet, cyan, rose, deep space center"
+    },
+    "colors": {
+      "primary": "#A855F7", "primaryLight": "#1E0A40", "secondary": "#06B6D4", "accent": "#F43F5E",
+      "background": "#06041A", "surface": "#0D0828", "surfaceAlt": "#140E30",
+      "text": "#E8E0F8", "textMuted": "#7060A0", "textOnPrimary": "#06041A",
+      "border": "#2A1F50", "success": "#10B981", "warning": "#F59E0B", "error": "#F43F5E"
+    },
+    "typography": {
+      "fontFamily": "'Exo 2', 'Helvetica Neue', sans-serif",
+      "fontFamilyMono": "'Space Mono', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Orbitron', 'Impact', sans-serif",
+      "scaleBase": "15px", "headingWeight": "700", "bodyWeight": "300", "lineHeight": "1.65"
+    },
+    "spacing": {
+      "borderRadius": "6px", "cardRadius": "12px", "buttonRadius": "6px",
+      "spaceUnit": "8px", "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 2px 8px rgba(6,4,26,0.8), 0 0 0 1px rgba(168,85,247,0.12)",
+      "md": "0 4px 20px rgba(6,4,26,0.85), 0 0 0 1px rgba(168,85,247,0.18)",
+      "lg": "0 8px 40px rgba(6,4,26,0.9), 0 0 0 1px rgba(168,85,247,0.25)",
+      "xl": "0 16px 64px rgba(6,4,26,0.95)",
+      "colored": "0 0 32px rgba(168,85,247,0.5), 0 4px 20px rgba(168,85,247,0.3)",
+      "inset": "inset 0 2px 8px rgba(6,4,26,0.9), inset 0 1px 0 rgba(168,85,247,0.1)",
+      "elevation": "dramatic"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #1A0A40 0%, #06041A 50%, #0A0420 100%)",
+      "card": "linear-gradient(135deg, rgba(168,85,247,0.08) 0%, rgba(6,182,212,0.04) 100%)",
+      "button": "linear-gradient(135deg, #C084FC 0%, #A855F7 50%, #7C3AED 100%)",
+      "text": "linear-gradient(135deg, #C084FC 0%, #A855F7 40%, #06B6D4 100%)",
+      "accent": "linear-gradient(135deg, #A855F7 0%, #F43F5E 100%)"
+    },
+    "effects": {
+      "luminescence": "strong",
+      "glowColor": "#A855F7", "glowBlur": "24px",
+      "glowSm": "0 0 8px rgba(168,85,247,0.5), 0 0 16px rgba(168,85,247,0.2)",
+      "glowMd": "0 0 24px rgba(168,85,247,0.55), 0 0 48px rgba(168,85,247,0.25)",
+      "glowLg": "0 0 48px rgba(168,85,247,0.6), 0 0 96px rgba(168,85,247,0.3)",
+      "glassBlur": "16px",
+      "glassTint": "rgba(13,8,40,0.6)",
+      "gradientBorder": "linear-gradient(135deg, #A855F7, #06B6D4, #F43F5E)",
+      "noiseOpacity": "0.05", "textShadow": "0 0 40px rgba(168,85,247,0.6)",
+      "backdropFilter": "blur(16px) saturate(180%)"
+    },
+    "motion": {
+      "durationFast": "150ms", "durationBase": "300ms", "durationSlow": "600ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)", "feel": "expressive"
+    },
+    "design": {
+      "aesthetic": "glassmorphism",
+      "personality": ["cosmic", "maximalist", "super-unrealistic", "cinematic"],
+      "borderStyle": "hairline", "iconStyle": "outlined", "imageStyle": "abstract",
+      "surfaceTexture": "frosted", "hierarchyClarity": "medium",
+      "notes": "4-layer nebula radial gradient bg. Violet glow dominates. Glass panels with blur. Rose/cyan used for counterpoint. Orbitron all-caps creates sci-fi unreality."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #06041A;
+      --bg-image: radial-gradient(ellipse at 20% 40%, rgba(168,85,247,0.25) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.12) 0%, transparent 45%), radial-gradient(ellipse at 60% 80%, rgba(244,63,94,0.18) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(6,4,26,0.9) 0%, #06041A 100%);
+      --bg-size: cover; --bg-position: 0 0; --bg-repeat: no-repeat;
+
+      --color-primary: #A855F7; --color-primary-light: #1E0A40; --color-secondary: #06B6D4; --color-accent: #F43F5E;
+      --color-bg: #06041A; --color-surface: #0D0828; --color-surface-alt: #140E30;
+      --color-text: #E8E0F8; --color-text-muted: #7060A0; --color-text-on-primary: #06041A;
+      --color-border: #2A1F50; --color-success: #10B981; --color-warning: #F59E0B; --color-error: #F43F5E;
+
+      --font-family: 'Exo 2', 'Helvetica Neue', sans-serif;
+      --font-family-mono: 'Space Mono', 'Courier New', monospace;
+      --font-family-display: 'Orbitron', 'Impact', sans-serif;
+      --font-size-base: 15px; --font-weight-heading: 700; --font-weight-body: 300; --line-height: 1.65;
+
+      --radius: 6px; --radius-card: 12px; --radius-button: 6px;
+
+      --shadow-sm: 0 2px 8px rgba(6,4,26,0.8), 0 0 0 1px rgba(168,85,247,0.12);
+      --shadow-md: 0 4px 20px rgba(6,4,26,0.85), 0 0 0 1px rgba(168,85,247,0.18);
+      --shadow-lg: 0 8px 40px rgba(6,4,26,0.9), 0 0 0 1px rgba(168,85,247,0.25);
+      --shadow-xl: 0 16px 64px rgba(6,4,26,0.95);
+      --shadow-colored: 0 0 32px rgba(168,85,247,0.5), 0 4px 20px rgba(168,85,247,0.3);
+      --shadow-inset: inset 0 2px 8px rgba(6,4,26,0.9), inset 0 1px 0 rgba(168,85,247,0.1);
+
+      --gradient-hero: linear-gradient(135deg, #1A0A40 0%, #06041A 50%, #0A0420 100%);
+      --gradient-card: linear-gradient(135deg, rgba(168,85,247,0.08) 0%, rgba(6,182,212,0.04) 100%);
+      --gradient-button: linear-gradient(135deg, #C084FC 0%, #A855F7 50%, #7C3AED 100%);
+      --gradient-text: linear-gradient(135deg, #C084FC 0%, #A855F7 40%, #06B6D4 100%);
+      --gradient-accent: linear-gradient(135deg, #A855F7 0%, #F43F5E 100%);
+
+      --glow-color: #A855F7; --glow-sm: 0 0 8px rgba(168,85,247,0.5), 0 0 16px rgba(168,85,247,0.2);
+      --glow-md: 0 0 24px rgba(168,85,247,0.55), 0 0 48px rgba(168,85,247,0.25);
+      --glow-lg: 0 0 48px rgba(168,85,247,0.6), 0 0 96px rgba(168,85,247,0.3);
+      --glass-blur: 16px; --glass-tint: rgba(13,8,40,0.6);
+      --backdrop-filter: blur(16px) saturate(180%);
+      --text-shadow: 0 0 40px rgba(168,85,247,0.6);
+      --border-gradient: linear-gradient(135deg, #A855F7, #06B6D4, #F43F5E); --noise-opacity: 0.05;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 150ms; --duration-base: 300ms; --duration-slow: 600ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1); --border-width: 1px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      background-attachment: fixed;
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-body);
+      line-height: var(--line-height);
+      padding: 2.5rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .tf-header {
+      background: var(--glass-tint);
+      backdrop-filter: var(--backdrop-filter);
+      -webkit-backdrop-filter: var(--backdrop-filter);
+      border: 1px solid rgba(168,85,247,0.25);
+      border-radius: var(--radius-card);
+      padding: 2.5rem 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .tf-header::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--border-gradient);
+    }
+    .tf-header::after {
+      content: '';
+      position: absolute; bottom: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(168,85,247,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .tf-header .tf-system-id {
+      font-family: var(--font-family-mono);
+      font-size: 0.65rem;
+      color: var(--color-secondary);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.08em;
+    }
+    .tf-header h1 {
+      font-family: var(--font-family-display);
+      font-size: 3.25rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(168,85,247,0.4);
+      margin-bottom: 0.5rem;
+    }
+    .tf-header .tf-subtitle { color: var(--color-text-muted); font-size: 0.85rem; font-weight: 300; }
+    .tf-header .tf-tags { margin-top: 1.25rem; display: flex; gap: 0.5rem; }
+    .tf-tag {
+      font-family: var(--font-family-mono);
+      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.22rem 0.65rem; border-radius: var(--radius); border: 1px solid;
+    }
+    .tf-tag-violet { border-color: var(--color-primary); color: var(--color-primary); background: rgba(168,85,247,0.1); }
+    .tf-tag-cyan { border-color: var(--color-secondary); color: var(--color-secondary); background: rgba(6,182,212,0.1); }
+    .tf-tag-rose { border-color: var(--color-accent); color: var(--color-accent); background: rgba(244,63,94,0.1); }
+
+    .tf-section { margin-bottom: 2rem; }
+    .tf-section-title {
+      font-family: var(--font-family-display);
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--color-primary); margin-bottom: 0.75rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.75rem; }
+    .tf-swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .tf-swatch-color { height: 52px; }
+    .tf-swatch-label { background: var(--color-surface); padding: 0.35rem 0.5rem; font-size: 0.6rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.65rem; margin-bottom: 0.05rem; }
+
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.5rem; }
+    .t-h1 { font-family: var(--font-family-display); font-size: 3rem; font-weight: 900; line-height: 1; letter-spacing: 0.1em; text-shadow: var(--text-shadow); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .t-h2 { font-family: var(--font-family-display); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.12em; color: var(--color-secondary); }
+    .t-h3 { font-family: var(--font-family-display); font-size: 1rem; font-weight: 400; letter-spacing: 0.15em; color: var(--color-text-muted); }
+    .t-body { font-size: 0.95rem; font-weight: 300; color: var(--color-text); }
+    .t-small { font-family: var(--font-family-mono); font-size: 0.68rem; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .t-mono { font-family: var(--font-family-mono); font-size: 0.82rem; background: var(--color-surface-alt); padding: 0.25rem 0.6rem; border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-secondary); }
+
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .tf-btn {
+      padding: 0.55rem 1.4rem; border-radius: var(--radius-button);
+      font-family: var(--font-family-display); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; cursor: pointer; border: 1px solid;
+      transition: all var(--duration-fast) var(--easing);
+    }
+    .tf-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); border-color: transparent; box-shadow: var(--shadow-colored); }
+    .tf-btn-primary:hover { box-shadow: var(--glow-lg); }
+    .tf-btn-secondary { background: rgba(6,182,212,0.12); color: var(--color-secondary); border-color: rgba(6,182,212,0.4); }
+    .tf-btn-outline { background: transparent; color: var(--color-primary); border-color: rgba(168,85,247,0.5); }
+    .tf-btn-ghost { background: var(--glass-tint); backdrop-filter: blur(8px); color: var(--color-text); border-color: var(--color-border); }
+
+    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+    .tf-card {
+      background: var(--glass-tint);
+      backdrop-filter: var(--backdrop-filter);
+      -webkit-backdrop-filter: var(--backdrop-filter);
+      border: 1px solid rgba(168,85,247,0.2);
+      border-radius: var(--radius-card); padding: 1.5rem; box-shadow: var(--shadow-md);
+      position: relative; overflow: hidden;
+    }
+    .tf-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: var(--border-gradient);
+    }
+    .tf-card h3 { font-family: var(--font-family-display); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 0.5rem; color: var(--color-primary); text-shadow: var(--glow-sm); }
+    .tf-card p { color: var(--color-text-muted); font-size: 0.85rem; }
+    .tf-card .coord { font-family: var(--font-family-mono); font-size: 0.62rem; color: var(--color-secondary); margin-top: 0.75rem; }
+
+    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 380px; }
+    .tf-form label { font-family: var(--font-family-display); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 0.2rem; display: block; }
+    .tf-form input, .tf-form select {
+      width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--color-border);
+      border-radius: var(--radius); background: rgba(13,8,40,0.7); color: var(--color-text);
+      font-family: var(--font-family-mono); font-size: 0.85rem; outline: none;
+      box-shadow: var(--shadow-inset); transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+    }
+    .tf-form input:focus, .tf-form select:focus { border-color: var(--color-primary); box-shadow: var(--glow-sm); }
+
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tf-badge { padding: 0.2rem 0.7rem; font-family: var(--font-family-mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid; border-radius: var(--radius); }
+    .tf-badge-primary { border-color: rgba(168,85,247,0.5); color: var(--color-primary); background: rgba(168,85,247,0.1); }
+    .tf-badge-success { border-color: rgba(16,185,129,0.5); color: var(--color-success); background: rgba(16,185,129,0.1); }
+    .tf-badge-warning { border-color: rgba(245,158,11,0.5); color: var(--color-warning); background: rgba(245,158,11,0.1); }
+    .tf-badge-error { border-color: rgba(244,63,94,0.5); color: var(--color-accent); background: rgba(244,63,94,0.1); }
+    .tf-badge-neutral { border-color: var(--color-border); color: var(--color-text-muted); background: transparent; }
+
+    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .tf-effect-tile { border: 1px solid var(--color-border); padding: 1.25rem; border-radius: var(--radius-card); background: var(--glass-tint); backdrop-filter: blur(8px); display: flex; flex-direction: column; gap: 0.5rem; }
+    .tf-effect-tile .tile-label { font-family: var(--font-family-display); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-primary); }
+    .tf-effect-tile .tile-value { font-family: var(--font-family-mono); font-size: 0.65rem; color: var(--color-text-muted); word-break: break-all; }
+    .tf-gradient-hero { height: 80px; background: var(--gradient-hero); border-radius: var(--radius-card); display: flex; align-items: center; padding: 0 1.5rem; border: 1px solid rgba(168,85,247,0.3); position: relative; overflow: hidden; }
+    .tf-gradient-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--border-gradient); }
+    .tf-gradient-hero span { font-family: var(--font-family-display); font-size: 1.5rem; font-weight: 900; letter-spacing: 0.12em; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .tf-glow-demo { background: var(--color-surface); border: 1px solid rgba(168,85,247,0.3); border-radius: var(--radius-card); padding: 1rem 1.5rem; text-align: center; box-shadow: var(--glow-md); font-family: var(--font-family-display); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; color: var(--color-primary); }
+    .tf-glass-demo { border-radius: var(--radius-card); padding: 1rem 1.5rem; background: var(--glass-tint); backdrop-filter: var(--backdrop-filter); border: 1px solid rgba(168,85,247,0.2); font-size: 0.82rem; color: var(--color-text-muted); }
+    .tf-gradient-text { font-family: var(--font-family-display); font-size: 1.5rem; font-weight: 900; letter-spacing: 0.1em; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; }
+    .tf-btn-gradient { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); padding: 0.55rem 1rem; border: none; border-radius: var(--radius-button); font-family: var(--font-family-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; cursor: pointer; width: 100%; }
+    .tf-inset-demo { background: rgba(6,4,26,0.7); border-radius: var(--radius); padding: 0.6rem 0.75rem; box-shadow: var(--shadow-inset); border: 1px solid var(--color-border); font-family: var(--font-family-mono); font-size: 0.78rem; color: var(--color-secondary); }
+  </style>
+</head>
+<body>
+
+  <div class="tf-header">
+    <div class="tf-system-id">VOID_PROTOCOL::INTERFACE_v4.2 // NEBULA_CLUSTER: COSMICA</div>
+    <h1>COSMICA</h1>
+    <div class="tf-subtitle">Deep space aesthetic interface — nebula-class visual protocol</div>
+    <div class="tf-tags">
+      <span class="tf-tag tf-tag-violet">Dark</span>
+      <span class="tf-tag tf-tag-rose">Super-Unrealistic</span>
+      <span class="tf-tag tf-tag-cyan">Maximalist</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Color Palette</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#A855F7"></div><div class="tf-swatch-label"><strong>primary</strong>#A855F7</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#1E0A40"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#1E0A40</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#06B6D4"></div><div class="tf-swatch-label"><strong>secondary</strong>#06B6D4</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#F43F5E"></div><div class="tf-swatch-label"><strong>accent</strong>#F43F5E</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#06041A"></div><div class="tf-swatch-label"><strong>background</strong>#06041A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#0D0828"></div><div class="tf-swatch-label"><strong>surface</strong>#0D0828</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#140E30"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#140E30</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#E8E0F8"></div><div class="tf-swatch-label"><strong>text</strong>#E8E0F8</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#7060A0"></div><div class="tf-swatch-label"><strong>textMuted</strong>#7060A0</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#2A1F50"></div><div class="tf-swatch-label"><strong>border</strong>#2A1F50</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#10B981"></div><div class="tf-swatch-label"><strong>success</strong>#10B981</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#F59E0B"></div><div class="tf-swatch-label"><strong>warning</strong>#F59E0B</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#F43F5E"></div><div class="tf-swatch-label"><strong>error</strong>#F43F5E</div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Typography</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">VOID PROTOCOL</div>
+      <div class="t-h2">SECTOR 7 — NEBULA CLASS</div>
+      <div class="t-h3">STELLAR COORDINATE INTERFACE</div>
+      <div class="t-body">Deep-space visual protocol active. Nebula-class glass panels. Cosmic gradient mesh on infinite canvas. Every element glows like a distant star.</div>
+      <div class="t-small">SPECIMEN NO. 6 · ORBITRON DISPLAY · FROSTED GLASS · NEBULA BG</div>
+      <div class="t-mono">COORD: RA 23h 44m // DEC +61° 45'</div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Buttons</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">LAUNCH</button>
+      <button class="tf-btn tf-btn-secondary">SCAN</button>
+      <button class="tf-btn tf-btn-outline">NAVIGATE</button>
+      <button class="tf-btn tf-btn-ghost">ARCHIVE</button>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Cards</div>
+    <div class="tf-cards">
+      <div class="tf-card"><h3>NEBULA CORE</h3><p>Primary stellar formation cluster. Luminosity index 9.4. Gravitational pull nominal.</p><div class="coord">RA 23h 44m 15.2s // DEC +61° 45' 8"</div></div>
+      <div class="tf-card"><h3>VOID NODE</h3><p>Deep-space relay station. Quantum entanglement active. Signal strength 94.2%.</p><div class="coord">SECTOR-7 // NODE-0044 // ONLINE</div></div>
+      <div class="tf-card" style="border-color:rgba(6,182,212,0.3)"><h3>CYAN GATE</h3><p>Hyperlane junction point. Transit velocity locked. Arrival window: 4.2 cycles.</p><div class="coord" style="color:var(--color-accent)">TRANSIT: 4.2cy // GATE: OPEN</div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Form Elements</div>
+    <div class="tf-form">
+      <div><label>Stellar ID</label><input type="text" placeholder="Enter sector coordinates…"></div>
+      <div><label>Protocol</label><select><option>Standard Transit</option><option>Hyperlane Jump</option><option>Void Traverse</option></select></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Badges & Status</div>
+    <div class="tf-badges">
+      <span class="tf-badge tf-badge-primary">VIOLET SECTOR</span>
+      <span class="tf-badge tf-badge-success">ACTIVE</span>
+      <span class="tf-badge tf-badge-warning">TRANSIT</span>
+      <span class="tf-badge tf-badge-error">ANOMALY</span>
+      <span class="tf-badge tf-badge-neutral">DORMANT</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Gradients & Effects</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1">
+        <div class="tile-label">Hero Gradient</div>
+        <div class="tf-gradient-hero"><span>VOID PROTOCOL</span></div>
+        <div class="tile-value">linear-gradient(135deg, #1A0A40, #06041A, #0A0420) + gradient border</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Text</div>
+        <div class="tf-gradient-text">NEBULA</div>
+        <div class="tile-value">violet → cyan</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Button</div>
+        <button class="tf-btn-gradient">LAUNCH</button>
+        <div class="tile-value">var(--gradient-button)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Violet Glow</div>
+        <div class="tf-glow-demo">NEBULA CORE</div>
+        <div class="tile-value">var(--glow-md)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Glass Panel</div>
+        <div class="tf-glass-demo">Frosted void glass — backdrop-filter blur(16px) saturate(180%)</div>
+        <div class="tile-value">blur(16px) · rgba(13,8,40,0.6)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Inset Well</div>
+        <div class="tf-inset-demo">COORD_INPUT: [___]</div>
+        <div class="tile-value">var(--shadow-inset)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Colored Shadow</div>
+        <div style="padding:0.75rem 1rem;background:var(--gradient-button);color:var(--color-text-on-primary);box-shadow:var(--shadow-colored);font-family:var(--font-family-display);font-size:0.85rem;font-weight:700;text-align:center;letter-spacing:0.1em;border-radius:var(--radius-button);">LAUNCH</div>
+        <div class="tile-value">var(--shadow-colored)</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

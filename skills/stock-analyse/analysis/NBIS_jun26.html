@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBIS — Nebius Group · Stock Analysis · Jun 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-primary:         #1E3B6F;
+  --color-primary-light:   #C8D8EC;
+  --color-secondary:       #8B4513;
+  --color-accent:          #B8860B;
+  --color-bg:              #F4EFE2;
+  --color-surface:         #EBE4D1;
+  --color-surface-alt:     #DDD5BC;
+  --color-text:            #1C1812;
+  --color-text-muted:      #6E5E48;
+  --color-text-on-primary: #F4EFE2;
+  --color-border:          #C4B59A;
+  --color-success:         #3D6E3A;
+  --color-warning:         #B07820;
+  --color-error:           #8B2020;
+  --font-family:           'EB Garamond', Georgia, serif;
+  --font-family-display:   'Cinzel', 'Times New Roman', serif;
+  --font-family-mono:      'Courier Prime', 'Courier New', monospace;
+  --radius-card:           10px;
+  --shadow-sm:             0 1px 3px rgba(28,24,18,0.08);
+  --shadow-md:             0 4px 12px rgba(28,24,18,0.12);
+  --shadow-lg:             0 8px 24px rgba(28,24,18,0.16);
+  --bg:     var(--color-bg);
+  --card:   var(--color-surface);
+  --card2:  var(--color-surface-alt);
+  --border: var(--color-border);
+  --accent: var(--color-primary);
+  --green:  var(--color-success);
+  --red:    var(--color-error);
+  --yellow: var(--color-warning);
+  --text:   var(--color-text);
+  --muted:  var(--color-text-muted);
+  --radius: var(--radius-card);
+}
+
+body {
+  background-color: #F4EFE2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  background-repeat: repeat;
+  font-family: var(--font-family);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.page { max-width: 960px; margin: 0 auto; }
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #1E3B6F 0%, #2C5298 60%, #1A3260 100%);
+  border-top: 3px solid #C9A84C;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text-on-primary);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(200,216,236,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-ticker  { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: rgba(244,239,226,0.65); text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-family-display); }
+.hero-name    { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #F4EFE2; font-family: var(--font-family-display); letter-spacing: 0.03em; }
+.hero-tagline { font-size: 15px; color: rgba(244,239,226,0.78); max-width: 540px; margin-bottom: 20px; font-style: italic; }
+.hero-pills   { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill         { padding: 4px 14px; border-radius: 50px; font-size: 11px; font-weight: 600; border: 1px solid; letter-spacing: 0.04em; font-family: var(--font-family-display); }
+.pill-blue    { background: rgba(200,216,236,.18); border-color: rgba(200,216,236,.45); color: #C8D8EC; }
+.pill-green   { background: rgba(61,110,58,.25);   border-color: rgba(61,110,58,.6);    color: #a8d5a4; }
+.pill-red     { background: rgba(139,32,32,.25);   border-color: rgba(139,32,32,.6);    color: #e8a4a4; }
+.pill-yellow  { background: rgba(176,120,32,.25);  border-color: rgba(176,120,32,.6);   color: #e8cc90; }
+
+/* LAYOUT */
+.section { margin-bottom: 28px; }
+.section-title {
+  font-family: var(--font-family-display);
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.tag-inline {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  color: var(--muted); font-family: var(--font-family-display);
+  text-transform: uppercase; margin-left: 8px;
+}
+
+.card {
+  background: var(--card);
+  border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+}
+.card h3 {
+  font-family: var(--font-family-display);
+  font-size: 13px; font-weight: 700; color: var(--color-primary);
+  margin: 0 0 12px 0; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+/* TL;DR */
+.tldr-card {
+  background: var(--card); border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow-sm);
+}
+.tldr-item { display: flex; gap: 10px; margin-bottom: 11px; line-height: 1.55; font-size: 15px; }
+.tldr-item:last-child { margin-bottom: 0; }
+
+/* STAT GRID */
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.stat-box {
+  background: var(--card); border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-sm);
+}
+.stat-label { font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 4px; }
+.stat-value { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; color: var(--text); }
+.stat-value.green  { color: var(--green); }
+.stat-value.red    { color: var(--red); }
+.stat-value.yellow { color: var(--yellow); }
+.stat-sub { font-size: 12px; color: var(--muted); margin-top: 3px; font-family: var(--font-family-mono); }
+
+/* DONUT */
+.donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.donut-legend { flex: 1; min-width: 200px; }
+.legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 14px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+/* BARS */
+.bar-row { margin-bottom: 16px; }
+.bar-label { font-family: var(--font-family-display); font-size: 12px; color: var(--muted); margin-bottom: 5px; display: flex; justify-content: space-between; }
+.bar-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 1.2s ease; }
+.bar-now  { background: var(--color-primary); }
+.bar-proj { background: var(--color-accent); }
+
+/* METER BARS */
+.meter-row { margin-bottom: 14px; }
+.meter-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); }
+.meter-label span:last-child { font-weight: 700; font-family: var(--font-family-mono); }
+.meter-track { background: var(--card2); border-radius: 6px; height: 10px; overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 6px; }
+.meter-fill.green  { background: var(--green); }
+.meter-fill.yellow { background: var(--yellow); }
+.meter-fill.red    { background: var(--red); }
+
+/* ITEM ROWS */
+.item-row { display: flex; gap: 12px; margin-bottom: 13px; align-items: flex-start; }
+.item-icon { width: 22px; text-align: center; flex-shrink: 0; font-size: 15px; margin-top: 2px; }
+.item-title { font-family: var(--font-family-display); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); margin-bottom: 2px; }
+.item-desc { font-size: 14px; line-height: 1.5; }
+
+/* RISK TAGS */
+.risk-tag { font-family: var(--font-family-mono); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 3px; letter-spacing: 0.5px; display: inline-block; margin-top: 5px; }
+.risk-active  { background: rgba(139,32,32,.12); color: var(--red); }
+.risk-reduced { background: rgba(176,120,32,.12); color: var(--yellow); }
+.risk-meta    { font-size: 11px; color: var(--muted); margin-top: 3px; font-family: var(--font-family-mono); }
+
+/* SCENARIO CARDS */
+.scenario-card {
+  background: var(--card); border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-sm);
+}
+.scenario-card.bull { border-top-color: var(--green); }
+.scenario-card.base { border-top-color: var(--color-primary); }
+.scenario-card.bear { border-top-color: var(--red); }
+.scenario-head { font-family: var(--font-family-display); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.scenario-prob { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+.scenario-target { font-family: var(--font-family-mono); font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.scenario-target.bull { color: var(--green); }
+.scenario-target.base { color: var(--color-primary); }
+.scenario-target.bear { color: var(--red); }
+.scenario-card ul { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.6; }
+.scenario-card ul li { margin-bottom: 4px; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--color-border); }
+.tl-item { position: relative; margin-bottom: 18px; }
+.tl-dot { position: absolute; left: -24px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--color-border); background: var(--bg); }
+.tl-dot.past   { background: var(--color-primary); border-color: var(--color-primary); }
+.tl-dot.now    { background: var(--color-accent); border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(184,134,11,.2); }
+.tl-dot.future { background: var(--bg); border-color: var(--muted); }
+.tl-date  { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.tl-event { font-size: 14px; line-height: 1.5; }
+.tl-label { font-family: var(--font-family-display); font-size: 12px; font-weight: 700; }
+
+/* STORY BOXES */
+.story-box {
+  background: var(--card); border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow-sm); line-height: 1.65;
+}
+.story-box h3 {
+  font-family: var(--font-family-display); font-size: 13px; font-weight: 700;
+  color: var(--color-primary); margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.story-box p { margin: 0 0 10px 0; font-size: 15px; }
+.story-box p:last-child { margin-bottom: 0; }
+
+/* DEBATE */
+.debate-card {
+  background: var(--card); border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-sm);
+}
+.debate-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.05em; }
+.debate-card ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+.debate-card ul li { margin-bottom: 7px; }
+
+/* VERDICT */
+.verdict-card {
+  background: linear-gradient(135deg, #1E3B6F 0%, #2C5298 100%);
+  border-top: 3px solid #C9A84C; border-radius: var(--radius);
+  padding: 28px 30px; color: var(--color-text-on-primary); box-shadow: var(--shadow-lg);
+}
+.verdict-title { font-family: var(--font-family-display); font-size: 16px; font-weight: 700; color: #C9A84C; margin-bottom: 14px; letter-spacing: 0.05em; }
+.verdict-card p { font-size: 15px; line-height: 1.7; color: rgba(244,239,226,0.88); margin: 0 0 14px 0; }
+.verdict-card p:last-child { margin-bottom: 0; }
+
+/* FOOTER */
+.footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+.footer a { color: var(--color-primary); }
+.footer ul { margin: 8px 0 0 0; padding-left: 18px; line-height: 1.9; }
+.disclaimer { margin-top: 12px; padding: 12px 16px; background: var(--card2); border-radius: var(--radius); font-size: 12px; }
+
+@media (max-width: 640px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-ticker">NASDAQ: NBIS &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; June 2026</div>
+  <div class="hero-name">Nebius Group N.V.</div>
+  <div class="hero-tagline">Nebius builds and rents out giant NVIDIA-powered computer buildings to AI companies — like a very powerful electrical socket for the world's smartest software.</div>
+  <div class="hero-pills">
+    <span class="pill pill-blue">AI Infrastructure</span>
+    <span class="pill pill-blue">Neocloud</span>
+    <span class="pill pill-green">684% Revenue Growth</span>
+    <span class="pill pill-green">EBITDA Positive</span>
+    <span class="pill pill-yellow">CapEx Execution Risk</span>
+    <span class="pill pill-red">Dilution Risk</span>
+  </div>
+</div>
+
+<!-- TL;DR -->
+<div class="section">
+  <div class="section-title">TL;DR</div>
+  <div class="tldr-card">
+    <div class="tldr-item">
+      <span style="color:var(--green);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">+</span>
+      <span>Nebius owns and operates AI data centers — buildings filled with NVIDIA GPUs — that companies like Meta and Microsoft rent to train and run their AI models.</span>
+    </div>
+    <div class="tldr-item">
+      <span style="color:var(--green);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">+</span>
+      <span>Revenue surged 684% year-over-year to $399M in Q1 2026. Adjusted EBITDA turned positive ($129.5M) for the first time. Full-year 2026 guidance: $3.0–$3.4B revenue at ~40% adj. EBITDA margin.</span>
+    </div>
+    <div class="tldr-item">
+      <span style="color:var(--green);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">+</span>
+      <span>Contracted backlog of ~$50B — anchored by a $27B Meta deal and up to $19.4B from Microsoft — plus a $2B strategic investment from NVIDIA gives revenue visibility unlike any neocloud peer.</span>
+    </div>
+    <div class="tldr-item">
+      <span style="color:var(--color-accent);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">&#9658;</span>
+      <span>Hidden catalyst: Avride, Nebius's autonomous robotics subsidiary, completed 174,000 sidewalk deliveries in Q1 2026 (+178% YoY) and launched commercial robotaxi service in Dallas — a Physical AI business nearly invisible in analyst models.</span>
+    </div>
+    <div class="tldr-item">
+      <span style="color:var(--red);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">-</span>
+      <span>Key risk: $20–25B of 2026 CapEx vs. ~$7B of operating cash flow leaves a $10–15B funding gap (partially closed). Shares already 30% more diluted since the 2024 relisting; more capital raises likely.</span>
+    </div>
+    <div class="tldr-item">
+      <span style="color:var(--color-accent);font-weight:800;flex-shrink:0;width:16px;text-align:center;font-family:var(--font-family-mono)">&#9658;</span>
+      <span>Verdict: Stock at ~$277 sits at or above most analyst price targets. Next binary event: Q2 2026 earnings (expected ~August 2026) — any upward revision to the $7–9B annualized run rate target could drive the next leg up.</span>
+    </div>
+  </div>
+</div>
+
+<!-- FINANCIAL SNAPSHOT -->
+<div class="section">
+  <div class="section-title">Financial Snapshot</div>
+  <div class="stat-grid">
+    <div class="stat-box">
+      <div class="stat-label">Stock Price (Jun 23, 2026)</div>
+      <div class="stat-value">$277.65</div>
+      <div class="stat-sub">52-wk range: $43.89 – $299.86</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Market Capitalization</div>
+      <div class="stat-value">$69.3B</div>
+      <div class="stat-sub">253.9M shares outstanding</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Q1 2026 Revenue</div>
+      <div class="stat-value green">$399M</div>
+      <div class="stat-sub">+684% year-over-year</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Q1 2026 Adj. EBITDA</div>
+      <div class="stat-value green">$129.5M</div>
+      <div class="stat-sub">First positive quarter; ~32% margin</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Q1 2026 EPS (non-GAAP)</div>
+      <div class="stat-value yellow">–$0.33</div>
+      <div class="stat-sub">Beat est. –$0.73; GAAP net income inflated by $780.6M one-time ClickHouse revaluation gain</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Full-Year 2025 Revenue</div>
+      <div class="stat-value green">$529.8M</div>
+      <div class="stat-sub">+479% year-over-year</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">2026 Revenue Guidance</div>
+      <div class="stat-value green">$3.0–3.4B</div>
+      <div class="stat-sub">~40% adj. EBITDA margin target</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">2026 Year-End ARR Target</div>
+      <div class="stat-value green">$7–9B</div>
+      <div class="stat-sub">Annualized exit run rate by Dec 2026</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">2026 CapEx Guidance</div>
+      <div class="stat-value red">$20–25B</div>
+      <div class="stat-sub">Power contracted: 3.5+ GW; Penn. site adds 1.2 GW</div>
+    </div>
+  </div>
+</div>
+
+<!-- REVENUE BREAKDOWN -->
+<div class="section">
+  <div class="section-title">Revenue Breakdown <span class="tag-inline">[MODEL ESTIMATE]</span></div>
+  <div class="card">
+    <p style="font-size:13px;color:var(--muted);margin:0 0 18px 0;font-family:var(--font-family-mono)">Estimated revenue mix based on Q1 2026 results ($389.7M AI Cloud / $399M total). Exact breakdown for non-cloud segments not publicly disclosed. Segments sum to 100%.</p>
+    <div class="donut-wrap">
+      <!-- Donut: r=70, circumference=439.82 -->
+      <svg width="180" height="180" viewBox="0 0 200 200" style="flex-shrink:0">
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#DDD5BC" stroke-width="40"/>
+        <!-- AI Cloud 97.5%: dash=428.82 -->
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#1E3B6F" stroke-width="40"
+          stroke-dasharray="428.82 439.82" stroke-dashoffset="0"
+          transform="rotate(-90 100 100)"/>
+        <!-- TripleTen 1.5%: dash=6.60, offset=-428.82 -->
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#8B4513" stroke-width="40"
+          stroke-dasharray="6.60 439.82" stroke-dashoffset="-428.82"
+          transform="rotate(-90 100 100)"/>
+        <!-- Toloka 1.0%: dash=4.40, offset=-435.42 -->
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#B8860B" stroke-width="40"
+          stroke-dasharray="4.40 439.82" stroke-dashoffset="-435.42"
+          transform="rotate(-90 100 100)"/>
+        <text x="100" y="96" text-anchor="middle" font-family="'Courier Prime',monospace" font-size="18" font-weight="700" fill="#1C1812">97.5%</text>
+        <text x="100" y="112" text-anchor="middle" font-family="'Cinzel',serif" font-size="9" fill="#6E5E48" letter-spacing="1">AI CLOUD</text>
+      </svg>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1E3B6F"></div><span><strong style="font-family:var(--font-family-mono)">97.5%</strong> &mdash; AI Cloud Infrastructure</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8B4513"></div><span><strong style="font-family:var(--font-family-mono)">1.5%</strong> &mdash; TripleTen (Online Education)</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#B8860B"></div><span><strong style="font-family:var(--font-family-mono)">1.0%</strong> &mdash; Toloka (AI Data Labeling)</span></div>
+        <div class="legend-item" style="margin-top:14px;padding-top:10px;border-top:1px solid var(--border)">
+          <div class="legend-dot" style="background:var(--card2);border:1px dashed #1E3B6F"></div>
+          <span style="font-size:13px;color:var(--muted)">Projected 2028: Inference Software (Eigen AI) ~5–6%</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:22px">
+      <div class="bar-row">
+        <div class="bar-label"><span>AI Cloud Infrastructure</span><span style="font-family:var(--font-family-mono)">Now 97.5% &rarr; ~92% in 2028</span></div>
+        <div style="margin-bottom:5px"><div class="bar-track"><div class="bar-fill bar-now" style="width:97.5%"></div></div></div>
+        <div class="bar-track"><div class="bar-fill bar-proj" id="bar-cloud-proj" style="width:0%"></div></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Revenue share dilutes slightly as software layers are added, but absolute dollar growth continues</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>Inference Software (Eigen AI)</span><span style="font-family:var(--font-family-mono)">Now ~0% &rarr; ~5–6% in 2028</span></div>
+        <div style="margin-bottom:5px"><div class="bar-track"><div class="bar-fill bar-now" style="width:0%"></div></div></div>
+        <div class="bar-track"><div class="bar-fill bar-proj" id="bar-eigen-proj" style="width:0%"></div></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Higher-margin software revenue from inference optimization and Token Factory endpoints</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>Physical AI / Avride</span><span style="font-family:var(--font-family-mono)">Now ~0% &rarr; ~1–2% in 2028</span></div>
+        <div style="margin-bottom:5px"><div class="bar-track"><div class="bar-fill bar-now" style="width:0%"></div></div></div>
+        <div class="bar-track"><div class="bar-fill bar-proj" id="bar-avride-proj" style="width:0%"></div></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Avride currently funded separately; partial consolidation expected as delivery volumes scale</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT DOES THIS COMPANY DO -->
+<div class="section">
+  <div class="section-title">What Does Nebius Group Actually Do?</div>
+  <div class="grid-2">
+    <div class="story-box">
+      <h3>The Simple Story</h3>
+      <p>Imagine every AI company in the world needs a giant, very fast calculator to run their smart software. Building those calculators requires thousands of special chips made by a company called NVIDIA, enormous amounts of electricity, and buildings big enough to hold everything.</p>
+      <p>Nebius builds and owns those buildings. Companies like Meta (which owns Facebook and Instagram) and Microsoft pay Nebius a monthly fee to use the space and the chips. Nebius handles the construction, the electricity, the cooling, and all the complicated computer plumbing — so AI companies can just plug in and get to work.</p>
+    </div>
+    <div class="story-box">
+      <h3>The Big Bet Right Now</h3>
+      <p>Nebius is making one of the biggest infrastructure bets of the AI era: spending $20–25 billion in a single year to build AI factories across the US and Europe before demand peaks. It has already signed contracts worth roughly $50 billion from Meta and Microsoft — meaning the customers are locked in before the buildings are finished.</p>
+      <p>To pay for this, Nebius sold bonds, accepted a $2B check from NVIDIA itself, and is collecting billions in advance payments from customers. The question every investor asks: can Nebius build fast enough, and will AI demand still be surging when the buildings open?</p>
+    </div>
+  </div>
+</div>
+
+<!-- BUSINESS MODEL -->
+<div class="section">
+  <div class="section-title">Business Model</div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>How They Make Money</h3>
+      <div class="item-row">
+        <div class="item-icon">&#9679;</div>
+        <div>
+          <div class="item-title">GPU Cloud Rentals</div>
+          <div class="item-desc">Companies pay per GPU-hour or under long-term capacity contracts to train and run AI models. This accounts for roughly 97.5% of current revenue.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9679;</div>
+        <div>
+          <div class="item-title">Inference-as-a-Service (Token Factory)</div>
+          <div class="item-desc">Via the newly acquired Eigen AI, Nebius sells optimized inference endpoints. Companies pay per "token" — the AI equivalent of a word — generated by hosted models.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9679;</div>
+        <div>
+          <div class="item-title">Long-Term Capacity Contracts</div>
+          <div class="item-desc">Multi-year locked-in deals with Meta ($27B) and Microsoft ($19.4B) function like long-term real estate leases, providing predictable recurring revenue.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9679;</div>
+        <div>
+          <div class="item-title">Education &amp; AI Data Services</div>
+          <div class="item-desc">TripleTen (online coding bootcamps) and Toloka (AI data labeling) contribute minor but cash-generative revenue alongside the core cloud business.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Why the Model Is Clever</h3>
+      <div class="item-row">
+        <div class="item-icon">&#9733;</div>
+        <div>
+          <div class="item-title">Signed Before Built</div>
+          <div class="item-desc">Nebius collects billions in advance (deferred revenue jumped from $1.58B to $4.78B in Q1 2026 alone) — customers fund the construction before it is complete.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9733;</div>
+        <div>
+          <div class="item-title">NVIDIA as Backer and Supplier</div>
+          <div class="item-desc">NVIDIA's $2B equity stake is not just a check — it signals preferential GPU allocation in a market where H200/B200 chips are rationed. Nebius is effectively a priority customer of the world's most in-demand product.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9733;</div>
+        <div>
+          <div class="item-title">Sovereign European Alternative</div>
+          <div class="item-desc">Netherlands-incorporated with Finnish data centers cleared by both US and EU regulators — the only hyperscale-capacity option satisfying EU AI Act data sovereignty requirements.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9733;</div>
+        <div>
+          <div class="item-title">Margin Leverage Is Working</div>
+          <div class="item-desc">Cost of revenues fell from 49% to 26% of total revenue in just one year, demonstrating the operating leverage inherent in filling a fixed-cost infrastructure with paying customers.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HIDDEN CATALYST -->
+<div class="section">
+  <div class="section-title">Hidden Catalyst Deep Dive: Avride &amp; Physical AI</div>
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="story-box">
+      <h3>What Most Analysts Are Missing</h3>
+      <p>Every research note about Nebius focuses on GPU racks and data center square footage. Almost nobody writes about Avride — Nebius's autonomous vehicle and sidewalk delivery robot subsidiary — which operates as an independent business with its own funding, its own Uber partnership, and its own growth trajectory.</p>
+      <p>Avride completed 174,000 robot deliveries in Q1 2026 alone (+178% YoY), crossed 500,000 total deliveries since launch, and began operating commercial robotaxi service in Dallas in December 2025. None of this appears in consensus Nebius earnings models. It is essentially a free embedded call option on physical AI.</p>
+    </div>
+    <div class="story-box">
+      <h3>Why Nebius Has a Structural Advantage Here</h3>
+      <p>Avride is the only autonomous vehicle company that also owns the cloud infrastructure it trains its models on. While Waymo and every other competitor pays AWS, Google Cloud, or Azure enormous bills to train self-driving AI, Avride runs all training on Nebius GPUs — cutting costs and accelerating iteration.</p>
+      <p>Nebius also launched the Physical AI Living Lab in the UK and Europe, giving robotics startups six months of free GPU access and NVIDIA tools. This seeds an entire generation of physical AI companies that will eventually become paying Nebius cloud customers — a customer acquisition strategy hidden inside a philanthropy announcement.</p>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card">
+      <h3>Opportunity Details</h3>
+      <div class="item-row">
+        <div class="item-icon">&#9658;</div>
+        <div>
+          <div class="item-title">Delivery Robot Market TAM</div>
+          <div class="item-desc">Sidewalk delivery robot market estimated at $686M in 2026, growing to $7.6B by 2034 — an 11x expansion over eight years.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9658;</div>
+        <div>
+          <div class="item-title">Current Operational Traction</div>
+          <div class="item-desc">174,000 Q1 2026 deliveries (+178% YoY); 500,000+ cumulative total since April 2025; deployed in Austin, Dallas, and Jersey City via Uber Eats.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9658;</div>
+        <div>
+          <div class="item-title">Robotaxi Now Live</div>
+          <div class="item-desc">Dallas commercial robotaxi service launched December 2025; initial 9-square-mile geofenced zone; operating alongside Waymo in the US autonomous vehicle market.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9658;</div>
+        <div>
+          <div class="item-title">Independent Funding</div>
+          <div class="item-desc">Avride secured $375M from Uber and Nebius in 2025 — separately financed from Nebius's main cloud capital raises, removing the funding constraint argument.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Why Avride Wins vs. Competitors</h3>
+      <div class="item-row">
+        <div class="item-icon">&#9733;</div>
+        <div>
+          <div class="item-title">Captive Training Infrastructure</div>
+          <div class="item-desc">Trains all autonomous AI models on parent Nebius's GPUs — dramatically lower compute cost and faster iteration cycle than Waymo or Nuro paying third-party cloud rates.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9733;</div>
+        <div>
+          <div class="item-title">Uber Eats Distribution</div>
+          <div class="item-desc">Uber Eats integration provides immediate access to a massive active user base as delivery customers — zero customer acquisition cost for consumer-facing deployment.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9733;</div>
+        <div>
+          <div class="item-title">Dual Revenue Streams, One AI Stack</div>
+          <div class="item-desc">Same underlying AI model powers both sidewalk delivery robots and full robotaxis — two separate revenue streams built on one training investment.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">&#9733;</div>
+        <div>
+          <div class="item-title">NVIDIA Hardware Priority</div>
+          <div class="item-desc">NVIDIA's $2B Nebius investment gives Avride preferential access to Orin and Thor autonomous compute platforms — the same chips Waymo uses but with a queue advantage.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Catalyst Stats -->
+  <div class="stat-grid" style="margin-bottom:20px">
+    <div class="stat-box">
+      <div class="stat-label">Delivery Robot Market TAM (2034)</div>
+      <div class="stat-value green">$7.6B</div>
+      <div class="stat-sub">From $686M in 2026 (11x growth)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Avride Q1 2026 Deliveries</div>
+      <div class="stat-value green">174,000</div>
+      <div class="stat-sub">+178% year-over-year; 500K+ lifetime</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Avride Funding Secured</div>
+      <div class="stat-value green">$375M</div>
+      <div class="stat-sub">From Uber + Nebius in 2025; independently capitalized</div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="card" style="margin-bottom:18px">
+    <h3>Nebius + Avride: Physical AI Timeline</h3>
+    <div class="timeline" style="margin-top:14px">
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">July 2024</div>
+        <div class="tl-event"><span class="tl-label">Yandex Russia separation closes</span> — Nebius relists on NASDAQ as a clean, Russia-free AI cloud company; US and EU regulators give clean bills of health</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">April 2025</div>
+        <div class="tl-event"><span class="tl-label">Avride delivery robots launch commercially</span> — First sidewalk delivery operations begin; Uber Eats integration in Austin and Dallas</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">Q4 2025</div>
+        <div class="tl-event"><span class="tl-label">First EBITDA-positive quarter</span> — Nebius cloud achieves operating leverage; Uber and Nebius jointly invest $375M in Avride</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">December 2025</div>
+        <div class="tl-event"><span class="tl-label">Avride robotaxi launches in Dallas</span> — 9-square-mile geofenced commercial zone; Waymo rival enters live operation</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">March 2026</div>
+        <div class="tl-event"><span class="tl-label">NVIDIA invests $2B + Nebius raises $4.34B in convertibles</span> — Funding gap for 2026 CapEx substantially narrowed; Meta $27B deal and Microsoft $19.4B commitment confirmed</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot past"></div>
+        <div class="tl-date">May–June 2026</div>
+        <div class="tl-event"><span class="tl-label">Eigen AI acquisition completes ($643M, June 10)</span> — Inference optimization stack integrated into Nebius Token Factory; MIT HAN Lab talent joins engineering team</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot now"></div>
+        <div class="tl-date">June 2026 — Now</div>
+        <div class="tl-event"><span class="tl-label">Physical AI Living Lab live in UK/Europe</span> — Free GPU access program for robotics startups seeding next generation of physical AI cloud customers; UK expansion: £1.7B committed, 65 MW of NVIDIA capacity across 3 sites</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot future"></div>
+        <div class="tl-date">Q3 2026 (Expected)</div>
+        <div class="tl-event"><span class="tl-label">Q2 2026 earnings release</span> — Key test: is the $7–9B annualized run rate target on track? Any upward revision will be the next major catalyst</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot future"></div>
+        <div class="tl-date">End of 2026 (Target)</div>
+        <div class="tl-event"><span class="tl-label">$7–9B annualized revenue run rate</span> — Pennsylvania AI factory operational; 4+ GW power contracted; internal control weaknesses remediated</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Catalyst Scenarios -->
+  <div class="section-title">Avride Catalyst: Scenario Analysis <span class="tag-inline">[EDITORIAL OPINION]</span></div>
+  <div class="grid-3">
+    <div class="scenario-card bull">
+      <div class="scenario-head" style="color:var(--green)">Breakout</div>
+      <div class="scenario-prob">Probability: 35%</div>
+      <div class="scenario-target bull">+40% to +65%</div>
+      <ul>
+        <li>Avride expands to 10+ US cities by end-2026</li>
+        <li>Analysts begin modeling Avride as a standalone unit with robotics TAM multiple</li>
+        <li>Uber Eats volumes accelerate; delivery revenue becomes material to group</li>
+        <li>Robotaxi geofence expands beyond Dallas downtown</li>
+        <li>Nebius announces Avride IPO or spin-off plans, unlocking hidden value</li>
+      </ul>
+    </div>
+    <div class="scenario-card base">
+      <div class="scenario-head" style="color:var(--color-primary)">Steady Progress</div>
+      <div class="scenario-prob">Probability: 45%</div>
+      <div class="scenario-target base">–10% to +20%</div>
+      <ul>
+        <li>Avride continues 100–150% delivery growth but stays in current cities</li>
+        <li>Robotaxi geofence expands slowly; new city permits take 12–18 months</li>
+        <li>Analysts continue to exclude Avride from Nebius cloud valuation models</li>
+        <li>Physical AI Living Lab produces notable enterprise wins but limited near-term revenue</li>
+        <li>Avride acknowledged but treated as a distant option, not near-term driver</li>
+      </ul>
+    </div>
+    <div class="scenario-card bear">
+      <div class="scenario-head" style="color:var(--red)">Setback</div>
+      <div class="scenario-prob">Probability: 20%</div>
+      <div class="scenario-target bear">–20% to –40%</div>
+      <ul>
+        <li>Autonomous delivery incident triggers regulatory pause across active cities</li>
+        <li>Uber partnership disappoints on committed order volumes</li>
+        <li>Avride funding becomes a cash drain; Nebius must top up capital</li>
+        <li>Waymo or Nuro establish dominant city presence before Avride can scale</li>
+        <li>Physical AI category viewed as distraction; management credibility hit</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- COMPETITIVE EDGE -->
+<div class="section">
+  <div class="section-title">Competitive Edge</div>
+  <div class="card">
+    <div class="item-row">
+      <div class="item-icon">&#9733;</div>
+      <div>
+        <div class="item-title">~$50B Contracted Backlog</div>
+        <div class="item-desc">A contracted revenue backlog of this size is nearly unprecedented for a company of Nebius's age. The Meta ($27B) and Microsoft ($19.4B) commitments remove demand uncertainty entirely for several years — Nebius's only job is to build fast enough.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-icon">&#9733;</div>
+      <div>
+        <div class="item-title">NVIDIA as Strategic Investor (Not Just Supplier)</div>
+        <div class="item-desc">NVIDIA selected Nebius over hundreds of other cloud companies for a $2B equity investment. This signals priority GPU allocation in a world where H200 and B200 chips are rationed — effectively a structural supply moat that cannot be replicated by writing a check alone.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-icon">&#9733;</div>
+      <div>
+        <div class="item-title">Sovereign European Cloud (Structural Moat)</div>
+        <div class="item-desc">Netherlands-incorporated, Finnish data centers, fully cleared by US Treasury and EU regulators. Under the EU AI Act, European enterprises and governments require data sovereignty that US hyperscalers cannot always satisfy. Nebius is the only hyperscale-capacity option that checks this box.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-icon">&#9733;</div>
+      <div>
+        <div class="item-title">Deferred Revenue as Interest-Free Financing</div>
+        <div class="item-desc">Deferred revenue surged from $1.58B at end-2025 to $4.78B by end of Q1 2026 — customers prepaid $3.2B in a single quarter. Nebius is effectively borrowing at 0% interest from its own customers to build the infrastructure it will charge them to use. This rarely appears in analyst coverage.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-icon">&#9733;</div>
+      <div>
+        <div class="item-title">Full AI Stack: Infrastructure + Software (Post-Eigen)</div>
+        <div class="item-desc">The Eigen AI acquisition transforms Nebius from a "dumb pipe" GPU rental business into a full-stack AI platform: compute infrastructure, model training, optimized inference, and fine-tuning pipelines. Cost of revenues fell from 49% to 26% of total revenue in one year as the software layer adds margin without proportional cost.</div>
+      </div>
+    </div>
+    <div class="item-row">
+      <div class="item-icon">&#9658;</div>
+      <div>
+        <div class="item-title">Physical AI Vertical Integration (Avride)</div>
+        <div class="item-desc">The only AI cloud company that also operates commercial autonomous delivery robots and robotaxis — creating a self-reinforcing loop: Avride trains on Nebius compute, generates proprietary real-world AI data, which improves models, which run on more Nebius compute.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYST SCORECARD -->
+<div class="section">
+  <div class="section-title">Analyst Scorecard</div>
+  <div class="card">
+    <div class="meter-row">
+      <div class="meter-label"><span>Business Model Strength</span><span>7 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Revenue Growth</span><span>10 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:100%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Profitability</span><span>5 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill yellow" style="width:50%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Competitive Moat</span><span>7 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Regulatory Safety</span><span>8 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:80%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Management Execution</span><span>8 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:80%"></div></div>
+    </div>
+    <div class="meter-row">
+      <div class="meter-label"><span>Long-Term Potential</span><span>9 / 10</span></div>
+      <div class="meter-track"><div class="meter-fill green" style="width:90%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- GROWTH & RISKS -->
+<div class="section">
+  <div class="section-title">Current Situation &mdash; Growth &amp; Risks</div>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color:var(--green)">Growth Drivers</h3>
+      <div class="item-row">
+        <div class="item-icon" style="color:var(--green)">&#9650;</div>
+        <div>
+          <div class="item-title">Exploding AI Compute Demand</div>
+          <div class="item-desc">AI model training and inference compute demand is doubling roughly every six months. The $50B contracted backlog signals hyperscalers agree they need third-party capacity, urgently.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon" style="color:var(--green)">&#9650;</div>
+        <div>
+          <div class="item-title">Data Center Revenue: 540% Growth Target</div>
+          <div class="item-desc">Management is targeting $7–9B annualized revenue run rate by December 2026 — a 540%+ jump from full-year 2025's $529.8M. 3.5+ GW of power already contracted.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon" style="color:var(--green)">&#9650;</div>
+        <div>
+          <div class="item-title">Eigen AI Margin Expansion</div>
+          <div class="item-desc">Inference optimization via Eigen enables higher-margin software revenue. Cost of revenues already fell from 49% to 26% YoY — the software layer amplifies margin leverage on existing compute.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon" style="color:var(--green)">&#9650;</div>
+        <div>
+          <div class="item-title">Avride Physical AI Scaling</div>
+          <div class="item-desc">Delivery volume up 178% YoY; commercial robotaxi live in Dallas; UK Physical AI Living Lab seeding the next generation of autonomous AI customers for Nebius cloud.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--red)">Risks &amp; Bottlenecks</h3>
+      <div class="item-row">
+        <div class="item-icon" style="color:var(--yellow)">!</div>
+        <div>
+          <div class="item-title">Funding Gap &amp; Equity Dilution</div>
+          <div class="item-desc">$20–25B 2026 CapEx vs. ~$7B FCF; remaining gap partially closed by NVIDIA $2B + $4.34B convertibles + Meta prepayments, but further capital raises and dilution remain likely. Shares already 30% more diluted since the 2024 relisting.</div>
+          <div><span class="risk-tag risk-reduced">REDUCED</span></div>
+          <div class="risk-meta">Partially mitigated by NVIDIA investment + convertibles · Active as of Jun 2026 · Sources: Seeking Alpha, Nebius Newsroom</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon" style="color:var(--red)">!</div>
+        <div>
+          <div class="item-title">Material Weakness in Internal Controls</div>
+          <div class="item-desc">SEC-disclosed weaknesses in fixed asset accounting and TripleTen revenue recognition remain unresolved as of the December 31, 2025 annual report. Management targets remediation by end-2026. Two of three prior weaknesses were resolved by 2025.</div>
+          <div><span class="risk-tag risk-active">ACTIVE RISK</span></div>
+          <div class="risk-meta">Active as of Apr 2026 · Source: Nebius 20-F Annual Report FY2025 (SEC)</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon" style="color:var(--red)">!</div>
+        <div>
+          <div class="item-title">NVIDIA GPU Dependency</div>
+          <div class="item-desc">Nebius's entire compute offering depends on NVIDIA chip supply. Any trade restriction, export control change, supply shortage, or pricing shift hits Nebius harder than diversified hyperscalers that also develop proprietary chips.</div>
+          <div><span class="risk-tag risk-active">ACTIVE RISK</span></div>
+          <div class="risk-meta">Active as of Jun 2026 · Source: Nebius 20-F Annual Report, Motley Fool Jun 2026</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon" style="color:var(--red)">!</div>
+        <div>
+          <div class="item-title">AI Infrastructure Overbuild Risk</div>
+          <div class="item-desc">Railroads, telecom fiber, solar manufacturing — every infrastructure wave has had its overbuild crisis. A $20B+ single-year CapEx bet assumes AI compute demand keeps compounding. If it plateaus, GPU utilization rates drop and rental pricing collapses.</div>
+          <div><span class="risk-tag risk-active">ACTIVE RISK</span></div>
+          <div class="risk-meta">Active as of Jun 2026 · Source: Motley Fool Jun 22, 2026; Seeking Alpha</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERALL SCENARIO ANALYSIS -->
+<div class="section">
+  <div class="section-title">Scenario Analysis (Overall) <span class="tag-inline">[EDITORIAL OPINION]</span></div>
+  <div class="grid-3">
+    <div class="scenario-card bull">
+      <div class="scenario-head" style="color:var(--green)">Bull Case</div>
+      <div class="scenario-prob">Probability: 35%</div>
+      <div class="scenario-target bull">$450 &ndash; $600</div>
+      <ul>
+        <li>Hits $7–9B ARR by Q4 2026 and raises 2027 guidance further</li>
+        <li>Adj. EBITDA margin expands to 45–50% as software revenues grow</li>
+        <li>Avride begins contributing meaningful revenue; analysts re-rate with robotics premium</li>
+        <li>Eigen AI unlocks inference pricing power; margins structurally higher</li>
+        <li>Additional hyperscaler contracts beyond Meta/Microsoft signed</li>
+        <li>European sovereign AI deals accelerate under EU AI Act tailwind</li>
+      </ul>
+    </div>
+    <div class="scenario-card base">
+      <div class="scenario-head" style="color:var(--color-primary)">Base Case</div>
+      <div class="scenario-prob">Probability: 45%</div>
+      <div class="scenario-target base">$220 &ndash; $320</div>
+      <ul>
+        <li>Meets 2026 revenue guidance ($3.0–3.4B) but ARR target at low end</li>
+        <li>Adj. EBITDA margin hits ~40%; further dilutive raises cause modest compression</li>
+        <li>Eigen integration proceeds but contributes minimal 2026 revenue</li>
+        <li>Avride steady growth; no IPO announcement or new major city</li>
+        <li>Internal control weaknesses remediated on schedule by end-2026</li>
+        <li>GPU supply constrained but priority allocation maintained via NVIDIA relationship</li>
+      </ul>
+    </div>
+    <div class="scenario-card bear">
+      <div class="scenario-head" style="color:var(--red)">Bear Case</div>
+      <div class="scenario-prob">Probability: 20%</div>
+      <div class="scenario-target bear">$80 &ndash; $130</div>
+      <ul>
+        <li>AI compute demand growth decelerates; hyperscaler self-build suffices</li>
+        <li>GPU glut emerges; Nebius forced to cut rental pricing materially</li>
+        <li>Meta or Microsoft defer or renegotiate contracted commitments</li>
+        <li>Funding gap forces highly dilutive equity raise at depressed prices</li>
+        <li>Material weakness escalates to SEC review; financial reporting delayed</li>
+        <li>Avride safety incident triggers regulatory pause across all cities</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- INVESTOR DEBATE -->
+<div class="section">
+  <div class="section-title">Investor Debate <span class="tag-inline">[EDITORIAL OPINION]</span></div>
+  <div class="grid-2">
+    <div class="debate-card">
+      <h3 style="color:var(--green)">The Optimist Sees...</h3>
+      <ul>
+        <li>A $50B contracted backlog de-risks execution risk entirely — Nebius already has the customers. The job is just to finish building the infrastructure they have already paid for.</li>
+        <li>Revenue growing 684% YoY with EBITDA turning positive at the same time is a once-in-a-generation operating leverage curve. The math gets dramatically better as utilization rates climb.</li>
+        <li>NVIDIA's $2B equity investment is the ultimate validator — the world's most powerful semiconductor company chose Nebius as its preferred infrastructure expansion partner over hundreds of alternatives.</li>
+        <li>Customers are financing Nebius's construction: the $3.2B jump in deferred revenue in Q1 2026 alone is essentially an interest-free loan from Meta and Microsoft to build the very assets Nebius will rent back to them. It is structurally brilliant.</li>
+        <li>Avride, Eigen AI, and the Physical AI Living Lab are three call options on massive markets that are not currently priced into the stock at all — free upside embedded in the share price.</li>
+      </ul>
+    </div>
+    <div class="debate-card">
+      <h3 style="color:var(--red)">The Pessimist Sees...</h3>
+      <ul>
+        <li>A company spending $20–25B in a single year while generating $3–3.4B in revenue. Every infrastructure sector — railroads, fiber, solar — has had its overbuild moment. Why is AI different?</li>
+        <li>Shares are already 30% more diluted since the 2024 relisting, and a $10–15B remaining funding gap guarantees more dilution ahead. Each capital raise reshuffles the deck against existing shareholders.</li>
+        <li>The stock at $277 already trades above most analyst price targets. Generating meaningful returns from here requires the company to beat already-optimistic expectations for years in a row.</li>
+        <li>Material weaknesses in a company doing $400M per quarter suggest financial controls are lagging physical buildout. Rapid growth plus weak internal controls has a long and unhappy track record.</li>
+        <li>Meta and Microsoft are writing $50B in contracts partly because Nebius is cheap today — not because they could not eventually build their own. Pricing power erodes as hyperscaler self-sufficiency grows.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM LINE VERDICT -->
+<div class="section">
+  <div class="section-title">Bottom Line Verdict <span class="tag-inline">[EDITORIAL OPINION]</span></div>
+  <div class="verdict-card">
+    <div class="verdict-title">The Verdict</div>
+    <p>Nebius is like a toll road company building the highway in the middle of the AI gold rush. The gold miners — Meta and Microsoft — are already lined up at the gate and have handed Nebius the construction funds. The road will almost certainly be used; the signed contracts say so. The question is whether Nebius can lay $20 billion worth of asphalt fast enough, and whether a larger highway (built by Amazon or Google themselves) does not open a parallel route and undercut the tolls before the first road fully pays for itself.</p>
+    <p>The long-term bull case is genuinely compelling. A $50B contracted backlog, 684% revenue growth, first-ever positive EBITDA, a $2B NVIDIA endorsement, and three additional option-value businesses (Eigen AI, Avride, Physical AI Living Lab) that no analyst currently models — this is a rare combination. The Eigen acquisition in particular could structurally expand margins from 40% to 50%+ as software revenues mix in. And Avride is a free embedded call option on the $7.6B autonomous delivery market that only Nebius shareholders hold.</p>
+    <p>The near-term bear case is equally credible: the company requires roughly $10–15B more in external capital during 2026, shares are 30% diluted from relisting, and a $277 stock price already exceeds most published analyst targets — meaning the stock needs to beat even the optimists to deliver further gains from here. Internal control weaknesses add governance risk on top of capital risk. Best suited for patient investors with a three-to-five year horizon who can tolerate significant dilution and sharp drawdowns in exchange for exposure to the most consequential infrastructure build of the AI decade.</p>
+  </div>
+</div>
+
+<!-- WALL STREET CONSENSUS -->
+<div class="section">
+  <div class="section-title">Wall Street Consensus <span class="tag-inline">[ANALYST ESTIMATE]</span></div>
+  <div class="stat-grid">
+    <div class="stat-box">
+      <div class="stat-label">Consensus Rating (12–16 Analysts)</div>
+      <div class="stat-value green">Strong Buy</div>
+      <div class="stat-sub">42% Strong Buy · 33% Buy · 25% Hold · 0% Sell</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Recent Price Targets</div>
+      <div class="stat-value yellow">$280–$287</div>
+      <div class="stat-sub">BofA $280 (Jun 8, 2026) · Citigroup $287 (May 15, 2026) · Stock has rallied past older avg consensus of ~$203–204</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Analyst Target Range</div>
+      <div class="stat-value">$120 – $287</div>
+      <div class="stat-sub">Low: Goldman Sachs $120 (Sep 2025) · High: Citigroup $287 (May 2026) · Current: $277.65</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong style="font-family:var(--font-family-display);font-size:12px;letter-spacing:1px;text-transform:uppercase">Sources</strong>
+  <ul>
+    <li><a href="https://nebius.com/newsroom/nebius-reports-first-quarter-2026-financial-results">Nebius Q1 2026 Financial Results — nebius.com Newsroom (May 13, 2026)</a></li>
+    <li><a href="https://www.businesswire.com/news/home/20260513568820/en/Nebius-reports-first-quarter-2026-financial-results">Nebius Q1 2026 Financial Results — Business Wire</a></li>
+    <li><a href="https://www.stocktitan.net/sec-filings/NBIS/6-k-nebius-group-n-v-current-report-foreign-issuer-a9d248e84219.html">Nebius Q1 2026 SEC 6-K Filing — StockTitan</a></li>
+    <li><a href="https://nebius.com/newsroom/nebius-completes-acquisition-of-eigen-ai">Nebius Completes Acquisition of Eigen AI — nebius.com (Jun 10, 2026)</a></li>
+    <li><a href="https://www.businesswire.com/news/home/20260616790566/en/Nebius-completes-acquisition-of-Eigen-AI">Eigen AI Acquisition Complete — Business Wire (Jun 16, 2026)</a></li>
+    <li><a href="https://nebius.com/newsroom/avride-secures-strategic-investment-and-other-commitments-of-up-to-375-million-backed-by-uber-and-nebius">Avride Secures $375M from Uber and Nebius — nebius.com</a></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">Nebius Group 20-F Annual Report FY2025 — SEC.gov</a></li>
+    <li><a href="https://www.fool.com/investing/2026/06/17/this-nvidia-backed-company-is-bringing-artificial/">NVIDIA-Backed Nebius Brings AI Into the Physical World — Motley Fool (Jun 17, 2026)</a></li>
+    <li><a href="https://www.fool.com/investing/2026/06/02/nebius-is-targeting-540-data-center-revenue-growth/">Nebius Targeting 540% Data Center Revenue Growth — Motley Fool (Jun 2, 2026)</a></li>
+    <li><a href="https://www.fool.com/investing/2026/06/22/nebius-stocks-massive-upside-comes-with-serious-ri/">Nebius: Massive Upside With Serious Risks — Motley Fool (Jun 22, 2026)</a></li>
+    <li><a href="https://seekingalpha.com/article/4886057-nebius-meta-and-nvidia-deals-plus-new-capital-close-2026-funding-gap-driving-140-price-target">Nebius: Meta + NVIDIA Deals Close 2026 Funding Gap — Seeking Alpha</a></li>
+    <li><a href="https://finance.yahoo.com/markets/stocks/articles/nebius-group-nv-nbis-q1-010234579.html">Nebius Q1 2026 Earnings Call Highlights — Yahoo Finance</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NASDAQ/NBIS/forecast/">Nebius Group Analyst Ratings and Price Targets — MarketBeat</a></li>
+    <li><a href="https://simplywall.st/stocks/us/software/nasdaq-nbis/nebius-group/news/nebius-group-nbis-is-up-217-after-643-million-eigen-ai-deal">Nebius +21.7% After $643M Eigen AI Deal — Simply Wall St</a></li>
+    <li><a href="https://nebius.com/newsroom/nebius-provides-financing-update">Nebius Financing Update — nebius.com Newsroom</a></li>
+    <li><a href="https://www.investing.com/analysis/nebius-breaks-out-to-alltime-highsheres-whats-driving-it-200679727">Nebius Breaks Out to All-Time Highs — Investing.com</a></li>
+  </ul>
+  <div class="disclaimer">
+    This is not financial advice. For informational purposes only. All data sourced from publicly available filings, earnings releases, and analyst reports as of June 2026. Revenue segment percentages are estimates based on disclosed Q1 2026 quarterly figures; exact non-cloud breakdown not publicly disclosed. Analyst price targets may not reflect the most current consensus. Past performance does not predict future results.
+  </div>
+</div>
+
+</div><!-- /.page -->
+
+<script>
+const projBars = [
+  { id: 'bar-cloud-proj', width: '92' },
+  { id: 'bar-eigen-proj', width: '6' },
+  { id: 'bar-avride-proj', width: '2' },
+];
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const b = projBars.find(x => x.id === entry.target.id);
+      if (b) { entry.target.style.width = b.width + '%'; obs.unobserve(entry.target); }
+    }
+  });
+}, { threshold: 0.3 });
+projBars.forEach(b => { const el = document.getElementById(b.id); if (el) obs.observe(el); });
+</script>
+</body>
+</html>

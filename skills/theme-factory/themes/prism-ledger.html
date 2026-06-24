@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="prism-ledger">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: Prism Ledger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "prism-ledger",
+    "description": "Warm pearl canvas with fine 45° diagonal stripe pattern overlaid by 3-layer prismatic gradient mesh. Playfair Display ultra-bold paired with Lora italic body. Finance/accounting editorial luxury — forest green primary, amber secondary, magenta-rose accent. Newspaper column layout, ruled ledger lines, editorial pull-quote sections.",
+    "createdAt": "2026-06-22T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#F8F2EA",
+      "image": "repeating-linear-gradient(45deg, transparent, transparent 28px, rgba(26,92,58,0.04) 28px, rgba(26,92,58,0.04) 29px), radial-gradient(ellipse at 10% 20%, rgba(26,92,58,0.09) 0%, transparent 40%), radial-gradient(ellipse at 90% 80%, rgba(232,80,144,0.08) 0%, transparent 40%)",
+      "size": "29px 29px, cover, cover",
+      "position": "0 0, 0 0, 0 0",
+      "repeat": "repeat, no-repeat, no-repeat",
+      "patternType": "lines-h", "patternColor": "rgba(26,92,58,0.04)", "patternOpacity": "0.04", "patternSpacing": "29px",
+      "notes": "Fine 45° diagonal stripes in forest green on warm pearl + 2-layer radial gradient mesh (green 9%, magenta 8%)"
+    },
+    "colors": {
+      "primary": "#1A5C3A", "primaryLight": "#C4E0CE", "secondary": "#C88020", "accent": "#C83078",
+      "background": "#F8F2EA", "surface": "#F0E8DC", "surfaceAlt": "#E8DDD0",
+      "text": "#1C1A14", "textMuted": "#7A6C58", "textOnPrimary": "#F8F2EA",
+      "border": "#C8BEAC", "success": "#2A7848", "warning": "#A86018", "error": "#A82830"
+    },
+    "typography": {
+      "fontFamily": "'Lora', Georgia, serif",
+      "fontFamilyMono": "'Courier Prime', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Playfair Display', Georgia, serif",
+      "scaleBase": "16px", "headingWeight": "900", "bodyWeight": "400", "lineHeight": "1.72"
+    },
+    "spacing": { "borderRadius": "3px", "cardRadius": "6px", "buttonRadius": "3px", "spaceUnit": "8px", "density": "comfortable" },
+    "shadows": {
+      "sm": "0 1px 6px rgba(28,26,20,0.08)", "md": "0 3px 16px rgba(28,26,20,0.12)",
+      "lg": "0 6px 32px rgba(28,26,20,0.16)", "xl": "0 12px 48px rgba(28,26,20,0.20)",
+      "colored": "0 4px 20px rgba(26,92,58,0.22)", "inset": "inset 0 2px 6px rgba(28,26,20,0.08)", "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #EEE4D4 0%, #F8F2EA 50%, #F0E8DC 100%)",
+      "card": "none",
+      "button": "linear-gradient(135deg, #228050 0%, #1A5C3A 100%)",
+      "text": "linear-gradient(135deg, #1A5C3A 0%, #C88020 50%, #C83078 100%)",
+      "accent": "linear-gradient(90deg, #1A5C3A 0%, #C83078 100%)"
+    },
+    "effects": {
+      "luminescence": "none", "glowColor": "#1A5C3A", "glowBlur": "0",
+      "glowSm": "none", "glowMd": "none", "glowLg": "none",
+      "glassBlur": "0", "glassTint": "none", "gradientBorder": "linear-gradient(135deg, #1A5C3A, #C88020, #C83078)",
+      "noiseOpacity": "0", "textShadow": "none", "backdropFilter": "none"
+    },
+    "motion": { "durationFast": "130ms", "durationBase": "250ms", "durationSlow": "420ms", "easing": "cubic-bezier(0.4, 0, 0.2, 1)", "feel": "subtle" },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["light", "formal", "super-unrealistic", "finance", "editorial"],
+      "borderStyle": "subtle", "iconStyle": "sharp", "imageStyle": "none", "surfaceTexture": "flat", "hierarchyClarity": "high",
+      "notes": "Playfair Display 900 (bold editorial serif, italic variant) + Lora 400 italic (warm refined body). 45° diagonal stripe bg. Ruled ledger lines. Multi-column newspaper layout. No glow — editorial restraint."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #F8F2EA;
+      --bg-image: repeating-linear-gradient(45deg, transparent, transparent 28px, rgba(26,92,58,0.04) 28px, rgba(26,92,58,0.04) 29px), radial-gradient(ellipse at 10% 20%, rgba(26,92,58,0.09) 0%, transparent 40%), radial-gradient(ellipse at 90% 80%, rgba(200,48,120,0.07) 0%, transparent 40%);
+      --bg-size: 29px 29px, cover, cover; --bg-position: 0 0, 0 0, 0 0; --bg-repeat: repeat, no-repeat, no-repeat;
+      --color-primary: #1A5C3A; --color-primary-light: #C4E0CE; --color-secondary: #C88020; --color-accent: #C83078;
+      --color-bg: #F8F2EA; --color-surface: #F0E8DC; --color-surface-alt: #E8DDD0;
+      --color-text: #1C1A14; --color-text-muted: #7A6C58; --color-text-on-primary: #F8F2EA;
+      --color-border: #C8BEAC; --color-success: #2A7848; --color-warning: #A86018; --color-error: #A82830;
+      --font-family: 'Lora', Georgia, serif;
+      --font-family-mono: 'Courier Prime', 'Courier New', monospace;
+      --font-family-display: 'Playfair Display', Georgia, serif;
+      --font-size-base: 16px; --font-weight-heading: 900; --font-weight-body: 400; --line-height: 1.72;
+      --radius: 3px; --radius-card: 6px; --radius-button: 3px;
+      --shadow-sm: 0 1px 6px rgba(28,26,20,0.08); --shadow-md: 0 3px 16px rgba(28,26,20,0.12);
+      --shadow-lg: 0 6px 32px rgba(28,26,20,0.16); --shadow-xl: 0 12px 48px rgba(28,26,20,0.20);
+      --shadow-colored: 0 4px 20px rgba(26,92,58,0.22); --shadow-inset: inset 0 2px 6px rgba(28,26,20,0.08);
+      --gradient-hero: linear-gradient(135deg, #EEE4D4 0%, #F8F2EA 50%, #F0E8DC 100%);
+      --gradient-card: none;
+      --gradient-button: linear-gradient(135deg, #228050 0%, #1A5C3A 100%);
+      --gradient-text: linear-gradient(135deg, #1A5C3A 0%, #C88020 50%, #C83078 100%);
+      --gradient-accent: linear-gradient(90deg, #1A5C3A 0%, #C83078 100%);
+      --glow-color: #1A5C3A; --glow-sm: none; --glow-md: none; --glow-lg: none;
+      --glass-blur: 0; --glass-tint: none; --backdrop-filter: none; --text-shadow: none;
+      --border-gradient: linear-gradient(135deg, #1A5C3A, #C88020, #C83078); --noise-opacity: 0;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 130ms; --duration-base: 250ms; --duration-slow: 420ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1); --border-width: 1px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-base); background-image: var(--bg-image);
+      background-size: var(--bg-size); background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat); background-attachment: fixed;
+      color: var(--color-text); font-family: 'Lora', Georgia, serif;
+      font-size: 16px; line-height: 1.72; min-height: 100vh;
+    }
+
+    /* ── MASTHEAD / BROADSHEET HEADER ── */
+    .masthead {
+      border-bottom: 4px double var(--color-text);
+      padding: 1.5rem 3rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+    .masthead-rule { height: 1px; background: var(--color-text); margin-bottom: 0.5rem; }
+    .masthead-date { font-family: 'Courier Prime', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.5rem; }
+    .masthead-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900; line-height: 0.9; letter-spacing: -0.03em; color: var(--color-text);
+      margin-bottom: 0.3rem;
+    }
+    .masthead-sub {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
+      color: var(--color-text-muted); margin-bottom: 1rem;
+    }
+    .masthead-gradient-bar { height: 4px; background: var(--gradient-accent); margin: 0 -3rem; }
+
+    .tone-tags { display: flex; gap: 0.5rem; justify-content: center; margin: 0.75rem 0; flex-wrap: wrap; }
+    .tag { font-family: 'Courier Prime', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 2px; border: 1px solid; }
+    .tag-light { background: rgba(26,92,58,0.08); color: #1A5C3A; border-color: rgba(26,92,58,0.3); }
+    .tag-formal { background: rgba(200,128,32,0.08); color: #8A5808; border-color: rgba(200,128,32,0.3); }
+    .tag-unrealistic { background: rgba(200,48,120,0.08); color: #902858; border-color: rgba(200,48,120,0.3); }
+    .tag-topic { background: var(--color-surface); color: var(--color-text-muted); border-color: var(--color-border); }
+
+    /* ── SECTION ── */
+    .section { padding: 2.5rem 3rem; border-bottom: 1px solid var(--color-border); }
+    .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--color-text); }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--color-text); }
+    .section-sub { font-family: 'Courier Prime', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); }
+
+    /* ── FEATURE COLUMNS ── */
+    .feature-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .feature-col { padding: 2rem 2.5rem 2rem 0; }
+    .feature-col:last-child { padding-left: 2.5rem; padding-right: 0; border-left: 1px solid var(--color-border); }
+    .feature-col-headline { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; color: var(--color-text); margin-bottom: 0.75rem; }
+    .feature-col-byline { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.75rem; border-top: 1px solid var(--color-border); padding-top: 0.5rem; }
+    .feature-col-body { font-size: 0.95rem; line-height: 1.75; color: var(--color-text); }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote { border-left: 4px solid var(--color-primary); margin: 1.5rem 0; padding: 0.75rem 1.5rem; }
+    .pull-quote-text { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-style: italic; font-weight: 700; color: var(--color-primary); line-height: 1.4; }
+    .pull-quote-attr { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-top: 0.35rem; }
+
+    /* ── LEDGER TABLE ── */
+    .ledger { width: 100%; border-collapse: collapse; font-family: 'Courier Prime', monospace; font-size: 0.875rem; }
+    .ledger caption { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; text-align: left; color: var(--color-text); padding-bottom: 0.75rem; caption-side: top; }
+    .ledger th { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); text-align: left; padding: 0.55rem 0.75rem; border-bottom: 2px solid var(--color-text); border-top: 1px solid var(--color-text); }
+    .ledger td { padding: 0.75rem 0.75rem; border-bottom: 1px solid rgba(200,190,172,0.6); color: var(--color-text); }
+    .ledger tfoot td { border-top: 2px solid var(--color-text); border-bottom: none; font-weight: 700; color: var(--color-text); font-size: 0.95rem; }
+    .ledger tr:hover td { background: rgba(26,92,58,0.04); }
+    .num-pos { color: var(--color-success); font-weight: 700; }
+    .num-neg { color: var(--color-error); font-weight: 700; }
+
+    /* ── TYPE SCALE ── */
+    .type-scale { display: flex; flex-direction: column; gap: 0.7rem; }
+    .t-display { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; line-height: 0.9; letter-spacing: -0.03em; color: var(--color-text); }
+    .t-h1 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--color-text); }
+    .t-h2 { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; font-style: italic; color: var(--color-primary); }
+    .t-body { font-size: 1rem; color: var(--color-text); max-width: 620px; line-height: 1.75; }
+    .t-small { font-size: 0.82rem; color: var(--color-text-muted); font-style: italic; }
+    .t-mono { font-family: 'Courier Prime', monospace; font-size: 0.875rem; background: var(--color-surface-alt); padding: 0.3rem 0.6rem; border-radius: var(--radius); color: var(--color-text); display: inline-block; }
+
+    /* ── SWATCHES ── */
+    .swatches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 0.6rem; }
+    .swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); }
+    .swatch-color { height: 50px; }
+    .swatch-info { background: var(--color-surface); padding: 0.38rem 0.5rem; }
+    .swatch-name { font-family: 'Playfair Display', serif; font-size: 0.68rem; font-weight: 700; color: var(--color-text); }
+    .swatch-hex { font-size: 0.62rem; font-family: 'Courier Prime', monospace; color: var(--color-text-muted); }
+
+    /* ── BUTTONS ── */
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .btn { padding: 0.55rem 1.25rem; border-radius: var(--radius-button); font-family: 'Lora', serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all var(--duration-fast) var(--easing); }
+    .btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+    .btn-secondary { background: var(--color-secondary); color: #F8F2EA; }
+    .btn-accent { background: var(--color-accent); color: #F8F2EA; }
+    .btn-outline { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .btn-ghost { background: var(--color-surface-alt); color: var(--color-text); }
+
+    /* ── RATIO GRID ── */
+    .ratio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0; }
+    .ratio-cell { padding: 1.25rem 1.5rem; border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+    .ratio-cell:nth-child(n+5) { border-bottom: none; }
+    .ratio-label { font-family: 'Courier Prime', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.35rem; }
+    .ratio-val { font-family: 'Courier Prime', monospace; font-size: 1.5rem; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+    .ratio-sub { font-family: 'Lora', serif; font-size: 0.72rem; font-style: italic; color: var(--color-text-muted); margin-top: 0.2rem; }
+
+    /* ── BADGES ── */
+    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .badge { padding: 0.22rem 0.7rem; border-radius: 2px; font-family: 'Courier Prime', monospace; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid; }
+    .badge-primary { background: rgba(26,92,58,0.09); color: #1A5C3A; border-color: rgba(26,92,58,0.28); }
+    .badge-success { background: rgba(42,120,72,0.09); color: #2A7848; border-color: rgba(42,120,72,0.28); }
+    .badge-warning { background: rgba(168,96,24,0.09); color: #A86018; border-color: rgba(168,96,24,0.28); }
+    .badge-error { background: rgba(168,40,48,0.09); color: #A82830; border-color: rgba(168,40,48,0.28); }
+    .badge-accent { background: rgba(200,48,120,0.09); color: #902858; border-color: rgba(200,48,120,0.28); }
+
+    /* ── FORM ── */
+    .form-field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .form-label { font-family: 'Courier Prime', monospace; font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); }
+    .form-input { padding: 0.55rem 0.85rem; border: 1.5px solid var(--color-border); border-radius: var(--radius); background: var(--color-surface); color: var(--color-text); font-family: 'Lora', serif; font-size: 0.9rem; box-shadow: var(--shadow-inset); outline: none; transition: border-color var(--duration-fast) var(--easing); }
+    .form-input:focus { border-color: var(--color-primary); }
+
+    /* ── EFFECTS ── */
+    .effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .effect-tile { background: var(--color-surface); border-radius: var(--radius-card); padding: 1.25rem; border: 1px solid var(--color-border); display: flex; flex-direction: column; gap: 0.75rem; }
+    .effect-label { font-family: 'Courier Prime', monospace; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); }
+    .gradient-text-demo { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 900; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; font-style: italic; }
+    .colored-shadow-demo { padding: 0.75rem 1rem; border-radius: var(--radius); background: var(--color-primary); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); font-weight: 600; font-size: 0.85rem; text-align: center; font-family: 'Lora', serif; }
+    .gb-demo { padding: 0.75rem 1rem; border-radius: var(--radius-card); background: var(--color-surface); position: relative; font-size: 0.82rem; color: var(--color-text-muted); font-style: italic; }
+    .gb-demo::before { content: ''; position: absolute; inset: 0; border-radius: var(--radius-card); padding: 1.5px; background: var(--border-gradient); -webkit-mask: linear-gradient(#F8F2EA 0 0) content-box, linear-gradient(#F8F2EA 0 0); mask: linear-gradient(#F8F2EA 0 0) content-box, linear-gradient(#F8F2EA 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+    .inset-demo { background: var(--color-surface-alt); border-radius: var(--radius); padding: 0.6rem 1rem; box-shadow: var(--shadow-inset); border: 1px solid var(--color-border); font-family: 'Courier Prime', monospace; font-size: 0.8rem; color: var(--color-text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- ── BROADSHEET MASTHEAD ── -->
+  <div class="masthead">
+    <div class="masthead-rule"></div>
+    <div class="masthead-date">Vol. XIV, No. 24 · 22 June 2026 · Financial Intelligence Edition</div>
+    <h1 class="masthead-title">Prism Ledger</h1>
+    <div class="masthead-sub">Where Annual Reports Meet Editorial Precision</div>
+    <div class="tone-tags">
+      <span class="tag tag-light">Light</span>
+      <span class="tag tag-formal">Formal</span>
+      <span class="tag tag-unrealistic">Super-Unrealistic</span>
+      <span class="tag tag-topic">Finance</span>
+    </div>
+    <div class="masthead-gradient-bar"></div>
+  </div>
+
+  <!-- ── FEATURE COLUMNS ── -->
+  <div style="padding: 0 3rem; border-bottom: 1px solid var(--color-border)">
+    <div class="feature-cols">
+      <div class="feature-col">
+        <div class="feature-col-byline">Revenue Analysis · Q4 2025</div>
+        <h2 class="feature-col-headline">Gross Revenue Surpasses $12.8 Billion — Fourth Quarter</h2>
+        <p class="feature-col-body">Operating margins expanded 340 basis points as the firm's diversified revenue streams insulated core earnings against macro headwinds. The fixed income desk contributed 38% of total adjusted EBITDA, up from 29% in the comparable period, while equity capital markets normalized following the prior year's elevated IPO pipeline.</p>
+        <div class="pull-quote">
+          <div class="pull-quote-text">"The ledger does not lie — only those who refuse to read it."</div>
+          <div class="pull-quote-attr">— Chief Financial Officer, FY2025 Earnings Call</div>
+        </div>
+      </div>
+      <div class="feature-col">
+        <div class="feature-col-byline">Capital Structure · December 31, 2025</div>
+        <h2 class="feature-col-headline">Debt-to-Equity Held at 1.4× Despite Expansion Cycle</h2>
+        <p class="feature-col-body">The treasury team executed three opportunistic bond buybacks in Q3 and Q4, reducing weighted average cost of debt by 42 basis points. Revolving credit facility headroom remains at $3.2 billion. Net leverage, adjusted for operating lease capitalization under IFRS 16, is 1.38× trailing twelve months EBITDA — a 12-year low for the firm.</p>
+        <div class="pull-quote" style="border-left-color:var(--color-accent)">
+          <div class="pull-quote-text" style="color:var(--color-accent)">"Liquidity is permanence. Capital structure is strategy."</div>
+          <div class="pull-quote-attr">— Board Treasurer, Capital Markets Day 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TYPOGRAPHY ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Typography</div>
+      <span class="section-sub">Playfair Display + Lora</span>
+    </div>
+    <div class="type-scale">
+      <div class="t-display">Annual Report</div>
+      <div class="t-h1">Consolidated Financial Statements</div>
+      <div class="t-h2">Notes to Accounts, Fiscal Year Ended December 31, 2025</div>
+      <div class="t-body">Revenue recognition follows IFRS 15 guidance. Performance obligations are satisfied over time for advisory mandates and at a point in time for capital markets transactions. Variable consideration is constrained to the extent it is probable of not being reversed in a subsequent period.</div>
+      <div class="t-small">Audited by Thornton Kimber LLP · Opinion issued 18 March 2026 · Going concern assessment: positive</div>
+      <div class="t-mono">EBITDA_adj = EBIT + D&amp;A + SBC_expense − one_time_items</div>
+    </div>
+  </div>
+
+  <!-- ── P&L LEDGER ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Income Statement</div>
+      <span class="section-sub">FY2025 vs FY2024 · $M</span>
+    </div>
+    <table class="ledger">
+      <caption>Consolidated Statement of Profit or Loss</caption>
+      <thead>
+        <tr>
+          <th>Line Item</th>
+          <th style="text-align:right">FY 2025</th>
+          <th style="text-align:right">FY 2024</th>
+          <th style="text-align:right">Change</th>
+          <th style="text-align:right">YoY %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Total Revenue</td>
+          <td style="text-align:right">12,847</td>
+          <td style="text-align:right">11,204</td>
+          <td style="text-align:right"><span class="num-pos">+1,643</span></td>
+          <td style="text-align:right"><span class="num-pos">+14.7%</span></td>
+        </tr>
+        <tr>
+          <td>Cost of Revenue</td>
+          <td style="text-align:right">7,234</td>
+          <td style="text-align:right">6,508</td>
+          <td style="text-align:right"><span class="num-neg">−726</span></td>
+          <td style="text-align:right"><span class="num-neg">−11.2%</span></td>
+        </tr>
+        <tr>
+          <td>Gross Profit</td>
+          <td style="text-align:right;font-weight:700">5,613</td>
+          <td style="text-align:right;font-weight:700">4,696</td>
+          <td style="text-align:right"><span class="num-pos">+917</span></td>
+          <td style="text-align:right"><span class="num-pos">+19.5%</span></td>
+        </tr>
+        <tr>
+          <td>Operating Expenses</td>
+          <td style="text-align:right">2,890</td>
+          <td style="text-align:right">2,610</td>
+          <td style="text-align:right"><span class="num-neg">−280</span></td>
+          <td style="text-align:right"><span class="num-neg">−10.7%</span></td>
+        </tr>
+        <tr>
+          <td>EBITDA (Adjusted)</td>
+          <td style="text-align:right;font-weight:700">2,723</td>
+          <td style="text-align:right;font-weight:700">2,086</td>
+          <td style="text-align:right"><span class="num-pos">+637</span></td>
+          <td style="text-align:right"><span class="num-pos">+30.5%</span></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Net Income</td>
+          <td style="text-align:right">1,948</td>
+          <td style="text-align:right">1,432</td>
+          <td style="text-align:right"><span class="num-pos">+516</span></td>
+          <td style="text-align:right"><span class="num-pos">+36.0%</span></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- ── FINANCIAL RATIOS ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Key Ratios</div>
+      <span class="section-sub">FY2025 Trailing Twelve Months</span>
+    </div>
+    <div class="ratio-grid" style="border-left:1px solid var(--color-border);border-top:1px solid var(--color-border)">
+      <div class="ratio-cell"><div class="ratio-label">P/E Ratio</div><div class="ratio-val" style="color:var(--color-primary)">18.4×</div><div class="ratio-sub">vs sector 21.2×</div></div>
+      <div class="ratio-cell"><div class="ratio-label">EV/EBITDA</div><div class="ratio-val" style="color:var(--color-secondary)">11.8×</div><div class="ratio-sub">5-yr avg 13.4×</div></div>
+      <div class="ratio-cell"><div class="ratio-label">ROE</div><div class="ratio-val" style="color:var(--color-success)">24.6%</div><div class="ratio-sub">↑ 310 bps YoY</div></div>
+      <div class="ratio-cell"><div class="ratio-label">Gross Margin</div><div class="ratio-val" style="color:var(--color-primary)">43.7%</div><div class="ratio-sub">↑ from 41.9%</div></div>
+      <div class="ratio-cell"><div class="ratio-label">D/E Ratio</div><div class="ratio-val" style="color:var(--color-warning)">1.38×</div><div class="ratio-sub">12-year low</div></div>
+      <div class="ratio-cell"><div class="ratio-label">Current Ratio</div><div class="ratio-val" style="color:var(--color-accent)">2.41</div><div class="ratio-sub">Liquidity: strong</div></div>
+    </div>
+  </div>
+
+  <!-- ── COLOR PALETTE ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Color Palette</div>
+      <span class="section-sub">14 Tokens · Prismatic Triad</span>
+    </div>
+    <div class="swatches-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#1A5C3A"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-hex">#1A5C3A</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C4E0CE"></div><div class="swatch-info"><div class="swatch-name">Primary Lt</div><div class="swatch-hex">#C4E0CE</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C88020"></div><div class="swatch-info"><div class="swatch-name">Secondary</div><div class="swatch-hex">#C88020</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C83078"></div><div class="swatch-info"><div class="swatch-name">Accent</div><div class="swatch-hex">#C83078</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#F8F2EA"></div><div class="swatch-info"><div class="swatch-name">Background</div><div class="swatch-hex">#F8F2EA</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#F0E8DC"></div><div class="swatch-info"><div class="swatch-name">Surface</div><div class="swatch-hex">#F0E8DC</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E8DDD0"></div><div class="swatch-info"><div class="swatch-name">Surface Alt</div><div class="swatch-hex">#E8DDD0</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#1C1A14"></div><div class="swatch-info"><div class="swatch-name">Text</div><div class="swatch-hex">#1C1A14</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#7A6C58"></div><div class="swatch-info"><div class="swatch-name">Muted</div><div class="swatch-hex">#7A6C58</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C8BEAC"></div><div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#C8BEAC</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#2A7848"></div><div class="swatch-info"><div class="swatch-name">Success</div><div class="swatch-hex">#2A7848</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#A86018"></div><div class="swatch-info"><div class="swatch-name">Warning</div><div class="swatch-hex">#A86018</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#A82830"></div><div class="swatch-info"><div class="swatch-name">Error</div><div class="swatch-hex">#A82830</div></div></div>
+    </div>
+  </div>
+
+  <!-- ── COMPONENTS ── -->
+  <div class="section">
+    <div class="section-header"><div class="section-title">Components</div></div>
+    <div style="margin-bottom:1.5rem">
+      <div class="section-sub" style="margin-bottom:0.7rem">Buttons</div>
+      <div class="btn-row">
+        <button class="btn btn-primary">Download Report</button>
+        <button class="btn btn-secondary">View Financials</button>
+        <button class="btn btn-accent">Contact IR</button>
+        <button class="btn btn-outline">Data Room</button>
+        <button class="btn btn-ghost">Archive</button>
+      </div>
+    </div>
+    <div style="margin-bottom:1.5rem">
+      <div class="section-sub" style="margin-bottom:0.7rem">Badges</div>
+      <div class="badges">
+        <span class="badge badge-primary">Audited</span>
+        <span class="badge badge-success">Profit</span>
+        <span class="badge badge-warning">Review Pending</span>
+        <span class="badge badge-error">Restatement</span>
+        <span class="badge badge-accent">M&amp;A Event</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1rem;max-width:440px">
+      <div class="form-field">
+        <label class="form-label">Fiscal Period</label>
+        <input class="form-input" type="text" placeholder="FY 2025">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Entity</label>
+        <input class="form-input" type="text" placeholder="Group Consolidated">
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EFFECTS ── -->
+  <div class="section" style="border-bottom:none">
+    <div class="section-header"><div class="section-title">Gradients & Effects</div></div>
+    <div class="effects-grid">
+      <div class="effect-tile" style="grid-column:1/-1">
+        <div class="effect-label">Background · 45° Diagonal Stripes + Gradient Mesh</div>
+        <div style="height:60px;border-radius:var(--radius);background:repeating-linear-gradient(45deg,transparent,transparent 28px,rgba(26,92,58,0.08) 28px,rgba(26,92,58,0.08) 29px),radial-gradient(ellipse at 15% 50%,rgba(26,92,58,0.18) 0%,transparent 45%),radial-gradient(ellipse at 85% 50%,rgba(200,48,120,0.15) 0%,transparent 45%),#F8F2EA;background-size:29px 29px,cover,cover;background-repeat:repeat,no-repeat,no-repeat"></div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Gradient Text</div>
+        <div class="gradient-text-demo">Ledger</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">CTA Button</div>
+        <button class="btn btn-primary" style="width:100%">File Report</button>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Colored Shadow</div>
+        <div class="colored-shadow-demo">Forest Green Elevation</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Gradient Border</div>
+        <div class="gb-demo">Green → Amber → Magenta</div>
+      </div>
+      <div class="effect-tile">
+        <div class="effect-label">Inset / Well</div>
+        <div class="inset-demo">GL_ACCOUNT_4210 · 12,847</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="acid-garden">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: acid-garden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "acid-garden",
+    "description": "Light colorful super-unrealistic — electric mint canvas with wild gradient mesh, hot magenta primary, electric blue secondary, acid lime accent. Chromatic overload by design.",
+    "createdAt": "2026-06-21T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "gradient",
+      "baseColor": "#EDFCE8",
+      "image": "radial-gradient(ellipse at 10% 20%, rgba(255,0,153,0.12) 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, rgba(0,153,255,0.1) 0%, transparent 40%), radial-gradient(ellipse at 70% 80%, rgba(204,255,0,0.14) 0%, transparent 45%), radial-gradient(ellipse at 30% 70%, rgba(255,102,0,0.08) 0%, transparent 40%)",
+      "size": "cover",
+      "position": "0 0",
+      "repeat": "no-repeat",
+      "patternType": "none",
+      "patternColor": "none",
+      "patternOpacity": "0",
+      "patternSpacing": "none",
+      "notes": "4-layer radial gradient: magenta, blue, acid lime, orange — on mint cream. Screaming chromatic overload."
+    },
+    "colors": {
+      "primary": "#FF0099", "primaryLight": "#FFD6EE", "secondary": "#0099FF", "accent": "#AAFF00",
+      "background": "#EDFCE8", "surface": "#F8FFF4", "surfaceAlt": "#E4F8E0",
+      "text": "#1A1A1A", "textMuted": "#5C6852", "textOnPrimary": "#EDFCE8",
+      "border": "#C8E8C0", "success": "#22AA44", "warning": "#FF8800", "error": "#DD1144"
+    },
+    "typography": {
+      "fontFamily": "'Plus Jakarta Sans', 'Helvetica Neue', sans-serif",
+      "fontFamilyMono": "'Fira Code', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Unbounded', 'Impact', sans-serif",
+      "scaleBase": "15px", "headingWeight": "900", "bodyWeight": "400", "lineHeight": "1.6"
+    },
+    "spacing": {
+      "borderRadius": "8px", "cardRadius": "16px", "buttonRadius": "999px",
+      "spaceUnit": "8px", "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "4px 4px 0 rgba(255,0,153,0.25)",
+      "md": "6px 6px 0 rgba(255,0,153,0.3)",
+      "lg": "8px 8px 0 rgba(255,0,153,0.35)",
+      "xl": "12px 12px 0 rgba(255,0,153,0.4)",
+      "colored": "6px 6px 0 #FF0099, -3px -3px 0 #0099FF",
+      "inset": "inset 2px 2px 0 rgba(255,0,153,0.1)",
+      "elevation": "layered"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #FFD6EE 0%, #D4EFFF 50%, #E8FFB0 100%)",
+      "card": "linear-gradient(135deg, rgba(255,0,153,0.05) 0%, rgba(0,153,255,0.04) 50%, rgba(170,255,0,0.05) 100%)",
+      "button": "linear-gradient(135deg, #FF33BB 0%, #FF0099 50%, #CC0077 100%)",
+      "text": "linear-gradient(135deg, #FF0099 0%, #0099FF 50%, #AAFF00 100%)",
+      "accent": "linear-gradient(90deg, #FF0099 0%, #AAFF00 50%, #0099FF 100%)"
+    },
+    "effects": {
+      "luminescence": "strong",
+      "glowColor": "#FF0099", "glowBlur": "20px",
+      "glowSm": "0 0 8px rgba(255,0,153,0.4), 2px 2px 0 #AAFF00",
+      "glowMd": "0 0 20px rgba(255,0,153,0.5), 4px 4px 0 #AAFF00, -4px -4px 0 #0099FF",
+      "glowLg": "0 0 40px rgba(255,0,153,0.6), 6px 6px 0 #AAFF00, -6px -6px 0 #0099FF",
+      "glassBlur": "0", "glassTint": "none",
+      "gradientBorder": "linear-gradient(135deg, #FF0099, #0099FF, #AAFF00, #FF8800)",
+      "noiseOpacity": "0", "textShadow": "3px 3px 0 #AAFF00, -2px -2px 0 #0099FF",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "100ms", "durationBase": "200ms", "durationSlow": "350ms",
+      "easing": "cubic-bezier(0.34, 1.25, 0.64, 1)", "feel": "expressive"
+    },
+    "design": {
+      "aesthetic": "playful",
+      "personality": ["hyper", "chromatic", "unrealistic", "electric"],
+      "borderStyle": "bold", "iconStyle": "rounded", "imageStyle": "abstract",
+      "surfaceTexture": "gradient", "hierarchyClarity": "medium",
+      "notes": "Deliberate chromatic clashing. Multi-color offset shadows. Rainbow gradient borders. Acid lime + hot magenta + electric blue — three hues that should never coexist but do. Pill buttons. Unbounded (heavy geometric sans) at extreme weights."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #EDFCE8;
+      --bg-image: radial-gradient(ellipse at 10% 20%, rgba(255,0,153,0.12) 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, rgba(0,153,255,0.1) 0%, transparent 40%), radial-gradient(ellipse at 70% 80%, rgba(204,255,0,0.14) 0%, transparent 45%), radial-gradient(ellipse at 30% 70%, rgba(255,102,0,0.08) 0%, transparent 40%);
+      --bg-size: cover; --bg-position: 0 0; --bg-repeat: no-repeat;
+
+      --color-primary: #FF0099; --color-primary-light: #FFD6EE; --color-secondary: #0099FF; --color-accent: #AAFF00;
+      --color-bg: #EDFCE8; --color-surface: #F8FFF4; --color-surface-alt: #E4F8E0;
+      --color-text: #1A1A1A; --color-text-muted: #5C6852; --color-text-on-primary: #EDFCE8;
+      --color-border: #C8E8C0; --color-success: #22AA44; --color-warning: #FF8800; --color-error: #DD1144;
+
+      --font-family: 'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+      --font-family-mono: 'Fira Code', 'Courier New', monospace;
+      --font-family-display: 'Unbounded', 'Impact', sans-serif;
+      --font-size-base: 15px; --font-weight-heading: 900; --font-weight-body: 400; --line-height: 1.6;
+
+      --radius: 8px; --radius-card: 16px; --radius-button: 999px;
+
+      --shadow-sm: 4px 4px 0 rgba(255,0,153,0.25);
+      --shadow-md: 6px 6px 0 rgba(255,0,153,0.3);
+      --shadow-lg: 8px 8px 0 rgba(255,0,153,0.35);
+      --shadow-xl: 12px 12px 0 rgba(255,0,153,0.4);
+      --shadow-colored: 6px 6px 0 #FF0099, -3px -3px 0 #0099FF;
+      --shadow-inset: inset 2px 2px 0 rgba(255,0,153,0.1);
+
+      --gradient-hero: linear-gradient(135deg, #FFD6EE 0%, #D4EFFF 50%, #E8FFB0 100%);
+      --gradient-card: linear-gradient(135deg, rgba(255,0,153,0.05) 0%, rgba(0,153,255,0.04) 50%, rgba(170,255,0,0.05) 100%);
+      --gradient-button: linear-gradient(135deg, #FF33BB 0%, #FF0099 50%, #CC0077 100%);
+      --gradient-text: linear-gradient(135deg, #FF0099 0%, #0099FF 50%, #AAFF00 100%);
+      --gradient-accent: linear-gradient(90deg, #FF0099 0%, #AAFF00 50%, #0099FF 100%);
+
+      --glow-color: #FF0099; --glow-sm: 0 0 8px rgba(255,0,153,0.4), 2px 2px 0 #AAFF00;
+      --glow-md: 0 0 20px rgba(255,0,153,0.5), 4px 4px 0 #AAFF00, -4px -4px 0 #0099FF;
+      --glow-lg: 0 0 40px rgba(255,0,153,0.6), 6px 6px 0 #AAFF00, -6px -6px 0 #0099FF;
+      --glass-blur: 0; --glass-tint: none; --backdrop-filter: none;
+      --text-shadow: 3px 3px 0 #AAFF00, -2px -2px 0 #0099FF;
+      --border-gradient: linear-gradient(135deg, #FF0099, #0099FF, #AAFF00, #FF8800); --noise-opacity: 0;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 100ms; --duration-base: 200ms; --duration-slow: 350ms;
+      --easing: cubic-bezier(0.34, 1.25, 0.64, 1); --border-width: 3px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      background-attachment: fixed;
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      padding: 2.5rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Rainbow gradient border utility */
+    .rainbow-border {
+      position: relative;
+      border-radius: inherit;
+    }
+    .rainbow-border::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: inherit;
+      background: var(--border-gradient);
+      z-index: -1;
+    }
+
+    .tf-header {
+      background: var(--gradient-hero);
+      border: 3px solid transparent;
+      border-radius: var(--radius-card);
+      padding: 2.5rem 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-colored);
+    }
+    .tf-header::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: var(--border-gradient);
+    }
+    .tf-header h1 {
+      font-family: var(--font-family-display);
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .tf-header .tf-subtitle { color: var(--color-text-muted); font-size: 0.88rem; font-weight: 400; }
+    .tf-header .tf-tags { margin-top: 1.25rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tf-tag {
+      font-family: var(--font-family-display);
+      font-size: 0.55rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.25rem 0.75rem; border-radius: 999px; border: 2px solid;
+    }
+    .tf-tag-magenta { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-light); }
+    .tf-tag-blue { border-color: var(--color-secondary); color: var(--color-secondary); background: rgba(0,153,255,0.1); }
+    .tf-tag-lime { border-color: #88BB00; color: #448800; background: rgba(170,255,0,0.15); }
+
+    .tf-section { margin-bottom: 2rem; }
+    .tf-section-title {
+      font-family: var(--font-family-display);
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--color-text-muted); margin-bottom: 0.75rem; padding-bottom: 0.5rem;
+      border-bottom: 3px solid;
+      border-image: var(--border-gradient) 1;
+    }
+
+    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.75rem; }
+    .tf-swatch { border-radius: var(--radius); overflow: hidden; border: 2px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .tf-swatch-color { height: 52px; }
+    .tf-swatch-label { background: var(--color-surface); padding: 0.35rem 0.5rem; font-size: 0.6rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.65rem; margin-bottom: 0.05rem; }
+
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.5rem; }
+    .t-h1 { font-family: var(--font-family-display); font-size: 3.25rem; font-weight: 900; line-height: 0.95; letter-spacing: -0.025em; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .t-h2 { font-family: var(--font-family-display); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; color: var(--color-secondary); }
+    .t-h3 { font-family: var(--font-family); font-size: 1.05rem; font-weight: 700; color: var(--color-text); }
+    .t-body { font-size: 0.95rem; font-weight: 400; color: var(--color-text); }
+    .t-small { font-family: var(--font-family-display); font-size: 0.6rem; font-weight: 700; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .t-mono { font-family: var(--font-family-mono); font-size: 0.85rem; background: var(--color-surface-alt); padding: 0.25rem 0.65rem; border-radius: var(--radius); color: var(--color-primary); border: 2px solid var(--color-border); }
+
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .tf-btn {
+      padding: 0.6rem 1.5rem; border-radius: var(--radius-button);
+      font-family: var(--font-family-display); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border: 2px solid;
+      transition: all var(--duration-fast) var(--easing);
+    }
+    .tf-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); border-color: transparent; box-shadow: var(--shadow-colored); }
+    .tf-btn-primary:hover { transform: translate(-2px, -2px); box-shadow: var(--glow-md); }
+    .tf-btn-secondary { background: rgba(0,153,255,0.1); color: var(--color-secondary); border-color: var(--color-secondary); }
+    .tf-btn-secondary:hover { background: var(--color-secondary); color: var(--color-text-on-primary); }
+    .tf-btn-outline { background: rgba(170,255,0,0.12); color: #448800; border-color: #88BB00; }
+    .tf-btn-ghost { background: var(--color-surface); color: var(--color-text-muted); border-color: var(--color-border); }
+
+    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+    .tf-card { background: var(--gradient-card); border: 3px solid var(--color-border); border-radius: var(--radius-card); padding: 1.5rem; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+    .tf-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--border-gradient); }
+    .tf-card h3 { font-family: var(--font-family-display); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 0.5rem; color: var(--color-primary); }
+    .tf-card p { color: var(--color-text-muted); font-size: 0.88rem; }
+    .tf-card .pulse { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 0.4rem; }
+
+    .tf-form { display: flex; flex-direction: column; gap: 0.75rem; max-width: 380px; }
+    .tf-form label { font-family: var(--font-family-display); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 0.2rem; display: block; }
+    .tf-form input, .tf-form select {
+      width: 100%; padding: 0.6rem 1rem; border: 2px solid var(--color-border);
+      border-radius: var(--radius); background: var(--color-surface); color: var(--color-text);
+      font-family: var(--font-family); font-size: 0.95rem; outline: none;
+      box-shadow: var(--shadow-inset); transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+    }
+    .tf-form input:focus, .tf-form select:focus { border-color: var(--color-primary); box-shadow: var(--shadow-colored); }
+
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tf-badge { padding: 0.25rem 0.85rem; font-family: var(--font-family-display); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid; border-radius: 999px; }
+    .tf-badge-primary { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-light); }
+    .tf-badge-success { border-color: var(--color-success); color: var(--color-success); background: rgba(34,170,68,0.1); }
+    .tf-badge-warning { border-color: var(--color-warning); color: var(--color-warning); background: rgba(255,136,0,0.1); }
+    .tf-badge-error { border-color: var(--color-error); color: var(--color-error); background: rgba(221,17,68,0.1); }
+    .tf-badge-neutral { border-color: var(--color-border); color: var(--color-text-muted); background: var(--color-surface-alt); }
+
+    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .tf-effect-tile { border: 2px solid var(--color-border); padding: 1.25rem; border-radius: var(--radius-card); background: var(--color-surface); display: flex; flex-direction: column; gap: 0.5rem; }
+    .tf-effect-tile .tile-label { font-family: var(--font-family-display); font-size: 0.56rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-primary); }
+    .tf-effect-tile .tile-value { font-family: var(--font-family-mono); font-size: 0.65rem; color: var(--color-text-muted); word-break: break-all; }
+    .tf-gradient-hero { height: 80px; background: var(--gradient-hero); border-radius: var(--radius-card); display: flex; align-items: center; padding: 0 1.5rem; border: 3px solid transparent; position: relative; overflow: hidden; }
+    .tf-gradient-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--border-gradient); }
+    .tf-gradient-hero span { font-family: var(--font-family-display); font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .tf-glow-demo { background: var(--color-surface); border: 2px solid var(--color-primary); border-radius: var(--radius-card); padding: 1rem 1.5rem; text-align: center; box-shadow: var(--shadow-colored); font-family: var(--font-family-display); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; color: var(--color-primary); }
+    .tf-glass-demo { background: rgba(255,0,153,0.05); border: 2px solid rgba(255,0,153,0.2); border-radius: var(--radius-card); padding: 1rem 1.5rem; font-size: 0.82rem; color: var(--color-text-muted); }
+    .tf-gradient-text { font-family: var(--font-family-display); font-size: 1.75rem; font-weight: 900; letter-spacing: -0.02em; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; }
+    .tf-btn-gradient { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); padding: 0.6rem 1.25rem; border: none; border-radius: var(--radius-button); font-family: var(--font-family-display); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; width: 100%; }
+    .tf-inset-demo { background: var(--color-surface-alt); border-radius: var(--radius); padding: 0.6rem 0.75rem; box-shadow: var(--shadow-inset); border: 2px solid var(--color-border); font-family: var(--font-family-mono); font-size: 0.82rem; color: var(--color-secondary); }
+  </style>
+</head>
+<body>
+
+  <div class="tf-header">
+    <h1>ACID<br>GARDEN</h1>
+    <div class="tf-subtitle">Theme Preview · acid-garden · Studio Overflow</div>
+    <div class="tf-tags">
+      <span class="tf-tag tf-tag-magenta">Light</span>
+      <span class="tf-tag tf-tag-blue">Colorful</span>
+      <span class="tf-tag tf-tag-lime">Super-Unrealistic</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Color Palette</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#FF0099"></div><div class="tf-swatch-label"><strong>primary</strong>#FF0099</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#FFD6EE"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#FFD6EE</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#0099FF"></div><div class="tf-swatch-label"><strong>secondary</strong>#0099FF</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#AAFF00"></div><div class="tf-swatch-label"><strong>accent</strong>#AAFF00</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#EDFCE8"></div><div class="tf-swatch-label"><strong>background</strong>#EDFCE8</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#F8FFF4"></div><div class="tf-swatch-label"><strong>surface</strong>#F8FFF4</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#E4F8E0"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#E4F8E0</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#1A1A1A"></div><div class="tf-swatch-label"><strong>text</strong>#1A1A1A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#5C6852"></div><div class="tf-swatch-label"><strong>textMuted</strong>#5C6852</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#C8E8C0"></div><div class="tf-swatch-label"><strong>border</strong>#C8E8C0</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#22AA44"></div><div class="tf-swatch-label"><strong>success</strong>#22AA44</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#FF8800"></div><div class="tf-swatch-label"><strong>warning</strong>#FF8800</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#DD1144"></div><div class="tf-swatch-label"><strong>error</strong>#DD1144</div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Typography</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">STUDIO OVERFLOW</div>
+      <div class="t-h2">Creative Hyperobjects</div>
+      <div class="t-h3">Brand · Motion · Identity · Digital</div>
+      <div class="t-body">We design things that shouldn't work — and they do. Chromatic overload, deliberate clashing, energetic disorder controlled with obsessive precision.</div>
+      <div class="t-small">No. 10 · Unbounded display · Plus Jakarta Sans body · Gradient mesh bg</div>
+      <div class="t-mono">color_theory = 'throw it out';</div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Buttons</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">GET STARTED</button>
+      <button class="tf-btn tf-btn-secondary">Explore</button>
+      <button class="tf-btn tf-btn-outline">Portfolio</button>
+      <button class="tf-btn tf-btn-ghost">Archive</button>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Cards</div>
+    <div class="tf-cards">
+      <div class="tf-card"><h3><span class="pulse" style="background:#FF0099"></span>ACID CAMPAIGN</h3><p>Full brand identity for a fashion-forward activewear label. Chromatic, kinetic, unapologetic.</p></div>
+      <div class="tf-card"><h3><span class="pulse" style="background:#0099FF"></span>OVERFLOW MOTION</h3><p>Motion design system for a digital-first media company. 60fps, 24/7, zero compromise.</p></div>
+      <div class="tf-card" style="background:var(--color-surface-alt)"><h3><span class="pulse" style="background:#AAFF00"></span>LIME EDITION</h3><p>Limited-edition packaging collaboration. 12 colorways, 3 typographies, 1 week of sleep.</p></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Form Elements</div>
+    <div class="tf-form">
+      <div><label>Project Type</label><input type="text" placeholder="Brand / Motion / Web…"></div>
+      <div><label>Intensity</label><select><option>Maximum Chromatic</option><option>Controlled Chaos</option><option>Barely Legal</option></select></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Badges & Status</div>
+    <div class="tf-badges">
+      <span class="tf-badge tf-badge-primary">HOT</span>
+      <span class="tf-badge tf-badge-success">Live</span>
+      <span class="tf-badge tf-badge-warning">WIP</span>
+      <span class="tf-badge tf-badge-error">Urgent</span>
+      <span class="tf-badge tf-badge-neutral">Archive</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Gradients & Effects</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1">
+        <div class="tile-label">Hero Gradient</div>
+        <div class="tf-gradient-hero"><span>ACID GARDEN</span></div>
+        <div class="tile-value">linear-gradient(135deg, #FFD6EE, #D4EFFF, #E8FFB0) + rainbow border</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Text</div>
+        <div class="tf-gradient-text">OVERFLOW</div>
+        <div class="tile-value">magenta → blue → lime</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Button</div>
+        <button class="tf-btn-gradient">GET STARTED</button>
+        <div class="tile-value">var(--gradient-button)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Multi-Shadow</div>
+        <div class="tf-glow-demo">CHROMATIC IMPACT</div>
+        <div class="tile-value">6px 6px 0 #FF0099, -3px -3px 0 #0099FF</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Color Tint</div>
+        <div class="tf-glass-demo">Mint-green gradient canvas — electric radials of magenta, cyan, and acid lime bleeding through.</div>
+        <div class="tile-value">4-layer radial gradient mesh</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Input Well</div>
+        <div class="tf-inset-demo">project_type: overflow</div>
+        <div class="tile-value">var(--shadow-inset)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Dual Shadow</div>
+        <div style="padding:0.75rem 1rem;background:var(--gradient-button);color:var(--color-text-on-primary);box-shadow:var(--shadow-colored);font-family:var(--font-family-display);font-size:0.72rem;font-weight:700;text-align:center;letter-spacing:0.06em;border-radius:var(--radius-button);">GET STARTED</div>
+        <div class="tile-value">var(--shadow-colored)</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

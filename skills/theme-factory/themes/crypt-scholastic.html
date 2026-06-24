@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="crypt-scholastic">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypt Scholastic — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400&family=Cutive+Mono&display=swap">
+  <script id="theme-data" type="application/json">{
+    "name": "crypt-scholastic",
+    "description": "Dark gothic academic — near-black plum canvas with SVG grain, deep crimson primary, forest green secondary, aged gold accent. Cinzel display + Gentium Plus body. Rare books / esoteric institution.",
+    "createdAt": "2026-06-21T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "noise",
+      "baseColor": "#120A10",
+      "image": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E\")",
+      "size": "256px 256px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "noise",
+      "patternColor": "rgba(139,26,58,0.05)",
+      "patternOpacity": "0.05",
+      "patternSpacing": "none",
+      "notes": "SVG fractalNoise grain on near-black with subtle crimson-purple cast — aged leather binding, dungeon vaults"
+    },
+    "colors": {
+      "primary": "#8B1A3A",
+      "primaryLight": "#2A0A18",
+      "secondary": "#2A5C2A",
+      "accent": "#C8A840",
+      "background": "#120A10",
+      "surface": "#1C1018",
+      "surfaceAlt": "#241420",
+      "text": "#D8C8C0",
+      "textMuted": "#806870",
+      "textOnPrimary": "#F0E8E0",
+      "border": "#3A2030",
+      "success": "#3A6A3A",
+      "warning": "#B89020",
+      "error": "#9A1A2A"
+    },
+    "typography": {
+      "fontFamily": "'Gentium Plus', Georgia, serif",
+      "fontFamilyMono": "'Cutive Mono', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Cinzel', Georgia, serif",
+      "scaleBase": "17px",
+      "headingWeight": "600",
+      "bodyWeight": "400",
+      "lineHeight": "1.75"
+    },
+    "spacing": {
+      "borderRadius": "2px",
+      "cardRadius": "3px",
+      "buttonRadius": "2px",
+      "spaceUnit": "8px",
+      "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 2px 6px rgba(6,2,8,0.8)",
+      "md": "0 4px 18px rgba(6,2,8,0.85)",
+      "lg": "0 8px 36px rgba(6,2,8,0.9)",
+      "xl": "0 16px 52px rgba(6,2,8,0.92)",
+      "colored": "0 0 0 1px var(--color-border)",
+      "inset": "inset 0 2px 6px rgba(6,2,8,0.9)",
+      "elevation": "dramatic"
+    },
+    "gradients": {
+      "hero": "linear-gradient(160deg, #241420 0%, #120A10 55%, #100810 100%)",
+      "card": "linear-gradient(180deg, #1E1018 0%, #180C16 100%)",
+      "button": "linear-gradient(135deg, #A82040 0%, #6A1028 100%)",
+      "text": "linear-gradient(135deg, #E8C860 0%, #C8A840 50%, #A08030 100%)",
+      "accent": "linear-gradient(90deg, #8B1A3A 0%, #2A5C2A 100%)"
+    },
+    "effects": {
+      "luminescence": "subtle",
+      "glowColor": "transparent",
+      "glowBlur": "0",
+      "glowSm": "0 2px 8px rgba(0,0,0,0.15)",
+      "glowMd": "0 4px 20px rgba(0,0,0,0.25)",
+      "glowLg": "0 8px 40px rgba(0,0,0,0.3)",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "linear-gradient(135deg, #8B1A3A, #C8A840, #2A5C2A)",
+      "noiseOpacity": "0.05",
+      "textShadow": "0 0 24px rgba(139,26,58,0.3)",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "150ms",
+      "durationBase": "280ms",
+      "durationSlow": "480ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["gothic", "academic", "esoteric", "antiquarian"],
+      "borderStyle": "hairline",
+      "iconStyle": "sharp",
+      "imageStyle": "illustrative",
+      "surfaceTexture": "noise",
+      "hierarchyClarity": "high",
+      "notes": "Cinzel (Roman classical letterforms) + Gentium Plus (ecumenical scholarly serif). Crimson/forest/gold triad on near-black. Grain texture on dark bg. Crimson glow."
+    }
+  }</script>
+  <style>
+    :root {
+      --color-primary: #8B1A3A;
+      --color-primary-light: #2A0A18;
+      --color-secondary: #2A5C2A;
+      --color-accent: #C8A840;
+      --color-bg: #120A10;
+      --color-surface: #1C1018;
+      --color-surface-alt: #241420;
+      --color-text: #D8C8C0;
+      --color-text-muted: #806870;
+      --color-text-on-primary: #F0E8E0;
+      --color-border: #3A2030;
+      --color-success: #3A6A3A;
+      --color-warning: #B89020;
+      --color-error: #9A1A2A;
+
+      --font-family: 'Gentium Plus', Georgia, serif;
+      --font-family-mono: 'Cutive Mono', 'Courier New', monospace;
+      --font-family-display: 'Cinzel', Georgia, serif;
+
+      --radius-sm: 1px; --radius-md: 2px; --radius-lg: 3px;
+      --radius-xl: 4px; --radius-button: 2px; --radius-card: 3px;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 2px 6px rgba(6,2,8,0.8);
+      --shadow-md: 0 4px 18px rgba(6,2,8,0.85);
+      --shadow-lg: 0 8px 36px rgba(6,2,8,0.9);
+      --shadow-xl: 0 16px 52px rgba(6,2,8,0.92);
+      --shadow-colored: 0 0 0 1px var(--color-border);
+      --shadow-inset: inset 0 2px 6px rgba(6,2,8,0.9);
+
+      --gradient-hero: linear-gradient(160deg, #241420 0%, #120A10 55%, #100810 100%);
+      --gradient-card: linear-gradient(180deg, #1E1018 0%, #180C16 100%);
+      --gradient-button: linear-gradient(135deg, #A82040 0%, #6A1028 100%);
+      --gradient-text: linear-gradient(135deg, #E8C860 0%, #C8A840 50%, #A08030 100%);
+      --gradient-accent: linear-gradient(90deg, #8B1A3A 0%, #2A5C2A 100%);
+      --border-gradient: linear-gradient(135deg, #8B1A3A, #C8A840, #2A5C2A);
+
+      --glow-sm: 0 2px 8px rgba(0,0,0,0.15);
+      --glow-md: 0 4px 20px rgba(0,0,0,0.25);
+      --glow-lg: 0 8px 40px rgba(0,0,0,0.3);
+      --glass-blur: 0; --glass-tint: transparent;
+      --backdrop-filter: none; --noise-opacity: 0.05;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 17px; line-height: 1.75;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      min-height: 100vh;
+    }
+
+    h1,h2,h3,h4 { font-family: var(--font-family-display); letter-spacing: 0.08em; }
+    code, pre { font-family: var(--font-family-mono); }
+
+    .cs-header {
+      background: var(--gradient-hero);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-16) var(--space-8) var(--space-12);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cs-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(139,26,58,0.1) 0%, transparent 60%); pointer-events: none; }
+    .cs-header::after { content: '· ✦ ·'; display: block; font-family: var(--font-family-display); font-size: 0.9rem; color: var(--color-accent); opacity: 0.5; margin-top: var(--space-6); letter-spacing: 0.6em; }
+    .cs-header-tag { font-family: var(--font-family-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-4); display: block; }
+    .cs-header h1 { font-size: clamp(2.4rem, 5vw, 4rem); color: var(--color-text); line-height: 1.1; margin-bottom: var(--space-4); letter-spacing: 0.1em; text-shadow: var(--glow-md); }
+    .cs-header p { font-size: 1rem; color: var(--color-text-muted); max-width: 520px; margin: 0 auto; font-style: italic; }
+
+    .cs-section { padding: var(--space-12) var(--space-8); max-width: 960px; margin: 0 auto; }
+    .cs-section-title { font-family: var(--font-family-display); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--color-text-muted); border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-2); margin-bottom: var(--space-6); }
+
+    .cs-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: var(--space-2); }
+    .cs-swatch { overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
+    .cs-swatch-color { height: 52px; }
+    .cs-swatch-label { font-family: var(--font-family-mono); font-size: 9px; padding: 4px 6px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    .cs-type-stack > * + * { margin-top: var(--space-3); }
+    .cs-display { font-family: var(--font-family-display); font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 600; letter-spacing: 0.1em; color: var(--color-text); line-height: 1.15; }
+    .cs-h2 { font-family: var(--font-family-display); font-size: 1.6rem; font-weight: 600; letter-spacing: 0.08em; }
+    .cs-h3 { font-family: var(--font-family-display); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.08em; }
+    .cs-body { font-size: 1rem; color: var(--color-text); font-style: italic; }
+    .cs-muted { font-size: 0.875rem; color: var(--color-text-muted); }
+    .cs-mono { font-family: var(--font-family-mono); font-size: 0.8rem; color: var(--color-accent); }
+
+    .cs-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .cs-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 11px 24px; border-radius: var(--radius-button);
+      font-family: var(--font-family-display); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; border: none;
+      transition: all 280ms ease;
+    }
+    .cs-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); }
+    .cs-btn-primary:hover { box-shadow: var(--glow-md); }
+    .cs-btn-secondary { background: transparent; color: var(--color-secondary); border: 1px solid var(--color-secondary); }
+    .cs-btn-secondary:hover { background: rgba(42,92,42,0.12); }
+    .cs-btn-outline { background: transparent; color: var(--color-text); border: 1px solid var(--color-border); }
+    .cs-btn-outline:hover { border-color: var(--color-primary); color: var(--color-accent); }
+    .cs-btn-ghost { background: transparent; color: var(--color-text-muted); border: none; }
+    .cs-btn-ghost:hover { color: var(--color-text); }
+
+    .cs-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
+    .cs-card { background: var(--gradient-card); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-6); box-shadow: var(--shadow-md); transition: box-shadow 280ms ease; }
+    .cs-card:hover { box-shadow: var(--shadow-colored); }
+    .cs-card-tag { font-family: var(--font-family-mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent); opacity: 0.8; margin-bottom: var(--space-2); display: block; }
+    .cs-card h3 { font-family: var(--font-family-display); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.08em; color: var(--color-text); margin-bottom: var(--space-3); }
+    .cs-card p { font-size: 0.875rem; color: var(--color-text-muted); font-style: italic; line-height: 1.7; }
+    .cs-card-meta { font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-muted); margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+
+    .cs-form-group { margin-bottom: var(--space-4); }
+    .cs-label { display: block; font-family: var(--font-family-display); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 6px; }
+    .cs-input { width: 100%; padding: 10px 14px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font-family: var(--font-family); font-size: 0.95rem; font-style: italic; transition: border-color 200ms ease, box-shadow 200ms ease; }
+    .cs-input::placeholder { color: var(--color-text-muted); }
+    .cs-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(139,26,58,0.15); }
+    .cs-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+
+    .cs-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .cs-badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: var(--radius-sm); font-family: var(--font-family-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid; }
+    .cs-badge-primary { color: var(--color-accent); border-color: rgba(139,26,58,0.5); background: rgba(139,26,58,0.12); }
+    .cs-badge-secondary { color: var(--color-secondary); border-color: rgba(42,92,42,0.5); background: rgba(42,92,42,0.1); }
+    .cs-badge-success { color: var(--color-success); border-color: rgba(58,106,58,0.5); background: rgba(58,106,58,0.1); }
+    .cs-badge-warning { color: var(--color-warning); border-color: rgba(184,144,32,0.5); background: rgba(184,144,32,0.1); }
+    .cs-badge-error { color: var(--color-error); border-color: rgba(154,26,42,0.5); background: rgba(154,26,42,0.1); }
+
+    .cs-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .cs-effect-tile { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3); min-height: 100px; font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-muted); text-align: center; }
+    .cs-glow-demo { width: 44px; height: 44px; border-radius: 50%; background: var(--color-primary); box-shadow: var(--glow-md); }
+    .cs-gradient-text-demo { font-family: var(--font-family-display); font-size: 1.5rem; font-weight: 600; letter-spacing: 0.1em; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .cs-gradient-bar { height: 6px; border-radius: 2px; background: var(--gradient-accent); width: 100%; }
+    .cs-border-demo { width: 80%; height: 2px; background: var(--border-gradient); }
+  </style>
+</head>
+<body>
+
+  <header class="cs-header">
+    <span class="cs-header-tag">Bibliotheca Obscura · Founded MDCCCXLVII</span>
+    <h1>Crypt Scholastic</h1>
+    <p><em>A library of forbidden knowledge, esoteric manuscripts, and the collected wisdom of the ages — preserved in perpetuity for the advancement of arcane scholarship.</em></p>
+  </header>
+
+  <div class="cs-section">
+    <div class="cs-section-title">Chromatic Register</div>
+    <div class="cs-swatches">
+      <div class="cs-swatch"><div class="cs-swatch-color" style="background:#8B1A3A"></div><div class="cs-swatch-label">Crimson<br>#8B1A3A</div></div>
+      <div class="cs-swatch"><div class="cs-swatch-color" style="background:#2A5C2A"></div><div class="cs-swatch-label">Forest<br>#2A5C2A</div></div>
+      <div class="cs-swatch"><div class="cs-swatch-color" style="background:#C8A840"></div><div class="cs-swatch-label">Gilt<br>#C8A840</div></div>
+      <div class="cs-swatch"><div class="cs-swatch-color" style="background:#120A10"></div><div class="cs-swatch-label">Vault<br>#120A10</div></div>
+      <div class="cs-swatch"><div class="cs-swatch-color" style="background:#1C1018"></div><div class="cs-swatch-label">Leather<br>#1C1018</div></div>
+      <div class="cs-swatch"><div class="cs-swatch-color" style="background:#D8C8C0"></div><div class="cs-swatch-label">Vellum<br>#D8C8C0</div></div>
+      <div class="cs-swatch"><div class="cs-swatch-color" style="background:#3A6A3A"></div><div class="cs-swatch-label">Verdigris<br>#3A6A3A</div></div>
+      <div class="cs-swatch"><div class="cs-swatch-color" style="background:#9A1A2A"></div><div class="cs-swatch-label">Cinnabar<br>#9A1A2A</div></div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="cs-section-title">Typographic Register</div>
+    <div class="cs-type-stack">
+      <div class="cs-display">Cinzel — Arcana Bibliotheca</div>
+      <div class="cs-h2">Manuscript Catalogue H2</div>
+      <div class="cs-h3">Folio Reference Heading H3</div>
+      <div class="cs-body">Gentium Plus italic: The manuscripts of the Bibliotheca Obscura number some four thousand volumes, ranging from medieval alchemical treatises and Hermetic encyclopaedias to nineteenth-century theosophy and the collected field notes of forgotten naturalists who ventured into territories since sealed to scholarship.</div>
+      <div class="cs-muted">Catalogue entry — Shelf XIII, Bay 7 · Accession No. BO-1847-0214</div>
+      <div class="cs-mono">SHELF[XIII.7] folio="Liber_Mutus" date=1677 condition="fair"</div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="cs-section-title">Actions</div>
+    <div class="cs-btn-row">
+      <a href="#" class="cs-btn cs-btn-primary">Request Access</a>
+      <a href="#" class="cs-btn cs-btn-secondary">Browse Archive</a>
+      <a href="#" class="cs-btn cs-btn-outline">Submit Manuscript</a>
+      <a href="#" class="cs-btn cs-btn-ghost">Dismiss</a>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="cs-section-title">Manuscript Catalogue</div>
+    <div class="cs-card-grid">
+      <div class="cs-card">
+        <span class="cs-card-tag">Alchemy · Folio</span>
+        <h3>Liber de Compositione</h3>
+        <p>Anonymous, c. 1310. Latin manuscript on vellum, 84 leaves. Red and blue rubrication. Diagrams of the alchemical apparatus in the margins, hand-drawn in iron gall ink.</p>
+        <div class="cs-card-meta">BO-1847-0012 · Restricted Access</div>
+      </div>
+      <div class="cs-card">
+        <span class="cs-card-tag">Hermeticism · Codex</span>
+        <h3>Tabula Smaragdina</h3>
+        <p>Twelfth-century Latin translation from Arabic. Five variant versions collated. Accompanying commentary by a Benedictine monk of Saint-Denis, identity unknown.</p>
+        <div class="cs-card-meta">BO-1847-0088 · Digitised</div>
+      </div>
+      <div class="cs-card">
+        <span class="cs-card-tag">Astronomy · Quarto</span>
+        <h3>Astronomicon Magnum</h3>
+        <p>Illustrated celestial atlas with astrological correspondences. 47 full-page engravings. Printed Nuremberg, 1544. Marginalia in three hands, including a correction to Ptolemy.</p>
+        <div class="cs-card-meta">BO-1847-0204 · On Display</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="cs-section-title">Access Application</div>
+    <div class="cs-form-grid">
+      <div class="cs-form-group">
+        <label class="cs-label">Scholar Name</label>
+        <input class="cs-input" type="text" placeholder="Dr / Prof / Independent…">
+      </div>
+      <div class="cs-form-group">
+        <label class="cs-label">Institution</label>
+        <input class="cs-input" type="text" placeholder="University or independent">
+      </div>
+      <div class="cs-form-group">
+        <label class="cs-label">Subject of Research</label>
+        <input class="cs-input" type="text" placeholder="Alchemy, Hermeticism…">
+      </div>
+      <div class="cs-form-group">
+        <label class="cs-label">Manuscript Requested</label>
+        <input class="cs-input" type="text" placeholder="Accession number or title">
+      </div>
+    </div>
+    <div class="cs-btn-row">
+      <a href="#" class="cs-btn cs-btn-primary">Submit Application</a>
+      <a href="#" class="cs-btn cs-btn-ghost">Cancel</a>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="cs-section-title">Status Marks</div>
+    <div class="cs-badge-row">
+      <span class="cs-badge cs-badge-primary">Restricted</span>
+      <span class="cs-badge cs-badge-secondary">Verified Scholar</span>
+      <span class="cs-badge cs-badge-success">Catalogued</span>
+      <span class="cs-badge cs-badge-warning">Fragile</span>
+      <span class="cs-badge cs-badge-error">Lost</span>
+    </div>
+  </div>
+
+  <div class="cs-section">
+    <div class="cs-section-title">Gradients & Effects</div>
+    <div class="cs-effects-grid">
+      <div class="cs-effect-tile"><div class="cs-glow-demo"></div><span>Crimson Lumière</span></div>
+      <div class="cs-effect-tile"><div class="cs-gradient-text-demo">Aurum</div><span>Gilt Text</span></div>
+      <div class="cs-effect-tile"><div class="cs-gradient-bar"></div><span>Crimson→Forest</span></div>
+      <div class="cs-effect-tile"><div class="cs-border-demo"></div><span>Tricolour Border</span></div>
+    </div>
+  </div>
+
+</body>
+</html>

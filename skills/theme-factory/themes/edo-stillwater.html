@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="edo-stillwater">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: edo-stillwater</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Shippori+Mincho+B1:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "edo-stillwater",
+    "description": "Formal Ukiyo-e woodblock — Prussian blue (gunjō) ink on cool washi paper, celadon jade accent. Cormorant Garamond hierarchy, flat ink silhouette aesthetic. Hiroshige stillness, misty mountain calm.",
+    "createdAt": "2026-06-23T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#EAECF0",
+      "image": "repeating-linear-gradient(transparent 0px, transparent 23px, rgba(90,136,120,0.16) 23px, rgba(90,136,120,0.16) 24px), repeating-linear-gradient(90deg, transparent 0px, transparent 71px, rgba(90,136,120,0.08) 71px, rgba(90,136,120,0.08) 72px)",
+      "size": "auto",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "washi-laid",
+      "patternColor": "rgba(90,136,120,0.16)",
+      "patternOpacity": "0.10",
+      "patternSpacing": "24px laid / 72px chain",
+      "notes": "Washi kozo paper: horizontal laid lines every 24px + vertical chain lines every 72px — the bamboo mold impression of real handmade Japanese paper"
+    },
+    "colors": {
+      "primary": "#2B4F7A",
+      "primaryLight": "#D0D9E8",
+      "secondary": "#4A6E9A",
+      "accent": "#5A8878",
+      "background": "#EAECF0",
+      "surface": "#F4F5F7",
+      "surfaceAlt": "#E0E3E9",
+      "text": "#1A2030",
+      "textMuted": "#5A6880",
+      "textOnPrimary": "#EBF0F8",
+      "border": "#C4C8D4",
+      "success": "#4A7A60",
+      "warning": "#8A6030",
+      "error": "#8A3030"
+    },
+    "typography": {
+      "fontFamily": "'Libre Baskerville', Georgia, serif",
+      "fontFamilyMono": "'Courier Prime', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Cormorant Garamond', Georgia, serif",
+      "scaleBase": "16px",
+      "headingWeight": "600",
+      "bodyWeight": "400",
+      "lineHeight": "1.72"
+    },
+    "spacing": {
+      "borderRadius": "2px",
+      "cardRadius": "3px",
+      "buttonRadius": "2px",
+      "spaceUnit": "8px",
+      "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 1px 3px rgba(26,32,48,0.10)",
+      "md": "0 2px 8px rgba(26,32,48,0.12)",
+      "lg": "0 4px 16px rgba(26,32,48,0.15)",
+      "xl": "0 8px 32px rgba(26,32,48,0.18)",
+      "colored": "0 2px 12px rgba(43,79,122,0.22)",
+      "inset": "inset 0 1px 4px rgba(26,32,48,0.12)",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "linear-gradient(180deg, #1E3A5F 0%, #2B4F7A 50%, #3A6490 100%)",
+      "card": "none",
+      "button": "linear-gradient(180deg, #3A6490 0%, #2B4F7A 100%)",
+      "text": "linear-gradient(135deg, #2B4F7A 0%, #5A8878 100%)",
+      "accent": "linear-gradient(90deg, #2B4F7A 0%, #5A8878 100%)"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#2B4F7A",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "none",
+      "noiseOpacity": "0",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "180ms",
+      "durationBase": "320ms",
+      "durationSlow": "500ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["formal", "serene", "restrained", "classical"],
+      "borderStyle": "subtle",
+      "iconStyle": "sharp",
+      "imageStyle": "illustrative",
+      "surfaceTexture": "flat",
+      "hierarchyClarity": "high",
+      "notes": "Prussian blue (gunjō) anchors the palette — the defining imported pigment of Ukiyo-e. Celadon jade (seiheki) as a restrained counterpoint. Zero glow or glass. Woodblock flatness. Background is kozo washi paper: laid lines + chain lines from the bamboo mold. Cormorant Garamond display in italic light weight evokes calligraphic brush quality."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #EAECF0;
+      /* Washi kozo paper: horizontal laid lines every 24px + vertical chain lines every 72px */
+      --bg-image:
+        repeating-linear-gradient(
+          transparent 0px, transparent 23px,
+          rgba(90,136,120,0.16) 23px, rgba(90,136,120,0.16) 24px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px, transparent 71px,
+          rgba(90,136,120,0.08) 71px, rgba(90,136,120,0.08) 72px
+        );
+      --bg-size: auto;
+      --bg-position: 0 0;
+      --bg-repeat: repeat;
+
+      --color-primary: #2B4F7A;
+      --color-primary-light: #D0D9E8;
+      --color-secondary: #4A6E9A;
+      --color-accent: #5A8878;
+      --color-bg: #EAECF0;
+      --color-surface: #F4F5F7;
+      --color-surface-alt: #E0E3E9;
+      --color-text: #1A2030;
+      --color-text-muted: #5A6880;
+      --color-text-on-primary: #EBF0F8;
+      --color-border: #C4C8D4;
+      --color-success: #4A7A60;
+      --color-warning: #8A6030;
+      --color-error: #8A3030;
+
+      --font-family: 'Libre Baskerville', Georgia, serif;
+      --font-family-mono: 'Courier Prime', 'Courier New', monospace;
+      --font-family-display: 'Cormorant Garamond', Georgia, serif;
+      --font-family-jp: 'Shippori Mincho B1', 'Hiragino Mincho Pro', serif;
+      --font-size-base: 16px;
+      --font-weight-heading: 600;
+      --font-weight-body: 400;
+      --line-height: 1.72;
+
+      --radius: 2px;
+      --radius-card: 3px;
+      --radius-button: 2px;
+
+      --shadow-sm: 0 1px 3px rgba(26,32,48,0.10);
+      --shadow-md: 0 2px 8px rgba(26,32,48,0.12);
+      --shadow-lg: 0 4px 16px rgba(26,32,48,0.15);
+      --shadow-xl: 0 8px 32px rgba(26,32,48,0.18);
+      --shadow-colored: 0 2px 12px rgba(43,79,122,0.22);
+      --shadow-inset: inset 0 1px 4px rgba(26,32,48,0.12);
+
+      --gradient-hero: linear-gradient(180deg, #1E3A5F 0%, #2B4F7A 50%, #3A6490 100%);
+      --gradient-card: none;
+      --gradient-button: linear-gradient(180deg, #3A6490 0%, #2B4F7A 100%);
+      --gradient-text: linear-gradient(135deg, #2B4F7A 0%, #5A8878 100%);
+      --gradient-accent: linear-gradient(90deg, #2B4F7A 0%, #5A8878 100%);
+
+      --glow-color: #2B4F7A;
+      --glow-sm: none;
+      --glow-md: none;
+      --glow-lg: none;
+      --glass-blur: 0;
+      --glass-tint: none;
+      --backdrop-filter: none;
+      --text-shadow: none;
+      --border-gradient: none;
+      --noise-opacity: 0;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px;
+      --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 180ms; --duration-base: 320ms; --duration-slow: 500ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1);
+      --border-width: 1px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      padding: 2.5rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .tf-header {
+      background: var(--gradient-hero);
+      color: var(--color-text-on-primary);
+      border-radius: var(--radius-card);
+      padding: 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(235,240,248,0.08);
+    }
+
+    .tf-header-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tf-header-tag {
+      font-family: var(--font-family-mono);
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(235,240,248,0.55);
+      border: 1px solid rgba(235,240,248,0.18);
+      padding: 0.2rem 0.65rem;
+      border-radius: 1px;
+    }
+
+    .tf-header h1 {
+      font-family: var(--font-family-display);
+      font-size: 3rem;
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.35rem;
+      line-height: 1.15;
+    }
+
+    .tf-header .header-jp {
+      font-family: var(--font-family-jp);
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(235,240,248,0.4);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.7rem;
+    }
+
+    .tf-header p {
+      opacity: 0.45;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      font-family: var(--font-family-mono);
+    }
+
+    /* ── Washi texture demo strip ── */
+    .washi-demo {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .washi-strip {
+      height: 80px;
+      background-color: var(--bg-base);
+      background-image:
+        repeating-linear-gradient(
+          transparent 0px, transparent 23px,
+          rgba(90,136,120,0.16) 23px, rgba(90,136,120,0.16) 24px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px, transparent 71px,
+          rgba(90,136,120,0.08) 71px, rgba(90,136,120,0.08) 72px
+        );
+      position: relative;
+    }
+
+    /* Annotation arrows showing the two line systems */
+    .washi-strip::before {
+      content: '← 72px chain line →';
+      position: absolute;
+      top: 8px;
+      left: 74px;
+      font-family: var(--font-family-mono);
+      font-size: 0.55rem;
+      color: rgba(43,79,122,0.45);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    .washi-strip::after {
+      content: '↕ 24px laid line';
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      font-family: var(--font-family-mono);
+      font-size: 0.55rem;
+      color: rgba(43,79,122,0.45);
+      letter-spacing: 0.06em;
+    }
+
+    .washi-label {
+      background: var(--color-surface);
+      padding: 0.55rem 1rem;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .washi-label-jp {
+      font-family: var(--font-family-jp);
+      font-size: 0.82rem;
+      color: var(--color-text);
+      letter-spacing: 0.1em;
+    }
+
+    .washi-label-en {
+      font-family: var(--font-family-mono);
+      font-size: 0.6rem;
+      color: var(--color-text-muted);
+      opacity: 0.65;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Ink divider ── */
+    .ink-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 2rem 0 1.75rem;
+    }
+
+    .ink-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+
+    .ink-divider-wave {
+      flex-shrink: 0;
+    }
+
+    /* ── Sections ── */
+    .tf-section { margin-bottom: 2.5rem; }
+
+    .tf-section-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--color-border);
+      font-family: var(--font-family-mono);
+    }
+
+    /* ── Ukiyo-e Ink Block Palette — flat woodblock blocks ── */
+    .ukiyo-palette {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 700px) {
+      .ukiyo-palette { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .ukiyo-block { position: relative; }
+
+    .ukiyo-ink {
+      height: 88px;
+      width: 100%;
+      border-right: 1px solid rgba(26,32,48,0.14);
+      border-bottom: 1px solid rgba(26,32,48,0.1);
+    }
+
+    .ukiyo-label {
+      padding: 0.5rem 0.6rem 0.55rem;
+      background: var(--color-surface);
+      border-right: 1px solid var(--color-border);
+      border-top: 1px solid rgba(26,32,48,0.08);
+    }
+
+    .ukiyo-jp {
+      font-family: var(--font-family-jp);
+      font-size: 0.78rem;
+      color: var(--color-text);
+      display: block;
+      margin-bottom: 0.1rem;
+      letter-spacing: 0.06em;
+    }
+
+    .ukiyo-en {
+      font-family: var(--font-family-mono);
+      font-size: 0.56rem;
+      color: var(--color-text-muted);
+      opacity: 0.7;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Standard swatches ── */
+    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 0.75rem; }
+    .tf-swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .tf-swatch-color { height: 58px; width: 100%; }
+    .tf-swatch-label { background: var(--color-surface); padding: 0.4rem 0.5rem; font-size: 0.65rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.72rem; margin-bottom: 0.1rem; }
+
+    /* ── Typography ── */
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.8rem; }
+
+    .tf-type-scale .t-h1 {
+      font-size: 3rem;
+      font-weight: 300;
+      font-style: italic;
+      font-family: var(--font-family-display);
+      line-height: 1.12;
+      color: var(--color-primary);
+    }
+
+    .tf-type-scale .t-h1-jp {
+      font-family: var(--font-family-jp);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--color-text-muted);
+      letter-spacing: 0.2em;
+    }
+
+    .tf-type-scale .t-h2 {
+      font-size: 1.85rem;
+      font-weight: 600;
+      font-family: var(--font-family-display);
+      letter-spacing: 0.01em;
+    }
+
+    .tf-type-scale .t-h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: var(--font-family);
+      letter-spacing: 0.04em;
+    }
+
+    .tf-type-scale .t-body {
+      font-size: 1rem;
+      line-height: var(--line-height);
+      max-width: 620px;
+    }
+
+    .tf-type-scale .t-small {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .tf-type-scale .t-mono {
+      font-family: var(--font-family-mono);
+      font-size: 0.85rem;
+      background: var(--color-surface-alt);
+      padding: 0.35rem 0.7rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      box-shadow: var(--shadow-inset);
+      display: inline-block;
+    }
+
+    /* ── Buttons ── */
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+
+    .tf-btn {
+      padding: 0.55rem 1.6rem;
+      border-radius: var(--radius-button);
+      font-family: var(--font-family-mono);
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: all var(--duration-fast) var(--easing);
+    }
+
+    .tf-btn:hover { opacity: 0.82; }
+
+    .tf-btn-primary {
+      background: var(--gradient-button);
+      color: var(--color-text-on-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tf-btn-secondary {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+    }
+
+    .tf-btn-outline {
+      background: transparent;
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent);
+    }
+
+    .tf-btn-ghost {
+      background: var(--color-surface-alt);
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+    }
+
+    /* ── Cards ── */
+    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
+
+    .tf-card {
+      /* 3 wave lines — different wavelengths (80, 60, 120px) + different phase offsets so crests never align */
+      background-color: var(--color-surface);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='72'%3E%3Cpath d='M0,12 C20,3 60,21 80,12 C100,3 140,21 160,12 C180,3 220,21 240,12' stroke='rgba(43,79,122,0.10)' stroke-width='1' fill='none'/%3E%3Cpath d='M0,36 C15,44 45,44 60,36 C75,28 105,28 120,36 C135,44 165,44 180,36 C195,28 225,28 240,36' stroke='rgba(43,79,122,0.10)' stroke-width='1' fill='none'/%3E%3Cpath d='M0,60 C30,67 90,53 120,60 C150,67 210,53 240,60' stroke='rgba(43,79,122,0.10)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+      background-size: 240px 72px;
+      background-repeat: repeat;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .tf-card.alt {
+      background-color: var(--color-surface-alt);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='72'%3E%3Cpath d='M0,12 C20,3 60,21 80,12 C100,3 140,21 160,12 C180,3 220,21 240,12' stroke='rgba(43,79,122,0.14)' stroke-width='1' fill='none'/%3E%3Cpath d='M0,36 C15,44 45,44 60,36 C75,28 105,28 120,36 C135,44 165,44 180,36 C195,28 225,28 240,36' stroke='rgba(43,79,122,0.14)' stroke-width='1' fill='none'/%3E%3Cpath d='M0,60 C30,67 90,53 120,60 C150,67 210,53 240,60' stroke='rgba(43,79,122,0.14)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+      background-size: 240px 72px;
+      background-repeat: repeat;
+    }
+
+    /* Left register bar — woodblock colour registration mark */
+    .tf-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 20px; bottom: 20px;
+      width: 2px;
+      background: var(--color-primary);
+      border-radius: 0 1px 1px 0;
+      opacity: 0.45;
+    }
+
+    .tf-card.alt::before { background: var(--color-accent); opacity: 0.55; }
+
+    .tf-card h3 {
+      font-family: var(--font-family-display);
+      font-size: 1.12rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-primary);
+    }
+
+    .tf-card p { color: var(--color-text-muted); font-size: 0.88rem; line-height: 1.7; }
+
+    /* ── Form ── */
+    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; }
+
+    .tf-form label {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--color-text-muted);
+      margin-bottom: 0.3rem;
+      display: block;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--font-family-mono);
+    }
+
+    .tf-form input, .tf-form select {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface);
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color var(--duration-fast) var(--easing);
+      box-shadow: var(--shadow-inset);
+    }
+
+    .tf-form input:focus, .tf-form select:focus {
+      border-color: var(--color-primary);
+    }
+
+    /* ── Badges ── */
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .tf-badge {
+      padding: 0.2rem 0.85rem;
+      border-radius: 1px;
+      font-size: 0.68rem;
+      font-weight: 400;
+      font-family: var(--font-family-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .tf-badge-primary { background: var(--color-primary-light); color: var(--color-primary); border: 1px solid rgba(43,79,122,0.18); }
+    .tf-badge-success { background: rgba(74,122,96,0.1); color: var(--color-success); border: 1px solid rgba(74,122,96,0.22); }
+    .tf-badge-warning { background: rgba(138,96,48,0.09); color: var(--color-warning); border: 1px solid rgba(138,96,48,0.2); }
+    .tf-badge-error   { background: rgba(138,48,48,0.09); color: var(--color-error);   border: 1px solid rgba(138,48,48,0.2); }
+    .tf-badge-neutral { background: var(--color-surface-alt); color: var(--color-text-muted); border: 1px solid var(--color-border); }
+
+    /* ── Effects ── */
+    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+
+    .tf-effect-tile {
+      border-radius: var(--radius-card);
+      padding: 1.25rem;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .tf-effect-tile .tile-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-family: var(--font-family-mono);
+    }
+
+    .tf-effect-tile .tile-value {
+      font-size: 0.68rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-family-mono);
+      word-break: break-all;
+      opacity: 0.65;
+    }
+
+    .tf-gradient-hero {
+      height: 80px;
+      border-radius: var(--radius-card);
+      background: var(--gradient-hero);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-on-primary);
+      font-family: var(--font-family-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+    }
+
+    .tf-gradient-text {
+      font-size: 1.65rem;
+      font-weight: 600;
+      font-style: italic;
+      font-family: var(--font-family-display);
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .tf-btn-gradient {
+      background: var(--gradient-button);
+      color: var(--color-text-on-primary);
+      box-shadow: var(--shadow-colored);
+      font-family: var(--font-family-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-button);
+      cursor: pointer;
+      width: 100%;
+      transition: opacity var(--duration-fast) var(--easing);
+    }
+
+    .tf-btn-gradient:hover { opacity: 0.85; }
+
+    .tf-glow-demo {
+      background: var(--color-surface);
+      border-radius: var(--radius-card);
+      padding: 1rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--color-border);
+      font-weight: 600;
+      color: var(--color-primary);
+      font-family: var(--font-family-display);
+      font-style: italic;
+      font-size: 1rem;
+    }
+
+    .tf-glass-demo {
+      border-radius: var(--radius-card);
+      padding: 1rem 1.5rem;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    .tf-inset-demo {
+      background: var(--color-surface-alt);
+      border-radius: var(--radius);
+      padding: 0.6rem 1rem;
+      box-shadow: var(--shadow-inset);
+      border: 1px solid var(--color-border);
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-family-mono);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <div class="tf-header">
+    <div class="tf-header-tags">
+      <span class="tf-header-tag">Formal · Cool</span>
+      <span class="tf-header-tag">Ukiyo-e</span>
+    </div>
+    <h1>Edo Stillwater</h1>
+    <div class="header-jp">浮世絵の静水</div>
+    <p>Prussian blue · Cool washi · Celadon jade · Flat ink</p>
+  </div>
+
+  <!-- ── Washi Paper Background Texture ── -->
+  <div class="tf-section">
+    <div class="tf-section-title">Background Texture — 和紙 Washi Kozo Paper</div>
+    <div class="washi-demo">
+      <div class="washi-strip"></div>
+      <div class="washi-label">
+        <span class="washi-label-jp">楮紙 · 横簀目 · 縦鎖目</span>
+        <span class="washi-label-en">Kozo paper · Horizontal laid lines 24px · Vertical chain lines 72px — the bamboo mold impression</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Ukiyo-e Ink Block Palette ── -->
+  <div class="tf-section">
+    <div class="tf-section-title">Traditional Palette — 江戸色 Edo Color Names</div>
+    <div class="ukiyo-palette">
+      <div class="ukiyo-block">
+        <div class="ukiyo-ink" style="background:#2B4F7A"></div>
+        <div class="ukiyo-label">
+          <span class="ukiyo-jp">群青 Gunjō</span>
+          <span class="ukiyo-en">#2B4F7A · Primary</span>
+        </div>
+      </div>
+      <div class="ukiyo-block">
+        <div class="ukiyo-ink" style="background:#4A6E9A"></div>
+        <div class="ukiyo-label">
+          <span class="ukiyo-jp">縹 Hanada</span>
+          <span class="ukiyo-en">#4A6E9A · Secondary</span>
+        </div>
+      </div>
+      <div class="ukiyo-block">
+        <div class="ukiyo-ink" style="background:#5A8878"></div>
+        <div class="ukiyo-label">
+          <span class="ukiyo-jp">青碧 Seiheki</span>
+          <span class="ukiyo-en">#5A8878 · Accent</span>
+        </div>
+      </div>
+      <div class="ukiyo-block">
+        <div class="ukiyo-ink" style="background:#EAECF0; border-bottom:1px solid #C4C8D4"></div>
+        <div class="ukiyo-label">
+          <span class="ukiyo-jp">白練 Shironeri</span>
+          <span class="ukiyo-en">#EAECF0 · Background</span>
+        </div>
+      </div>
+      <div class="ukiyo-block">
+        <div class="ukiyo-ink" style="background:#1A2030"></div>
+        <div class="ukiyo-label">
+          <span class="ukiyo-jp">墨 Sumi</span>
+          <span class="ukiyo-en">#1A2030 · Text</span>
+        </div>
+      </div>
+      <div class="ukiyo-block">
+        <div class="ukiyo-ink" style="background:#4A7A60"></div>
+        <div class="ukiyo-label">
+          <span class="ukiyo-jp">若竹 Wakatake</span>
+          <span class="ukiyo-en">#4A7A60 · Success</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Color Swatches ── -->
+  <div class="tf-section">
+    <div class="tf-section-title">Color Palette</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary)"></div><div class="tf-swatch-label"><strong>primary</strong>#2B4F7A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary-light)"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#D0D9E8</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-secondary)"></div><div class="tf-swatch-label"><strong>secondary</strong>#4A6E9A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-accent)"></div><div class="tf-swatch-label"><strong>accent</strong>#5A8878</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-bg); border:1px solid #C4C8D4"></div><div class="tf-swatch-label"><strong>background</strong>#EAECF0</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface)"></div><div class="tf-swatch-label"><strong>surface</strong>#F4F5F7</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface-alt)"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#E0E3E9</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text)"></div><div class="tf-swatch-label"><strong>text</strong>#1A2030</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text-muted)"></div><div class="tf-swatch-label"><strong>textMuted</strong>#5A6880</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-border)"></div><div class="tf-swatch-label"><strong>border</strong>#C4C8D4</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-success)"></div><div class="tf-swatch-label"><strong>success</strong>#4A7A60</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-warning)"></div><div class="tf-swatch-label"><strong>warning</strong>#8A6030</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-error)"></div><div class="tf-swatch-label"><strong>error</strong>#8A3030</div></div>
+    </div>
+  </div>
+
+  <!-- Wave divider -->
+  <div class="ink-divider">
+    <div class="ink-divider-line"></div>
+    <div class="ink-divider-wave">
+      <svg width="80" height="14" viewBox="0 0 80 14" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,10 Q10,2 20,10 Q30,2 40,10 Q50,2 60,10 Q70,2 80,10" stroke="#C4C8D4" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+    <div class="ink-divider-line"></div>
+  </div>
+
+  <!-- ── Typography ── -->
+  <div class="tf-section">
+    <div class="tf-section-title">Typography</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">Edo Stillwater</div>
+      <div class="t-h1-jp">浮世絵の静水 · The Floating World</div>
+      <div class="t-h2">Hiroshige's Calm Shore</div>
+      <div class="t-h3">Edo Period Formal Composition</div>
+      <div class="t-body">The Ukiyo-e tradition demands restraint. Each line serves the whole; no element exceeds its station. Calm is not the absence of form but its perfect equilibrium — achieved through discipline, not decoration. Prussian blue arrived in Japan around 1820 and Hiroshige made it stillness itself.</div>
+      <div class="t-small">Small label · Captions and marginalia of the floating world</div>
+      <div class="t-mono">const gunjō = "#2B4F7A"; // 群青 — Prussian Blue</div>
+    </div>
+  </div>
+
+  <!-- Wave divider -->
+  <div class="ink-divider">
+    <div class="ink-divider-line"></div>
+    <div class="ink-divider-wave">
+      <svg width="80" height="14" viewBox="0 0 80 14" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,10 Q10,2 20,10 Q30,2 40,10 Q50,2 60,10 Q70,2 80,10" stroke="#C4C8D4" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+    <div class="ink-divider-line"></div>
+  </div>
+
+  <!-- ── Buttons ── -->
+  <div class="tf-section">
+    <div class="tf-section-title">Buttons</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">Primary Action</button>
+      <button class="tf-btn tf-btn-secondary">Secondary</button>
+      <button class="tf-btn tf-btn-outline">Celadon</button>
+      <button class="tf-btn tf-btn-ghost">Ghost</button>
+    </div>
+  </div>
+
+  <!-- ── Cards ── -->
+  <div class="tf-section">
+    <div class="tf-section-title">Cards</div>
+    <div class="tf-cards">
+      <div class="tf-card">
+        <h3>群青 Prussian Blue</h3>
+        <p>Gunjō — the imported pigment that redefined Ukiyo-e from 1820. Hiroshige and Hokusai built entire worlds from this single cool hue on washi paper.</p>
+      </div>
+      <div class="tf-card">
+        <h3>Flat Ink Composition</h3>
+        <p>No shadows in the image space. Woodblock enforces a single flat layer — depth through arrangement and line weight, not illusion.</p>
+      </div>
+      <div class="tf-card alt">
+        <h3>青碧 Celadon Register</h3>
+        <p>Seiheki — the cool jade of Edo ceramics. A restrained counterpoint to the dominant blue, never louder than the ink that contains it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Form Elements ── -->
+  <div class="tf-section">
+    <div class="tf-section-title">Form Elements</div>
+    <div class="tf-form">
+      <div><label>Ink Name</label><input type="text" placeholder="e.g. Prussian Blue, 群青…"></div>
+      <div><label>Period</label>
+        <select>
+          <option>Early Edo 1600–1700</option>
+          <option selected>Mid Edo 1700–1800</option>
+          <option>Late Edo 1800–1868</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Badges ── -->
+  <div class="tf-section">
+    <div class="tf-section-title">Badges &amp; Status</div>
+    <div class="tf-badges">
+      <span class="tf-badge tf-badge-primary">群青 Gunjō</span>
+      <span class="tf-badge tf-badge-success">若竹 Wakatake</span>
+      <span class="tf-badge tf-badge-warning">金茶 Kincha</span>
+      <span class="tf-badge tf-badge-error">紅 Beni</span>
+      <span class="tf-badge tf-badge-neutral">墨 Sumi</span>
+    </div>
+  </div>
+
+  <!-- ── Effects ── -->
+  <div class="tf-section">
+    <div class="tf-section-title">Gradients &amp; Effects</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1">
+        <div class="tile-label">Hero — Bokashi Gradated Wash</div>
+        <div class="tf-gradient-hero">暈し — Bokashi · Graded ink wash</div>
+        <div class="tile-value">linear-gradient(180deg, #1E3A5F 0%, #2B4F7A 50%, #3A6490 100%)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Text</div>
+        <div class="tf-gradient-text">Stillwater</div>
+        <div class="tile-value">var(--gradient-text)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Button</div>
+        <button class="tf-btn-gradient">Execute</button>
+        <div class="tile-value">var(--gradient-button)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Shadow — Ink Depth</div>
+        <div class="tf-glow-demo">Ink Depth</div>
+        <div class="tile-value">subtle shadow · no glow · no glass</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Surface Alt</div>
+        <div class="tf-glass-demo">Cool washi panel — flat, no glass</div>
+        <div class="tile-value">var(--color-surface-alt)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Inset — Inkwell</div>
+        <div class="tf-inset-demo">inkwell.depth()</div>
+        <div class="tile-value">var(--shadow-inset)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Colored Shadow</div>
+        <div style="padding:0.75rem 1rem;border-radius:var(--radius-card);background:var(--color-primary);color:var(--color-text-on-primary);box-shadow:var(--shadow-colored);font-weight:600;font-size:0.8rem;text-align:center;font-family:var(--font-family-mono);letter-spacing:0.08em">群青 Gunjō Block</div>
+        <div class="tile-value">var(--shadow-colored)</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

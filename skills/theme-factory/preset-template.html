@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="<name>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: <name></title>
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "<name>",
+    "description": "<description>",
+    "createdAt": "<ISO timestamp>",
+    "source": "<screenshot | html | text>",
+    "sourceFile": "<original path or empty string>",
+    "background": {
+      "type": "<solid | gradient | pattern | image | noise>",
+      "baseColor": "<hex>",
+      "image": "<CSS background-image value or 'none'>",
+      "size": "<CSS background-size or 'auto'>",
+      "position": "<CSS background-position or '0 0'>",
+      "repeat": "<CSS background-repeat or 'repeat'>",
+      "patternType": "<none | lines-h | lines-v | grid | dot-grid | crosshatch | stripes | noise | paper | blueprint | other>",
+      "patternColor": "<hex or rgba>",
+      "patternOpacity": "<0–1>",
+      "patternSpacing": "<Npx>",
+      "notes": "<anything distinctive>"
+    },
+    "colors": {
+      "primary": "<hex>", "primaryLight": "<hex>", "secondary": "<hex>", "accent": "<hex>",
+      "background": "<hex>", "surface": "<hex>", "surfaceAlt": "<hex>",
+      "text": "<hex>", "textMuted": "<hex>", "textOnPrimary": "<hex>",
+      "border": "<hex>", "success": "<hex>", "warning": "<hex>", "error": "<hex>"
+    },
+    "typography": {
+      "fontFamily": "<stack>", "fontFamilyMono": "<mono stack>", "fontFamilyDisplay": "<display stack>",
+      "scaleBase": "16px", "headingWeight": "<700>", "bodyWeight": "<400>", "lineHeight": "<1.5>"
+    },
+    "spacing": {
+      "borderRadius": "<Npx>", "cardRadius": "<Npx>", "buttonRadius": "<Npx>",
+      "spaceUnit": "<Npx>", "density": "<compact | comfortable | spacious>"
+    },
+    "shadows": {
+      "sm": "<value>", "md": "<value>", "lg": "<value>", "xl": "<value>",
+      "colored": "<value or 'none'>", "inset": "<value or 'none'>",
+      "elevation": "<flat | subtle | layered | dramatic | floating>"
+    },
+    "gradients": {
+      "hero": "<CSS gradient or 'none'>", "card": "<CSS gradient or 'none'>",
+      "button": "<CSS gradient or 'none'>", "text": "<CSS gradient or 'none'>",
+      "accent": "<CSS gradient or 'none'>"
+    },
+    "effects": {
+      "luminescence": "<none | subtle | medium | strong>",
+      "glowColor": "<hex>", "glowBlur": "<Npx>",
+      "glowSm": "<box-shadow or 'none'>", "glowMd": "<box-shadow or 'none'>", "glowLg": "<box-shadow or 'none'>",
+      "glassBlur": "<Npx or 0>", "glassTint": "<rgba or 'none'>",
+      "gradientBorder": "<CSS gradient or 'none'>", "noiseOpacity": "<0–1>",
+      "textShadow": "<CSS value or 'none'>", "backdropFilter": "<value or 'none'>"
+    },
+    "motion": {
+      "durationFast": "<ms>", "durationBase": "<ms>", "durationSlow": "<ms>",
+      "easing": "<CSS easing>", "feel": "<instant | subtle | expressive>"
+    },
+    "design": {
+      "aesthetic": "<minimal | corporate | editorial | playful | technical | brutalist | glassmorphism | neumorphic | material | flat>",
+      "personality": ["<tag>", "<tag>"],
+      "borderStyle": "<none | hairline | subtle | bold>",
+      "iconStyle": "<outlined | filled | rounded | sharp | duotone | unknown>",
+      "imageStyle": "<photographic | illustrative | abstract | none | unknown>",
+      "surfaceTexture": "<flat | frosted | gradient | noise | none>",
+      "hierarchyClarity": "<low | medium | high>",
+      "notes": "<free text>"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: <hex>; --bg-image: <CSS bg-image or none>; --bg-size: <size or auto>;
+      --bg-position: <position or 0 0>; --bg-repeat: <repeat>;
+
+      --color-primary: <hex>; --color-primary-light: <hex>; --color-secondary: <hex>; --color-accent: <hex>;
+      --color-bg: <hex>; --color-surface: <hex>; --color-surface-alt: <hex>;
+      --color-text: <hex>; --color-text-muted: <hex>; --color-text-on-primary: <hex>;
+      --color-border: <hex>; --color-success: <hex>; --color-warning: <hex>; --color-error: <hex>;
+
+      --font-family: <stack>; --font-family-mono: <mono>; --font-family-display: <display>;
+      --font-size-base: 16px; --font-weight-heading: <700>; --font-weight-body: <400>; --line-height: <1.6>;
+
+      --radius: <Npx>; --radius-card: <Npx>; --radius-button: <Npx>;
+
+      --shadow-sm: <value>; --shadow-md: <value>; --shadow-lg: <value>; --shadow-xl: <value>;
+      --shadow-colored: <value or none>; --shadow-inset: <value or none>;
+
+      --gradient-hero: <value or none>; --gradient-card: <value or none>;
+      --gradient-button: <value or none>; --gradient-text: <value or none>; --gradient-accent: <value or none>;
+
+      --glow-color: <hex>; --glow-sm: <value or none>; --glow-md: <value or none>; --glow-lg: <value or none>;
+      --glass-blur: <Npx>; --glass-tint: <rgba or none>;
+      --backdrop-filter: <value or none>; --text-shadow: <value or none>;
+      --border-gradient: <value or none>; --noise-opacity: <0–1>;
+
+      --space-1: <v>; --space-2: <v>; --space-3: <v>;
+      --space-4: <v>; --space-6: <v>; --space-8: <v>;
+      --duration-fast: <ms>; --duration-base: <ms>; --duration-slow: <ms>;
+      --easing: <CSS easing>; --border-width: <px>;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base, var(--color-bg));
+      background-image: var(--bg-image, none);
+      background-size: var(--bg-size, auto);
+      background-position: var(--bg-position, 0 0);
+      background-repeat: var(--bg-repeat, repeat);
+      color: var(--color-text); font-family: var(--font-family);
+      font-size: var(--font-size-base); line-height: var(--line-height);
+      padding: 2rem; max-width: 900px; margin: 0 auto;
+    }
+
+    .tf-header { background: var(--color-primary); color: var(--color-text-on-primary); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md); }
+    .tf-header h1 { font-family: var(--font-family-display); font-size: 2rem; font-weight: var(--font-weight-heading); margin-bottom: 0.25rem; }
+    .tf-header p { opacity: 0.85; font-size: 0.9rem; }
+
+    .tf-section { margin-bottom: 2rem; }
+    .tf-section-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border); }
+
+    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; }
+    .tf-swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .tf-swatch-color { height: 64px; width: 100%; }
+    .tf-swatch-label { background: var(--color-surface); padding: 0.4rem 0.5rem; font-size: 0.7rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.75rem; margin-bottom: 0.1rem; }
+
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.5rem; }
+    .tf-type-scale .t-h1 { font-size: 2.5rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); }
+    .tf-type-scale .t-h2 { font-size: 1.75rem; font-weight: var(--font-weight-heading); }
+    .tf-type-scale .t-h3 { font-size: 1.25rem; font-weight: var(--font-weight-heading); }
+    .tf-type-scale .t-body { font-size: 1rem; }
+    .tf-type-scale .t-small { font-size: 0.85rem; color: var(--color-text-muted); }
+    .tf-type-scale .t-mono { font-family: var(--font-family-mono); font-size: 0.9rem; background: var(--color-surface-alt); padding: 0.25rem 0.5rem; border-radius: var(--radius); }
+
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .tf-btn { padding: 0.5rem 1.25rem; border-radius: var(--radius-button); font-family: var(--font-family); font-size: 0.9rem; font-weight: 500; cursor: pointer; border: none; transition: opacity 0.15s; }
+    .tf-btn:hover { opacity: 0.85; }
+    .tf-btn-primary { background: var(--color-primary); color: var(--color-text-on-primary); box-shadow: var(--shadow-sm); }
+    .tf-btn-secondary { background: var(--color-secondary); color: var(--color-text-on-primary); box-shadow: var(--shadow-sm); }
+    .tf-btn-outline { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .tf-btn-ghost { background: var(--color-surface-alt); color: var(--color-text); }
+
+    .tf-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: 1.5rem; box-shadow: var(--shadow-md); }
+    .tf-card h3 { font-weight: var(--font-weight-heading); margin-bottom: 0.5rem; color: var(--color-primary); }
+    .tf-card p { color: var(--color-text-muted); font-size: 0.9rem; line-height: var(--line-height); }
+    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+
+    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; }
+    .tf-form label { font-size: 0.85rem; font-weight: 500; color: var(--color-text-muted); margin-bottom: 0.25rem; display: block; }
+    .tf-form input, .tf-form select { width: 100%; padding: 0.5rem 0.75rem; border: 1.5px solid var(--color-border); border-radius: var(--radius); background: var(--color-surface); color: var(--color-text); font-family: var(--font-family); font-size: 0.9rem; outline: none; transition: border-color 0.15s; }
+    .tf-form input:focus, .tf-form select:focus { border-color: var(--color-primary); }
+
+    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .tf-effect-tile { border-radius: var(--radius-card); padding: 1.25rem; border: 1px solid var(--color-border); display: flex; flex-direction: column; gap: 0.5rem; }
+    .tf-effect-tile .tile-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); font-family: var(--font-family-mono); }
+    .tf-effect-tile .tile-value { font-size: 0.75rem; color: var(--color-text); font-family: var(--font-family-mono); word-break: break-all; }
+    .tf-gradient-hero { height: 80px; border-radius: var(--radius-card); background: var(--gradient-hero, var(--color-primary)); display: flex; align-items: center; justify-content: center; color: var(--color-text-on-primary); font-weight: var(--font-weight-heading); font-family: var(--font-family-display); font-size: 1.1rem; }
+    .tf-glow-demo { background: var(--color-surface); border-radius: var(--radius-card); padding: 1rem 1.5rem; text-align: center; box-shadow: var(--glow-md, var(--shadow-md)); border: 1px solid var(--color-border); font-weight: 600; color: var(--glow-color, var(--color-primary)); }
+    .tf-glass-demo { border-radius: var(--radius-card); padding: 1rem 1.5rem; background: var(--glass-tint, rgba(255,255,255,0.1)); backdrop-filter: var(--backdrop-filter, none); border: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text); position: relative; overflow: hidden; }
+    .tf-glass-demo::before { content: ''; position: absolute; inset: 0; background: var(--gradient-accent, transparent); opacity: 0.15; pointer-events: none; }
+    .tf-gradient-text { font-size: 1.5rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); background: var(--gradient-text, var(--color-primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; }
+    .tf-btn-gradient { background: var(--gradient-button, var(--color-primary)); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored, var(--shadow-sm)); }
+    .tf-inset-demo { background: var(--color-surface-alt); border-radius: var(--radius); padding: 0.6rem 1rem; box-shadow: var(--shadow-inset, inset 0 1px 3px rgba(0,0,0,0.1)); border: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-muted); font-family: var(--font-family-mono); }
+
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tf-badge { padding: 0.2rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+    .tf-badge-primary { background: var(--color-primary-light); color: var(--color-primary); }
+    .tf-badge-success { background: var(--color-success); color: #fff; }
+    .tf-badge-warning { background: var(--color-warning); color: #fff; }
+    .tf-badge-error { background: var(--color-error); color: #fff; }
+    .tf-badge-neutral { background: var(--color-surface-alt); color: var(--color-text-muted); border: 1px solid var(--color-border); }
+  </style>
+</head>
+<body>
+
+  <div class="tf-header"><h1>Theme Preview</h1><p>Colors · Typography · Components</p></div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Color Palette</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary)"></div><div class="tf-swatch-label"><strong>primary</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary-light)"></div><div class="tf-swatch-label"><strong>primaryLight</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-secondary)"></div><div class="tf-swatch-label"><strong>secondary</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-accent)"></div><div class="tf-swatch-label"><strong>accent</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-bg)"></div><div class="tf-swatch-label"><strong>background</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface)"></div><div class="tf-swatch-label"><strong>surface</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface-alt)"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text)"></div><div class="tf-swatch-label"><strong>text</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text-muted)"></div><div class="tf-swatch-label"><strong>textMuted</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-border)"></div><div class="tf-swatch-label"><strong>border</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-success)"></div><div class="tf-swatch-label"><strong>success</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-warning)"></div><div class="tf-swatch-label"><strong>warning</strong><hex></div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-error)"></div><div class="tf-swatch-label"><strong>error</strong><hex></div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Typography</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">Display Heading</div>
+      <div class="t-h2">Section Heading</div>
+      <div class="t-h3">Subsection Heading</div>
+      <div class="t-body">Body text — the quick brown fox jumps over the lazy dog.</div>
+      <div class="t-small">Small / muted — captions, labels, timestamps</div>
+      <div class="t-mono">monospace: code(), variables, keys</div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Buttons</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">Primary Action</button>
+      <button class="tf-btn tf-btn-secondary">Secondary</button>
+      <button class="tf-btn tf-btn-outline">Outlined</button>
+      <button class="tf-btn tf-btn-ghost">Ghost</button>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Cards</div>
+    <div class="tf-cards">
+      <div class="tf-card"><h3>Card Title</h3><p>Standard card with surface background, border, and shadow from theme variables.</p></div>
+      <div class="tf-card"><h3>Data Card</h3><p>Every visual property references a CSS variable — swap themes by swapping :root.</p></div>
+      <div class="tf-card" style="background:var(--color-surface-alt)"><h3>Alt Surface</h3><p>surfaceAlt — sidebar panels, alternate rows, secondary containers.</p></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Form Elements</div>
+    <div class="tf-form">
+      <div><label>Text Input</label><input type="text" placeholder="Enter value…"></div>
+      <div><label>Select</label><select><option>Option A</option><option>Option B</option><option>Option C</option></select></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Badges & Status</div>
+    <div class="tf-badges">
+      <span class="tf-badge tf-badge-primary">Primary</span>
+      <span class="tf-badge tf-badge-success">Success</span>
+      <span class="tf-badge tf-badge-warning">Warning</span>
+      <span class="tf-badge tf-badge-error">Error</span>
+      <span class="tf-badge tf-badge-neutral">Neutral</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Gradients & Effects</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1"><div class="tile-label">Hero Gradient</div><div class="tf-gradient-hero">Hero / Header Surface</div><div class="tile-value">var(--gradient-hero)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Gradient Text</div><div class="tf-gradient-text">Gradient Text</div><div class="tile-value">var(--gradient-text)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Gradient Button</div><button class="tf-btn tf-btn-gradient" style="width:100%">Gradient CTA</button><div class="tile-value">var(--gradient-button)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Glow / Luminescence</div><div class="tf-glow-demo">Glow Element</div><div class="tile-value">var(--glow-md) · var(--glow-color)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Glass / Frost</div><div class="tf-glass-demo">Frosted surface</div><div class="tile-value">var(--glass-blur) · var(--glass-tint)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Inset / Well</div><div class="tf-inset-demo">inset input or well</div><div class="tile-value">var(--shadow-inset)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Colored Shadow</div><div style="padding:0.75rem 1rem;border-radius:var(--radius-card);background:var(--color-primary);color:var(--color-text-on-primary);box-shadow:var(--shadow-colored,var(--shadow-md));font-weight:600;font-size:0.85rem;text-align:center">Primary Card</div><div class="tile-value">var(--shadow-colored)</div></div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="chalk-press">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: chalk-press</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "chalk-press",
+    "description": "Light brutally minimal editorial — warm cream field notebook, near-black ink, editorial red accent. Typographic hierarchy does all the work. Horizontal lined-paper background.",
+    "createdAt": "2026-06-21T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#F7F4EE",
+      "image": "repeating-linear-gradient(transparent, transparent 27px, rgba(139,90,70,0.09) 27px, rgba(139,90,70,0.09) 28px)",
+      "size": "auto 28px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "lines-h",
+      "patternColor": "rgba(139,90,70,0.09)",
+      "patternOpacity": "0.09",
+      "patternSpacing": "28px",
+      "notes": "Warm cream with faint horizontal ruled lines — notebook / broadsheet paper"
+    },
+    "colors": {
+      "primary": "#1C1916", "primaryLight": "#E8E4DA", "secondary": "#C41A1A", "accent": "#C41A1A",
+      "background": "#F7F4EE", "surface": "#F2EEE6", "surfaceAlt": "#EBE7DC",
+      "text": "#1C1916", "textMuted": "#786A5C", "textOnPrimary": "#F7F4EE",
+      "border": "#D5CFC4", "success": "#2E7D5A", "warning": "#A0560A", "error": "#C41A1A"
+    },
+    "typography": {
+      "fontFamily": "'Crimson Pro', Georgia, serif",
+      "fontFamilyMono": "'Courier Prime', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Playfair Display', Georgia, serif",
+      "scaleBase": "18px", "headingWeight": "900", "bodyWeight": "400", "lineHeight": "1.7"
+    },
+    "spacing": {
+      "borderRadius": "0px", "cardRadius": "0px", "buttonRadius": "0px",
+      "spaceUnit": "8px", "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 1px 0 #D5CFC4",
+      "md": "0 2px 0 #D5CFC4, 0 1px 8px rgba(28,25,22,0.06)",
+      "lg": "0 4px 0 #D5CFC4, 0 2px 16px rgba(28,25,22,0.08)",
+      "xl": "0 6px 0 #D5CFC4, 0 4px 24px rgba(28,25,22,0.10)",
+      "colored": "none",
+      "inset": "inset 0 1px 4px rgba(28,25,22,0.08)",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "none",
+      "card": "none",
+      "button": "none",
+      "text": "none",
+      "accent": "none"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#C41A1A", "glowBlur": "0",
+      "glowSm": "none", "glowMd": "none", "glowLg": "none",
+      "glassBlur": "0", "glassTint": "none",
+      "gradientBorder": "none", "noiseOpacity": "0",
+      "textShadow": "none", "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "80ms", "durationBase": "150ms", "durationSlow": "250ms",
+      "easing": "ease", "feel": "instant"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["minimal", "literary", "stark", "typographic"],
+      "borderStyle": "bold", "iconStyle": "sharp", "imageStyle": "none",
+      "surfaceTexture": "flat", "hierarchyClarity": "high",
+      "notes": "Zero border-radius everywhere. Red only as accent. Typography does 100% of the visual work. No gradients, no glow — pure ink on cream."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #F7F4EE;
+      --bg-image: repeating-linear-gradient(transparent, transparent 27px, rgba(139,90,70,0.09) 27px, rgba(139,90,70,0.09) 28px);
+      --bg-size: auto 28px; --bg-position: 0 0; --bg-repeat: repeat;
+
+      --color-primary: #1C1916; --color-primary-light: #E8E4DA; --color-secondary: #C41A1A; --color-accent: #C41A1A;
+      --color-bg: #F7F4EE; --color-surface: #F2EEE6; --color-surface-alt: #EBE7DC;
+      --color-text: #1C1916; --color-text-muted: #786A5C; --color-text-on-primary: #F7F4EE;
+      --color-border: #D5CFC4; --color-success: #2E7D5A; --color-warning: #A0560A; --color-error: #C41A1A;
+
+      --font-family: 'Crimson Pro', Georgia, serif;
+      --font-family-mono: 'Courier Prime', 'Courier New', monospace;
+      --font-family-display: 'Playfair Display', Georgia, serif;
+      --font-size-base: 18px; --font-weight-heading: 900; --font-weight-body: 400; --line-height: 1.7;
+
+      --radius: 0px; --radius-card: 0px; --radius-button: 0px;
+
+      --shadow-sm: 0 1px 0 #D5CFC4;
+      --shadow-md: 0 2px 0 #D5CFC4, 0 1px 8px rgba(28,25,22,0.06);
+      --shadow-lg: 0 4px 0 #D5CFC4, 0 2px 16px rgba(28,25,22,0.08);
+      --shadow-xl: 0 6px 0 #D5CFC4, 0 4px 24px rgba(28,25,22,0.10);
+      --shadow-colored: none; --shadow-inset: inset 0 1px 4px rgba(28,25,22,0.08);
+
+      --gradient-hero: none; --gradient-card: none; --gradient-button: none; --gradient-text: none; --gradient-accent: none;
+      --glow-color: #C41A1A; --glow-sm: none; --glow-md: none; --glow-lg: none;
+      --glass-blur: 0; --glass-tint: none; --backdrop-filter: none;
+      --text-shadow: none; --border-gradient: none; --noise-opacity: 0;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 80ms; --duration-base: 150ms; --duration-slow: 250ms;
+      --easing: ease; --border-width: 2px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      padding: 3rem 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .tf-header {
+      border-top: 4px solid var(--color-text);
+      border-bottom: 1px solid var(--color-text);
+      padding: 1.5rem 0 1.25rem;
+      margin-bottom: 3rem;
+    }
+    .tf-header .tf-kicker {
+      font-family: var(--font-family-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 0.5rem;
+    }
+    .tf-header h1 {
+      font-family: var(--font-family-display);
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+    .tf-header .tf-deck {
+      margin-top: 0.75rem;
+      font-size: 1.15rem;
+      color: var(--color-text-muted);
+      max-width: 560px;
+    }
+    .tf-header .tf-tags { margin-top: 1rem; display: flex; gap: 0.5rem; align-items: center; }
+    .tf-tag {
+      font-family: var(--font-family-mono);
+      font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border: 1.5px solid var(--color-text);
+      color: var(--color-text);
+    }
+    .tf-tag-red { border-color: var(--color-secondary); color: var(--color-secondary); }
+
+    .tf-section { margin-bottom: 2.5rem; }
+    .tf-section-title {
+      font-family: var(--font-family-mono);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--color-text-muted); margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-text);
+    }
+
+    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.5rem; }
+    .tf-swatch { border: 1px solid var(--color-border); overflow: hidden; }
+    .tf-swatch-color { height: 48px; }
+    .tf-swatch-label { background: var(--color-surface); padding: 0.35rem 0.5rem; font-size: 0.6rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.65rem; margin-bottom: 0.1rem; }
+
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.5rem; }
+    .t-h1 { font-family: var(--font-family-display); font-size: 4rem; font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; }
+    .t-h1 em { color: var(--color-secondary); font-style: normal; }
+    .t-h2 { font-family: var(--font-family-display); font-size: 2rem; font-weight: 700; line-height: 1.1; }
+    .t-h3 { font-family: var(--font-family-display); font-size: 1.3rem; font-weight: 400; font-style: italic; }
+    .t-body { font-size: 1.05rem; max-width: 600px; }
+    .t-small { font-family: var(--font-family-mono); font-size: 0.72rem; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .t-mono { font-family: var(--font-family-mono); font-size: 0.88rem; background: var(--color-surface); padding: 0.25rem 0.6rem; border-left: 3px solid var(--color-secondary); }
+
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .tf-btn {
+      padding: 0.55rem 1.5rem; font-family: var(--font-family-mono);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; border: 2px solid; transition: all 80ms ease;
+    }
+    .tf-btn-primary { background: var(--color-text); color: var(--color-bg); border-color: var(--color-text); }
+    .tf-btn-primary:hover { background: var(--color-secondary); border-color: var(--color-secondary); }
+    .tf-btn-secondary { background: var(--color-secondary); color: var(--color-bg); border-color: var(--color-secondary); }
+    .tf-btn-outline { background: transparent; color: var(--color-text); border-color: var(--color-text); }
+    .tf-btn-outline:hover { background: var(--color-text); color: var(--color-bg); }
+    .tf-btn-ghost { background: transparent; color: var(--color-text-muted); border-color: var(--color-border); }
+
+    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+    .tf-card { border-top: 3px solid var(--color-text); padding: 1.25rem 0 0; }
+    .tf-card h3 { font-family: var(--font-family-display); font-weight: 700; font-size: 1.15rem; margin-bottom: 0.5rem; }
+    .tf-card p { color: var(--color-text-muted); font-size: 0.95rem; }
+    .tf-card.alt { border-top-color: var(--color-secondary); }
+    .tf-card.alt h3 { color: var(--color-secondary); }
+
+    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 380px; }
+    .tf-form label { font-family: var(--font-family-mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.25rem; display: block; }
+    .tf-form input, .tf-form select {
+      width: 100%; padding: 0.55rem 0; border: none;
+      border-bottom: 2px solid var(--color-text);
+      background: transparent; color: var(--color-text);
+      font-family: var(--font-family); font-size: 1rem; outline: none;
+      transition: border-color 80ms;
+    }
+    .tf-form input:focus, .tf-form select:focus { border-color: var(--color-secondary); }
+
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tf-badge { padding: 0.18rem 0.65rem; font-family: var(--font-family-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1.5px solid; }
+    .tf-badge-primary { border-color: var(--color-text); color: var(--color-text); background: transparent; }
+    .tf-badge-success { border-color: var(--color-success); color: var(--color-success); background: transparent; }
+    .tf-badge-warning { border-color: var(--color-warning); color: var(--color-warning); background: transparent; }
+    .tf-badge-error { border-color: var(--color-secondary); color: var(--color-secondary); background: transparent; }
+    .tf-badge-neutral { border-color: var(--color-border); color: var(--color-text-muted); background: transparent; }
+
+    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .tf-effect-tile { border-top: 2px solid var(--color-border); padding: 1rem 0; display: flex; flex-direction: column; gap: 0.5rem; }
+    .tf-effect-tile .tile-label { font-family: var(--font-family-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text-muted); }
+    .tf-effect-tile .tile-value { font-family: var(--font-family-mono); font-size: 0.68rem; color: var(--color-text-muted); word-break: break-all; }
+    .tf-gradient-hero { height: 80px; background: var(--color-text); display: flex; align-items: center; padding: 0 1.5rem; }
+    .tf-gradient-hero span { font-family: var(--font-family-display); font-size: 1.5rem; font-weight: 900; color: var(--color-bg); letter-spacing: -0.02em; }
+    .tf-glow-demo { background: var(--color-surface); border-left: 4px solid var(--color-secondary); padding: 1rem 1.5rem; font-weight: 600; font-size: 0.9rem; color: var(--color-secondary); font-family: var(--font-family-display); font-style: italic; }
+    .tf-glass-demo { background: var(--color-surface-alt); border: 1px solid var(--color-border); padding: 1rem 1.5rem; font-size: 0.88rem; color: var(--color-text-muted); }
+    .tf-gradient-text { font-size: 2rem; font-weight: 900; font-family: var(--font-family-display); color: var(--color-secondary); display: inline-block; line-height: 1; }
+    .tf-btn-gradient { background: var(--color-text); color: var(--color-bg); padding: 0.55rem 1.5rem; border: 2px solid var(--color-text); font-family: var(--font-family-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; width: 100%; }
+    .tf-inset-demo { background: var(--color-surface); padding: 0.6rem 0.75rem; box-shadow: var(--shadow-inset); border: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-muted); font-family: var(--font-family-mono); }
+  </style>
+</head>
+<body>
+
+  <div class="tf-header">
+    <div class="tf-kicker">Theme Preview · Vol. I · chalk-press</div>
+    <h1>Chalk Press</h1>
+    <div class="tf-deck">Brutally minimal editorial — where typography is the only decoration and whitespace is the only luxury.</div>
+    <div class="tf-tags">
+      <span class="tf-tag">Light</span>
+      <span class="tf-tag tf-tag-red">Brutally Minimal</span>
+      <span class="tf-tag">Editorial</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Color Palette</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#1C1916"></div><div class="tf-swatch-label"><strong>primary</strong>#1C1916</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#E8E4DA"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#E8E4DA</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#C41A1A"></div><div class="tf-swatch-label"><strong>secondary</strong>#C41A1A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#C41A1A"></div><div class="tf-swatch-label"><strong>accent</strong>#C41A1A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#F7F4EE"></div><div class="tf-swatch-label"><strong>background</strong>#F7F4EE</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#F2EEE6"></div><div class="tf-swatch-label"><strong>surface</strong>#F2EEE6</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#EBE7DC"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#EBE7DC</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#1C1916"></div><div class="tf-swatch-label"><strong>text</strong>#1C1916</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#786A5C"></div><div class="tf-swatch-label"><strong>textMuted</strong>#786A5C</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#D5CFC4"></div><div class="tf-swatch-label"><strong>border</strong>#D5CFC4</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#2E7D5A"></div><div class="tf-swatch-label"><strong>success</strong>#2E7D5A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#A0560A"></div><div class="tf-swatch-label"><strong>warning</strong>#A0560A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#C41A1A"></div><div class="tf-swatch-label"><strong>error</strong>#C41A1A</div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Typography</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">The <em>Folio</em></div>
+      <div class="t-h2">An Independent Review</div>
+      <div class="t-h3">On the dignity of the printed word</div>
+      <div class="t-body">The finest typographic traditions require no ornament. A well-chosen serif, properly leaded, on cream stock, is sufficient — and anything beyond is noise.</div>
+      <div class="t-small">SPECIMEN NO. 2 · DISPLAY SERIF + BODY SERIF · ZERO BORDER RADIUS</div>
+      <div class="t-mono">// editorial red — one accent, used sparingly</div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Buttons</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">Subscribe</button>
+      <button class="tf-btn tf-btn-secondary">Submit</button>
+      <button class="tf-btn tf-btn-outline">Archive</button>
+      <button class="tf-btn tf-btn-ghost">About</button>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Cards</div>
+    <div class="tf-cards">
+      <div class="tf-card"><h3>The Folio Review</h3><p>Long-form essays on craft, culture, and the slow art of making things that matter.</p></div>
+      <div class="tf-card alt"><h3>Current Issue</h3><p>Vol. 12 — On restraint. Contributing editors from five continents. Printed on cream stock.</p></div>
+      <div class="tf-card"><h3>The Archive</h3><p>Every issue since 1998, digitised and indexed. Typography preserved as designed.</p></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Form Elements</div>
+    <div class="tf-form">
+      <div><label>Your Name</label><input type="text" placeholder="Full name"></div>
+      <div><label>Edition</label><select><option>Print + Digital</option><option>Digital Only</option><option>Archive Access</option></select></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Badges & Status</div>
+    <div class="tf-badges">
+      <span class="tf-badge tf-badge-primary">Essay</span>
+      <span class="tf-badge tf-badge-success">Published</span>
+      <span class="tf-badge tf-badge-warning">In Press</span>
+      <span class="tf-badge tf-badge-error">Correction</span>
+      <span class="tf-badge tf-badge-neutral">Archive</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Gradients & Effects</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1">
+        <div class="tile-label">Hero / Header Surface</div>
+        <div class="tf-gradient-hero"><span>The Folio</span></div>
+        <div class="tile-value">Solid #1C1916 — no gradient; deliberate refusal of decoration</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Red Accent</div>
+        <div class="tf-gradient-text">Rubric</div>
+        <div class="tile-value">#C41A1A — used exactly once</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Primary Button</div>
+        <button class="tf-btn-gradient">Subscribe Now</button>
+        <div class="tile-value">Flat ink — no gradient</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Pull Quote</div>
+        <div class="tf-glow-demo">"Typography is the craft of endowing human language with a durable visual form."</div>
+        <div class="tile-value">border-left 4px #C41A1A</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Surface Tone</div>
+        <div class="tf-glass-demo">Secondary surface — slightly darker cream, used for sidebars and asides.</div>
+        <div class="tile-value">#EBE7DC — surfaceAlt</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Input Well</div>
+        <div class="tf-inset-demo">inset shadow on cream</div>
+        <div class="tile-value">var(--shadow-inset)</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

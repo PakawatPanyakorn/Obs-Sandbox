@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="vellum-codex">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vellum Codex — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=IM+Fell+English:ital@0;1&family=Inconsolata:wght@300;400&display=swap">
+  <script id="theme-data" type="application/json">{
+    "name": "vellum-codex",
+    "description": "Light medieval illuminated manuscript — warm parchment with grain texture and faint gold grid, ultramarine primary, cinnabar secondary, gold-leaf accent. Uncial Antiqua display + IM Fell English body.",
+    "createdAt": "2026-06-21T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "noise",
+      "baseColor": "#F4EDD8",
+      "image": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E\")",
+      "size": "256px 256px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "noise",
+      "patternColor": "rgba(26,24,8,0.055)",
+      "patternOpacity": "0.055",
+      "patternSpacing": "none",
+      "notes": "SVG fractalNoise grain on warm parchment — vellum, foxing, natural animal-skin texture of medieval manuscripts"
+    },
+    "colors": {
+      "primary": "#1A2FA8",
+      "primaryLight": "#D0D8F8",
+      "secondary": "#A82020",
+      "accent": "#D4A800",
+      "background": "#F4EDD8",
+      "surface": "#EDE4C8",
+      "surfaceAlt": "#E4D8B4",
+      "text": "#1E1808",
+      "textMuted": "#8A7850",
+      "textOnPrimary": "#F4EDD8",
+      "border": "#C8B888",
+      "success": "#2A6A2A",
+      "warning": "#A07820",
+      "error": "#901A1A"
+    },
+    "typography": {
+      "fontFamily": "'IM Fell English', Georgia, serif",
+      "fontFamilyMono": "'Inconsolata', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Uncial Antiqua', Georgia, serif",
+      "scaleBase": "18px",
+      "headingWeight": "400",
+      "bodyWeight": "400",
+      "lineHeight": "1.8"
+    },
+    "spacing": {
+      "borderRadius": "2px",
+      "cardRadius": "3px",
+      "buttonRadius": "2px",
+      "spaceUnit": "8px",
+      "density": "spacious"
+    },
+    "shadows": {
+      "sm": "0 1px 4px rgba(30,24,8,0.15)",
+      "md": "0 3px 14px rgba(30,24,8,0.18)",
+      "lg": "0 6px 28px rgba(30,24,8,0.22)",
+      "xl": "0 12px 40px rgba(30,24,8,0.26)",
+      "colored": "0 3px 16px rgba(26,47,168,0.25)",
+      "inset": "inset 0 1px 4px rgba(30,24,8,0.15)",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #EDE4C8 0%, #F4EDD8 50%, #EAE0C8 100%)",
+      "card": "linear-gradient(180deg, #EDE4C8 0%, #E8DEB8 100%)",
+      "button": "linear-gradient(135deg, #2040C0 0%, #122090 100%)",
+      "text": "linear-gradient(135deg, #D4A800 0%, #C89020 50%, #A07010 100%)",
+      "accent": "linear-gradient(90deg, #1A2FA8 0%, #A82020 100%)"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#D4A800",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "linear-gradient(90deg, #1A2FA8, #D4A800, #A82020)",
+      "noiseOpacity": "0.055",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "120ms",
+      "durationBase": "220ms",
+      "durationSlow": "380ms",
+      "easing": "ease",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["medieval", "illuminated", "sacred", "antiquarian"],
+      "borderStyle": "subtle",
+      "iconStyle": "outlined",
+      "imageStyle": "illustrative",
+      "surfaceTexture": "noise",
+      "hierarchyClarity": "high",
+      "notes": "Uncial Antiqua (insular majuscule script) + IM Fell English (17th c. type revival). Ultramarine/cinnabar/gold — true illuminated palette. No glow. Grain on parchment."
+    }
+  }</script>
+  <style>
+    :root {
+      --color-primary: #1A2FA8;
+      --color-primary-light: #D0D8F8;
+      --color-secondary: #A82020;
+      --color-accent: #D4A800;
+      --color-bg: #F4EDD8;
+      --color-surface: #EDE4C8;
+      --color-surface-alt: #E4D8B4;
+      --color-text: #1E1808;
+      --color-text-muted: #8A7850;
+      --color-text-on-primary: #F4EDD8;
+      --color-border: #C8B888;
+      --color-success: #2A6A2A;
+      --color-warning: #A07820;
+      --color-error: #901A1A;
+
+      --font-family: 'IM Fell English', Georgia, serif;
+      --font-family-mono: 'Inconsolata', 'Courier New', monospace;
+      --font-family-display: 'Uncial Antiqua', Georgia, serif;
+
+      --radius-sm: 1px; --radius-md: 2px; --radius-lg: 3px;
+      --radius-xl: 4px; --radius-button: 2px; --radius-card: 3px;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 1px 4px rgba(30,24,8,0.15);
+      --shadow-md: 0 3px 14px rgba(30,24,8,0.18);
+      --shadow-lg: 0 6px 28px rgba(30,24,8,0.22);
+      --shadow-xl: 0 12px 40px rgba(30,24,8,0.26);
+      --shadow-colored: 0 3px 16px rgba(26,47,168,0.25);
+      --shadow-inset: inset 0 1px 4px rgba(30,24,8,0.15);
+
+      --gradient-hero: linear-gradient(135deg, #EDE4C8 0%, #F4EDD8 50%, #EAE0C8 100%);
+      --gradient-card: linear-gradient(180deg, #EDE4C8 0%, #E8DEB8 100%);
+      --gradient-button: linear-gradient(135deg, #2040C0 0%, #122090 100%);
+      --gradient-text: linear-gradient(135deg, #D4A800 0%, #C89020 50%, #A07010 100%);
+      --gradient-accent: linear-gradient(90deg, #1A2FA8 0%, #A82020 100%);
+      --border-gradient: linear-gradient(90deg, #1A2FA8, #D4A800, #A82020);
+
+      --glow-sm: none; --glow-md: none; --glow-lg: none;
+      --glass-blur: 0; --glass-tint: transparent;
+      --backdrop-filter: none; --noise-opacity: 0.055;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 18px; line-height: 1.8;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      min-height: 100vh;
+    }
+
+    h1,h2,h3,h4 { font-family: var(--font-family-display); font-weight: 400; }
+    code, pre { font-family: var(--font-family-mono); }
+
+    .vc-header {
+      background: var(--gradient-hero);
+      border-bottom: 2px solid var(--color-border);
+      padding: var(--space-16) var(--space-8) var(--space-12);
+      text-align: center;
+      position: relative;
+    }
+    .vc-header-rule { height: 1px; background: var(--border-gradient); margin-bottom: var(--space-6); }
+    .vc-header-tag { font-family: var(--font-family); font-style: italic; font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: var(--space-4); display: block; }
+    .vc-header h1 { font-size: clamp(2rem, 5vw, 3.8rem); color: var(--color-text); line-height: 1.15; margin-bottom: var(--space-4); letter-spacing: 0.04em; }
+    .vc-header p { font-size: 1rem; color: var(--color-text-muted); max-width: 520px; margin: 0 auto var(--space-6); font-style: italic; }
+    .vc-header-rule-2 { height: 1px; background: var(--border-gradient); margin-top: var(--space-6); }
+
+    .vc-section { padding: var(--space-12) var(--space-8); max-width: 960px; margin: 0 auto; }
+    .vc-section-title {
+      font-family: var(--font-family); font-size: 0.72rem; font-style: italic;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text-muted);
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: var(--space-2); margin-bottom: var(--space-6);
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .vc-section-title::before { content: '❧'; color: var(--color-accent); font-size: 0.9rem; font-style: normal; }
+
+    .vc-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: var(--space-2); }
+    .vc-swatch { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--color-border); }
+    .vc-swatch-color { height: 56px; }
+    .vc-swatch-label { font-family: var(--font-family-mono); font-size: 9px; padding: 4px 7px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    .vc-type-stack > * + * { margin-top: var(--space-4); }
+    .vc-display { font-family: var(--font-family-display); font-size: clamp(2rem, 5vw, 3.2rem); color: var(--color-text); line-height: 1.2; }
+    .vc-h2 { font-family: var(--font-family-display); font-size: 1.7rem; color: var(--color-text); }
+    .vc-h3 { font-family: var(--font-family-display); font-size: 1.15rem; color: var(--color-text); }
+    .vc-body { font-size: 1rem; color: var(--color-text); font-style: italic; }
+    .vc-body-upright { font-size: 1rem; color: var(--color-text); }
+    .vc-muted { font-size: 0.875rem; color: var(--color-text-muted); font-style: italic; }
+    .vc-mono { font-family: var(--font-family-mono); font-size: 0.8rem; color: var(--color-primary); font-weight: 300; }
+    .vc-drop-cap::first-letter { font-family: var(--font-family-display); font-size: 4rem; float: left; line-height: 0.75; margin-right: 6px; margin-top: 4px; color: var(--color-accent); }
+
+    .vc-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .vc-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 10px 22px; border-radius: var(--radius-button);
+      font-family: var(--font-family-display); font-size: 0.88rem; font-weight: 400;
+      letter-spacing: 0.06em; cursor: pointer; border: none;
+      transition: all 220ms ease;
+    }
+    .vc-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); }
+    .vc-btn-primary:hover { box-shadow: var(--shadow-lg); }
+    .vc-btn-secondary { background: transparent; color: var(--color-secondary); border: 1px solid var(--color-secondary); }
+    .vc-btn-secondary:hover { background: rgba(168,32,32,0.08); }
+    .vc-btn-outline { background: transparent; color: var(--color-text); border: 1px solid var(--color-border); }
+    .vc-btn-outline:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .vc-btn-ghost { background: transparent; color: var(--color-text-muted); border: none; font-style: italic; }
+    .vc-btn-ghost:hover { color: var(--color-text); }
+
+    .vc-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-5); }
+    .vc-card { background: var(--gradient-card); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-6); box-shadow: var(--shadow-sm); transition: box-shadow 220ms ease; }
+    .vc-card:hover { box-shadow: var(--shadow-md); }
+    .vc-card-deco { color: var(--color-accent); font-size: 1.2rem; margin-bottom: var(--space-2); display: block; }
+    .vc-card h3 { font-family: var(--font-family-display); font-size: 1rem; color: var(--color-text); margin-bottom: var(--space-3); letter-spacing: 0.04em; }
+    .vc-card p { font-size: 0.88rem; color: var(--color-text-muted); font-style: italic; line-height: 1.75; }
+    .vc-card-meta { font-family: var(--font-family-mono); font-size: 0.72rem; color: var(--color-text-muted); margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+
+    .vc-form-group { margin-bottom: var(--space-4); }
+    .vc-label { display: block; font-family: var(--font-family); font-style: italic; font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 6px; }
+    .vc-input { width: 100%; padding: 10px 14px; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font-family: var(--font-family); font-size: 1rem; font-style: italic; transition: border-color 180ms ease; }
+    .vc-input::placeholder { color: var(--color-text-muted); }
+    .vc-input:focus { outline: none; border-color: var(--color-accent); }
+    .vc-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+
+    .vc-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .vc-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: var(--radius-sm); font-family: var(--font-family); font-style: italic; font-size: 0.82rem; border: 1px solid; }
+    .vc-badge-primary { color: var(--color-primary); border-color: rgba(26,47,168,0.35); background: rgba(26,47,168,0.06); }
+    .vc-badge-secondary { color: var(--color-secondary); border-color: rgba(168,32,32,0.35); background: rgba(168,32,32,0.06); }
+    .vc-badge-accent { color: #8A6800; border-color: rgba(212,168,0,0.5); background: rgba(212,168,0,0.08); }
+    .vc-badge-success { color: var(--color-success); border-color: rgba(42,106,42,0.35); background: rgba(42,106,42,0.06); }
+    .vc-badge-muted { color: var(--color-text-muted); border-color: var(--color-border); background: transparent; }
+
+    .vc-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .vc-effect-tile { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3); min-height: 100px; font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-muted); text-align: center; }
+    .vc-gradient-text-demo { font-family: var(--font-family-display); font-size: 1.6rem; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .vc-gradient-bar { height: 6px; border-radius: 2px; background: var(--gradient-accent); width: 100%; }
+    .vc-border-demo { width: 80%; height: 2px; background: var(--border-gradient); }
+    .vc-shadow-demo { width: 50px; height: 36px; background: var(--color-primary); box-shadow: var(--shadow-colored); }
+  </style>
+</head>
+<body>
+
+  <header class="vc-header">
+    <div class="vc-header-rule"></div>
+    <span class="vc-header-tag">Scriptorium of the Abbey of Saint Jerome · Founded Anno Domini MXII</span>
+    <h1>Vellum Codex</h1>
+    <p><em>An archive of illuminated manuscripts, liturgical books, and scholarly texts preserved from the dissolution of the monastic libraries of Europe.</em></p>
+    <div class="vc-header-rule-2"></div>
+  </header>
+
+  <div class="vc-section">
+    <div class="vc-section-title">Chromatic Register</div>
+    <div class="vc-swatches">
+      <div class="vc-swatch"><div class="vc-swatch-color" style="background:#1A2FA8"></div><div class="vc-swatch-label">Ultramarine<br>#1A2FA8</div></div>
+      <div class="vc-swatch"><div class="vc-swatch-color" style="background:#A82020"></div><div class="vc-swatch-label">Cinnabar<br>#A82020</div></div>
+      <div class="vc-swatch"><div class="vc-swatch-color" style="background:#D4A800"></div><div class="vc-swatch-label">Gold Leaf<br>#D4A800</div></div>
+      <div class="vc-swatch"><div class="vc-swatch-color" style="background:#F4EDD8"></div><div class="vc-swatch-label">Vellum<br>#F4EDD8</div></div>
+      <div class="vc-swatch"><div class="vc-swatch-color" style="background:#EDE4C8"></div><div class="vc-swatch-label">Parchment<br>#EDE4C8</div></div>
+      <div class="vc-swatch"><div class="vc-swatch-color" style="background:#1E1808"></div><div class="vc-swatch-label">Iron Gall<br>#1E1808</div></div>
+      <div class="vc-swatch"><div class="vc-swatch-color" style="background:#2A6A2A"></div><div class="vc-swatch-label">Verdigris<br>#2A6A2A</div></div>
+      <div class="vc-swatch"><div class="vc-swatch-color" style="background:#901A1A"></div><div class="vc-swatch-label">Dragon's Blood<br>#901A1A</div></div>
+    </div>
+  </div>
+
+  <div class="vc-section">
+    <div class="vc-section-title">Typographic Record</div>
+    <div class="vc-type-stack">
+      <div class="vc-display">Uncial Antiqua — The Book of Kells</div>
+      <div class="vc-h2">Manuscript Catalogue H2</div>
+      <div class="vc-h3">Folio Reference H3</div>
+      <div class="vc-body vc-drop-cap">IM Fell English italic: Here begins the record of illuminated manuscripts held within the Scriptorium. Each volume described according to its material support, pigment composition, scribal hand, and provenance — that no reader of the future ages shall mistake the nature or antiquity of what is preserved herein for all time.</div>
+      <div class="vc-muted">Transcribed by the hand of Brother Columba · Winter, Anno Domini 1247</div>
+      <div class="vc-mono">MS.0047 folio=84 material=vellum pigment="lapis,cinnabar,gold" date=c.1247</div>
+    </div>
+  </div>
+
+  <div class="vc-section">
+    <div class="vc-section-title">Actions</div>
+    <div class="vc-btn-row">
+      <a href="#" class="vc-btn vc-btn-primary">Browse Archive</a>
+      <a href="#" class="vc-btn vc-btn-secondary">Request Folio</a>
+      <a href="#" class="vc-btn vc-btn-outline">Submit Transcription</a>
+      <a href="#" class="vc-btn vc-btn-ghost">Return to Index</a>
+    </div>
+  </div>
+
+  <div class="vc-section">
+    <div class="vc-section-title">Notable Manuscripts</div>
+    <div class="vc-card-grid">
+      <div class="vc-card">
+        <span class="vc-card-deco">✦</span>
+        <h3>Book of Hours</h3>
+        <p><em>Heures de Jeanne d'Évreux</em>. French, c. 1324–1328. Grisaille illustrations on vellum. Master Pucelle workshop. 209 leaves, 16 large miniatures.</p>
+        <div class="vc-card-meta">MS.0012 · Restricted · Digitised 2024</div>
+      </div>
+      <div class="vc-card">
+        <span class="vc-card-deco">✦</span>
+        <h3>Lindisfarne Gospels</h3>
+        <p>Northumbrian, c. 715–720 AD. Latin text in Insular majuscule. Decorated canon tables and six major carpet pages. Colophon by Aldred, 970 AD.</p>
+        <div class="vc-card-meta">MS.0001 · On Display · Facsimile Available</div>
+      </div>
+      <div class="vc-card">
+        <span class="vc-card-deco">✦</span>
+        <h3>Voynich Manuscript</h3>
+        <p>Unknown origin, c. 1404–1438. Unknown script, undeciphered. Botanical, astronomical, and pharmaceutical sections. Provenance: Rudolph II's library.</p>
+        <div class="vc-card-meta">MS.0408 · Study Access · Facsimile Available</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vc-section">
+    <div class="vc-section-title">Research Request</div>
+    <div class="vc-form-grid">
+      <div class="vc-form-group">
+        <label class="vc-label">Scholar's Name</label>
+        <input class="vc-input" type="text" placeholder="Your name…">
+      </div>
+      <div class="vc-form-group">
+        <label class="vc-label">Manuscript Reference</label>
+        <input class="vc-input" type="text" placeholder="MS number or title…">
+      </div>
+      <div class="vc-form-group">
+        <label class="vc-label">Research Purpose</label>
+        <input class="vc-input" type="text" placeholder="Palaeography, art history…">
+      </div>
+      <div class="vc-form-group">
+        <label class="vc-label">Preferred Access</label>
+        <input class="vc-input" type="text" placeholder="In-person, digital scan…">
+      </div>
+    </div>
+    <div class="vc-btn-row">
+      <a href="#" class="vc-btn vc-btn-primary">Submit Request</a>
+      <a href="#" class="vc-btn vc-btn-ghost">Cancel</a>
+    </div>
+  </div>
+
+  <div class="vc-section">
+    <div class="vc-section-title">Status Marks</div>
+    <div class="vc-badge-row">
+      <span class="vc-badge vc-badge-primary">Digitised</span>
+      <span class="vc-badge vc-badge-secondary">Restricted</span>
+      <span class="vc-badge vc-badge-accent">Gold Leaf</span>
+      <span class="vc-badge vc-badge-success">Conserved</span>
+      <span class="vc-badge vc-badge-muted">Fragmentary</span>
+    </div>
+  </div>
+
+  <div class="vc-section">
+    <div class="vc-section-title">Gradients & Effects</div>
+    <div class="vc-effects-grid">
+      <div class="vc-effect-tile"><div class="vc-gradient-text-demo">Aurum</div><span>Gold Gradient Text</span></div>
+      <div class="vc-effect-tile"><div class="vc-gradient-bar"></div><span>Ultramarine → Cinnabar</span></div>
+      <div class="vc-effect-tile"><div class="vc-border-demo"></div><span>Illuminated Border</span></div>
+      <div class="vc-effect-tile"><div class="vc-shadow-demo"></div><span>Navy Shadow</span></div>
+    </div>
+  </div>
+
+</body>
+</html>

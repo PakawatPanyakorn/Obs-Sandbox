@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="tobacco-road">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: tobacco-road</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "tobacco-road",
+    "description": "Light classic-vintage editorial — aged paper canvas with grain noise, tobacco brown primary, vermillion secondary. EB Garamond throughout. Field journal naturalist aesthetic.",
+    "createdAt": "2026-06-21T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "noise",
+      "baseColor": "#F2E4C4",
+      "image": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+      "size": "256px 256px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "noise",
+      "patternColor": "rgba(92,61,17,0.06)",
+      "patternOpacity": "0.06",
+      "patternSpacing": "none",
+      "notes": "SVG fractalNoise grain on aged paper — simulates foxing and natural vellum texture"
+    },
+    "colors": {
+      "primary": "#5C3D11", "primaryLight": "#EDD8A8", "secondary": "#8B2500", "accent": "#C8860A",
+      "background": "#F2E4C4", "surface": "#EDD8A8", "surfaceAlt": "#E4CC94",
+      "text": "#2E1E08", "textMuted": "#8A6840", "textOnPrimary": "#F2E4C4",
+      "border": "#C8A870", "success": "#3A6E2A", "warning": "#B87010", "error": "#8B2500"
+    },
+    "typography": {
+      "fontFamily": "'EB Garamond', Georgia, serif",
+      "fontFamilyMono": "'Courier Prime', 'Courier New', monospace",
+      "fontFamilyDisplay": "'EB Garamond', Georgia, serif",
+      "scaleBase": "18px", "headingWeight": "700", "bodyWeight": "400", "lineHeight": "1.72"
+    },
+    "spacing": {
+      "borderRadius": "2px", "cardRadius": "3px", "buttonRadius": "2px",
+      "spaceUnit": "8px", "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 1px 3px rgba(46,30,8,0.15), 0 0 0 1px rgba(200,168,112,0.4)",
+      "md": "0 3px 12px rgba(46,30,8,0.2), 0 0 0 1px rgba(200,168,112,0.5)",
+      "lg": "0 6px 24px rgba(46,30,8,0.25), 0 0 0 1px rgba(200,168,112,0.6)",
+      "xl": "0 12px 40px rgba(46,30,8,0.3)",
+      "colored": "0 3px 16px rgba(92,61,17,0.3), 0 0 0 1px rgba(92,61,17,0.4)",
+      "inset": "inset 0 2px 6px rgba(46,30,8,0.12), inset 0 1px 0 rgba(200,168,112,0.3)",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #EDD8A8 0%, #F2E4C4 50%, #E8D8A0 100%)",
+      "card": "linear-gradient(180deg, #EDD8A8 0%, #E8D09C 100%)",
+      "button": "linear-gradient(135deg, #6E4A16 0%, #4A2E08 100%)",
+      "text": "linear-gradient(135deg, #8B2500 0%, #C8860A 100%)",
+      "accent": "linear-gradient(90deg, #5C3D11 0%, #8B2500 100%)"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#5C3D11", "glowBlur": "0",
+      "glowSm": "none", "glowMd": "none", "glowLg": "none",
+      "glassBlur": "0", "glassTint": "none",
+      "gradientBorder": "none", "noiseOpacity": "0.06",
+      "textShadow": "none", "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "120ms", "durationBase": "220ms", "durationSlow": "380ms",
+      "easing": "ease", "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["vintage", "literary", "aged", "naturalist"],
+      "borderStyle": "subtle", "iconStyle": "outlined", "imageStyle": "illustrative",
+      "surfaceTexture": "noise", "hierarchyClarity": "medium",
+      "notes": "EB Garamond for everything — display and body unified. SVG noise texture on aged paper. Tobacco/vermillion/amber triad. Decorative ruled borders. No glow, no gradients — only ink on vellum."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #F2E4C4;
+      --bg-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      --bg-size: 256px 256px; --bg-position: 0 0; --bg-repeat: repeat;
+
+      --color-primary: #5C3D11; --color-primary-light: #EDD8A8; --color-secondary: #8B2500; --color-accent: #C8860A;
+      --color-bg: #F2E4C4; --color-surface: #EDD8A8; --color-surface-alt: #E4CC94;
+      --color-text: #2E1E08; --color-text-muted: #8A6840; --color-text-on-primary: #F2E4C4;
+      --color-border: #C8A870; --color-success: #3A6E2A; --color-warning: #B87010; --color-error: #8B2500;
+
+      --font-family: 'EB Garamond', Georgia, serif;
+      --font-family-mono: 'Courier Prime', 'Courier New', monospace;
+      --font-family-display: 'EB Garamond', Georgia, serif;
+      --font-size-base: 18px; --font-weight-heading: 700; --font-weight-body: 400; --line-height: 1.72;
+
+      --radius: 2px; --radius-card: 3px; --radius-button: 2px;
+
+      --shadow-sm: 0 1px 3px rgba(46,30,8,0.15), 0 0 0 1px rgba(200,168,112,0.4);
+      --shadow-md: 0 3px 12px rgba(46,30,8,0.2), 0 0 0 1px rgba(200,168,112,0.5);
+      --shadow-lg: 0 6px 24px rgba(46,30,8,0.25), 0 0 0 1px rgba(200,168,112,0.6);
+      --shadow-xl: 0 12px 40px rgba(46,30,8,0.3);
+      --shadow-colored: 0 3px 16px rgba(92,61,17,0.3), 0 0 0 1px rgba(92,61,17,0.4);
+      --shadow-inset: inset 0 2px 6px rgba(46,30,8,0.12), inset 0 1px 0 rgba(200,168,112,0.3);
+
+      --gradient-hero: linear-gradient(135deg, #EDD8A8 0%, #F2E4C4 50%, #E8D8A0 100%);
+      --gradient-card: linear-gradient(180deg, #EDD8A8 0%, #E8D09C 100%);
+      --gradient-button: linear-gradient(135deg, #6E4A16 0%, #4A2E08 100%);
+      --gradient-text: linear-gradient(135deg, #8B2500 0%, #C8860A 100%);
+      --gradient-accent: linear-gradient(90deg, #5C3D11 0%, #8B2500 100%);
+
+      --glow-color: #5C3D11; --glow-sm: none; --glow-md: none; --glow-lg: none;
+      --glass-blur: 0; --glass-tint: none; --backdrop-filter: none;
+      --text-shadow: none; --border-gradient: none; --noise-opacity: 0.06;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 120ms; --duration-base: 220ms; --duration-slow: 380ms;
+      --easing: ease; --border-width: 1px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      padding: 3rem 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .tf-header {
+      border: 2px solid var(--color-primary);
+      padding: 2rem 2rem 1.75rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .tf-header::before {
+      content: '❧';
+      display: block;
+      text-align: center;
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+    }
+    .tf-header::after {
+      content: '— Field Notes, Vol. XII —';
+      display: block;
+      text-align: center;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-border);
+    }
+    .tf-header h1 {
+      font-family: var(--font-family-display);
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      text-align: center;
+      color: var(--color-primary);
+    }
+    .tf-header .tf-tags { margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: center; }
+    .tf-tag {
+      font-family: var(--font-family-mono);
+      font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border: 1px solid var(--color-border); color: var(--color-text-muted);
+    }
+
+    /* Ornamental rule */
+    .deco-rule { text-align: center; color: var(--color-primary); margin: 0.5rem 0 1rem; font-size: 0.9rem; letter-spacing: 0.5em; }
+
+    .tf-section { margin-bottom: 2.5rem; }
+    .tf-section-title {
+      font-size: 0.68rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--color-text-muted); font-style: italic;
+      margin-bottom: 0.75rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .tf-section-title::before, .tf-section-title::after { content: '—'; opacity: 0.4; }
+
+    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.75rem; }
+    .tf-swatch { border: 1px solid var(--color-border); overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .tf-swatch-color { height: 52px; }
+    .tf-swatch-label { background: var(--color-surface); padding: 0.35rem 0.5rem; font-size: 0.62rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.68rem; margin-bottom: 0.05rem; }
+
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.5rem; }
+    .t-h1 { font-family: var(--font-family-display); font-size: 3.5rem; font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; color: var(--color-primary); }
+    .t-h2 { font-family: var(--font-family-display); font-size: 2rem; font-weight: 400; font-style: italic; }
+    .t-h3 { font-family: var(--font-family-display); font-size: 1.25rem; font-weight: 700; letter-spacing: 0.02em; color: var(--color-secondary); }
+    .t-body { font-size: 1.05rem; font-weight: 400; max-width: 620px; }
+    .t-small { font-family: var(--font-family-mono); font-size: 0.72rem; color: var(--color-text-muted); letter-spacing: 0.06em; }
+    .t-mono { font-family: var(--font-family-mono); font-size: 0.88rem; background: var(--color-surface); padding: 0.25rem 0.65rem; border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent); border-radius: var(--radius); }
+
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .tf-btn {
+      padding: 0.55rem 1.4rem; border-radius: var(--radius-button);
+      font-family: var(--font-family); font-size: 0.9rem; font-weight: 500;
+      font-style: italic; cursor: pointer; border: 1px solid;
+      transition: all var(--duration-fast) var(--easing);
+    }
+    .tf-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); border-color: var(--color-primary); box-shadow: var(--shadow-colored); }
+    .tf-btn-secondary { background: transparent; color: var(--color-secondary); border-color: var(--color-secondary); }
+    .tf-btn-secondary:hover { background: var(--color-secondary); color: var(--color-text-on-primary); }
+    .tf-btn-outline { background: transparent; color: var(--color-primary); border-color: var(--color-border); }
+    .tf-btn-ghost { background: var(--color-surface); color: var(--color-text-muted); border-color: var(--color-border); }
+
+    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
+    .tf-card { background: var(--gradient-card); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: 1.5rem; box-shadow: var(--shadow-md); }
+    .tf-card .card-no { font-family: var(--font-family-mono); font-size: 0.62rem; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .tf-card h3 { font-family: var(--font-family-display); font-weight: 700; font-size: 1.15rem; margin-bottom: 0.4rem; color: var(--color-primary); }
+    .tf-card p { font-style: italic; color: var(--color-text-muted); font-size: 0.95rem; }
+
+    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 380px; }
+    .tf-form label { font-family: var(--font-family-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.25rem; display: block; }
+    .tf-form input, .tf-form select {
+      width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--color-border);
+      border-radius: var(--radius); background: var(--color-surface); color: var(--color-text);
+      font-family: var(--font-family); font-size: 1rem; font-style: italic; outline: none;
+      box-shadow: var(--shadow-inset); transition: border-color var(--duration-fast);
+    }
+    .tf-form input:focus, .tf-form select:focus { border-color: var(--color-primary); }
+
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tf-badge { padding: 0.2rem 0.75rem; font-family: var(--font-family-mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid; border-radius: var(--radius); }
+    .tf-badge-primary { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-primary-light); }
+    .tf-badge-success { border-color: var(--color-success); color: var(--color-success); background: transparent; }
+    .tf-badge-warning { border-color: var(--color-warning); color: var(--color-warning); background: transparent; }
+    .tf-badge-error { border-color: var(--color-secondary); color: var(--color-secondary); background: transparent; }
+    .tf-badge-neutral { border-color: var(--color-border); color: var(--color-text-muted); background: transparent; }
+
+    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .tf-effect-tile { border: 1px solid var(--color-border); padding: 1.25rem; border-radius: var(--radius-card); display: flex; flex-direction: column; gap: 0.5rem; background: var(--color-surface); }
+    .tf-effect-tile .tile-label { font-family: var(--font-family-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); }
+    .tf-effect-tile .tile-value { font-family: var(--font-family-mono); font-size: 0.68rem; color: var(--color-text-muted); word-break: break-all; }
+    .tf-gradient-hero { height: 80px; background: var(--gradient-hero); border: 2px solid var(--color-primary); display: flex; align-items: center; justify-content: center; border-radius: var(--radius-card); }
+    .tf-gradient-hero span { font-family: var(--font-family-display); font-size: 1.75rem; font-weight: 700; color: var(--color-primary); font-style: italic; }
+    .tf-glow-demo { background: var(--color-surface); border: 1px solid var(--color-border); border-left: 3px solid var(--color-secondary); padding: 1rem 1.5rem; font-family: var(--font-family-display); font-size: 0.95rem; font-style: italic; color: var(--color-secondary); }
+    .tf-glass-demo { background: var(--color-surface-alt); border: 1px solid var(--color-border); padding: 1rem 1.5rem; font-family: var(--font-family); font-size: 0.88rem; font-style: italic; color: var(--color-text-muted); border-radius: var(--radius); }
+    .tf-gradient-text { font-family: var(--font-family-display); font-size: 2rem; font-style: italic; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; }
+    .tf-btn-gradient { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); padding: 0.55rem 1.25rem; border: 1px solid var(--color-primary); border-radius: var(--radius-button); font-family: var(--font-family); font-size: 0.9rem; font-style: italic; cursor: pointer; width: 100%; }
+    .tf-inset-demo { background: var(--color-surface-alt); border-radius: var(--radius); padding: 0.55rem 0.75rem; box-shadow: var(--shadow-inset); border: 1px solid var(--color-border); font-family: var(--font-family-mono); font-size: 0.82rem; color: var(--color-text-muted); }
+  </style>
+</head>
+<body>
+
+  <div class="tf-header">
+    <h1>Tobacco Road</h1>
+    <div class="tf-tags">
+      <span class="tf-tag">Light</span>
+      <span class="tf-tag">Classic-Vintage</span>
+      <span class="tf-tag">Editorial</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Color Palette</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#5C3D11"></div><div class="tf-swatch-label"><strong>primary</strong>#5C3D11</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#EDD8A8"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#EDD8A8</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#8B2500"></div><div class="tf-swatch-label"><strong>secondary</strong>#8B2500</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#C8860A"></div><div class="tf-swatch-label"><strong>accent</strong>#C8860A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#F2E4C4"></div><div class="tf-swatch-label"><strong>background</strong>#F2E4C4</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#EDD8A8"></div><div class="tf-swatch-label"><strong>surface</strong>#EDD8A8</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#E4CC94"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#E4CC94</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#2E1E08"></div><div class="tf-swatch-label"><strong>text</strong>#2E1E08</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#8A6840"></div><div class="tf-swatch-label"><strong>textMuted</strong>#8A6840</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#C8A870"></div><div class="tf-swatch-label"><strong>border</strong>#C8A870</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#3A6E2A"></div><div class="tf-swatch-label"><strong>success</strong>#3A6E2A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#B87010"></div><div class="tf-swatch-label"><strong>warning</strong>#B87010</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:#8B2500"></div><div class="tf-swatch-label"><strong>error</strong>#8B2500</div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Typography</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">The Wanderer's Almanac</div>
+      <div class="t-h2">Field Observations, 1897</div>
+      <div class="t-h3">On the Natural Philosophy of Distant Places</div>
+      <div class="t-body">Each specimen catalogued with care — the colour of light through aged oak, the smell of tobacco and old leather, the texture of vellum under a steady hand.</div>
+      <div class="t-small">No. 7 · EB Garamond (display & body unified) · Grain noise · Aged paper</div>
+      <div class="t-mono">entry_001: "Quercus robur // found at latitude 51.2° N"</div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Buttons</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">Record Entry</button>
+      <button class="tf-btn tf-btn-secondary">Vermillion</button>
+      <button class="tf-btn tf-btn-outline">Browse</button>
+      <button class="tf-btn tf-btn-ghost">Archive</button>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Cards</div>
+    <div class="tf-cards">
+      <div class="tf-card"><div class="card-no">Entry 001 · Spring</div><h3>Quercus Robur</h3><p>Common Oak. Found at the margin of the lower meadow. Bark furrowed, deeply ridged. Height estimated at 18 metres.</p></div>
+      <div class="tf-card"><div class="card-no">Entry 002 · Autumn</div><h3>Bellis Perennis</h3><p>Common Daisy. Abundant in the lawn margins. Ray florets white-tipped. Collected at first frost, pressed immediately.</p></div>
+      <div class="tf-card" style="background:var(--color-surface-alt)"><div class="card-no">Archive · 1891</div><h3>River Specimens</h3><p>Fourteen specimens from the upper tributary. Preserved in ethanol. Labels in brown iron gall ink, still legible.</p></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Form Elements</div>
+    <div class="tf-form">
+      <div><label>Specimen Name</label><input type="text" placeholder="Latin binomial…"></div>
+      <div><label>Season</label><select><option>Spring</option><option>Summer</option><option>Autumn</option><option>Winter</option></select></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Badges & Status</div>
+    <div class="tf-badges">
+      <span class="tf-badge tf-badge-primary">Catalogued</span>
+      <span class="tf-badge tf-badge-success">Preserved</span>
+      <span class="tf-badge tf-badge-warning">Drying</span>
+      <span class="tf-badge tf-badge-error">Damaged</span>
+      <span class="tf-badge tf-badge-neutral">Archive</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Gradients & Effects</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1">
+        <div class="tile-label">Hero Gradient</div>
+        <div class="tf-gradient-hero"><span>The Wanderer's Almanac</span></div>
+        <div class="tile-value">linear-gradient(135deg, #EDD8A8, #F2E4C4, #E8D8A0) — warm vellum tones</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Amber Accent</div>
+        <div class="tf-gradient-text">Botanica</div>
+        <div class="tile-value">vermillion → amber gradient</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Primary Button</div>
+        <button class="tf-btn-gradient">Record Entry</button>
+        <div class="tile-value">var(--gradient-button) — dark tobacco</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Pull Note</div>
+        <div class="tf-glow-demo">"Observed at the margin of the river, mid-morning. Remarkable iridescence."</div>
+        <div class="tile-value">border-left: 3px #8B2500</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Paper Surface</div>
+        <div class="tf-glass-demo">Aged vellum — grain noise texture simulating foxing and natural paper aging from 1890s.</div>
+        <div class="tile-value">SVG fractalNoise, opacity 0.06</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Inset Well</div>
+        <div class="tf-inset-demo">specimen_id: QR_001</div>
+        <div class="tile-value">var(--shadow-inset)</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

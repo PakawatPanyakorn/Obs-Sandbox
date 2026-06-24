@@ -90,7 +90,7 @@
         letter-spacing: 0.09em;
         text-transform: uppercase;
         color: var(--muted);
-        min-width: 36px;
+        min-width: 7rem;
         flex-shrink: 0;
       }
 
@@ -505,160 +505,13 @@
         text-align: center;
       }
 
-      /* ── Export button ── */
-      #export-tags-btn {
-        display: none;
-        padding: 0.25rem 0.75rem;
-        border-radius: 6px;
-        border: 1px solid var(--border);
-        background: transparent;
-        color: var(--muted);
-        font-size: 0.75rem;
-        font-weight: 500;
-        cursor: pointer;
-        font-family: inherit;
-        transition:
-          border-color 0.12s,
-          color 0.12s;
-      }
-      #export-tags-btn:hover {
-        border-color: var(--accent);
-        color: var(--text);
-      }
-
-      /* ── Export modal ── */
-      #export-modal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        z-index: 1000;
-        background: rgba(0, 0, 0, 0.7);
-        align-items: center;
-        justify-content: center;
-        padding: 1.5rem;
-      }
-      #export-modal.open {
-        display: flex;
-      }
-      #export-modal-box {
-        background: #1c1c26;
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        width: min(860px, calc(100vw - 3rem));
-        height: min(600px, calc(100vh - 3rem));
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-      }
-      #export-modal-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 1.25rem 0.75rem;
-        border-bottom: 1px solid var(--border);
-        flex-shrink: 0;
-      }
-      #export-modal-header h2 {
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #fff;
-      }
-      #export-modal-header p {
-        font-size: 0.75rem;
-        color: var(--muted);
-        margin-top: 0.15rem;
-      }
-      #export-close-btn {
-        background: none;
-        border: none;
-        color: var(--muted);
-        cursor: pointer;
-        font-size: 1.2rem;
-        line-height: 1;
-        padding: 0.2rem 0.4rem;
-      }
-      #export-close-btn:hover {
-        color: var(--text);
-      }
-      #export-code {
-        flex: 1;
-        overflow: auto;
-        margin: 0;
-        padding: 1rem 1.25rem;
-        font-family: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
-        font-size: 0.78rem;
-        line-height: 1.65;
-        color: #b0b8d0;
-        white-space: pre;
-        background: #13131b;
-        border: none;
-        outline: none;
-        resize: none;
-        width: 100%;
-      }
-      #export-modal-footer {
-        padding: 0.75rem 1.25rem;
-        border-top: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        flex-shrink: 0;
-      }
-      #export-copy-btn {
-        padding: 0.35rem 1rem;
-        border-radius: 6px;
-        border: 1px solid var(--accent);
-        background: var(--accent);
-        color: #fff;
-        font-size: 0.8rem;
-        font-weight: 600;
-        cursor: pointer;
-        font-family: inherit;
-        transition: opacity 0.12s;
-      }
-      #export-copy-btn:hover {
-        opacity: 0.85;
-      }
-      #export-copy-note {
-        font-size: 0.72rem;
-        color: var(--muted);
-      }
     </style>
   </head>
   <body>
     <header>
       <h1>Theme Gallery <span id="count">…</span></h1>
-      <p>
-        Click any theme to open the full HTML preview. &nbsp;<button
-          id="export-tags-btn"
-        >
-          ⬇ Export tags
-        </button>
-      </p>
+      <p>Click any theme to open the full HTML preview.</p>
     </header>
-
-    <!-- Export modal -->
-    <div id="export-modal">
-      <div id="export-modal-box">
-        <div id="export-modal-header">
-          <div>
-            <h2>Export THEME_TAGS</h2>
-            <p>
-              Copy and replace the <code>const THEME_TAGS = {…}</code> block at
-              the bottom of index.html
-            </p>
-          </div>
-          <button id="export-close-btn" title="Close">✕</button>
-        </div>
-        <textarea id="export-code" readonly spellcheck="false"></textarea>
-        <div id="export-modal-footer">
-          <button id="export-copy-btn">Copy to clipboard</button>
-          <span id="export-copy-note"
-            >Paste into index.html to make tag changes permanent</span
-          >
-        </div>
-      </div>
-    </div>
 
     <div id="filters">
       <div class="filter-row">
@@ -671,9 +524,16 @@
         </div>
       </div>
       <div class="filter-row">
-        <span class="filter-label">Vibe</span>
+        <span class="filter-label">Aesthetic</span>
         <div class="filter-divider"></div>
-        <div class="filter-chips" id="filter-vibe">
+        <div class="filter-chips" id="filter-aesthetic">
+          <button class="chip active" data-value="">All</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Personality</span>
+        <div class="filter-divider"></div>
+        <div class="filter-chips" id="filter-personality">
           <button class="chip active" data-value="">All</button>
         </div>
       </div>
@@ -695,22 +555,6 @@
     <p id="empty-msg">No themes match the selected filters.</p>
 
     <script>
-      const TAG_ORDER = [
-        "cyber",
-        "retro",
-        "cosmic",
-        "gothic",
-        "editorial",
-        "brutalist",
-        "luxe",
-        "nature",
-        "minimalist",
-        "finance",
-        "corporate",
-        "maximalist",
-        "surreal",
-      ];
-
       const TAG_COLORS = {
         cyber: { fg: "#00e5ff", bg: "#00e5ff18", border: "#00e5ff55" },
         retro: { fg: "#ff9d00", bg: "#ff9d0018", border: "#ff9d0055" },
@@ -726,46 +570,6 @@
         maximalist: { fg: "#ff2d78", bg: "#ff2d7818", border: "#ff2d7855" },
         surreal: { fg: "#bfff00", bg: "#bfff0018", border: "#bfff0055" },
       };
-
-      /* ── Tag persistence ── */
-      const STORAGE_KEY = "theme-tags-v1";
-
-      function saveTagsToStorage() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(THEME_TAGS));
-        updateExportBtn();
-      }
-
-      function loadTagsFromStorage() {
-        try {
-          const stored = JSON.parse(
-            localStorage.getItem(STORAGE_KEY) || "null",
-          );
-          if (stored && typeof stored === "object") {
-            for (const key of Object.keys(stored)) {
-              stored[key] = stored[key].map((t) =>
-                t === "minimal" ? "minimalist" : t,
-              );
-            }
-            Object.assign(THEME_TAGS, stored);
-          }
-        } catch {}
-      }
-
-      function updateExportBtn() {
-        const btn = document.getElementById("export-tags-btn");
-        if (!btn) return;
-        const changed =
-          Object.keys(ORIGINAL_THEME_TAGS).some((k) => {
-            const orig = (ORIGINAL_THEME_TAGS[k] || [])
-              .slice()
-              .sort()
-              .join(",");
-            const curr = (THEME_TAGS[k] || []).slice().sort().join(",");
-            return orig !== curr;
-          }) ||
-          Object.keys(THEME_TAGS).some((k) => !(k in ORIGINAL_THEME_TAGS));
-        btn.style.display = changed ? "inline-block" : "none";
-      }
 
       function getTagColor(tag) {
         if (TAG_COLORS[tag]) return TAG_COLORS[tag];
@@ -4363,7 +4167,8 @@
 
       let allEntries = [];
       let activeMode = "";
-      let activeVibe = "";
+      let activeAesthetic = "";
+      let activePersonality = "";
       let activeSort = "name-asc";
       let favorites = new Set(
         JSON.parse(localStorage.getItem("theme-fav") || "[]"),
@@ -4443,7 +4248,7 @@
 
       /* ── Card builder ── */
       function buildCard(entry) {
-        const { theme, filename, bg, p, sec, acc, sur, txt, mode, tags } =
+        const { theme, filename, bg, p, sec, acc, sur, txt, mode, aesthetic, personality } =
           entry;
         const typo = theme.typography || {};
         const fx = theme.effects || {};
@@ -4515,14 +4320,7 @@
         <div class="card-name">${theme.name || filename.replace("themes/", "").replace(".html", "")}${isFav ? '<span class="fav-pin">★ pinned</span>' : ""}</div>
         <div class="card-desc">${descHtml(theme.description || "")}</div>
         <div class="card-footer">
-          <div class="card-tags">${tags
-            .map((t) => {
-              const c = getTagColor(t);
-              return `<span class="tag" data-tag="${t}" style="color:${c.fg};background:${c.bg};border-color:${c.border}">${t}<button class="tag-del" data-tag="${t}" data-file="${filename}">×</button></span>`;
-            })
-            .join(
-              "",
-            )}<button class="tag-add" data-file="${filename}">+ tag</button></div>
+          <div class="card-tags">${aesthetic ? (() => { const c = getTagColor(aesthetic); return `<span class="tag tag-aesthetic" data-tag="${aesthetic}" style="color:${c.fg};background:${c.bg};border-color:${c.border}">${aesthetic}</span>`; })() : ""}${personality.map(t => { const c = getTagColor(t); return `<span class="tag tag-personality" data-tag="${t}" style="color:${c.fg};background:${c.bg};border-color:${c.border}">${t}</span>`; }).join("")}</div>
           <span class="open-link">open
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M2 10L10 2M5 2h5v5"/>
@@ -4538,7 +4336,8 @@
       function render() {
         const filtered = allEntries.filter((e) => {
           if (activeMode && e.mode !== activeMode) return false;
-          if (activeVibe && !e.tags.includes(activeVibe)) return false;
+          if (activeAesthetic && e.aesthetic !== activeAesthetic) return false;
+          if (activePersonality && !e.personality.includes(activePersonality)) return false;
           return true;
         });
 
@@ -4577,161 +4376,28 @@
         });
       }
 
-      /* ── Tag delete — click × to enter confirm state, then ✓/✗ ── */
+      /* ── Tag click → set aesthetic or personality filter ── */
       grid.addEventListener("click", (e) => {
-        const del = e.target.closest(".tag-del");
-        if (!del) return;
-        e.preventDefault();
-        e.stopPropagation();
-        const tagEl = del.closest(".tag");
-        if (tagEl.classList.contains("tag--confirm")) return; // already confirming
-        tagEl.classList.add("tag--confirm");
-        del.style.display = "none";
-
-        const yes = document.createElement("button");
-        yes.className = "tag-confirm-yes";
-        yes.textContent = "✓";
-        yes.title = "Confirm remove";
-
-        const no = document.createElement("button");
-        no.className = "tag-confirm-no";
-        no.textContent = "✗";
-        no.title = "Cancel";
-
-        tagEl.append(yes, no);
-      });
-
-      grid.addEventListener("click", (e) => {
-        const yes = e.target.closest(".tag-confirm-yes");
-        if (!yes) return;
-        e.preventDefault();
-        e.stopPropagation();
-        const tagEl = yes.closest(".tag");
-        const tagVal = tagEl.dataset.tag;
-        const file = tagEl.querySelector(".tag-del").dataset.file;
-        THEME_TAGS[file] = (THEME_TAGS[file] || []).filter((t) => t !== tagVal);
-        const entry = allEntries.find((en) => en.filename === file);
-        if (entry) entry.tags = [...THEME_TAGS[file]];
-        saveTagsToStorage();
-        rebuildVibeChips();
-        render();
-      });
-
-      grid.addEventListener("click", (e) => {
-        const no = e.target.closest(".tag-confirm-no");
-        if (!no) return;
-        e.preventDefault();
-        e.stopPropagation();
-        const tagEl = no.closest(".tag");
-        tagEl.classList.remove("tag--confirm");
-        tagEl.querySelector(".tag-del").style.display = "";
-        tagEl
-          .querySelectorAll(".tag-confirm-yes, .tag-confirm-no")
-          .forEach((b) => b.remove());
-      });
-
-      /* ── Tag add — type + Enter shows confirm chip, then ✓/✗ ── */
-      grid.addEventListener("click", (e) => {
-        const addBtn = e.target.closest(".tag-add");
-        if (!addBtn) return;
-        e.preventDefault();
-        e.stopPropagation();
-        const file = addBtn.dataset.file;
-        const input = document.createElement("input");
-        input.className = "tag-input";
-        input.placeholder = "new tag…";
-        input.maxLength = 24;
-        addBtn.replaceWith(input);
-        input.focus();
-
-        let done = false;
-
-        function showConfirm(val) {
-          done = true;
-          const c = getTagColor(val);
-          const preview = document.createElement("span");
-          preview.className = "tag tag-preview";
-          preview.style.cssText = `color:${c.fg};background:${c.bg};border-color:${c.border}`;
-
-          const yes = document.createElement("button");
-          yes.className = "tag-confirm-yes";
-          yes.textContent = "✓";
-          yes.title = "Add tag";
-
-          const no = document.createElement("button");
-          no.className = "tag-confirm-no";
-          no.textContent = "✗";
-          no.title = "Cancel";
-
-          preview.append(document.createTextNode(val), yes, no);
-          input.replaceWith(preview);
-
-          yes.addEventListener("click", (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            if (!THEME_TAGS[file]) THEME_TAGS[file] = [];
-            if (!THEME_TAGS[file].includes(val)) THEME_TAGS[file].push(val);
-            const entry = allEntries.find((en) => en.filename === file);
-            if (entry) entry.tags = [...THEME_TAGS[file]];
-            saveTagsToStorage();
-            rebuildVibeChips();
-            render();
-          });
-
-          no.addEventListener("click", (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            render();
-          });
-        }
-
-        input.addEventListener("keydown", (ev) => {
-          if (ev.key === "Enter") {
-            ev.preventDefault();
-            const val = input.value.trim().toLowerCase().replace(/\s+/g, "-");
-            if (val) showConfirm(val);
-            else {
-              done = true;
-              render();
-            }
-          }
-          if (ev.key === "Escape") {
-            done = true;
-            render();
-          }
-        });
-
-        input.addEventListener("blur", () => {
-          setTimeout(() => {
-            if (!done) {
-              done = true;
-              render();
-            }
-          }, 150);
-        });
-      });
-
-      /* ── Tag click → set vibe filter ── */
-      grid.addEventListener("click", (e) => {
-        if (
-          e.target.closest(".tag-del") ||
-          e.target.closest(".tag-add") ||
-          e.target.closest(".tag-confirm-yes") ||
-          e.target.closest(".tag-confirm-no") ||
-          e.target.closest(".card-desc-toggle")
-        )
-          return;
+        if (e.target.closest(".card-desc-toggle")) return;
         const tag = e.target.closest(".tag");
         if (!tag) return;
         e.preventDefault();
         e.stopPropagation();
         const value = tag.dataset.tag;
-        activeVibe = activeVibe === value ? "" : value;
-        document.querySelectorAll("#filter-vibe .chip").forEach((c) => {
-          c.classList.toggle("active", c.dataset.value === activeVibe);
-        });
+        if (tag.classList.contains("tag-aesthetic")) {
+          activeAesthetic = activeAesthetic === value ? "" : value;
+          document.querySelectorAll("#filter-aesthetic .chip").forEach((c) => {
+            c.classList.toggle("active", c.dataset.value === activeAesthetic);
+          });
+        } else if (tag.classList.contains("tag-personality")) {
+          activePersonality = activePersonality === value ? "" : value;
+          document.querySelectorAll("#filter-personality .chip").forEach((c) => {
+            c.classList.toggle("active", c.dataset.value === activePersonality);
+          });
+        }
         render();
       });
+
 
       /* ── Favorite toggle — event delegation on grid ── */
       grid.addEventListener("click", (e) => {
@@ -4769,8 +4435,13 @@
         render();
       });
 
-      wireChips("filter-vibe", (v) => {
-        activeVibe = v;
+      wireChips("filter-aesthetic", (v) => {
+        activeAesthetic = v;
+        render();
+      });
+
+      wireChips("filter-personality", (v) => {
+        activePersonality = v;
         render();
       });
 
@@ -4813,36 +4484,45 @@
         });
       })();
 
-      /* ── Rebuild vibe filter chips from live THEME_TAGS — sorted by count, auto add/remove ── */
-      function rebuildVibeChips() {
-        const container = document.getElementById("filter-vibe");
-
+      function rebuildFilterChips(containerId, getActive, setActive, getValues, limit = Infinity) {
+        const container = document.getElementById(containerId);
+        const active = getActive();
         const counts = {};
-        for (const tags of Object.values(THEME_TAGS)) {
-          tags.forEach((t) => {
-            counts[t] = (counts[t] || 0) + 1;
-          });
+        for (const e of allEntries) {
+          getValues(e).forEach((v) => { counts[v] = (counts[v] || 0) + 1; });
         }
-
-        if (activeVibe && !counts[activeVibe]) activeVibe = "";
-
-        container
-          .querySelectorAll('.chip:not([data-value=""])')
-          .forEach((c) => c.remove());
-        container
-          .querySelector('[data-value=""]')
-          .classList.toggle("active", !activeVibe);
-
-        Object.keys(counts)
-          .sort((a, b) => counts[b] - counts[a] || a.localeCompare(b))
-          .forEach((tag) => {
+        if (active && !counts[active]) setActive("");
+        container.querySelectorAll('.chip:not([data-value=""])').forEach((c) => c.remove());
+        container.querySelector('[data-value=""]').classList.toggle("active", !getActive());
+        const sorted = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b));
+        const visible = new Set(sorted.slice(0, limit));
+        if (active && !visible.has(active)) visible.add(active);
+        sorted.filter((t) => visible.has(t)).forEach((tag) => {
             const btn = document.createElement("button");
-            btn.className = "chip" + (tag === activeVibe ? " active" : "");
+            btn.className = "chip" + (tag === getActive() ? " active" : "");
             btn.dataset.value = tag;
-            const label = tag.charAt(0).toUpperCase() + tag.slice(1);
-            btn.textContent = `${label} ${counts[tag]}`;
+            btn.textContent = `${tag.charAt(0).toUpperCase() + tag.slice(1)} ${counts[tag]}`;
             container.appendChild(btn);
           });
+      }
+
+      function rebuildAestheticChips() {
+        rebuildFilterChips(
+          "filter-aesthetic",
+          () => activeAesthetic,
+          (v) => { activeAesthetic = v; },
+          (e) => (e.aesthetic ? [e.aesthetic] : []),
+        );
+      }
+
+      function rebuildPersonalityChips() {
+        rebuildFilterChips(
+          "filter-personality",
+          () => activePersonality,
+          (v) => { activePersonality = v; },
+          (e) => e.personality,
+          15,
+        );
       }
 
       /* ── Load all display fonts from Google Fonts ── */
@@ -4885,6 +4565,8 @@
         document.head.appendChild(link);
       }
 
+      const TONE_WORDS = new Set(["light", "dark"]);
+
       /* ── Init — processes inline THEMES array, no fetch needed ── */
       function init() {
         loadDisplayFonts();
@@ -4904,7 +4586,8 @@
           const mode = lum < 0.4 ? "dark" : "light";
 
           const { h: hue } = hexToHsl(bg);
-          const tags = THEME_TAGS[filename] || [mode];
+          const aesthetic = theme.design?.aesthetic || "";
+          const personality = (Array.isArray(theme.design?.personality) ? theme.design.personality : []).filter(t => !TONE_WORDS.has(t));
 
           allEntries.push({
             theme,
@@ -4918,123 +4601,19 @@
             lum,
             hue,
             mode,
-            tags,
+            aesthetic,
+            personality,
           });
         }
 
         allEntries = sortEntries(allEntries); // favorites first, then A–Z
-        rebuildVibeChips();
+        rebuildAestheticChips();
+        rebuildPersonalityChips();
 
         countEl.textContent = `${allEntries.length} theme${allEntries.length !== 1 ? "s" : ""}`;
         render();
       }
 
-      /* ── Export THEME_TAGS ── */
-      (function setupExport() {
-        const btn = document.getElementById("export-tags-btn");
-        const modal = document.getElementById("export-modal");
-        const code = document.getElementById("export-code");
-        const copyBtn = document.getElementById("export-copy-btn");
-        const closeBtn = document.getElementById("export-close-btn");
-
-        function openExport() {
-          const lines = Object.entries(THEME_TAGS).map(([file, tags]) => {
-            const padded = `"${file}":`.padEnd(42);
-            return `        ${padded} [${tags.map((t) => `"${t}"`).join(", ")}],`;
-          });
-          code.value = `      const THEME_TAGS = {\n${lines.join("\n")}\n      };`;
-          modal.classList.add("open");
-          code.scrollTop = 0;
-        }
-
-        btn.addEventListener("click", openExport);
-        closeBtn.addEventListener("click", () =>
-          modal.classList.remove("open"),
-        );
-        modal.addEventListener("click", (e) => {
-          if (e.target === modal) modal.classList.remove("open");
-        });
-
-        copyBtn.addEventListener("click", () => {
-          navigator.clipboard.writeText(code.value).then(() => {
-            const orig = copyBtn.textContent;
-            copyBtn.textContent = "✓ Copied!";
-            setTimeout(() => {
-              copyBtn.textContent = orig;
-            }, 1800);
-          });
-        });
-      })();
-
-      /* ══════════════════════════════════════════════════════════════════
-         VIBE TAGS — paste exported content here to make changes permanent
-      ══════════════════════════════════════════════════════════════════ */
-      const THEME_TAGS = {
-        "themes/cyber-terminal.html": ["cyber", "retro"],
-        "themes/horizon-sunset.html": ["nature"],
-        "themes/coral-slate.html": ["corporate", "minimalist", "formal"],
-        "themes/peach-slate.html": ["nature", "minimalist"],
-        "themes/synthwave-84.html": ["cyber", "retro", "luminescence"],
-        "themes/modern-coral.html": ["editorial", "nature"],
-        "themes/velvet-noir.html": ["luxe", "gothic"],
-        "themes/chalk-press.html": ["editorial", "brutalist", "minimalist"],
-        "themes/neon-foundry.html": [
-          "cyber",
-          "retro",
-          "industrial",
-          "futuristic",
-        ],
-        "themes/bloc-brutus.html": ["brutalist", "industrial"],
-        "themes/cosmica.html": ["cosmic", "super-unrealistic", "maximalist"],
-        "themes/tobacco-road.html": ["editorial", "retro", "nature"],
-        "themes/obsidian-mono.html": ["minimalist", "colorless"],
-        "themes/embassy-gold.html": ["luxe", "corporate"],
-        "themes/acid-garden.html": [
-          "vibrant",
-          "super-unrealistic",
-          "luminescence",
-        ],
-        "themes/copper-alchemist.html": ["retro", "gothic"],
-        "themes/bauhaus-konstrukt.html": ["brutalist"],
-        "themes/nocturne-nouveau.html": ["luxe", "gothic", "maximalist"],
-        "themes/solarpunk-utopia.html": ["nature", "formal"],
-        "themes/crypt-scholastic.html": ["gothic", "retro", "luxe"],
-        "themes/tokyo-screentone.html": ["editorial", "brutalist"],
-        "themes/vellum-codex.html": ["retro", "luxe"],
-        "themes/amber-signal.html": ["cyber", "retro"],
-        "themes/ultraviolet-rave.html": ["cosmic", "cyber"],
-        "themes/moss-cottage.html": ["nature", "minimalist"],
-        "themes/titanium-cloud.html": ["corporate", "minimalist"],
-        "themes/alpha-signal.html": ["finance", "formal"],
-        "themes/vault-theorem.html": ["finance", "formal", "corporate"],
-        "themes/meridian-capital.html": [
-          "finance",
-          "luxe",
-          "editorial",
-          "super-unrealistic",
-        ],
-        "themes/eigenvalue.html": ["finance", "super-unrealistic"],
-        "themes/prism-ledger.html": ["finance", "editorial", "formal"],
-        "themes/astral-drift.html": [
-          "cosmic",
-          "vibrant",
-          "surreal",
-          "psychedelic",
-          "super-unrealistic",
-        ],
-        "themes/rabbit-hole.html": [
-          "maximalist",
-          "surreal",
-          "vibrant",
-          "psychedelic",
-        ],
-        "themes/wisdom.html": ["editorial", "luxe"],
-        "themes/bauhaus-geometry.html": ["brutalist", "editorial", "playful"],
-        "themes/edo-stillwater.html": ["editorial", "formal", "minimalist"],
-      };
-      const ORIGINAL_THEME_TAGS = JSON.parse(JSON.stringify(THEME_TAGS));
-      loadTagsFromStorage();
-      updateExportBtn();
       init();
     </script>
   </body>

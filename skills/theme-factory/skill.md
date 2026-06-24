@@ -38,7 +38,7 @@ Ambiguous (has "theme" but action unclear) → ask: "Extract/create, list, delet
 
 ### List Mode
 
-Tell the user: "Open [Theme Gallery](https://html-preview.github.io/?url=https://github.com/PakawatPanyakorn/.claude/blob/master/skills/theme-factory/index.html)"
+Tell the user: "Open [Theme Gallery](https://html-preview.github.io/?url=https://github.com/PakawatPanyakorn/Obs-Sandbox/blob/master/skills/theme-factory/index.html)"
 
 Do not read files, render swatches, or summarize themes.
 
@@ -330,32 +330,32 @@ Run this check **after** generating the theme and **before** writing the preset 
 
 ### Critical fixes (block write until resolved)
 
-| Violation | Auto-fix |
-|-----------|----------|
-| Background gradient on hero (purple→blue/pink) | Replace with `--color-bg` solid |
-| `gradient-text` set to purple→pink or blue→cyan on headlines | Set `--gradient-text: none`; use weight/color instead |
-| Pure `#000000` or `#ffffff` for `background` / `surface` | Tint toward the anchor hue (±5% lightness) |
-| `background.type: gradient` where both stops are purple/blue family | Change to solid or single-hue gradient |
-| Aurora/blob mesh in `--bg-image` (purple-pink-cyan) | Replace with solid, noise, or geometric pattern |
+| Violation                                                           | Auto-fix                                              |
+| ------------------------------------------------------------------- | ----------------------------------------------------- |
+| Background gradient on hero (purple→blue/pink)                      | Replace with `--color-bg` solid                       |
+| `gradient-text` set to purple→pink or blue→cyan on headlines        | Set `--gradient-text: none`; use weight/color instead |
+| Pure `#000000` or `#ffffff` for `background` / `surface`            | Tint toward the anchor hue (±5% lightness)            |
+| `background.type: gradient` where both stops are purple/blue family | Change to solid or single-hue gradient                |
+| Aurora/blob mesh in `--bg-image` (purple-pink-cyan)                 | Replace with solid, noise, or geometric pattern       |
 
 ### Major fixes (apply before write)
 
-| Violation | Auto-fix |
-|-----------|----------|
-| `--font-family-display` === `--font-family` (no pairing face) | Pick a contrasting display face from the Path C typography table |
-| Display font is Inter, Roboto, Arial, system-ui, Helvetica, or Space Grotesk | Replace with a distinctive face from the Path C table |
-| `--easing` contains `cubic-bezier` with overshoot (y > 1) | Replace with `cubic-bezier(0.16, 1, 0.3, 1)` (expo-out) |
-| `--shadow-colored` produces a soft halo glow on dark surface | Tighten spread: `0 1px 3px <color>40` at most |
-| Effects imply `backdrop-filter` but `surface-texture` is `flat` | Set `surfaceTexture: frosted` in Design DNA |
+| Violation                                                                    | Auto-fix                                                         |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `--font-family-display` === `--font-family` (no pairing face)                | Pick a contrasting display face from the Path C typography table |
+| Display font is Inter, Roboto, Arial, system-ui, Helvetica, or Space Grotesk | Replace with a distinctive face from the Path C table            |
+| `--easing` contains `cubic-bezier` with overshoot (y > 1)                    | Replace with `cubic-bezier(0.16, 1, 0.3, 1)` (expo-out)          |
+| `--shadow-colored` produces a soft halo glow on dark surface                 | Tighten spread: `0 1px 3px <color>40` at most                    |
+| Effects imply `backdrop-filter` but `surface-texture` is `flat`              | Set `surfaceTexture: frosted` in Design DNA                      |
 
 ### Minor fixes (apply before write)
 
-| Violation | Auto-fix |
-|-----------|----------|
-| Straight quotes in any showcase text | Replace with curly quotes |
-| `--` dashes in body copy | Replace with `—` |
-| Placeholder names "Jane Doe" / "John Smith" | Replace with diverse names (Maya Okonkwo, Sam Tan, Elena Ruiz…) |
-| Startup-cliché product names ("Nexus", "Pulse") | Replace with domain-specific placeholder |
+| Violation                                       | Auto-fix                                                        |
+| ----------------------------------------------- | --------------------------------------------------------------- |
+| Straight quotes in any showcase text            | Replace with curly quotes                                       |
+| `--` dashes in body copy                        | Replace with `—`                                                |
+| Placeholder names "Jane Doe" / "John Smith"     | Replace with diverse names (Maya Okonkwo, Sam Tan, Elena Ruiz…) |
+| Startup-cliché product names ("Nexus", "Pulse") | Replace with domain-specific placeholder                        |
 
 After applying all fixes, proceed to write the preset.
 
@@ -433,9 +433,15 @@ For Path C themes: the template is a **base reference only** - deviate freely in
   --bg-position: <v>;
   --bg-repeat: <v>;
 
-  --space-1: <v>;  --space-2: <v>;  --space-3: <v>;  --space-4: <v>;
-  --space-6: <v>;  --space-8: <v>;
-  --duration-fast: <v>;  --duration-base: <v>;  --duration-slow: <v>;
+  --space-1: <v>;
+  --space-2: <v>;
+  --space-3: <v>;
+  --space-4: <v>;
+  --space-6: <v>;
+  --space-8: <v>;
+  --duration-fast: <v>;
+  --duration-base: <v>;
+  --duration-slow: <v>;
   --easing: <v>;
   --border-width: <v>;
 

@@ -204,9 +204,20 @@
         color: var(--muted);
         font-size: 0.75rem;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 1rem;
+      }
+
+      .footer-left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .muted {
+        color: #888; /* muted gray */
+        font-size: 0.6rem;
+        opacity: 0.6;
       }
 
       footer a {
@@ -284,7 +295,11 @@
       </div>
 
       <footer>
-        <span>Pakawat Panyakorn</span>
+        <div class="footer-left">
+          <span>Pakawat Panyakorn</span>
+          <span class="muted">pakawatpanyakorn@gmail.com</span>
+        </div>
+
         <a href="https://github.com/PakawatPanyakorn/Obs-Sandbox">GitHub ↗</a>
       </footer>
     </div>

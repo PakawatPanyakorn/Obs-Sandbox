@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pakawat — Work</title>
+    <title>Obs — Sandbox</title>
     <style>
-      *, *::before, *::after {
+      *,
+      *::before,
+      *::after {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -13,24 +15,24 @@
 
       :root {
         --bg: #ffffff;
-        --surface: #f8f8f7;
-        --border: #e8e8e5;
-        --text: #1a1a18;
-        --muted: #74746e;
-        --accent: #2563eb;
-        --accent-hover: #1d4ed8;
-        --radius: 10px;
-        --max-w: 780px;
+        --surface: #fafafa;
+        --border: #ebebeb;
+        --text: #111111;
+        --muted: #888888;
+        --accent: #111111;
+        --radius: 8px;
+        --max-w: 720px;
       }
 
       body {
         background: var(--bg);
         color: var(--text);
-        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-        font-size: 15px;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+        font-size: 14px;
         line-height: 1.6;
         min-height: 100vh;
-        padding: 4rem 1.5rem 6rem;
+        padding: 5rem 1.5rem 8rem;
       }
 
       .wrap {
@@ -40,178 +42,251 @@
 
       /* ── Header ── */
       header {
-        margin-bottom: 3.5rem;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid var(--border);
+        margin-bottom: 4rem;
+      }
+
+      .header-eyebrow {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.75rem;
       }
 
       header h1 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         font-weight: 700;
-        letter-spacing: -0.025em;
+        letter-spacing: -0.04em;
         color: var(--text);
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
       }
 
       header p {
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: 0.875rem;
+        max-width: 38ch;
+      }
+
+      /* ── Divider ── */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: var(--border);
+        margin-bottom: 2.5rem;
       }
 
       /* ── Section label ── */
       .section-label {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         font-weight: 700;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--muted);
-        margin-bottom: 1rem;
+        margin-bottom: 1.25rem;
       }
 
-      /* ── Project grid ── */
+      /* ── Project list ── */
       .projects {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
       }
 
       .project-card {
         display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        padding: 1.25rem 1.4rem;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        padding: 1.25rem 1.5rem;
+        background: var(--bg);
         text-decoration: none;
         color: inherit;
-        transition: border-color 0.13s, box-shadow 0.13s, transform 0.13s;
-        position: relative;
+        transition: background 0.1s;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .project-card:last-child {
+        border-bottom: none;
       }
 
       .project-card:hover {
-        border-color: #c8c8c0;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-        transform: translateY(-1px);
+        background: var(--surface);
       }
 
       .project-card:hover .card-arrow {
         transform: translateX(3px);
-        color: var(--accent);
       }
 
-      .card-top {
+      .card-left {
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 0.5rem;
+        align-items: center;
+        gap: 1rem;
+        min-width: 0;
       }
 
       .card-icon {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         line-height: 1;
         flex-shrink: 0;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
       }
 
-      .card-arrow {
-        font-size: 1rem;
-        color: var(--muted);
-        transition: transform 0.13s, color 0.13s;
-        flex-shrink: 0;
-        margin-top: 0.1rem;
+      .card-body {
+        min-width: 0;
       }
 
       .card-name {
-        font-size: 0.95rem;
+        font-size: 0.875rem;
         font-weight: 600;
-        letter-spacing: -0.01em;
         color: var(--text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .card-desc {
-        font-size: 0.82rem;
+        font-size: 0.78rem;
         color: var(--muted);
-        line-height: 1.55;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 0.1rem;
+      }
+
+      .card-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-shrink: 0;
       }
 
       .card-meta {
         display: flex;
-        gap: 0.4rem;
+        gap: 0.35rem;
         flex-wrap: wrap;
-        margin-top: auto;
-        padding-top: 0.25rem;
+        justify-content: flex-end;
       }
 
       .badge {
         display: inline-block;
-        padding: 0.15rem 0.55rem;
-        border-radius: 99px;
-        font-size: 0.68rem;
-        font-weight: 600;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.64rem;
+        font-weight: 500;
         letter-spacing: 0.02em;
         border: 1px solid var(--border);
         color: var(--muted);
         background: var(--bg);
       }
 
+      .card-arrow {
+        font-size: 0.85rem;
+        color: var(--muted);
+        transition: transform 0.1s;
+        flex-shrink: 0;
+      }
+
       /* ── Footer ── */
       footer {
         margin-top: 4rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid var(--border);
         color: var(--muted);
-        font-size: 0.78rem;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      footer a {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.1s;
+      }
+
+      footer a:hover {
+        color: var(--text);
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 500px) {
+        .card-meta {
+          display: none;
+        }
+        .card-desc {
+          display: none;
+        }
       }
     </style>
   </head>
   <body>
     <div class="wrap">
-
       <header>
-        <h1>Pakawat — Work</h1>
-        <p>A collection of tools, analyses, and experiments.</p>
+        <p class="header-eyebrow">Obs · Sandbox</p>
+        <h1>Tools &amp; Experiments</h1>
+        <p>A collection of tools, analyses, and explorations.</p>
       </header>
+
+      <div class="divider"></div>
 
       <p class="section-label">Projects</p>
 
       <div class="projects">
-
         <a class="project-card" href="skills/theme-factory/index.html">
-          <div class="card-top">
+          <div class="card-left">
             <span class="card-icon">🎨</span>
+            <div class="card-body">
+              <div class="card-name">Theme Factory</div>
+              <div class="card-desc">
+                Color palettes, typography, and design tokens from images and
+                text
+              </div>
+            </div>
+          </div>
+          <div class="card-right">
+            <div class="card-meta">
+              <span class="badge">gallery</span>
+              <span class="badge">design tokens</span>
+            </div>
             <span class="card-arrow">→</span>
-          </div>
-          <div>
-            <div class="card-name">Theme Factory</div>
-            <div class="card-desc">Visual design presets — color palettes, typography, and surface tokens extracted from images, text, and HTML. Browse and preview each theme.</div>
-          </div>
-          <div class="card-meta">
-            <span class="badge">gallery</span>
-            <span class="badge">design tokens</span>
           </div>
         </a>
 
         <a class="project-card" href="skills/stock-analyse/index.html">
-          <div class="card-top">
+          <div class="card-left">
             <span class="card-icon">📈</span>
+            <div class="card-body">
+              <div class="card-name">Stock Analysis</div>
+              <div class="card-desc">
+                Technical and fundamental snapshots on US equities
+              </div>
+            </div>
+          </div>
+          <div class="card-right">
+            <div class="card-meta">
+              <span class="badge">US equities</span>
+              <span class="badge">technical</span>
+            </div>
             <span class="card-arrow">→</span>
           </div>
-          <div>
-            <div class="card-name">Stock Analysis</div>
-            <div class="card-desc">Technical and fundamental snapshots on US equities — entry thesis, risk levels, and chart structure for individual positions.</div>
-          </div>
-          <div class="card-meta">
-            <span class="badge">US equities</span>
-            <span class="badge">technical</span>
-          </div>
         </a>
-
       </div>
 
       <footer>
-        <p>PakawatPanyakorn · <a href="https://github.com/PakawatPanyakorn" style="color: inherit;">GitHub</a></p>
+        <span>Pakawat Panyakorn</span>
+        <a href="https://github.com/PakawatPanyakorn/Obs-Sandbox">GitHub ↗</a>
       </footer>
-
     </div>
   </body>
 </html>

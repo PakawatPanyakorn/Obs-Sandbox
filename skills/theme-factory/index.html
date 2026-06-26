@@ -14,25 +14,31 @@
       }
 
       :root {
+        --bg: #ffffff;
+        --surface: #fafafa;
+        --border: #ebebeb;
+        --text: #111111;
+        --muted: #888888;
+        --accent: #111111;
+        --radius: 8px;
+      }
+
+      :root[data-theme="dark"] {
         --bg: #0f0f13;
         --surface: #18181f;
         --border: #2a2a38;
         --text: #d4d4e8;
         --muted: #6b6b88;
         --accent: #7c7cff;
-        --radius: 8px;
       }
 
       body {
         background: var(--bg);
         color: var(--text);
-        font-family:
-          system-ui,
-          -apple-system,
-          sans-serif;
-        font-size: 15px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+        font-size: 14px;
         line-height: 1.6;
-        padding: 2.5rem 2rem 4rem;
+        padding: 2.5rem 1.5rem 5rem;
         min-height: 100vh;
       }
 
@@ -41,31 +47,75 @@
         margin: 0 auto 2rem;
         border-bottom: 1px solid var(--border);
         padding-bottom: 1.5rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .header-left { min-width: 0; }
+
+      .header-eyebrow {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.4rem;
       }
 
       header h1 {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         font-weight: 700;
-        letter-spacing: -0.02em;
-        color: #fff;
-        margin-bottom: 0.35rem;
+        letter-spacing: -0.03em;
+        color: var(--text);
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
       }
 
       header p {
         color: var(--muted);
-        font-size: 0.875rem;
+        font-size: 0.82rem;
       }
 
       #count {
         display: inline-block;
         background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 99px;
-        padding: 0.1rem 0.6rem;
-        font-size: 0.75rem;
+        border-radius: 4px;
+        padding: 0.1rem 0.5rem;
+        font-size: 0.68rem;
+        font-weight: 500;
         color: var(--muted);
-        margin-left: 0.5rem;
         vertical-align: middle;
+        letter-spacing: 0;
+      }
+
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        padding: 0.3rem 0.85rem;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--muted);
+        cursor: pointer;
+        transition: border-color 0.12s, color 0.12s;
+        font-family: inherit;
+        white-space: nowrap;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+        letter-spacing: 0.02em;
+      }
+      .theme-toggle:hover {
+        border-color: var(--text);
+        color: var(--text);
       }
 
       /* ── Filters ── */
@@ -74,7 +124,7 @@
         margin: 0 auto 1.75rem;
         display: flex;
         flex-direction: column;
-        gap: 0.55rem;
+        gap: 0.5rem;
       }
 
       .filter-row {
@@ -85,18 +135,18 @@
       }
 
       .filter-label {
-        font-size: 0.68rem;
+        font-size: 0.63rem;
         font-weight: 700;
-        letter-spacing: 0.09em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--muted);
-        min-width: 7rem;
+        min-width: 6.5rem;
         flex-shrink: 0;
       }
 
       .filter-divider {
         width: 1px;
-        height: 14px;
+        height: 12px;
         background: var(--border);
         flex-shrink: 0;
       }
@@ -104,29 +154,26 @@
       .filter-chips {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.35rem;
+        gap: 0.3rem;
         flex: 1;
       }
 
       .chip {
-        padding: 0.18rem 0.65rem;
-        border-radius: 99px;
+        padding: 0.15rem 0.6rem;
+        border-radius: 4px;
         border: 1px solid var(--border);
         background: transparent;
         color: var(--muted);
-        font-size: 0.73rem;
+        font-size: 0.7rem;
         font-weight: 500;
         cursor: pointer;
-        transition:
-          border-color 0.12s,
-          color 0.12s,
-          background 0.12s;
+        transition: border-color 0.1s, color 0.1s, background 0.1s;
         font-family: inherit;
         line-height: 1.6;
       }
 
       .chip:hover {
-        border-color: var(--accent);
+        border-color: var(--text);
         color: var(--text);
       }
 
@@ -137,15 +184,17 @@
         font-weight: 600;
       }
 
+      :root[data-theme="dark"] .chip.active { color: #fff; }
+
       .chip-light.active {
-        background: #c8c8ff;
-        border-color: #c8c8ff;
-        color: #1a1a3a;
+        background: #333;
+        border-color: #333;
+        color: #fff;
       }
       .chip-dark.active {
-        background: #2a2a50;
-        border-color: var(--accent);
-        color: #fff;
+        background: var(--text);
+        border-color: var(--text);
+        color: var(--bg);
       }
 
       /* ── Grid ── */
@@ -166,15 +215,18 @@
         color: inherit;
         display: flex;
         flex-direction: column;
-        transition:
-          border-color 0.15s,
-          transform 0.15s,
-          box-shadow 0.15s;
+        cursor: pointer;
+        transition: border-color 0.12s, transform 0.12s, box-shadow 0.12s;
       }
 
       .card:hover {
+        border-color: #c8c8c0;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      }
+
+      :root[data-theme="dark"] .card:hover {
         border-color: var(--accent);
-        transform: translateY(-2px);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
       }
 
@@ -269,12 +321,12 @@
 
       .card-name {
         font-weight: 600;
-        font-size: 0.9rem;
-        color: #fff;
+        font-size: 0.875rem;
+        color: var(--text);
         letter-spacing: -0.01em;
       }
       .card-desc {
-        font-size: 0.78rem;
+        font-size: 0.77rem;
         color: var(--muted);
         line-height: 1.5;
         flex: 1;
@@ -500,17 +552,111 @@
         max-width: 960px;
         margin: 0 auto;
         color: var(--muted);
-        font-size: 0.85rem;
-        padding: 2rem 0;
+        font-size: 0.82rem;
+        padding: 2.5rem 0;
         text-align: center;
+      }
+
+      /* ── Preview overlay ── */
+      .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        background: #000;
+      }
+      .overlay.hidden { display: none; }
+
+      .overlay-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0 0.75rem;
+        height: 38px;
+        background: #111;
+        border-bottom: 1px solid #2a2a2a;
+        flex-shrink: 0;
+      }
+      .overlay-bar-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .overlay-back {
+        background: none;
+        border: none;
+        color: #888;
+        font-size: 0.8rem;
+        cursor: pointer;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-family: inherit;
+        transition: color 0.1s, background 0.1s;
+        flex-shrink: 0;
+      }
+      .overlay-back:hover { color: #fff; background: rgba(255,255,255,0.07); }
+      #overlay-title {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #aaa;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .overlay-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        flex-shrink: 0;
+      }
+      #overlay-open {
+        font-size: 0.7rem;
+        color: #888;
+        text-decoration: none;
+        padding: 0.2rem 0.55rem;
+        border-radius: 4px;
+        transition: color 0.1s, background 0.1s;
+        white-space: nowrap;
+      }
+      #overlay-open:hover { color: #fff; background: rgba(255,255,255,0.07); }
+      #overlay-close {
+        background: none;
+        border: none;
+        color: #888;
+        font-size: 0.9rem;
+        cursor: pointer;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: color 0.1s, background 0.1s;
+        font-family: inherit;
+        flex-shrink: 0;
+      }
+      #overlay-close:hover { color: #fff; background: rgba(255,255,255,0.07); }
+      #overlay-frame {
+        flex: 1;
+        border: none;
+        width: 100%;
+        display: block;
       }
 
     </style>
   </head>
   <body>
     <header>
-      <h1>Theme Gallery <span id="count">…</span></h1>
-      <p>Click any theme to open the full HTML preview.</p>
+      <div class="header-left">
+        <p class="header-eyebrow">Theme Factory</p>
+        <h1>Gallery <span id="count">…</span></h1>
+        <p>Click any theme to preview it.</p>
+      </div>
+      <button class="theme-toggle" id="theme-toggle">☾ Dark</button>
     </header>
 
     <div id="filters">
@@ -554,6 +700,20 @@
     <div class="grid" id="grid"></div>
     <p id="empty-msg">No themes match the selected filters.</p>
 
+    <!-- Preview overlay -->
+    <div class="overlay hidden" id="overlay">
+      <div class="overlay-bar">
+        <div class="overlay-bar-left">
+          <button class="overlay-back" id="overlay-close">← Back</button>
+          <span id="overlay-title"></span>
+        </div>
+        <div class="overlay-actions">
+          <a id="overlay-open" href="#" target="_blank">Open in new tab ↗</a>
+        </div>
+      </div>
+      <iframe id="overlay-frame" src=""></iframe>
+    </div>
+
     <script>
       const TAG_COLORS = {
         cyber: { fg: "#00e5ff", bg: "#00e5ff18", border: "#00e5ff55" },
@@ -571,16 +731,36 @@
         surreal: { fg: "#bfff00", bg: "#bfff0018", border: "#bfff0055" },
       };
 
+      /* Darker palette for light-mode readability */
+      const TAG_COLORS_LIGHT = {
+        cyber:      { fg: "#007a99", bg: "#00c4dd12", border: "#00c4dd45" },
+        retro:      { fg: "#b36200", bg: "#ff9d0012", border: "#ff9d0045" },
+        cosmic:     { fg: "#7c3aed", bg: "#a855f712", border: "#a855f745" },
+        gothic:     { fg: "#be185d", bg: "#ec489912", border: "#ec489945" },
+        editorial:  { fg: "#475569", bg: "#64748b12", border: "#64748b45" },
+        brutalist:  { fg: "#b91c1c", bg: "#ef444412", border: "#ef444445" },
+        luxe:       { fg: "#92400e", bg: "#d9770612", border: "#d9770645" },
+        nature:     { fg: "#15803d", bg: "#22c55e12", border: "#22c55e45" },
+        minimalist: { fg: "#374151", bg: "#6b728012", border: "#6b728045" },
+        finance:    { fg: "#0369a1", bg: "#0ea5e912", border: "#0ea5e945" },
+        corporate:  { fg: "#6d28d9", bg: "#8b5cf612", border: "#8b5cf645" },
+        maximalist: { fg: "#9d174d", bg: "#ec489912", border: "#ec489945" },
+        surreal:    { fg: "#3d7600", bg: "#84cc1612", border: "#84cc1645" },
+      };
+
       function getTagColor(tag) {
-        if (TAG_COLORS[tag]) return TAG_COLORS[tag];
+        const isDark = document.documentElement.dataset.theme === "dark";
+        const map = isDark ? TAG_COLORS : TAG_COLORS_LIGHT;
+        if (map[tag]) return map[tag];
         const h = [...tag].reduce(
           (a, c) => (a * 31 + c.charCodeAt(0)) % 360,
           7,
         );
+        const l = isDark ? "68%" : "38%";
         return {
-          fg: `hsl(${h},60%,68%)`,
-          bg: `hsla(${h},60%,68%,0.09)`,
-          border: `hsla(${h},60%,68%,0.35)`,
+          fg: `hsl(${h},60%,${l})`,
+          bg: `hsla(${h},60%,${l},0.09)`,
+          border: `hsla(${h},60%,${l},0.35)`,
         };
       }
 
@@ -4595,7 +4775,6 @@
         const card = document.createElement("a");
         card.className = "card";
         card.href = filename;
-        card.target = "_blank";
 
         const isFav = favorites.has(filename);
         card.innerHTML = `
@@ -4634,9 +4813,9 @@
         <div class="card-desc">${descHtml(theme.description || "")}</div>
         <div class="card-footer">
           <div class="card-tags">${aesthetic ? (() => { const c = getTagColor(aesthetic); return `<span class="tag tag-aesthetic" data-tag="${aesthetic}" style="color:${c.fg};background:${c.bg};border-color:${c.border}">${aesthetic}</span>`; })() : ""}${personality.map(t => { const c = getTagColor(t); return `<span class="tag tag-personality" data-tag="${t}" style="color:${c.fg};background:${c.bg};border-color:${c.border}">${t}</span>`; }).join("")}</div>
-          <span class="open-link">open
+          <span class="open-link">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M2 10L10 2M5 2h5v5"/>
+              <path d="M6 2h4v4M10 2L5 7M3 4H2v6h6v-1"/>
             </svg>
           </span>
         </div>
@@ -4926,6 +5105,72 @@
       }
 
       init();
+
+      /* ── Card click → open overlay ── */
+      const overlay = document.getElementById("overlay");
+      const overlayFrame = document.getElementById("overlay-frame");
+      const overlayTitle = document.getElementById("overlay-title");
+      const overlayOpen = document.getElementById("overlay-open");
+      const overlayCloseBtn = document.getElementById("overlay-close");
+
+      function openOverlay(src, title) {
+        overlayFrame.src = src;
+        overlayTitle.textContent = title;
+        overlayOpen.href = src;
+        overlay.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeOverlay() {
+        overlay.classList.add("hidden");
+        overlayFrame.src = "";
+        document.body.style.overflow = "";
+      }
+
+      overlayCloseBtn.addEventListener("click", closeOverlay);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !overlay.classList.contains("hidden")) closeOverlay();
+      });
+
+      grid.addEventListener("click", (e) => {
+        const card = e.target.closest(".card");
+        if (!card) return;
+        if (
+          e.target.closest(".fav-btn") ||
+          e.target.closest(".tag") ||
+          e.target.closest(".card-desc-toggle") ||
+          e.target.closest(".tag-del") ||
+          e.target.closest(".tag-add")
+        ) return;
+        e.preventDefault();
+        const title = card.querySelector(".card-name")?.firstChild?.textContent?.trim() || card.href;
+        openOverlay(card.href, title);
+      });
+
+      /* ── Theme toggle ── */
+      const toggleBtn = document.getElementById("theme-toggle");
+      const storedTheme = localStorage.getItem("gallery-theme");
+      const systemDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+      let currentTheme = storedTheme || (systemDark ? "dark" : "light");
+
+      function applyTheme(theme) {
+        if (theme === "dark") {
+          document.documentElement.dataset.theme = "dark";
+          toggleBtn.textContent = "☀ Light";
+        } else {
+          delete document.documentElement.dataset.theme;
+          toggleBtn.textContent = "☾ Dark";
+        }
+        localStorage.setItem("gallery-theme", theme);
+        currentTheme = theme;
+        render();
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        applyTheme(currentTheme === "dark" ? "light" : "dark");
+      });
+
+      applyTheme(currentTheme);
     </script>
   </body>
 </html>

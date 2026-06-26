@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="vesper-furrow">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: vesper-furrow</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "vesper-furrow",
+    "description": "Desaturated dusk palette — formal editorial tone with a countryside grime. Dying amber light over dark earth. Dusty mauve, terracotta, warm grain.",
+    "createdAt": "2026-06-26T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "gradient",
+      "baseColor": "#1c1915",
+      "image": "linear-gradient(180deg, rgba(168,122,58,0.14) 0%, rgba(28,25,21,0) 38%), url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")",
+      "size": "100% auto, 200px 200px",
+      "position": "0 0, 0 0",
+      "repeat": "no-repeat, repeat",
+      "patternType": "noise",
+      "patternColor": "#8a7a60",
+      "patternOpacity": 0.04,
+      "patternSpacing": "200px",
+      "notes": "Warm amber glow at top simulates last light of dusk; SVG fractalNoise grain gives the dirty countryside texture"
+    },
+    "colors": {
+      "primary": "#b8914a",
+      "primaryLight": "#2d2616",
+      "secondary": "#7d6b78",
+      "accent": "#a0745a",
+      "background": "#1c1915",
+      "surface": "#242018",
+      "surfaceAlt": "#2c2820",
+      "text": "#d4c9b4",
+      "textMuted": "#7a7060",
+      "textOnPrimary": "#1c1915",
+      "border": "#3a3426",
+      "success": "#6e8a5a",
+      "warning": "#b89040",
+      "error": "#9a5248"
+    },
+    "typography": {
+      "fontFamily": "'Lora', Georgia, serif",
+      "fontFamilyMono": "'IBM Plex Mono', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Fraunces', Georgia, serif",
+      "scaleBase": "16px",
+      "headingWeight": "700",
+      "bodyWeight": "400",
+      "lineHeight": "1.65"
+    },
+    "spacing": {
+      "borderRadius": "4px",
+      "cardRadius": "6px",
+      "buttonRadius": "4px",
+      "spaceUnit": "8px",
+      "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 1px 2px rgba(0,0,0,0.40)",
+      "md": "0 2px 8px rgba(0,0,0,0.50)",
+      "lg": "0 4px 20px rgba(0,0,0,0.60)",
+      "xl": "0 8px 40px rgba(0,0,0,0.70)",
+      "colored": "0 2px 12px rgba(184,145,74,0.22)",
+      "inset": "inset 0 1px 3px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(58,52,38,0.55)",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "linear-gradient(160deg, #2a2218 0%, #1c1915 55%, #201c1a 100%)",
+      "card": "linear-gradient(135deg, rgba(184,145,74,0.05) 0%, rgba(28,25,21,0) 100%)",
+      "button": "linear-gradient(135deg, #c49a4a 0%, #9a7534 100%)",
+      "text": "linear-gradient(135deg, #d4a84a 0%, #b8914a 50%, #c4a470 100%)",
+      "accent": "linear-gradient(90deg, #b8914a 0%, #7d6b78 100%)"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#b8914a",
+      "glowBlur": "0px",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0px",
+      "glassTint": "rgba(36,32,24,0.65)",
+      "gradientBorder": "none",
+      "noiseOpacity": 0.04,
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "120ms",
+      "durationBase": "200ms",
+      "durationSlow": "350ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["formal", "dusty", "restrained", "earthy"],
+      "borderStyle": "hairline",
+      "iconStyle": "outlined",
+      "imageStyle": "photographic",
+      "surfaceTexture": "noise",
+      "hierarchyClarity": "high",
+      "notes": "Desaturated dusk palette built around a dying amber primary against deep earth-dark background. Formal editorial structure with a countryside grain texture — noise overlay simulates dust and grime in fading evening light. Named vesper (evening prayers) + furrow (plowed field)."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #1c1915;
+      --bg-image: linear-gradient(180deg, rgba(168,122,58,0.14) 0%, rgba(28,25,21,0) 38%),
+                  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      --bg-size: 100% auto, 200px 200px;
+      --bg-position: 0 0, 0 0;
+      --bg-repeat: no-repeat, repeat;
+
+      --color-primary: #b8914a;
+      --color-primary-light: #2d2616;
+      --color-secondary: #7d6b78;
+      --color-accent: #a0745a;
+      --color-bg: #1c1915;
+      --color-surface: #242018;
+      --color-surface-alt: #2c2820;
+      --color-text: #d4c9b4;
+      --color-text-muted: #7a7060;
+      --color-text-on-primary: #1c1915;
+      --color-border: #3a3426;
+      --color-success: #6e8a5a;
+      --color-warning: #b89040;
+      --color-error: #9a5248;
+
+      --font-family: 'Lora', Georgia, serif;
+      --font-family-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --font-family-display: 'Fraunces', Georgia, serif;
+      --font-size-base: 16px;
+      --font-weight-heading: 700;
+      --font-weight-body: 400;
+      --line-height: 1.65;
+
+      --radius: 4px;
+      --radius-card: 6px;
+      --radius-button: 4px;
+
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.40);
+      --shadow-md: 0 2px 8px rgba(0,0,0,0.50);
+      --shadow-lg: 0 4px 20px rgba(0,0,0,0.60);
+      --shadow-xl: 0 8px 40px rgba(0,0,0,0.70);
+      --shadow-colored: 0 2px 12px rgba(184,145,74,0.22);
+      --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(58,52,38,0.55);
+
+      --gradient-hero: linear-gradient(160deg, #2a2218 0%, #1c1915 55%, #201c1a 100%);
+      --gradient-card: linear-gradient(135deg, rgba(184,145,74,0.05) 0%, rgba(28,25,21,0) 100%);
+      --gradient-button: linear-gradient(135deg, #c49a4a 0%, #9a7534 100%);
+      --gradient-text: linear-gradient(135deg, #d4a84a 0%, #b8914a 50%, #c4a470 100%);
+      --gradient-accent: linear-gradient(90deg, #b8914a 0%, #7d6b78 100%);
+
+      --glow-color: #b8914a;
+      --glow-sm: none;
+      --glow-md: none;
+      --glow-lg: none;
+      --glass-blur: 0px;
+      --glass-tint: rgba(36,32,24,0.65);
+      --backdrop-filter: none;
+      --text-shadow: none;
+      --border-gradient: none;
+      --noise-opacity: 0.04;
+
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-6: 48px;
+      --space-8: 64px;
+      --duration-fast: 120ms;
+      --duration-base: 200ms;
+      --duration-slow: 350ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1);
+      --border-width: 1px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      padding: 2.5rem 2rem 4rem;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    /* ── Tag block ── */
+    .tf-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .tf-tag {
+      font-family: var(--font-family-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 0.2rem 0.6rem;
+    }
+    .tf-tag-tone { color: var(--color-primary); border-color: var(--color-primary); }
+
+    /* ── Header ── */
+    .tf-header {
+      background: var(--gradient-hero);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 2.5rem 2rem 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+    .tf-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: var(--gradient-accent);
+      opacity: 0.5;
+    }
+    .tf-header h1 {
+      font-family: var(--font-family-display);
+      font-size: 2.25rem;
+      font-weight: var(--font-weight-heading);
+      color: var(--color-text);
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+    .tf-header p {
+      color: var(--color-text-muted);
+      font-size: 0.88rem;
+      font-style: italic;
+    }
+    .tf-header .tf-header-meta {
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 1.5rem;
+      font-family: var(--font-family-mono);
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+    }
+    .tf-header .tf-header-meta span { white-space: nowrap; }
+    .tf-header .tf-header-meta strong { color: var(--color-primary); }
+
+    /* ── Section ── */
+    .tf-section { margin-bottom: 2.5rem; }
+    .tf-section-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+      font-family: var(--font-family-mono);
+    }
+
+    /* ── Swatches ── */
+    .tf-swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 0.75rem;
+    }
+    .tf-swatch {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+    }
+    .tf-swatch-color { height: 60px; width: 100%; }
+    .tf-swatch-label {
+      background: var(--color-surface);
+      padding: 0.4rem 0.5rem;
+      font-size: 0.68rem;
+      font-family: var(--font-family-mono);
+      color: var(--color-text-muted);
+    }
+    .tf-swatch-label strong {
+      display: block;
+      color: var(--color-text);
+      font-size: 0.72rem;
+      margin-bottom: 0.1rem;
+    }
+
+    /* ── Typography ── */
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.75rem; }
+    .tf-type-scale .t-h1 {
+      font-size: 2.5rem;
+      font-weight: var(--font-weight-heading);
+      font-family: var(--font-family-display);
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+    }
+    .tf-type-scale .t-h2 {
+      font-size: 1.7rem;
+      font-weight: var(--font-weight-heading);
+      font-family: var(--font-family-display);
+      letter-spacing: -0.01em;
+    }
+    .tf-type-scale .t-h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      font-family: var(--font-family);
+    }
+    .tf-type-scale .t-body { font-size: 1rem; max-width: 62ch; }
+    .tf-type-scale .t-small { font-size: 0.85rem; color: var(--color-text-muted); font-style: italic; }
+    .tf-type-scale .t-mono {
+      font-family: var(--font-family-mono);
+      font-size: 0.85rem;
+      background: var(--color-surface-alt);
+      padding: 0.3rem 0.6rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+    }
+
+    /* ── Buttons ── */
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .tf-btn {
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-button);
+      font-family: var(--font-family);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: opacity var(--duration-fast) var(--easing);
+      letter-spacing: 0.02em;
+    }
+    .tf-btn:hover { opacity: 0.82; }
+    .tf-btn-primary {
+      background: var(--color-primary);
+      color: var(--color-text-on-primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .tf-btn-secondary {
+      background: var(--color-secondary);
+      color: var(--color-text);
+      box-shadow: var(--shadow-sm);
+    }
+    .tf-btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+    }
+    .tf-btn-ghost {
+      background: var(--color-surface-alt);
+      color: var(--color-text-muted);
+    }
+
+    /* ── Cards ── */
+    .tf-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .tf-card {
+      background: var(--color-surface);
+      background-image: var(--gradient-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .tf-card h3 {
+      font-family: var(--font-family-display);
+      font-weight: var(--font-weight-heading);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-primary);
+      letter-spacing: -0.01em;
+    }
+    .tf-card p { color: var(--color-text-muted); font-size: 0.88rem; line-height: var(--line-height); }
+    .tf-card-wide { grid-column: 1 / -1; }
+    .tf-card-alt { background: var(--color-surface-alt); }
+
+    /* ── Form ── */
+    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 420px; }
+    .tf-form label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      margin-bottom: 0.3rem;
+      display: block;
+      font-family: var(--font-family-mono);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+    }
+    .tf-form input,
+    .tf-form select {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface-alt);
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: 0.9rem;
+      outline: none;
+      box-shadow: var(--shadow-inset);
+      transition: border-color var(--duration-fast) var(--easing);
+    }
+    .tf-form input:focus,
+    .tf-form select:focus { border-color: var(--color-primary); }
+
+    /* ── Badges ── */
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tf-badge {
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: var(--font-family-mono);
+      letter-spacing: 0.04em;
+    }
+    .tf-badge-primary { background: var(--color-primary-light); color: var(--color-primary); border: 1px solid rgba(184,145,74,0.3); }
+    .tf-badge-success { background: rgba(110,138,90,0.2); color: var(--color-success); border: 1px solid rgba(110,138,90,0.3); }
+    .tf-badge-warning { background: rgba(184,144,64,0.2); color: var(--color-warning); border: 1px solid rgba(184,144,64,0.3); }
+    .tf-badge-error { background: rgba(154,82,72,0.2); color: var(--color-error); border: 1px solid rgba(154,82,72,0.3); }
+    .tf-badge-neutral { background: var(--color-surface-alt); color: var(--color-text-muted); border: 1px solid var(--color-border); }
+
+    /* ── Effects grid ── */
+    .tf-effects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .tf-effect-tile {
+      border-radius: var(--radius-card);
+      padding: 1.25rem;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .tile-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-family: var(--font-family-mono);
+    }
+    .tile-value {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-family-mono);
+      word-break: break-all;
+      margin-top: auto;
+    }
+    .tf-gradient-hero {
+      height: 72px;
+      border-radius: var(--radius-card);
+      background: var(--gradient-hero);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      font-family: var(--font-family-display);
+      font-size: 1rem;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+    }
+    .tf-gradient-text {
+      font-size: 1.5rem;
+      font-weight: var(--font-weight-heading);
+      font-family: var(--font-family-display);
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+    .tf-btn-gradient {
+      background: var(--gradient-button);
+      color: var(--color-text-on-primary);
+      box-shadow: var(--shadow-colored);
+      width: 100%;
+    }
+    .tf-glow-demo {
+      background: var(--color-surface);
+      border-radius: var(--radius-card);
+      padding: 0.75rem 1.25rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--color-border);
+      font-weight: 500;
+      color: var(--color-primary);
+      font-size: 0.88rem;
+    }
+    .tf-glass-demo {
+      border-radius: var(--radius-card);
+      padding: 1rem 1.25rem;
+      background: var(--glass-tint);
+      border: 1px solid var(--color-border);
+      font-size: 0.85rem;
+      color: var(--color-text);
+    }
+    .tf-inset-demo {
+      background: var(--color-surface-alt);
+      border-radius: var(--radius);
+      padding: 0.6rem 1rem;
+      box-shadow: var(--shadow-inset);
+      border: 1px solid var(--color-border);
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-family-mono);
+    }
+    .tf-accent-bar {
+      height: 3px;
+      background: var(--gradient-accent);
+      border-radius: 2px;
+      opacity: 0.7;
+    }
+
+    /* ── Divider ── */
+    .tf-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 0.5rem 0 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tf-tags">
+    <span class="tf-tag tf-tag-tone">Dark</span>
+    <span class="tf-tag">Editorial</span>
+    <span class="tf-tag">Desaturated</span>
+    <span class="tf-tag">Dusk</span>
+    <span class="tf-tag">Formal</span>
+  </div>
+
+  <div class="tf-header">
+    <h1>vesper-furrow</h1>
+    <p>Dying amber over dark earth — formal structure, countryside grime</p>
+    <div class="tf-header-meta">
+      <span><strong>Tone</strong> Dark</span>
+      <span><strong>Style</strong> Editorial</span>
+      <span><strong>Display</strong> Fraunces</span>
+      <span><strong>Body</strong> Lora</span>
+      <span><strong>Radius</strong> 4–6px</span>
+    </div>
+  </div>
+
+  <div class="tf-accent-bar" style="margin-bottom: 2.5rem;"></div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Color Palette</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary)"></div><div class="tf-swatch-label"><strong>primary</strong>#b8914a</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary-light)"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#2d2616</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-secondary)"></div><div class="tf-swatch-label"><strong>secondary</strong>#7d6b78</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-accent)"></div><div class="tf-swatch-label"><strong>accent</strong>#a0745a</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-bg)"></div><div class="tf-swatch-label"><strong>background</strong>#1c1915</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface)"></div><div class="tf-swatch-label"><strong>surface</strong>#242018</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface-alt)"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#2c2820</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text)"></div><div class="tf-swatch-label"><strong>text</strong>#d4c9b4</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text-muted)"></div><div class="tf-swatch-label"><strong>textMuted</strong>#7a7060</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-border)"></div><div class="tf-swatch-label"><strong>border</strong>#3a3426</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-success)"></div><div class="tf-swatch-label"><strong>success</strong>#6e8a5a</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-warning)"></div><div class="tf-swatch-label"><strong>warning</strong>#b89040</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-error)"></div><div class="tf-swatch-label"><strong>error</strong>#9a5248</div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Typography</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">Estate at Vesper</div>
+      <div class="t-h2">Autumn Land Register</div>
+      <div class="t-h3">Field Boundary Assessment — Section IV</div>
+      <div class="t-body">The lower meadow runs north from the lane, bounded on the east by the old furrow line and on the west by the drainage ditch, the whole being some twelve acres of late-cut grass, heavy with damp and the smell of turned earth.</div>
+      <div class="t-small">Last surveyed 14 Oct. — conditions fair, light failing by half-past four</div>
+      <div class="t-mono">parcel.id = "VF-0412" · area_ha = 4.86</div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Buttons</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">Submit Report</button>
+      <button class="tf-btn tf-btn-secondary">Review Draft</button>
+      <button class="tf-btn tf-btn-outline">View Record</button>
+      <button class="tf-btn tf-btn-ghost">Dismiss</button>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Cards</div>
+    <div class="tf-cards">
+      <div class="tf-card">
+        <h3>Northern Pasture</h3>
+        <p>Clay-heavy loam. Poor drainage along the western margin. Grazed to short sward, stock removed October 3rd.</p>
+      </div>
+      <div class="tf-card">
+        <h3>Mill Copse Boundary</h3>
+        <p>Disputed fence line — current survey places the oak post 0.8m east of the 1978 register entry.</p>
+      </div>
+      <div class="tf-card tf-card-alt">
+        <h3>Valuation Notes</h3>
+        <p>Alt surface — supporting details, footnotes, and secondary records. Carries the same formal weight at lower visual prominence.</p>
+      </div>
+      <div class="tf-card tf-card-wide" style="border-color: rgba(184,145,74,0.3);">
+        <h3>Annual Summary — Ridgeline Estate</h3>
+        <p>Total mapped area 148.4 ha across seven named parcels. Net productive area reduced by 6.2 ha following drainage easement. Timber valuation pending. This wide card spans both columns — reserved for principal declarations, summary findings, and headers that must hold without competition.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Form Elements</div>
+    <div class="tf-form">
+      <div><label>Parcel Reference</label><input type="text" placeholder="e.g. VF-0412"></div>
+      <div><label>Classification</label><select><option>Permanent Pasture</option><option>Arable</option><option>Woodland</option><option>Scrub</option></select></div>
+      <div><label>Surveyor Notes</label><input type="text" placeholder="Observations…"></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Badges &amp; Status</div>
+    <div class="tf-badges">
+      <span class="tf-badge tf-badge-primary">Active</span>
+      <span class="tf-badge tf-badge-success">Surveyed</span>
+      <span class="tf-badge tf-badge-warning">Pending</span>
+      <span class="tf-badge tf-badge-error">Disputed</span>
+      <span class="tf-badge tf-badge-neutral">Archived</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Gradients &amp; Effects</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1">
+        <div class="tile-label">Hero Gradient</div>
+        <div class="tf-gradient-hero">Dusk at Ridgeline — the last amber over the furrows</div>
+        <div class="tile-value">var(--gradient-hero)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Text</div>
+        <div class="tf-gradient-text">Vesper Light</div>
+        <div class="tile-value">var(--gradient-text)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Gradient Button</div>
+        <button class="tf-btn tf-btn-gradient">Confirm Survey</button>
+        <div class="tile-value">var(--gradient-button)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Shadow / Elevation</div>
+        <div class="tf-glow-demo">Elevation via depth, not light</div>
+        <div class="tile-value">var(--shadow-md)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Surface Tint</div>
+        <div class="tf-glass-demo">Secondary panel or drawer surface, warm dark tint</div>
+        <div class="tile-value">var(--glass-tint)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Inset Well</div>
+        <div class="tf-inset-demo">reference: "VF-0412"</div>
+        <div class="tile-value">var(--shadow-inset)</div>
+      </div>
+      <div class="tf-effect-tile">
+        <div class="tile-label">Colored Shadow</div>
+        <div style="padding:0.75rem 1.25rem;border-radius:var(--radius-card);background:var(--color-primary);color:var(--color-text-on-primary);box-shadow:var(--shadow-colored);font-weight:600;font-size:0.85rem;text-align:center;font-family:var(--font-family)">Primary — Amber</div>
+        <div class="tile-value">var(--shadow-colored)</div>
+      </div>
+      <div class="tf-effect-tile" style="grid-column:1/-1">
+        <div class="tile-label">Accent Gradient Bar</div>
+        <div class="tf-accent-bar" style="height:4px; margin: 0.25rem 0 0.5rem;"></div>
+        <div class="tile-value">var(--gradient-accent) — amber → dusty mauve</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

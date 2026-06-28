@@ -1,451 +1,712 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Stock Analysis Reports</title>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #ffffff;
-    --surface: #fafafa;
-    --border: #ebebeb;
-    --text: #111111;
-    --muted: #888888;
-    --accent: #111111;
-    --radius: 8px;
-    --max-w: 960px;
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    min-height: 100vh;
-    padding: 5rem 1.5rem 8rem;
-  }
-
-  .wrap { max-width: var(--max-w); margin: 0 auto; }
-
-  /* ── Header ── */
-  header { margin-bottom: 3rem; }
-
-  .header-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .header-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
-  }
-
-  header h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
-  }
-
-  header p {
-    color: var(--muted);
-    font-size: 0.875rem;
-    max-width: 38ch;
-  }
-
-  .home-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.3rem 0.85rem;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--muted);
-    text-decoration: none;
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    background: var(--surface);
-    transition: border-color 0.12s, color 0.12s;
-    white-space: nowrap;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-  .home-btn:hover { border-color: var(--text); color: var(--text); }
-
-  /* ── Divider ── */
-  .divider { width: 100%; height: 1px; background: var(--border); margin-bottom: 2rem; }
-
-  /* ── Sort toolbar ── */
-  .toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
-    flex-wrap: wrap;
-  }
-
-  .section-label {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .sort-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-  .sort-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 0.2rem 0.65rem;
-    font-family: inherit;
-    font-size: 0.7rem;
-    font-weight: 500;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    transition: border-color 0.1s, color 0.1s, background 0.1s;
-    line-height: 1.6;
-  }
-  .sort-btn:hover { border-color: var(--text); color: var(--text); }
-  .sort-btn.active {
-    background: var(--text);
-    border-color: var(--text);
-    color: #fff;
-    font-weight: 600;
-  }
-  .sort-btn .arrow { font-size: 0.65rem; opacity: 0.75; }
-
-  /* ── Report list ── */
-  .report-grid {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-
-  .report-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1.1rem 1.5rem;
-    background: var(--bg);
-    text-decoration: none;
-    color: inherit;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.1s;
-  }
-  .report-card:last-child { border-bottom: none; }
-  .report-card:hover { background: var(--surface); }
-  .report-card:hover .card-arrow { transform: translateX(3px); }
-
-  .card-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    min-width: 0;
-  }
-
-  .card-ticker {
-    font-size: 0.875rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    white-space: nowrap;
-    min-width: 3.5rem;
-  }
-
-  .card-company {
-    font-size: 0.78rem;
-    color: var(--muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .card-right {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-shrink: 0;
-  }
-
-  .card-date {
-    font-size: 0.64rem;
-    font-weight: 500;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.15rem 0.45rem;
-    background: var(--bg);
-    white-space: nowrap;
-    letter-spacing: 0.01em;
-  }
-
-  .card-arrow {
-    font-size: 0.8rem;
-    color: var(--muted);
-    transition: transform 0.1s;
-    flex-shrink: 0;
-  }
-
-  /* card enter animation */
-  @keyframes card-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .report-card.animating { animation: card-in 0.18s ease forwards; }
-
-  /* ── Footer ── */
-  footer {
-    margin-top: 4rem;
-    color: var(--muted);
-    font-size: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  @media (max-width: 500px) {
-    .card-company { display: none; }
-  }
-</style>
-</head>
-<body>
-
-<div class="wrap">
-  <header>
-    <div class="header-top">
-      <div>
-        <p class="header-eyebrow">Obs · Stock Research</p>
-        <h1>Analysis Reports</h1>
-        <p>Fundamentals, scenarios, and catalysts on US equities.</p>
-      </div>
-      <a class="home-btn" href="../../index.html">← Home</a>
-    </div>
-  </header>
-
-  <div class="divider"></div>
-
-  <div class="toolbar">
-    <p class="section-label">Reports</p>
-    <div class="sort-bar">
-      <button class="sort-btn active" data-sort="name" data-dir="asc">
-        Name <span class="arrow" id="arrow-name">A→Z</span>
-      </button>
-      <button class="sort-btn" data-sort="date" data-dir="desc">
-        Date <span class="arrow" id="arrow-date">newest</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="report-grid" id="report-grid">
-
-    <a class="report-card" href="analysis/HIMS_jun26.html" data-name="HIMS" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">HIMS</span>
-        <span class="card-company">Hims &amp; Hers Health</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="report-card" href="analysis/OKLO_jun26.html" data-name="OKLO" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">OKLO</span>
-        <span class="card-company">Oklo Inc.</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="report-card" href="analysis/PLTR_jun26.html" data-name="PLTR" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">PLTR</span>
-        <span class="card-company">Palantir Technologies</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="report-card" href="analysis/AMZN_jun26.html" data-name="AMZN" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">AMZN</span>
-        <span class="card-company">Amazon.com, Inc.</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="report-card" href="analysis/ZETA_jun26.html" data-name="ZETA" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">ZETA</span>
-        <span class="card-company">Zeta Global Holdings</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="report-card" href="analysis/AAOI_jun26.html" data-name="AAOI" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">AAOI</span>
-        <span class="card-company">Applied Optoelectronics Inc.</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="report-card" href="analysis/OSCR_jun26.html" data-name="OSCR" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">OSCR</span>
-        <span class="card-company">Oscar Health, Inc.</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="report-card" href="analysis/IREN_jun26.html" data-name="IREN" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">IREN</span>
-        <span class="card-company">IREN Limited</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="report-card" href="analysis/NBIS_jun26.html" data-name="NBIS" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">NBIS</span>
-        <span class="card-company">Nebius Group N.V.</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="report-card" href="analysis/SOFI_jun26.html" data-name="SOFI" data-date="202606">
-      <div class="card-left">
-        <span class="card-ticker">SOFI</span>
-        <span class="card-company">SoFi Technologies, Inc.</span>
-      </div>
-      <div class="card-right">
-        <span class="card-date">Jun 26, 2026</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-  </div>
-
-  <footer>
-    <span>Pakawat Panyakorn</span>
-    <a href="https://github.com/PakawatPanyakorn/Obs-Sandbox" style="color:var(--muted);text-decoration:none;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">GitHub ↗</a>
-  </footer>
-</div>
-
-<script>
-(function () {
-  const grid = document.getElementById('report-grid');
-  const btns = document.querySelectorAll('.sort-btn');
-
-  let currentSort = 'name';
-  let currentDir  = 'asc';
-
-  const ARROW = {
-    name: { asc: 'A→Z', desc: 'Z→A' },
-    date: { asc: 'oldest', desc: 'newest' },
-  };
-
-  function getCards() {
-    return Array.from(grid.querySelectorAll('.report-card'));
-  }
-
-  function sortCards(sort, dir) {
-    const cards = getCards();
-    cards.sort((a, b) => {
-      let va = a.dataset[sort];
-      let vb = b.dataset[sort];
-      if (sort === 'date') {
-        va = parseInt(va, 10);
-        vb = parseInt(vb, 10);
-        return dir === 'asc' ? va - vb : vb - va;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Analysis Reports</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
-    });
-    cards.forEach((card, i) => {
-      card.classList.remove('animating');
-      void card.offsetWidth;
-      card.style.animationDelay = (i * 25) + 'ms';
-      card.classList.add('animating');
-      grid.appendChild(card);
-    });
-  }
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const sort = btn.dataset.sort;
-      if (sort === currentSort) {
-        currentDir = currentDir === 'asc' ? 'desc' : 'asc';
-        btn.dataset.dir = currentDir;
-      } else {
-        currentSort = sort;
-        currentDir = btn.dataset.dir || (sort === 'date' ? 'desc' : 'asc');
+      :root {
+        --bg: #ffffff;
+        --surface: #fafafa;
+        --border: #ebebeb;
+        --text: #111111;
+        --muted: #888888;
+        --accent: #111111;
+        --radius: 8px;
+        --max-w: 960px;
       }
-      btns.forEach(b => {
-        b.classList.remove('active');
-        const arrowEl = b.querySelector('.arrow');
-        arrowEl.textContent = ARROW[b.dataset.sort][b.dataset.dir || (b.dataset.sort === 'date' ? 'desc' : 'asc')];
-      });
-      btn.classList.add('active');
-      btn.querySelector('.arrow').textContent = ARROW[sort][currentDir];
-      btn.dataset.dir = currentDir;
-      sortCards(currentSort, currentDir);
-    });
-  });
 
-  sortCards('name', 'asc');
-})();
-</script>
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        min-height: 100vh;
+        padding: 5rem 1.5rem 8rem;
+      }
 
-</body>
+      .wrap {
+        max-width: var(--max-w);
+        margin: 0 auto;
+      }
+
+      /* ── Header ── */
+      header {
+        margin-bottom: 3rem;
+      }
+
+      .header-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .header-eyebrow {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.75rem;
+      }
+
+      header h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+      }
+
+      header p {
+        color: var(--muted);
+        font-size: 0.875rem;
+        max-width: 38ch;
+      }
+
+      .home-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.3rem 0.85rem;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: var(--muted);
+        text-decoration: none;
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        background: var(--surface);
+        transition:
+          border-color 0.12s,
+          color 0.12s;
+        white-space: nowrap;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+      .home-btn:hover {
+        border-color: var(--text);
+        color: var(--text);
+      }
+
+      /* ── Divider ── */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: var(--border);
+        margin-bottom: 2rem;
+      }
+
+      /* ── Sort toolbar ── */
+      .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+        flex-wrap: wrap;
+      }
+
+      .section-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .sort-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .sort-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0.2rem 0.65rem;
+        font-family: inherit;
+        font-size: 0.7rem;
+        font-weight: 500;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        transition:
+          border-color 0.1s,
+          color 0.1s,
+          background 0.1s;
+        line-height: 1.6;
+      }
+      .sort-btn:hover {
+        border-color: var(--text);
+        color: var(--text);
+      }
+      .sort-btn.active {
+        background: var(--text);
+        border-color: var(--text);
+        color: #fff;
+        font-weight: 600;
+      }
+      .sort-btn .arrow {
+        font-size: 0.65rem;
+        opacity: 0.75;
+      }
+
+      /* ── Report list ── */
+      .report-grid {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .report-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        padding: 1.1rem 1.5rem;
+        background: var(--bg);
+        text-decoration: none;
+        color: inherit;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.1s;
+      }
+      .report-card:last-child {
+        border-bottom: none;
+      }
+      .report-card:hover {
+        background: var(--surface);
+      }
+      .report-card:hover .card-arrow {
+        transform: translateX(3px);
+      }
+
+      .card-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        min-width: 0;
+      }
+
+      .card-ticker {
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        white-space: nowrap;
+        min-width: 3.5rem;
+      }
+
+      .card-company {
+        font-size: 0.78rem;
+        color: var(--muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .card-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-shrink: 0;
+      }
+
+      .card-date {
+        font-size: 0.64rem;
+        font-weight: 500;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.15rem 0.45rem;
+        background: var(--bg);
+        white-space: nowrap;
+        letter-spacing: 0.01em;
+      }
+
+      .card-arrow {
+        font-size: 0.8rem;
+        color: var(--muted);
+        transition: transform 0.1s;
+        flex-shrink: 0;
+      }
+
+      /* card enter animation */
+      @keyframes card-in {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .report-card.animating {
+        animation: card-in 0.18s ease forwards;
+      }
+
+      /* ── Footer ── */
+      footer {
+        margin-top: 4rem;
+        color: var(--muted);
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      @media (max-width: 500px) {
+        .card-company {
+          display: none;
+        }
+      }
+
+      /* ── Preview overlay ── */
+      .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        background: #f4efe2;
+      }
+      .overlay.hidden {
+        display: none;
+      }
+
+      .overlay-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0 1.25rem;
+        height: 48px;
+        background: #f4efe2;
+        border-bottom: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+      .overlay-bar-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .overlay-back {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        color: var(--muted);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        padding: 0.28rem 0.8rem;
+        font-family: inherit;
+        transition:
+          border-color 0.12s,
+          color 0.12s;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+      .overlay-back:hover {
+        border-color: var(--text);
+        color: var(--text);
+      }
+      .overlay-bar-divider {
+        width: 1px;
+        height: 14px;
+        background: var(--border);
+        flex-shrink: 0;
+      }
+      #overlay-title {
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        color: var(--text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .overlay-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+      }
+      #overlay-open {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: var(--accent);
+        text-decoration: none;
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        padding: 0.28rem 0.8rem;
+        transition:
+          border-color 0.12s,
+          background 0.12s;
+        white-space: nowrap;
+        font-family: inherit;
+      }
+      #overlay-open:hover {
+        border-color: var(--text);
+        background: var(--surface);
+      }
+      #overlay-frame {
+        flex: 1;
+        border: none;
+        width: 100%;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="header-top">
+          <div>
+            <p class="header-eyebrow">Obs · Stock Research</p>
+            <h1>Analysis Reports</h1>
+            <p>Fundamentals, scenarios, and catalysts on US equities.</p>
+          </div>
+          <a class="home-btn" href="../../index.html">← Home</a>
+        </div>
+      </header>
+
+      <div class="divider"></div>
+
+      <div class="toolbar">
+        <p class="section-label">Reports</p>
+        <div class="sort-bar">
+          <button class="sort-btn active" data-sort="name" data-dir="asc">
+            Name <span class="arrow" id="arrow-name">A→Z</span>
+          </button>
+          <button class="sort-btn" data-sort="date" data-dir="desc">
+            Date <span class="arrow" id="arrow-date">newest</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="report-grid" id="report-grid">
+        <a
+          class="report-card"
+          href="analysis/HIMS_jun26.html"
+          data-name="HIMS"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">HIMS</span>
+            <span class="card-company">Hims &amp; Hers Health</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a
+          class="report-card"
+          href="analysis/OKLO_jun26.html"
+          data-name="OKLO"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">OKLO</span>
+            <span class="card-company">Oklo Inc.</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a
+          class="report-card"
+          href="analysis/PLTR_jun26.html"
+          data-name="PLTR"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">PLTR</span>
+            <span class="card-company">Palantir Technologies</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a
+          class="report-card"
+          href="analysis/AMZN_jun26.html"
+          data-name="AMZN"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">AMZN</span>
+            <span class="card-company">Amazon.com, Inc.</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a
+          class="report-card"
+          href="analysis/ZETA_jun26.html"
+          data-name="ZETA"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">ZETA</span>
+            <span class="card-company">Zeta Global Holdings</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a
+          class="report-card"
+          href="analysis/AAOI_jun26.html"
+          data-name="AAOI"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">AAOI</span>
+            <span class="card-company">Applied Optoelectronics Inc.</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a
+          class="report-card"
+          href="analysis/OSCR_jun26.html"
+          data-name="OSCR"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">OSCR</span>
+            <span class="card-company">Oscar Health, Inc.</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a
+          class="report-card"
+          href="analysis/IREN_jun26.html"
+          data-name="IREN"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">IREN</span>
+            <span class="card-company">IREN Limited</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a
+          class="report-card"
+          href="analysis/NBIS_jun26.html"
+          data-name="NBIS"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">NBIS</span>
+            <span class="card-company">Nebius Group N.V.</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a
+          class="report-card"
+          href="analysis/SOFI_jun26.html"
+          data-name="SOFI"
+          data-date="202606"
+        >
+          <div class="card-left">
+            <span class="card-ticker">SOFI</span>
+            <span class="card-company">SoFi Technologies, Inc.</span>
+          </div>
+          <div class="card-right">
+            <span class="card-date">Jun 26, 2026</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+      </div>
+
+      <footer>
+        <span>Pakawat Panyakorn</span>
+        <a
+          href="https://github.com/PakawatPanyakorn/Obs-Sandbox"
+          style="color: var(--muted); text-decoration: none"
+          onmouseover="this.style.color = 'var(--text)'"
+          onmouseout="this.style.color = 'var(--muted)'"
+          >GitHub ↗</a
+        >
+      </footer>
+    </div>
+
+    <!-- Preview overlay -->
+    <div class="overlay hidden" id="overlay">
+      <div class="overlay-bar">
+        <div class="overlay-bar-left">
+          <button class="overlay-back" id="overlay-close">← Back</button>
+          <div class="overlay-bar-divider"></div>
+          <span id="overlay-title"></span>
+        </div>
+        <div class="overlay-actions">
+          <a id="overlay-open" href="#">Open report ↗</a>
+        </div>
+      </div>
+      <iframe id="overlay-frame" src=""></iframe>
+    </div>
+
+    <script>
+      (function () {
+        const grid = document.getElementById("report-grid");
+        const overlay = document.getElementById("overlay");
+        const frame = document.getElementById("overlay-frame");
+        const title = document.getElementById("overlay-title");
+        const openBtn = document.getElementById("overlay-open");
+        const closeBtn = document.getElementById("overlay-close");
+
+        function openOverlay(href, label) {
+          frame.src = href;
+          title.textContent = label;
+          openBtn.href = href;
+          overlay.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeOverlay() {
+          overlay.classList.add("hidden");
+          frame.src = "";
+          document.body.style.overflow = "";
+        }
+
+        closeBtn.addEventListener("click", closeOverlay);
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && !overlay.classList.contains("hidden"))
+            closeOverlay();
+        });
+
+        grid.addEventListener("click", (e) => {
+          const card = e.target.closest(".report-card");
+          if (!card) return;
+          e.preventDefault();
+          const ticker = card.querySelector(".card-ticker").textContent.trim();
+          const company = card
+            .querySelector(".card-company")
+            .textContent.trim();
+          openOverlay(card.href, `${ticker} — ${company}`);
+        });
+
+        const btns = document.querySelectorAll(".sort-btn");
+
+        let currentSort = "name";
+        let currentDir = "asc";
+
+        const ARROW = {
+          name: { asc: "A→Z", desc: "Z→A" },
+          date: { asc: "oldest", desc: "newest" },
+        };
+
+        function getCards() {
+          return Array.from(grid.querySelectorAll(".report-card"));
+        }
+
+        function sortCards(sort, dir) {
+          const cards = getCards();
+          cards.sort((a, b) => {
+            let va = a.dataset[sort];
+            let vb = b.dataset[sort];
+            if (sort === "date") {
+              va = parseInt(va, 10);
+              vb = parseInt(vb, 10);
+              return dir === "asc" ? va - vb : vb - va;
+            }
+            return dir === "asc" ? va.localeCompare(vb) : vb.localeCompare(va);
+          });
+          cards.forEach((card, i) => {
+            card.classList.remove("animating");
+            void card.offsetWidth;
+            card.style.animationDelay = i * 25 + "ms";
+            card.classList.add("animating");
+            grid.appendChild(card);
+          });
+        }
+
+        btns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const sort = btn.dataset.sort;
+            if (sort === currentSort) {
+              currentDir = currentDir === "asc" ? "desc" : "asc";
+              btn.dataset.dir = currentDir;
+            } else {
+              currentSort = sort;
+              currentDir =
+                btn.dataset.dir || (sort === "date" ? "desc" : "asc");
+            }
+            btns.forEach((b) => {
+              b.classList.remove("active");
+              const arrowEl = b.querySelector(".arrow");
+              arrowEl.textContent =
+                ARROW[b.dataset.sort][
+                  b.dataset.dir || (b.dataset.sort === "date" ? "desc" : "asc")
+                ];
+            });
+            btn.classList.add("active");
+            btn.querySelector(".arrow").textContent = ARROW[sort][currentDir];
+            btn.dataset.dir = currentDir;
+            sortCards(currentSort, currentDir);
+          });
+        });
+
+        sortCards("name", "asc");
+      })();
+    </script>
+  </body>
 </html>

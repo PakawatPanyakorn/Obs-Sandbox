@@ -108,6 +108,7 @@
         color: inherit;
         transition: background 0.1s;
         border-bottom: 1px solid var(--border);
+        cursor: pointer;
       }
 
       .project-card:last-child {
@@ -164,6 +165,21 @@
         text-overflow: ellipsis;
         margin-top: 0.1rem;
       }
+
+      .skill-link {
+        display: inline-block;
+        margin-top: 0.25rem;
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        text-decoration: none;
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 0.05rem 0.35rem;
+        transition: border-color 0.1s, color 0.1s;
+      }
+      .skill-link:hover { border-color: var(--text); color: var(--text); }
 
       .card-right {
         display: flex;
@@ -254,15 +270,13 @@
       <p class="section-label">Projects</p>
 
       <div class="projects">
-        <a class="project-card" href="skills/theme-factory/index.html">
+        <div class="project-card" data-href="skills/theme-factory/index.html">
           <div class="card-left">
             <span class="card-icon">🎨</span>
             <div class="card-body">
               <div class="card-name">Theme Factory</div>
-              <div class="card-desc">
-                Color palettes, typography, and design tokens from images and
-                text
-              </div>
+              <div class="card-desc">Color palettes, typography, and design tokens from images and text</div>
+              <a href="https://github.com/PakawatPanyakorn/Obs-Sandbox/tree/master/skills/theme-factory" target="_blank" rel="noopener" class="skill-link">Skill ↗</a>
             </div>
           </div>
           <div class="card-right">
@@ -272,16 +286,15 @@
             </div>
             <span class="card-arrow">→</span>
           </div>
-        </a>
+        </div>
 
-        <a class="project-card" href="skills/stock-analyse/index.html">
+        <div class="project-card" data-href="skills/stock-analyse/index.html">
           <div class="card-left">
             <span class="card-icon">📈</span>
             <div class="card-body">
               <div class="card-name">Stock Analysis</div>
-              <div class="card-desc">
-                Technical and fundamental snapshots on US equities
-              </div>
+              <div class="card-desc">Technical and fundamental snapshots on US equities</div>
+              <a href="https://github.com/PakawatPanyakorn/Obs-Sandbox/tree/master/skills/stock-analyse" target="_blank" rel="noopener" class="skill-link">Skill ↗</a>
             </div>
           </div>
           <div class="card-right">
@@ -291,7 +304,7 @@
             </div>
             <span class="card-arrow">→</span>
           </div>
-        </a>
+        </div>
       </div>
 
       <footer>
@@ -303,5 +316,13 @@
         <a href="https://github.com/PakawatPanyakorn/Obs-Sandbox">GitHub ↗</a>
       </footer>
     </div>
+  <script>
+    document.querySelectorAll('.project-card[data-href]').forEach(card => {
+      card.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        window.location.href = card.dataset.href;
+      });
+    });
+  </script>
   </body>
 </html>

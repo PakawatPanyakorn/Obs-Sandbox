@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENHA — Stock Analysis · Jul 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<style>
+:root {
+  --color-primary: #1e3b6f;
+  --color-primary-light: #c8d8ec;
+  --color-secondary: #8b4513;
+  --color-accent: #b8860b;
+  --color-bg: #f4efe2;
+  --color-surface: #ebe4d1;
+  --color-surface-alt: #ddd5bc;
+  --color-text: #1c1812;
+  --color-text-muted: #6e5e48;
+  --color-text-on-primary: #f4efe2;
+  --color-border: #c4b59a;
+  --color-success: #3d6e3a;
+  --color-warning: #b07820;
+  --color-error: #8b2020;
+
+  --font-family: "EB Garamond", Georgia, serif;
+  --font-family-display: "Cinzel", "Times New Roman", serif;
+  --font-family-mono: "Courier Prime", "Courier New", monospace;
+  --font-size-base: 16px;
+  --font-weight-heading: 700;
+  --line-height: 1.65;
+  --radius-card: 10px;
+  --shadow-sm: 0 1px 3px rgba(28, 24, 18, 0.08);
+  --shadow-md: 0 4px 12px rgba(28, 24, 18, 0.12);
+  --shadow-lg: 0 8px 24px rgba(28, 24, 18, 0.16);
+
+  --bg: var(--color-bg);
+  --card: var(--color-surface);
+  --card2: var(--color-surface-alt);
+  --border: var(--color-border);
+  --accent: var(--color-primary);
+  --green: var(--color-success);
+  --red: var(--color-error);
+  --yellow: var(--color-warning);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+  --radius: var(--radius-card);
+}
+
+body {
+  background-color: #f4efe2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  background-repeat: repeat;
+  font-family: var(--font-family);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+}
+.page { max-width: 900px; margin: 0 auto; }
+
+.hero {
+  background: linear-gradient(135deg, #1e3b6f 0%, #2c5298 60%, #1a3260 100%);
+  border-top: 3px solid #c9a84c;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text-on-primary);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(200, 216, 236, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-ticker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #b8860b;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-family: var(--font-family-display);
+}
+.hero-name {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #f4efe2;
+  font-family: var(--font-family-display);
+  letter-spacing: 0.03em;
+}
+.hero-tagline {
+  font-size: 15px;
+  color: rgba(244, 239, 226, 0.78);
+  max-width: 540px;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid;
+  letter-spacing: 0.04em;
+  font-family: var(--font-family-display);
+}
+.pill-blue { background: rgba(200, 216, 236, 0.18); border-color: rgba(200, 216, 236, 0.45); color: #c8d8ec; }
+.pill-green { background: rgba(61, 110, 58, 0.25); border-color: rgba(61, 110, 58, 0.6); color: #a8d5a4; }
+.pill-red { background: rgba(139, 32, 32, 0.25); border-color: rgba(139, 32, 32, 0.6); color: #e8a4a4; }
+.pill-yellow { background: rgba(176, 120, 32, 0.25); border-color: rgba(176, 120, 32, 0.6); color: #e8cc90; }
+
+.section { margin-bottom: 32px; }
+.section-title {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 14px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  padding: 20px 22px;
+  margin-bottom: 14px;
+}
+.card h3 {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 10px 0;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.stat-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  padding: 16px 18px;
+}
+.stat-label {
+  font-family: var(--font-family-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+.mini-stat-label {
+  font-family: var(--font-family-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+.stat-value { font-family: var(--font-family-display); font-size: 22px; font-weight: 700; color: var(--color-text); }
+.stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+.val-green { color: var(--color-success); }
+.val-red { color: var(--color-error); }
+.val-yellow { color: var(--color-warning); }
+
+.tldr {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-md);
+  padding: 22px 24px;
+  margin-bottom: 28px;
+}
+.tldr h2 {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 14px 0;
+}
+.tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+.tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+.meter-row { margin-bottom: 14px; }
+.meter-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); }
+.meter-label span:last-child { font-weight: 700; font-family: var(--font-family-mono); }
+.meter-track { background: var(--card2); border-radius: 6px; height: 10px; overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 6px; }
+.meter-fill.green { background: var(--green); }
+.meter-fill.yellow { background: var(--yellow); }
+.meter-fill.red { background: var(--red); }
+
+.scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.scenario-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  padding: 18px 20px;
+}
+.scenario-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 6px 0; }
+.scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+.scenario-bull h3 { color: var(--color-success); }
+.scenario-base h3 { color: var(--color-warning); }
+.scenario-bear h3 { color: var(--color-error); }
+
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+.timeline-dot.past { background: var(--color-text-muted); border-color: var(--color-text-muted); }
+.timeline-dot.present { background: var(--color-primary); border-color: var(--color-primary); width: 14px; height: 14px; left: -26px; }
+.timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+.timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.timeline-event { font-size: 14px; line-height: 1.5; }
+
+.verdict {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-md);
+  padding: 28px 30px;
+}
+.verdict-title { font-family: var(--font-family-display); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 16px; }
+.verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+.verdict p:last-child { margin-bottom: 0; }
+
+.item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; }
+.item-title { font-family: var(--font-family-display); font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 2px; }
+.item-desc { font-size: 14px; line-height: 1.55; }
+.item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+.debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.debate-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  padding: 20px 22px;
+}
+.debate-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 12px 0; }
+.debate-card.optimist h3 { color: var(--color-success); }
+.debate-card.pessimist h3 { color: var(--color-error); }
+.debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+.debate-card li { margin-bottom: 6px; }
+
+.donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.donut-legend { flex: 1; min-width: 180px; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+
+.seg-row { margin-bottom: 16px; }
+.seg-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.5px; }
+.seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+.seg-fill { height: 100%; border-radius: 4px; }
+.seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+.seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+@media (max-width: 760px) {
+  body { padding: 12px; }
+  .grid-2, .debate-grid { grid-template-columns: 1fr; }
+  .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+  .hero { padding: 24px 20px; }
+  .hero-name { font-size: 22px; }
+}
+@media (max-width: 520px) {
+  .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+  .donut-wrap { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-ticker">NYSE: ENHA &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+    <div class="hero-name">Enhanced Group Inc.</div>
+    <div class="hero-tagline">A company that runs a sports competition where athletes are allowed to use performance-enhancing drugs, and also sells health supplements and doctor-prescribed hormone and peptide treatments online.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">Sports Media &amp; Telehealth</span>
+      <span class="pill pill-yellow">Pre-Profit</span>
+      <span class="pill pill-red">Regulatory &amp; Reputational Risk</span>
+    </div>
+  </div>
+
+  <div class="tldr">
+    <h2>TL;DR</h2>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>Enhanced Group runs the Enhanced Games — a sports event that allows doping — and also sells telehealth peptide, hormone, and supplement products through its Live Enhanced platform.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--yellow)">!</span>
+      <span>The inaugural Enhanced Games (May 24, 2026) already blew past its own sponsorship target — $32M in deal value against $31M full-year revenue guidance — while the telehealth side is still tiny and unproven.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--accent)">►</span>
+      <span>Most coverage is fixated on the doping spectacle, but the bigger swing factor may be an FDA advisory committee vote on July 23–24, 2026 that decides whether the peptides underpinning Live Enhanced stay legally compoundable.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--red)">-</span>
+      <span>Every major sports and anti-doping body — WADA, World Athletics, World Aquatics, the IWF — has rejected the event and refuses to recognize its results, which caps how mainstream the brand can go.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>Verdict: analysts' average target of $10.50 implies large upside from the current $2.84, but on only 3 analysts covering a company public since May 2026. Next binary event: Aug 7, 2026 — first full quarterly earnings report since the debut Games.</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Financial Snapshot</div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Stock Price</div>
+        <div class="stat-value">$2.84</div>
+        <div class="stat-sub">As of Jul 1, 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Market Cap</div>
+        <div class="stat-value">$347M</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Revenue (TTM)</div>
+        <div class="stat-value">[Data not found]</div>
+        <div class="stat-sub">Public via SPAC only since May 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Net Income (TTM)</div>
+        <div class="stat-value val-red">-$39.8M</div>
+        <div class="stat-sub">Loss-making</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">EPS (TTM)</div>
+        <div class="stat-value val-red">-$3.89</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Gross Margin</div>
+        <div class="stat-value">[Data not found]</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">2026 Guidance</div>
+        <div class="stat-value val-yellow" style="font-size:16px">$31M sports rev.</div>
+        <div class="stat-sub">Already exceeded via $32M sponsorships</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Analyst Target</div>
+        <div class="stat-value val-green">$10.50</div>
+        <div class="stat-sub">Range $6–$15 · Strong Buy (3 analysts)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Next Event</div>
+        <div class="stat-value" style="font-size:16px">Aug 7, 2026</div>
+        <div class="stat-sub">Q2 2026 earnings</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+    <div class="card">
+
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#E5DCC8" stroke-width="28"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#1E3B6F" stroke-width="28"
+                  stroke-dasharray="238 440" stroke-dashoffset="0" stroke-linecap="butt"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#8B4513" stroke-width="28"
+                  stroke-dasharray="123 440" stroke-dashoffset="-238" stroke-linecap="butt"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#B8860B" stroke-width="28"
+                  stroke-dasharray="79 440" stroke-dashoffset="-361" stroke-linecap="butt"/>
+          <text x="100" y="104" text-anchor="middle" font-family="'Cinzel',serif" font-size="13" font-weight="700" fill="#1C1812">Revenue</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="legend-row"><div class="legend-dot" style="background:#1E3B6F"></div><span>Games (Sponsorship/Media)</span><span class="legend-pct">54%</span></div>
+          <div class="legend-row"><div class="legend-dot" style="background:#8B4513"></div><span>Live Enhanced Prescription</span><span class="legend-pct">28%</span></div>
+          <div class="legend-row"><div class="legend-dot" style="background:#B8860B"></div><span>Live Enhanced OTC</span><span class="legend-pct">18%</span></div>
+        </div>
+      </div>
+
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Estimated mix based on management's 2026E revenue guidance ($31M Games, $16M prescription, $10M OTC) as reported via SEC filing coverage. Exact reported segment breakdown not yet disclosed given the company's May 2026 public listing.</p>
+
+      <div class="seg-row">
+        <div class="seg-label"><span>Games (Sponsorship/Media)</span><span style="font-family:var(--font-family-mono)">54% → 30%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:54%;background:#1E3B6F"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="30" style="width:0%;background:#1E3B6F;margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Games revenue is guided to grow in dollars (to $107M by 2028E) but shrink as a share as telehealth scales faster.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Live Enhanced Prescription</span><span style="font-family:var(--font-family-mono)">28% → 31%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:28%;background:#8B4513"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="31" style="width:0%;background:#8B4513;margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Guided from $16M (2026E) to $110M (2028E) as TRT/HRT/peptide prescription volume ramps.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Live Enhanced OTC</span><span style="font-family:var(--font-family-mono)">18% → 39%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:18%;background:#B8860B"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="39" style="width:0%;background:#B8860B;margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Guided to become the largest segment by 2028E ($140M), the fastest-growing of the three per management targets.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">What Does This Company Actually Do?</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>The Simple Story</h3>
+        <p>Enhanced Group does two things. First, it puts on a sports event called the Enhanced Games, where — unlike the Olympics — athletes are allowed to use performance-enhancing drugs, and the company pays out huge cash bonuses for breaking world records. Second, through a platform called Live Enhanced, it sells supplements and doctor-prescribed hormone and peptide treatments online to everyday people who want to look, feel, or perform better.</p>
+      </div>
+      <div class="card">
+        <h3>The Big Bet Right Now</h3>
+        <p>The company is betting that the controversy and spectacle of the Games generates enough free media attention to build a trusted consumer brand — one that it can then use to sell its telehealth products at scale. For that bet to pay off, the Games need to keep drawing sponsors and viewers even as mainstream sports bodies keep disowning it, and the FDA needs to keep allowing the specific peptides Live Enhanced is built around.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Business Model</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>How They Make Money</h3>
+        <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.65">
+          <li>Brand sponsorships tied to the annual Enhanced Games ($32M+ already committed for the 2026 debut event)</li>
+          <li>Media and broadcast rights as the Games franchise grows</li>
+          <li>Prescription revenue from Live Enhanced telehealth (TRT, HRT, longevity drugs, peptides)</li>
+          <li>Over-the-counter (OTC) supplement sales through the same platform</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Why the Model Is Clever</h3>
+        <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.65">
+          <li>The Games generate huge, low-cost media attention (1B+ people engaged from a "marginal media investment," per the company) that a traditional telehealth startup would have to pay dearly for</li>
+          <li>Sponsorship revenue is collected largely upfront, ahead of the telehealth ramp, helping fund the buildout</li>
+          <li>The same audience — people interested in performance and biohacking — is the exact customer Live Enhanced is trying to sell to</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Hidden Catalyst Deep Dive</div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <h3>The Opportunity</h3>
+        <p>On July 23–24, 2026, the FDA's Pharmacy Compounding Advisory Committee (PCAC) votes on whether seven peptides — including BPC-157, Semax, and Epitalon — should be added to the legal list of substances pharmacies can compound for patients. This is the exact category of product Live Enhanced's prescription business is built around. A favorable outcome would legally de-risk the fastest-growing part of Enhanced Group's business; almost none of the retail coverage of ENHA discusses it, since it's buried under headlines about the Games' doping controversy.</p>
+      </div>
+      <div class="card">
+        <h3>Why This Company Wins</h3>
+        <p>Enhanced already has the brand and the customer funnel: millions of people who watched the Games associate the company with cutting-edge performance science. If the FDA formally sanctions broader peptide access, Live Enhanced can market these products as legitimate, doctor-prescribed treatments rather than gray-market biohacking — a credibility jump that's hard for smaller telehealth peptide sellers to match without the same media reach.</p>
+      </div>
+    </div>
+
+    <div class="stat-grid" style="margin-bottom:20px">
+      <div class="stat-card">
+        <div class="stat-label">TAM / Market Size</div>
+        <div class="stat-value" style="font-size:16px">$250M by 2028E</div>
+        <div class="stat-sub">Mgmt's own Rx+OTC guidance</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Key Date / Event</div>
+        <div class="stat-value" style="font-size:16px">Jul 23–24, 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Company Readiness</div>
+        <div class="stat-value" style="font-size:15px">Early</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <h3>Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot past"></div>
+          <div class="timeline-date">Apr 23, 2026</div>
+          <div class="timeline-event">FDA removes 12 peptides from its Category 2 list, opening the door to a formal compounding-eligibility review.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot past"></div>
+          <div class="timeline-date">May 24, 2026</div>
+          <div class="timeline-event">Inaugural Enhanced Games held in Las Vegas; over $32M in sponsorship value secured, brand attention spikes.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot present"></div>
+          <div class="timeline-date">Now — Jul 2026</div>
+          <div class="timeline-event">Awaiting the PCAC vote on seven peptides central to the Live Enhanced product line, alongside the next live event, Enhanced Breakers, on Jul 11, 2026.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot future"></div>
+          <div class="timeline-date">~Late 2026 – 2027</div>
+          <div class="timeline-event">FDA typically issues a final rule 6–18 months after a PCAC vote — the point at which peptide compounding access becomes durable (or doesn't).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bull">
+        <h3>Positive Outcome</h3>
+        <div class="scenario-prob val-green">30%</div>
+        <div class="scenario-target">+15% to +25% stock impact</div>
+        <ul>
+          <li>PCAC recommends inclusion for most of the 7 peptides reviewed</li>
+          <li>FDA signals an expedited final rule</li>
+          <li>Live Enhanced prescription volume accelerates past 2026E guidance</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-base">
+        <h3>Mixed Outcome</h3>
+        <div class="scenario-prob val-yellow">45%</div>
+        <div class="scenario-target">Roughly flat stock impact</div>
+        <ul>
+          <li>Some peptides approved, others rejected or deferred</li>
+          <li>Telehealth revenue tracks close to the guided $16M Rx / $10M OTC for 2026</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-bear">
+        <h3>Negative Outcome</h3>
+        <div class="scenario-prob val-red">25%</div>
+        <div class="scenario-target">-15% to -20% stock impact</div>
+        <ul>
+          <li>PCAC recommends against most of the peptides reviewed</li>
+          <li>Regulatory scrutiny spills over into perception of the sports business</li>
+          <li>Telehealth revenue misses 2026E guidance</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section">
+    <div class="section-title">Competitive Edge</div>
+    <div class="card">
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">First Mover in a Category of One</div>
+          <div class="item-desc">No other publicly traded company runs a doping-permitted global sports league — Enhanced owns this niche outright, for better or worse.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">→</div>
+        <div>
+          <div class="item-title">Sponsorship Demand Ahead of Schedule</div>
+          <div class="item-desc">$32M in sponsorship deal value was secured before the year's guidance ($31M) was even met — an early signal that corporate advertisers are willing to associate with the brand.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">Media Reach at Marginal Cost</div>
+          <div class="item-desc">Over a billion people engaged with the debut Games across a 7-day window, per company figures — a scale of attention most consumer-health startups would need years and huge ad budgets to build.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">⚠</div>
+        <div>
+          <div class="item-title">Built-In Telehealth Customer Funnel</div>
+          <div class="item-desc">An underappreciated advantage: the Games audience is pre-selected for interest in performance enhancement, giving Live Enhanced a warm audience most telehealth peptide sellers have to buy through ads.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Analyst Scorecard</div>
+    <div class="card">
+      <div class="meter-row">
+        <div class="meter-label"><span>Business Model Strength</span><span>5 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill yellow" style="width:50%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Revenue Growth</span><span>7 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Profitability</span><span>3 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill red" style="width:30%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Competitive Moat</span><span>6 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill yellow" style="width:60%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Regulatory Safety</span><span>3 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill red" style="width:30%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Management Execution</span><span>6 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill yellow" style="width:60%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Long-Term Potential</span><span>6 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill yellow" style="width:60%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Current Situation</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="color:var(--color-success)">Growth Drivers</h3>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Sponsorship Ahead of Guidance</div>
+            <div class="item-desc">$32M in sponsorship value already secured against $31M in full-year 2026 sports revenue guidance, days after the debut event.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Explosive Media Reach</div>
+            <div class="item-desc">Over 1 billion people engaged and an 884% jump in owned-media audience from January–May 2026, at low marketing spend.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">$50M PIPE Financing</div>
+            <div class="item-desc">Financing closing in tranches funds working capital and telehealth expansion; management guides to profitability in 2027.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Telehealth Platform Buildout</div>
+            <div class="item-desc">Partnership with Rezolve AI to build out the Live Enhanced digital platform, targeted to scale from roughly $26M (2026E) to $250M (2028E) in combined Rx and OTC revenue.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--color-error)">Risks</h3>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>
+          <div>
+            <div class="item-title">Rejection by Major Sports Bodies [ACTIVE RISK]</div>
+            <div class="item-desc">WADA, World Athletics, World Aquatics, and the International Weightlifting Federation have all condemned or refused to recognize the Games, capping mainstream legitimacy.</div>
+            <div class="item-meta">Active as of Jun 2026 · Source: Yahoo Sports / Wikipedia</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>
+          <div>
+            <div class="item-title">Pending FDA Peptide Ruling [ACTIVE RISK]</div>
+            <div class="item-desc">The PCAC vote on peptides core to Live Enhanced's prescription business is unresolved; an unfavorable outcome would directly threaten the telehealth growth plan.</div>
+            <div class="item-meta">Pending as of Jul 2026 · Source: FDA.gov</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>
+          <div>
+            <div class="item-title">Unproven Business Model [ACTIVE RISK]</div>
+            <div class="item-desc">Public only since May 2026 via SPAC merger, with a limited operating history and only one Games event held to date — the model is largely untested.</div>
+            <div class="item-meta">Active as of Jun 2026 · Source: Company SEC/IPO filings</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>
+          <div>
+            <div class="item-title">Dependence on Sustained Audience Interest [ACTIVE RISK]</div>
+            <div class="item-desc">Revenue leans heavily on media, sponsor, and audience demand for future events; the next event, Enhanced Breakers, on Jul 11, 2026 tests whether interest holds beyond debut-event novelty.</div>
+            <div class="item-meta">Active as of Jun 2026 · Source: Enhanced newsroom</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bull">
+        <h3>Bull Case</h3>
+        <div class="scenario-prob val-green">25%</div>
+        <div class="scenario-target">$7–$12 target</div>
+        <ul>
+          <li>Enhanced Games franchise locks in recurring sponsor and media commitments for 2027</li>
+          <li>Live Enhanced telehealth scales toward management's 2027E guidance</li>
+          <li>FDA peptide review resolves favorably in July 2026</li>
+          <li>Enhanced Breakers and future events sustain audience interest</li>
+          <li>Company reaches profitability on the schedule management has guided (2027)</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-base">
+        <h3>Base Case</h3>
+        <div class="scenario-prob val-yellow">45%</div>
+        <div class="scenario-target">$3–$6 target</div>
+        <ul>
+          <li>Sponsorship and media interest cools somewhat after the debut-event buzz fades</li>
+          <li>Telehealth revenue grows but lands below the most optimistic guidance</li>
+          <li>FDA and sports-body regulatory questions remain unresolved but non-fatal</li>
+          <li>Company continues to burn cash and may need further financing beyond the current PIPE</li>
+          <li>A second annual Games is held without a major setback</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-bear">
+        <h3>Bear Case</h3>
+        <div class="scenario-prob val-red">30%</div>
+        <div class="scenario-target">$0.50–$2 target</div>
+        <ul>
+          <li>Rejection by major sports bodies curtails mainstream sponsor appetite</li>
+          <li>FDA peptide review turns unfavorable for compounding access</li>
+          <li>Cash burn forces dilutive financing beyond the current $50M PIPE</li>
+          <li>Audience interest in the Games fades once the novelty wears off</li>
+          <li>A regulatory or athlete-safety incident occurs during a live event</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="debate-grid">
+      <div class="debate-card optimist">
+        <h3>The Optimist Sees…</h3>
+        <ul>
+          <li>A company that generated a billion people's worth of attention on a marginal media budget — an asset most startups can't buy</li>
+          <li>Sponsorship revenue already outrunning guidance in the very first event</li>
+          <li>A telehealth arm riding the same "biohacking" wave as GLP-1 drugs and longevity medicine, with a built-in, warm customer base</li>
+          <li>$50M in fresh financing management says funds the company through to profitability in 2027</li>
+          <li>A three-analyst Strong Buy consensus with an average target more than triple the current price</li>
+        </ul>
+      </div>
+      <div class="debate-card pessimist">
+        <h3>The Pessimist Sees…</h3>
+        <ul>
+          <li>A brand that every major sports and anti-doping authority has publicly disowned, which limits how "mainstream" it can ever become</li>
+          <li>A stock already down roughly 70% over the past 12 months despite the media buzz</li>
+          <li>A telehealth business that is still a rounding error in revenue, entirely dependent on a favorable and still-pending FDA ruling</li>
+          <li>Heavy losses (-$39.8M TTM net income) and continued cash burn with no proven path to the guided 2027 profitability</li>
+          <li>An analyst coverage universe of just three firms — thin enough that the "Strong Buy" consensus carries limited statistical weight</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="verdict">
+      <div class="verdict-title">The Verdict</div>
+      <p>Enhanced Group is like a carnival barker who also happens to run a pharmacy in the back room — the loud, controversial show out front draws the crowd, but the quieter business in back is what could actually pay the bills long-term.</p>
+      <p>The green case is straightforward: the Games franchise has proven it can generate outsized attention and sponsorship dollars relative to its size, and if even a fraction of that audience converts into Live Enhanced telehealth customers — especially with a favorable FDA peptide ruling in late July — the combined business could grow into today's speculative valuation and beyond.</p>
+      <p>The bear case is just as real: this is a pre-profit, recently public company whose flagship product is formally rejected by every legitimate governing body in its industry, whose telehealth revenue is still nearly invisible, and whose stock has already fallen sharply over the past year. This is a highly speculative, event-driven name — appropriate only for risk-tolerant investors who can stomach binary swings around the Jul 23–24 FDA vote and the Aug 7 earnings report, not a core holding for anyone with a multi-year, low-volatility time horizon.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Consensus Rating</div>
+        <div class="stat-value" style="font-size:18px">Strong Buy</div>
+        <div class="stat-sub">3 analysts covering</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Avg. Price Target</div>
+        <div class="stat-value val-green">$10.50</div>
+        <div class="stat-sub">vs. current $2.84 (+270%)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Additional Signal</div>
+        <div class="stat-value" style="font-size:16px">$6–$15</div>
+        <div class="stat-sub">Full range of individual price targets</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="border-top:1px solid var(--border);padding-top:20px;margin-top:32px">
+    <div style="font-family:var(--font-family-display);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Sources</div>
+    <ul style="font-size:13px;line-height:1.8;padding-left:18px;color:var(--muted)">
+      <li><a href="https://stockanalysis.com/stocks/enha/" style="color:var(--color-primary)">Enhanced Group (ENHA) Stock Price & Overview — StockAnalysis.com</a></li>
+      <li><a href="https://www.stocktitan.net/overview/ENHA/" style="color:var(--color-primary)">ENHA Stock Price, News & Analysis — StockTitan</a></li>
+      <li><a href="https://www.stocktitan.net/sec-filings/ENHA/8-k-enhanced-group-inc-reports-material-event-3a2d3ea58bad.html" style="color:var(--color-primary)">$50M PIPE backs Enhanced Group growth and debt repayment — StockTitan</a></li>
+      <li><a href="https://www.prnewswire.com/news-releases/enhanced-nyse-enha-surpasses-32-million-in-sponsorship-deal-value-for-inaugural-enhanced-games-302781939.html" style="color:var(--color-primary)">Enhanced Surpasses $32M in Sponsorship Deal Value — PR Newswire</a></li>
+      <li><a href="https://www.benzinga.com/quote/ENHA/analyst-ratings" style="color:var(--color-primary)">Enhanced Group Analyst Ratings and Price Targets — Benzinga</a></li>
+      <li><a href="https://www.enhanced.com/newsroom/inaugural-enhanced-games-engages-more-than-a-billion-people-worldwide-owns-the-internet-conversation-and-drives-massive-brand-awareness-with-marginal-media-investment" style="color:var(--color-primary)">Inaugural Enhanced Games Engages More Than a Billion People Worldwide — Enhanced Newsroom</a></li>
+      <li><a href="https://sports.yahoo.com/olympics/article/welcome-to-the-enhanced-games-where-doping-is-encouraged-152943074.html" style="color:var(--color-primary)">Welcome to the Enhanced Games, where doping is encouraged — Yahoo Sports</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/2026_Enhanced_Games" style="color:var(--color-primary)">2026 Enhanced Games — Wikipedia</a></li>
+      <li><a href="https://www.fda.gov/advisory-committees/advisory-committee-calendar/july-23-24-2026-meeting-pharmacy-compounding-advisory-committee-07232026" style="color:var(--color-primary)">July 23–24, 2026 Meeting of the Pharmacy Compounding Advisory Committee — FDA.gov</a></li>
+      <li><a href="https://www.orrick.com/en/Insights/2026/04/FDA-Announces-Removal-of-12-Peptides-from-Category-2-and-Schedules-PCAC-Meetings" style="color:var(--color-primary)">FDA Announces Removal of 12 Peptides from Category 2 and Schedules PCAC Meetings — Orrick</a></li>
+    </ul>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</p>
+  </div>
+
+</div>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        const target = bar.dataset.target;
+        bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+        bar.style.width = target + '%';
+        observer.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

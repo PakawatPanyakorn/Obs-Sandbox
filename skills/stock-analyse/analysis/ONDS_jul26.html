@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONDS — Stock Analysis · Jul 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<style>
+:root {
+  --color-primary: #1e3b6f;
+  --color-primary-light: #c8d8ec;
+  --color-secondary: #8b4513;
+  --color-accent: #b8860b;
+  --color-bg: #f4efe2;
+  --color-surface: #ebe4d1;
+  --color-surface-alt: #ddd5bc;
+  --color-text: #1c1812;
+  --color-text-muted: #6e5e48;
+  --color-text-on-primary: #f4efe2;
+  --color-border: #c4b59a;
+  --color-success: #3d6e3a;
+  --color-warning: #b07820;
+  --color-error: #8b2020;
+
+  --font-family: "EB Garamond", Georgia, serif;
+  --font-family-display: "Cinzel", "Times New Roman", serif;
+  --font-family-mono: "Courier Prime", "Courier New", monospace;
+  --font-size-base: 16px;
+  --font-weight-heading: 700;
+  --line-height: 1.65;
+  --radius-card: 10px;
+  --shadow-sm: 0 1px 3px rgba(28, 24, 18, 0.08);
+  --shadow-md: 0 4px 12px rgba(28, 24, 18, 0.12);
+  --shadow-lg: 0 8px 24px rgba(28, 24, 18, 0.16);
+
+  --bg: var(--color-bg);
+  --card: var(--color-surface);
+  --card2: var(--color-surface-alt);
+  --border: var(--color-border);
+  --accent: var(--color-primary);
+  --green: var(--color-success);
+  --red: var(--color-error);
+  --yellow: var(--color-warning);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+  --radius: var(--radius-card);
+}
+body {
+  background-color: #f4efe2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  background-repeat: repeat;
+  font-family: var(--font-family);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+}
+.page { max-width: 900px; margin: 0 auto; }
+.hero {
+  background: linear-gradient(135deg, #1e3b6f 0%, #2c5298 60%, #1a3260 100%);
+  border-top: 3px solid #c9a84c;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text-on-primary);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(200, 216, 236, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-ticker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #b8860b;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-family: var(--font-family-display);
+}
+.hero-name {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #f4efe2;
+  font-family: var(--font-family-display);
+  letter-spacing: 0.03em;
+}
+.hero-tagline {
+  font-size: 15px;
+  color: rgba(244, 239, 226, 0.78);
+  max-width: 540px;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid;
+  letter-spacing: 0.04em;
+  font-family: var(--font-family-display);
+}
+.pill-blue { background: rgba(200, 216, 236, 0.18); border-color: rgba(200, 216, 236, 0.45); color: #c8d8ec; }
+.pill-green { background: rgba(61, 110, 58, 0.25); border-color: rgba(61, 110, 58, 0.6); color: #a8d5a4; }
+.pill-red { background: rgba(139, 32, 32, 0.25); border-color: rgba(139, 32, 32, 0.6); color: #e8a4a4; }
+.pill-yellow { background: rgba(176, 120, 32, 0.25); border-color: rgba(176, 120, 32, 0.6); color: #e8cc90; }
+
+.section { margin-bottom: 32px; }
+.section-title {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  padding: 20px 22px;
+  margin-bottom: 14px;
+}
+.card h3 {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 10px 0;
+}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.stat-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  padding: 16px 18px;
+}
+.stat-label {
+  font-family: var(--font-family-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+.mini-stat-label {
+  font-family: var(--font-family-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+.stat-value { font-family: var(--font-family-display); font-size: 22px; font-weight: 700; color: var(--color-text); }
+.stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+.val-green { color: var(--color-success); }
+.val-red { color: var(--color-error); }
+.val-yellow { color: var(--color-warning); }
+
+.tldr {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-md);
+  padding: 22px 24px;
+  margin-bottom: 28px;
+}
+.tldr h2 {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 14px 0;
+}
+.tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+.tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+.meter-row { margin-bottom: 14px; }
+.meter-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); }
+.meter-label span:last-child { font-weight: 700; font-family: var(--font-family-mono); }
+.meter-track { background: var(--card2); border-radius: 6px; height: 10px; overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 6px; }
+.meter-fill.green { background: var(--green); }
+.meter-fill.yellow { background: var(--yellow); }
+.meter-fill.red { background: var(--red); }
+
+.scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.scenario-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  padding: 18px 20px;
+}
+.scenario-card h3 {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 6px 0;
+}
+.scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+.scenario-bull h3 { color: var(--color-success); }
+.scenario-base h3 { color: var(--color-warning); }
+.scenario-bear h3 { color: var(--color-error); }
+
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+.timeline-dot.past { background: var(--color-text-muted); border-color: var(--color-text-muted); }
+.timeline-dot.present { background: var(--color-primary); border-color: var(--color-primary); width: 14px; height: 14px; left: -26px; }
+.timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+.timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.timeline-event { font-size: 14px; line-height: 1.5; }
+
+.verdict {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-md);
+  padding: 28px 30px;
+}
+.verdict-title {
+  font-family: var(--font-family-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+.verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+.verdict p:last-child { margin-bottom: 0; }
+
+.item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; }
+.item-title {
+  font-family: var(--font-family-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 2px;
+}
+.item-desc { font-size: 14px; line-height: 1.55; }
+.item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+.debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.debate-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  padding: 20px 22px;
+}
+.debate-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 12px 0; }
+.debate-card.optimist h3 { color: var(--color-success); }
+.debate-card.pessimist h3 { color: var(--color-error); }
+.debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+.debate-card li { margin-bottom: 6px; }
+
+.donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.donut-legend { flex: 1; min-width: 180px; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+
+.seg-row { margin-bottom: 16px; }
+.seg-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.5px; }
+.seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+.seg-fill { height: 100%; border-radius: 4px; }
+.seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+.seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+@media (max-width: 760px) {
+  body { padding: 12px; }
+  .grid-2, .debate-grid { grid-template-columns: 1fr; }
+  .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+  .hero { padding: 24px 20px; }
+  .hero-name { font-size: 22px; }
+}
+@media (max-width: 520px) {
+  .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+  .donut-wrap { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-ticker">NASDAQ: ONDS &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+    <div class="hero-name">Ondas Inc.</div>
+    <div class="hero-tagline">Ondas builds radio networks that let machines talk to each other over long distances, and drones that can fly and patrol all by themselves — used by railroads, the military, and border security agencies.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">Aerospace &amp; Defense</span>
+      <span class="pill pill-yellow">Growing / Pre-Profit</span>
+      <span class="pill pill-red">Dilution Risk</span>
+    </div>
+  </div>
+
+  <div class="tldr">
+    <h2>TL;DR</h2>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>Ondas sells private wireless radio networks (Ondas Networks) and autonomous drones (Ondas Autonomous Systems) to railroads, defense agencies, and border security programs.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--yellow)">!</span>
+      <span>Revenue exploded 1,065% year-over-year in Q1 2026 to $50.1 million as the company pivots into a defense-technology platform through acquisitions like Mistral and Cyberhawk.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--accent)">►</span>
+      <span>The underreported catalyst: global counter-drone spending is set to more than quadruple by 2030, and Ondas' Optimus drone is one of the few FAA type-certified, defense-cleared systems positioned to capture it.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--red)">-</span>
+      <span>Heavy share dilution — shares outstanding up roughly 324% over the past year — and large insider stock sales are the main risk clouding the growth story.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>Verdict: analysts average a $20.14 price target against a current price near $9.51 (Strong Buy consensus). Next binary event: Q2 2026 earnings and the Cyberhawk acquisition close, expected Q3 2026.</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Financial Snapshot</div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Stock Price</div>
+        <div class="stat-value">$9.51</div>
+        <div class="stat-sub">As of Jun 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Market Cap</div>
+        <div class="stat-value">$4.92B</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Revenue (TTM)</div>
+        <div class="stat-value val-green">$96.6M</div>
+        <div class="stat-sub">Q1 2026 alone: +1,065% YoY</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Net Income</div>
+        <div class="stat-value val-red">-$137.2M</div>
+        <div class="stat-sub">FY2025 net loss</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Gross Margin</div>
+        <div class="stat-value val-green">49%</div>
+        <div class="stat-sub">Q1 2026, up from 35% YoY</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">EPS</div>
+        <div class="stat-value val-yellow">$0.56</div>
+        <div class="stat-sub">Q1 2026 reported</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Forward Guidance</div>
+        <div class="stat-value val-green" style="font-size:16px">$390M+ FY26</div>
+        <div class="stat-sub">+670% vs FY2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Analyst Target</div>
+        <div class="stat-value val-green">$20.14</div>
+        <div class="stat-sub">Avg. of 7 analysts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Next Event</div>
+        <div class="stat-value" style="font-size:15px">Q2 2026 Earnings</div>
+        <div class="stat-sub">Target: $66.5M+ revenue</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+    <div class="card">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#E5DCC8" stroke-width="28"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#1E3B6F" stroke-width="28"
+                  stroke-dasharray="330 440" stroke-dashoffset="0" stroke-linecap="butt"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#8B4513" stroke-width="28"
+                  stroke-dasharray="110 440" stroke-dashoffset="-330" stroke-linecap="butt"/>
+          <text x="100" y="104" text-anchor="middle" font-family="'Cinzel',serif" font-size="13" font-weight="700" fill="#1C1812">Revenue</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="legend-row">
+            <div class="legend-dot" style="background:#1E3B6F"></div>
+            <span>Ondas Autonomous Systems (drones)</span>
+            <span class="legend-pct">75%</span>
+          </div>
+          <div class="legend-row">
+            <div class="legend-dot" style="background:#8B4513"></div>
+            <span>Ondas Networks (private wireless)</span>
+            <span class="legend-pct">25%</span>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Estimated mix based on Q1 2026 earnings commentary and defense-order disclosures. Exact segment revenue split not publicly disclosed.</p>
+      <div class="seg-row">
+        <div class="seg-label"><span>Ondas Autonomous Systems</span><span style="font-family:var(--font-family-mono)">75% → 82%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:75%;background:#1E3B6F"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="82" style="width:0%;background:#1E3B6F;margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Defense and border-security drone contracts (Mistral, 4M Defense, Cyberhawk) are expected to keep outpacing the wireless networks segment.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Ondas Networks</span><span style="font-family:var(--font-family-mono)">25% → 18%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:25%;background:#8B4513"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="18" style="width:0%;background:#8B4513;margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Slower, steadier rail and industrial wireless business — shrinking as a share of the total as OAS scales.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">What Does This Company Actually Do?</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>The Simple Story</h3>
+        <p>Ondas has two businesses. One makes radios that let trains and factories send data over long distances without dropping the connection — like a walkie-talkie network built for machines. The other, Ondas Autonomous Systems, makes drones that can fly themselves without a human pilot, used to patrol borders, inspect infrastructure, and support the military.</p>
+      </div>
+      <div class="card">
+        <h3>The Big Bet Right Now</h3>
+        <p>Ondas is betting that it can turn itself into a full defense-technology company by buying smaller drone and sensor businesses (Mistral, Cyberhawk, 4M Defense) and combining them with government contracts. For this to pay off, those acquisitions need to integrate smoothly and the contracts need to keep landing — without diluting shareholders into the ground along the way.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Business Model</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>How They Make Money</h3>
+        <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.65">
+          <li>Selling and licensing private wireless network hardware to railroads and industrial customers (Ondas Networks)</li>
+          <li>Selling drones, sensors, and counter-drone systems to defense and government agencies (Ondas Autonomous Systems)</li>
+          <li>Recurring service, maintenance, and data contracts tied to deployed hardware</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Why the Model Is Clever</h3>
+        <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.65">
+          <li>Government and defense contracts are sticky — once a system is certified and deployed, switching costs are high</li>
+          <li>FAA type certification and DCMA Blue List clearance act as a regulatory moat few competitors have cleared</li>
+          <li>Acquiring rather than building lets Ondas access existing multi-year government contract vehicles quickly</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Hidden Catalyst Deep Dive</div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <h3>The Opportunity</h3>
+        <p>Global demand for counter-drone (counter-UAS) technology — systems that detect and stop hostile drones — is projected to grow from about $2.4 billion in 2024 to more than $10.5 billion by 2030, a 27% annual growth rate. Ondas is positioning its Optimus platform and new Cyberhawk acquisition to sell directly into this build-out, alongside existing border-security demining work for Israel's Eastern Border Security Barrier program.</p>
+      </div>
+      <div class="card">
+        <h3>Why This Company Wins</h3>
+        <p>Ondas' Optimus drone is the only FAA Type-Certified uncrewed aircraft in its class and holds Defense Contract Management Agency (DCMA) Blue List clearance — a government-vetted, NDAA-compliant status most competitors lack. That certification removes a major approval bottleneck that slows down rivals bidding on the same government contracts.</p>
+      </div>
+    </div>
+
+    <div class="stat-grid" style="margin-bottom:20px">
+      <div class="stat-card">
+        <div class="stat-label">TAM / Market Size</div>
+        <div class="stat-value">$10.5B</div>
+        <div class="stat-sub">Counter-UAS market by 2030</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Key Date / Event</div>
+        <div class="stat-value" style="font-size:16px">Q3 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Company Readiness</div>
+        <div class="stat-value" style="font-size:15px">Medium-High</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <h3>Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot past"></div>
+          <div class="timeline-date">Jan 2026</div>
+          <div class="timeline-event">Optimus drone granted DCMA Blue List status, entering the Department of War's directory of approved, NDAA-compliant drones.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot present"></div>
+          <div class="timeline-date">Jun 2026</div>
+          <div class="timeline-event">Ondas agrees to acquire Cyberhawk Innovations for ~$125M; 4M Defense ramps border-demining work under Israel's $1.7B Eastern Border Security Barrier program.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot future"></div>
+          <div class="timeline-date">Q3 2026</div>
+          <div class="timeline-event">Cyberhawk acquisition expected to close; potential US Drone Dominance program appropriation could add further government funding tailwind.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bull">
+        <h3>Positive Outcome</h3>
+        <div class="scenario-prob val-green">35%</div>
+        <div class="scenario-target">+40% stock impact</div>
+        <ul><li>Cyberhawk integrates smoothly and adds revenue on schedule</li><li>Israel border and counter-UAS orders scale as expected</li><li>US Drone Dominance funding is approved</li></ul>
+      </div>
+      <div class="scenario-card scenario-base">
+        <h3>Mixed Outcome</h3>
+        <div class="scenario-prob val-yellow">40%</div>
+        <div class="scenario-target">+10% to -10% stock impact</div>
+        <ul><li>Contract wins arrive but slower than guided</li><li>Integration takes longer than planned, muting near-term upside</li></ul>
+      </div>
+      <div class="scenario-card scenario-bear">
+        <h3>Negative Outcome</h3>
+        <div class="scenario-prob val-red">25%</div>
+        <div class="scenario-target">-30% stock impact</div>
+        <ul><li>Government program funding is delayed or cut</li><li>Continued dilution offsets any contract-driven gains</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Competitive Edge</div>
+    <div class="card">
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">FAA Type Certification</div>
+          <div class="item-desc">Optimus 1-EX is the first non-air-carrier drone system to earn FAA Type Certification, clearing a regulatory hurdle most rivals still face.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">DCMA Blue List Clearance</div>
+          <div class="item-desc">NDAA-compliant, government-approved status opens fast-track access to defense procurement that non-cleared competitors can't bid on.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">→</div>
+        <div>
+          <div class="item-title">Prime Contractor Access</div>
+          <div class="item-desc">The Mistral acquisition gives Ondas direct access to over $1 billion in existing Department of Defense IDIQ contract vehicles.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">→</div>
+        <div>
+          <div class="item-title">Strong Balance Sheet Cushion</div>
+          <div class="item-desc">Roughly $1.48 billion in cash and short-term investments gives Ondas runway to fund acquisitions without immediate insolvency risk.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">⚠</div>
+        <div>
+          <div class="item-title">Underappreciated: Deep Government Pipeline</div>
+          <div class="item-desc">A reported ~$4.3 billion sales pipeline against a ~$457 million backlog suggests the market may be underpricing how much of that pipeline could convert into contracts over the next few years.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Analyst Scorecard</div>
+    <div class="card">
+      <div class="meter-row">
+        <div class="meter-label"><span>Business Model Strength</span><span>7 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Revenue Growth</span><span>9 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:90%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Profitability</span><span>3 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill red" style="width:30%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Competitive Moat</span><span>7 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Regulatory Safety</span><span>6 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill yellow" style="width:60%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Management Execution</span><span>5 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill yellow" style="width:50%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Long-Term Potential</span><span>8 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:80%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Current Situation</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="color:var(--color-success)">Growth Drivers</h3>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Defense Platform Transformation</div>
+            <div class="item-desc">The $175M Mistral merger gives Ondas prime-contractor access to over $1B in existing DoD IDIQ contracts.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Border Security Contracts</div>
+            <div class="item-desc">4M Defense secured a $15.8M initial demining order with follow-on work expected above $50M within Israel's $1.7B border program.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Counter-UAS Market Growth</div>
+            <div class="item-desc">Global counter-drone spending is expected to grow at a 27% annual rate through 2030, directly benefiting Ondas' product line.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Raised Full-Year Guidance</div>
+            <div class="item-desc">Management raised FY2026 revenue guidance to at least $390M, up from an earlier $375M estimate, after a strong Q1 beat.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--color-error)">Risks</h3>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>
+          <div>
+            <div class="item-title">Heavy Share Dilution [ACTIVE RISK]</div>
+            <div class="item-desc">Shares outstanding have risen roughly 324% over the past year as Ondas pays for acquisitions largely in stock, eroding per-share value.</div>
+            <div class="item-meta">Active as of Jun 2026 · Source: Seeking Alpha / TS2</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>
+          <div>
+            <div class="item-title">Insider Selling [ACTIVE RISK]</div>
+            <div class="item-desc">CEO Eric Brock sold about $31.9M of stock on June 1, 2026, and further Form 144 filings signal more insider stock may hit the market.</div>
+            <div class="item-meta">Active as of Jun 24 2026 · Source: StocksToTrade</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>
+          <div>
+            <div class="item-title">Drone Industry Regulatory Delays [ACTIVE RISK]</div>
+            <div class="item-desc">Ondas operates under intense regulatory oversight; policy changes or approval delays in the drone industry could slow revenue recognition.</div>
+            <div class="item-meta">Active as of Feb 2026 · Source: StocksToTrade</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--yellow)">⚠</div>
+          <div>
+            <div class="item-title">Stretched Valuation [REDUCED — see note]</div>
+            <div class="item-desc">ONDS trades at a large premium to peers on a price-to-sales basis; strong Q1 revenue growth has partially offset — but not eliminated — this concern.</div>
+            <div class="item-meta">Reduced as of Jun 2026 · Source: Trefis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bull">
+        <h3>Bull Case</h3>
+        <div class="scenario-prob val-green">30%</div>
+        <div class="scenario-target">$18–$25 target</div>
+        <ul>
+          <li>Hypergrowth continues through the rest of 2026</li>
+          <li>Cyberhawk and Mistral integrate cleanly and add margin</li>
+          <li>Defense and border-security contracts scale as guided</li>
+          <li>Dilution slows as product companies reach EBITDA positivity</li>
+          <li>US Drone Dominance funding materializes</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-base">
+        <h3>Base Case</h3>
+        <div class="scenario-prob val-yellow">45%</div>
+        <div class="scenario-target">$10–$16 target</div>
+        <ul>
+          <li>Revenue growth remains strong but decelerates from Q1's pace</li>
+          <li>Some contract wins land, others slip to later quarters</li>
+          <li>Dilution continues at a moderate pace, capping per-share upside</li>
+          <li>Company stays net-loss overall but narrows adjusted EBITDA loss</li>
+          <li>Stock trades roughly in line with growth, still at a premium multiple</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-bear">
+        <h3>Bear Case</h3>
+        <div class="scenario-prob val-red">25%</div>
+        <div class="scenario-target">$5–$8 target</div>
+        <ul>
+          <li>Government contract delays or funding cuts hit the pipeline</li>
+          <li>Further large stock-based acquisitions accelerate dilution</li>
+          <li>Cash burn forces additional equity raises</li>
+          <li>Insider selling continues to weigh on sentiment</li>
+          <li>Competitors underprice Ondas on new contract bids</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="debate-grid">
+      <div class="debate-card optimist">
+        <h3>The Optimist Sees…</h3>
+        <ul>
+          <li>Triple-digit revenue growth backed by a real, expanding defense pipeline</li>
+          <li>A rare regulatory moat — FAA certification and Blue List clearance few rivals have</li>
+          <li>A $1.48B cash cushion that removes near-term solvency worries</li>
+          <li>A counter-UAS market growing 27% annually that Ondas is well-positioned to capture</li>
+          <li>Analyst consensus solidly bullish, with a Strong Buy rating and no Sell ratings</li>
+        </ul>
+      </div>
+      <div class="debate-card pessimist">
+        <h3>The Pessimist Sees…</h3>
+        <ul>
+          <li>A 324% increase in shares outstanding that has quietly eroded existing shareholders' stake</li>
+          <li>The CEO selling nearly $32M in stock just as the growth story is being told</li>
+          <li>A company still deeply unprofitable, funding growth through equity rather than cash flow</li>
+          <li>A rich valuation that assumes flawless execution on multiple recent acquisitions</li>
+          <li>Government contract revenue that can be delayed or cut with little warning</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="verdict">
+      <div class="verdict-title">The Verdict</div>
+      <p>Ondas is like a small shipyard that just won a string of navy contracts — the orders are real and growing fast, but it's paying its workers partly in company stock, and the yard's owner just cashed out a chunk of his own shares.</p>
+      <p>The long-term case is believable: Ondas has genuine regulatory advantages, a fast-growing counter-drone market at its back, and a real cash cushion to fund its transformation into a defense platform. If the Cyberhawk and Mistral integrations go well and the border-security and defense pipeline converts as guided, today's price could look cheap in hindsight.</p>
+      <p>But the near-term pain is just as real — persistent dilution, a still-unprofitable core business, and insider selling all argue for caution. This looks like a stock for patient, risk-tolerant investors with at least a 2–3 year horizon, not a short-term trade.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Consensus Rating</div>
+        <div class="stat-value" style="font-size:18px">Strong Buy</div>
+        <div class="stat-sub">8 Buy · 0 Hold · 0 Sell</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Avg. Price Target</div>
+        <div class="stat-value val-green">$20.14</div>
+        <div class="stat-sub">vs. current $9.51 (+112%)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Additional Signal</div>
+        <div class="stat-value" style="font-size:16px">$1.48B</div>
+        <div class="stat-sub">Cash &amp; short-term investments on hand</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="border-top:1px solid var(--border);padding-top:20px;margin-top:32px">
+    <div style="font-family:var(--font-family-display);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Sources</div>
+    <ul style="font-size:13px;line-height:1.8;padding-left:18px;color:var(--muted)">
+      <li><a href="https://stockanalysis.com/stocks/onds/" style="color:var(--color-primary)">Ondas (ONDS) Stock Price & Overview — StockAnalysis.com</a></li>
+      <li><a href="https://ir.ondas.com/press-releases/detail/296/ondas-inc-reports-record-fourth-quarter-and-full-year-2025" style="color:var(--color-primary)">Ondas Inc. Reports Record Fourth Quarter and Full Year 2025 Financial Results — Ondas IR</a></li>
+      <li><a href="https://www.investing.com/news/transcripts/earnings-call-transcript-ondas-q1-2026-earnings-soar-stock-jumps-93CH-4701732" style="color:var(--color-primary)">Earnings call transcript: Ondas Q1 2026 earnings soar, stock jumps — Investing.com</a></li>
+      <li><a href="https://tickeron.com/earnings/ONDS/" style="color:var(--color-primary)">Ondas Inc. (ONDS) Q1 2026 Earnings Recap — Tickeron</a></li>
+      <li><a href="https://simplywall.st/stocks/us/tech/nasdaq-onds/ondas" style="color:var(--color-primary)">Ondas (Nasdaq:ONDS) — Stock Analysis — Simply Wall St</a></li>
+      <li><a href="https://www.trefis.com/data/companies/ONDS" style="color:var(--color-primary)">Ondas (ONDS) — Trefis</a></li>
+      <li><a href="https://stockstotrade.com/news/ondas-inc-onds-news-2026_02_20/" style="color:var(--color-primary)">Ondas Holdings Eyes Strategic Growth Amid Regulatory Challenges — StocksToTrade</a></li>
+      <li><a href="https://seekingalpha.com/article/4918697-ondas-real-growth-real-roll-up-real-dilution" style="color:var(--color-primary)">Ondas Stock: Real Growth, Real Roll-Up, Real Dilution — Seeking Alpha</a></li>
+      <li><a href="https://247wallst.com/investing/2026/04/06/palantir-connected-ondas-clinches-yet-another-high-growth-defense-pact/" style="color:var(--color-primary)">Palantir-Connected Ondas Clinches Yet Another High-Growth Defense Pact — 24/7 Wall St.</a></li>
+      <li><a href="https://www.nasdaq.com/articles/ondas-holdings-counter-uas-push-powerful-growth-catalyst" style="color:var(--color-primary)">Ondas Holdings' Counter-UAS Push: A Powerful Growth Catalyst? — Nasdaq</a></li>
+      <li><a href="https://stockstotrade.com/news/ondas-inc-onds-news-2026_06_24-2/" style="color:var(--color-primary)">ONDS Stock Slides As Insider Sales Rattle Volatile Rally — StocksToTrade</a></li>
+      <li><a href="https://ts2.tech/en/onds-share-count-in-focus-as-defense-order-news-moves-ondas-stock/" style="color:var(--color-primary)">ONDS share count in focus as defense order news moves Ondas stock — TS2</a></li>
+      <li><a href="https://www.ondas.com/post/ondas-holdings-airobotics-optimus-1-ex-drone-receives-historic-u-s-faa-type-certification" style="color:var(--color-primary)">Ondas Holdings' Airobotics Optimus 1-EX Drone Receives Historic FAA Type Certification — Ondas.com</a></li>
+      <li><a href="https://ir.ondas.com/press-releases/detail/275/ondas-american-robotics-optimus-drone-approved-for-rapid" style="color:var(--color-primary)">Ondas' American Robotics Optimus Drone Approved for Rapid Federal Procurement via DCMA Blue UAS List — Ondas IR</a></li>
+      <li><a href="https://public.com/stocks/onds/forecast-price-target" style="color:var(--color-primary)">Ondas Holdings (ONDS) Stock Forecast: Analyst Ratings, Predictions & Price Target — Public.com</a></li>
+      <li><a href="https://www.tipranks.com/stocks/onds/forecast" style="color:var(--color-primary)">Ondas Inc. (ONDS) Stock Forecast, Price Targets and Analysts Predictions — TipRanks</a></li>
+    </ul>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</p>
+  </div>
+
+</div>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        const target = bar.dataset.target;
+        bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+        bar.style.width = target + '%';
+        observer.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

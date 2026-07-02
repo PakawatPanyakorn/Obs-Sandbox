@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="argent-vigil">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: argent-vigil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "argent-vigil",
+    "description": "Dark medieval war-era theme — a knight's polished silver-steel shield over iron-night black, struck through with heraldic crimson and antique gold. Engraved Cinzel titling on a faint chainmail crosshatch.",
+    "createdAt": "2026-07-03T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#14161b",
+      "image": "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(182,191,204,0.035) 15px, rgba(182,191,204,0.035) 16px), repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(182,191,204,0.035) 15px, rgba(182,191,204,0.035) 16px)",
+      "size": "32px 32px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "crosshatch",
+      "patternColor": "rgba(182,191,204,0.035)",
+      "patternOpacity": "0.035",
+      "patternSpacing": "32px",
+      "notes": "Faint steel crosshatch evoking chainmail links over iron-night black"
+    },
+    "colors": {
+      "primary": "#b6bfcc", "primaryLight": "#2a303a", "secondary": "#8b1a2e", "accent": "#c9a24b",
+      "background": "#14161b", "surface": "#1c1f27", "surfaceAlt": "#23272f",
+      "text": "#e6e9ee", "textMuted": "#8a929f", "textOnPrimary": "#14161b",
+      "border": "#353c47", "success": "#5c8a5f", "warning": "#c9a24b", "error": "#b23a48"
+    },
+    "typography": {
+      "fontFamily": "'EB Garamond', Georgia, serif",
+      "fontFamilyMono": "'IBM Plex Mono', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Cinzel', 'Trajan Pro', Georgia, serif",
+      "scaleBase": "17px", "headingWeight": "700", "bodyWeight": "400", "lineHeight": "1.7"
+    },
+    "spacing": {
+      "borderRadius": "2px", "cardRadius": "3px", "buttonRadius": "2px",
+      "spaceUnit": "8px", "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 1px 3px rgba(0,0,0,0.5)", "md": "0 4px 12px rgba(0,0,0,0.55)", "lg": "0 10px 28px rgba(0,0,0,0.6)", "xl": "0 20px 48px rgba(0,0,0,0.7)",
+      "colored": "0 4px 18px rgba(139,26,46,0.35)", "inset": "inset 0 1px 4px rgba(0,0,0,0.6)",
+      "elevation": "dramatic"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #262b33 0%, #3d4553 38%, #5a6474 52%, #3a4250 66%, #22262e 100%)",
+      "card": "linear-gradient(180deg, #20242d 0%, #191c23 100%)",
+      "button": "linear-gradient(180deg, #ccd4df 0%, #aab4c2 52%, #97a2b1 100%)",
+      "text": "linear-gradient(135deg, #d6dce4 0%, #aab4c2 50%, #7f8a99 100%)",
+      "accent": "linear-gradient(90deg, #8b1a2e 0%, #c9a24b 100%)"
+    },
+    "effects": {
+      "luminescence": "subtle",
+      "glowColor": "#b6bfcc", "glowBlur": "18px",
+      "glowSm": "0 0 6px rgba(182,191,204,0.18)", "glowMd": "0 0 18px rgba(182,191,204,0.22)", "glowLg": "0 0 34px rgba(182,191,204,0.28)",
+      "glassBlur": "0", "glassTint": "none",
+      "gradientBorder": "linear-gradient(135deg, #b6bfcc, #6c7686, #c9a24b)", "noiseOpacity": "0.02",
+      "textShadow": "0 1px 2px rgba(0,0,0,0.6)", "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "120ms", "durationBase": "240ms", "durationSlow": "420ms",
+      "easing": "cubic-bezier(0.33, 0, 0.2, 1)", "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["heraldic", "forged", "martial", "gothic"],
+      "borderStyle": "bold",
+      "iconStyle": "sharp",
+      "imageStyle": "none",
+      "surfaceTexture": "gradient",
+      "hierarchyClarity": "high",
+      "notes": "Steel-silver primary reads as a knight's shield; crimson is the war banner, gold the heraldry. Engraved Cinzel caps over faint chainmail crosshatch. Sharp near-zero radii, heavy forged shadows."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #14161b;
+      --bg-image: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(182,191,204,0.035) 15px, rgba(182,191,204,0.035) 16px), repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(182,191,204,0.035) 15px, rgba(182,191,204,0.035) 16px);
+      --bg-size: 32px 32px; --bg-position: 0 0; --bg-repeat: repeat;
+
+      --color-primary: #b6bfcc; --color-primary-light: #2a303a; --color-secondary: #8b1a2e; --color-accent: #c9a24b;
+      --color-bg: #14161b; --color-surface: #1c1f27; --color-surface-alt: #23272f;
+      --color-text: #e6e9ee; --color-text-muted: #8a929f; --color-text-on-primary: #14161b;
+      --color-border: #353c47; --color-success: #5c8a5f; --color-warning: #c9a24b; --color-error: #b23a48;
+
+      --font-family: 'EB Garamond', Georgia, serif;
+      --font-family-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --font-family-display: 'Cinzel', 'Trajan Pro', Georgia, serif;
+      --font-size-base: 17px; --font-weight-heading: 700; --font-weight-body: 400; --line-height: 1.7;
+
+      --radius: 2px; --radius-card: 3px; --radius-button: 2px;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5); --shadow-md: 0 4px 12px rgba(0,0,0,0.55); --shadow-lg: 0 10px 28px rgba(0,0,0,0.6); --shadow-xl: 0 20px 48px rgba(0,0,0,0.7);
+      --shadow-colored: 0 4px 18px rgba(139,26,46,0.35); --shadow-inset: inset 0 1px 4px rgba(0,0,0,0.6);
+
+      --gradient-hero: linear-gradient(135deg, #262b33 0%, #3d4553 38%, #5a6474 52%, #3a4250 66%, #22262e 100%);
+      --gradient-card: linear-gradient(180deg, #20242d 0%, #191c23 100%);
+      --gradient-button: linear-gradient(180deg, #ccd4df 0%, #aab4c2 52%, #97a2b1 100%);
+      --gradient-text: linear-gradient(135deg, #d6dce4 0%, #aab4c2 50%, #7f8a99 100%);
+      --gradient-accent: linear-gradient(90deg, #8b1a2e 0%, #c9a24b 100%);
+
+      --glow-color: #b6bfcc; --glow-sm: 0 0 6px rgba(182,191,204,0.18); --glow-md: 0 0 18px rgba(182,191,204,0.22); --glow-lg: 0 0 34px rgba(182,191,204,0.28);
+      --glass-blur: 0; --glass-tint: none;
+      --backdrop-filter: none; --text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+      --border-gradient: linear-gradient(135deg, #b6bfcc, #6c7686, #c9a24b); --noise-opacity: 0.02;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px;
+      --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 120ms; --duration-base: 240ms; --duration-slow: 420ms;
+      --easing: cubic-bezier(0.33, 0, 0.2, 1); --border-width: 1.5px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base, var(--color-bg));
+      background-image: var(--bg-image, none);
+      background-size: var(--bg-size, auto);
+      background-position: var(--bg-position, 0 0);
+      background-repeat: var(--bg-repeat, repeat);
+      color: var(--color-text); font-family: var(--font-family);
+      font-size: var(--font-size-base); line-height: var(--line-height);
+      padding: 2rem; max-width: 900px; margin: 0 auto;
+    }
+
+    .tf-header {
+      position: relative; overflow: hidden;
+      background: var(--gradient-hero); color: var(--color-text);
+      border: var(--border-width) solid var(--color-border);
+      border-top: 2px solid rgba(182,191,204,0.5);
+      border-radius: var(--radius-card); padding: 2.25rem 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-lg);
+    }
+    .tf-header::after {
+      content: ""; position: absolute; top: 0; right: -10%; width: 55%; height: 100%;
+      background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.16) 50%, transparent 60%);
+      pointer-events: none;
+    }
+    .tf-header .tf-crest {
+      font-family: var(--font-family-display); font-size: 0.62rem; letter-spacing: 0.42em; font-weight: 600;
+      text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.6rem; text-shadow: var(--text-shadow);
+    }
+    .tf-header h1 {
+      font-family: var(--font-family-display); font-size: 2.1rem; font-weight: var(--font-weight-heading);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; text-shadow: var(--text-shadow);
+    }
+    .tf-header p { color: #d3d8e0; font-size: 0.95rem; font-style: italic; max-width: 42ch; }
+    .tf-tags { margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tf-tag {
+      font-family: var(--font-family-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.2rem 0.65rem; border: 1px solid rgba(230,233,238,0.4); border-radius: var(--radius);
+      color: #e6e9ee; background: rgba(20,22,27,0.35);
+    }
+
+    .tf-section { margin-bottom: 2.25rem; }
+    .tf-section-title {
+      font-family: var(--font-family-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.9rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; }
+    .tf-swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .tf-swatch-color { height: 64px; width: 100%; }
+    .tf-swatch-label { background: var(--color-surface); padding: 0.4rem 0.5rem; font-size: 0.68rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.72rem; margin-bottom: 0.1rem; }
+
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.6rem; }
+    .tf-type-scale .t-h1 { font-size: 2.6rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); letter-spacing: 0.06em; text-transform: uppercase; }
+    .tf-type-scale .t-h2 { font-size: 1.8rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); letter-spacing: 0.04em; }
+    .tf-type-scale .t-h3 { font-size: 1.3rem; font-weight: 500; font-family: var(--font-family-display); }
+    .tf-type-scale .t-body { font-size: 1rem; }
+    .tf-type-scale .t-small { font-size: 0.85rem; color: var(--color-text-muted); }
+    .tf-type-scale .t-mono { font-family: var(--font-family-mono); font-size: 0.85rem; background: var(--color-surface-alt); padding: 0.25rem 0.5rem; border-radius: var(--radius); display: inline-block; align-self: flex-start; }
+
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .tf-btn { padding: 0.55rem 1.4rem; border-radius: var(--radius-button); font-family: var(--font-family-display); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border: 1px solid transparent; transition: filter var(--duration-base) var(--easing), box-shadow var(--duration-base) var(--easing); }
+    .tf-btn:hover { filter: brightness(1.08); }
+    .tf-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); border-color: #d6dce4; box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.5); }
+    .tf-btn-secondary { background: var(--color-secondary); color: #f4e6e9; border-color: #a83046; box-shadow: var(--shadow-colored); }
+    .tf-btn-outline { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+    .tf-btn-ghost { background: var(--color-surface-alt); color: var(--color-text); border-color: var(--color-border); }
+
+    .tf-card { background: var(--gradient-card); border: 1px solid var(--color-border); border-top: 1px solid rgba(182,191,204,0.28); border-radius: var(--radius-card); padding: 1.5rem; box-shadow: var(--shadow-md); }
+    .tf-card h3 { font-family: var(--font-family-display); font-weight: 600; letter-spacing: 0.03em; margin-bottom: 0.5rem; color: var(--color-primary); }
+    .tf-card p { color: var(--color-text-muted); font-size: 0.92rem; line-height: var(--line-height); }
+    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+
+    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; }
+    .tf-form label { font-family: var(--font-family-display); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--color-text-muted); margin-bottom: 0.3rem; display: block; }
+    .tf-form input, .tf-form select { width: 100%; padding: 0.55rem 0.75rem; border: 1.5px solid var(--color-border); border-radius: var(--radius); background: var(--color-surface); color: var(--color-text); font-family: var(--font-family); font-size: 0.95rem; outline: none; transition: border-color var(--duration-base) var(--easing), box-shadow var(--duration-base) var(--easing); }
+    .tf-form input:focus, .tf-form select:focus { border-color: var(--color-primary); box-shadow: var(--glow-sm); }
+
+    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .tf-effect-tile { border-radius: var(--radius-card); padding: 1.25rem; border: 1px solid var(--color-border); background: var(--color-surface); display: flex; flex-direction: column; gap: 0.5rem; }
+    .tf-effect-tile .tile-label { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); font-family: var(--font-family-mono); }
+    .tf-effect-tile .tile-value { font-size: 0.72rem; color: var(--color-text-muted); font-family: var(--font-family-mono); word-break: break-all; }
+    .tf-gradient-hero { height: 80px; border-radius: var(--radius-card); background: var(--gradient-hero); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--color-text); font-weight: var(--font-weight-heading); font-family: var(--font-family-display); letter-spacing: 0.08em; text-transform: uppercase; font-size: 1rem; text-shadow: var(--text-shadow); }
+    .tf-glow-demo { background: var(--color-surface); border-radius: var(--radius-card); padding: 1rem 1.5rem; text-align: center; box-shadow: var(--glow-md); border: 1px solid var(--color-border); font-weight: 600; font-family: var(--font-family-display); letter-spacing: 0.06em; color: var(--glow-color); }
+    .tf-gradient-text { font-size: 1.6rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); letter-spacing: 0.05em; text-transform: uppercase; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block; }
+    .tf-btn-gradient { background: var(--gradient-accent); color: #f4e6e9; box-shadow: var(--shadow-colored); border: none; }
+    .tf-inset-demo { background: var(--color-surface-alt); border-radius: var(--radius); padding: 0.6rem 1rem; box-shadow: var(--shadow-inset); border: 1px solid var(--color-border); font-size: 0.8rem; color: var(--color-text-muted); font-family: var(--font-family-mono); }
+
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tf-badge { padding: 0.22rem 0.8rem; border-radius: var(--radius); font-family: var(--font-family-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+    .tf-badge-primary { background: var(--color-primary-light); color: var(--color-primary); border: 1px solid #444d59; }
+    .tf-badge-success { background: rgba(92,138,95,0.18); color: #86b389; border: 1px solid var(--color-success); }
+    .tf-badge-warning { background: rgba(201,162,75,0.16); color: var(--color-accent); border: 1px solid var(--color-warning); }
+    .tf-badge-error { background: rgba(178,58,72,0.18); color: #d97684; border: 1px solid var(--color-error); }
+    .tf-badge-neutral { background: var(--color-surface-alt); color: var(--color-text-muted); border: 1px solid var(--color-border); }
+  </style>
+</head>
+<body>
+
+  <div class="tf-header">
+    <div class="tf-crest">◆ Order of the Silver Shield ◆</div>
+    <h1>Argent Vigil</h1>
+    <p>The long watch before the siege — polished steel raised against the iron dark, banner and gilt held high.</p>
+    <div class="tf-tags">
+      <span class="tf-tag">Dark · Heraldic Editorial</span>
+      <span class="tf-tag">Forged · Martial · Gothic</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Blazon of Colours</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary)"></div><div class="tf-swatch-label"><strong>primary</strong>#b6bfcc</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary-light)"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#2a303a</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-secondary)"></div><div class="tf-swatch-label"><strong>secondary</strong>#8b1a2e</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-accent)"></div><div class="tf-swatch-label"><strong>accent</strong>#c9a24b</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-bg)"></div><div class="tf-swatch-label"><strong>background</strong>#14161b</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface)"></div><div class="tf-swatch-label"><strong>surface</strong>#1c1f27</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface-alt)"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#23272f</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text)"></div><div class="tf-swatch-label"><strong>text</strong>#e6e9ee</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text-muted)"></div><div class="tf-swatch-label"><strong>textMuted</strong>#8a929f</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-border)"></div><div class="tf-swatch-label"><strong>border</strong>#353c47</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-success)"></div><div class="tf-swatch-label"><strong>success</strong>#5c8a5f</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-warning)"></div><div class="tf-swatch-label"><strong>warning</strong>#c9a24b</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-error)"></div><div class="tf-swatch-label"><strong>error</strong>#b23a48</div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Titling & Script</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">Siege Dawn</div>
+      <div class="t-h2">The Knight's Vigil</div>
+      <div class="t-h3">Muster of the Vanguard</div>
+      <div class="t-body">Body script — by candle and cold steel the sentries kept their watch, the quick brown fox crossing the frozen bailey before the horns of morning.</div>
+      <div class="t-small">Small / muted — marginalia, footnotes, the scribe's quiet hand</div>
+      <div class="t-mono">mono: sigil(), ledger entries, quartermaster keys</div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Orders & Actions</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">Raise Shield</button>
+      <button class="tf-btn tf-btn-secondary">Sound Advance</button>
+      <button class="tf-btn tf-btn-outline">Hold Line</button>
+      <button class="tf-btn tf-btn-ghost">Stand Down</button>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Rolls of the Field</div>
+    <div class="tf-cards">
+      <div class="tf-card"><h3>The Vanguard</h3><p>Steel-forged surface with hairline crest border and a deep forged shadow — the shield wall of the layout.</p></div>
+      <div class="tf-card"><h3>The Armoury</h3><p>Every mark of colour and cut of type is drawn through a single token, so the whole host reskins as one.</p></div>
+      <div class="tf-card" style="background:var(--color-surface-alt)"><h3>The Watchtower</h3><p>surfaceAlt — the alternate ward for sidebars, secondary rolls, and quiet counsel.</p></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">The Quartermaster's Ledger</div>
+    <div class="tf-form">
+      <div><label>Knight's Name</label><input type="text" placeholder="Name your bearer…"></div>
+      <div><label>Blazon</label><select><option>Argent, a lion rampant</option><option>Gules, a cross patonce</option><option>Sable, three crescents or</option></select></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Standards & Status</div>
+    <div class="tf-badges">
+      <span class="tf-badge tf-badge-primary">Knighted</span>
+      <span class="tf-badge tf-badge-success">Gate Held</span>
+      <span class="tf-badge tf-badge-warning">Siege Nigh</span>
+      <span class="tf-badge tf-badge-error">Wall Breached</span>
+      <span class="tf-badge tf-badge-neutral">Squire</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Forge & Finish</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1"><div class="tile-label">Brushed Steel Hero</div><div class="tf-gradient-hero">Raise the Shield</div><div class="tile-value">var(--gradient-hero)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Engraved Steel Text</div><div class="tf-gradient-text">Argent</div><div class="tile-value">var(--gradient-text)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Banner Button</div><button class="tf-btn tf-btn-gradient" style="width:100%">To Arms</button><div class="tile-value">var(--gradient-accent)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Steel Sheen / Glow</div><div class="tf-glow-demo">Polished Edge</div><div class="tile-value">var(--glow-md) · var(--glow-color)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Forged Inset</div><div class="tf-inset-demo">stamped in the anvil</div><div class="tile-value">var(--shadow-inset)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Crimson Standard</div><div style="padding:0.75rem 1rem;border-radius:var(--radius-card);background:var(--color-secondary);color:#f4e6e9;box-shadow:var(--shadow-colored);font-weight:600;font-family:var(--font-family-display);letter-spacing:0.06em;font-size:0.85rem;text-align:center">War Banner</div><div class="tile-value">var(--shadow-colored)</div></div>
+    </div>
+  </div>
+
+</body>
+</html>

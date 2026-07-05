@@ -18,16 +18,16 @@ A message containing "theme" alone (no action) is **not** a trigger — do not a
 
 | Mode        | Trigger (must include "theme" + one of these, or slash command)                                                                                                                    |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **extract** | `theme extract` · `theme capture` · `theme save` · `theme design` · `theme create` · `create theme` · `design theme` · `make theme` · `new theme` · screenshot/HTML path + "theme" |
+| **create**  | `theme extract` · `theme capture` · `theme save` · `theme design` · `theme create` · `create theme` · `design theme` · `make theme` · `new theme` · screenshot/HTML path + "theme" |
 | **list**    | `theme list` · `list themes` · `show themes` · `browse themes` · `what themes`                                                                                                     |
 | **delete**  | `theme delete <name>` · `delete theme <name>` · `remove theme <name>`                                                                                                              |
 | **apply**   | `theme apply <name>` · `apply theme <name>` · `use theme <name>` · `theme <name> on <file>`                                                                                        |
 
-Ambiguous (has "theme" but action unclear) → ask: "Extract/create, list, delete, or apply a theme?"
+Ambiguous (has "theme" but action unclear) → ask: "Create, list, delete, or apply a theme?"
 
 ## Step 2: Execute Mode
 
-### Extract Mode
+### Create Mode
 
 1. **Multi-theme check** — count distinct themes. Single → proceed. Multiple → present numbered list, wait for selection. "all" = extract each in sequence.
 2. **Detect source** — Image / HTML file / Text:
@@ -40,7 +40,7 @@ Ambiguous (has "theme" but action unclear) → ask: "Extract/create, list, delet
 
 ### List Mode
 
-Tell the user: "Open [Theme Gallery](https://html-preview.github.io/?url=https://github.com/PakawatPanyakorn/Obs-Sandbox/blob/master/skills/theme-factory/index.html)"
+Tell the user: "Open [Theme Gallery](https://pakawatpanyakorn.github.io/Obs-Sandbox/skills/theme-factory/index.html) for global presets, or check `~/.claude/skills/theme-factory/themes/` for local presets."
 
 Do not read files, render swatches, or summarize themes.
 

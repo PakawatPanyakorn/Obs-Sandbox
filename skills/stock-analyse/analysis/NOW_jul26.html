@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOW — Stock Analysis · Jul26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<style>
+:root {
+  --color-primary: #1e3b6f;
+  --color-primary-light: #c8d8ec;
+  --color-secondary: #8b4513;
+  --color-accent: #b8860b;
+  --color-bg: #f4efe2;
+  --color-surface: #ebe4d1;
+  --color-surface-alt: #ddd5bc;
+  --color-text: #1c1812;
+  --color-text-muted: #6e5e48;
+  --color-text-on-primary: #f4efe2;
+  --color-border: #c4b59a;
+  --color-success: #3d6e3a;
+  --color-warning: #b07820;
+  --color-error: #8b2020;
+
+  --font-family: "EB Garamond", Georgia, serif;
+  --font-family-display: "Cinzel", "Times New Roman", serif;
+  --font-family-mono: "Courier Prime", "Courier New", monospace;
+  --font-size-base: 16px;
+  --font-weight-heading: 700;
+  --line-height: 1.65;
+  --radius-card: 10px;
+  --shadow-sm: 0 1px 3px rgba(28, 24, 18, 0.08);
+  --shadow-md: 0 4px 12px rgba(28, 24, 18, 0.12);
+  --shadow-lg: 0 8px 24px rgba(28, 24, 18, 0.16);
+
+  --bg: var(--color-bg);
+  --card: var(--color-surface);
+  --card2: var(--color-surface-alt);
+  --border: var(--color-border);
+  --accent: var(--color-primary);
+  --green: var(--color-success);
+  --red: var(--color-error);
+  --yellow: var(--color-warning);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+  --radius: var(--radius-card);
+}
+
+body {
+  background-color: #f4efe2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  background-repeat: repeat;
+  font-family: var(--font-family);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+}
+.page { max-width: 900px; margin: 0 auto; }
+
+.hero {
+  background: linear-gradient(135deg, #1e3b6f 0%, #2c5298 60%, #1a3260 100%);
+  border-top: 3px solid #c9a84c;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text-on-primary);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute; top: -60px; right: -60px; width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(200, 216, 236, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-ticker { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: #b8860b; text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-family-display); }
+.hero-name { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #f4efe2; font-family: var(--font-family-display); letter-spacing: 0.03em; }
+.hero-tagline { font-size: 15px; color: rgba(244, 239, 226, 0.78); max-width: 540px; margin-bottom: 20px; font-style: italic; }
+.hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { padding: 4px 14px; border-radius: 50px; font-size: 11px; font-weight: 600; border: 1px solid; letter-spacing: 0.04em; font-family: var(--font-family-display); }
+.pill-blue { background: rgba(200, 216, 236, 0.18); border-color: rgba(200, 216, 236, 0.45); color: #c8d8ec; }
+.pill-green { background: rgba(61, 110, 58, 0.25); border-color: rgba(61, 110, 58, 0.6); color: #a8d5a4; }
+.pill-red { background: rgba(139, 32, 32, 0.25); border-color: rgba(139, 32, 32, 0.6); color: #e8a4a4; }
+.pill-yellow { background: rgba(176, 120, 32, 0.25); border-color: rgba(176, 120, 32, 0.6); color: #e8cc90; }
+
+.section { margin-bottom: 32px; }
+.section-title { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 14px; }
+
+.card { background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 20px 22px; margin-bottom: 14px; }
+.card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.stat-card { background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 16px 18px; }
+.stat-label { font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px; }
+.mini-stat-label { font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 4px; }
+.stat-value { font-family: var(--font-family-display); font-size: 22px; font-weight: 700; color: var(--color-text); }
+.stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+.val-green { color: var(--color-success); }
+.val-red { color: var(--color-error); }
+.val-yellow { color: var(--color-warning); }
+
+.tldr { background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-md); padding: 22px 24px; margin-bottom: 28px; }
+.tldr h2 { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 14px 0; }
+.tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+.tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+.meter-row { margin-bottom: 14px; }
+.meter-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); }
+.meter-label span:last-child { font-weight: 700; font-family: var(--font-family-mono); }
+.meter-track { background: var(--card2); border-radius: 6px; height: 10px; overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 6px; }
+.meter-fill.green { background: var(--green); }
+.meter-fill.yellow { background: var(--yellow); }
+.meter-fill.red { background: var(--red); }
+
+.scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.scenario-card { background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 18px 20px; }
+.scenario-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 6px 0; }
+.scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+.scenario-bull h3 { color: var(--color-success); }
+.scenario-base h3 { color: var(--color-warning); }
+.scenario-bear h3 { color: var(--color-error); }
+
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+.timeline-dot.past { background: var(--color-text-muted); border-color: var(--color-text-muted); }
+.timeline-dot.present { background: var(--color-primary); border-color: var(--color-primary); width: 14px; height: 14px; left: -26px; }
+.timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+.timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.timeline-event { font-size: 14px; line-height: 1.5; }
+
+.verdict { background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-md); padding: 28px 30px; }
+.verdict-title { font-family: var(--font-family-display); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 16px; }
+.verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+.verdict p:last-child { margin-bottom: 0; }
+
+.item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; }
+.item-title { font-family: var(--font-family-display); font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 2px; }
+.item-desc { font-size: 14px; line-height: 1.55; }
+.item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+.debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.debate-card { background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 20px 22px; }
+.debate-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 12px 0; }
+.debate-card.optimist h3 { color: var(--color-success); }
+.debate-card.pessimist h3 { color: var(--color-error); }
+.debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+.debate-card li { margin-bottom: 6px; }
+
+.donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.donut-legend { flex: 1; min-width: 180px; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+
+.seg-row { margin-bottom: 16px; }
+.seg-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.5px; }
+.seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+.seg-fill { height: 100%; border-radius: 4px; }
+.seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+.seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+@media (max-width: 760px) {
+  body { padding: 12px; }
+  .grid-2, .debate-grid { grid-template-columns: 1fr; }
+  .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+  .hero { padding: 24px 20px; }
+  .hero-name { font-size: 22px; }
+}
+@media (max-width: 520px) {
+  .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+  .donut-wrap { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-ticker">NYSE: NOW &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+    <div class="hero-name">ServiceNow, Inc.</div>
+    <div class="hero-tagline">A giant digital control panel that big companies use to get IT requests, HR tasks, and customer problems handled — instead of email chains and spreadsheets, everything routes through one automated system.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">Enterprise AI Software</span>
+      <span class="pill pill-green">Profitable</span>
+      <span class="pill pill-red">AI Disruption Risk</span>
+    </div>
+  </div>
+
+  <div class="tldr">
+    <h2>TL;DR</h2>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>ServiceNow sells the software that big companies use to route and automate IT, HR, and customer-service work — think of it as the nervous system connecting a company's other software.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--yellow)">!</span>
+      <span>The stock crashed roughly 45-50% from its 2025 peak on fears that AI agents will replace the workflow software NOW sells — even though revenue is still growing 22% a year and accelerating.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--accent)">►</span>
+      <span>Now Assist, the company's own AI product, is already on pace to beat its $1.5B sales target for 2026 — meaning ServiceNow may be monetizing the same AI wave that Wall Street fears will kill it.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--red)">-</span>
+      <span>The core risk is unresolved and long-term: if AI agents eventually run these processes without any software layer at all, ServiceNow's whole market could shrink instead of grow.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>Verdict: analysts' average target of $141 implies ~29% upside from the current $109 price. Next binary event: Q2 2026 earnings on July 22, 2026.</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Financial Snapshot</div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Stock Price</div>
+        <div class="stat-value">$109.25</div>
+        <div class="stat-sub">As of Jul 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Market Cap</div>
+        <div class="stat-value">$112.7B</div>
+        <div class="stat-sub">Down ~46% from 52-wk high</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Revenue (TTM)</div>
+        <div class="stat-value val-green">$13.96B</div>
+        <div class="stat-sub">+21.7% YoY</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Net Income</div>
+        <div class="stat-value val-green">$1.76B</div>
+        <div class="stat-sub">+14.2% YoY</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">EPS (TTM)</div>
+        <div class="stat-value val-green">$1.68</div>
+        <div class="stat-sub">+13.8% YoY</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Subscription Gross Margin</div>
+        <div class="stat-value val-yellow">81.5%</div>
+        <div class="stat-sub">FY26 guide; -25bps from Armis deal</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">FY26 Guidance</div>
+        <div class="stat-value" style="font-size:16px">$15.74–15.78B</div>
+        <div class="stat-sub">Subscription rev., +22–22.5% YoY</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Analyst Target</div>
+        <div class="stat-value val-green">$141.12</div>
+        <div class="stat-sub">+29.2% vs. current price</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Next Event</div>
+        <div class="stat-value" style="font-size:16px">Jul 22, 2026</div>
+        <div class="stat-sub">Q2 2026 earnings</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+    <div class="card">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#E5DCC8" stroke-width="28"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#1E3B6F" stroke-width="28"
+                  stroke-dasharray="233 440" stroke-dashoffset="0" stroke-linecap="butt"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#8B4513" stroke-width="28"
+                  stroke-dasharray="132 440" stroke-dashoffset="-233" stroke-linecap="butt"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#b8860b" stroke-width="28"
+                  stroke-dasharray="75 440" stroke-dashoffset="-365" stroke-linecap="butt"/>
+          <text x="100" y="104" text-anchor="middle" font-family="'Cinzel',serif" font-size="13" font-weight="700" fill="#1C1812">Revenue</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="legend-row"><div class="legend-dot" style="background:#1E3B6F"></div><span>Technology Workflows</span><span class="legend-pct">53%</span></div>
+          <div class="legend-row"><div class="legend-dot" style="background:#8B4513"></div><span>Customer &amp; Employee Workflows</span><span class="legend-pct">30%</span></div>
+          <div class="legend-row"><div class="legend-dot" style="background:#b8860b"></div><span>Creator Workflows &amp; Other</span><span class="legend-pct">17%</span></div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Estimated mix based on trailing-twelve-month net-new Annual Contract Value (ACV) disclosures. Exact revenue-line breakdown not publicly disclosed.</p>
+      <div class="seg-row">
+        <div class="seg-label"><span>Technology Workflows</span><span style="font-family:var(--font-family-mono)">53% → 58%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:53%;background:#1E3B6F"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="58" style="width:0%;background:#1E3B6F;margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Now Assist and AI Agent Fabric are sold predominantly into this segment, driving its share higher.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Customer &amp; Employee Workflows</span><span style="font-family:var(--font-family-mono)">30% → 28%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:30%;background:#8B4513"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="28" style="width:0%;background:#8B4513;margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Steady growth, but growing slightly slower than the AI-heavy IT segment.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Creator Workflows &amp; Other</span><span style="font-family:var(--font-family-mono)">17% → 14%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:17%;background:#b8860b"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="14" style="width:0%;background:#b8860b;margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Smallest and most nascent segment; share likely dilutes as core platform scales faster.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">What Does This Company Actually Do?</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>The Simple Story</h3>
+        <p>Imagine every request inside a big company — "my laptop's broken," "I need a new badge," "this customer has a complaint" — as a paper form that used to get passed around by email. ServiceNow replaced that mess with one digital system that automatically routes each request to the right person, tracks it, and now increasingly hands parts of it off to an AI "agent" to handle on its own.</p>
+      </div>
+      <div class="card">
+        <h3>The Big Bet Right Now</h3>
+        <p>ServiceNow is betting that AI agents will need to be plugged into its platform to be trusted and useful inside a company — not replace it. If Now Assist keeps converting existing customers to pay more for AI-driven automation, the same fear crushing the stock (AI killing software) becomes the reason it re-rates higher.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Business Model</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>How They Make Money</h3>
+        <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.65">
+          <li>Subscription licenses sold per-seat/per-workflow to large enterprises, renewed annually</li>
+          <li>Upsell of additional workflow modules (IT, HR, customer service, security) into the same accounts</li>
+          <li>Now Assist — AI add-on priced on top of the core platform, targeting $1.5B in annual contract value for 2026</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Why the Model Is Clever</h3>
+        <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.65">
+          <li>Once a company's approval chains and data live inside ServiceNow, switching costs are very high</li>
+          <li>Land-and-expand: customers keep adding workflow modules over time, growing revenue per account</li>
+          <li>Positions itself as the neutral "control tower" that AI agents from any vendor plug into, rather than competing head-on with every AI tool</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Hidden Catalyst Deep Dive</div>
+
+    <div class="grid-2" style="margin-bottom:16px">
+      <div class="card">
+        <h3>The Opportunity</h3>
+        <p>The market has priced NOW as a legacy, seat-based SaaS company vulnerable to AI replacing its workflows entirely. But Now Assist — ServiceNow's own agentic AI layer — is already tracking ahead of its $1.5B 2026 ACV target, and the company is now integrating with IBM's watsonx, Red Hat, Instana and Ansible, with first joint solutions expected in the second half of 2026. If this AI monetization data point becomes visible in quarterly results, it could flip the narrative from "AI threat" to "AI beneficiary."</p>
+      </div>
+      <div class="card">
+        <h3>Why This Company Wins</h3>
+        <p>ServiceNow already owns the system-of-record and workflow context for IT, HR, and customer service inside thousands of large enterprises. A new AI-native rival would need years to rebuild that same data and process integration before its agents could act with the same authority — giving ServiceNow first-mover advantage in embedding AI into workflows it already controls.</p>
+      </div>
+    </div>
+
+    <div class="stat-grid" style="margin-bottom:20px">
+      <div class="stat-card">
+        <div class="stat-label">Market Size (2026 AI ACV Target)</div>
+        <div class="stat-value">$1.5B</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Key Date / Event</div>
+        <div class="stat-value" style="font-size:16px">H2 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Company Readiness</div>
+        <div class="stat-value" style="font-size:15px">High</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <h3>Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot past"></div>
+          <div class="timeline-date">Apr 2026</div>
+          <div class="timeline-event">Q1 2026 results: subscription revenue +22% YoY, remaining performance obligations +22.5%, full-year guidance raised.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot present"></div>
+          <div class="timeline-date">Jul 2026</div>
+          <div class="timeline-event">Stock still down ~45-50% from its 2025 high on AI-disruption fears, even as Now Assist ACV tracks ahead of the $1.5B target.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot future"></div>
+          <div class="timeline-date">Jul 22 &amp; H2 2026</div>
+          <div class="timeline-event">Q2 2026 earnings (Jul 22) and first joint IBM watsonx solutions (H2 2026) — the tests of whether AI monetization becomes visible enough to shift sentiment.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bull">
+        <h3>Positive Outcome</h3>
+        <div class="scenario-prob val-green">35%</div>
+        <div class="scenario-target">+30% to +40% stock impact</div>
+        <ul><li>Now Assist ACV beats $1.5B target</li><li>IBM/HPE joint solutions launch on schedule and gain traction</li></ul>
+      </div>
+      <div class="scenario-card scenario-base">
+        <h3>Mixed Outcome</h3>
+        <div class="scenario-prob val-yellow">45%</div>
+        <div class="scenario-target">-5% to +15% stock impact</div>
+        <ul><li>Now Assist grows steadily but in line with guidance, no clear re-rating trigger</li></ul>
+      </div>
+      <div class="scenario-card scenario-bear">
+        <h3>Negative Outcome</h3>
+        <div class="scenario-prob val-red">20%</div>
+        <div class="scenario-target">-20% to -30% stock impact</div>
+        <ul><li>AI-native rivals win competitive displacements; margin pressure from Armis integration compounds</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Competitive Edge</div>
+    <div class="card">
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">Entrenched System of Record</div>
+          <div class="item-desc">Once IT/HR/customer workflows live in ServiceNow, switching means re-platforming years of process logic — a major retention moat.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">→</div>
+        <div>
+          <div class="item-title">Accelerating, Not Slowing, Growth</div>
+          <div class="item-desc">Subscription revenue growth actually accelerated to 22% YoY in Q1 2026 even as the stock fell — a rare divergence between fundamentals and sentiment.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">Platform Partnerships With Infrastructure Giants</div>
+          <div class="item-desc">Deepening ties with IBM (watsonx, Red Hat) and HPE (GreenLake) position ServiceNow as the workflow layer AI vendors plug into, rather than a target for disruption.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">⚠</div>
+        <div>
+          <div class="item-title">Underappreciated: Now Assist Already Monetizing</div>
+          <div class="item-desc">Most investor attention is on the long-term AI-disruption debate, while the near-term data point — Now Assist ACV outperforming its own target — is getting comparatively little coverage.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Analyst Scorecard</div>
+    <div class="card">
+      <div class="meter-row">
+        <div class="meter-label"><span>Business Model Strength</span><span>8 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:80%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Revenue Growth</span><span>9 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:90%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Profitability</span><span>6 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill yellow" style="width:60%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Competitive Moat</span><span>7 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Regulatory Safety</span><span>8 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:80%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Management Execution</span><span>7 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-label"><span>Long-Term Potential</span><span>7 / 10</span></div>
+        <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Current Situation</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="color:var(--color-success)">Growth Drivers</h3>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Now Assist AI Monetization</div>
+            <div class="item-desc">AI product suite tracking ahead of its $1.5B 2026 annual contract value target.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">IBM Watsonx Partnership</div>
+            <div class="item-desc">Integrates watsonx, Red Hat, Instana and Ansible into the ServiceNow AI platform; first joint solutions land H2 2026.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">HPE GreenLake Integration</div>
+            <div class="item-desc">Feeds infrastructure data directly into autonomous AI service delivery, expanding ServiceNow's reach into IT operations.</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Accelerating Core Growth</div>
+            <div class="item-desc">Subscription revenue grew 22% YoY in Q1 2026, with remaining performance obligations up 22.5% — both accelerating from prior quarters.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--color-error)">Risks</h3>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>
+          <div>
+            <div class="item-title">AI Disruption to Core Model [ACTIVE RISK]</div>
+            <div class="item-desc">If AI agents eventually automate business processes independently, demand for ServiceNow's workflow-management layer could shrink rather than grow — a long-term, unresolved uncertainty.</div>
+            <div class="item-meta">Active as of Jul 2026 · Source: The Motley Fool</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>
+          <div>
+            <div class="item-title">Consumption-Based AI-Native Competition [ACTIVE RISK]</div>
+            <div class="item-desc">AI-native rivals pricing on usage rather than per-seat licenses could undercut ServiceNow's traditional model before Now Assist scales enough to offset it.</div>
+            <div class="item-meta">Active as of Jul 2026 · Source: Columbia Global Technology Growth Fund commentary</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--yellow)">⚠</div>
+          <div>
+            <div class="item-title">High Valuation Multiple [ACTIVE RISK]</div>
+            <div class="item-desc">Trailing P/E near 63x leaves limited room for error if growth decelerates or AI sentiment sours further, even though forward P/E (~24.5x) is more moderate.</div>
+            <div class="item-meta">Active as of Jul 2026 · Source: StockAnalysis.com</div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--yellow)">⚠</div>
+          <div>
+            <div class="item-title">Armis Acquisition Margin Drag [REDUCED — see note]</div>
+            <div class="item-desc">Integration of the Armis acquisition is creating a modest, already-guided-for headwind to gross and operating margins in FY2026.</div>
+            <div class="item-meta">Reduced (guided/quantified) as of Q1 2026 · Source: ServiceNow Q1 2026 Fact Sheet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bull">
+        <h3>Bull Case</h3>
+        <div class="scenario-prob val-green">25%</div>
+        <div class="scenario-target">$170–$210 target</div>
+        <ul>
+          <li>Now Assist ACV meaningfully beats $1.5B target</li>
+          <li>IBM/HPE partnerships produce visible new revenue</li>
+          <li>Market re-rates AI-disruption fear into an AI-monetization story</li>
+          <li>Subscription growth holds near 22%+</li>
+          <li>Margins expand as Armis integration completes</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-base">
+        <h3>Base Case</h3>
+        <div class="scenario-prob val-yellow">50%</div>
+        <div class="scenario-target">$130–$160 target</div>
+        <ul>
+          <li>Subscription growth gradually decelerates toward high-teens</li>
+          <li>Now Assist scales roughly in line with guidance</li>
+          <li>Stock slowly re-rates as fear fades but no single catalyst dominates</li>
+          <li>Margins hold near current guided levels</li>
+          <li>No major competitive share loss to AI-native rivals</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-bear">
+        <h3>Bear Case</h3>
+        <div class="scenario-prob val-red">25%</div>
+        <div class="scenario-target">$85–$105 target</div>
+        <ul>
+          <li>AI-native, consumption-priced rivals win meaningful competitive displacements</li>
+          <li>Growth decelerates faster than guided</li>
+          <li>Macro slowdown delays large enterprise deals</li>
+          <li>Valuation multiple compresses further on renewed AI-fear selloffs</li>
+          <li>Armis and other integration costs weigh on margins longer than guided</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="debate-grid">
+      <div class="debate-card optimist">
+        <h3>The Optimist Sees…</h3>
+        <ul>
+          <li>Revenue growth accelerating to 22% YoY even during the worst of the selloff</li>
+          <li>Now Assist already outperforming its own AI monetization target</li>
+          <li>Deep switching costs from being embedded in core enterprise workflows</li>
+          <li>New IBM and HPE partnerships extending ServiceNow's reach into infrastructure and AI ops</li>
+          <li>Stock down ~45-50% from its high, with analyst targets implying ~29% upside from here</li>
+        </ul>
+      </div>
+      <div class="debate-card pessimist">
+        <h3>The Pessimist Sees…</h3>
+        <ul>
+          <li>The long-term AI-disruption risk is genuinely unresolved and hard to model</li>
+          <li>Consumption-priced AI-native competitors could undercut seat-based pricing</li>
+          <li>Trailing P/E near 63x still prices in a lot of good news</li>
+          <li>Margins face near-term drag from the Armis acquisition</li>
+          <li>Stock has proven highly volatile and sentiment-driven, independent of fundamentals</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="verdict">
+      <div class="verdict-title">The Verdict</div>
+      <p>ServiceNow looks like a company caught in the crossfire of a narrative it hasn't actually lost — like a toll bridge operator whose stock got sold off on rumors that cars would soon fly over the river, even as toll revenue keeps climbing every quarter.</p>
+      <p>The green case is straightforward: subscription revenue is accelerating, not slowing, and Now Assist — the company's own AI product — is already ahead of its 2026 monetization target. New partnerships with IBM and HPE extend ServiceNow's role as the workflow layer AI agents plug into, rather than a business AI simply replaces.</p>
+      <p>The bear case is honest and real: nobody, including ServiceNow's own management, can be fully certain whether AI ultimately creates more workflows to manage or eliminates the need for a workflow layer altogether. That uncertainty, plus a still-rich valuation, argues for a multi-year holding horizon rather than a short-term trade — this is a stock for investors comfortable riding out continued volatility while the AI-monetization story plays out.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Consensus Rating</div>
+        <div class="stat-value" style="font-size:18px">Strong Buy</div>
+        <div class="stat-sub">48 analysts covering</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Avg. Price Target</div>
+        <div class="stat-value val-green">$141.12</div>
+        <div class="stat-sub">vs. current $109.25 (+29.2%)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Additional Signal</div>
+        <div class="stat-value" style="font-size:16px">$100–$236</div>
+        <div class="stat-sub">Full range of analyst price targets</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="border-top:1px solid var(--border);padding-top:20px;margin-top:32px">
+    <div style="font-family:var(--font-family-display);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Sources</div>
+    <ul style="font-size:13px;line-height:1.8;padding-left:18px;color:var(--muted)">
+      <li><a href="https://stockanalysis.com/stocks/now/" style="color:var(--color-primary)">ServiceNow (NOW) key metrics — StockAnalysis.com</a></li>
+      <li><a href="https://stockanalysis.com/stocks/now/forecast/" style="color:var(--color-primary)">ServiceNow (NOW) analyst forecast — StockAnalysis.com</a></li>
+      <li><a href="https://www.fool.com/investing/2026/07/05/the-1-big-risk-every-servicenow-investor-should-un/" style="color:var(--color-primary)">The 1 Big Risk Every ServiceNow Investor Should Understand — The Motley Fool</a></li>
+      <li><a href="https://www.fool.com/investing/2026/07/01/is-servicenow-stock-a-buy-after-its-brutal-first-h/" style="color:var(--color-primary)">Is ServiceNow Stock a Buy After Its Brutal First Half? — The Motley Fool</a></li>
+      <li><a href="https://www.investing.com/news/company-news/servicenow-q1-2026-slides-revenue-growth-accelerates-to-22-yy-93CH-4630999" style="color:var(--color-primary)">ServiceNow Q1 2026 slides: revenue growth accelerates to 22% YoY — Investing.com</a></li>
+      <li><a href="https://investor.servicenow.com/news/news-details/2026/ServiceNow-Reports-First-Quarter-2026-Financial-Results/default.aspx" style="color:var(--color-primary)">ServiceNow Reports First Quarter 2026 Financial Results — ServiceNow Investor Relations</a></li>
+      <li><a href="https://s205.q4cdn.com/916135447/files/doc_financials/2026/q1/Q1-2026-Fact-Sheet.pdf" style="color:var(--color-primary)">Q1 2026 Fact Sheet — ServiceNow</a></li>
+      <li><a href="https://stockstotrade.com/news/servicenow-inc-now-news-2026_06_26-2/" style="color:var(--color-primary)">ServiceNow Stock Builds AI Momentum As Analysts Boost Targets — StocksToTrade</a></li>
+      <li><a href="https://www.chartmill.com/stock/quote/NOW/fundamental-analysis" style="color:var(--color-primary)">NOW Fundamental Analysis &amp; Valuation — ChartMill.com</a></li>
+    </ul>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</p>
+  </div>
+
+</div>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        const target = bar.dataset.target;
+        bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+        bar.style.width = target + '%';
+        observer.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

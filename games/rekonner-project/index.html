@@ -534,9 +534,12 @@ main#app { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
   padding-right: 0.6rem;
 }
 
-/* Column headers: the label rotates diagonally so a multi-character code
-   fits above a 42px-square column instead of stretching the column to fit
-   it horizontally — that stretching is what broke the square grid. */
+/* Column headers: the label runs vertically (bottom-to-top) so a
+   multi-character code fits above a 42px-square column instead of
+   stretching the column to fit it horizontally — that stretching is what
+   broke the square grid. writing-mode (rather than a rotate()+
+   transform-origin hack) keeps the label's layout box centered over its
+   own column instead of drifting sideways by its own line-height. */
 .matrix-table thead th:not(.matrix-corner-th) {
   height: 84px;
   vertical-align: bottom;
@@ -545,8 +548,8 @@ main#app { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
 }
 .matrix-table .matrix-label {
   display: inline-block;
-  transform: rotate(-40deg);
-  transform-origin: left bottom;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
   white-space: nowrap;
 }
 
@@ -668,7 +671,11 @@ main#app { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
 .hero-card .icon-wrap .fallback-shape { width: 55%; height: 55%; }
 .hero-card .name { font-weight: 700; color: var(--text-strong); font-size: 0.92rem; }
 .hero-card .sub { font-size: 0.72rem; color: var(--text-muted); }
-.hero-card .badges { display: flex; gap: 0.3rem; justify-content: center; margin-top: 0.4rem; flex-wrap: wrap; }
+.hero-card .badges { display: flex; gap: 0.3rem; justify-content: center; margin-top: 0.4rem; flex-wrap: nowrap; }
+.hero-card .token {
+  margin-top: 0.3rem; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--accent-bright);
+}
 /* Mono, uppercase, tinted-translucent fill + hairline border in the badge's
    own hue — argent-vigil's badge anatomy, matching apps/web's .badge. */
 .badge {
@@ -2163,8 +2170,8 @@ window.REKONNER = {"heroes":[{"id":"bishop","name":"Bishop","role":"SUPPORT","su
         el("div", { class: "badges" }, [
           el("span", { class: "badge tier", text: "T" + hero.tier }),
           el("span", { class: "badge role-" + hero.role, text: hero.role }),
-          el("span", { class: "badge", text: hero.tokenCost + "t" }),
         ]),
+        el("div", { class: "token", text: hero.tokenCost + "t" }),
       ]);
       if (iconWrap._startRotation) {
         card.addEventListener("mouseenter", iconWrap._startRotation);

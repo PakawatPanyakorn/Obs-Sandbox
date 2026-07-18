@@ -177,9 +177,14 @@
         border: 1px solid var(--border);
         border-radius: 3px;
         padding: 0.05rem 0.35rem;
-        transition: border-color 0.1s, color 0.1s;
+        transition:
+          border-color 0.1s,
+          color 0.1s;
       }
-      .skill-link:hover { border-color: var(--text); color: var(--text); }
+      .skill-link:hover {
+        border-color: var(--text);
+        color: var(--text);
+      }
 
       .card-right {
         display: flex;
@@ -260,7 +265,7 @@
   <body>
     <div class="wrap">
       <header>
-        <p class="header-eyebrow">Obs · Sandbox</p>
+        <p class="header-eyebrow">Obs · Sandbox · Showcase</p>
         <h1>Tools &amp; Experiments</h1>
         <p>A collection of tools, analyses, and explorations.</p>
       </header>
@@ -275,8 +280,17 @@
             <span class="card-icon">🎨</span>
             <div class="card-body">
               <div class="card-name">Theme Factory</div>
-              <div class="card-desc">Color palettes, typography, and design tokens from images and text</div>
-              <a href="https://github.com/PakawatPanyakorn/Obs-Sandbox/tree/master/skills/theme-factory" target="_blank" rel="noopener" class="skill-link">Skill ↗</a>
+              <div class="card-desc">
+                Color palettes, typography, and design tokens from images and
+                text
+              </div>
+              <a
+                href="https://github.com/PakawatPanyakorn/Obs-Sandbox/tree/master/skills/theme-factory"
+                target="_blank"
+                rel="noopener"
+                class="skill-link"
+                >Skill ↗</a
+              >
             </div>
           </div>
           <div class="card-right">
@@ -293,8 +307,16 @@
             <span class="card-icon">📈</span>
             <div class="card-body">
               <div class="card-name">Stock Analysis</div>
-              <div class="card-desc">Technical and fundamental snapshots on US equities</div>
-              <a href="https://github.com/PakawatPanyakorn/Obs-Sandbox/tree/master/skills/stock-analyse" target="_blank" rel="noopener" class="skill-link">Skill ↗</a>
+              <div class="card-desc">
+                Technical and fundamental snapshots on US equities
+              </div>
+              <a
+                href="https://github.com/PakawatPanyakorn/Obs-Sandbox/tree/master/skills/stock-analyse"
+                target="_blank"
+                rel="noopener"
+                class="skill-link"
+                >Skill ↗</a
+              >
             </div>
           </div>
           <div class="card-right">
@@ -307,7 +329,7 @@
         </div>
       </div>
 
-      <p class="section-label" style="margin-top: 2.5rem;">Games</p>
+      <p class="section-label" style="margin-top: 2.5rem">Games</p>
 
       <div class="projects">
         <div class="project-card" data-href="games/rekonner-project/index.html">
@@ -315,7 +337,9 @@
             <span class="card-icon">🎮</span>
             <div class="card-body">
               <div class="card-name">REKONNER</div>
-              <div class="card-desc">Game codex and interactive project explorer</div>
+              <div class="card-desc">
+                Game codex and interactive project explorer
+              </div>
             </div>
           </div>
           <div class="card-right">
@@ -337,13 +361,13 @@
         <a href="https://github.com/PakawatPanyakorn/Obs-Sandbox">GitHub ↗</a>
       </footer>
     </div>
-  <script>
-    document.querySelectorAll('.project-card[data-href]').forEach(card => {
-      card.addEventListener('click', e => {
-        if (e.target.closest('a')) return;
-        window.location.href = card.dataset.href;
+    <script>
+      document.querySelectorAll(".project-card[data-href]").forEach((card) => {
+        card.addEventListener("click", (e) => {
+          if (e.target.closest("a")) return;
+          window.location.href = card.dataset.href;
+        });
       });
-    });
-  </script>
+    </script>
   </body>
 </html>

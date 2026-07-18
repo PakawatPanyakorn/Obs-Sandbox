@@ -475,9 +475,15 @@ main#app { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
 /* ── Element matrix ─────────────────────────────────────────────────── */
 
 .matrix-wrap { overflow-x: auto; }
-.matrix-table { border-collapse: collapse; font-size: 0.82rem; }
+/* table-layout:fixed + equal explicit width/height on every th/td turns the
+   grid into true squares — without it, the browser widens each column to
+   fit its own header text (e.g. "AoEBrwl" vs "Burst"), so columns end up
+   different widths than they are tall. */
+.matrix-table { border-collapse: collapse; font-size: 0.78rem; table-layout: fixed; }
 .matrix-table th, .matrix-table td {
-  width: 46px; height: 36px; text-align: center; border: 1px solid var(--border);
+  width: 42px; height: 42px; text-align: center; border: 1px solid var(--border);
+  padding: 0;
+  overflow: hidden;
 }
 .matrix-table th { background: var(--bg-raised); color: var(--accent-2-bright); font-weight: 600; }
 .matrix-table td { color: var(--text-muted); }
@@ -485,19 +491,45 @@ main#app { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
 .matrix-table tr.row-hover td, .matrix-table tr.row-hover th { background: rgba(var(--accent-2-rgb), 0.14); }
 .matrix-table td.col-hover, .matrix-table th.col-hover { background: rgba(var(--accent-2-rgb), 0.14); }
 
-.matrix-corner-th { padding: 0; position: relative; }
+/* Row-label column (corner cell + each row's axis label) stays wider than
+   the square data columns so a short code like "AoEBrwl" still fits
+   horizontally, instead of forcing every column that wide. */
+.matrix-table thead th:first-child,
+.matrix-table tbody th {
+  width: 84px;
+}
+.matrix-table tbody th {
+  text-align: right;
+  padding-right: 0.6rem;
+}
+
+/* Column headers: the label rotates diagonally so a multi-character code
+   fits above a 42px-square column instead of stretching the column to fit
+   it horizontally — that stretching is what broke the square grid. */
+.matrix-table thead th:not(.matrix-corner-th) {
+  height: 84px;
+  vertical-align: bottom;
+  padding-bottom: 0.35rem;
+  overflow: visible;
+}
+.matrix-table .matrix-label {
+  display: inline-block;
+  transform: rotate(-40deg);
+  transform-origin: left bottom;
+  white-space: nowrap;
+}
+
+/* Diagonal ATK/DEF divider via a corner-to-corner gradient line instead of a
+   hardcoded-length rotated element — this way it always spans the corner
+   cell exactly regardless of that cell's actual (now-dynamic) size. */
+.matrix-corner-th {
+  padding: 0;
+  position: relative;
+  background: linear-gradient(135deg, transparent calc(50% - 1px), var(--border) 50%, transparent calc(50% + 1px)), var(--bg-raised);
+}
 .matrix-corner {
   position: relative;
-  width: 46px; height: 36px;
-  overflow: hidden;
-}
-.matrix-corner::before {
-  content: "";
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 58.4px; height: 1px;
-  background: var(--border);
-  transform: translate(-50%, -50%) rotate(38.05deg);
+  width: 100%; height: 100%;
 }
 .matrix-corner span {
   position: absolute;
@@ -507,8 +539,8 @@ main#app { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
   color: var(--accent-2-bright);
   line-height: 1;
 }
-.matrix-corner-atk { left: 3px; bottom: 2px; }
-.matrix-corner-def { right: 3px; top: 2px; }
+.matrix-corner-atk { left: 4px; bottom: 3px; }
+.matrix-corner-def { right: 4px; top: 3px; }
 
 /* ── Heroes tab ─────────────────────────────────────────────────────── */
 
@@ -1611,7 +1643,7 @@ window.REKONNER = {"heroes":[{"id":"bishop","name":"Bishop","role":"SUPPORT","su
     ]);
     var headRow = el("tr", {}, [el("th", { class: "matrix-corner-th" }, [cornerLabel])]);
     order.forEach(function (def, ci) {
-      headRow.appendChild(el("th", { text: def, "data-col": ci }));
+      headRow.appendChild(el("th", { "data-col": ci }, [el("span", { class: "matrix-label", text: def })]));
     });
     thead.appendChild(headRow);
     table.appendChild(thead);
@@ -1852,7 +1884,9 @@ window.REKONNER = {"heroes":[{"id":"bishop","name":"Bishop","role":"SUPPORT","su
 
     var table = el("table", { class: "matrix-table" });
     var headRow = el("tr", {}, [el("th", { text: "" })]);
-    order.forEach(function (name, ci) { headRow.appendChild(el("th", { text: shortOf[name], "data-col": ci, title: name })); });
+    order.forEach(function (name, ci) {
+      headRow.appendChild(el("th", { "data-col": ci, title: name }, [el("span", { class: "matrix-label", text: shortOf[name] })]));
+    });
     table.appendChild(el("thead", {}, [headRow]));
 
     var tbody = el("tbody");

@@ -257,11 +257,25 @@ code {
   box-shadow: 0 2px 12px -3px rgba(var(--accent-rgb), 0.45);
 }
 
+/* Dropdown stand-in for the tab row on narrow screens (see the 640px query
+   below) — same tab set, no horizontal scrolling to discover the rest. */
+.tabs-select {
+  display: none;
+  background: var(--surface);
+  color: var(--text-strong);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 main#app { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
 .tab-panel { display: none; }
 .tab-panel.is-active { display: block; animation: fade-in 0.2s ease; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-.panel-inner { display: flex; flex-direction: column; gap: 1.4rem; }
+.panel-inner { display: flex; flex-direction: column; gap: 1.4rem; min-width: 0; }
 
 .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
 @media (max-width: 800px) { .grid-2col { grid-template-columns: 1fr; } }
@@ -275,6 +289,10 @@ main#app { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
   padding: 1.25rem 1.4rem;
   box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.03);
   scroll-margin-top: 5rem;
+  /* Flex/grid items default to min-width:auto, so a wide table deep inside
+     (even one wrapped in an overflow-x:auto div) can still drag this card's
+     own intrinsic width past its container instead of scrolling locally. */
+  min-width: 0;
 }
 .card-accent { border-color: var(--accent); }
 .card-stub { border-style: dashed; }
@@ -321,6 +339,29 @@ main#app { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
   color: var(--accent-2-bright);
   background: var(--surface);
   border-color: var(--accent-2-dim);
+}
+
+/* Below the same breakpoint panel-with-outline collapses to a single
+   column, so the outline sidebar must stop being a tall sticky block
+   sitting full-width above the content — turn it into a horizontal
+   scroll-chip row instead. Must come after the base .page-outline rule
+   above so the cascade actually overrides it (equal specificity). */
+@media (max-width: 800px) {
+  .page-outline {
+    position: static;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: none;
+    gap: 0.4rem;
+    /* Grid items default to min-width:auto, which lets this row's nowrap
+       content force the whole grid (and page) wider instead of scrolling
+       internally. min-width:0 lets it shrink to the track so overflow-x
+       actually contains the overflow. */
+    min-width: 0;
+  }
+  .page-outline a { white-space: nowrap; }
 }
 
 .card-copper {
@@ -951,15 +992,11 @@ html { overflow-x: hidden; }
   .brand-tag { display: none; }
 
   .tabs { flex-wrap: nowrap; width: 100%; }
-  .tabs-scroll {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 2px;
-  }
-  .tabs-scroll::-webkit-scrollbar { display: none; }
-  .tab-btn { white-space: nowrap; }
+  /* Swap the scrolling tab row for a single dropdown — six tabs plus the
+     Play button don't fit a phone width, and scroll-to-discover hides
+     tabs the user doesn't know are there. */
+  .tabs-scroll { display: none; }
+  .tabs-select { display: block; }
   .play-btn { padding: 0.5rem 1.1rem; font-size: 0.85rem; }
 
   main#app { padding: 1.25rem 1rem 2.5rem; }
@@ -973,19 +1010,6 @@ html { overflow-x: hidden; }
 
   .stat-strip { gap: 1rem; }
   .stat-strip .stat .n { font-size: 1.35rem; }
-
-  /* The jump-to sidebar becomes a horizontal scroll-chip row instead of a
-     tall sticky block eating the top of the viewport on a phone. */
-  .page-outline {
-    position: static;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    max-height: none;
-    gap: 0.4rem;
-  }
-  .page-outline a { white-space: nowrap; }
 
   .hero-filters .field:has(input[type="search"]) { flex: 1 1 100%; }
   .hero-filters input[type="search"] { min-width: 0; width: 100%; }
@@ -1024,6 +1048,7 @@ html { overflow-x: hidden; }
       <button class="tab-btn" data-tab="balance">Balance</button>
       <button class="tab-btn" data-tab="tutorial">Tutorial</button>
     </div>
+    <select class="tabs-select" id="tab-select" aria-label="Jump to section"></select>
     <a class="play-btn" href="https://rekonner-project-web.vercel.app/" target="_blank" rel="noopener">Play</a>
   </nav>
 </header>
@@ -1092,7 +1117,7 @@ html { overflow-x: hidden; }
 
         <div class="card" id="sec-stat-glossary">
           <h2>Stat glossary</h2>
-          <table class="data-table" id="stat-glossary-table"></table>
+          <div class="data-table-wrap"><table class="data-table" id="stat-glossary-table"></table></div>
         </div>
 
         <div class="card" id="sec-elemental-matchups">
@@ -1119,19 +1144,19 @@ html { overflow-x: hidden; }
 
         <div class="card" id="sec-status-effects">
           <h2>Status effects</h2>
-          <table class="data-table" id="status-effects-table"></table>
+          <div class="data-table-wrap"><table class="data-table" id="status-effects-table"></table></div>
         </div>
 
         <div class="card" id="sec-race-synergy">
           <h2>Race synergy</h2>
-          <table class="data-table" id="race-synergy-table"></table>
+          <div class="data-table-wrap"><table class="data-table" id="race-synergy-table"></table></div>
         </div>
 
         <div class="card" id="sec-sudden-death">
           <h2>Sudden-death ramp</h2>
           <p id="mechanics-ramp"></p>
           <p id="mechanics-ramp-why" class="muted"></p>
-          <table class="data-table" id="ramp-table"></table>
+          <div class="data-table-wrap"><table class="data-table" id="ramp-table"></table></div>
           <p class="muted">Try any round number yourself in the <b>Calculator</b> tab —<br>the "Round" slider applies this exact multiplier.</p>
         </div>
 
@@ -1261,7 +1286,7 @@ html { overflow-x: hidden; }
           <p class="muted">Node size = strong-win count · node color = net record · arrow color = win% of that matchup · dashed arrow = counter-pick.<br>Hover a node to isolate its wins (green) and losses (red).</p>
           <div class="counter-web-mount" id="balance-counter-web"></div>
           <p class="muted" id="balance-web-caption" style="margin-top:0.75rem"></p>
-          <table class="data-table" id="balance-web-summary"></table>
+          <div class="data-table-wrap"><table class="data-table" id="balance-web-summary"></table></div>
         </div>
       </div>
 
@@ -1287,14 +1312,29 @@ window.REKONNER = {"heroes":[{"id":"bishop","name":"Bishop","role":"SUPPORT","su
   function initTabs() {
     var buttons = document.querySelectorAll(".tab-btn");
     var panels = document.querySelectorAll(".tab-panel");
+    var select = document.getElementById("tab-select");
+
+    function activateTab(name) {
+      buttons.forEach(function (b) { b.classList.toggle("is-active", b.dataset.tab === name); });
+      panels.forEach(function (p) { p.classList.remove("is-active"); });
+      document.getElementById("tab-" + name).classList.add("is-active");
+      if (select) select.value = name;
+    }
+
     buttons.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        buttons.forEach(function (b) { b.classList.remove("is-active"); });
-        panels.forEach(function (p) { p.classList.remove("is-active"); });
-        btn.classList.add("is-active");
-        document.getElementById("tab-" + btn.dataset.tab).classList.add("is-active");
-      });
+      btn.addEventListener("click", function () { activateTab(btn.dataset.tab); });
     });
+
+    // Mobile dropdown stands in for the tab row (see .tabs-select in
+    // styles.css) — built from the same buttons so there's one source of
+    // truth for which tabs exist.
+    if (select) {
+      buttons.forEach(function (btn) {
+        select.appendChild(el("option", { value: btn.dataset.tab, text: btn.textContent }));
+      });
+      select.value = document.querySelector(".tab-btn.is-active").dataset.tab;
+      select.addEventListener("change", function () { activateTab(select.value); });
+    }
   }
 
   /* ───────────────────────── Helpers ───────────────────────── */

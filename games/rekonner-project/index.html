@@ -220,6 +220,31 @@ code {
   transition: all 0.15s ease;
 }
 .tab-btn:hover { color: var(--text-strong); border-color: var(--accent); transform: translateY(-1px); }
+/* Play + Demo are one joined pill (not two adjacent buttons) — a single
+   silhouette split by a hairline seam, so the pairing reads as one decision
+   with two paths rather than two competing CTAs. The group owns the outer
+   shape/shadow/pulse; the two links inside are flattened to fill their half. */
+.cta-group {
+  display: inline-flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  margin-left: 0.3rem;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 214, 130, 0.55),
+    0 4px 16px -2px rgba(0, 0, 0, 0.6),
+    inset 0 0 12px rgba(92, 15, 16, 0.4);
+  animation: play-btn-pulse 2.6s ease-in-out infinite;
+  transition: transform 0.15s ease;
+}
+.cta-group:has(a:hover) {
+  transform: translateY(-2px) scale(1.03);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-group { animation: none; }
+}
+
 /* Gold coin base with the game's own dried-blood spatter texture (real
    /textures/blood.svg, same asset apps/web's .arena-backdrop uses) multiplied
    over it so the gold reads grimed with blood rather than clean/plastic. */
@@ -228,9 +253,7 @@ code {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  margin-left: 0.3rem;
   padding: 0.55rem 1.5rem;
-  border-radius: 6px;
   font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -248,21 +271,9 @@ code {
   background-repeat: no-repeat, no-repeat, repeat, no-repeat;
   background-size: cover, cover, 60px 60px, cover;
   background-blend-mode: normal, normal, multiply, normal;
-  border: 1px solid #8a5a1c;
-  box-shadow:
-    0 0 0 1px rgba(255, 214, 130, 0.55),
-    0 4px 16px -2px rgba(0, 0, 0, 0.6),
-    inset 0 0 12px rgba(92, 15, 16, 0.4);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  animation: play-btn-pulse 2.6s ease-in-out infinite;
 }
-.play-btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow:
-    0 0 0 1px rgba(255, 224, 160, 0.9),
-    0 6px 22px -2px rgba(0, 0, 0, 0.7),
-    inset 0 0 16px rgba(120, 18, 18, 0.5);
-}
+/* The pulsing ring/shadow lives on .cta-group now (see above) so it reads as
+   one breathing object, not just the Play half. */
 @keyframes play-btn-pulse {
   0%, 100% {
     box-shadow:
@@ -277,8 +288,30 @@ code {
       inset 0 0 18px rgba(120, 18, 18, 0.55);
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .play-btn { animation: none; }
+
+/* Secondary half of the joined pill — links to a standalone build that runs
+   entirely client-side (no backend), so it stays reachable even if the real
+   app's hosting lapses. Same copper family as Play, just quieter (no texture,
+   no pulse), so the two read as one family split by role, not two brands. */
+.demo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0.55rem 1.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent-bright);
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg-raised));
+  border-left: 1px solid rgba(0, 0, 0, 0.35);
+  transition: background 0.15s ease;
+}
+.demo-btn:hover {
+  background: color-mix(in srgb, var(--accent) 27%, var(--bg-raised));
 }
 
 .tab-btn.is-active {
@@ -1072,6 +1105,7 @@ html { overflow-x: hidden; }
   .tabs-scroll { display: none; }
   .tabs-select { display: block; }
   .play-btn { padding: 0.5rem 1.1rem; font-size: 0.85rem; }
+  .demo-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
 
   main#app { padding: 1.25rem 1rem 2.5rem; }
   .panel-inner { gap: 1.1rem; }
@@ -1123,7 +1157,10 @@ html { overflow-x: hidden; }
       <button class="tab-btn" data-tab="tutorial">Tutorial</button>
     </div>
     <select class="tabs-select" id="tab-select" aria-label="Jump to section"></select>
-    <a class="play-btn" href="https://rekonner-project-web.vercel.app/" target="_blank" rel="noopener">Play</a>
+    <span class="cta-group">
+      <a class="play-btn" href="https://rekonner-project-web.vercel.app/" target="_blank" rel="noopener">Play</a>
+      <a class="demo-btn" href="https://rekonner-demo.vercel.app/" target="_blank" rel="noopener" title="Runs entirely in your browser, no account needed">Try Demo</a>
+    </span>
   </nav>
 </header>
 

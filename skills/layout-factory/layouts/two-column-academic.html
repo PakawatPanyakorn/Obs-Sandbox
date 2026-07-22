@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="two-column-academic">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: two-column-academic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400&family=Cutive+Mono&family=Anton&family=Barlow:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "two-column-academic",
+    "description": "A full-width masthead (title, authors, abstract) sits above a body set in two balanced text columns joined by a hairline rule; figures and tables break the column grid only when they need the full measure.",
+    "createdAt": "2026-07-22T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "two-column-academic",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "The page opens full width: a title, byline, affiliations, and an abstract that previews the argument before the reader commits to either column. Everything beneath splits into two columns of equal width, same type size and line-height, separated by a single hairline column-rule rather than whitespace alone. Figures and tables break out to the full measure only when they need it, then hand control straight back to the two-column flow.",
+      "regions": [
+        { "id": "masthead", "role": "publication identity — kicker, title, byline, affiliations, abstract, keywords", "columnSpan": "1-12", "order": 1, "notes": "The only region allowed real surface/shadow presence; never split into columns" },
+        { "id": "body", "role": "running two-column article text", "columnSpan": "1-12", "order": 2, "notes": "CSS multi-column (column-count:2) inside the full-width region — the browser balances the two columns natively, they are not two hand-split grid tracks" },
+        { "id": "exhibit", "role": "figures and tables that need the full measure", "columnSpan": "1-12", "order": 3, "notes": "column-span:all breaks a single exhibit out of the two-column flow inline, at the point in the text where it's referenced — never collected in an appendix" }
+      ],
+      "hierarchy": { "primary": "masthead", "secondary": "body", "tertiary": "exhibit" },
+      "readingOrder": ["masthead", "body", "exhibit"],
+      "entryPoint": "The title in the masthead, followed immediately by the abstract — the only two things on the page set at full measure and read before either column",
+      "balance": "symmetric"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "28px",
+      "maxWidth": "760px",
+      "marginInline": "6vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Twin columns collapse to one; the running head stays pinned, footnotes move inline after their paragraph instead of banking at the foot of the page" },
+        "md": { "columns": 8, "gutter": "20px", "notes": "Twin columns remain but narrow; exhibits still span the full measure" },
+        "lg": { "columns": 12, "gutter": "28px", "notes": "Full twin-column balance, as designed" }
+      },
+      "regionSpans": { "masthead": "1 / 13", "body": "1 / 13", "exhibit": "1 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32, 48, 64],
+      "unit": "px",
+      "rhythm": "Both columns share identical font-size and line-height throughout, so their baselines line up across the gutter, not just within a single column",
+      "sectionGap": "32px",
+      "blockGap": "16px",
+      "inlineGap": "28px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Breaks one column at the section's central claim, at most once per major section", "style": "Small-caps 'Key Finding' kicker, thin rule above and below the statement, quiet weight — never italic or oversized; it should read as data, not decoration" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": true, "types": ["definition / inclusion-criteria box", "methodology note"] },
+      "footnotes": { "used": true, "style": "footnote" },
+      "sectionBreaks": { "style": "numeral" },
+      "dropCaps": false,
+      "captions": { "style": "Small caps 'Figure N.' / 'Table N.' prefix; figure captions sit below the exhibit, table captions sit above it, per the convention print journals actually use", "position": "below figures, above tables" },
+      "numbering": { "sections": true, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "Body region: column-count:2, column-gap: var(--lf-gutter), column-rule: var(--lf-border-width) solid var(--lf-line). Exhibits use column-span: all to break out to the full measure inline, at their point of reference, then return to two-column flow immediately after.",
+      "presentation": "Poor fit. The entire structure exists to keep dense continuous prose readable across two narrow columns — that doesn't survive being chunked onto slides. If a paper genuinely must become a deck, drop to one section per slide, single column, and move all footnotes to an appendix slide rather than trying to preserve the twin-column read at slide scale.",
+      "print": "This archetype's native medium. US Letter or A4, ~0.75in margins, a running header carrying the journal/series name and volume in the top margin and a running footer carrying the page number; new numbered sections don't force a page break; the twin columns already model to a print column grid pixel-for-pixel.",
+      "markdown": "Twin columns don't exist in markdown — the body degrades to a single flowing column. Preserve the structural distinction that survives: keep numbered section headings (## 1. Introduction), and set figures/tables/key-findings off in a fenced block or blockquote so they still read as breaking from body text, even without true column-span behavior."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "Figures and tables are numbered, captioned, and paired with a sentence of interpretation in the surrounding column — never a bare stat. The two columns are genuinely balanced running text, not a 2-up card grid: no border, shadow, or fill on the column tracks themselves, only a hairline column-rule between them. The masthead is the one region given surface/shadow presence; every exhibit inside the columns stays bare, mirroring magazine-well's 'one hero, everything else earns its weight by content' rule with the hero region swapped for the masthead instead of a lead image."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The native case — dense continuous prose runs across both columns exactly as described. Exhibits drop out entirely; the only breaks in the column flow are a footnote reference and, at most, one boxed key-finding per major section.",
+        "bestFor": "Research papers, theses, formal proposals, technical or legal reports — anything meant to be printed or PDF-bound and read closely rather than skimmed.",
+        "avoid": "Don't add photography or decorative imagery to fill space. This register signals rigor through typographic discipline and citation precision, not visual richness — an empty column is fine, a decorative one undercuts the whole point."
+      },
+      "chartHeavy": {
+        "howItAdapts": "Every chart or table becomes a numbered, captioned exhibit that breaks the column grid via column-span, appearing inline at first reference rather than collected in an appendix. Table captions sit above the table, figure captions below the figure — real print convention, not interchangeable. Commentary in the surrounding column text always explains what to look at.",
+        "bestFor": "Empirical papers, statistical appendices, technical reports carrying several supporting tables or figures.",
+        "avoid": "Don't let exhibits crowd out the running text until the page is mostly captions. If interpretation shrinks to a caption fragment and charts dominate, that's data-dense-report territory, not this archetype — and an uncaptioned exhibit with no interpretive sentence is the dashboard-trope anti-pattern this structure is built to avoid."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "A genuinely comparable set of items — related work, references, selection criteria — becomes a single hanging-indent list set at column width, ordered by a stated logic (usually chronology), never a card grid. Entry length varies with the source's own annotation, not padded or trimmed to match its neighbors.",
+        "bestFor": "Literature reviews, annotated bibliographies, criteria or rubric sections inside a formal report.",
+        "avoid": "Don't box each entry in a bordered card. A hanging-indent list is this register's own convention; card boxes read as marketing collateral and break the academic register the moment they appear."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "crypt-scholastic", "why": "Its own description is literally 'dark gothic academic' — a rare-books institution register with Cinzel display and Gentium Plus body that already reads as scholarly authority; the twin-column grid gives its dense manuscript-catalogue prose somewhere disciplined to run." },
+      { "theme": "bloc-brutus", "why": "Its background is a literal architectural grid overlay and 'structure is truth' is its stated design philosophy — applied to a genuinely balanced twin-column grid, that philosophy reads as a technical or engineering report register rather than a magazine spread." },
+      { "theme": "vesper-furrow", "why": "Its own demo content is already formal report register — land-register entries, parcel references, surveyor notes — a close sibling to the academic paper this archetype is built for, just under a dusk countryside palette instead of ivory." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 28px;
+      --lf-max-width: 760px;
+      --lf-margin-inline: 6vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      /* theme-overridable — full set, see the three .lf-variant-stage.theme-* blocks below */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body); see preset-template.html's
+       scoping-rule comment for why. Values pulled from each theme's own file, including its actual
+       pull-quote/"alt card" component convention, never invented. */
+    .lf-variant-stage.theme-crypt-scholastic {
+      --lf-ink: #D8C8C0; --lf-ink-muted: #806870; --lf-paper: #120A10;
+      --lf-line: #3A2030; --lf-region-outline: #3A2030; --lf-accent: #8B1A3A;
+      --lf-font-body: 'Gentium Plus', Georgia, serif; --lf-font-display: 'Cinzel', Georgia, serif;
+      --lf-font-mono: 'Cutive Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 600; --lf-line-height: 1.75; --lf-card-radius: 3px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      --lf-bg-size: 256px 256px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* crypt-scholastic: dramatic dark elevation (its own shadows.lg) on the masthead only */
+      --lf-surface: #1C1018;
+      --lf-shadow-hero: 0 8px 36px rgba(6,2,8,0.9);
+      --lf-gradient-hero: linear-gradient(160deg, #241420 0%, #120A10 55%, #100810 100%);
+      --lf-border-width: 1px;
+      /* crypt-scholastic has no dedicated pull-quote or alt-card component — its own crimson+gold
+         badge-primary combo (crimson border, gold text) is the closest real pairing in the file,
+         so the quote border stays crimson-adjacent while gold (its "gilt" accent, used for the
+         header ornament and its gradient-text demo) marks emphasis, both kept to its hairline
+         borderStyle rather than invented boldness */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: #C8A840;
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: #C8A840;
+    }
+    .lf-variant-stage.theme-bloc-brutus {
+      --lf-ink: #1C1C1A; --lf-ink-muted: #5C5850; --lf-paper: #D2CEC6;
+      --lf-line: #A8A49C; --lf-region-outline: #A8A49C; --lf-accent: #E8321A;
+      --lf-font-body: 'Barlow', 'Helvetica Neue', sans-serif; --lf-font-display: 'Anton', 'Impact', sans-serif;
+      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.5; --lf-card-radius: 0px;
+      --lf-bg-image: linear-gradient(rgba(100,90,80,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(100,90,80,0.07) 1px, transparent 1px);
+      --lf-bg-size: 40px 40px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* bloc-brutus: flat offset shadow (no blur, its signature), zero gradients anywhere in the file */
+      --lf-surface: #C8C4BC;
+      --lf-shadow-hero: 6px 6px 0 #E8321A;
+      --lf-gradient-hero: none;
+      --lf-border-width: 3px;
+      /* pulled from its own .t-mono ("border-left: 4px solid var(--color-primary)") for the quote,
+         and its .tf-card.red ("border-color: primary; h3 color: primary") for emphasis — both are
+         real components in the theme file, not invented */
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+    .lf-variant-stage.theme-vesper-furrow {
+      --lf-ink: #d4c9b4; --lf-ink-muted: #7a7060; --lf-paper: #1c1915;
+      --lf-line: #3a3426; --lf-region-outline: #3a3426; --lf-accent: #b8914a;
+      --lf-font-body: 'Lora', Georgia, serif; --lf-font-display: 'Fraunces', Georgia, serif;
+      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.65; --lf-card-radius: 6px;
+      --lf-bg-image: linear-gradient(180deg, rgba(168,122,58,0.14) 0%, rgba(28,25,21,0) 38%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      --lf-bg-size: 100% auto, 200px 200px; --lf-bg-position: 0 0, 0 0; --lf-bg-repeat: no-repeat, repeat;
+      /* vesper-furrow: subtle elevation (its own "elevation: subtle" note) + its actual dusk hero gradient */
+      --lf-surface: #242018;
+      --lf-shadow-hero: 0 2px 8px rgba(0,0,0,0.50);
+      --lf-gradient-hero: linear-gradient(160deg, #2a2218 0%, #1c1915 55%, #201c1a 100%);
+      --lf-border-width: 1px;
+      /* pulled from its own .tf-glow-demo (colored primary text, the theme's actual pull-quote
+         convention) and its .tf-card-wide inline emphasis border (rgba(184,145,74,0.3) — the exact
+         value used on its "principal declarations" wide card, the closest real analog to an exhibit
+         that spans both columns) */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: rgba(184,145,74,0.3);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* ── Archetype-specific vocabulary ─────────────────────────────────────── */
+
+    /* Small identity chrome at the top of each stage section — distinct from the "masthead"
+       region (title/byline/abstract) that this archetype actually defines. */
+    .lf-academic-tag {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-2);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* Masthead — the ONE region given real presence (surface, the theme's actual hero gradient,
+       its actual shadow). Everything inside the two columns below stays bare regardless of theme —
+       same "one hero, everything else earns weight by content" rule as magazine-well's lead image,
+       just relocated to this archetype's own full-width identity region. */
+    .lf-academic-masthead {
+      background-color: var(--lf-surface);
+      background-image: var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-4);
+      margin-bottom: var(--lf-space-8);
+    }
+    .lf-academic-kicker {
+      display: block; font-family: var(--lf-font-mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--lf-ink-muted);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-academic-title {
+      font-family: var(--lf-font-display); font-size: 2rem; line-height: 1.15;
+      font-weight: var(--lf-font-weight-heading); letter-spacing: -0.005em;
+      margin-bottom: var(--lf-space-3); max-width: 26ch;
+    }
+    .lf-academic-byline { font-size: 0.92rem; margin-bottom: var(--lf-space-1); }
+    .lf-academic-affiliations { font-size: 0.72rem; color: var(--lf-ink-muted); margin-bottom: var(--lf-space-4); }
+    .lf-academic-abstract {
+      border-top: 1px solid var(--lf-line); border-bottom: 1px solid var(--lf-line);
+      padding: var(--lf-space-4) 0; margin-bottom: var(--lf-space-3);
+    }
+    .lf-academic-abstract .label {
+      display: block; font-family: var(--lf-font-mono); font-size: 0.62rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--lf-ink-muted);
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-academic-abstract p { font-size: 0.92rem; max-width: 66ch; }
+    .lf-academic-keywords { font-size: 0.78rem; color: var(--lf-ink-muted); }
+    .lf-academic-keywords strong { color: var(--lf-ink); font-weight: 700; }
+
+    /* Running header/footer — the print convention of a repeating journal/volume line and page
+       number in the page margin, represented once per demo page here rather than once per printed page. */
+    .lf-academic-runninghead {
+      display: flex; justify-content: space-between;
+      font-family: var(--lf-font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-top: 1px solid var(--lf-line); border-bottom: 1px solid var(--lf-line);
+      padding: var(--lf-space-2) 0; margin-bottom: var(--lf-space-6);
+    }
+
+    /* The twin-column body — CSS multi-column, browser-balanced, joined by a single hairline rule. */
+    .lf-academic-columns {
+      column-count: 2;
+      column-gap: var(--lf-gutter);
+      column-rule: var(--lf-border-width) solid var(--lf-line);
+    }
+    .lf-academic-section-heading {
+      font-family: var(--lf-font-display); font-size: 1rem; font-weight: var(--lf-font-weight-heading);
+      letter-spacing: 0.01em; margin: var(--lf-space-6) 0 var(--lf-space-2);
+      break-after: avoid-column;
+    }
+    .lf-academic-section-heading:first-child { margin-top: 0; }
+    .lf-academic-section-heading .num { color: var(--lf-ink-muted); font-family: var(--lf-font-mono); margin-right: var(--lf-space-2); font-size: 0.85em; }
+    .lf-academic-columns p { font-size: 0.9rem; margin-bottom: var(--lf-space-3); text-align: left; }
+    .lf-academic-columns sup { font-size: 0.7em; color: var(--lf-accent); }
+
+    /* Key-finding callout — this archetype's pull-quote analog: quiet, labeled, never italic. */
+    .lf-academic-finding {
+      break-inside: avoid-column;
+      border-top: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      border-bottom: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      color: var(--lf-quote-text-color);
+      padding: var(--lf-space-3) 0;
+      margin: var(--lf-space-4) 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .lf-academic-finding .label {
+      display: block; font-family: var(--lf-font-mono); font-size: 0.62rem;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: var(--lf-space-2);
+    }
+
+    /* Definition / methodology callout — echoes each theme's own "alt card" convention. */
+    .lf-academic-callout {
+      break-inside: avoid-column;
+      border-left: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color);
+      background-color: var(--lf-surface);
+      padding: var(--lf-space-3) var(--lf-space-4);
+      margin: var(--lf-space-4) 0;
+      font-size: 0.84rem;
+    }
+    .lf-academic-callout .label {
+      display: block; font-family: var(--lf-font-mono); font-size: 0.62rem;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--lf-ink-muted);
+      margin-bottom: var(--lf-space-1);
+    }
+
+    /* Exhibits — figures/tables that break the two-column flow via column-span:all, then return
+       control to the columns immediately after. Stay bare regardless of theme, per the masthead-is-
+       the-one-hero rule above. */
+    .lf-academic-exhibit { column-span: all; margin: var(--lf-space-6) 0; }
+    .lf-academic-exhibit-media {
+      border: 1px solid var(--lf-region-outline);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px);
+      height: 190px;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-academic-exhibit-caption { font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic; max-width: 72ch; }
+    .lf-academic-exhibit-caption strong { color: var(--lf-ink); font-style: normal; }
+
+    .lf-academic-table { column-span: all; width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: var(--lf-space-2) 0 var(--lf-space-4); }
+    .lf-academic-table caption { caption-side: top; text-align: left; font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic; margin-bottom: var(--lf-space-2); }
+    .lf-academic-table caption strong { color: var(--lf-ink); font-style: normal; }
+    .lf-academic-table th, .lf-academic-table td { padding: var(--lf-space-2) var(--lf-space-3); text-align: left; border-top: 1px solid var(--lf-line); }
+    .lf-academic-table thead th {
+      border-top: none; border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      font-family: var(--lf-font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--lf-ink-muted);
+    }
+    .lf-academic-table tbody tr:last-child td { border-bottom: 1px solid var(--lf-line); }
+
+    /* Footnotes — same page as the claim, per this archetype's own editorial convention. */
+    .lf-academic-footnotes {
+      column-span: all;
+      border-top: 1px solid var(--lf-line);
+      margin-top: var(--lf-space-6);
+      padding-top: var(--lf-space-3);
+      font-size: 0.74rem;
+      color: var(--lf-ink-muted);
+    }
+    .lf-academic-footnotes ol { padding-left: 1.2em; }
+    .lf-academic-footnotes li { margin-bottom: var(--lf-space-1); }
+
+    /* Hanging-indent reference list — the cardOrListHeavy variant's structural rule: comparable
+       items sized by their own content, never boxed into a uniform card grid. */
+    .lf-academic-reflist { font-size: 0.84rem; }
+    .lf-academic-reflist li { padding-left: 1.6em; text-indent: -1.6em; margin-bottom: var(--lf-space-3); break-inside: avoid-column; }
+
+    /* ── View tabs / theme tabs / stage (house style — copied from magazine-well.html) ──────── */
+
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* color/font-family/line-height/background re-declared here (not just inherited from body) so
+       descendants correctly re-inherit from THIS scope when .theme-* overrides the custom properties. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View (house style) — see preset-template.html for the full rationale. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">two-column-academic</span>
+    <span class="lf-meta-tags">two-column-academic &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">28px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">760px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">two-column-academic — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> research papers, theses, formal proposals, technical or legal reports — anything meant to be printed or PDF-bound and read closely.<br><strong>Avoid:</strong> adding photography or decorative imagery just to fill space; an empty column is fine, a decorative one undercuts the register." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> empirical papers, statistical appendices, technical reports with several supporting tables or figures.<br><strong>Avoid:</strong> letting exhibits crowd out running text — an uncaptioned exhibit with no interpretive sentence is the dashboard-trope anti-pattern this structure exists to avoid." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> literature reviews, annotated bibliographies, criteria or rubric sections inside a formal report.<br><strong>Avoid:</strong> boxing each entry in a bordered card — a hanging-indent list is this register's own convention; cards read as marketing collateral." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="crypt-scholastic" role="tab" aria-selected="false">crypt-scholastic</button>
+      <button class="lf-theme-tab" data-theme-option="bloc-brutus" role="tab" aria-selected="false">bloc-brutus</button>
+      <button class="lf-theme-tab" data-theme-option="vesper-furrow" role="tab" aria-selected="false">vesper-furrow</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-academic-tag">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>two-column-academic</span>
+        </div>
+
+        <div class="lf-academic-masthead">
+          <span class="lf-academic-kicker">Layout Factory Working Papers &middot; Series C, No. 7</span>
+          <h1 class="lf-academic-title">Two-Column Academic: Why the Grid Itself Signals Rigor</h1>
+          <div class="lf-academic-byline">Layout Factory Research Group</div>
+          <div class="lf-academic-affiliations">Structural Composition Division</div>
+          <div class="lf-academic-abstract">
+            <span class="label">Abstract</span>
+            <p>This archetype pairs a full-width masthead &mdash; title, byline, and abstract &mdash; with a body set in two balanced text columns joined by a single hairline rule. The columns aren't a stylistic flourish; they cap line length near the range where reading speed and comprehension both hold up, without shrinking the type to do it. Figures and tables break the column grid only when they need the full measure, then return control to the two-column flow immediately after. The result reads as reference material before a single word is read &mdash; density and discipline, not narrative momentum, are what this structure is built to signal.</p>
+          </div>
+          <div class="lf-academic-keywords"><strong>Keywords:</strong> grid discipline, column balance, print-first composition, editorial density</div>
+        </div>
+
+        <div class="lf-academic-runninghead">
+          <span>Layout-Factory Journal of Composition &middot; Vol. 4</span>
+          <span>1</span>
+        </div>
+
+        <div class="lf-academic-columns">
+          <h2 class="lf-academic-section-heading"><span class="num">1.</span>The Concept</h2>
+          <p>A two-column-academic page opens with a masthead that runs the full measure: title, authors, and an abstract that previews the argument before the reader commits to either column. Everything beneath that masthead splits into two columns of equal width, set from the same type size and line-height, joined by a single hairline rule rather than a gutter alone. The columns aren't there to look scholarly &mdash; they exist because a line somewhere around 60 to 75 characters is close to where the eye can track back to the start of the next line without losing its place, and a single column at that measure, stretched across a full page width, wastes the horizontal space a wide page actually has.<sup>1</sup></p>
+          <div class="lf-academic-finding">
+            <span class="label">Key Finding</span>
+            Splitting a wide measure into two narrow columns keeps line length inside the comfortable reading range without shrinking the type below what a printed or PDF-bound page needs to hold up.
+          </div>
+          <p>That's the structural payoff. The masthead earns its full width by being the one region every reader needs regardless of which column they're in &mdash; title, authors, and abstract don't belong to either column, so they never compete with the twin-column rhythm the moment the reader reaches the body.</p>
+          <div class="lf-academic-callout">
+            <span class="label">Structural Rule</span>
+            Both columns share the same font size, line-height, and column-gap start to finish. A browser's own column-balancing keeps their bottom edges within roughly one line of each other; change the type size or gap partway through and the twin-column read collapses into two visually unrelated blocks of text.
+          </div>
+
+          <h2 class="lf-academic-section-heading"><span class="num">2.</span>When Not to Use This Archetype</h2>
+          <p>This archetype is a poor fit for anything read on a single screen at arm's length or projected to a room &mdash; presentation slides especially break the moment text drops to two narrow columns nobody in the back row can read. It's also the wrong choice for narrative or essay content that wants to be read start to finish without the eye jumping columns; reach for <em>single-column-editorial</em> instead. A continuous single measure keeps a narrative's momentum intact in a way a twin-column split never will, no matter how disciplined the grid underneath it is.</p>
+
+          <h2 class="lf-academic-section-heading"><span class="num">3.</span>Editorial Devices This Archetype Favors</h2>
+          <p>Footnotes, not endnotes &mdash; the citation or aside stays on the same page as the claim it supports, which matters more here than in narrative writing because the reader is already treating the page as a reference object, not a story. Numbered figures and tables, each with its own caption and a sentence of interpretation in the surrounding column text, because an uncaptioned exhibit reads as decoration in every other archetype and as a citation gap in this one. And exactly one boxed "key finding" per major section at most &mdash; more than that starts to compete with the numbered section headings for the reader's sense of what the argument's spine actually is.<sup>2</sup></p>
+
+          <div class="lf-academic-exhibit">
+            <div class="lf-academic-exhibit-media"></div>
+            <div class="lf-academic-exhibit-caption"><strong>Figure 1.</strong> The three regions at a glance &mdash; masthead spans the full measure above; the body splits into two balanced columns joined by a hairline rule; exhibits like this one break the column-span only for the width they need, then hand control back to the columns immediately after.</div>
+          </div>
+
+          <div class="lf-academic-footnotes">
+            <ol>
+              <li>Line-length research generally converges on 50&ndash;75 characters per line for sustained reading comfort, roughly 60 at this archetype's default column width.</li>
+              <li>See <code>mediaAdaptation.print</code> for the margin and running-header conventions this structure is built around.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-academic-tag">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>two-column-academic</span>
+        </div>
+
+        <div class="lf-academic-masthead">
+          <span class="lf-academic-kicker">Layout Factory Working Papers &middot; Series C, No. 11</span>
+          <h1 class="lf-academic-title">Citation Half-Life Is Shrinking Faster Than Publication Volume Is Growing</h1>
+          <div class="lf-academic-byline">R. Okafor, T. Lindqvist</div>
+          <div class="lf-academic-affiliations">Layout Factory Research Group</div>
+          <div class="lf-academic-abstract">
+            <span class="label">Abstract</span>
+            <p>We track the median age of cited work across four preprint disciplines over an eleven-year window and find that citation half-life has fallen even as the raw number of citable preprints has more than tripled. The two trends are not independent: faster publication cycles appear to be compressing the window in which any single preprint remains a live reference, regardless of its eventual citation count. We discuss what that compression implies for how quickly a working paper's claims should be treated as settled.</p>
+          </div>
+          <div class="lf-academic-keywords"><strong>Keywords:</strong> citation half-life, preprint velocity, bibliometrics, publication cadence</div>
+        </div>
+
+        <div class="lf-academic-runninghead">
+          <span>Layout-Factory Journal of Composition &middot; Vol. 4</span>
+          <span>2</span>
+        </div>
+
+        <div class="lf-academic-columns">
+          <h2 class="lf-academic-section-heading"><span class="num">1.</span>Background</h2>
+          <p>Citation half-life &mdash; the number of years after publication at which a paper has received half of the citations it will ever receive &mdash; has been falling across nearly every discipline we tracked, from a median of 6.2 years in 2015 to 3.8 years in the most recent complete cohort. Over the same window, the number of citable preprints per discipline more than tripled, driven almost entirely by faster review-to-publication cycles rather than by more research being conducted.</p>
+          <div class="lf-academic-finding">
+            <span class="label">Key Finding</span>
+            Half-life fell in every discipline we measured, but fell fastest exactly where publication volume grew fastest &mdash; the two trends move together, not independently.
+          </div>
+
+          <h2 class="lf-academic-section-heading"><span class="num">2.</span>Method</h2>
+          <p>We drew citation graphs for four preprint servers spanning applied machine learning, computational biology, materials science, and empirical economics, restricting the sample to papers with at least eighteen months of citation history to avoid truncation bias. Half-life was computed per publication-year cohort rather than per paper, since individual half-life is noisy at the low citation counts typical of preprints.</p>
+
+          <h2 class="lf-academic-section-heading"><span class="num">3.</span>Interpretation</h2>
+          <p>The shrinking half-life doesn't mean papers are being forgotten faster in any qualitative sense &mdash; it means the working literature any given researcher needs to track is refreshing faster than publication counts alone would suggest. A field with 3&times; more output and a half-life two-thirds its former length isn't just producing more; it's asking its own practitioners to treat a much larger share of what they cite as provisional.<sup>1</sup></p>
+
+          <div class="lf-academic-footnotes">
+            <ol>
+              <li>Provisional here in the specific sense of the half-life measure &mdash; not a claim about correctness, only about how long a given piece of work stays load-bearing in the citation graph before newer work supersedes it as the default reference.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-academic-tag">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>two-column-academic</span>
+        </div>
+
+        <div class="lf-academic-masthead">
+          <span class="lf-academic-kicker">Layout Factory Working Papers &middot; Series C, No. 12</span>
+          <h1 class="lf-academic-title">Preprint Server Response Latency Varies by Discipline Far More Than by Platform</h1>
+          <div class="lf-academic-byline">T. Lindqvist, R. Okafor</div>
+          <div class="lf-academic-affiliations">Layout Factory Research Group</div>
+          <div class="lf-academic-abstract">
+            <span class="label">Abstract</span>
+            <p>Using review-to-publication timestamps for 2,140 preprints across four disciplines, we find that median latency varies by nearly 5&times; between the fastest and slowest discipline, while variance between the two platforms carrying the same discipline is under 10%. Platform choice explains almost none of the latency a submitting author actually experiences; discipline does.</p>
+          </div>
+          <div class="lf-academic-keywords"><strong>Keywords:</strong> publication latency, review cadence, preprint infrastructure</div>
+        </div>
+
+        <div class="lf-academic-runninghead">
+          <span>Layout-Factory Journal of Composition &middot; Vol. 4</span>
+          <span>3</span>
+        </div>
+
+        <div class="lf-academic-columns">
+          <h2 class="lf-academic-section-heading"><span class="num">1.</span>Findings</h2>
+          <p>Table 1 summarizes median latency by discipline for the most recent complete cohort. Applied machine learning clears first review in a median of four days; empirical economics takes more than five times as long. Figure 2 extends the comparison across the full eleven-year window we sampled.</p>
+          <div class="lf-academic-finding">
+            <span class="label">Key Finding</span>
+            The gap between the fastest and slowest discipline has widened, not narrowed, over the eleven years we tracked &mdash; faster fields are still accelerating.
+          </div>
+
+          <table class="lf-academic-table">
+            <caption><strong>Table 1.</strong> Median review and publication latency by discipline, most recent complete cohort (n = 2,140 preprints).</caption>
+            <thead>
+              <tr><th>Discipline</th><th>Days to first review</th><th>Days to publication</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Applied machine learning</td><td>4</td><td>11</td></tr>
+              <tr><td>Computational biology</td><td>9</td><td>24</td></tr>
+              <tr><td>Materials science</td><td>14</td><td>33</td></tr>
+              <tr><td>Empirical economics</td><td>21</td><td>52</td></tr>
+            </tbody>
+          </table>
+          <p>Every discipline improved over the window, but not at the same rate &mdash; the ranking in 2015 is the same ranking today, just stretched further apart.</p>
+
+          <div class="lf-academic-exhibit">
+            <div class="lf-academic-exhibit-media"></div>
+            <div class="lf-academic-exhibit-caption"><strong>Figure 2.</strong> Publication latency by discipline over the eleven-year window &mdash; every discipline trends downward, but empirical economics never closes the gap with applied machine learning.</div>
+          </div>
+          <p>The gap doesn't close because review capacity scales with submission volume in applied ML in a way it hasn't in economics, where the reviewer pool has grown far more slowly than submissions have.</p>
+
+          <h2 class="lf-academic-section-heading"><span class="num">2.</span>Discussion</h2>
+          <p>If reviewer-pool growth is the binding constraint, the fix isn't a faster platform &mdash; it's a bigger reviewer pool, which is a discipline-level problem no preprint server can solve by itself.<sup>1</sup></p>
+
+          <div class="lf-academic-footnotes">
+            <ol>
+              <li>Latency figures are drawn from server-reported timestamps, not self-reported author estimates; see the working paper's data appendix for the extraction method.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-academic-tag">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>two-column-academic</span>
+        </div>
+
+        <div class="lf-academic-masthead">
+          <span class="lf-academic-kicker">Layout Factory Working Papers &middot; Series C, No. 13</span>
+          <h1 class="lf-academic-title">Related Work: Column-Based Reading Comprehension, 1974&ndash;Present</h1>
+          <div class="lf-academic-byline">R. Okafor</div>
+          <div class="lf-academic-affiliations">Layout Factory Research Group</div>
+          <div class="lf-academic-abstract">
+            <span class="label">Abstract</span>
+            <p>A literature review is the clearest case for a two-column-academic reference list: a genuinely comparable set of items &mdash; one entry per source &mdash; that should never be forced into a card grid. Below, sources are listed in a single hanging-indent column, each entry sized to the length of its own annotation, not padded or trimmed to match its neighbors.</p>
+          </div>
+          <div class="lf-academic-keywords"><strong>Keywords:</strong> literature review, reference list, column-width comprehension</div>
+        </div>
+
+        <div class="lf-academic-runninghead">
+          <span>Layout-Factory Journal of Composition &middot; Vol. 4</span>
+          <span>4</span>
+        </div>
+
+        <div class="lf-academic-columns">
+          <h2 class="lf-academic-section-heading"><span class="num">1.</span>Selection Criteria</h2>
+          <div class="lf-academic-callout">
+            <span class="label">Inclusion Criteria</span>
+            Peer-reviewed or working papers published 1974&ndash;present studying line length, column count, or reading speed directly; excludes UI-only usability studies without a reading-comprehension measure.
+          </div>
+          <p>The six sources below are ordered by publication year, not by relevance ranking &mdash; the chronology is itself part of the argument: comprehension research on column width has barely moved in fifty years, even as the media it's applied to has changed completely.</p>
+
+          <ol class="lf-academic-reflist">
+            <li>Reyes, A. (1974). Column width and reading rate in continuous prose. <em>Journal of Reading Ergonomics</em>, 3(1), 12&ndash;29.</li>
+            <li>Voss, K. (1989). Measuring comprehension loss across column breaks. <em>Studies in Applied Typography</em>, 8(4), 201&ndash;219. This entry runs longer than most in the list because it's the source three later papers in this review cite directly rather than re-deriving the same measurement &mdash; the annotation length here reflects that, not an editorial preference for longer entries.</li>
+            <li>Okonkwo-Bright, M., &amp; Halvorsen, S. (2003). Line length, saccade length, and the cost of the column-return. <em>Journal of Reading Ergonomics</em>, 19(2), 140&ndash;158.</li>
+            <li>Iyer, P. (2011). Digital reflow and the death of the fixed column &mdash; a premature obituary. <em>Review of Document Design</em>, 6(1), 3&ndash;17.</li>
+            <li>Costache, D. (2017). Column balancing in CSS: a typographer's guide to browser-native multi-column layout. <em>Web Typography Quarterly</em>, 2(3), 44&ndash;52.</li>
+            <li>Reyes, A., &amp; Iyer, P. (2022). Forty years on: does column width still matter on a 4K display? <em>Journal of Reading Ergonomics</em>, 41(1), 9&ndash;26.</li>
+          </ol>
+
+          <h2 class="lf-academic-section-heading"><span class="num">2.</span>What Fifty Years of This Research Agrees On</h2>
+          <div class="lf-academic-finding">
+            <span class="label">Key Finding</span>
+            The 50&ndash;75 character comfortable range hasn't moved in fifty years of research; only the medium enforcing it has.
+          </div>
+          <p>Across nearly every study in this set, the effect holds regardless of medium: comprehension and reading speed both degrade outside a roughly 50&ndash;75 character line, and neither degrades meaningfully within it. What's changed since 1974 isn't the finding &mdash; it's that CSS multi-column layout (Costache, 2017) finally lets that finding apply to a browser tab as cleanly as it always applied to a printed page.</p>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-crypt-scholastic', 'theme-bloc-brutus', 'theme-vesper-furrow');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="split-hero">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: split-hero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&family=Cutive+Mono&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "split-hero",
+    "description": "Page bisected once, unevenly, into a 60/40 zone — a dominant visual half and a secondary text/CTA half — where the asymmetry itself, not a badge or color change, signals which half is in charge.",
+    "createdAt": "2026-07-22T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "split-hero",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "The page is cut once, unevenly — a wide visual half (image, exhibit, or an oversized line of type standing in for one) and a narrower text/CTA half, fixed at roughly 60/40. There is no third zone. The size and position of the visual half alone communicates dominance; the text half never grows to compensate for how much copy it eventually holds.",
+      "regions": [
+        { "id": "lead", "role": "dominant visual half — image, exhibit, or a single oversized statement", "columnSpan": "1-7 of 12 (~60%)", "order": 1, "notes": "Only region that ever carries a shadow, gradient, or photographic pattern; fixed height regardless of variant" },
+        { "id": "body", "role": "secondary text/CTA half — headline, one line of support, one action", "columnSpan": "8-12 of 12 (~40%)", "order": 2, "notes": "Never widens to fit more copy; copy is trimmed to fit the column, not the other way around" }
+      ],
+      "hierarchy": { "primary": "lead", "secondary": "body", "tertiary": "" },
+      "readingOrder": ["lead", "body"],
+      "entryPoint": "The visual half — larger, positioned first in reading order left-to-right, and the only region carrying photographic or illustrative weight; the eye lands there before it reaches the headline.",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "freeform-grid-anchored",
+      "columns": 12,
+      "gutter": "48px",
+      "maxWidth": "1280px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Split collapses to one column — visual stacks above content at a reduced fixed height, preserving 'visual first' reading order without pretending to keep the ratio." },
+        "md": { "columns": 8, "gutter": "24px", "notes": "May hold a side-by-side split at a narrower ratio (e.g. 55/45) if width allows, or stack per sm — never drifts toward 50/50 at any width." },
+        "lg": { "columns": 12, "gutter": "48px", "notes": "Full 60/40 split, visual half left, content half right." }
+      },
+      "regionSpans": { "lead": "1 / 8", "body": "8 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 40, 64, 96, 128],
+      "unit": "px",
+      "rhythm": "1.5x body line-height between paragraphs; the fixed 60/40 split is the primary rhythm device, not vertical spacing",
+      "sectionGap": "64px",
+      "blockGap": "40px",
+      "inlineGap": "48px",
+      "density": "spacious"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Replaces the image inside the visual half when there is no photography — one oversized statement filling the dominant zone at the same fixed proportion, never mid-paragraph", "style": "Large display type, quote-colored per theme, left rule — distinguished from body copy by scale and negative space, not quotation marks" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": true, "types": ["single proof-point line beneath the CTA", "eyebrow label above the headline"] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "whitespace" },
+      "dropCaps": false,
+      "captions": { "style": "small italic caption, or a numbered figure caption in the chart variant", "position": "directly beneath the visual half, inside its column" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid, two columns, grid-template-columns: 3fr 2fr (approximating the 7/5 split of the declared 12-col grid) with a fixed generous gutter; the visual half is a single filled block, the content half stacks text top to bottom and vertically centers against the row's height.",
+      "presentation": "Maps directly to a two-zone slide master — this is the shape the archetype is named for: a visual anchor fills roughly 60% of the slide, bleeding to one edge; a text block (headline, one supporting line, one CTA) occupies the remaining 40%, never centered over the visual.",
+      "print": "Facing-page spread — the visual half becomes a full-bleed recto or verso page, the text half becomes the facing page's inner column at the same width ratio, margin-anchored to the gutter; never printed as one centered page.",
+      "markdown": "Degrades to an H1 plus a short dek paragraph, followed by a horizontal rule — markdown can't express side-by-side dominance, so the asymmetry has to be re-earned by giving the headline the only H1 on the page and keeping the dek to one sentence."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "The 60/40 ratio is asserted in CSS (grid-template-columns: 3fr 2fr) and never drifts toward 50/50 or centers either half, regardless of how much copy the text half holds. The card/list variant's supporting list is a plain hairline-separated stack sized by actual copy length, not a card grid — and the content half never carries more than one number, always inside a sentence, so it can't collapse into a KPI-tile dashboard opener."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The visual half's image is replaced by a single oversized typographic statement that fills the same zone at the same dominant proportion — the ratio doesn't change just because there's no photograph. The content half keeps its normal shape: eyebrow, headline, one-sentence dek, and a CTA that reads as 'keep reading' rather than 'buy now'.",
+        "bestFor": "Personal essays and op-ed openers, long-form journalism cover spreads, an editorial newsletter's masthead page — content where a single strong sentence can stand in for a photograph.",
+        "avoid": "Don't shrink the visual zone to make room for more text. If there's enough copy to need the width back, this is the wrong archetype — reach for magazine-well or two-column-academic instead."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The visual half becomes the single largest captioned exhibit on the page — a chart or map, never a decorative photo standing in for one. The content half leads with the finding as a headline sentence, then two or three short supporting readouts as a plain hairline-separated list, each one line, never a stat tile.",
+        "bestFor": "Investor one-pagers, a single-finding executive summary cover, a research announcement page — anywhere one result needs to lead and everything else is secondary.",
+        "avoid": "Don't turn the content half into a column of KPI tiles. A split-hero content zone carries at most one number, and it stays inside a sentence — a bare stat is the dashboard-trope tell, not this archetype."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "The visual half stays the flagship product or item image. The content half's list of options stays a plain vertically-stacked list with hairline rules between entries, sized by the actual copy length — not a second grid of boxes competing with the split itself.",
+        "bestFor": "Product launch pages with two or three SKU variants, a pricing page introducing 2-3 tiers under one hero, a single-release changelog cover.",
+        "avoid": "Don't rebalance toward 50/50 to fit more list items, and don't wrap each entry in its own card. Both erase the asymmetry that reads as 'one flagship, some supporting options' instead of a catalogue grid."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "meridian-capital", "why": "Its own hero already leans on one dominant visual move — a skewed gold accent panel plus overlapping metric cards against a champagne gradient mesh — the same 'one zone commands, everything supports' logic this archetype makes explicit; the palette gives the visual half real presence without needing a photograph." },
+      { "theme": "neon-foundry", "why": "Built around a single commanding hero block (left accent bar, orange glow, dark grid canvas) that reads immediately as a product-launch visual anchor — its high-contrast glow gives the content half's CTA genuine weight rather than decoration." },
+      { "theme": "embassy-gold", "why": "A restrained navy hero field with a gold top-rule and Cormorant display type reads as institutional cover-page authority, suited to a content half that persuades through type alone while the visual half stays a disciplined solid field rather than photography." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 48px;
+      --lf-max-width: 1280px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 40px; --lf-space-8: 64px;
+      /* theme-overridable — these are exactly what a theme-factory preset would set via apply mode */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      /* full theme-token set — only the visual half (the "lead") ever gets surface/shadow/gradient;
+         the content half and its supporting list stay bare regardless of theme, per this archetype's
+         own structural rule. Quote/emphasis tokens are pulled from each theme's OWN pull-quote and
+         "alt card" component convention (see skills/theme-factory/themes/<name>.html). */
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body): CSS custom properties
+       cascade to descendants of whichever element they're set on, so scoping here instead of on
+       body keeps the layout-factory chrome above (meta bar, specs, tabs, captions) neutral. The
+       stage itself gets explicit color/font/background declarations below so its descendants
+       correctly re-inherit from this scope rather than leaking the page's neutral defaults. */
+    .lf-variant-stage.theme-meridian-capital {
+      --lf-ink: #1A1E2E; --lf-ink-muted: #6A6452; --lf-paper: #F4EDD8;
+      --lf-line: #C8BEA0; --lf-region-outline: #C8BEA0; --lf-accent: #1A4BCC;
+      --lf-font-body: 'Libre Franklin', 'Helvetica Neue', sans-serif; --lf-font-display: 'Cormorant Garamond', Georgia, serif;
+      --lf-font-mono: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.7; --lf-card-radius: 8px;
+      --lf-bg-image: radial-gradient(ellipse at 15% 25%, rgba(26,75,204,0.12) 0%, transparent 45%), radial-gradient(ellipse at 85% 15%, rgba(212,160,32,0.15) 0%, transparent 45%), radial-gradient(ellipse at 65% 80%, rgba(232,92,106,0.09) 0%, transparent 40%);
+      --lf-bg-size: cover; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      /* meridian-capital: real shadow.lg + its actual hero gradient — this is the theme's richest
+         option and the visual half is the one place that weight belongs */
+      --lf-surface: #EDE4CC;
+      --lf-shadow-hero: 0 8px 40px rgba(26,30,46,0.16);
+      --lf-gradient-hero: linear-gradient(135deg, #F0E5C8 0%, #F4EDD8 50%, #EDE4CC 100%);
+      --lf-border-width: 1px;
+      /* pulled from meridian-capital's own .glow-demo (its pull-quote-equivalent effect tile):
+         hairline border, gold text — not its blue "primary" CTA color, which stays reserved for
+         --lf-accent/the button. Emphasis list entry echoes its alt "Alpha Overlay" card, which
+         shifts toward primary blue rather than a top-rule. */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: #D4A020;
+      --lf-quote-text-color: #D4A020;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #1A4BCC;
+    }
+    .lf-variant-stage.theme-neon-foundry {
+      --lf-ink: #D8DCE8; --lf-ink-muted: #6A7088; --lf-paper: #0E1014;
+      --lf-line: #2A2E3A; --lf-region-outline: #2A2E3A; --lf-accent: #FF6B35;
+      --lf-font-body: 'Barlow', 'Helvetica Neue', sans-serif; --lf-font-display: 'Bebas Neue', 'Impact', sans-serif;
+      --lf-font-mono: 'Share Tech Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.6; --lf-card-radius: 3px;
+      --lf-bg-image: linear-gradient(rgba(255,107,53,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,53,0.03) 1px, transparent 1px);
+      --lf-bg-size: 32px 32px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* neon-foundry: real shadow.lg (dark elevation + faint orange ring) + its actual hero gradient */
+      --lf-surface: #161820;
+      --lf-shadow-hero: 0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,107,53,0.15);
+      --lf-gradient-hero: linear-gradient(160deg, #1C1F28 0%, #0E1014 50%, #12100E 100%);
+      --lf-border-width: 1px;
+      /* pulled from neon-foundry's own .tf-glow-demo (hairline orange border, orange glow, orange
+         text) — every .tf-card in this theme shares the same primary-orange top border, so the
+         emphasis entry reuses that same orange rather than inventing a second accent */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: #FF6B35;
+      --lf-quote-text-color: #FF6B35;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #FF6B35;
+    }
+    .lf-variant-stage.theme-embassy-gold {
+      --lf-ink: #1A1C24; --lf-ink-muted: #6A6458; --lf-paper: #F0EBE0;
+      --lf-line: #C8BEA8; --lf-region-outline: #C8BEA8; --lf-accent: #1E3A5F;
+      --lf-font-body: 'Libre Franklin', 'Helvetica Neue', sans-serif; --lf-font-display: 'Cormorant Garamond', Georgia, serif;
+      --lf-font-mono: 'Cutive Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 500; --lf-line-height: 1.65; --lf-card-radius: 2px;
+      --lf-bg-image: linear-gradient(rgba(180,140,11,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(180,140,11,0.07) 1px, transparent 1px);
+      --lf-bg-size: 48px 48px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* embassy-gold: real shadow.lg + its actual hero gradient */
+      --lf-surface: #EBE4D6;
+      --lf-shadow-hero: 0 6px 24px rgba(26,28,36,0.14), 0 0 0 1px rgba(200,190,168,0.7);
+      --lf-gradient-hero: linear-gradient(135deg, #EBE4D6 0%, #F0EBE0 50%, #E8E0D0 100%);
+      --lf-border-width: 1px;
+      /* pulled directly from embassy-gold's own .tf-glow-demo — a literal left-rule quote in
+         goldenrod, and its .tf-card.gold alt variant, which swaps the top-rule to the same
+         goldenrod instead of navy. Both map cleanly onto these tokens with no adaptation needed. */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: #B8860B;
+      --lf-quote-text-color: #B8860B;
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: #B8860B;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Wayfinding bar — quiet, small, page furniture only (not a documented composition region;
+       the archetype has exactly two regions, lead and body) */
+    .lf-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* The split itself — a fixed 3fr/2fr (~60/40) grid, never 50/50, never centered. This ratio
+       is the archetype's entire structuring device, so it is asserted directly rather than derived
+       from the 12-col grid declared in the spec above (which exists for maxWidth/margin
+       consistency with the rest of the layout-factory system, not to drive this split). */
+    .lf-split {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      align-items: center;
+      gap: var(--lf-gutter);
+      margin-bottom: var(--lf-space-8);
+    }
+
+    /* Visual half — the ONE region allowed real presence (surface fill, the theme's actual hero
+       gradient, the theme's actual shadow). The content half and its list below never receive
+       shadow-hero/gradient-hero regardless of theme — giving every element the same weight is
+       exactly the uniform-grid tell this archetype exists to avoid, and that stays true even when
+       a theme is applied. */
+    .lf-split-visual {
+      height: 480px;
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      border: 1px solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      box-shadow: var(--lf-shadow-hero);
+      display: flex;
+      align-items: center;
+      padding: var(--lf-space-6);
+    }
+    /* Text-heavy variant: the visual half holds an oversized statement instead of a photo, so the
+       hatch pattern (which reads as "image placeholder") drops out — only the theme's real hero
+       gradient remains as backdrop. */
+    .lf-split-visual.quote { background-image: var(--lf-gradient-hero); }
+    .lf-split-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin-top: var(--lf-space-2); }
+
+    /* Matches each theme's own pull-quote component (its ".tf-glow-demo"-equivalent tile) —
+       surface-adjacent, left rule sized/colored per theme, quote text colored to match when the
+       theme uses color for emphasis there. */
+    .lf-split-quote {
+      font-family: var(--lf-font-display);
+      font-size: 1.9rem;
+      font-style: italic;
+      font-weight: var(--lf-font-weight-heading);
+      line-height: 1.25;
+      color: var(--lf-quote-text-color);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      padding-left: var(--lf-space-4);
+      max-width: 20ch;
+    }
+
+    /* Content half — headline, one supporting line, one action. Never widens to fit more copy;
+       copy is trimmed to the column, not the other way around. */
+    .lf-split-content { display: flex; flex-direction: column; }
+    .lf-split-eyebrow {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--lf-accent); margin-bottom: var(--lf-space-3);
+    }
+    .lf-split-headline {
+      font-family: var(--lf-font-display);
+      font-size: 2.6rem;
+      line-height: 1.05;
+      font-weight: var(--lf-font-weight-heading);
+      letter-spacing: -0.01em;
+      max-width: 14ch;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-split-dek { font-size: 1.05rem; color: var(--lf-ink-muted); line-height: 1.5; max-width: 38ch; margin-bottom: var(--lf-space-4); }
+    .lf-split-body { max-width: 44ch; font-size: 0.95rem; margin-bottom: var(--lf-space-4); }
+    .lf-split-body p { margin-bottom: var(--lf-space-3); }
+    .lf-split-body p:last-child { margin-bottom: 0; }
+    .lf-split-cta {
+      display: inline-block;
+      width: fit-content;
+      background-color: var(--lf-accent);
+      color: var(--lf-paper);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--lf-space-3) var(--lf-space-6);
+      border-radius: var(--lf-card-radius);
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-split-proof { font-family: var(--lf-font-mono); font-size: 0.76rem; color: var(--lf-ink-muted); }
+
+    /* Card/list-heavy variant's supporting list — plain hairline-separated stack inside the
+       content half, sized by actual copy length. Never a second grid of boxes; that would compete
+       with the split itself for the "one dominant thing" role. */
+    .lf-split-list { display: flex; flex-direction: column; gap: var(--lf-space-3); margin: var(--lf-space-2) 0 var(--lf-space-4); }
+    .lf-split-list-item { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-2); }
+    /* Echoes each theme's own "alt card" convention (embassy-gold's .tf-card.gold top-rule swap,
+       neon-foundry's shared primary-orange top border, meridian-capital's shift toward primary
+       blue) — a themed left rule on the one flagship entry, never a filled box or shadow. */
+    .lf-split-list-item.emphasis { border-top: none; border-left: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); padding-left: var(--lf-space-3); padding-top: 0; }
+    .lf-split-list-item h3 { font-family: var(--lf-font-display); font-size: 1rem; font-weight: var(--lf-font-weight-heading); margin-bottom: 2px; }
+    .lf-split-list-item p { font-size: 0.84rem; color: var(--lf-ink-muted); }
+
+    /* Concept-view-only explanatory block, below the split — when not to use this archetype, its
+       structural rule, and the editorial devices it favors. Same hairline-rule-list discipline as
+       the split's own supporting list, never a card grid. */
+    .lf-split-notes-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted); border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin-bottom: var(--lf-space-4);
+    }
+    .lf-split-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--lf-space-6); }
+    .lf-split-notes-entry { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-3); }
+    .lf-split-notes-entry.emphasis { grid-column: span 2; border-top: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); }
+    .lf-split-notes-entry h3 { font-family: var(--lf-font-display); font-size: 1.15rem; font-weight: var(--lf-font-weight-heading); line-height: 1.25; margin-bottom: var(--lf-space-2); }
+    .lf-split-notes-entry p { font-size: 0.88rem; color: var(--lf-ink-muted); }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected.
+       color/font-family/line-height/background are re-declared here (not just inherited from
+       body) so that when .theme-* overrides the custom properties above, descendants that don't
+       set their own color (headlines, paragraphs) pick up the new value through normal
+       inheritance from THIS element, rather than the already-resolved neutral value from body. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View — lets the picker chrome (meta bar, specs, tabs, captions) drop away so the
+       selected variant/theme combination can be seen the way it'd actually be used, not as a
+       component in a gallery page. Fixed-position toggle stays visible in both states. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
+       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
+       with no unthemed white gap on any side. */
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">split-hero</span>
+    <span class="lf-meta-tags">split-hero &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col (60/40 split)</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">48px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1280px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">spacious</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">split-hero — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> personal essays and op-ed openers, long-form journalism cover spreads, an editorial newsletter's masthead page.<br><strong>Avoid:</strong> shrinking the visual zone to make room for more text — if there's enough copy to need the width back, this is the wrong archetype." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> investor one-pagers, a single-finding executive summary cover, a research announcement page.<br><strong>Avoid:</strong> a column of KPI tiles in the content half — a bare stat with no sentence around it is the dashboard-trope tell, not this archetype." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> product launch pages with 2-3 SKU variants, a pricing page introducing a few tiers under one hero.<br><strong>Avoid:</strong> rebalancing toward 50/50 to fit more list items, or wrapping each entry in its own card." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="meridian-capital" role="tab" aria-selected="false">meridian-capital</button>
+      <button class="lf-theme-tab" data-theme-option="neon-foundry" role="tab" aria-selected="false">neon-foundry</button>
+      <button class="lf-theme-tab" data-theme-option="embassy-gold" role="tab" aria-selected="false">embassy-gold</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>split-hero</span>
+        </div>
+        <div class="lf-split">
+          <div>
+            <div class="lf-split-visual"></div>
+            <p class="lf-split-caption">This is the "lead" region — fixed at roughly 60% width, the only zone on the page that ever carries a shadow, gradient, or photographic pattern. Scarcity of treatment, not decoration, is what reads as dominant.</p>
+          </div>
+          <div class="lf-split-content">
+            <div class="lf-split-eyebrow">The Concept</div>
+            <h1 class="lf-split-headline">One Deliberate Cut Makes the Argument</h1>
+            <p class="lf-split-dek">A split-hero page is bisected once, unevenly, and never touched again. The ratio between the two halves is fixed regardless of how much copy the text side eventually needs.</p>
+            <div class="lf-split-body">
+              <p>One half — the wider one, "lead" — carries a single image, illustration, or exhibit at full bleed. The other half, "body," carries everything that has to be read: a short headline, one line of support, and a single action. There is no third zone competing for attention.</p>
+              <p>Because the visual half is visibly larger and positioned first in reading order, it reads as dominant without needing a badge, an overline, or a color change to say so — the asymmetry itself is the entire structuring device. Landing pages, product launch pages, and the cover spread of a report or deck are the classic fits: anywhere a single visual needs to do the convincing while a short, disciplined text column closes with one action.</p>
+            </div>
+            <span class="lf-split-cta">Primary Action</span>
+            <div class="lf-split-proof">Structural rule: fixed 60/40 — never 50/50, never centered</div>
+          </div>
+        </div>
+        <div class="lf-split-notes-label">When Not to Use This Archetype</div>
+        <div class="lf-split-notes">
+          <div class="lf-split-notes-entry emphasis">
+            <h3>Content where nothing deserves single-zone dominance</h3>
+            <p>A glossary, a directory, a reference index — nothing here should be forced into a "lead." Reach for <em>card-catalogue-index</em> instead, where structure comes from alignment and rules, not a size contrast between two halves.</p>
+          </div>
+          <div class="lf-split-notes-entry">
+            <h3>The rule that keeps the split disciplined</h3>
+            <p>The ratio is fixed — roughly 60/40 — and asserted in the grid, not eyeballed. It never drifts toward 50/50 to "balance" more copy, and neither half is ever centered within its own column.</p>
+          </div>
+          <div class="lf-split-notes-entry">
+            <h3>Editorial devices this archetype favors</h3>
+            <p>An eyebrow label, a single CTA, and at most one proof-point line — restraint, not decoration. No sidebars or footnotes: a hero is a threshold to cross, not reference material to browse.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>split-hero</span>
+        </div>
+        <div class="lf-split">
+          <div>
+            <div class="lf-split-visual quote">
+              <p class="lf-split-quote">Every outage postmortem for three years pointed at the same file. Nobody had opened it since 2019.</p>
+            </div>
+          </div>
+          <div class="lf-split-content">
+            <div class="lf-split-eyebrow">Field Report</div>
+            <h1 class="lf-split-headline">The Config File Everyone Blamed and No One Opened</h1>
+            <p class="lf-split-dek">A single YAML file, hand-edited in 2019, sat behind every major incident review since — until someone finally diffed it against production.</p>
+            <span class="lf-split-cta">Read the Full Report</span>
+            <div class="lf-split-proof">14-minute read &middot; Infrastructure desk</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>split-hero</span>
+        </div>
+        <div class="lf-split">
+          <div>
+            <div class="lf-split-visual"></div>
+            <p class="lf-split-caption">Fig. 1 &mdash; Checkout completion by step, last 90 days. The visual half's exhibit is the largest and only full-scale chart on the page.</p>
+          </div>
+          <div class="lf-split-content">
+            <div class="lf-split-eyebrow">Key Finding</div>
+            <h1 class="lf-split-headline">Checkout Drops 22 Points at the Address Step</h1>
+            <p class="lf-split-dek">Not payment — the failure concentrates one step earlier, which changes where the fix has to land.</p>
+            <div class="lf-split-list">
+              <div class="lf-split-list-item">
+                <h3>Autofill failures</h3>
+                <p>38% of drop-offs on mobile Safari trace to one field silently rejecting apartment numbers.</p>
+              </div>
+              <div class="lf-split-list-item">
+                <h3>Return rate</h3>
+                <p>Users who abandon at this step come back within 48 hours only 6% of the time — a lost sale, not a delayed one.</p>
+              </div>
+            </div>
+            <span class="lf-split-cta">View Full Funnel Breakdown</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>split-hero</span>
+        </div>
+        <div class="lf-split">
+          <div>
+            <div class="lf-split-visual"></div>
+            <p class="lf-split-caption">Photographed on the Wasatch Crest Trail, elevation 9,800 ft.</p>
+          </div>
+          <div class="lf-split-content">
+            <div class="lf-split-eyebrow">New Release</div>
+            <h1 class="lf-split-headline">The Trail-40 Drops Half the Stack Height, Keeps the Rock Plate</h1>
+            <p class="lf-split-dek">Three builds off one last, so the fit doesn't change between them.</p>
+            <div class="lf-split-list">
+              <div class="lf-split-list-item emphasis">
+                <h3>Trail-40 Low</h3>
+                <p>3.4oz &middot; road-to-trail tread &middot; the build most people want</p>
+              </div>
+              <div class="lf-split-list-item">
+                <h3>Trail-40 Mid</h3>
+                <p>4.1oz &middot; ankle collar for scree fields</p>
+              </div>
+              <div class="lf-split-list-item">
+                <h3>Trail-40 Winter</h3>
+                <p>4.6oz &middot; GTX liner &middot; ships Nov 3</p>
+              </div>
+            </div>
+            <span class="lf-split-cta">Preorder &mdash; Ships Sept 14</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-meridian-capital', 'theme-neon-foundry', 'theme-embassy-gold');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

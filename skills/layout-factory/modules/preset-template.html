@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="<archetype-id>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: <name></title>
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "<name>",
+    "description": "<one-line structural description>",
+    "createdAt": "<ISO timestamp>",
+    "source": "<screenshot | html | text | archetype-request>",
+    "sourceFile": "<original path or empty string>",
+    "archetype": "<catalog id, e.g. 'swiss-international-grid'>",
+    "family": "<grid-discipline | editorial-narrative | dashboard-legitimate | data-dense-report>",
+    "composition": {
+      "summary": "<how the structure reads, 1-2 sentences>",
+      "regions": [
+        { "id": "<region-id>", "role": "<what it's for>", "columnSpan": "<e.g. 1-8>", "order": 1, "notes": "" }
+      ],
+      "hierarchy": { "primary": "<region-id>", "secondary": "<region-id>", "tertiary": "<region-id or empty>" },
+      "readingOrder": ["<region-id>", "<region-id>"],
+      "entryPoint": "<where the eye lands first, and why>",
+      "balance": "<symmetric | asymmetric-left | asymmetric-right | radial>"
+    },
+    "grid": {
+      "type": "<column | modular | baseline-only | freeform-grid-anchored>",
+      "columns": 12,
+      "gutter": "<value>",
+      "maxWidth": "<value>",
+      "marginInline": "<value>",
+      "baselineUnit": "<value>",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "<value>", "notes": "" },
+        "md": { "columns": 8, "gutter": "<value>", "notes": "" },
+        "lg": { "columns": 12, "gutter": "<value>", "notes": "" }
+      },
+      "regionSpans": { "<region-id>": "<e.g. 1 / 9>" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32, 48, 64],
+      "unit": "px",
+      "rhythm": "<e.g. 1.5x body line-height>",
+      "sectionGap": "<value>",
+      "blockGap": "<value>",
+      "inlineGap": "<value>",
+      "density": "<compact | comfortable | spacious>"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": false, "placement": "", "style": "" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": false, "style": "<endnote | sidenote | footnote>" },
+      "sectionBreaks": { "style": "<rule | whitespace | ornament | numeral>" },
+      "dropCaps": false,
+      "captions": { "style": "", "position": "" },
+      "numbering": { "sections": false, "figures": false }
+    },
+    "mediaAdaptation": {
+      "html": "<CSS Grid implementation notes>",
+      "presentation": "<how regions map to a slide master>",
+      "print": "<page size, margins, page-break rules>",
+      "markdown": "<how the composition degrades in a markdown-rendered doc>"
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": ""
+    },
+    "contentTypeVariants": {
+      "textHeavy": { "howItAdapts": "<what changes about the regions when content is prose-only>", "bestFor": "<concrete use-cases>", "avoid": "<what not to do>" },
+      "chartHeavy": { "howItAdapts": "<what changes when content is charts/tables/exhibits>", "bestFor": "<concrete use-cases>", "avoid": "<what not to do — usually: don't let this drift into a dashboard>" },
+      "cardOrListHeavy": { "howItAdapts": "<what changes when content is a set of comparable items>", "bestFor": "<concrete use-cases>", "avoid": "<what not to do — usually: don't let this drift into a uniform card grid>" }
+    },
+    "exampleThemePairings": [
+      { "theme": "<theme-factory preset name, must actually exist in skills/theme-factory/themes/>", "why": "<concrete reason this theme fits THIS archetype specifically>" }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 24px;
+      --lf-max-width: 1200px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      /* theme-overridable — full set, not just color/font. See "Implementation" note below
+         for how each var is used and the restraint rule for --lf-shadow-hero/--lf-gradient-hero. */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* .lf-variant-stage.theme-<name> { --lf-ink: ...; --lf-surface: ...; --lf-shadow-hero: ...;
+       --lf-gradient-hero: ...; --lf-border-width: ...; } — one block per exampleThemePairings
+       entry, values pulled from the real theme file, never invented. See layouts/magazine-well.html
+       for three fully worked examples. */
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* Structural info panel — grid/spacing values, not colors */
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-4);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    /* Wraps everything from the view-picker down through the stage — gives full view (below) a
+       single element to strip max-width/padding from. See layouts/magazine-well.html. */
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Grid demo — region boxes are outlined, not filled/shadowed; labels show id + span, never decorative */
+    .lf-grid {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(var(--lf-columns), 1fr);
+      gap: var(--lf-gutter);
+    }
+
+    .lf-region {
+      border: 1px dashed var(--lf-region-outline);
+      padding: var(--lf-space-4);
+      position: relative;
+      min-height: 80px;
+    }
+    .lf-region-label {
+      position: absolute;
+      top: -1px; left: -1px;
+      background: var(--lf-ink);
+      color: var(--lf-paper);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+    }
+    .lf-region-content { margin-top: var(--lf-space-4); color: var(--lf-ink-muted); font-size: 0.85rem; }
+
+    /* Editorial device demos */
+    .lf-pullquote {
+      font-size: 1.4rem;
+      font-style: italic;
+      line-height: 1.4;
+      padding: var(--lf-space-4) 0 var(--lf-space-4) var(--lf-space-4);
+      border-left: 2px solid var(--lf-ink);
+      margin: var(--lf-space-4) 0;
+    }
+    .lf-sidenote {
+      font-size: 0.78rem;
+      color: var(--lf-ink-muted);
+      border-top: 1px solid var(--lf-line);
+      padding-top: var(--lf-space-2);
+      margin-top: var(--lf-space-2);
+    }
+    .lf-caption {
+      font-size: 0.75rem;
+      color: var(--lf-ink-muted);
+      font-style: italic;
+      margin-top: var(--lf-space-2);
+    }
+    .lf-section-break {
+      border: none;
+      border-top: 1px solid var(--lf-line);
+      margin: var(--lf-space-8) 0;
+    }
+
+    /* Full View (house style, not optional) — a fixed-position toggle that hides the picker
+       chrome (meta bar, specs, both tab rows, both captions) so the selected variant/theme
+       combination can be inspected the way it'd actually be used, not as a gallery component.
+       Stays fixed-position so it remains visible in both states. See layouts/magazine-well.html
+       for the worked example. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
+       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
+       with no unthemed white gap on any side — body's own background is never theme-overridden,
+       so any residual body padding around the stage would show as a mismatched border. */
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name"><name></span>
+    <span class="lf-meta-tags"><archetype-id> &middot; <family></span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v"><N>-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v"><value></span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v"><value></span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v"><value></span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v"><compact|comfortable|spacious></span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v"><symmetric|asymmetric-left|...></span></div>
+  </div>
+
+  <div class="lf-page">
+
+  <!--
+    Structure (house style, not optional): a single-line TAB BAR first, then a single stage that
+    shows ONE full page-scale view at a time — never a static always-visible demo above the tabs,
+    and never multi-line option cards (a single-line tab row reads as "clickable" by convention;
+    a block of preview content inside a button does not). Four tabs total: "Concept" (default-
+    active) explains the archetype itself using the annotated region grid; the other three
+    ("Mostly Text", "Chart / Data-Heavy", "Card / List-Heavy") show it applied to different
+    content mixes. Clicking a tab swaps which <section class="lf-variant-page"> has the "active"
+    class (exactly one visible at a time) AND updates the one-line caption below the tab row from
+    that tab's data-caption attribute — the caption is the ONLY place bestFor/avoid copy appears;
+    the tabs carry only a short label, and stage sections carry no separate callout box (a stage
+    section repeating bestFor/avoid in its own box in addition to the caption above is duplication
+    — don't do that).
+
+    Demo content convention: copy inside every stage section must EXPLAIN the archetype through
+    the structure it's demonstrating — not fictional filler unrelated to layout-factory itself.
+    The Concept view's lead should state what the archetype's concept is, how size/position
+    contrast creates hierarchy, and what content it's best suited for (name concrete use-cases).
+    Its secondary region(s) should cover when NOT to use this archetype (name the alternative),
+    the structural rule that keeps it from degrading into a card grid, and which editorial devices
+    it favors and why. The three content-mix tabs' data-caption pulls bestFor + avoid copy from
+    the preset's own contentTypeVariants JSON field so the visible page and the data block never
+    drift apart.
+
+    See layouts/magazine-well.html for the full worked example — copy its CSS block
+    (.lf-section-title, .lf-variant-tabs, .lf-variant-tab, .lf-variant-active-caption,
+    .lf-variant-stage, .lf-variant-page, .lf-exhibit-label, .lf-lead-exhibit-full,
+    .lf-exhibit-mini-full — plus the base .lf-masthead/.lf-lead/.lf-well/.lf-pullquote classes
+    reused at full scale inside each stage section) and its end-of-body <script> (click-toggle
+    between .lf-variant-tab / .lf-variant-page pairs by data-variant-option / data-variant-page,
+    plus writing the clicked tab's data-caption into the caption element — no framework, ~15 lines).
+  -->
+  <div class="lf-section-title"><name> — select a view</div>
+
+  <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+    <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+    <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> <textHeavy.bestFor><br><strong>Avoid:</strong> <textHeavy.avoid>" role="tab" aria-selected="false">Mostly Text</button>
+    <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> <chartHeavy.bestFor><br><strong>Avoid:</strong> <chartHeavy.avoid>" role="tab" aria-selected="false">Chart / Data-Heavy</button>
+    <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> <cardOrListHeavy.bestFor><br><strong>Avoid:</strong> <cardOrListHeavy.avoid>" role="tab" aria-selected="false">Card / List-Heavy</button>
+  </div>
+  <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+  <!--
+    Theme preview (house style, not optional): a second tab row that recolors/refonts the SAME
+    structure using 2-3 real theme-factory presets, defaulting to "No theme" (the neutral tokens
+    already defined in :root). This is the composability proof — layout-factory sets structure,
+    theme-factory skins it, and switching themes must not change the grid/regions/hierarchy at all.
+
+    Picking themes: check modules/theme-pairing-log.md first — prefer an unused theme that
+    genuinely fits over reusing one that's merely adequate; only repeat a theme across presets
+    when it's a strong fit for both. Pull real values (colors/typography/spacing) from the actual
+    file at skills/theme-factory/themes/<name>.html — never invent plausible-looking hex codes.
+    After adding pairings here, add a row to theme-pairing-log.md.
+
+    Implementation: use the FULL token set, not just color/font — that's what "applying a theme
+    with full potential" means. Every existing color/font/shape/shadow CSS property in this file
+    must already be driven by the --lf-* variables declared in :root: --lf-ink, --lf-paper,
+    --lf-line, --lf-region-outline, --lf-accent, --lf-font-body, --lf-font-display, --lf-font-mono,
+    --lf-font-weight-heading, --lf-line-height, --lf-card-radius, --lf-bg-image/size/position/repeat,
+    --lf-surface, --lf-shadow-hero, --lf-gradient-hero, --lf-border-width, --lf-quote-border-width,
+    --lf-quote-border-color, --lf-quote-text-color, --lf-emphasis-border-width,
+    --lf-emphasis-border-color — if you added any new color/font/radius/shadow CSS while authoring
+    this preset, route it through a --lf-* variable now, or the theme preview will silently miss it.
+
+    Read the theme's OWN component demo markup, not just its colors JSON block — every
+    theme-factory preset's <body> shows its actual pull-quote convention (usually a ".tf-glow-demo"
+    tile in its "Gradients & Effects" section: border-left width, whether the quote TEXT itself is
+    colored or stays neutral, background tint) and its "alt card" convention (a second/third
+    .tf-card variant with a different top-border or background — this is what --lf-emphasis-border-*
+    should echo). Two colorful-looking themes may still differ: one may color its pull-quote text,
+    another may only color the border. A monochrome/restrained theme may use NO accent at all on
+    these components — that's not a gap to fill in, it's the theme's actual design intent; copy
+    that restraint into --lf-quote-border-color/--lf-quote-text-color/--lf-emphasis-border-color
+    (point them at --lf-line/--lf-ink-muted instead of --lf-accent) rather than forcing color onto
+    a theme that deliberately avoids it. Pull --lf-shadow-hero and --lf-gradient-hero from the
+    theme's ACTUAL shadows.md/gradients.card|hero values (falling back to 'none' for themes that
+    genuinely don't define one — don't invent a gradient a theme doesn't have). --lf-border-width
+    should reflect the theme's design.borderStyle (bold→2px, subtle/hairline→1px).
+
+    Restraint rule: --lf-shadow-hero and --lf-gradient-hero apply ONLY to the single dominant
+    visual element this archetype treats as its "hero" (magazine-well's lead image/exhibit;
+    other archetypes will have their own equivalent — a poster's headline block, a dashboard's
+    primary chart). Repeated/secondary elements (well entries, river items, rail content) get
+    --lf-surface for tonal consistency but NEVER --lf-shadow-hero — giving every visual the same
+    weight is the uniform-grid anti-pattern this skill exists to prevent, and that stays true
+    even when a theme is applied. Do not invent a --lf-warn-style token for chrome elements
+    (captions, tab labels, section titles) — anything outside .lf-variant-stage never receives
+    theme overrides by design (see scoping rule below), so theming chrome text is a no-op at best
+    and a broken-looking one-off color at worst.
+
+    CRITICAL scoping rule: theme overrides go on `.lf-variant-stage.theme-<name>`, NEVER on
+    `body.theme-<name>`. CSS custom properties cascade to descendants of whatever element they're
+    set on — scoping to body would leak into the neutral chrome (meta bar, specs, section titles,
+    both tab rows, captions) above the stage. `.lf-variant-stage` itself must carry explicit
+    `color` / `font-family` / `line-height` / `background-*` declarations (not just inherit from
+    body) so descendants that don't set their own color (headlines, paragraphs) re-inherit from
+    the newly-scoped values instead of the already-resolved neutral ones from body. See
+    layouts/magazine-well.html for the full worked example of both the CSS scoping and the tab
+    markup/script below (search "theme-preview" and ".lf-theme-tab" in that file).
+  -->
+  <div class="lf-section-title"><name> — preview with a theme-factory theme</div>
+  <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+    <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+    <!-- one .lf-theme-tab per exampleThemePairings entry, data-theme-option="<theme name>" -->
+  </div>
+  <p class="lf-theme-note">Structure stays identical across all options — only color, type, and shape tokens change.</p>
+
+  <div class="lf-variant-stage">
+    <section class="lf-variant-page active" data-variant-page="concept">
+      <!--
+        Full-scale masthead + region grid (reuse .lf-grid/.lf-region from the vocabulary above,
+        or .lf-lead/.lf-well if the archetype is lead+well shaped like magazine-well) explaining
+        the concept, best-fit use cases, when NOT to use it, and its favored editorial devices.
+      -->
+    </section>
+    <section class="lf-variant-page" data-variant-page="text">
+      <!-- full-scale masthead + lead + well using textHeavy content — no callout box, bestFor/avoid live in the caption above only -->
+    </section>
+    <section class="lf-variant-page" data-variant-page="chart">
+      <!-- full-scale masthead + lead (large exhibit) + well (captioned exhibits) using chartHeavy content -->
+    </section>
+    <section class="lf-variant-page" data-variant-page="card">
+      <!-- full-scale masthead + lead (flagship item) + well (hairline-rule list) using cardOrListHeavy content -->
+    </section>
+  </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    var themeNames = [/* '<theme1>', '<theme2>', ... — must match data-theme-option values below */];
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        themeNames.forEach(function (t) { stage.classList.remove('theme-' + t); });
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

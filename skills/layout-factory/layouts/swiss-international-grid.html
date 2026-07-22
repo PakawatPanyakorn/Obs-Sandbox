@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="swiss-international-grid">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: swiss-international-grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700;900&family=Archivo:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600;700&family=Figtree:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:ital,wght@0,300;0,400;1,300&family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "swiss-international-grid",
+    "description": "A strict modular column grid where hierarchy is built entirely from scale and position — an asymmetric headline column set against grid-locked photography, never a box or a shadow.",
+    "createdAt": "2026-07-22T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "swiss-international-grid",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "Everything is poured into a twelve-column module and nothing is centered or free-floating. A quiet masthead sets the module reference, then a headline column (asymmetric, flush-left) sits beside a grid-locked image or chart occupying the remaining columns. Body copy runs in a narrower measure than the full grid could offer, and a slim margin column carries sidenotes and recurring exhibits. Importance is read off column count and type scale — never off a border, a shadow, or a centered layout.",
+      "regions": [
+        { "id": "masthead", "role": "identity + system label band, flush-left, minimal ornament", "columnSpan": "1-12", "order": 1, "notes": "Small, quiet, states the module reference (grid/gutter/date) — never competes with the lead" },
+        { "id": "lead", "role": "dominant headline + intro copy, asymmetric column placement", "columnSpan": "1-5", "order": 2, "notes": "Flush-left, ragged-right; scale alone signals importance, no box or background fill" },
+        { "id": "exhibit", "role": "grid-locked photography/chart module, recurs through the body at consistent column widths", "columnSpan": "6-12", "order": 2, "notes": "Occasional — present only when there's a genuine image or chart; a text-only page reassigns these columns to marginalia instead of inventing a placeholder" },
+        { "id": "body", "role": "running text in a narrower reading measure than the full grid, flush-left ragged-right", "columnSpan": "1-7", "order": 3, "notes": "Multi-column only when content volume genuinely requires it; the margin column (8-12) carries sidenotes and citations, never a footnote block at the page bottom" }
+      ],
+      "hierarchy": { "primary": "lead", "secondary": "exhibit", "tertiary": "body" },
+      "readingOrder": ["masthead", "lead", "exhibit", "body"],
+      "entryPoint": "The lead headline's top-left corner — flush to the same left margin and baseline as the masthead above it, so the eye enters at the grid's true origin, never at a centered or floating hero.",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "modular",
+      "columns": 12,
+      "gutter": "20px",
+      "maxWidth": "1280px",
+      "marginInline": "6vw",
+      "baselineUnit": "6px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "12px", "notes": "Lead collapses to a single column; the exhibit stacks beneath the headline at full width, still flush to the same left margin — never centered to compensate for the lost second column." },
+        "md": { "columns": 8, "gutter": "16px", "notes": "Lead headline holds columns 1-4, exhibit takes 5-8 — the asymmetric split is preserved at half scale, not abandoned." },
+        "lg": { "columns": 12, "gutter": "20px", "notes": "Full module: lead 1-5, exhibit 6-12, body 1-7 with the margin column (8-12) reserved for sidenotes and recurring exhibits." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "lead": "1 / 6", "exhibit": "6 / 13", "body": "1 / 8" }
+    },
+    "spacing": {
+      "scale": [6, 12, 18, 24, 36, 48, 72, 96],
+      "unit": "px",
+      "rhythm": "Every vertical interval is a multiple of the 6px baseline; body copy runs 1.5 line-height so its own baselines land on the grid without extra tuning.",
+      "sectionGap": "72px",
+      "blockGap": "24px",
+      "inlineGap": "20px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Set as an oversized type statement breaking the body column, always flush-left", "style": "Same sans family at roughly double body size, tight leading, a single hairline rule ABOVE it (a grid line made visible) instead of a left border — no italics, no quotation marks" },
+      "sidebars": { "used": true, "width": "One column module (columns 8-12 of 12)", "contentType": "Sidenotes, source citations, revision entries, or a single supporting figure — set in mono/caps at reduced size, aligned to the same baseline as the adjacent body text, never a boxed callout" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": true, "style": "sidenote" },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "All-caps sans/mono, numbered, flush-left to the same edge as the image itself — never centered, never italic", "position": "Directly below each grid-locked exhibit" },
+      "numbering": { "sections": true, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid on the page container: grid-template-columns: repeat(12, 1fr); every region is placed with an explicit grid-column line range (e.g. the lead headline is 1 / 6, the exhibit 6 / 13) — never fractional or auto placement, so the asymmetry is a declared span, not a leftover gap.",
+      "presentation": "Each slide repeats the same title/body/footer margin system: a fixed-position title block flush-left at the same inset on every slide, a body region beneath it holding exactly one idea, and a footer rule plus folio number at a fixed baseline — the module itself never changes slide to slide, only its content, exactly like the grid applied to a slide master.",
+      "print": "Classic modular grid: identical outer margins on every page, a running section/folio number in the same corner of every spread, and text/image blocks locked to the same column module throughout the document — no page is allowed to invent its own margin or column count.",
+      "markdown": "Degrades to strict flush-left heading hierarchy: masthead becomes a small kicker line or is omitted, the lead headline becomes an H1, the exhibit becomes an image reference with a numbered caption line, and body copy runs as plain paragraphs in reading order. The asymmetric column split can't survive markdown, so what carries over is the numbering and heading discipline, not the grid geometry itself."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "Exhibit modules are photography/chart blocks that snap to declared column lines, not cards — no border-radius, shadow, or fill beyond the theme's own flat surface tone on the single dominant exhibit; module width varies only by the number of columns explicitly assigned to it, never a repeated uniform tile, and every exhibit carries a numbered caption, never a bare stat tile."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The exhibit region drops out rather than being filled with a placeholder image; the lead's asymmetric split becomes a wide headline column (1-7) against a narrow strip of grid-locked marginalia (8-12) — a revision log, a date, a single citation — so the page still reads as asymmetric even with no photography. Body copy runs in the same 1-7 column measure directly beneath.",
+        "bestFor": "Manifestos, policy briefs, technical standards, specifications — long-form prose where the grid's job is pure reading discipline, not photo layout.",
+        "avoid": "Don't center the text column to 'balance' the empty exhibit space. Flush-left, ragged-right must hold even with no image counterweight — centering breaks the module."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The exhibit becomes the dominant element, sized to its exact declared column span and paired with a numbered caption set at the same left edge as the chart itself. Supporting exhibits recur down the page at consistent, grid-snapped widths — three to a row at four columns each is typical — never resized to 'look better.'",
+        "bestFor": "Data reports, scientific figures, transit and wayfinding studies, engineering documentation — content where several exhibits must hold to one shared discipline.",
+        "avoid": "This is the variant most likely to drift into a dashboard. The discipline that prevents it: every exhibit is a numbered figure in the reading sequence with a caption and its column span declared in advance — never a floating stat tile with no module width and no interpretation."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "Comparable items run as a flush-left list within the body column, separated by a hairline rule at a fixed baseline interval, each item's number set in mono type rather than inside a shape. An item that's genuinely more significant gets a larger type scale or the full exhibit treatment, never a background fill or a shadow.",
+        "bestFor": "Spec sheets, exhibition catalogues, transit timetables, session or agenda listings — sets of comparable items that still need a strict scan order.",
+        "avoid": "Don't wrap list items in bordered or shadowed boxes to separate them. The column module and a hairline rule are the only separators; a 3-up card grid here is the exact uniform-grid anti-pattern this archetype exists to replace with real grid discipline."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "prussian-blueprint", "why": "Its entire UI chrome — leader lines, dimension ticks, callout markers, a literal three-layer grid background — is a drafting-table rendering of the same modular grid this archetype formalizes for editorial content." },
+      { "theme": "titanium-cloud", "why": "Its background is a literal fine cool-gray grid ('engineering graph paper'), and its restrained SaaS register favors structure over decoration without ever fighting the twelve-column module." },
+      { "theme": "bauhaus-konstrukt", "why": "Swiss International Style descends directly from Bauhaus/New Typography's insistence on grid, function, and primary color as structure — its red/blue/yellow triad and zero-radius geometry read as this archetype's ideological ancestor made explicit." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 20px;
+      --lf-max-width: 1280px;
+      --lf-margin-inline: 6vw;
+      --lf-baseline: 6px;
+      --lf-space-1: 6px; --lf-space-2: 12px; --lf-space-3: 18px;
+      --lf-space-4: 24px; --lf-space-6: 36px; --lf-space-8: 48px;
+      /* theme-overridable — full set. This archetype's own "no theme" default is deliberately
+         achromatic sans (grotesque, flush-left ragged-right) — it doesn't own color, so --lf-accent
+         stays pinned to ink rather than inventing a Swiss red before a theme is applied. */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --lf-font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 700;
+      --lf-line-height: 1.5;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #f2f2f2;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: var(--lf-ink);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: var(--lf-ink);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body): custom properties cascade
+       to descendants of whichever element they're set on, so scoping here keeps the layout-factory
+       chrome above (meta bar, specs, tabs, captions) neutral. Values pulled from each theme's own
+       file: skills/theme-factory/themes/<name>.html — colors/typography/shadows/gradients AND each
+       theme's own pull-quote / "alt card" convention (read from its body markup, not just its JSON
+       colors block). */
+    .lf-variant-stage.theme-prussian-blueprint {
+      --lf-ink: #FFFFFF; --lf-ink-muted: rgba(255,255,255,0.55); --lf-paper: #003153;
+      --lf-line: rgba(255,255,255,0.22); --lf-region-outline: rgba(255,255,255,0.22);
+      --lf-accent: #CC2222;
+      --lf-font-body: 'Share Tech Mono', 'Courier New', monospace;
+      --lf-font-display: 'Rajdhani', 'Arial Narrow', sans-serif;
+      --lf-font-mono: 'Share Tech Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.6; --lf-card-radius: 0px;
+      /* prussian-blueprint's own three-layer drafting grid, copied verbatim (not simplified) —
+         the theme's whole identity is this literal blueprint grid, so it's the point of the pairing */
+      --lf-bg-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cpath d='M160 0L0 0 0 160' fill='none' stroke='rgba(255,255,255,0.15)' stroke-width='1'/%3E%3Cline x1='0' y1='0' x2='6' y2='0' stroke='rgba(255,255,255,0.5)' stroke-width='1'/%3E%3Cline x1='0' y1='0' x2='0' y2='6' stroke='rgba(255,255,255,0.5)' stroke-width='1'/%3E%3Cline x1='80' y1='0' x2='80' y2='5' stroke='rgba(255,255,255,0.3)' stroke-width='0.75'/%3E%3Cline x1='0' y1='80' x2='5' y2='80' stroke='rgba(255,255,255,0.3)' stroke-width='0.75'/%3E%3Cline x1='40' y1='0' x2='40' y2='3' stroke='rgba(255,255,255,0.2)' stroke-width='0.5'/%3E%3Cline x1='120' y1='0' x2='120' y2='3' stroke='rgba(255,255,255,0.2)' stroke-width='0.5'/%3E%3Cline x1='0' y1='40' x2='3' y2='40' stroke='rgba(255,255,255,0.2)' stroke-width='0.5'/%3E%3Cline x1='0' y1='120' x2='3' y2='120' stroke='rgba(255,255,255,0.2)' stroke-width='0.5'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M40 0L0 0 0 40' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='0.5'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M8 0L0 0 0 8' fill='none' stroke='rgba(255,255,255,0.035)' stroke-width='0.5'/%3E%3C/svg%3E");
+      --lf-bg-size: 160px 160px, 40px 40px, 8px 8px;
+      --lf-bg-position: 0 0, 0 0, 0 0;
+      --lf-bg-repeat: repeat, repeat, repeat;
+      --lf-surface: #002644;
+      --lf-shadow-hero: 0 0 0 1px rgba(255,255,255,0.25), 0 8px 32px rgba(0,0,0,0.5);
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      /* pulled from prussian-blueprint's own .tf-glow-demo: border and text both stay
+         color-primary (white/ink) — the theme reserves red strictly for its "markup" actions, so
+         its actual pull-quote convention is deliberately NOT red. Faithful restraint, not a gap. */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: var(--lf-ink);
+      --lf-quote-text-color: var(--lf-ink);
+      /* its .dim-card ticks are also white/ink, not accent-colored — same restraint applied here */
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-ink);
+    }
+    .lf-variant-stage.theme-titanium-cloud {
+      --lf-ink: #111827; --lf-ink-muted: #6B7280; --lf-paper: #F6F8FA;
+      --lf-line: #D1D5DB; --lf-region-outline: #D1D5DB; --lf-accent: #2563EB;
+      --lf-font-body: 'Figtree', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Outfit', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'JetBrains Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.6; --lf-card-radius: 12px;
+      /* titanium-cloud's own fine cool-gray 32px grid — "engineering graph paper" per its own notes */
+      --lf-bg-image: linear-gradient(rgba(107,114,128,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(107,114,128,0.07) 1px, transparent 1px);
+      --lf-bg-size: 32px 32px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #ECEEF2;
+      --lf-shadow-hero: 0 10px 24px rgba(17,24,39,0.1), 0 4px 8px rgba(17,24,39,0.06);
+      --lf-gradient-hero: linear-gradient(135deg, #EDF2FF 0%, #F6F8FA 60%, #F0F4FF 100%);
+      --lf-border-width: 1px;
+      /* titanium-cloud has no literal blockquote component (it's a product page, not editorial) —
+         its closest analog is .tc-gradient-bar, a 4px accent-colored bar; text itself stays neutral
+         ink everywhere else in the theme (metric numbers are never colored), so the rule borrows
+         the bar's color, the text stays restrained to match the theme's actual convention */
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: #0891B2;
+      --lf-quote-text-color: var(--lf-ink);
+      /* its three example cards vary icon tint and status color but never border color — no themed
+         "alt card" boundary exists, so emphasis stays neutral too, just thicker */
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+    .lf-variant-stage.theme-bauhaus-konstrukt {
+      --lf-ink: #1A1A18; --lf-ink-muted: #6A6A60; --lf-paper: #F5F0E8;
+      --lf-line: #C0B8A8; --lf-region-outline: #C0B8A8; --lf-accent: #D42020;
+      --lf-font-body: 'Archivo', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'League Spartan', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 900; --lf-line-height: 1.55; --lf-card-radius: 0px;
+      --lf-bg-image: repeating-linear-gradient(45deg, rgba(26,26,24,0.04) 0, rgba(26,26,24,0.04) 2px, transparent 0, transparent 28px);
+      --lf-bg-size: 40px 40px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #EDE8DC;
+      /* bauhaus-konstrukt's own shadow-lg — hard flat offset, zero blur, matches its bold borderStyle */
+      --lf-shadow-hero: 8px 8px 0 #C0B8A8;
+      --lf-gradient-hero: none;
+      --lf-border-width: 2px;
+      /* pulled from its own .bk-display-red convention (a colored word inside the type stack) and
+         its .bk-header-bar tricolor stripe (4px) — the theme's real emphasis device is a colored
+         rule plus colored text, not a border box */
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      /* its .bk-card-bar gives each card a distinct top color (red/blue/yellow) — echoed here with
+         the theme's actual secondary blue, distinct from the quote's red, matching that multi-hue system */
+      --lf-emphasis-border-width: 4px;
+      --lf-emphasis-border-color: #1040A0;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* ── swiss-international-grid vocabulary — new archetype-specific classes, not reused
+       from magazine-well. Everything below is scaled to the SAME 12-column module the demo
+       grid uses, so region boundaries here match grid.regionSpans exactly. ── */
+
+    .lf-si-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    .lf-si-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--lf-columns), 1fr);
+      gap: var(--lf-gutter);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* Column-coordinate utilities — every region is placed by an explicit line range, matching
+       grid.regionSpans; naming reflects the column count a block owns, per this archetype's own
+       "everything has an addressable coordinate" discipline. */
+    .lf-si-c1-12 { grid-column: 1 / 13; }
+    .lf-si-c1-5  { grid-column: 1 / 6; }
+    .lf-si-c6-12 { grid-column: 6 / 13; }
+    .lf-si-c1-7  { grid-column: 1 / 8; }
+    .lf-si-c8-12 { grid-column: 8 / 13; }
+    .lf-si-c1-4  { grid-column: 1 / 5; }
+    .lf-si-c5-8  { grid-column: 5 / 9; }
+    .lf-si-c9-12 { grid-column: 9 / 13; }
+
+    .lf-si-eyebrow {
+      display: block;
+      font-family: var(--lf-font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-si-headline {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 2.3rem;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--lf-ink);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-si-dek {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--lf-ink-muted);
+      max-width: 42ch;
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-si-prose p {
+      font-size: 0.94rem;
+      line-height: var(--lf-line-height);
+      color: var(--lf-ink);
+      max-width: 60ch;
+      margin-bottom: var(--lf-space-3);
+    }
+
+    /* Exhibit — the ONE region allowed real presence (surface fill, the theme's actual hero
+       gradient/shadow if it has one). This is the archetype's dominant visual, equivalent to
+       magazine-well's lead image; recurring/secondary exhibits below get --lf-surface only,
+       never --lf-shadow-hero, per the restraint rule — same treatment for everyone is exactly
+       the uniform-grid tell this skill exists to prevent. */
+    .lf-si-exhibit-hero {
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      box-shadow: var(--lf-shadow-hero);
+      height: 280px;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-si-exhibit-mini {
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      height: 108px;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-si-caption {
+      font-family: var(--lf-font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      margin-bottom: var(--lf-space-4);
+    }
+
+    .lf-si-rule {
+      border: none;
+      border-top: var(--lf-border-width) solid var(--lf-line);
+      margin: var(--lf-space-6) 0;
+    }
+
+    /* Margin column — sidenotes, revision entries, "when not to use" notes. Rule + whitespace
+       only, never a boxed callout. */
+    .lf-si-notes-label {
+      font-family: var(--lf-font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-si-note { border-top: var(--lf-border-width) solid var(--lf-line); padding-top: var(--lf-space-2); margin-bottom: var(--lf-space-4); }
+    .lf-si-note h4 { font-family: var(--lf-font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--lf-ink); margin-bottom: var(--lf-space-1); }
+    .lf-si-note p { font-size: 0.8rem; line-height: 1.5; color: var(--lf-ink-muted); }
+    /* Echoes each theme's own emphasis convention (bauhaus's per-card color bar, titanium's accent
+       bar) — a thicker/colored top rule, never a filled box or shadow. */
+    .lf-si-note.emphasis { border-top-width: var(--lf-emphasis-border-width); border-top-color: var(--lf-emphasis-border-color); }
+
+    /* Pull statement — this archetype's editorial device in place of a pull quote: an oversized
+       type break with a hairline rule ABOVE it (a grid line made visible), not a left border and
+       not italics. Matches each theme's own pull-quote/bar convention via the same --lf-quote-*
+       tokens, applied to border-top instead of border-left. */
+    .lf-si-pullstat {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 1.55rem;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: -0.005em;
+      color: var(--lf-quote-text-color);
+      border-top: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      padding-top: var(--lf-space-3);
+      margin: var(--lf-space-4) 0;
+      max-width: 34ch;
+    }
+
+    /* Flush-left list — comparable items separated by rule + whitespace, numbers in mono type
+       instead of inside a shape. */
+    .lf-si-list-row { display: flex; gap: var(--lf-space-4); border-top: var(--lf-border-width) solid var(--lf-line); padding-top: var(--lf-space-3); margin-bottom: var(--lf-space-4); }
+    .lf-si-list-num { flex: 0 0 2.2em; padding-top: 2px; font-family: var(--lf-font-mono); font-size: 0.75rem; color: var(--lf-ink-muted); }
+    .lf-si-list-content h3 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1rem; color: var(--lf-ink); margin-bottom: var(--lf-space-1); }
+    .lf-si-list-content p { font-size: 0.85rem; color: var(--lf-ink-muted); }
+    .lf-si-list-row.emphasis { border-top-width: var(--lf-emphasis-border-width); border-top-color: var(--lf-emphasis-border-color); }
+    .lf-si-list-row.emphasis .lf-si-list-content h3 { font-size: 1.1rem; }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View — lets the picker chrome (meta bar, specs, tabs, captions) drop away so the
+       selected variant/theme combination can be seen the way it'd actually be used, not as a
+       component in a gallery page. Fixed-position toggle stays visible in both states. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
+       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
+       with no unthemed white gap on any side. */
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">swiss-international-grid</span>
+    <span class="lf-meta-tags">swiss-international-grid &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">20px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1280px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">6px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">swiss-international-grid — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> manifestos, policy briefs, technical standards &mdash; long-form prose where the grid's job is pure reading discipline.<br><strong>Avoid:</strong> centering the text column to 'balance' the empty exhibit space &mdash; flush-left must hold with no image counterweight." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> data reports, transit/wayfinding studies, engineering documentation &mdash; several exhibits held to one shared discipline.<br><strong>Avoid:</strong> a floating stat tile with no declared column span and no caption &mdash; that's the dashboard-trope anti-pattern, not this archetype." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> spec sheets, exhibition catalogues, timetables &mdash; comparable items that still need a strict scan order.<br><strong>Avoid:</strong> bordered/shadowed boxes to separate items &mdash; a 3-up card grid is the exact anti-pattern this archetype replaces." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="prussian-blueprint" role="tab" aria-selected="false">prussian-blueprint</button>
+      <button class="lf-theme-tab" data-theme-option="titanium-cloud" role="tab" aria-selected="false">titanium-cloud</button>
+      <button class="lf-theme-tab" data-theme-option="bauhaus-konstrukt" role="tab" aria-selected="false">bauhaus-konstrukt</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-si-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>swiss-international-grid &middot; 12 COL / 20 GUTTER / 6 BASELINE</span>
+        </div>
+        <div class="lf-si-grid">
+          <div class="lf-si-c1-5">
+            <span class="lf-si-eyebrow">System 01 &mdash; Cols 1&ndash;5</span>
+            <h1 class="lf-si-headline">The Grid Is the Argument</h1>
+            <p class="lf-si-dek">Hierarchy here is entirely a function of two variables: how many of the twelve columns a block is given, and where it starts. No color, box, or badge required.</p>
+            <div class="lf-si-prose">
+              <p>A headline spanning five columns at 2.3rem reads as more important than one spanning five columns at 1rem — same module, different scale. A block starting at column 1 reads before a block starting at column 6, regardless of which is visually larger. Nothing is ever centered to "balance" the page; balance comes from column math, not symmetry.</p>
+            </div>
+          </div>
+          <div class="lf-si-c6-12">
+            <div class="lf-si-exhibit-hero"></div>
+            <div class="lf-si-caption">Fig. 01 &mdash; Cols 6&ndash;12 &mdash; every image or chart is assigned a column span before anything else about it is decided. The split beside the headline is asymmetric on purpose &mdash; a centered layout has no argument to make.</div>
+          </div>
+        </div>
+
+        <div class="lf-si-rule"></div>
+
+        <div class="lf-si-grid">
+          <div class="lf-si-c1-7">
+            <div class="lf-si-prose">
+              <p><strong>Use this when</strong> content needs a citable, addressable structure: annual reports and technical documentation where every figure needs a column reference, transit and wayfinding systems, museum and exhibition signage, conference identity systems, and any brand system that has to scale from a business card to a building facade on the same underlying module.</p>
+            </div>
+            <div class="lf-si-pullstat">12 columns. One module. Zero boxes.</div>
+          </div>
+          <div class="lf-si-c8-12">
+            <div class="lf-si-notes-label">When Not to Use This Archetype</div>
+            <div class="lf-si-note emphasis">
+              <h4>Content with real emotional stakes</h4>
+              <p>A memoir, a single dominant story that needs warmth, will read as cold inside a strict module. Reach for <em>magazine-well</em> instead &mdash; its lead's size dominance carries the emotional weight this grid deliberately withholds.</p>
+            </div>
+            <div class="lf-si-note">
+              <h4>The rule that keeps it disciplined</h4>
+              <p>Nothing is placed off the twelve-line grid, not even by a few pixels to "make it look better." If a photo doesn't fit its assigned columns, the photo is cropped &mdash; the grid is never bent.</p>
+            </div>
+            <div class="lf-si-note">
+              <h4>Editorial devices it favors</h4>
+              <p>Numbered figures and sections, flush-left sidenotes in the margin column instead of page-bottom footnotes, and hairline rules used as literal grid lines made visible &mdash; never a drop cap or a centered pull quote.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-si-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>swiss-international-grid &middot; Standard 4.2</span>
+        </div>
+        <div class="lf-si-grid">
+          <div class="lf-si-c1-7">
+            <span class="lf-si-eyebrow">Standard 4.2 &mdash; Signage Hierarchy &mdash; Cols 1&ndash;7</span>
+            <h1 class="lf-si-headline">Every Sign Gets One Message, Set at One of Four Sizes</h1>
+            <p class="lf-si-dek">The station wayfinding standard doesn't allow a fifth size, a second typeface, or a color that isn't safety-yellow or ink-black. Four sizes and two colors are enough to route hundreds of thousands of daily riders if the grid never wavers.</p>
+            <div class="lf-si-prose">
+              <p>A gate sign is 240mm cap height because it must be legible from the paid-fare boundary, thirty meters out, in peripheral vision, at walking speed. A platform sign drops to 120mm because a rider standing on the platform is already stopped. A concourse directional is 80mm; a door-level line placard is 40mm. Nobody on the design team is permitted to pick a size because "it felt too small" &mdash; the size is assigned by sightline distance, calculated once, applied everywhere.</p>
+              <p>The same discipline governs color. Safety-yellow is reserved exclusively for platform-edge and emergency signage; using it anywhere else means it stops meaning "caution" the instant a rider needs it to. Every other message is set in ink-black on white, no exceptions, no seasonal campaign override.</p>
+            </div>
+          </div>
+          <div class="lf-si-c8-12">
+            <div class="lf-si-notes-label">Revision Log</div>
+            <div class="lf-si-note">
+              <h4>4.2.1</h4>
+              <p>Cap heights recalculated after the 2024 platform extension added 30m to average sightline distance.</p>
+            </div>
+            <div class="lf-si-note">
+              <h4>4.2.0</h4>
+              <p>Safety-yellow restricted to platform edge only; previously also used on service-change notices.</p>
+            </div>
+            <div class="lf-si-note">
+              <h4>4.1.3</h4>
+              <p>Door-level placard size reduced from 50mm to 40mm after a two-year legibility audit at walking speed.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lf-si-rule"></div>
+
+        <div class="lf-si-grid">
+          <div class="lf-si-c1-7">
+            <div class="lf-si-prose">
+              <p>Typeface selection follows the same logic: a single grotesque family, three weights, no italics. Ragged-right, flush-left setting was chosen specifically because justified text produces uneven word-spacing at the sizes required for peripheral legibility &mdash; a justified 240mm sign is measurably harder to scan at speed than a ragged one, so justification is disallowed system-wide, not just discouraged.</p>
+            </div>
+            <div class="lf-si-pullstat">Four sizes. Two colors. No exceptions.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-si-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>swiss-international-grid &middot; Study 07</span>
+        </div>
+        <div class="lf-si-grid">
+          <div class="lf-si-c1-5">
+            <span class="lf-si-eyebrow">Study 07 &mdash; Dwell Time &mdash; Cols 1&ndash;5</span>
+            <h1 class="lf-si-headline">Riders Read a Sign in 1.4 Seconds, Not the 4 We Designed For</h1>
+            <p class="lf-si-dek">An eye-tracking study measured how long riders actually looked at each sign type before making a wayfinding decision. Every design assumption before this study assumed at least three seconds of attention. None of them survived.</p>
+          </div>
+          <div class="lf-si-c6-12">
+            <div class="lf-si-exhibit-hero"></div>
+            <div class="lf-si-caption">Fig. 07 &mdash; Cols 6&ndash;12 &mdash; median glance duration by sign type, tracked across 12,000 platform crossings. The exhibit is sized to its assigned seven columns regardless of how the data itself would "prefer" to be shown &mdash; the module decides the frame, not the chart.</div>
+          </div>
+        </div>
+
+        <div class="lf-si-rule"></div>
+
+        <div class="lf-si-notes-label">Supporting Exhibits</div>
+        <div class="lf-si-grid">
+          <div class="lf-si-c1-4">
+            <div class="lf-si-exhibit-mini"></div>
+            <div class="lf-si-caption">Fig. 08 &mdash; Dwell by platform position</div>
+            <div class="lf-si-prose"><p>Riders near the stairs glance 0.3s longer than riders at the platform's far end &mdash; the same 0.3s the stair-adjacent sign was over-sized by.</p></div>
+          </div>
+          <div class="lf-si-c5-8">
+            <div class="lf-si-exhibit-mini"></div>
+            <div class="lf-si-caption">Fig. 09 &mdash; Accuracy by sign height</div>
+            <div class="lf-si-prose"><p>Accuracy plateaus above 120mm cap height; the extra size in the old 180mm standard bought nothing measurable.</p></div>
+          </div>
+          <div class="lf-si-c9-12">
+            <div class="lf-si-exhibit-mini"></div>
+            <div class="lf-si-caption">Fig. 10 &mdash; Peak vs. off-peak scan</div>
+            <div class="lf-si-prose"><p>Off-peak riders scan 0.6s longer &mdash; the standard is deliberately tuned to the harder, peak-crowd case.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-si-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>swiss-international-grid &middot; Catalogue</span>
+        </div>
+        <div class="lf-si-grid">
+          <div class="lf-si-c1-5">
+            <span class="lf-si-eyebrow">Sign Hardware Catalogue &mdash; Cols 1&ndash;5</span>
+            <h1 class="lf-si-headline">The Gate Sign Is the Flagship Fixture</h1>
+            <p class="lf-si-dek">Every other fixture in the catalogue is a scaled-down variant of this same panel, not a separate design.</p>
+            <div class="lf-si-prose">
+              <p>240mm cap height, single-sided alloy panel, ceiling-hung on a fixed 2.9m bracket. Every dimension on the other three fixtures below is derived from this panel's proportions, halved or quartered &mdash; never redesigned from scratch.</p>
+            </div>
+          </div>
+          <div class="lf-si-c6-12">
+            <div class="lf-si-exhibit-hero"></div>
+            <div class="lf-si-caption">Fig. 11 &mdash; Cols 6&ndash;12 &mdash; gate sign, full specification.</div>
+          </div>
+        </div>
+
+        <div class="lf-si-rule"></div>
+
+        <div class="lf-si-notes-label">Also in the Catalogue</div>
+        <div class="lf-si-grid">
+          <div class="lf-si-c1-7">
+            <div class="lf-si-list-row emphasis">
+              <span class="lf-si-list-num">02</span>
+              <div class="lf-si-list-content">
+                <h3>Platform sign</h3>
+                <p>120mm cap height, single-post mount, same alloy panel as the gate sign at half the area &mdash; the second-most-produced fixture, sized up slightly to reflect that.</p>
+              </div>
+            </div>
+            <div class="lf-si-list-row">
+              <span class="lf-si-list-num">03</span>
+              <div class="lf-si-list-content">
+                <h3>Concourse directional</h3>
+                <p>80mm cap height, wall-mounted, arrow glyph only, no line branding.</p>
+              </div>
+            </div>
+            <div class="lf-si-list-row">
+              <span class="lf-si-list-num">04</span>
+              <div class="lf-si-list-content">
+                <h3>Door-level placard</h3>
+                <p>40mm cap height, adhesive-backed, replaced on a 3-year cycle rather than cleaned in place &mdash; genuinely the smallest entry, and its listing is shorter to match, not padded to fill a grid.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-prussian-blueprint', 'theme-titanium-cloud', 'theme-bauhaus-konstrukt');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="tufte-sidenote">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: tufte-sidenote</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=IM+Fell+English:ital@0;1&family=Inconsolata:wght@300;400&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "tufte-sidenote",
+    "description": "A justified reading column paired with a permanent right-margin column: every citation, definition, and small figure lives in the exact row of the paragraph that calls for it, not floated to the nearest free space and not folded into an inline parenthetical.",
+    "createdAt": "2026-07-22T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "tufte-sidenote",
+    "family": "data-dense-report",
+    "composition": {
+      "summary": "A single wide reading column carries the argument at full sentence-level detail. A narrower column to its right is reserved entirely for sidenotes — citations, term definitions, source data, small corroborating figures — each one locked to the same horizontal row as the paragraph that cites it, so a note never drifts from the claim it supports regardless of how long the note or the paragraphs above it run.",
+      "regions": [
+        { "id": "body", "role": "primary reading column carrying the argument", "columnSpan": "1-8", "order": 1, "notes": "Full sentence-level prose, headings, the one pull quote, and the one body-width primary exhibit when content is chart-heavy" },
+        { "id": "sidenote", "role": "paragraph-anchored margin column for citations, definitions, and small figures", "columnSpan": "9-12", "order": 2, "notes": "Shares a CSS grid row with the specific paragraph it annotates — never a free-floating column of its own; empty for any paragraph that has nothing to cite" }
+      ],
+      "hierarchy": { "primary": "body", "secondary": "sidenote", "tertiary": "" },
+      "readingOrder": ["body", "sidenote"],
+      "entryPoint": "The opening paragraph in the body column, same as any prose page — the sidenote column only draws the eye when a specific reference number in the running text points to it",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "freeform-grid-anchored",
+      "columns": 12,
+      "gutter": "32px",
+      "maxWidth": "880px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Sidenote column collapses beneath the paragraph it annotates as an inline block, same reference number, no floating margin" },
+        "md": { "columns": 8, "gutter": "24px", "notes": "Margin narrows to a minimum readable width before collapsing the same way sm does" },
+        "lg": { "columns": 12, "gutter": "32px", "notes": "Full margin column; every note shares an explicit CSS grid row with its paragraph" }
+      },
+      "regionSpans": { "body": "1 / 9", "sidenote": "9 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32, 48, 64],
+      "unit": "px",
+      "rhythm": "A sidenote's top edge aligns to the top of the paragraph row it shares — enforced by a shared CSS grid row, not a separately-tracked vertical rhythm",
+      "sectionGap": "64px",
+      "blockGap": "24px",
+      "inlineGap": "32px",
+      "density": "comfortable"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Mid-argument, breaking the body column only — a quote never spans into the sidenote gutter", "style": "Small epigraph: italic display type, hairline left rule, no left-border thickness competing with a sidenote's own rule — distinguished from a citation by staying in the body column instead of the margin" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": true, "style": "sidenote" },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "identical treatment to a citation note — small, unboxed, mono reference number", "position": "inside the sidenote column, in the same row as the paragraph referencing the figure" },
+      "numbering": { "sections": true, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "Each paragraph and its note(s) are wrapped in one CSS grid container: grid-template-columns: 1fr var(--lf-sidenote-width); the note sits in column two of the SAME row as the paragraph in column one, so the row's height simply grows to fit whichever side is taller — a note can never drift into a neighboring paragraph's row.",
+      "presentation": "Poor fit. A slide has no sustained paragraph flow to anchor a note to and no reserved margin at that scale — collapse sidenotes to a short numbered endnote list on a dedicated closing slide instead of forcing them onto the slide margin.",
+      "print": "This is the archetype's native medium, unchanged from Tufte's own handouts: recto/verso margins swap so the sidenote column always falls on the outer edge of the spread; figure and section numbering can run continuously or restart per page.",
+      "markdown": "True side-margin notes don't render in flat markdown. Degrade to inline footnote-style asides: a [^1]-style reference marker in the paragraph, with the note text collected as a numbered list at the end of the section — never as a parenthetical aside inline in the sentence, which is the exact anti-pattern this archetype replaces."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "The sidenote column is not a generic sidebar or nav rail — it carries no navigation or filters, only paragraph-anchored citations, definitions, and small figures, so the anti-pattern table's 'sidebar bolted onto a document' tell does not apply. Notes are present only where a paragraph actually cites something; several rows in every variant below deliberately carry an empty margin, since forcing a note onto every paragraph to fill the column would turn citation into decoration."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "Most paragraphs carry zero or one sidenote; a handful carry two stacked notes separated by a hairline rule. Notes stay to one to three sentences so they never outgrow the row they're anchored to.",
+        "bestFor": "Research writeups, technical explainers with citations, annotated specs, close-reading essays.",
+        "avoid": "Don't attach a note to every paragraph out of habit — an unused margin for several consecutive rows is expected; forcing a note onto every row to 'fill' the column turns citation into decoration."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The body column keeps the one primary, body-width exhibit that carries the article's main finding. The margin hosts small supporting figures instead — a corroborating series, a source citation for the main chart's data, a methodology note — never a shrunk copy of the main chart itself.",
+        "bestFor": "Technical reports that build an argument in the body while carrying methodology notes, data-source citations, and secondary corroborating series in the margin.",
+        "avoid": "Don't move the primary chart into the sidenote column just because there's a slot free there — a body-width exhibit demoted to margin width becomes illegible and reads as an afterthought instead of the finding it is."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "Comparable items become short numbered entries in the body column. Each entry's sidenote carries its source, benchmark, or one-line spec instead of a rating badge or tag row.",
+        "bestFor": "Annotated bibliographies, spec comparisons with sourced claims, review write-ups that cite an external benchmark per item.",
+        "avoid": "Don't turn the sidenote column into a second set of mini-cards running parallel to the body list — that recreates a two-column card grid wearing a margin-note costume. Keep notes as plain, unboxed text."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "vellum-codex", "why": "Illuminated manuscripts are the historical ancestor of the margin note — scribes annotated scripture in exactly this reserved margin. The theme's antiquarian register and IM Fell English body face read as scholarly apparatus, not decoration." },
+      { "theme": "darkroom-safelight", "why": "Its frame-number, contact-sheet motif and chemical monospace notation already read as lab-notebook annotation — a natural register for a margin carrying methodology notes and source citations on technical work." },
+      { "theme": "argent-vigil", "why": "Its own type sample names 'marginalia, footnotes, the scribe's quiet hand' for small muted text outright — a heraldic-archive voice suited to citation-dense historical or technical writeups." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 32px;
+      --lf-max-width: 880px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      /* archetype-specific structural token — not part of the theme override contract, same status
+         as --lf-max-width/--lf-gutter above: layout dimension, not color/font/shadow */
+      --lf-sidenote-width: 220px;
+      /* theme-overridable — full set, matches modules/preset-template.html */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body), see CRITICAL scoping note
+       in modules/preset-template.html. Values pulled from the real theme file's own colors AND its
+       own component markup (glow-demo / alt-card conventions), never invented. */
+    .lf-variant-stage.theme-vellum-codex {
+      --lf-ink: #1E1808; --lf-ink-muted: #8A7850; --lf-paper: #F4EDD8;
+      --lf-line: #C8B888; --lf-region-outline: #C8B888; --lf-accent: #D4A800;
+      --lf-font-body: 'IM Fell English', Georgia, serif; --lf-font-display: 'Uncial Antiqua', Georgia, serif;
+      --lf-font-mono: 'Inconsolata', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.8; --lf-card-radius: 3px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      --lf-bg-size: 256px 256px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #EDE4C8;
+      --lf-shadow-hero: 0 3px 14px rgba(30,24,8,0.18);
+      --lf-gradient-hero: linear-gradient(135deg, #EDE4C8 0%, #F4EDD8 50%, #EAE0C8 100%);
+      --lf-border-width: 1px;
+      /* vellum-codex has no boxed pull-quote demo — its closest analog is the drop-cap first
+         letter and the "❧" section-title ornament, both gold-accented while the surrounding body
+         text stays plain ink. Same restraint carried here: border gold, text stays ink. */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      /* echoes its accent-tinted badge (.vc-badge-accent: gold border + gold text) as the closest
+         "alt" treatment the theme actually uses */
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+    .lf-variant-stage.theme-darkroom-safelight {
+      --lf-ink: #D4CCC0; --lf-ink-muted: #7A4848; --lf-paper: #160404;
+      --lf-line: #3A1010; --lf-region-outline: #3A1010; --lf-accent: #B87722;
+      --lf-font-body: 'IBM Plex Mono', 'Courier New', monospace; --lf-font-display: 'DM Serif Display', Georgia, serif;
+      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.6; --lf-card-radius: 0px;
+      --lf-bg-image: none; --lf-bg-size: auto; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      --lf-surface: #220808;
+      /* its own .tf-glow-demo box-shadow is shadows.colored, not a gradient — gradients.hero is
+         literally "none" in this theme, so no invented gradient here either */
+      --lf-shadow-hero: 0 0 12px rgba(139,32,32,0.4);
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      /* .tf-glow-demo's real text color is var(--color-secondary) (#8B2020), not its nominal
+         "accent" field — read from the component itself, not the colors JSON block */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: var(--lf-line);
+      --lf-quote-text-color: #8B2020;
+      /* its "Alt Surface" contact-frame only swaps background, never border color — restraint
+         carried through here rather than forcing an accent border the theme doesn't use */
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+    .lf-variant-stage.theme-argent-vigil {
+      --lf-ink: #e6e9ee; --lf-ink-muted: #8a929f; --lf-paper: #14161b;
+      --lf-line: #353c47; --lf-region-outline: #353c47; --lf-accent: #c9a24b;
+      --lf-font-body: 'EB Garamond', Georgia, serif; --lf-font-display: 'Cinzel', 'Trajan Pro', Georgia, serif;
+      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.7; --lf-card-radius: 3px;
+      --lf-bg-image: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(182,191,204,0.035) 15px, rgba(182,191,204,0.035) 16px), repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(182,191,204,0.035) 15px, rgba(182,191,204,0.035) 16px);
+      --lf-bg-size: 32px 32px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #1c1f27;
+      /* its own .tf-header uses shadow-lg — the theme's real "hero" elevation */
+      --lf-shadow-hero: 0 10px 28px rgba(0,0,0,0.6);
+      --lf-gradient-hero: linear-gradient(135deg, #262b33 0%, #3d4553 38%, #5a6474 52%, #3a4250 66%, #22262e 100%);
+      --lf-border-width: 1.5px;
+      /* .tf-glow-demo colors its text with var(--glow-color), which equals colors.primary
+         (#b6bfcc, steel silver) — not the theme's "accent" gold, which is reserved for section
+         labels elsewhere. Read from the component, not the palette swatch. */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: var(--lf-line);
+      --lf-quote-text-color: #b6bfcc;
+      /* its alt card (the "Watchtower" tf-card) only swaps background to surfaceAlt, border
+         stays neutral — same restraint carried here */
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* ── tufte-sidenote vocabulary ──────────────────────────────────────────── */
+
+    .lf-tufte-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    .lf-tufte-title {
+      font-family: var(--lf-font-display);
+      font-size: 2.1rem;
+      line-height: 1.15;
+      font-weight: var(--lf-font-weight-heading);
+      letter-spacing: -0.01em;
+      max-width: 32ch;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-tufte-dek {
+      font-size: 1.02rem;
+      color: var(--lf-ink-muted);
+      max-width: 62ch;
+      margin-bottom: var(--lf-space-8);
+    }
+
+    .lf-tufte-subhead {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2);
+      margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    /* The defining mechanic: paragraph and note share ONE grid row. If the note is taller than
+       the paragraph (or vice versa) the row simply grows — a note can never drift into the row
+       above or below, which is what keeps it genuinely paragraph-anchored rather than just
+       floated into whatever margin space happens to be free. */
+    .lf-tufte-row {
+      display: grid;
+      grid-template-columns: 1fr var(--lf-sidenote-width);
+      column-gap: var(--lf-gutter);
+      align-items: start;
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-tufte-row-labels { margin-bottom: var(--lf-space-3); }
+    .lf-tufte-col-label {
+      font-family: var(--lf-font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--lf-ink-muted);
+      border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2);
+    }
+
+    .lf-tufte-row-body { max-width: 62ch; font-size: 1rem; }
+    .lf-tufte-row-body p { margin-bottom: var(--lf-space-3); }
+    .lf-tufte-row-body p:last-child { margin-bottom: 0; }
+    .lf-tufte-row-body h3 {
+      font-family: var(--lf-font-display);
+      font-size: 1.05rem;
+      font-weight: var(--lf-font-weight-heading);
+      margin-bottom: var(--lf-space-2);
+    }
+
+    /* Superscript reference in the running text — same color as its note's number, the only
+       "link" the two need: proximity plus a matching mark, no hover state or JS required. */
+    .lf-tufte-refnum {
+      font-family: var(--lf-font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--lf-accent);
+      margin-left: 1px;
+    }
+
+    .lf-tufte-row-note { padding-top: 0.2rem; font-size: 0.8rem; }
+    .lf-tufte-note { color: var(--lf-ink-muted); line-height: 1.55; }
+    .lf-tufte-note + .lf-tufte-note {
+      margin-top: var(--lf-space-3);
+      padding-top: var(--lf-space-2);
+      border-top: 1px solid var(--lf-line);
+    }
+    .lf-tufte-notenum {
+      font-family: var(--lf-font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--lf-accent);
+      margin-right: 5px;
+    }
+
+    /* Small margin figure — corroborating/secondary data only, never the article's main exhibit.
+       Bordered with --lf-emphasis-border-* (the "secondary visual" token) rather than
+       --lf-region-outline, which stays reserved for the one primary exhibit below. */
+    .lf-tufte-note-figure {
+      border: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 8px);
+      height: 64px;
+      margin-bottom: var(--lf-space-2);
+    }
+
+    /* The one dominant visual per page (restraint rule): only this element gets
+       --lf-shadow-hero/--lf-gradient-hero, and only the chart-heavy variant uses it at all. */
+    .lf-tufte-exhibit {
+      border: 1px solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      height: 200px;
+      margin-bottom: var(--lf-space-2);
+    }
+
+    .lf-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin-bottom: var(--lf-space-3); }
+
+    /* Pull quote gets its own row (body column only) so its sidenote slot can carry an
+       attribution/source note — quotes get cited too, just like any other claim. */
+    .lf-tufte-pullquote-row {
+      display: grid;
+      grid-template-columns: 1fr var(--lf-sidenote-width);
+      column-gap: var(--lf-gutter);
+      align-items: start;
+      margin: var(--lf-space-6) 0;
+    }
+    .lf-tufte-pullquote {
+      font-family: var(--lf-font-display);
+      font-size: 1.3rem;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--lf-quote-text-color);
+      padding: var(--lf-space-3) 0 var(--lf-space-3) var(--lf-space-4);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      max-width: 42ch;
+    }
+    .lf-tufte-pullquote-row .lf-tufte-row-note { padding-top: var(--lf-space-3); }
+
+    .lf-tufte-itemnum {
+      font-family: var(--lf-font-mono);
+      font-size: 0.85rem;
+      color: var(--lf-ink-muted);
+      margin-right: var(--lf-space-2);
+    }
+
+    .lf-section-break { border: none; border-top: 1px solid var(--lf-line); margin: var(--lf-space-8) 0; }
+
+    /* Documented in mediaAdaptation.markdown/breakpoints.sm: below the point where a margin
+       column is no longer legible, the note collapses beneath its paragraph as an inline
+       footnote-style block instead — same reference number, no floated column. */
+    @media (max-width: 720px) {
+      .lf-tufte-row, .lf-tufte-pullquote-row, .lf-tufte-row-labels {
+        grid-template-columns: 1fr;
+      }
+      .lf-tufte-row-note:not(:empty) {
+        margin-top: var(--lf-space-2);
+        padding-top: var(--lf-space-2);
+        border-top: 1px solid var(--lf-line);
+      }
+    }
+
+    /* ── view tabs / theme tabs / stage / full view (house style, copied near-verbatim) ──────── */
+
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">tufte-sidenote</span>
+    <span class="lf-meta-tags">tufte-sidenote &middot; data-dense-report</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">32px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">880px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">comfortable</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">tufte-sidenote — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> research writeups, technical explainers with citations, annotated specs, close-reading essays.<br><strong>Avoid:</strong> attaching a note to every paragraph out of habit — an unused margin for several rows is expected; forcing a note onto every row turns citation into decoration." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> technical reports building an argument in the body while carrying methodology notes, data-source citations, and corroborating series in the margin.<br><strong>Avoid:</strong> moving the primary chart into the sidenote column — a body-width exhibit demoted to margin width reads as an afterthought, not the finding it is." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> annotated bibliographies, spec comparisons with sourced claims, review write-ups that cite a benchmark per item.<br><strong>Avoid:</strong> turning the sidenote column into a second set of mini-cards parallel to the body list — keep notes as plain, unboxed text." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="vellum-codex" role="tab" aria-selected="false">vellum-codex</button>
+      <button class="lf-theme-tab" data-theme-option="darkroom-safelight" role="tab" aria-selected="false">darkroom-safelight</button>
+      <button class="lf-theme-tab" data-theme-option="argent-vigil" role="tab" aria-selected="false">argent-vigil</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-tufte-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>tufte-sidenote</span>
+        </div>
+        <h1 class="lf-tufte-title">The Margin Is Not a Sidebar — It's Where the Citation Lives</h1>
+        <p class="lf-tufte-dek">The concept: reserve a permanent right-margin column, then lock every note to the exact row of the paragraph that needs it. Proximity does the work a footnote number and a trip to page 40 used to do.</p>
+
+        <div class="lf-tufte-row lf-tufte-row-labels">
+          <div class="lf-tufte-col-label">Body — reading column</div>
+          <div class="lf-tufte-col-label">Sidenote — margin column</div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>Tufte-sidenote reserves a column in the right margin for citations, definitions, and small figures — not a sidebar of related links, but an extension of the paragraph that's making the claim.<sup class="lf-tufte-refnum">1</sup> Every note sits in the same horizontal band as the sentence that needs it, so proof and assertion are never more than a glance apart.</p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">1</span>Edward Tufte, <em>Visual Explanations</em> (Graphics Press, 1997), and the handout format he developed for statistics courses at Yale — the direct ancestor of this archetype's column.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>The mechanic that makes this work is structural, not decorative: a paragraph and its note occupy the same CSS grid row.<sup class="lf-tufte-refnum">2</sup> If the note runs long, the row simply grows to fit it and everything below shifts down together — a note can never drift into a neighboring paragraph's space, and it's never left stranded above or below the text it explains.</p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">2</span>This is the rule that separates a true sidenote from a floated aside: shared row, not shared column. A column-only layout lets a long note slide past the paragraph it was meant for; a shared grid row can't.</div>
+            <div class="lf-tufte-note">Multiple notes on one paragraph stack here, separated by a hairline rule — this second note exists purely to show that stacking.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-pullquote-row">
+          <blockquote class="lf-tufte-pullquote">"A citation you have to look up is a citation the reader skips. A citation an inch from the sentence gets read."</blockquote>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note">The whole case for this archetype in one line. This aside carries no reference number — a sidenote doesn't have to be numbered to earn its place in the margin, only to sit beside what it's about.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>It earns its keep on research writeups, technical explainers that build an argument from prior work, annotated specifications, and close-reading essays — anything where a claim needs a source, a term needs a definition, or a number needs a caveat, without breaking the sentence that's making the point.<sup class="lf-tufte-refnum">3</sup></p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">3</span>Best-fit content shares one trait: it makes claims that need backing, paragraph by paragraph, not just occasionally.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-subhead">When Not to Use This Archetype</div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>If the margin content is commentary or reaction rather than a citation — a reviewer's running remarks on someone else's draft — reach for <em>marginalia-annotated</em> instead; its notes are opinion, not evidence, and they read differently against the text.<sup class="lf-tufte-refnum">4</sup></p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">4</span>Citations point outward, to a source. Commentary points inward, at the text itself — different note, different archetype.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>If there's nothing to cite at all — no sources, no definitions, no figures — the reserved margin becomes dead whitespace on every single page. Use <em>single-column-editorial</em> and let the text run at full measure instead.<sup class="lf-tufte-refnum">5</sup></p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">5</span>An empty margin because a given paragraph has nothing to cite is normal. An empty margin because the archetype was the wrong pick for the content is the tell to watch for.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>Editorial devices this archetype favors: numbered figures and sections, so a note can reference "Fig. 3" unambiguously; hairline rules rather than boxes to separate stacked notes under one paragraph; and no drop caps or decorative openers — anything that competes with the citation apparatus for attention works against the archetype's whole purpose.</p>
+          </div>
+          <div class="lf-tufte-row-note"></div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-tufte-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>tufte-sidenote</span>
+        </div>
+        <h1 class="lf-tufte-title">Idempotency Keys Need an Expiry, Not Just a Definition</h1>
+        <p class="lf-tufte-dek">A one-line definition ships in every payments API's docs. What's missing more often is the sidenote explaining why the key can't live forever.</p>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>An idempotency key lets a client safely retry a request — a payment, a webhook delivery, a queue publish — without risking a duplicate side effect if the first attempt's response never arrived.<sup class="lf-tufte-refnum">1</sup> The server remembers the key, and any retry sent with the same key returns the original result instead of repeating the action.</p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">1</span>Stripe popularized the pattern for public payment APIs in 2017; most idempotency-key implementations since are close variations on its original design.</div>
+            <div class="lf-tufte-note">Idempotent, here, means "safe to apply more than once" — the mathematical sense, not "does nothing."</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>The part teams get wrong isn't the definition — it's the expiry. A key remembered forever is a slow, permanent memory leak; a key forgotten too soon lets a legitimately delayed retry through as a fresh, un-deduplicated request.<sup class="lf-tufte-refnum">2</sup></p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">2</span>Stripe's own keys expire after 24 hours. That number isn't arbitrary — it's chosen to outlast the retry window of every client library the API ships, with margin.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>The safest expiry window is whatever the longest plausible client-side retry backoff actually is, measured, not guessed — and re-measured whenever a client SDK's retry policy changes.</p>
+          </div>
+          <div class="lf-tufte-row-note"></div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>Store the key alongside the response it produced, not just a boolean flag confirming the request happened.<sup class="lf-tufte-refnum">3</sup> A retry needs the original result back, not confirmation that the original attempt occurred.</p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">3</span>This is the detail that separates a real idempotency layer from a request-deduplication filter that merely drops duplicates and returns nothing useful to the retrying client.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-tufte-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>tufte-sidenote</span>
+        </div>
+        <h1 class="lf-tufte-title">Read-Through Caching Lifted Hit Rate 11 Points — After One TTL Fix</h1>
+        <p class="lf-tufte-dek">Twenty-one days of staging-mirrored traffic, annotated in the margin instead of a wall of appendix footnotes.</p>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <div class="lf-tufte-exhibit"></div>
+            <div class="lf-caption">Fig. 1 — Cache hit rate by day, 21-day rollout window.</div>
+            <p>Hit rate climbed from 61% to 79% over three weeks, but almost all of the gain happened in the last four days — after a one-line TTL fix, not gradually as the rollout plan assumed the read-through layer would "warm up."<sup class="lf-tufte-refnum">1</sup></p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">1</span>n = 4.2M reads/day, staging mirror of production traffic, Mar 1&ndash;21. Full query and methodology in Appendix B.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>The TTL fix mattered more than the caching layer itself: keys were expiring nine seconds after being written, a leftover default from a service that predated this cache by two years. Extending it to match the read pattern's actual staleness tolerance is what moved the number.<sup class="lf-tufte-refnum">2</sup></p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note">
+              <div class="lf-tufte-note-figure"></div>
+              <span class="lf-tufte-notenum">2</span>Fig. 2 — TTL vs. hit rate, holding traffic constant. The relationship is closer to a step function than a curve.
+            </div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <p>Origin latency during cache misses stayed flat throughout the rollout<sup class="lf-tufte-refnum">3</sup> — the read-through layer didn't shift load onto the origin the way a naive write-around cache would have, which is the secondary result worth banking for the next service that adopts this pattern.</p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note">
+              <div class="lf-tufte-note-figure"></div>
+              <span class="lf-tufte-notenum">3</span>Fig. 3 — Origin p99 latency, same 21-day window. Flat within the existing alerting threshold throughout.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-tufte-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>tufte-sidenote</span>
+        </div>
+        <h1 class="lf-tufte-title">Three Caching Libraries, Benchmarked Against the Same Workload</h1>
+        <p class="lf-tufte-dek">Each entry cites its own source in the margin — not a rating badge, not a tag row.</p>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <h3><span class="lf-tufte-itemnum">1</span>groupcache</h3>
+            <p>A peer-to-peer, no-invalidation cache from the original go-memcache lineage. Zero external dependencies; the trade-off is no way to evict a stale key early, only let it expire.<sup class="lf-tufte-refnum">1</sup></p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">1</span>Benchmarked at roughly 340k reads/sec single-node, per the maintainers' own repository benchmark suite — three years old, worth re-running before citing it as current.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <h3><span class="lf-tufte-itemnum">2</span>Ristretto</h3>
+            <p>An in-memory cache from the Dgraph team using a TinyLFU-derived admission policy, built to resist cache pollution from one-off scan traffic.<sup class="lf-tufte-refnum">2</sup></p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">2</span>TinyLFU admission is described in Einziger, Friedman &amp; Manes (2017) — the paper the library's own documentation cites for its eviction logic.</div>
+          </div>
+        </div>
+
+        <div class="lf-tufte-row">
+          <div class="lf-tufte-row-body">
+            <h3><span class="lf-tufte-itemnum">3</span>BigCache</h3>
+            <p>Sharded and GC-friendly, designed specifically to keep cache contents out of Go's garbage-collector scan path; the trade-off is coarser eviction granularity than the other two.<sup class="lf-tufte-refnum">3</sup></p>
+          </div>
+          <div class="lf-tufte-row-note">
+            <div class="lf-tufte-note"><span class="lf-tufte-notenum">3</span>Built at Allegro, a Polish e-commerce marketplace, to solve GC pause spikes at their traffic scale — documented in their own 2017 engineering blog post.</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-vellum-codex', 'theme-darkroom-safelight', 'theme-argent-vigil');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

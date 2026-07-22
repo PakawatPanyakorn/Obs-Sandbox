@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="single-column-editorial">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: single-column-editorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "single-column-editorial",
+    "description": "One constrained reading column (65-75ch), generous top/bottom margins, an optional drop cap on the opening paragraph — hierarchy comes entirely from type scale and whitespace, never from boxes or a rail.",
+    "createdAt": "2026-07-22T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "single-column-editorial",
+    "family": "editorial-narrative",
+    "composition": {
+      "summary": "A single centered measure carries everything: masthead (title, dek, byline), then the body running from a drop-capped opening paragraph through subheads, one pull quote, and an occasional section break, to the close. The page container is deliberately wider than the column so the margin has somewhere to hold an occasional sidenote, but that margin never holds anything else.",
+      "regions": [
+        { "id": "masthead", "role": "title, dek, byline — establishes voice and scope before the column begins", "columnSpan": "1", "order": 1, "notes": "Same measure as the body — the masthead is not a separate wide banner" },
+        { "id": "column", "role": "the single reading column: drop cap, prose, subheads, one pull quote, section breaks", "columnSpan": "1", "order": 2, "notes": "The only region that ever holds the argument itself" },
+        { "id": "marginnote", "role": "an occasional citation or aside, anchored to one specific paragraph, living outside the text measure", "columnSpan": "0 — outside the 1-column grid, in the page's reserved margin", "order": 3, "notes": "Optional; collapses to an in-flow note directly under its paragraph below ~1000px viewport width" }
+      ],
+      "hierarchy": { "primary": "column", "secondary": "masthead", "tertiary": "marginnote" },
+      "readingOrder": ["masthead", "column", "marginnote"],
+      "entryPoint": "The masthead headline — the only large display type on the page. Body type stays one size for the entire column, so the contrast is front-loaded once, not distributed across boxes.",
+      "balance": "symmetric"
+    },
+    "grid": {
+      "type": "baseline-only",
+      "columns": 1,
+      "gutter": "28px",
+      "maxWidth": "1100px",
+      "marginInline": "6vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 1, "gutter": "16px", "notes": "Margin sidenotes collapse to an in-flow note directly beneath their paragraph; drop cap shrinks slightly below ~420px." },
+        "md": { "columns": 1, "gutter": "20px", "notes": "Column holds its measure; sidenotes still collapse in-flow below ~1000px viewport width — there isn't reliably enough margin to hold them yet." },
+        "lg": { "columns": 1, "gutter": "28px", "notes": "Column settles at 68ch; margin sidenotes appear in the true right margin, anchored beside the paragraph they annotate." }
+      },
+      "regionSpans": { "masthead": "1 / 2", "column": "1 / 2", "marginnote": "outside the grid — positioned in the page's reserved marginInline space" }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 32, 48, 64, 96, 128],
+      "unit": "px",
+      "rhythm": "1.7x body line-height between paragraphs; a full 96px before/after every subhead and section break — margins are part of the hierarchy, not leftover space",
+      "sectionGap": "96px",
+      "blockGap": "24px",
+      "inlineGap": "8px",
+      "density": "spacious"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Mid-column, centered, at most one per 500-700 words", "style": "Centered italic serif, larger than body, bounded by a thin rule above and below — no left border, no background fill, never wider than the column" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": true, "style": "sidenote" },
+      "sectionBreaks": { "style": "ornament" },
+      "dropCaps": true,
+      "captions": { "style": "italic, small, directly under the exhibit, inside the column measure", "position": "below the exhibit, before the paragraph that interprets it" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "A centered column at max-width: 68ch. The page container itself is wider (grid.maxWidth) purely to give a margin sidenote somewhere to live: a sidenote's host paragraph gets position:relative, the sidenote itself is position:absolute at left: calc(100% + gap). Below ~1000px viewport width that collapses to position:static, an in-flow note under its paragraph with a left rule instead.",
+      "presentation": "Masthead becomes the title slide — kicker, headline, byline, nothing else. Each subhead becomes its own one-idea slide, the paragraph beneath it cut to the fewest words that carry the point. Pull quotes make excellent stand-alone quote slides. Sidenotes don't survive the medium — fold them into a closing 'notes' slide or drop them.",
+      "print": "Single column at the live page's text width; print margins already do the sidenote's job, so no special positioning trick is needed there. Drop cap and the ornament section break render natively. A sidenote can use the real page margin if the stylesheet defines one, else falls back to an endnote.",
+      "markdown": "This is markdown's native shape and needs almost no translation: H1 for the headline, an italic line for the byline, paragraphs as paragraphs, a > blockquote for the pull quote, --- for the section break. The one device with no default markdown equivalent is the margin sidenote — it degrades honestly to a parenthetical or a [^1] footnote reference, not to a broken layout."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "No boxes anywhere in this preset — the only non-neutral borders are the pull quote's top/bottom rule and the margin sidenote's left rule at narrow widths. The chart-heavy variant shows exactly one exhibit, captioned like a figure and interpreted in running prose, never a bare stat. The card/list variant keeps items as sequential subheads inside the same column measure, never a card grid, on purpose — content that's genuinely comparable and needs a real side-by-side is explicitly routed to a different archetype in the Concept view's 'When Not to Use' section."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The column is the whole page: masthead, then unbroken prose from the drop-capped opening paragraph to the close. One pull quote breaks the rhythm roughly every 500-700 words. A margin sidenote carries citations or a brief aside so footnote scaffolding never has to exist.",
+        "bestFor": "Essays, opinion pieces, long-form journalism, executive briefs, narrative research reports, internal memos meant to be read start to finish, not scanned.",
+        "avoid": "Don't break the column to insert a 'key takeaways' box or a pull-quote sidebar. If a point is worth restating, restate it in prose or promote it to a subhead — never a bordered callout competing with the column."
+      },
+      "chartHeavy": {
+        "howItAdapts": "One exhibit at a time, set at the column's own width and never wider, captioned like a numbered figure directly beneath the paragraph that introduces it. The chart illustrates an argument already being made in running text — it doesn't stand in for one.",
+        "bestFor": "Data-journalism narratives, single-finding research notes, methodology writeups where every number needs a paragraph of interpretation, not just a caption.",
+        "avoid": "Don't widen a chart past the column 'to give it room.' A finding that doesn't fit at column width is a sign it needs to be split across two paragraphs and two smaller exhibits — not stretched into a landscape figure that breaks the measure."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "A list of comparable items renders as a numbered sequence inside the same column measure — each item gets a subhead and a paragraph, never a card. Order carries meaning: items are ranked by what actually matters, not alphabetized to look neutral.",
+        "bestFor": "A ranked list essay, a chronological account of decisions, a structured FAQ, or a numbered set of findings where order and emphasis matter more than side-by-side comparison.",
+        "avoid": "If the items are genuinely parallel and meant to be compared at a glance — pricing tiers, product specs — this archetype fights the content. Forcing comparable items into sequential prose just to keep one column hides the comparison the reader actually needs; use a grid or table archetype instead."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "wisdom", "why": "Its own design notes call for 'zero ornament beyond what reason dictates' — that's this archetype's entire philosophy stated as a theme brief. Cinzel's inscriptional caps make a quiet, dignified masthead without needing a single image." },
+      { "theme": "edo-stillwater", "why": "Restrained, formal, built for stillness. Cormorant Garamond's light italic display gives the masthead a calligraphic quality, and the theme's own washi-paper texture is subtle enough to sit behind 700 words without competing with them." },
+      { "theme": "harbor-clay", "why": "The one modern-corporate register among the three proves the archetype isn't tied to a classical page. DM Serif Display's high-contrast headline plus Lora's comfortable body reads as a briefing memo or long-form report as easily as an essay." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 1;
+      --lf-gutter: 28px;
+      --lf-max-width: 1100px;
+      --lf-margin-inline: 6vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 40px; --lf-space-8: 96px;
+      /* theme-overridable — full set, matches preset-template.html and layouts/magazine-well.html */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.7;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: 48px 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (never body); see the CRITICAL scoping
+       note in preset-template.html. Values pulled from each theme's own file, including its actual
+       pull-quote component (.tf-glow-demo) and "alt card" convention, never invented. */
+    .lf-variant-stage.theme-wisdom {
+      --lf-ink: #1C1812; --lf-ink-muted: #6E5E48; --lf-paper: #F4EFE2;
+      --lf-line: #C4B59A; --lf-region-outline: #C4B59A; --lf-accent: #B8860B;
+      --lf-font-body: 'EB Garamond', Georgia, serif; --lf-font-display: 'Cinzel', 'Times New Roman', serif;
+      --lf-font-mono: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-weight-heading: 600; --lf-line-height: 1.72; --lf-card-radius: 4px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      --lf-bg-size: 300px 300px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* wisdom's own hero gradient/shadow (from its .tf-header) — used only by this archetype's single exhibit */
+      --lf-surface: #EBE4D1;
+      --lf-shadow-hero: 0 8px 32px rgba(28,24,18,0.20);
+      --lf-gradient-hero: linear-gradient(135deg, #1E3B6F 0%, #2C5298 60%, #1A3260 100%);
+      --lf-border-width: 1px;
+      /* pulled from wisdom's own .tf-glow-demo (border: 1px solid #C9A84C, text color: #B8860B) and its
+         third .tf-card's alt border-top-color (#8B4513, its secondary brown) */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: #C9A84C;
+      --lf-quote-text-color: #B8860B;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #8B4513;
+    }
+    .lf-variant-stage.theme-edo-stillwater {
+      --lf-ink: #1A2030; --lf-ink-muted: #5A6880; --lf-paper: #EAECF0;
+      --lf-line: #C4C8D4; --lf-region-outline: #C4C8D4; --lf-accent: #5A8878;
+      --lf-font-body: 'Libre Baskerville', Georgia, serif; --lf-font-display: 'Cormorant Garamond', Georgia, serif;
+      --lf-font-mono: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-weight-heading: 600; --lf-line-height: 1.72; --lf-card-radius: 2px;
+      /* edo-stillwater's own washi-kozo paper texture: laid lines 24px + chain lines 72px */
+      --lf-bg-image:
+        repeating-linear-gradient(transparent 0px, transparent 23px, rgba(90,136,120,0.16) 23px, rgba(90,136,120,0.16) 24px),
+        repeating-linear-gradient(90deg, transparent 0px, transparent 71px, rgba(90,136,120,0.08) 71px, rgba(90,136,120,0.08) 72px);
+      --lf-bg-size: auto; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #F4F5F7;
+      --lf-shadow-hero: 0 2px 12px rgba(43,79,122,0.22);
+      --lf-gradient-hero: linear-gradient(180deg, #1E3A5F 0%, #2B4F7A 50%, #3A6490 100%);
+      --lf-border-width: 1px;
+      /* pulled from edo-stillwater's own .tf-glow-demo — border stays neutral (var(--color-border)),
+         only the quote TEXT is colored (var(--color-primary)); its .tf-card.alt registration bar
+         uses the accent jade (#5A8878) */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: #C4C8D4;
+      --lf-quote-text-color: #2B4F7A;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #5A8878;
+    }
+    .lf-variant-stage.theme-harbor-clay {
+      --lf-ink: #242B38; --lf-ink-muted: #6E6A61; --lf-paper: #F5F1E9;
+      --lf-line: #D6CFC0; --lf-region-outline: #D6CFC0; --lf-accent: #BF5F49;
+      --lf-font-body: 'Lora', Georgia, serif; --lf-font-display: 'DM Serif Display', Georgia, serif;
+      --lf-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.6; --lf-card-radius: 8px;
+      --lf-bg-image: none; --lf-bg-size: auto; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* harbor-clay's own .tf-header shadow (shadow-md) and hero gradient, used only by the single exhibit */
+      --lf-surface: #ECE6DA;
+      --lf-shadow-hero: 0 4px 12px rgba(36,43,56,0.12), 0 2px 6px rgba(36,43,56,0.08);
+      --lf-gradient-hero: linear-gradient(135deg, #3B4A63 0%, #64708A 55%, #BF5F49 100%);
+      --lf-border-width: 1px;
+      /* pulled from harbor-clay's own .tf-glow-demo — border rgba(191,95,73,0.3), text var(--glow-color) #BF5F49.
+         Its .tf-card "alt" is a plain surfaceAlt swap with NO colored border at all — that restraint is
+         faithfully copied here rather than inventing an accent stripe the theme's own card doesn't use. */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: rgba(191,95,73,0.3);
+      --lf-quote-text-color: #BF5F49;
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: #D6CFC0;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* ── Archetype-specific vocabulary ──────────────────────────────────────
+       A single measure, held all the way down: the masthead and the body
+       share the exact same max-width. The only region ever wider than that
+       measure is the page itself, and the only thing allowed to live in the
+       leftover margin is a sidenote. */
+
+    .lf-view-id {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-8);
+    }
+
+    .lf-masthead-solo { max-width: 68ch; margin: 0 auto var(--lf-space-8); }
+    .lf-kicker {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-headline {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 2.5rem;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-dek {
+      font-size: 1.05rem;
+      color: var(--lf-ink-muted);
+      max-width: 56ch;
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-byline {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.78rem;
+      color: var(--lf-ink-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--lf-space-3);
+      padding-top: var(--lf-space-3);
+      border-top: var(--lf-border-width) solid var(--lf-line);
+    }
+
+    /* The column — everything below the masthead lives at this same measure */
+    .lf-column { max-width: 68ch; margin: 0 auto; font-size: 1.02rem; }
+    .lf-column p { margin-bottom: var(--lf-space-4); }
+    .lf-column p:last-child { margin-bottom: 0; }
+
+    /* Drop cap — used once, on the opening paragraph, never decoratively elsewhere */
+    .lf-dropcap {
+      float: left;
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 3.6em;
+      line-height: 0.86;
+      padding: 0.03em 0.09em 0 0;
+      color: var(--lf-ink);
+    }
+
+    /* Subheads — the only device that segments the column; still just type, no rule, no icon */
+    .lf-subhead {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 1.22rem;
+      line-height: 1.3;
+      color: var(--lf-ink);
+      margin: var(--lf-space-8) 0 var(--lf-space-3);
+    }
+
+    /* Pull quote — centered, rule above/below, never a left-border box; at most one per 500-700 words */
+    .lf-pullquote {
+      max-width: 46ch;
+      margin: var(--lf-space-8) auto;
+      text-align: center;
+      font-family: var(--lf-font-display);
+      font-style: italic;
+      font-size: 1.5rem;
+      line-height: 1.42;
+      color: var(--lf-quote-text-color);
+      padding: var(--lf-space-4) 0;
+      border-top: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      border-bottom: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+    }
+
+    /* Section break — an ornament, not a rule or a heading; a deliberate breath in the column */
+    .lf-section-break {
+      text-align: center;
+      color: var(--lf-ink-muted);
+      letter-spacing: 0.5em;
+      font-size: 0.85rem;
+      margin: var(--lf-space-8) 0;
+    }
+
+    /* Margin sidenote — anchored to ONE paragraph via a local position:relative wrapper, never the
+       whole column; this is the only content ever allowed outside the measure, and it may only be
+       a citation or a brief aside — never navigation, a related-posts widget, or an ad. */
+    .lf-with-note { position: relative; }
+    .lf-marginnote {
+      position: absolute;
+      top: 0.15em;
+      left: calc(100% + var(--lf-space-6));
+      width: 190px;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      font-style: italic;
+      color: var(--lf-ink-muted);
+    }
+    .lf-marginnote::before { content: '\2022'; margin-right: 0.4em; font-style: normal; color: var(--lf-quote-border-color); }
+    @media (max-width: 1000px) {
+      .lf-marginnote {
+        position: static;
+        width: auto;
+        margin: var(--lf-space-3) 0 var(--lf-space-4);
+        padding-left: var(--lf-space-3);
+        border-left: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color);
+      }
+      .lf-marginnote::before { display: none; }
+    }
+
+    /* The single exhibit — one at a time, at column width, never a "well" of several.
+       This is the only region allowed real presence (surface fill, theme's actual hero
+       gradient/shadow if it has one); nothing else in the column ever receives them. */
+    .lf-exhibit {
+      border: 1px solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      height: 220px;
+      margin: var(--lf-space-3) 0;
+    }
+    .lf-caption {
+      font-size: 0.75rem;
+      color: var(--lf-ink-muted);
+      font-style: italic;
+      margin-bottom: var(--lf-space-4);
+    }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View — lets the picker chrome drop away so the selected variant/theme combination can
+       be seen the way it'd actually be used, not as a component in a gallery page. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">single-column-editorial</span>
+    <span class="lf-meta-tags">single-column-editorial &middot; editorial-narrative</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">1-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">28px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1100px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">spacious</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">single-column-editorial — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> essays, briefs, narrative reports, internal memos meant to be read start to finish, not scanned.<br><strong>Avoid:</strong> inserting a 'key takeaways' box or a pull-quote sidebar — restate a point in prose or a subhead, not a bordered callout." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> data-journalism narratives, single-finding research notes — content where every number needs a paragraph of interpretation.<br><strong>Avoid:</strong> widening a chart past the column 'to give it room' — split the finding across two smaller exhibits instead." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> a ranked list essay, a chronological account of decisions — content where order and emphasis matter more than comparison.<br><strong>Avoid:</strong> genuinely parallel items meant to be compared at a glance — that's a grid or table archetype, not this one." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="wisdom" role="tab" aria-selected="false">wisdom</button>
+      <button class="lf-theme-tab" data-theme-option="edo-stillwater" role="tab" aria-selected="false">edo-stillwater</button>
+      <button class="lf-theme-tab" data-theme-option="harbor-clay" role="tab" aria-selected="false">harbor-clay</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-view-id">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>single-column-editorial</span>
+        </div>
+        <div class="lf-masthead-solo">
+          <div class="lf-kicker">Archetype Notes</div>
+          <h1 class="lf-headline">Single-Column Editorial: One Measure, Held All the Way Down</h1>
+          <p class="lf-dek">No sidebar, no grid of boxes, no competing rail — every region on this page, including the ones explaining it, sits inside the same reading measure.</p>
+          <div class="lf-byline"><span>single-column-editorial</span><span>editorial-narrative family</span></div>
+        </div>
+        <div class="lf-column">
+          <p><span class="lf-dropcap">T</span>he concept is almost embarrassingly simple: pick one column width somewhere between 65 and 75 characters, center it, and put everything &mdash; headline, byline, argument, quote, aside &mdash; inside that same measure. Hierarchy doesn't come from boxes, rails, or icon grids. It comes entirely from type scale and whitespace: a headline is bigger than a subhead, a subhead is bigger than body text, and the space above a subhead is larger than the space between two paragraphs. That's the whole toolkit, and the discipline is using nothing else.</p>
+          <p>This is markdown's native shape, which is not a coincidence &mdash; a reader scrolling a rendered <code>.md</code> file already experiences exactly this: one column, headings by size, paragraphs by gap. The archetype just names the convention and adds two devices markdown doesn't have on its own: a drop cap to mark where reading begins, and a margin sidenote for material that would otherwise force a footnote jump.</p>
+          <blockquote class="lf-pullquote">The measure is the whole argument. Widen it for one image and you've admitted the column was negotiable &mdash; and once it's negotiable, everything else in the layout starts negotiating too.</blockquote>
+          <p>Use this when a single voice is making a sustained argument and the reader is expected to move through it start to finish: essays, opinion pieces, long-form journalism, executive briefs, narrative research reports, internal memos that need to actually be read rather than skimmed.</p>
+
+          <h2 class="lf-subhead">When Not to Use This Archetype</h2>
+          <p>If the content is fundamentally a set of comparable items &mdash; pricing tiers, product specs, a roundup of five features &mdash; this archetype fights you. Forcing parallel items into sequential prose to preserve the single column hides the comparison a reader actually needs. Reach for <em>magazine-well</em> when one item deserves top billing over several supporting ones, or a grid/table archetype when every item is genuinely equal and meant to be scanned side by side.</p>
+
+          <h2 class="lf-subhead">The Structural Rule</h2>
+          <div class="lf-with-note">
+            <p>The measure is inviolate. Nothing inside the column &mdash; an image, a table, a code block, a quote &mdash; is ever allowed to exceed it; the only content permitted to live outside the column is a sidenote, and a sidenote may only be a citation or a brief aside, never navigation, a related-posts widget, or an ad. That one rule is what keeps this archetype from decaying into a generic blog-with-sidebar-ads page: the margin is reserved, not available.</p>
+            <div class="lf-marginnote">This is the same discipline print typography has enforced for centuries &mdash; a footnote lives in the margin because it's genuinely secondary, not because there was empty space to fill.</div>
+          </div>
+
+          <h2 class="lf-subhead">Editorial Devices It Favors</h2>
+          <p>Drop caps mark the start of the argument &mdash; used once, on the opening paragraph only, never decoratively elsewhere. Margin sidenotes carry citations and asides without breaking the reading flow the way a footnote's page-jump does. What this archetype deliberately avoids: callout boxes, stat tiles, and pull-quote sidebars &mdash; anything with a border and a fill competes with the column for the reader's eye, which is exactly the kind of competition a single column exists to eliminate.</p>
+          <div class="lf-section-break">&middot; &middot; &middot;</div>
+          <p>That's the entire toolkit: scale, whitespace, a drop cap, a sidenote, and a line like the one above when the argument needs a breath before continuing.</p>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-view-id">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>single-column-editorial</span>
+        </div>
+        <div class="lf-masthead-solo">
+          <div class="lf-kicker">Field Notes</div>
+          <h1 class="lf-headline">The Postmortem Nobody Wanted to Write</h1>
+          <p class="lf-dek">A single incident review, held to one page and one voice, turned out to matter more than the six-week project it was reviewing.</p>
+          <div class="lf-byline"><span>By the platform team</span><span>5 min read</span></div>
+        </div>
+        <div class="lf-column">
+          <p><span class="lf-dropcap">T</span>hree days after the outage, the postmortem draft sat untouched in a shared doc with one comment on it: "do we really need six pages for a twenty-minute blip?" The instinct to pad an incident review with charts, a timeline graphic, and a risk matrix is strong, and almost always wrong &mdash; the actual finding fit in four paragraphs, and burying it in exhibits would have guaranteed nobody read past the executive summary.</p>
+          <p>So the final version was one column, no charts: what happened, why the alert didn't fire for eleven minutes, what changed as a result. Nothing else.</p>
+          <blockquote class="lf-pullquote">We didn't need a better dashboard. We needed one paragraph that said, plainly, why the alert stayed silent &mdash; and the discipline to stop there.</blockquote>
+          <div class="lf-with-note">
+            <p>The eleven-minute gap turned out to be a permissions change made two sprints earlier, unrelated to the incident it was first blamed for.</p>
+            <div class="lf-marginnote">"Unrelated" took four days to confirm. The postmortem doesn't show that work, on purpose &mdash; a reader needs the finding, not the false leads that preceded it.</div>
+          </div>
+          <h2 class="lf-subhead">What Changed</h2>
+          <p>Two lines in an alerting config, and a new rule: no permissions change ships without a paired alert-path check. The whole review, start to finish, ran under nine hundred words &mdash; read completely, by everyone who needed to, on the day it went out.</p>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-view-id">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>single-column-editorial</span>
+        </div>
+        <div class="lf-masthead-solo">
+          <div class="lf-kicker">Quarterly Reliability Note</div>
+          <h1 class="lf-headline">Response Time Improved for Every Region Except One</h1>
+          <p class="lf-dek">The finding this piece leads with is the exception, not the average &mdash; and the column stays narrow enough that the exhibit has to earn its place.</p>
+          <div class="lf-byline"><span>Reliability engineering</span><span>one exhibit, one argument</span></div>
+        </div>
+        <div class="lf-column">
+          <p><span class="lf-dropcap">M</span>edian response time fell in four of five regions after the November rollout. The one that didn't move is the entire subject of this note, because an average that improves while one region regresses is the kind of chart that gets cited in a board deck and then contradicted by a support ticket six weeks later.</p>
+          <div class="lf-exhibit"></div>
+          <div class="lf-caption">Fig. 1 &mdash; Median response time by region, six weeks before and after rollout. Four lines fall together; the fifth (ap-south) holds flat.</div>
+          <p>ap-south holds flat because its traffic still routes through the older edge configuration &mdash; the rollout script skipped it due to a naming mismatch that had nothing to do with the change actually being tested.</p>
+          <blockquote class="lf-pullquote">A chart that shows an average improving is not the same claim as a chart that shows every region improving. This note exists because those two claims got confused in last quarter's summary.</blockquote>
+          <h2 class="lf-subhead">What the Exhibit Doesn't Show</h2>
+          <p>Fig. 1 stops at six weeks post-rollout because that's the data we're confident in; ap-south's fix ships next sprint, and the honest version of this exhibit will need a second line added, not a redrawn one.</p>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-view-id">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>single-column-editorial</span>
+        </div>
+        <div class="lf-masthead-solo">
+          <div class="lf-kicker">Migration Retrospective</div>
+          <h1 class="lf-headline">Three Decisions From the Migration, in the Order They Mattered</h1>
+          <p class="lf-dek">A ranked account, not a comparison table &mdash; order and emphasis carry the meaning here, which is exactly what this archetype is for.</p>
+          <div class="lf-byline"><span>Data platform team</span><span>three items, one column</span></div>
+        </div>
+        <div class="lf-column">
+          <p><span class="lf-dropcap">O</span>f the dozen decisions made during the database migration, three are worth writing down for the next team to do this. They're ordered by how much time they saved, not alphabetically, and the first one saved the other two from being made at three in the morning.</p>
+          <h2 class="lf-subhead">1. Freeze reads before writes, not the other way around</h2>
+          <p>The original plan froze writes first, on the assumption that stale reads were the safer failure mode. It wasn't &mdash; five services still needed to read during the freeze window, and read-your-own-writes bugs cascaded into three separate incident channels. Freezing reads first, and queuing writes instead, cost twenty extra minutes and prevented all three.</p>
+          <blockquote class="lf-pullquote">Test the rollback like you tested the migration &mdash; or you're not really rolling back, you're improvising twice.</blockquote>
+          <h2 class="lf-subhead">2. Ship the rollback script before the migration script</h2>
+          <p>Not tested and discarded &mdash; written, reviewed, and held in reserve. The team that skips this step is betting the migration works on the first try; this one didn't, on the second table, and the rollback shipped in four minutes because it already existed.</p>
+          <h2 class="lf-subhead">3. Page the engineer who wrote the schema, not the rotation</h2>
+          <p>The on-call rotation reached someone at 3 a.m. who had never seen the schema in question. The fix took ninety minutes. A direct page to the schema's author, five minutes later, would have taken twelve.</p>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    var themeNames = ['wisdom', 'edo-stillwater', 'harbor-clay'];
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        themeNames.forEach(function (t) { stage.classList.remove('theme-' + t); });
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

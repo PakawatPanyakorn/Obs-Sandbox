@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="data-dense-report-grid">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: data-dense-report-grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Poiret+One&family=Overpass:ital,wght@0,300;0,400;0,600;1,300&family=Inconsolata:wght@300;400&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "data-dense-report-grid",
+    "description": "A tight vertical stream of numbered, captioned exhibits with running commentary — every chart or table is a figure, never a floating stat tile.",
+    "createdAt": "2026-07-22T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "data-dense-report-grid",
+    "family": "data-dense-report",
+    "composition": {
+      "summary": "A tight vertical stream of numbered, captioned exhibits — figures, not floating stat tiles — each paired with a short paragraph of interpretation. There is no single dominant 'lead'; every exhibit carries equal structural weight, and the discipline of number + caption + commentary is what keeps the sequence reading as an analyst report instead of a dashboard.",
+      "regions": [
+        { "id": "masthead", "role": "identity/section label band", "columnSpan": "1-12", "order": 1, "notes": "Small, quiet, report title + series label — same restraint as any masthead in this system" },
+        { "id": "brief", "role": "opening framing paragraph — the thesis the exhibits support", "columnSpan": "1-8", "order": 2, "notes": "Narrower measure than full width; states what the exhibits collectively prove before any numbers appear" },
+        { "id": "exhibit-stream", "role": "repeating sequence of numbered/captioned exhibits with commentary", "columnSpan": "1-12", "order": 3, "notes": "4-6 exhibits down the page, each with its own figure number, caption, and a paragraph of interpretation — never a bare chart" },
+        { "id": "sidenote", "role": "citation/source note attached to one specific exhibit", "columnSpan": "3-12 (inset within the exhibit that cites it)", "order": 4, "notes": "Occasional, not persistent — appears only where a claim needs a source, not as a running rail" }
+      ],
+      "hierarchy": { "primary": "exhibit-stream", "secondary": "brief", "tertiary": "masthead" },
+      "readingOrder": ["masthead", "brief", "exhibit-stream", "sidenote"],
+      "entryPoint": "The brief's opening line states the thesis; from there the eye moves straight into Fig. 1 and reads the stream in order — unlike a lead+well shape, no single exhibit is sized to dominate the others",
+      "balance": "symmetric"
+    },
+    "grid": {
+      "type": "modular",
+      "columns": 12,
+      "gutter": "16px",
+      "maxWidth": "980px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "12px", "notes": "Full-width single column; sidenotes drop directly beneath the commentary they cite instead of sitting in a margin." },
+        "md": { "columns": 8, "gutter": "16px", "notes": "Sidenotes begin to read as an inset citation rather than full-width text; exhibit visuals cap at a comfortable reading width." },
+        "lg": { "columns": 12, "gutter": "16px", "notes": "Full report column width (980px max); sidenotes tuck into a narrow right-indent, distinguishing them from commentary without becoming a separate rail." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "brief": "1 / 9", "exhibit-stream": "1 / 13", "sidenote": "3 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32, 48, 64],
+      "unit": "px",
+      "rhythm": "Fixed sectionGap between exhibits regardless of content length — keeps the Fig. N numbering rhythm visually predictable; blockGap governs the number-visual-caption-commentary sequence within one exhibit.",
+      "sectionGap": "32px",
+      "blockGap": "16px",
+      "inlineGap": "12px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Once per report, in the brief — pulls the single sentence stating why the exhibits below matter, not decorative repetition of a figure's own caption.", "style": "Surface-tinted block carrying the theme's hero shadow/gradient — the one deliberately 'special' visual moment on a page that otherwise treats every exhibit as a peer." },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": true, "style": "sidenote" },
+      "sectionBreaks": { "style": "numeral" },
+      "dropCaps": false,
+      "captions": { "style": "mono figure number + italic one-line caption, e.g. 'FIG. 01 — Renewal rate by plan tier, trailing six quarters.'", "position": "directly below the exhibit visual, above the commentary paragraph" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "CSS block flow inside a ~980px content column; each exhibit is a self-contained unit (visual, caption, commentary, optional sidenote) stacked in normal flow. No grid is needed for the stream itself — the discipline is sequence and repetition, not columns.",
+      "presentation": "One exhibit and its commentary per slide, in the same numbered order; the figure number becomes a running kicker ('Fig. 3 of 6') so an audience can track position the way a reader would in the printed report. The brief becomes the title slide's subhead.",
+      "print": "Classic analyst-report layout: single column, exhibits never split mid-caption across a page break, sidenotes fall to the foot of the page they're cited on like a footnote, not collected as endnotes.",
+      "markdown": "Brief as an opening paragraph. Each exhibit becomes an H2 'Fig. N — Caption' followed by a table or fenced code block for the data, then a paragraph of commentary immediately after — the H2 numbering preserves the figure discipline even where the visual itself can't render."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "No exhibit is a bare number or icon+stat card — every one carries a figure number, an italic caption, and a commentary paragraph. The single pull quote (never a KPI tile) is the only element that receives the theme's hero shadow/gradient; every exhibit visual still varies in height with what it actually holds (a small table vs. a multi-series chart), never forced to a uniform box just to look tidy."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "Exhibits thin out to one or two for the whole report, each a single small inline table or a single cited statistic rather than a full chart; the brief lengthens to carry most of the argument in prose, with an exhibit used only where a number genuinely needs to be shown.",
+        "bestFor": "Policy briefs, long-form research summaries, board memos where the narrative carries more weight than the exhibits.",
+        "avoid": "Padding out text-heavy content with decorative charts that don't add information — if a paragraph says it better than a chart would, don't add the chart."
+      },
+      "chartHeavy": {
+        "howItAdapts": "This is the archetype's native mode — four to six exhibits run down the page, each numbered, captioned, and paired with two to four sentences of tight commentary; a sidenote attaches wherever a figure draws on an external source.",
+        "bestFor": "Analyst notes, quarterly business reviews, research summaries, investor letters — content organized around a sequence of findings.",
+        "avoid": "This is the variant most exposed to the dashboard-trope: a bare number or chart with no caption and no sentence of interpretation is a KPI tile, not an exhibit. The rule that prevents drift: every exhibit gets a figure number, a caption, and commentary — no exceptions, no matter how self-explanatory the chart feels."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "Comparable items (vendors, holdings, portfolio companies) become exhibits too — each gets a ranked table treated as a numbered figure with its own caption, rather than a grid of uniform cards; items that are individually unremarkable collapse into one summary exhibit instead of one card each.",
+        "bestFor": "Portfolio reviews, vendor comparisons, ranked leaderboards presented in report form.",
+        "avoid": "Giving every comparable item its own card — that's the uniform-card-grid anti-pattern with numbers stapled on. Group comparable items into one or two table-format exhibits instead."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "thermal-fade", "why": "Receipt-ledger register with a numbered TXN stamp and monospace line-item rows is structurally the same discipline as a numbered exhibit stream — it already reads as an itemized statement, an analyst-desk register distinct from any SaaS dashboard palette." },
+      { "theme": "amber-signal", "why": "Dieselpunk phosphor console with a literal transmission log and RSSI/frequency readouts reads as instrumentation for a report, not a product UI — its glowing amber figures are a natural fit for exhibit numbers and cited data points." },
+      { "theme": "cyber-terminal", "why": "Green-on-black CRT terminal with monospace type throughout is the most literal 'analyst workstation' register of the three — scanline texture and phosphor glow read as a terminal printing figures out one at a time, reinforcing the sequential stream." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 16px;
+      --lf-max-width: 980px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      /* theme-overridable — these are exactly what a theme-factory preset would set via apply mode */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      /* full theme-token set — only the single pull quote ever gets surface/shadow-hero/gradient-hero;
+         exhibits stay bare regardless of theme, per this archetype's own structural rule: every
+         exhibit is a peer, so giving one exhibit more visual weight than another would reintroduce
+         a false hierarchy this archetype doesn't have. Quote/emphasis tokens are pulled from each
+         theme's OWN colored-figure convention (see skills/theme-factory/themes/<name>.html) — not
+         every theme accents these the same way. */
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body), see scoping-rule comment
+       further down and layouts/magazine-well.html for the full rationale. Values pulled from each
+       theme's actual file: skills/theme-factory/themes/<name>.html — colors, fonts, shadows,
+       gradients and the quote/emphasis conventions all read from that theme's own component markup,
+       never invented. All three themes here read hairline borders and monospace type, so
+       --lf-border-width stays 1px across all three — variety instead comes from how boldly each
+       theme is willing to color the pull-quote (thermal-fade: border only; amber-signal: border
+       and text, two distinct hues; cyber-terminal: single glowing accent on both). None of the
+       three shows a colored alt-card border in its own markup — only a background swap — so
+       --lf-emphasis-border-color stays pointed at --lf-line for all three, faithfully, rather than
+       inventing an accent treatment none of them actually uses. */
+    .lf-variant-stage.theme-thermal-fade {
+      --lf-ink: #1A1A0A; --lf-ink-muted: #888872; --lf-paper: #FFF8EE;
+      --lf-line: #C8C0A8; --lf-region-outline: #C8C0A8; --lf-accent: #AA7700;
+      --lf-font-body: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-display: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-mono: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.5; --lf-card-radius: 2px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      --lf-bg-size: 200px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* thermal-fade: shadow-md is the only shadow this receipt-paper theme ever shows on a
+         surface ("Shadow Demo" tile); no gradient exists anywhere in the theme, so gradient-hero
+         stays none, faithfully, rather than inventing one. */
+      --lf-surface: #FFF3E0;
+      --lf-shadow-hero: 0 2px 8px rgba(100,80,40,0.16);
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      /* pulled from thermal-fade's own "Accent Ink" tile: amber used only for the numeral itself,
+         never for full sentences of body text — so the quote border gets the accent, the quote
+         text stays plain ink, matching the theme's own restraint. */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+    .lf-variant-stage.theme-amber-signal {
+      --lf-ink: #E8B840; --lf-ink-muted: #8A6020; --lf-paper: #0A0800;
+      --lf-line: #3A2C08; --lf-region-outline: #3A2C08; --lf-accent: #FF9D00;
+      --lf-font-body: 'Overpass', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Poiret One', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'Inconsolata', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.65; --lf-card-radius: 3px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      --lf-bg-size: 256px 256px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* amber-signal: its own shadow-colored + real hero gradient — "elevation: dramatic" per the
+         theme's own design notes, the most generous of the three with color and glow */
+      --lf-surface: #120E04;
+      --lf-shadow-hero: 0 0 20px rgba(255,157,0,0.5), 0 4px 16px rgba(4,3,0,0.8);
+      --lf-gradient-hero: linear-gradient(160deg, #1A1608 0%, #0A0800 55%, #080600 100%);
+      --lf-border-width: 1px;
+      /* pulled from amber-signal's own .as-card-freq/.as-gradient-text-demo: primary orange for
+         the border, bright accent amber for the numeral text itself — the theme genuinely colors
+         both layers on its own key figures, unlike thermal-fade's restraint */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: #FF9D00;
+      --lf-quote-text-color: #FFD040;
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+    .lf-variant-stage.theme-cyber-terminal {
+      --lf-ink: #00CC33; --lf-ink-muted: #008822; --lf-paper: #000900;
+      --lf-line: #004800; --lf-region-outline: #004800; --lf-accent: #00FF41;
+      --lf-font-body: 'JetBrains Mono', 'Cascadia Code', monospace;
+      --lf-font-display: 'JetBrains Mono', 'Cascadia Code', monospace;
+      --lf-font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
+      --lf-font-weight-heading: 800; --lf-line-height: 1.72; --lf-card-radius: 3px;
+      --lf-bg-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,255,65,0.025) 1px, rgba(0,255,65,0.025) 2px);
+      --lf-bg-size: 100% 4px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* cyber-terminal: shadow-colored is its own glow effect ("0 0 24px ... 0 0 0 1px #00FF41");
+         gradients.hero is explicitly "none" in the theme's own data, so gradient-hero stays none */
+      --lf-surface: #001200;
+      --lf-shadow-hero: 0 0 24px rgba(0,255,65,0.5), 0 0 0 1px #00FF41;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      /* pulled from cyber-terminal's own .tf-glow-demo: text color IS the accent green, with the
+         theme's glow shadow doing the emphasis — single-hue, unlike amber-signal's two-tone */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Masthead — quiet, small, identical restraint to any other archetype's identity band */
+    .lf-report-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* Brief — the framing paragraph before any exhibit appears. Narrower measure than the
+       exhibit stream below it (this region is capped at 62ch even though its containing region
+       spans columns 1-9), because it's meant to be read as prose, not scanned like a figure. */
+    .lf-report-brief { max-width: 62ch; margin-bottom: var(--lf-space-8); }
+    .lf-report-kicker {
+      font-family: var(--lf-font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-report-headline {
+      font-family: var(--lf-font-display);
+      font-size: 2rem;
+      line-height: 1.2;
+      font-weight: var(--lf-font-weight-heading);
+      letter-spacing: -0.005em;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-report-dek { font-size: 1.02rem; color: var(--lf-ink-muted); margin-bottom: var(--lf-space-4); }
+    .lf-report-body p { font-size: 0.95rem; margin-bottom: var(--lf-space-3); }
+    .lf-report-body p:last-child { margin-bottom: 0; }
+    .lf-report-body strong { color: var(--lf-ink); }
+
+    /* Pull quote — used ONCE per report, in the brief. This is the single element in the whole
+       archetype allowed the theme's hero shadow/gradient, exactly the way magazine-well reserves
+       that treatment for its lead image; every exhibit below stays flat/bare on purpose. */
+    .lf-pullquote {
+      background-color: var(--lf-surface);
+      background-image: var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      color: var(--lf-quote-text-color);
+      font-size: 1.25rem;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.45;
+      padding: var(--lf-space-4);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      border-radius: var(--lf-card-radius);
+      margin: var(--lf-space-4) 0;
+    }
+
+    /* Exhibit stream — the archetype's defining region. A hairline rule separates each exhibit
+       from the next instead of a card border, matching the "never a floating card" rule from the
+       archetype spec: exhibits are set apart by rhythm and the figure number, not by a box. */
+    .lf-exhibit-stream { border-top: var(--lf-border-width) solid var(--lf-ink); padding-top: var(--lf-space-2); }
+    .lf-exhibit {
+      padding: var(--lf-space-6) 0;
+      border-bottom: 1px solid var(--lf-line);
+    }
+    .lf-exhibit:last-child { border-bottom: none; padding-bottom: 0; }
+    /* Flagged modifier — reserved for an exhibit that needs the reader's caution (a "when NOT to
+       use this" warning, preliminary/restated data, a procurement call-out) — echoes each theme's
+       own alt-card convention (background swap only, no accent color), so this stays a neutral
+       inset rule, not a colored warning box. */
+    .lf-exhibit.flagged { border-left: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); padding-left: var(--lf-space-4); }
+
+    /* Figure number — the one place accent color is used repeatedly throughout the stream,
+       deliberately: this is the numbering discipline itself, made visible every single time. */
+    .lf-exhibit-number {
+      font-family: var(--lf-font-mono);
+      font-weight: 700;
+      color: var(--lf-accent);
+      letter-spacing: 0.04em;
+    }
+
+    /* Exhibit visual — abstract placeholder, never the theme's hero treatment (see .lf-pullquote
+       above). Height varies by modifier to reflect what the exhibit actually holds; forcing every
+       exhibit to the same box height regardless of content is exactly the uniform-grid tell this
+       skill exists to avoid. */
+    .lf-exhibit-visual {
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px);
+      border: 1px solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      height: 120px;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-exhibit-visual.compact { height: 80px; }
+    .lf-exhibit-visual.tall { height: 170px; }
+
+    .lf-exhibit-commentary { font-size: 0.92rem; max-width: 66ch; margin-top: var(--lf-space-2); }
+    .lf-exhibit-commentary + .lf-exhibit-commentary { margin-top: var(--lf-space-2); }
+    .lf-exhibit-commentary em { font-style: italic; color: var(--lf-ink); }
+
+    /* Shared editorial-device vocabulary — caption and sidenote, reused as documented in
+       modules/preset-template.html. Caption carries the mono figure-number span inline;
+       sidenote is the archetype's citation convention, attached directly under the exhibit
+       it sources rather than collected into a persistent rail. */
+    .lf-caption {
+      font-size: 0.8rem;
+      color: var(--lf-ink-muted);
+      font-style: italic;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-sidenote {
+      font-size: 0.75rem;
+      color: var(--lf-ink-muted);
+      font-family: var(--lf-font-mono);
+      border-top: 1px dashed var(--lf-line);
+      padding-top: var(--lf-space-2);
+      margin-top: var(--lf-space-3);
+      max-width: 60ch;
+    }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected. color/font-family/line-height/
+       background are re-declared here (not just inherited from body) so that when .theme-*
+       overrides the custom properties above, descendants that don't set their own color pick up
+       the new value through normal inheritance from THIS element. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View — lets the picker chrome drop away so the selected variant/theme combination can
+       be seen the way it'd actually be used, not as a component in a gallery page. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
+       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
+       with no unthemed white gap on any side. */
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">data-dense-report-grid</span>
+    <span class="lf-meta-tags">data-dense-report-grid &middot; data-dense-report</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">16px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">980px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">data-dense-report-grid — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> policy briefs, long-form research summaries, board memos where the narrative carries more weight than the exhibits.<br><strong>Avoid:</strong> padding out text-heavy content with decorative charts that don't add information." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> analyst notes, quarterly business reviews, research summaries, investor letters — content organized around a sequence of findings.<br><strong>Avoid:</strong> a bare number or chart with no caption and no sentence of interpretation — that's a KPI tile, not an exhibit." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> portfolio reviews, vendor comparisons, ranked leaderboards presented in report form.<br><strong>Avoid:</strong> giving every comparable item its own card — group them into one or two table-format exhibits instead." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="thermal-fade" role="tab" aria-selected="false">thermal-fade</button>
+      <button class="lf-theme-tab" data-theme-option="amber-signal" role="tab" aria-selected="false">amber-signal</button>
+      <button class="lf-theme-tab" data-theme-option="cyber-terminal" role="tab" aria-selected="false">cyber-terminal</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-report-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>data-dense-report-grid</span>
+        </div>
+        <div class="lf-report-brief">
+          <div class="lf-report-kicker">Analyst Register &middot; Not A Dashboard</div>
+          <h1 class="lf-report-headline">Every Number Earns a Figure. No Number Floats Alone.</h1>
+          <p class="lf-report-dek">The concept: a straight vertical sequence of numbered, captioned exhibits, each carrying a short paragraph of interpretation — the register of an analyst note or quarterly review, not a stat-tile dashboard.</p>
+          <div class="lf-report-body">
+            <p>There is no lead here, and no well. Structurally this archetype is a single stream: masthead, a short framing brief, then four to six exhibits running down the page in sequence, each one identical in its parts — a figure number, a one-line caption, the visual itself, and a commentary paragraph — even as their content and size vary. The exhibits are peers, not a hero-and-supporting-cast arrangement; what gives the page hierarchy is the discipline of the numbering, not a size contrast between a "top" item and everything else.</p>
+            <blockquote class="lf-pullquote">"A chart with no caption and no sentence of interpretation is a KPI tile wearing a report's clothing. Give it a number, a caption, and one sentence of what it means, or leave it out."</blockquote>
+            <p><strong>Use this when</strong> your content is a sequence of findings that need to be shown, not just argued: analyst notes, quarterly business reviews, research summaries, investor letters, board memos with supporting data. If someone might reasonably ask "which exhibit are you talking about?", this archetype is doing its job.</p>
+          </div>
+        </div>
+        <div class="lf-exhibit-stream">
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 01</span> — Anatomy of one exhibit: number, caption, visual, commentary.</div>
+            <p class="lf-exhibit-commentary">Every exhibit in this archetype carries all four parts, every time — not as a style preference, as the structural rule that keeps this from turning into a dashboard. The number is what makes an exhibit citable ("see Fig. 3") instead of just another chart floating on the page.</p>
+            <p class="lf-sidenote">Structural rule, not a style preference — see this preset's own <em>antiPatternCheck.notes</em>.</p>
+          </div>
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual compact"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 02</span> — Where this archetype earns its keep.</div>
+            <p class="lf-exhibit-commentary">Analyst notes, quarterly business reviews, research summaries, investor letters — anything organized around a sequence of findings that need to be shown, cited, and interpreted rather than just asserted in prose.</p>
+          </div>
+          <div class="lf-exhibit flagged">
+            <div class="lf-exhibit-visual tall"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 03</span> — When not to reach for this archetype.</div>
+            <p class="lf-exhibit-commentary">If the content needs live filtering, drill-down, or per-user navigation — not a fixed sequence a reader moves through top to bottom — that's <em>dashboard-with-rail</em>, not this archetype. This archetype produces a document; a dashboard produces an instrument a user operates.</p>
+          </div>
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual compact"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 04</span> — The rule that prevents dashboard drift.</div>
+            <p class="lf-exhibit-commentary">Every exhibit is numbered, captioned, and interpreted — no exceptions, no matter how self-explanatory a chart feels in the moment. A bare stat with no caption and no sentence of commentary is the anti-pattern this whole archetype exists to replace.</p>
+          </div>
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 05</span> — Editorial devices this archetype favors.</div>
+            <p class="lf-exhibit-commentary">One pull quote per report, not per exhibit. Sidenotes for citations, attached to the specific exhibit they source — never a persistent rail. Section breaks are the figure numbers themselves; there's no separate rule or ornament marking a new part of the report.</p>
+            <p class="lf-sidenote">Sidenote convention demonstrated here, attached directly beneath the exhibit it cites — exactly where a reader needs it, not collected in a rail or endnote list.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-report-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>data-dense-report-grid</span>
+        </div>
+        <div class="lf-report-brief">
+          <div class="lf-report-kicker">Internal Memo &middot; Support Operations</div>
+          <h1 class="lf-report-headline">Why the Support Queue Backlog Stopped Shrinking</h1>
+          <p class="lf-report-dek">Three straight months of headcount growth and the backlog held flat instead of falling — the number that mattered wasn't the queue size, it was the one exhibit below.</p>
+          <div class="lf-report-body">
+            <p>Since March, the support team grew from eleven to sixteen agents against a hiring plan built to clear the backlog by June. Headcount arrived on schedule. The backlog didn't move. The obvious read — agents ramping slower than planned — turned out to be wrong once we split ticket volume by channel instead of by agent.</p>
+            <blockquote class="lf-pullquote">"New agents were fully productive within three weeks. The backlog was flat because the queue kept growing, not because it stopped shrinking."</blockquote>
+            <p>The one exhibit below explains where the additional volume came from. Everything else in this memo is context for reading it correctly, not additional data to track.</p>
+          </div>
+        </div>
+        <div class="lf-exhibit-stream">
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual compact"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 01</span> — Ticket volume by channel, January&ndash;June.</div>
+            <p class="lf-exhibit-commentary">Chat volume nearly doubled after the March pricing-page redesign added a chat widget to every plan-comparison view; email and phone volume held flat across the same period. The backlog isn't a throughput problem, it's a channel-mix problem the hiring plan didn't anticipate.</p>
+            <p class="lf-sidenote">Source: support platform export, deduplicated by ticket thread, not by message count.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-report-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>data-dense-report-grid</span>
+        </div>
+        <div class="lf-report-brief">
+          <div class="lf-report-kicker">Analyst Note &middot; Product Analytics</div>
+          <h1 class="lf-report-headline">The May Release Didn't Break Checkout — It Moved Where People Drop Off</h1>
+          <p class="lf-report-dek">Five exhibits, in sequence, walk from the top-line conversion number down to the specific step causing it — no single chart tells the whole story alone.</p>
+          <div class="lf-report-body">
+            <p>Checkout conversion fell 1.8 points in the two weeks after the May 14 release, enough to trigger a rollback review. The exhibits below are the actual sequence the on-call analyst worked through to find the cause, in the order they were pulled — not reordered for narrative effect.</p>
+          </div>
+        </div>
+        <div class="lf-exhibit-stream">
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual tall"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 01</span> — Checkout conversion rate, daily, April 1&ndash;May 28.</div>
+            <p class="lf-exhibit-commentary">The drop is real and it's step-function, not gradual — conversion holds steady through May 13, then drops and stays down starting May 14, the release date. That rules out a slow external cause like a seasonal dip.</p>
+          </div>
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 02</span> — Conversion by funnel step, pre- vs. post-release.</div>
+            <p class="lf-exhibit-commentary">Steps 1 and 2 (cart review, address entry) are unchanged. Step 3, payment method selection, lost 4.2 points of completion — the entire top-line drop is attributable to one step.</p>
+            <p class="lf-sidenote">Funnel steps defined per the shared checkout instrumentation spec, v3.</p>
+          </div>
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual compact"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 03</span> — Payment method mix, pre- vs. post-release.</div>
+            <p class="lf-exhibit-commentary">Saved-card usage fell six points and new-card entry rose by the same amount — the May 14 release changed which payment option loads as the pre-selected default, and most users don't change a pre-selected option.</p>
+          </div>
+          <div class="lf-exhibit flagged">
+            <div class="lf-exhibit-visual compact"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 04</span> — New-card entry error rate, by field.</div>
+            <p class="lf-exhibit-commentary">New-card entry has a materially higher error rate on the CVV field than saved-card checkout ever showed, which explains why the default switch cost conversion instead of being neutral.</p>
+          </div>
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 05</span> — Projected conversion recovery if the pre-selected default reverts.</div>
+            <p class="lf-exhibit-commentary">Reverting the default should recover roughly 3.8 of the 4.2 points lost at step 3; the remaining gap is attributed to the CVV error rate, a separate fix already in the sprint.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-report-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>data-dense-report-grid</span>
+        </div>
+        <div class="lf-report-brief">
+          <div class="lf-report-kicker">Quarterly Review &middot; Infrastructure Spend</div>
+          <h1 class="lf-report-headline">Vendor Spend Review, Q2 — Where the Increase Actually Went</h1>
+          <p class="lf-report-dek">Twelve vendors, three exhibits — comparable line items are grouped into ranked tables, not given one card each.</p>
+          <div class="lf-report-body">
+            <p>Total infrastructure spend rose 14% quarter over quarter. Below is where it went, grouped by category rather than itemized vendor by vendor — a twelve-card grid would flatten the one distinction that matters: which increases were volume-driven and which were rate-driven.</p>
+          </div>
+        </div>
+        <div class="lf-exhibit-stream">
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 01</span> — Top five vendors by quarter-over-quarter spend increase, ranked.</div>
+            <p class="lf-exhibit-commentary">Compute and observability account for four of the top five increases; only one, the CDN contract, is a rate change rather than a usage change — worth flagging separately below since it's the only line item that needs a renegotiation, not a usage review.</p>
+          </div>
+          <div class="lf-exhibit flagged">
+            <div class="lf-exhibit-visual compact"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 02</span> — CDN contract: rate vs. usage decomposition.</div>
+            <p class="lf-exhibit-commentary">Usage grew 3%. The bill grew 22%. The gap is entirely the January rate-card change taking effect this quarter — this is a procurement conversation, not an engineering one.</p>
+          </div>
+          <div class="lf-exhibit">
+            <div class="lf-exhibit-visual tall"></div>
+            <div class="lf-caption"><span class="lf-exhibit-number">FIG. 03</span> — Full vendor list, ranked by spend, with quarter-over-quarter delta.</div>
+            <p class="lf-exhibit-commentary">The remaining nine vendors are listed in full below for completeness, but none individually moved the total by more than half a point — they're here for the record, not because any one of them needs a decision this quarter.</p>
+            <p class="lf-sidenote">Full itemized ledger, all twelve vendors, available in the linked spreadsheet — this exhibit shows the ranked summary only.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-thermal-fade', 'theme-amber-signal', 'theme-cyber-terminal');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

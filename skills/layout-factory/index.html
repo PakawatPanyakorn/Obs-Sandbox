@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Gallery — layout-factory</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg: #ffffff; --surface: #fafafa; --border: #ebebeb;
+        --text: #111111; --muted: #888888; --accent: #111111; --radius: 4px;
+      }
+      :root[data-theme="dark"] {
+        --bg: #0f0f13; --surface: #18181f; --border: #2a2a38;
+        --text: #d4d4e8; --muted: #6b6b88; --accent: #9a9aff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0f0f13; --surface: #18181f; --border: #2a2a38;
+          --text: #d4d4e8; --muted: #6b6b88; --accent: #9a9aff;
+        }
+      }
+
+      body {
+        background: var(--bg); color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+        font-size: 14px; line-height: 1.6; padding: 2.5rem 1.5rem 5rem; min-height: 100vh;
+      }
+
+      header {
+        max-width: 1100px; margin: 0 auto 2rem; border-bottom: 1px solid var(--border);
+        padding-bottom: 1.5rem;
+        display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+      }
+      .header-left { min-width: 0; }
+      .eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+      h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.3rem; }
+      header p { color: var(--muted); font-size: 0.82rem; max-width: 640px; }
+      #count { display: inline-block; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 0.1rem 0.5rem; font-size: 0.68rem; font-weight: 500; color: var(--muted); vertical-align: middle; }
+
+      .header-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+      .home-btn {
+        display: flex; align-items: center; gap: 0.4rem;
+        background: var(--surface); border: 1px solid var(--border); border-radius: 99px;
+        padding: 0.3rem 0.85rem; font-size: 0.72rem; font-weight: 600; color: var(--muted);
+        text-decoration: none; transition: border-color .12s, color .12s;
+        white-space: nowrap; flex-shrink: 0; margin-top: 0.1rem; letter-spacing: 0.02em;
+      }
+      .home-btn:hover { border-color: var(--text); color: var(--text); }
+      .theme-toggle {
+        display: flex; align-items: center; gap: 0.4rem;
+        background: var(--surface); border: 1px solid var(--border); border-radius: 99px;
+        padding: 0.3rem 0.85rem; font-size: 0.72rem; font-weight: 600; color: var(--muted);
+        cursor: pointer; transition: border-color .12s, color .12s; font-family: inherit;
+        white-space: nowrap; flex-shrink: 0; margin-top: 0.1rem; letter-spacing: 0.02em;
+      }
+      .theme-toggle:hover { border-color: var(--text); color: var(--text); }
+
+      .controls { max-width: 1100px; margin: 0 auto 1.5rem; }
+      .controls input[type="search"] {
+        display: block; width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 99px;
+        padding: 0.5rem 1rem; font-size: 0.82rem; color: var(--text); outline: none; margin-bottom: 1rem;
+      }
+      .controls input[type="search"]:focus { border-color: var(--accent); }
+
+      .filter-groups { display: flex; flex-direction: column; gap: 0.55rem; }
+      .filter-row { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; }
+      .filter-label {
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--muted); min-width: 5.5rem; flex-shrink: 0;
+      }
+      .filter-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; flex: 1; }
+      .filter-btn {
+        background: var(--surface); border: 1px solid var(--border); border-radius: 99px;
+        padding: 0.32rem 0.75rem; font-size: 0.72rem; font-weight: 600; color: var(--muted);
+        cursor: pointer; white-space: nowrap; transition: border-color .12s, color .12s, background .12s;
+        font-family: inherit;
+      }
+      .filter-btn:hover { border-color: var(--text); color: var(--text); }
+      .filter-btn.active { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+      .filter-clear {
+        background: none; border: none; color: var(--muted); font-size: 0.7rem; font-weight: 600;
+        cursor: pointer; text-decoration: underline; padding: 0.32rem 0.2rem; font-family: inherit;
+        visibility: hidden;
+      }
+      .filter-clear.visible { visibility: visible; }
+      .filter-clear:hover { color: var(--text); }
+
+      .grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+      .card {
+        display: block; text-decoration: none; color: var(--text);
+        background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+        padding: 1.1rem; transition: border-color .12s, transform .12s;
+      }
+      .card:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+      /* live thumbnail — a scaled-down real render of the preset (top-of-page crop, chrome stripped
+         via ?fullview=1), so the gallery shows the actual styled composition, not an abstract diagram */
+      .thumb {
+        position: relative; height: 168px; margin-bottom: 0.85rem;
+        border: 1px solid var(--border); border-radius: 2px; overflow: hidden; background: var(--bg);
+      }
+      .thumb-frame { position: absolute; top: 0; left: 0; width: 1200px; transform-origin: top left; pointer-events: none; }
+      .thumb iframe { display: block; width: 1200px; height: 900px; border: 0; overflow: hidden; }
+
+      .card-name { font-size: 0.92rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.15rem; }
+      .card-archetype { font-size: 0.68rem; color: var(--muted); font-family: 'SFMono-Regular', Consolas, monospace; margin-bottom: 0.5rem; }
+      .card-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.7rem; }
+      .card-footer { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+      .tag { font-size: 0.62rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 99px; border: 1px solid var(--border); color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+      .tag.family { color: var(--accent); border-color: var(--accent); }
+      .tag.job { text-transform: none; letter-spacing: 0; }
+
+      .empty { max-width: 1100px; margin: 3rem auto; text-align: center; color: var(--muted); font-size: 0.85rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-left">
+        <div class="eyebrow">layout-factory</div>
+        <h1>Layout Gallery <span id="count">0</span></h1>
+        <p>Structural composition presets — grid, spacing, hierarchy, editorial devices. No color or typography here; combine with theme-factory to skin a structure. Click a preset to open its full preview.</p>
+      </div>
+      <div class="header-actions">
+        <a class="home-btn" href="../../index.html">← Home</a>
+        <button class="theme-toggle" id="theme-toggle">☾ Dark</button>
+      </div>
+    </header>
+
+    <div class="controls">
+      <input type="search" id="search" placeholder="Search by name, archetype, description, or tag…">
+      <div class="filter-groups">
+        <div class="filter-row">
+          <span class="filter-label">Family</span>
+          <div class="filter-chips" id="filter-family"></div>
+        </div>
+        <div class="filter-row">
+          <span class="filter-label">Best for</span>
+          <div class="filter-chips" id="filter-job"></div>
+        </div>
+        <div class="filter-row">
+          <span class="filter-label">Density</span>
+          <div class="filter-chips" id="filter-density"></div>
+        </div>
+        <div class="filter-row">
+          <button class="filter-clear" id="filter-clear">Clear all filters</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" style="display:none">No layouts match.</div>
+
+    <script>
+      /* ── LAYOUTS — filled in by create/delete mode, mirrors theme-factory's THEMES array shape ── */
+      const LAYOUTS = [
+        {
+          filename: "layouts/magazine-well.html",
+          data: {
+            name: "magazine-well",
+            description: "A dominant lead feature commands the top zone; secondary stories pool in a multi-column well beneath it, clearly subordinate by size.",
+            archetype: "magazine-well",
+            family: "editorial-narrative",
+            tags: ["essay-long-form", "analyst-report", "portfolio-showcase"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "lead", columnSpan: "1-12" },
+                { id: "well", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "comfortable" }
+          }
+        },
+        {
+          filename: "layouts/swiss-international-grid.html",
+          data: {
+            name: "swiss-international-grid",
+            description: "A strict modular column grid with grid-locked imagery and disciplined asymmetric placement — hierarchy comes from scale and position alone, never boxes or shadows.",
+            archetype: "swiss-international-grid",
+            family: "grid-discipline",
+            tags: ["documentation-reference", "academic-research", "portfolio-showcase"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "lead", columnSpan: "1-5" },
+                { id: "exhibit", columnSpan: "6-12" },
+                { id: "body", columnSpan: "1-7" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
+          filename: "layouts/single-column-editorial.html",
+          data: {
+            name: "single-column-editorial",
+            description: "A single constrained reading column with generous margins — the classic essay layout where all hierarchy comes from type scale and whitespace, not chrome.",
+            archetype: "single-column-editorial",
+            family: "editorial-narrative",
+            tags: ["essay-long-form", "academic-research"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "column", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 1 },
+            spacing: { density: "spacious" }
+          }
+        },
+        {
+          filename: "layouts/split-hero.html",
+          data: {
+            name: "split-hero",
+            description: "An unequal bisection — one dominant visual half, one text/CTA half. The asymmetry itself is the structuring device; never centered, never 50/50.",
+            archetype: "split-hero",
+            family: "grid-discipline",
+            tags: ["marketing-landing", "essay-long-form", "analyst-report"],
+            composition: {
+              regions: [
+                { id: "lead", columnSpan: "1-7" },
+                { id: "body", columnSpan: "8-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "spacious" }
+          }
+        },
+        {
+          filename: "layouts/dashboard-with-rail.html",
+          data: {
+            name: "dashboard-with-rail",
+            description: "A persistent narrow rail (nav, filters, confined stat modules) runs beside a main body that shows exactly one active view at a time; stats never scatter through the body as loose cards.",
+            archetype: "dashboard-with-rail",
+            family: "dashboard-legitimate",
+            tags: ["dashboard-analytics", "documentation-reference"],
+            composition: {
+              regions: [
+                { id: "rail", columnSpan: "1-3" },
+                { id: "body", columnSpan: "4-12" },
+                { id: "exhibit-zone", columnSpan: "4-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
+          filename: "layouts/masthead-feature-river.html",
+          data: {
+            name: "masthead-feature-river",
+            description: "A newspaper front page: a formal masthead, one dominant feature story, and a dense multi-column river of smaller briefs flowing beneath it.",
+            archetype: "masthead-feature-river",
+            family: "editorial-narrative",
+            tags: ["newsletter-digest", "analyst-report"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "lead", columnSpan: "1-12" },
+                { id: "river", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
+          filename: "layouts/asymmetric-split.html",
+          data: {
+            name: "asymmetric-split",
+            description: "A deliberately unequal 2/3 + 1/3 column ratio — a dominant body running alongside a narrow marginalia rail for citations, related content, or running notes.",
+            archetype: "asymmetric-split",
+            family: "grid-discipline",
+            tags: ["essay-long-form", "analyst-report", "documentation-reference"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "body", columnSpan: "1-8" },
+                { id: "rail", columnSpan: "9-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "comfortable" }
+          }
+        },
+        {
+          filename: "layouts/two-column-academic.html",
+          data: {
+            name: "two-column-academic",
+            description: "A full-width masthead (title, authors, abstract) sits above a body set in two balanced text columns joined by a hairline rule; figures and tables break the column grid only when they need the full measure.",
+            archetype: "two-column-academic",
+            family: "grid-discipline",
+            tags: ["academic-research", "documentation-reference"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "body", columnSpan: "1-12" },
+                { id: "exhibit", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
+          filename: "layouts/tufte-sidenote.html",
+          data: {
+            name: "tufte-sidenote",
+            description: "A main text column plus a wide right margin of sidenotes — citations, definitions, small figures — each anchored to the specific paragraph that cites it, Tufte-handout style.",
+            archetype: "tufte-sidenote",
+            family: "data-dense-report",
+            tags: ["academic-research", "documentation-reference"],
+            composition: {
+              regions: [
+                { id: "body", columnSpan: "1-8" },
+                { id: "sidenote", columnSpan: "9-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "comfortable" }
+          }
+        },
+        {
+          filename: "layouts/data-dense-report-grid.html",
+          data: {
+            name: "data-dense-report-grid",
+            description: "Numbered, captioned exhibits interleaved with tight running commentary — the analyst-report register, explicitly not KPI tiles.",
+            archetype: "data-dense-report-grid",
+            family: "data-dense-report",
+            tags: ["analyst-report", "documentation-reference"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "brief", columnSpan: "1-8" },
+                { id: "exhibit-stream", columnSpan: "1-12" },
+                { id: "sidenote", columnSpan: "3-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        }
+        // { filename: "layouts/<name>.html", data: { ...layout-data JSON... } }
+      ];
+
+      /* Human-readable labels for the job/use-case tags pulled from each preset's
+         mediaAdaptation.*.bestFor copy — kept as a small controlled vocabulary so the
+         "Best for" facet stays scannable instead of growing one chip per preset. */
+      const JOB_TAG_LABELS = {
+        "essay-long-form": "Essay / long-form",
+        "analyst-report": "Analyst report",
+        "academic-research": "Academic / research",
+        "documentation-reference": "Documentation",
+        "dashboard-analytics": "Dashboard / analytics",
+        "newsletter-digest": "Newsletter / digest",
+        "marketing-landing": "Marketing / landing",
+        "portfolio-showcase": "Portfolio / showcase"
+      };
+      const FAMILY_LABELS = {
+        "grid-discipline": "Grid-discipline",
+        "editorial-narrative": "Editorial-narrative",
+        "dashboard-legitimate": "Dashboard-legitimate",
+        "data-dense-report": "Data-dense-report"
+      };
+      const DENSITY_LABELS = { compact: "Compact", comfortable: "Comfortable", spacious: "Spacious" };
+
+      const grid = document.getElementById('grid');
+      const empty = document.getElementById('empty');
+      const countEl = document.getElementById('count');
+      const searchEl = document.getElementById('search');
+      const clearBtn = document.getElementById('filter-clear');
+
+      /* Each group is independent (OR within a group, AND across groups) — e.g. picking
+         "editorial-narrative" + "newsletter-digest" narrows to layouts that are both. */
+      const groups = {
+        family: { el: document.getElementById('filter-family'), selected: new Set(), labels: FAMILY_LABELS, get: data => [data.family] },
+        job: { el: document.getElementById('filter-job'), selected: new Set(), labels: JOB_TAG_LABELS, get: data => data.tags || [] },
+        density: { el: document.getElementById('filter-density'), selected: new Set(), labels: DENSITY_LABELS, get: data => [data.spacing && data.spacing.density] }
+      };
+
+      function buildChips() {
+        Object.values(groups).forEach(group => {
+          group.el.innerHTML = '';
+
+          const allBtn = document.createElement('button');
+          allBtn.className = 'filter-btn active';
+          allBtn.type = 'button';
+          allBtn.textContent = 'All';
+          allBtn.addEventListener('click', () => {
+            group.selected.clear();
+            group.el.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            allBtn.classList.add('active');
+            render();
+          });
+          group.el.appendChild(allBtn);
+          group.allBtn = allBtn;
+
+          Object.entries(group.labels).forEach(([value, label]) => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.type = 'button';
+            btn.dataset.value = value;
+            btn.textContent = label;
+            btn.addEventListener('click', () => {
+              if (group.selected.has(value)) group.selected.delete(value);
+              else group.selected.add(value);
+              btn.classList.toggle('active', group.selected.has(value));
+              allBtn.classList.toggle('active', group.selected.size === 0);
+              render();
+            });
+            group.el.appendChild(btn);
+          });
+        });
+      }
+
+      const thumbObserver = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+          const frame = entry.target.querySelector('.thumb-frame');
+          if (frame) frame.style.transform = `scale(${entry.contentRect.width / 1200})`;
+        });
+      });
+
+      function card({ filename, data }) {
+        const a = document.createElement('a');
+        a.className = 'card';
+        a.href = filename;
+        a.target = '_blank';
+        const jobTags = (data.tags || []).map(t => JOB_TAG_LABELS[t] || t);
+        a.innerHTML = `
+          <div class="thumb">
+            <div class="thumb-frame">
+              <iframe src="${filename}?fullview=1" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+            </div>
+          </div>
+          <div class="card-name">${data.name || filename}</div>
+          <div class="card-archetype">${data.archetype || ''}</div>
+          <div class="card-desc">${data.description || ''}</div>
+          <div class="card-footer">
+            ${data.family ? `<span class="tag family">${data.family}</span>` : ''}
+            ${data.grid && data.grid.columns ? `<span class="tag">${data.grid.columns}-col</span>` : ''}
+            ${data.spacing && data.spacing.density ? `<span class="tag">${data.spacing.density}</span>` : ''}
+            ${jobTags.map(label => `<span class="tag job">${label}</span>`).join('')}
+          </div>`;
+        return a;
+      }
+
+      function render() {
+        const q = searchEl.value.trim().toLowerCase();
+        const anySelected = Object.values(groups).some(g => g.selected.size > 0);
+        clearBtn.classList.toggle('visible', anySelected || !!q);
+
+        const filtered = LAYOUTS.filter(({ data }) => {
+          const matchesGroups = Object.values(groups).every(group => {
+            if (group.selected.size === 0) return true;
+            const values = group.get(data);
+            return values.some(v => group.selected.has(v));
+          });
+          const haystack = `${data.name || ''} ${data.archetype || ''} ${data.description || ''} ${(data.tags || []).join(' ')}`.toLowerCase();
+          const matchesQuery = !q || haystack.includes(q);
+          return matchesGroups && matchesQuery;
+        });
+        thumbObserver.disconnect();
+        grid.innerHTML = '';
+        filtered.forEach(item => grid.appendChild(card(item)));
+        countEl.textContent = filtered.length;
+        empty.style.display = filtered.length ? 'none' : 'block';
+        grid.querySelectorAll('.thumb').forEach(thumb => thumbObserver.observe(thumb));
+      }
+
+      searchEl.addEventListener('input', render);
+      clearBtn.addEventListener('click', () => {
+        searchEl.value = '';
+        Object.values(groups).forEach(group => {
+          group.selected.clear();
+          group.el.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          group.allBtn.classList.add('active');
+        });
+        render();
+      });
+
+      buildChips();
+      render();
+
+      /* ── Theme toggle ── */
+      const toggleBtn = document.getElementById('theme-toggle');
+      const storedTheme = localStorage.getItem('gallery-theme');
+      const systemDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      let currentTheme = storedTheme || (systemDark ? 'dark' : 'light');
+
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          document.documentElement.dataset.theme = 'dark';
+          toggleBtn.textContent = '☀ Light';
+        } else {
+          document.documentElement.dataset.theme = 'light';
+          toggleBtn.textContent = '☾ Dark';
+        }
+        localStorage.setItem('gallery-theme', theme);
+        currentTheme = theme;
+      }
+
+      toggleBtn.addEventListener('click', () => {
+        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+
+      applyTheme(currentTheme);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="asymmetric-split">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: asymmetric-split</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&family=IBM+Plex+Mono:wght@400;500&family=Special+Elite&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "asymmetric-split",
+    "description": "A dominant two-thirds body column runs the full length of the page beside a quieter one-third marginalia rail for citations, related content, and running notes — never 50/50, always deliberately unequal.",
+    "createdAt": "2026-07-22T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "asymmetric-split",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "Two columns run side by side for the entire length of the page: an eight-of-twelve-column body carrying the primary argument, and a four-of-twelve-column rail carrying everything that supports it — citations, related links, running notes. The columns are never stacked into a lead/well band; they run in parallel from top to bottom, and the ratio itself, not color, boxes, or size-varied cards, is what tells the reader which one to read first.",
+      "regions": [
+        { "id": "masthead", "role": "identity/section label band", "columnSpan": "1-12", "order": 1, "notes": "Small, quiet, full-width — sits above the split and doesn't itself carry the 2/3+1/3 ratio" },
+        { "id": "body", "role": "dominant content column — argument, narrative, or primary findings", "columnSpan": "1-8", "order": 2, "notes": "Always exactly 8 of 12 columns; carries the largest type, the page's only pull quote, and its only captioned exhibit" },
+        { "id": "rail", "role": "marginalia — citations, related content, running notes", "columnSpan": "9-12", "order": 3, "notes": "Always exactly 4 of 12 columns; text-only, hairline-ruled entries, never boxed or shadowed, runs the full length of the body beside it" }
+      ],
+      "hierarchy": { "primary": "body", "secondary": "rail", "tertiary": "masthead" },
+      "readingOrder": ["masthead", "body", "rail"],
+      "entryPoint": "The body column's headline — it's twice the width of the rail and the only column with display-size type, so the eye lands there before it ever registers the rail exists.",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "32px",
+      "maxWidth": "1200px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Rail drops below the body entirely — single stacked column, rail content follows in reading order, retitled as a trailing 'Notes' or 'Related' section." },
+        "md": { "columns": 8, "gutter": "20px", "notes": "Body and rail still run side by side but narrow toward roughly 5:3 of 8 columns to keep rail entries legible; if an entry can't hold a full sentence at this width, stack it instead of shrinking further." },
+        "lg": { "columns": 12, "gutter": "32px", "notes": "Full 8/4 (2:1) split, both columns running the entire length of the page." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "body": "1 / 9", "rail": "9 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 32, 48, 64, 96],
+      "unit": "px",
+      "rhythm": "1.5x body line-height between paragraphs; rail entries separated by a single fixed step, independent of the body's own rhythm",
+      "sectionGap": "64px",
+      "blockGap": "24px",
+      "inlineGap": "32px",
+      "density": "comfortable"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Mid-way through the body column only", "style": "Large italic serif, left rule, no quotation marks — the rail never carries a pull quote, since a quoted line at one-third width reads as a stray citation, not emphasis" },
+      "sidebars": { "used": true, "width": "4 of 12 columns (1/3)", "contentType": "citations, related links, running commentary/notes, metric definitions — whatever supports the body without belonging inside it" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": true, "style": "sidenote — but continuous, not paragraph-anchored: the whole rail runs parallel to the whole body instead of pinning individual notes to individual lines. That anchored version is a different archetype (tufte-sidenote)." },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "small italic, flush-left", "position": "directly below the body's exhibit only — the rail never gets its own captioned figure" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid, 12 columns: body spans 1 / 9, rail spans 9 / 13, gap = gutter. Both columns share the same grid but run as independent auto-height tracks — they are not row-locked to each other, just aligned at the top.",
+      "presentation": "The slide master keeps the 2/3 + 1/3 vertical split as a permanent template zone on every slide — the body column holds the slide's argument, the rail column holds a persistent citation or 'related' panel. Unlike the web version, the ratio repeats per-slide rather than running down one continuous scroll.",
+      "print": "The page margin literally becomes the rail: a real running margin column, sized to one-third the text block width, printed beside the main type block on every page — not a footnote block collected at the bottom of the page.",
+      "markdown": "Degrades to a single body column; rail content (citations, related links, notes) converts to a trailing 'Notes' or 'Related' heading at the end of the document. Markdown has no native parallel-column mechanism, so the ratio itself is lost and must be replaced by a location cue — a heading — instead."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "Rail items are separated by hairline rule + whitespace only, never a card box or shadow; the 2/3:1/3 ratio is the sole hierarchy device and must never drift toward 50/50 — a rail that widens toward half the page stops reading as marginalia and starts reading as a second, competing column."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The body becomes a continuous essay or narrative running the full page length; the rail becomes a column of short running notes tied loosely to the section of body beside it — never pinned to one exact line, never longer than a sentence or two per entry.",
+        "bestFor": "Essays with citations, opinion columns with a running 'further reading' margin, long-form journalism where sources should stay visible instead of jumping to endnotes.",
+        "avoid": "Don't try to pin every rail note to one exact triggering sentence — that precise alignment is tufte-sidenote's job. This archetype's rail runs independently alongside a section, not glued to a line."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The body carries the narrative and the page's one dominant exhibit — a single large captioned chart; the rail becomes a column of metric definitions, data caveats, and pointers to related exhibits, entirely textual.",
+        "bestFor": "Analyst reports and research briefs where one set of findings needs a parallel glossary or a running list of data caveats beside it.",
+        "avoid": "Don't put a second chart in the rail. A chart at one-third width reads as a dashboard tile competing with the body's exhibit, not as supporting marginalia — keep the rail textual."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "The body holds the primary article, spec, or list content in running prose; the rail becomes a 'related' or 'see also' list — plain text links with a one-line description each, no thumbnails, no boxes.",
+        "bestFor": "Documentation pages with a persistent related-pages rail, product pages with a running spec sheet beside marketing copy.",
+        "avoid": "Don't turn rail entries into thumbnail cards — that reintroduces the uniform-card-grid anti-pattern this rail exists to avoid. Keep entries text-only and list-style, separated by a hairline rule."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "bauhaus-geometry", "why": "Bold primary-color hierarchy and hard offset shadows give the dominant body column real visual weight, while everything secondary stays flat and undecorated — the theme's own 'the shape should mean the content, not just decorate it' logic maps directly onto a body that argues and a rail that only supports." },
+      { "theme": "dead-letter-office", "why": "Postal marginalia — routing codes, rubber stamps, postmarks — has always lived in a narrow column beside the main letter. Its typewriter register and restrained neutral-text pull-quote convention read naturally as citations and status marks running down a 1/3 rail beside a typed body." },
+      { "theme": "verdigris-patina", "why": "Its own gimmick is that structure communicates the passage of time top-to-bottom; here the 2/3:1/3 imbalance communicates emphasis left-to-right instead — the brass-toned body carries full argumentative weight while the narrower, quieter rail reads as commentary running alongside it." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 32px;
+      --lf-max-width: 1200px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 32px; --lf-space-8: 48px;
+      /* theme-overridable — full set, mirrors preset-template.html's :root exactly */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body), see preset-template.html
+       "CRITICAL scoping rule" comment for why. One block per exampleThemePairings entry, values
+       pulled from the real theme file — never invented. */
+    .lf-variant-stage.theme-bauhaus-geometry {
+      --lf-ink: #1A1918; --lf-ink-muted: #6B6560; --lf-paper: #F5F0E8;
+      --lf-line: #D4CFC4; --lf-region-outline: #D4CFC4; --lf-accent: #E63329;
+      --lf-font-body: 'Josefin Sans', 'Futura', 'Century Gothic', sans-serif;
+      --lf-font-display: 'Josefin Sans', 'Futura', 'Century Gothic', sans-serif;
+      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.6; --lf-card-radius: 0px;
+      --lf-bg-image: none; --lf-bg-size: auto; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* bauhaus-geometry: hard offset "shadow-lg" — flat, no blur, matches its bold borderStyle */
+      --lf-surface: #FAFAF7;
+      --lf-shadow-hero: 6px 6px 0 #1A1918;
+      --lf-gradient-hero: none;
+      --lf-border-width: 2px;
+      /* bauhaus has no dedicated pull-quote demo; its closest analog is .sc-use-why, where only
+         inline <strong> text picks up accent red and the rest of the sentence stays neutral ink —
+         so quote text stays neutral here too, restraint carried by the border only, not the text */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+    .lf-variant-stage.theme-dead-letter-office {
+      --lf-ink: #1A1A14; --lf-ink-muted: #6A5A30; --lf-paper: #D8CC94;
+      --lf-line: rgba(27,58,139,0.3); --lf-region-outline: rgba(27,58,139,0.35); --lf-accent: #CC1122;
+      --lf-font-body: 'Special Elite', 'Courier New', monospace;
+      --lf-font-display: 'Libre Baskerville', Georgia, serif;
+      --lf-font-mono: 'Special Elite', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.55; --lf-card-radius: 2px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      --lf-bg-size: 200px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* dead-letter-office: real ring+blur shadow (its shadow-lg) — kraft-paper elevation */
+      --lf-surface: #E8DEAA;
+      --lf-shadow-hero: 3px 6px 18px rgba(30,20,0,0.3);
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      /* pulled from its own .tf-glow-demo: neutral color:var(--color-text) text, surface + shadow
+         only — text stays plain, so quote text stays ink here too; border takes the postal-red
+         accent, echoing the "RECEIVED" rubber-stamp's use of primary red */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      /* its own "Alt Surface" envelope card uses only a tonal shift (surfaceAlt), no accent
+         border — same restraint carried into the emphasis rail entry: hairline, neutral */
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+    .lf-variant-stage.theme-verdigris-patina {
+      --lf-ink: #DCF0EA; --lf-ink-muted: #78BAA8; --lf-paper: #0F1C18;
+      --lf-line: rgba(52,188,162,0.28); --lf-region-outline: rgba(52,188,162,0.28); --lf-accent: #C8A830;
+      --lf-font-body: 'Cormorant Garamond', Georgia, serif;
+      --lf-font-display: 'Josefin Sans', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'Courier New', monospace;
+      --lf-font-weight-heading: 600; --lf-line-height: 1.7; --lf-card-radius: 4px;
+      /* verdigris-patina's actual environmental ground texture, copied verbatim from its body{}
+         background-image — 20-layer radial-gradient oxidation bloom */
+      --lf-bg-image:
+        radial-gradient(ellipse 210px 165px at 11% 23%, rgba(42,208,178,0.72) 0%, rgba(42,208,178,0.18) 48%, transparent 72%),
+        radial-gradient(ellipse 95px 125px at 5% 44%,  rgba(28,176,150,0.78) 0%, transparent 60%),
+        radial-gradient(ellipse 55px  48px  at 19% 11%, rgba(95,228,208,0.68) 0%, transparent 52%),
+        radial-gradient(ellipse 115px 82px  at 24% 34%, rgba(55,198,172,0.48) 0%, transparent 62%),
+        radial-gradient(ellipse 155px 98px  at 79%  8%, rgba(38,198,172,0.68) 0%, transparent 64%),
+        radial-gradient(ellipse 68px  88px  at 91% 20%, rgba(58,215,192,0.58) 0%, transparent 54%),
+        radial-gradient(ellipse 125px 58px  at 66% 17%, rgba(45,188,162,0.38) 0%, transparent 57%),
+        radial-gradient(ellipse 125px 98px  at 40% 18%, rgba(4,10,18,0.88)   0%, transparent 67%),
+        radial-gradient(ellipse 88px  125px at 60% 30%, rgba(6,13,22,0.78)   0%, transparent 60%),
+        radial-gradient(ellipse 65px  58px  at 50% 42%, rgba(8,16,28,0.72)   0%, transparent 52%),
+        radial-gradient(ellipse 95px  68px  at 44% 49%, rgba(115,80,12,0.58) 0%, transparent 60%),
+        radial-gradient(ellipse 75px  48px  at 32% 60%, rgba(132,95,18,0.48) 0%, transparent 54%),
+        radial-gradient(ellipse 48px  75px  at 72% 54%, rgba(105,72,10,0.42) 0%, transparent 50%),
+        radial-gradient(ellipse 310px 225px at 54% 60%, rgba(35,162,142,0.32) 0%, transparent 67%),
+        radial-gradient(ellipse 195px 148px at 57% 64%, rgba(52,182,160,0.22) 0%, transparent 57%),
+        radial-gradient(ellipse 165px 128px at 16% 80%, rgba(38,180,155,0.62) 0%, transparent 64%),
+        radial-gradient(ellipse 98px  68px  at  6% 90%, rgba(28,155,132,0.52) 0%, transparent 57%),
+        radial-gradient(ellipse 135px 98px  at 74% 84%, rgba(42,190,165,0.58) 0%, transparent 60%),
+        radial-gradient(ellipse 75px  108px at 90% 72%, rgba(25,165,140,0.48) 0%, transparent 54%),
+        radial-gradient(ellipse 240px 175px at 38% 87%, rgba(22,115,95,0.38) 0%, transparent 62%);
+      --lf-bg-size: auto; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      --lf-surface: rgba(15,38,30,0.88);
+      --lf-shadow-hero: 0 4px 30px rgba(0,0,0,0.6);
+      --lf-gradient-hero: linear-gradient(180deg, rgba(200,168,48,0.18) 0%, rgba(42,192,168,0.14) 100%);
+      --lf-border-width: 1px;
+      /* pulled from its own .tf-glow-demo: text is colored to the zone's primary accent, uppercase
+         and bold — this theme DOES color its quote/emphasis text, unlike the other two */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Masthead — quiet, small, full-width, sits above the split and never competes with it */
+    .lf-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* ── The archetype itself: two unequal columns running the full page length ── */
+    .lf-split-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--lf-gutter);
+      align-items: start;
+    }
+
+    /* Body — always exactly 8 of 12 columns. This is the ONE region allowed real presence
+       (surface fill, theme's actual hero gradient/shadow on its exhibit) — the rail stays bare
+       regardless of theme, per this archetype's own structural rule: giving every region the same
+       visual treatment is exactly the uniform-weight tell this skill exists to avoid. */
+    .lf-split-body { grid-column: 1 / 9; }
+    .lf-body-headline {
+      font-family: var(--lf-font-display);
+      font-size: 2.3rem;
+      line-height: 1.15;
+      font-weight: var(--lf-font-weight-heading);
+      letter-spacing: -0.01em;
+      max-width: 22ch;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-body-dek { font-size: 1.05rem; color: var(--lf-ink-muted); max-width: 58ch; margin-bottom: var(--lf-space-4); }
+    .lf-body-content { max-width: 64ch; font-size: 1rem; }
+    .lf-body-content p { margin-bottom: var(--lf-space-3); }
+    .lf-body-exhibit {
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      border: 1px solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      box-shadow: var(--lf-shadow-hero);
+      height: 240px;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin-bottom: var(--lf-space-4); }
+    /* Matches each theme's own pull-quote component: surface-tinted background, left rule sized
+       and colored per theme, quote text colored to match only when the theme itself colors its
+       quote text — left neutral when it deliberately doesn't (see per-theme comments above). */
+    .lf-pullquote {
+      background-color: var(--lf-surface);
+      color: var(--lf-quote-text-color);
+      font-size: 1.35rem;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.4;
+      padding: var(--lf-space-3) var(--lf-space-4);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      margin: var(--lf-space-4) 0;
+      max-width: 48ch;
+    }
+    .lf-section-break {
+      border: none;
+      border-top: 1px solid var(--lf-line);
+      margin: var(--lf-space-6) 0;
+      max-width: 64ch;
+    }
+
+    /* Rail — always exactly 4 of 12 columns. Text-only, hairline-ruled, never boxed or shadowed —
+       running the full length of the body beside it, not a stacked band beneath it. */
+    .lf-split-rail {
+      grid-column: 9 / 13;
+      border-left: var(--lf-border-width) solid var(--lf-line);
+      padding-left: var(--lf-space-6);
+    }
+    .lf-rail-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2);
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-rail-item { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-3); margin-bottom: var(--lf-space-4); }
+    .lf-rail-item:first-child { border-top: none; padding-top: 0; }
+    .lf-rail-num {
+      display: block;
+      font-family: var(--lf-font-mono);
+      font-size: 0.62rem;
+      color: var(--lf-ink-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--lf-space-1);
+    }
+    /* Echoes each theme's own "alt card"/emphasis convention (see per-theme comments above) — ONE
+       rail entry gets a themed top-rule, same restraint as the theme's own component: still just a
+       rule, never a filled box or shadow. */
+    .lf-rail-item.emphasis { border-top: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); padding-top: var(--lf-space-3); }
+    .lf-rail-item h4 { font-family: var(--lf-font-display); font-size: 0.95rem; font-weight: var(--lf-font-weight-heading); line-height: 1.3; margin-bottom: var(--lf-space-2); }
+    .lf-rail-item p { font-size: 0.82rem; color: var(--lf-ink-muted); }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected.
+       color/font-family/line-height/background are re-declared here (not just inherited from
+       body) so that when .theme-* overrides the custom properties above, descendants that don't
+       set their own color (headlines, paragraphs) pick up the new value through normal
+       inheritance from THIS element, rather than the already-resolved neutral value from body. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View — lets the picker chrome (meta bar, specs, tabs, captions) drop away so the
+       selected variant/theme combination can be seen the way it'd actually be used, not as a
+       component in a gallery page. Fixed-position toggle stays visible in both states. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
+       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
+       with no unthemed white gap on any side. */
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">asymmetric-split</span>
+    <span class="lf-meta-tags">asymmetric-split &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">32px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1200px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">comfortable</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">asymmetric-split — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> essays with citations, opinion columns with a running 'further reading' margin, long-form journalism with source notes.<br><strong>Avoid:</strong> pinning every rail note to one exact sentence &mdash; that's tufte-sidenote's job, not this archetype's." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> analyst reports and research briefs where one body of findings needs a parallel glossary or metric-definitions column.<br><strong>Avoid:</strong> putting a second chart in the rail &mdash; a chart at 1/3 width reads as a dashboard tile, not marginalia." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> documentation pages with a persistent 'related pages' rail, product pages with a running spec sheet beside marketing copy.<br><strong>Avoid:</strong> turning rail entries into thumbnail cards &mdash; keep them text-only, list-style." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="bauhaus-geometry" role="tab" aria-selected="false">bauhaus-geometry</button>
+      <button class="lf-theme-tab" data-theme-option="dead-letter-office" role="tab" aria-selected="false">dead-letter-office</button>
+      <button class="lf-theme-tab" data-theme-option="verdigris-patina" role="tab" aria-selected="false">verdigris-patina</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>asymmetric-split</span>
+        </div>
+        <div class="lf-split-grid">
+          <div class="lf-split-body">
+            <h1 class="lf-body-headline">Asymmetric Split: One Column Carries the Weight, the Other Runs Beside It</h1>
+            <p class="lf-body-dek">Two columns run the full length of the page, but never as equals — the body claims two-thirds of the width and all of the argument; the rail claims one-third and carries everything that supports it without ever interrupting it.</p>
+            <div class="lf-body-content">
+              <p>The concept is arithmetic before it's anything else: eight columns of a twelve-column grid go to the body, four go to the rail. That 2:1 ratio is fixed and never approaches parity — the moment a rail widens toward half the page, it stops reading as marginalia and starts reading as a second, competing column. Imbalance is the entire structuring device here; there's no lead image, no size-varied card grid, no color coding to lean on instead.</p>
+              <blockquote class="lf-pullquote">"The rail isn't a smaller version of the body. It's a different kind of writing — running commentary, not a second draft of the argument — and its width should say so before a reader reads a word of it."</blockquote>
+              <p><strong>Use this when</strong> you have one continuous argument that benefits from a persistent, parallel channel: an essay with citations that should stay visible rather than jump to endnotes, a long article with a running "related coverage" rail, an internal report where a reviewer's marginal commentary needs to sit beside the text it responds to, page after page — not just wherever a footnote mark happens to fall.</p>
+            </div>
+          </div>
+          <div class="lf-split-rail">
+            <div class="lf-rail-label">Reading This Archetype</div>
+            <div class="lf-rail-item emphasis">
+              <h4>When Not to Use It</h4>
+              <p>If every note needs to anchor to one specific sentence — not just the general vicinity of a section — reach for <em>tufte-sidenote</em> instead, which pins each note to its triggering paragraph at the same vertical position. This rail runs continuously and independently; it's built for commentary that accompanies a whole passage, not commentary that must line up with a single line.</p>
+            </div>
+            <div class="lf-rail-item">
+              <h4>The Structural Rule</h4>
+              <p>Eight columns to four, always. Never widen the rail chasing "more room" for a note — if content genuinely needs more space, it belongs in the body as a subsection, not in a stretched rail. Drifting toward 50/50 is the one failure mode that undoes this archetype.</p>
+            </div>
+            <div class="lf-rail-item">
+              <h4>Editorial Devices It Favors</h4>
+              <p>One pull quote breaking the body column, at its most quotable line. Numbered, hairline-ruled rail entries — never boxed, never shadowed. Citations and related links stay text-only in the rail; the body is the only region that ever earns a captioned exhibit.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>asymmetric-split</span>
+        </div>
+        <div class="lf-split-grid">
+          <div class="lf-split-body">
+            <h1 class="lf-body-headline">Why the Migration Took Six Months Longer Than the Postmortem Admits</h1>
+            <div class="lf-body-content">
+              <p>The public timeline said four months. Internally, everyone counted from a different start date, because the actual decision to move off the old queueing system was made eleven weeks before anyone wrote it into a roadmap. Those eleven weeks don't appear in any postmortem, but they explain most of what went wrong later — three separate teams had already built workarounds for problems the migration was supposed to fix, and none of those workarounds were listed as dependencies when the project finally got a start date.</p>
+              <blockquote class="lf-pullquote">"A project doesn't start when it gets a ticket number. It starts when the first workaround gets written — and that's the date nobody puts in the postmortem."</blockquote>
+              <p>Once the workarounds surfaced, the plan doubled in scope without anyone officially re-scoping it. The team kept the original four-month estimate in every status update because renegotiating it felt like admitting the first estimate was wrong, which it was, for reasons that had nothing to do with anyone's execution.</p>
+              <hr class="lf-section-break">
+              <p>What finally changed the timeline publicly wasn't a new estimate — it was a one-line addition to the weekly update: "scope grew by three undocumented dependencies in week one." Nobody had said "undocumented" out loud before that. The rest of the conversation got easier once the word existed.</p>
+            </div>
+          </div>
+          <div class="lf-split-rail">
+            <div class="lf-rail-label">Notes &amp; Sources</div>
+            <div class="lf-rail-item">
+              <span class="lf-rail-num">01</span>
+              <h4>On the eleven missing weeks</h4>
+              <p>Slack history shows the first workaround PR merged eleven weeks before the migration's official kickoff date.</p>
+            </div>
+            <div class="lf-rail-item">
+              <span class="lf-rail-num">02</span>
+              <h4>On scope creep</h4>
+              <p>Three undocumented dependencies surfaced in the first sprint alone; none were listed in the original design doc.</p>
+            </div>
+            <div class="lf-rail-item">
+              <span class="lf-rail-num">03</span>
+              <h4>On the estimate that stuck</h4>
+              <p>Status updates kept "four months" for fourteen consecutive weeks after the team privately knew it was wrong.</p>
+            </div>
+            <div class="lf-rail-item">
+              <span class="lf-rail-num">04</span>
+              <h4>Related reading</h4>
+              <p>Last quarter's postmortem on the billing retry rollout flagged the same pattern: undocumented workarounds outliving the ticket meant to replace them.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>asymmetric-split</span>
+        </div>
+        <div class="lf-split-grid">
+          <div class="lf-split-body">
+            <div class="lf-body-exhibit"></div>
+            <div class="lf-caption">Fig. 1 &mdash; Median PR review latency vs. team headcount, last two quarters. The only chart on the page lives in the body; the rail stays textual so it never turns into a second dashboard panel beside the first.</div>
+            <h1 class="lf-body-headline">Review Latency Rose Even as Headcount on the Team Grew</h1>
+            <div class="lf-body-content">
+              <p>Headcount is up 40% since Q1, and median time-to-first-review has gone from 6 hours to 14. That divergence is the finding, not the raw latency number — more reviewers should have made this number go down, and instead it nearly doubled, which points at a coordination problem, not a capacity one.</p>
+              <p>The likely cause: reviewer assignment is still round-robin across the whole team rather than routed by familiarity with the code area, so newer reviewers are frequently assigned PRs they need extra time to evaluate — time that shows up in the aggregate median even though any individual review isn't taking unusually long.</p>
+            </div>
+          </div>
+          <div class="lf-split-rail">
+            <div class="lf-rail-label">Metric Notes</div>
+            <div class="lf-rail-item">
+              <span class="lf-rail-num">01</span>
+              <h4>Review latency</h4>
+              <p>Hours between PR opened and first substantive review comment, not first approval.</p>
+            </div>
+            <div class="lf-rail-item">
+              <span class="lf-rail-num">02</span>
+              <h4>Active reviewer</h4>
+              <p>Anyone who left a non-bot comment on at least one PR that week.</p>
+            </div>
+            <div class="lf-rail-item">
+              <span class="lf-rail-num">03</span>
+              <h4>Data caveat</h4>
+              <p>Weeks with fewer than five merged PRs are excluded, to avoid single-PR outliers skewing the median.</p>
+            </div>
+            <div class="lf-rail-item">
+              <span class="lf-rail-num">04</span>
+              <h4>Related exhibit</h4>
+              <p>Fig. 4 in last month's report showed the same divergence starting two weeks earlier on the payments team.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>asymmetric-split</span>
+        </div>
+        <div class="lf-split-grid">
+          <div class="lf-split-body">
+            <h1 class="lf-body-headline">Rate Limits: How the API Enforces Them and What You'll See</h1>
+            <div class="lf-body-content">
+              <p>Every endpoint is limited per API key, not per IP — 600 requests per minute on standard keys, 3,000 on enterprise keys, measured on a rolling one-minute window rather than a fixed clock-aligned bucket. That means a burst of 600 requests at 0:59 and another 600 at 1:01 will both succeed; a burst of 1,200 requests inside any single rolling minute will not.</p>
+              <p>When a request is rejected, the response is a 429 with a <code>Retry-After</code> header in seconds — always trust that header over any client-side backoff timer you've hardcoded, since the window's start time depends on your own recent request pattern, not a fixed schedule.</p>
+            </div>
+          </div>
+          <div class="lf-split-rail">
+            <div class="lf-rail-label">Related Pages</div>
+            <div class="lf-rail-item">
+              <h4>Authentication</h4>
+              <p>How to obtain and rotate an API key, and what changes at each tier.</p>
+            </div>
+            <div class="lf-rail-item">
+              <h4>Webhooks</h4>
+              <p>Delivery retries, exponential backoff, and signature verification.</p>
+            </div>
+            <div class="lf-rail-item">
+              <h4>Error codes</h4>
+              <p>Full list of 4xx/5xx responses this API returns and what each one means.</p>
+            </div>
+            <div class="lf-rail-item">
+              <h4>Changelog</h4>
+              <p>Recent changes to rate-limit tiers, including the rolling-window switch.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-bauhaus-geometry', 'theme-dead-letter-office', 'theme-verdigris-patina');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

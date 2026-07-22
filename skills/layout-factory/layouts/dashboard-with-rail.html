@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="dashboard-with-rail">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: dashboard-with-rail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Share+Tech+Mono&family=Josefin+Slab:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inconsolata:wght@300;400;600&family=Syne:wght@400;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "dashboard-with-rail",
+    "description": "A persistent narrow rail (nav, filters, confined stat modules) runs beside a main body that shows exactly one active view at a time; stats never scatter through the body as loose cards.",
+    "createdAt": "2026-07-22T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "dashboard-with-rail",
+    "family": "dashboard-legitimate",
+    "composition": {
+      "summary": "A fixed narrow rail (roughly a quarter of the page width) runs the full height of the layout, carrying navigation, filters, and every persistent stat module. The body fills the remaining three-quarters and shows exactly one active view — prose, an exhibit set, or a record list — swapped by the rail's controls rather than scrolled past. Numbers never wander into the body as loose cards; they stay in the rail or, when the body genuinely needs its own count, inside a single clearly bounded summary zone.",
+      "regions": [
+        { "id": "rail", "role": "persistent navigation, filters, and confined stat modules", "columnSpan": "1-3", "order": 1, "notes": "Never scrolls out of view independently; stays visible while body content changes beneath it" },
+        { "id": "body", "role": "primary content area — the single active view selected via the rail", "columnSpan": "4-12", "order": 2, "notes": "Holds prose, exhibits, or a record list depending on content mix; only one hero visual per page" },
+        { "id": "exhibit-zone", "role": "optional bounded chart/summary zone nested inside body", "columnSpan": "4-12", "order": 3, "notes": "Present only when body content includes numbers or exhibits; still one bounded zone, never cards strewn through prose" }
+      ],
+      "hierarchy": { "primary": "body", "secondary": "rail", "tertiary": "exhibit-zone" },
+      "readingOrder": ["rail", "body", "exhibit-zone"],
+      "entryPoint": "The active rail nav item (visibly highlighted) together with the body's headline — establishes 'where am I' before any content is read. Unlike a size-hierarchy archetype, there's no single largest visual competing for first glance; hierarchy comes from state (active/highlighted), not scale alone.",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "20px",
+      "maxWidth": "1320px",
+      "marginInline": "4vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "12px", "notes": "Rail collapses above the body as a horizontal facet bar (nav items wrap); stat modules stack to a row of 2." },
+        "md": { "columns": 8, "gutter": "16px", "notes": "Rail narrows to a compact label list (~200px) but stays beside the body; stat modules keep their vertical stack." },
+        "lg": { "columns": 12, "gutter": "20px", "notes": "Full rail (3 of 12 cols) beside body (9 of 12 cols), as shown in every variant below." }
+      },
+      "regionSpans": { "rail": "1 / 4", "body": "4 / 13", "exhibit-zone": "4 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32, 48],
+      "unit": "px",
+      "rhythm": "1.5x body line-height between paragraphs; rail sections separated by a full section-gap step",
+      "sectionGap": "32px",
+      "blockGap": "16px",
+      "inlineGap": "12px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": false, "placement": "", "style": "" },
+      "sidebars": { "used": true, "width": "rail spans 3 of 12 columns (~240-280px at desktop)", "contentType": "persistent nav/section links, active filters, confined stat modules, document or record metadata" },
+      "callouts": { "used": true, "types": ["insight callout (one flagged finding per view)", "border-accent flag on a single secondary record row"] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "small mono caption, numbered like a figure", "position": "directly below each exhibit" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid, 12 columns: rail spans columns 1/4 (~3 of 12), body spans 4/13 (~9 of 12), gap = gutter. Rail is a single grid item with its own internal vertical stack (nav, filters, stats, meta); body holds one active view's content, swapped by re-rendering rather than the rail ever moving.",
+      "presentation": "Poor fit by default — flag as HTML/web-primary. If a slide deck is genuinely required, collapse the rail's nav into a single 'contents' slide up front and give each body section its own slide; drop the live-filter framing entirely, since a slide can't respond to a click the way the rail implies.",
+      "print": "Also a poor fit. A printed rail reads as a static list with no way to act on it. If a print deliverable is required, re-run the content through data-dense-report-grid or magazine-well instead of printing this archetype as-is — otherwise it leaves a decorative column of unusable filter labels down the side of the page.",
+      "markdown": "Degrades hard: there's no markdown equivalent for a persistent, always-visible rail. Represent rail nav as a short bullet list ahead of the body content, rail metadata as a small two-column table, and rail stat modules as one inline sentence or a small table — then accept that the 'stays visible while the body changes' quality is simply gone in a flat document."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "This archetype IS the legitimate dashboard case named in anti-patterns.md's 'generic dashboard look on non-dashboard content' section. The distinguishing test applied here: every rail nav item and filter is something a user would actually click, and every stat module lives only in the rail or the one bounded summary zone, never scattered through the body as loose cards. Applying this archetype to a static report with no real facets to switch between would itself trigger the anti-pattern — see contentTypeVariants.textHeavy.avoid."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The rail drops its stat modules — prose has no numbers worth surfacing — and becomes a table-of-contents (jump links to each section) plus a small metadata block (owner, status, last-updated). The body is single-column prose with no exhibits; one insight callout marks the single most load-bearing instruction per page, not running commentary.",
+        "bestFor": "Long-form internal docs with a persistent section nav — a runbook, a policy handbook, a reference guide people jump around in rather than read start to finish.",
+        "avoid": "Don't invent filters or live stats for a document that has none. A rail with real section links and real metadata is fine; a rail with fabricated 'live' numbers bolted onto static prose is the exact anti-pattern this archetype exists to avoid."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The rail carries real filters (environment, date range) plus a compact stat-module stack (3-4 numbers, one emphasized). The body opens with one bounded summary zone scoped to the current finding, then a single hero exhibit with a numbered caption, then 2-3 smaller captioned exhibits — each paired with one sentence of interpretation, never a bare number.",
+        "bestFor": "Analytics consoles, monitoring dashboards, BI screens — genuinely filterable or live data with facets a user actually switches between.",
+        "avoid": "Don't let stat tiles leak out of the rail and summary zone into the rest of the body as scattered cards — that's the 'generic dashboard on a document' anti-pattern by name. Every body exhibit stays numbered and captioned like a figure."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "The rail becomes faceted browse controls (status, severity, assignee) plus a small stat stack (count, unassigned, average age). The body pulls the single most urgent record into a hero panel, then lists the rest as hairline-divided rows — plain by default, with at most one additional row earning a border accent for genuine secondary urgency.",
+        "bestFor": "Admin panels, ticket or alert trackers, inventory or user-management tables — a genuinely browsable, filterable set of records.",
+        "avoid": "Don't default every row to an identical shadowed card. Reserve the one shadowed hero treatment for the single most urgent item, and let severity — not a template — decide which, if any, other rows get an accent."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "alpha-signal", "why": "Its own JSON description literally calls itself a 'trading strategy / algorithm signal dashboard' with a dense signal grid and Bloomberg-esque data density — a rail confining live buy/sell/hold signals and backtest stats is exactly the content this theme was built to skin." },
+      { "theme": "vault-theorem", "why": "Wealth-management 'institutional allocation framework' with tiered navigation (Foundation/Ascendant/Principal/Sovereign) and a strategic allocation matrix — genuinely faceted content that a rail's filters and stat modules are built to hold." },
+      { "theme": "eigenvalue", "why": "A 'quantitative algorithm lab' with live signal readouts and rolling factor-exposure z-scores sitting beside an asymmetric hero panel — the same persistent-readout-beside-content shape this archetype formalizes into rail + body." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 20px;
+      --lf-max-width: 1320px;
+      --lf-margin-inline: 4vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage, never body (see scoping rule
+       documented in modules/preset-template.html and layouts/magazine-well.html). Values pulled
+       from each theme's own file: quote-text/border colors from its real "glow-demo" component
+       (the closest analog this generation of theme-factory files has to a pull-quote tile),
+       emphasis-border from its own alt-card/stat-bar accent convention. */
+    .lf-variant-stage.theme-alpha-signal {
+      --lf-ink: #0A1C18; --lf-ink-muted: #4A7068; --lf-paper: #E8FBF5;
+      --lf-line: #A8D8CC; --lf-region-outline: #A8D8CC; --lf-accent: #FFD600;
+      --lf-font-body: 'Crimson Pro', Georgia, serif; --lf-font-display: 'Bebas Neue', 'Impact', sans-serif;
+      --lf-font-mono: 'Share Tech Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.68; --lf-card-radius: 6px;
+      --lf-bg-image: linear-gradient(rgba(10,112,96,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(10,112,96,0.06) 1px, transparent 1px), radial-gradient(ellipse at 25% 35%, rgba(10,112,96,0.1) 0%, transparent 45%), radial-gradient(ellipse at 75% 65%, rgba(255,78,58,0.07) 0%, transparent 40%);
+      --lf-bg-size: 24px 24px, 24px 24px, cover, cover;
+      --lf-bg-position: 0 0, 0 0, 0 0, 0 0; --lf-bg-repeat: repeat, repeat, no-repeat, no-repeat;
+      --lf-surface: #D8F4EC;
+      /* alpha-signal's real colored shadow token — the theme's own signature elevation, used here on the archetype's single hero exhibit/panel per page */
+      --lf-shadow-hero: 0 4px 20px rgba(10,112,96,0.3);
+      --lf-gradient-hero: linear-gradient(135deg, #0A7060 0%, #085848 50%, #0A6050 100%);
+      --lf-border-width: 1px;
+      /* quote tokens pulled from alpha-signal's own .glow-demo: --glow-color resolves to its
+         PRIMARY teal (#0A7060), not the accent yellow — the theme colors its "quote" text with
+         its authority color, not its conviction color. Emphasis pulled from colors.secondary
+         (#FF4E3A coral), the theme's own "urgency" hue, distinct from the quote's teal. */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: #0A7060;
+      --lf-quote-text-color: #0A7060;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #FF4E3A;
+    }
+    .lf-variant-stage.theme-vault-theorem {
+      --lf-ink: #16112A; --lf-ink-muted: #68607A; --lf-paper: #F0EBF8;
+      --lf-line: #C4BADC; --lf-region-outline: #C4BADC; --lf-accent: #8B20FF;
+      --lf-font-body: 'Spectral', Georgia, serif; --lf-font-display: 'Josefin Slab', Georgia, serif;
+      --lf-font-mono: 'Inconsolata', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.72; --lf-card-radius: 8px;
+      --lf-bg-image: repeating-linear-gradient(45deg, transparent, transparent 22px, rgba(28,46,88,0.04) 22px, rgba(28,46,88,0.04) 23px), repeating-linear-gradient(-45deg, transparent, transparent 22px, rgba(28,46,88,0.04) 22px, rgba(28,46,88,0.04) 23px), radial-gradient(ellipse at 15% 20%, rgba(28,46,88,0.1) 0%, transparent 42%), radial-gradient(ellipse at 85% 75%, rgba(139,32,255,0.08) 0%, transparent 40%);
+      --lf-bg-size: 23px 23px, 23px 23px, cover, cover;
+      --lf-bg-position: 0 0, 0 0, 0 0, 0 0; --lf-bg-repeat: repeat, repeat, no-repeat, no-repeat;
+      --lf-surface: #E6E0F4;
+      --lf-shadow-hero: 0 4px 16px rgba(28,46,88,0.22);
+      --lf-gradient-hero: linear-gradient(135deg, #1C2E58 0%, #141E3C 50%, #1C2A50 100%);
+      --lf-border-width: 1px;
+      /* vault-theorem's own .glow-demo sets --glow-color to its ACCENT violet (#8B20FF) — unlike
+         alpha-signal, this theme does color its quote-analog with the "audacity" hue, not the
+         "depth" one. Emphasis pulled from colors.secondary (#C87830 copper), its own "warmth" hue. */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: #8B20FF;
+      --lf-quote-text-color: #8B20FF;
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: #C87830;
+    }
+    .lf-variant-stage.theme-eigenvalue {
+      --lf-ink: #14103C; --lf-ink-muted: #5A5878; --lf-paper: #EEF0FF;
+      --lf-line: #BEC0E0; --lf-region-outline: #BEC0E0; --lf-accent: #A8FF20;
+      --lf-font-body: 'Source Serif 4', Georgia, serif; --lf-font-display: 'Syne', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'Space Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 800; --lf-line-height: 1.65; --lf-card-radius: 8px;
+      --lf-bg-image: radial-gradient(circle, rgba(92,46,255,0.18) 1px, transparent 1px), radial-gradient(ellipse at 20% 30%, rgba(92,46,255,0.1) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(0,212,204,0.09) 0%, transparent 45%);
+      --lf-bg-size: 24px 24px, cover, cover; --lf-bg-position: 0 0, 0 0, 0 0; --lf-bg-repeat: repeat, no-repeat, no-repeat;
+      --lf-surface: #E4E6F8;
+      --lf-shadow-hero: 0 4px 16px rgba(92,46,255,0.12);
+      --lf-gradient-hero: linear-gradient(135deg, #E4E6F8 0%, #EEF0FF 50%, #D8DAEF 100%);
+      --lf-border-width: 1px;
+      /* eigenvalue's own .glow-demo sets --glow-color to its PRIMARY violet (#5C2EFF), same
+         pattern as alpha-signal (authority hue, not the acid-lime conviction accent). Emphasis
+         pulled from colors.secondary (#00D4CC cyan), matching its factor-card accent bars. */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: #5C2EFF;
+      --lf-quote-text-color: #5C2EFF;
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: #00D4CC;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Masthead — quiet identity bar, reused unthemed-sans across every stage page */
+    .lf-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* ── Rail + body shell — the archetype's actual shape, not a generic grid demo ── */
+    .lf-dash-shell {
+      display: grid;
+      grid-template-columns: repeat(var(--lf-columns), 1fr);
+      gap: var(--lf-gutter);
+      align-items: start;
+    }
+
+    .lf-rail {
+      grid-column: 1 / 4;
+      border-right: var(--lf-border-width) solid var(--lf-line);
+      padding-right: var(--lf-space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--lf-space-6);
+    }
+    .lf-rail-section { display: flex; flex-direction: column; gap: var(--lf-space-2); }
+    .lf-rail-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-2);
+    }
+    .lf-rail-copy { font-size: 0.82rem; color: var(--lf-ink-muted); line-height: 1.6; }
+
+    .lf-rail-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .lf-rail-nav-item {
+      font-size: 0.85rem; color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      border-left: 2px solid transparent;
+      border-radius: 0 var(--lf-card-radius) var(--lf-card-radius) 0;
+    }
+    /* Active state is the only theme-linked color on chrome-adjacent nav — signals "this facet is
+       currently live," the whole reason a rail earns its place over a plain document sidebar. */
+    .lf-rail-nav-item.active {
+      color: var(--lf-ink); font-weight: 600;
+      background: var(--lf-surface);
+      border-left-color: var(--lf-accent);
+    }
+
+    .lf-rail-meta { display: flex; flex-direction: column; gap: var(--lf-space-3); }
+    .lf-rail-meta-row { display: flex; flex-direction: column; gap: 1px; }
+    .lf-rail-meta-row dt {
+      font-family: var(--lf-font-mono); font-size: 0.6rem; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--lf-ink-muted);
+    }
+    .lf-rail-meta-row dd { font-size: 0.82rem; color: var(--lf-ink); }
+
+    /* Confined stat modules — the ONLY place (besides .lf-summary-zone) a number is allowed to
+       carry its own labeled module. Bare rule dividers, never individually shadowed boxes. */
+    .lf-rail-stats { display: flex; flex-direction: column; gap: var(--lf-space-3); }
+    .lf-rail-stat { border-top: var(--lf-border-width) solid var(--lf-line); padding-top: var(--lf-space-2); }
+    .lf-rail-stat.emphasis { border-top-width: var(--lf-emphasis-border-width); border-top-color: var(--lf-emphasis-border-color); }
+    .lf-rail-stat .stat-label { font-family: var(--lf-font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--lf-ink-muted); }
+    .lf-rail-stat .stat-value { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.4rem; color: var(--lf-ink); line-height: 1.15; margin-top: 2px; }
+    .lf-rail-stat .stat-delta { font-size: 0.7rem; color: var(--lf-ink-muted); margin-top: 2px; }
+
+    .lf-body { grid-column: 4 / 13; }
+    .lf-body-header { margin-bottom: var(--lf-space-6); }
+    .lf-body-title { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 2rem; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: var(--lf-space-2); max-width: 34ch; }
+    .lf-body-dek { font-size: 1.02rem; color: var(--lf-ink-muted); max-width: 62ch; }
+
+    /* The single dominant visual per page — restraint rule: only ONE element per view ever gets
+       shadow-hero/gradient-hero. Two forms: a real content panel (.lf-hero-panel, used for the
+       card-heavy variant's flagship record) and an exhibit placeholder (.lf-hero-exhibit, used
+       for the chart-heavy variant's primary chart). Rail stats and secondary exhibits stay bare. */
+    .lf-hero-panel {
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      padding: var(--lf-space-4);
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-hero-panel h3 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.1rem; margin-bottom: var(--lf-space-2); }
+    .lf-hero-panel p { font-size: 0.9rem; color: var(--lf-ink-muted); max-width: 60ch; }
+    .lf-hero-exhibit {
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      height: 200px;
+      margin-bottom: var(--lf-space-3);
+    }
+
+    .lf-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin: var(--lf-space-2) 0 var(--lf-space-4); }
+
+    /* One clearly bounded summary zone — the archetype's second legal place for stat modules,
+       used instead of the rail when the numbers are scoped to the body's current content rather
+       than persistent across the whole session. Still one bounded band, not a card grid. */
+    .lf-summary-zone {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: var(--lf-space-4);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background: var(--lf-surface);
+      padding: var(--lf-space-4);
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-summary-item .label { font-family: var(--lf-font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--lf-ink-muted); margin-bottom: 2px; }
+    .lf-summary-item .value { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.25rem; color: var(--lf-ink); }
+
+    .lf-body-section { margin-bottom: var(--lf-space-6); padding-top: var(--lf-space-4); border-top: var(--lf-border-width) solid var(--lf-line); }
+    .lf-body-section:first-of-type { border-top: none; padding-top: 0; }
+    .lf-body-section h2 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.1rem; margin-bottom: var(--lf-space-2); }
+    .lf-body-section p { font-size: 0.92rem; color: var(--lf-ink); max-width: 66ch; margin-bottom: var(--lf-space-2); }
+    .lf-body-section p:last-child { margin-bottom: 0; }
+
+    /* Insight callout — this archetype's stand-in for a pull quote: a single flagged finding,
+       styled through the same quote tokens each theme's own component convention drives. */
+    .lf-insight {
+      background-color: var(--lf-surface);
+      color: var(--lf-quote-text-color);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      padding: var(--lf-space-3) var(--lf-space-4);
+      margin: var(--lf-space-4) 0;
+      font-size: 0.95rem; line-height: 1.55; max-width: 60ch;
+    }
+
+    .lf-exhibit-zone { margin-top: var(--lf-space-2); }
+    .lf-exhibit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--lf-space-4); }
+    .lf-exhibit-mini {
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px);
+      height: 96px;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-exhibit-grid h3 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 0.95rem; margin-bottom: 2px; }
+    .lf-exhibit-grid p { font-size: 0.82rem; color: var(--lf-ink-muted); }
+
+    /* Record rows — hairline-divided, never a uniform shadowed card grid. Exactly one row may
+       carry the emphasis-border accent for genuine secondary urgency; the rest stay identical. */
+    .lf-record-list { display: flex; flex-direction: column; }
+    .lf-record-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--lf-space-4); padding: var(--lf-space-3) 0; border-bottom: var(--lf-border-width) solid var(--lf-line); }
+    .lf-record-row.flag { border-left: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); padding-left: var(--lf-space-3); }
+    .lf-record-name { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 0.98rem; }
+    .lf-record-meta { font-size: 0.78rem; color: var(--lf-ink-muted); white-space: nowrap; }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">dashboard-with-rail</span>
+    <span class="lf-meta-tags">dashboard-with-rail &middot; dashboard-legitimate</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">20px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1320px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">dashboard-with-rail — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> long-form internal docs with a persistent section nav — a runbook, a policy handbook, a reference guide.<br><strong>Avoid:</strong> inventing filters or live stats for a document that doesn't have any." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> analytics consoles, monitoring dashboards, BI screens — genuinely filterable or live data.<br><strong>Avoid:</strong> letting stat tiles leak out of the rail/summary zone into the body as scattered cards." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> admin panels, ticket/alert trackers, inventory tables — a genuinely browsable, filterable set of records.<br><strong>Avoid:</strong> giving every row an identical shadowed-card treatment regardless of actual urgency." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="alpha-signal" role="tab" aria-selected="false">alpha-signal</button>
+      <button class="lf-theme-tab" data-theme-option="vault-theorem" role="tab" aria-selected="false">vault-theorem</button>
+      <button class="lf-theme-tab" data-theme-option="eigenvalue" role="tab" aria-selected="false">eigenvalue</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>dashboard-with-rail</span>
+        </div>
+        <div class="lf-dash-shell">
+          <aside class="lf-rail">
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Service Monitor</div>
+              <ul class="lf-rail-nav">
+                <li class="lf-rail-nav-item active">Overview</li>
+                <li class="lf-rail-nav-item">Services</li>
+                <li class="lf-rail-nav-item">Regions</li>
+                <li class="lf-rail-nav-item">Alert History</li>
+              </ul>
+            </div>
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Filters</div>
+              <ul class="lf-rail-nav">
+                <li class="lf-rail-nav-item active">Production</li>
+                <li class="lf-rail-nav-item">Staging</li>
+              </ul>
+            </div>
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Confined Stat Modules</div>
+              <div class="lf-rail-stats">
+                <div class="lf-rail-stat">
+                  <div class="stat-label">Uptime, 30d</div>
+                  <div class="stat-value">99.982%</div>
+                  <div class="stat-delta">4 services tracked</div>
+                </div>
+                <div class="lf-rail-stat emphasis">
+                  <div class="stat-label">Open Incidents</div>
+                  <div class="stat-value">1</div>
+                  <div class="stat-delta">Needs an owner</div>
+                </div>
+              </div>
+            </div>
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Session</div>
+              <dl class="lf-rail-meta">
+                <div class="lf-rail-meta-row"><dt>Region</dt><dd>us-east-1</dd></div>
+                <div class="lf-rail-meta-row"><dt>Refreshed</dt><dd>12s ago</dd></div>
+              </dl>
+            </div>
+          </aside>
+          <div class="lf-body">
+            <div class="lf-body-header">
+              <h1 class="lf-body-title">Dashboard With Rail: The Stats Stay in the Rail, the Body Stays Readable</h1>
+              <p class="lf-body-dek">A persistent narrow rail carries navigation, filters, and every stat module. The body holds one active view at a time — prose, an exhibit, or a record list — and is never diluted by tiles wandering into it.</p>
+            </div>
+            <div class="lf-body-section">
+              <p>The rail at left isn't a decorative sidebar of related links — it's the control surface. Every facet a user can actually switch (a section, an environment, a status filter) and every persistent number worth a glance (uptime, open-incident count, last-refresh time) lives there, visible the entire time the body's content changes beneath it. That's what makes this a dashboard and not a document with a sidebar bolted on: the rail's contents are things you'd actually click and things that actually update.</p>
+              <div class="lf-insight">The tell that separates a real dashboard-with-rail from the anti-pattern isn't how it looks — it's whether the rail's contents are things a user would ever click. A filter no one can change, or a stat with no live source behind it, is decoration wearing a dashboard's clothes.</div>
+            </div>
+            <div class="lf-body-section">
+              <h2>When Not to Use This Archetype</h2>
+              <p>A static report or a single-author article is not this archetype, even if it contains a few numbers. A quarterly review with three key findings belongs in <em>magazine-well</em> or <em>data-dense-report-grid</em>, where those numbers sit in running text or as numbered, captioned exhibits — not orbiting the page as stat tiles. Reach for dashboard-with-rail only when the content has genuine navigable facets: real sections to jump between, real filters that narrow what's shown, or a live source that actually changes. If nothing on the page would ever be clicked or refreshed, the rail is decorative — exactly the "sidebar filter/nav rail bolted onto a document with no navigable sub-views" anti-pattern this skill's own checklist flags.</p>
+            </div>
+            <div class="lf-body-section">
+              <h2>The Structural Rule That Keeps It Honest</h2>
+              <p>Stat modules are confined to two places only: the rail's stat section, or one clearly bounded summary zone at the top of the body — never loose in the body as scattered cards. Both patterns are shown below; a single view never uses both at once.</p>
+              <div class="lf-summary-zone">
+                <div class="lf-summary-item"><div class="label">Pattern A</div><div class="value">Rail-confined</div></div>
+                <div class="lf-summary-item"><div class="label">Pattern B</div><div class="value">One bounded zone</div></div>
+                <div class="lf-summary-item"><div class="label">Never</div><div class="value">Scattered cards</div></div>
+              </div>
+              <p>The moment a number gets its own shadowed box sitting mid-paragraph in the body, the layout has drifted into the generic-dashboard-on-a-document anti-pattern this archetype exists to do correctly instead.</p>
+            </div>
+            <div class="lf-body-section">
+              <h2>Editorial Devices This Archetype Favors</h2>
+              <p>Because the rail already carries structure, the body favors light-touch devices: a hairline rule between sections instead of drop caps or ornaments, a small mono caption under every exhibit, and one insight callout per view at most — reserved for the single finding worth flagging, not running commentary. Footnotes and pull quotes rarely appear here; this archetype is read in short passes, not straight through.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>dashboard-with-rail</span>
+        </div>
+        <div class="lf-dash-shell">
+          <aside class="lf-rail">
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">On This Page</div>
+              <ul class="lf-rail-nav">
+                <li class="lf-rail-nav-item active">Triage</li>
+                <li class="lf-rail-nav-item">Roles &amp; Escalation</li>
+                <li class="lf-rail-nav-item">Communication</li>
+                <li class="lf-rail-nav-item">Postmortem</li>
+              </ul>
+            </div>
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Document</div>
+              <dl class="lf-rail-meta">
+                <div class="lf-rail-meta-row"><dt>Owner</dt><dd>Platform Reliability</dd></div>
+                <div class="lf-rail-meta-row"><dt>Status</dt><dd>Living document</dd></div>
+                <div class="lf-rail-meta-row"><dt>Updated</dt><dd>3 days ago</dd></div>
+              </dl>
+            </div>
+          </aside>
+          <div class="lf-body">
+            <div class="lf-body-header">
+              <h1 class="lf-body-title">Sev-1 Triage: The First Fifteen Minutes</h1>
+              <p class="lf-body-dek">What the on-call engineer does before anyone else gets paged.</p>
+            </div>
+            <div class="lf-body-section">
+              <p>The first responder's only job in the first five minutes is scope, not root cause. Confirm the alert is real against the status page, name a single incident channel, and post a one-line summary of what's affected — not what's broken. Root-causing before scope is confirmed is the single most common way a twenty-minute incident becomes a ninety-minute one.</p>
+              <div class="lf-insight">Page the secondary on-call at the five-minute mark by default, not at the fifteen-minute mark "if it still looks bad." Reversing that default is the change that cut our median time-to-mitigate in half last quarter.</div>
+            </div>
+            <div class="lf-body-section">
+              <h2>Roles &amp; Escalation</h2>
+              <p>Incident commander and first responder are different roles even when one person holds both for the first ten minutes. The moment a second engineer joins, the first responder hands off IC and becomes the person actually touching the system — command and execution shouldn't share one attention span past that point.</p>
+            </div>
+            <div class="lf-body-section">
+              <h2>Communication</h2>
+              <p>Status page updates go out every fifteen minutes during an active Sev-1, even when the update is "still investigating, no change." Silence reads as bigger than the incident actually is.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>dashboard-with-rail</span>
+        </div>
+        <div class="lf-dash-shell">
+          <aside class="lf-rail">
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Navigate</div>
+              <ul class="lf-rail-nav">
+                <li class="lf-rail-nav-item active">Overview</li>
+                <li class="lf-rail-nav-item">Services</li>
+                <li class="lf-rail-nav-item">Regions</li>
+                <li class="lf-rail-nav-item">Alerts</li>
+              </ul>
+            </div>
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Filters</div>
+              <ul class="lf-rail-nav">
+                <li class="lf-rail-nav-item active">Production</li>
+                <li class="lf-rail-nav-item">Staging</li>
+                <li class="lf-rail-nav-item active">Last 24h</li>
+                <li class="lf-rail-nav-item">Last 7d</li>
+              </ul>
+            </div>
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Confined Stat Modules</div>
+              <div class="lf-rail-stats">
+                <div class="lf-rail-stat">
+                  <div class="stat-label">Uptime, 30d</div>
+                  <div class="stat-value">99.982%</div>
+                  <div class="stat-delta">4 services tracked</div>
+                </div>
+                <div class="lf-rail-stat">
+                  <div class="stat-label">Error Rate</div>
+                  <div class="stat-value">0.14%</div>
+                  <div class="stat-delta">&uarr; from 0.03% baseline</div>
+                </div>
+                <div class="lf-rail-stat emphasis">
+                  <div class="stat-label">P99 Latency</div>
+                  <div class="stat-value">312ms</div>
+                  <div class="stat-delta">EU region only</div>
+                </div>
+                <div class="lf-rail-stat">
+                  <div class="stat-label">Open Incidents</div>
+                  <div class="stat-value">1</div>
+                  <div class="stat-delta">Needs an owner</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <div class="lf-body">
+            <div class="lf-body-header">
+              <h1 class="lf-body-title">Checkout Service: Elevated Latency in the EU Region, Contained to One Dependency</h1>
+              <p class="lf-body-dek">Filtering to the last 24 hours in production isolates the regression to a single downstream call.</p>
+            </div>
+            <div class="lf-summary-zone">
+              <div class="lf-summary-item"><div class="label">P99 Latency</div><div class="value">312ms</div></div>
+              <div class="lf-summary-item"><div class="label">Deploy</div><div class="value">13:58 UTC</div></div>
+              <div class="lf-summary-item"><div class="label">Services Affected</div><div class="value">1</div></div>
+            </div>
+            <div class="lf-exhibit-zone">
+              <div class="lf-hero-exhibit"></div>
+              <p class="lf-caption">Fig. 1 &mdash; P99 latency by region, last 24h. EU crosses the 300ms threshold at 14:02 UTC; US and APAC stay flat.</p>
+              <div class="lf-body-section" style="border-top:none;padding-top:0">
+                <p>The regression tracks a single deploy to the fraud-scoring service at 13:58 UTC &mdash; every other checkout dependency stays within its normal band across the same window.</p>
+                <div class="lf-insight">Don't let stat tiles leak out of the rail and summary zone into the rest of the body as scattered cards. Everything below this point stays a numbered, captioned exhibit &mdash; never a bare floating number.</div>
+              </div>
+              <div class="lf-exhibit-grid">
+                <div>
+                  <div class="lf-exhibit-mini"></div>
+                  <h3>Fig. 2 &mdash; Error breakdown by service</h3>
+                  <p>Fraud-scoring accounts for 94% of the added latency; payment and inventory are unaffected.</p>
+                </div>
+                <div>
+                  <div class="lf-exhibit-mini"></div>
+                  <h3>Fig. 3 &mdash; Request volume by region</h3>
+                  <p>EU volume is flat through the incident &mdash; this is a latency regression, not a load spike.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>dashboard-with-rail</span>
+        </div>
+        <div class="lf-dash-shell">
+          <aside class="lf-rail">
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Status</div>
+              <ul class="lf-rail-nav">
+                <li class="lf-rail-nav-item active">Open</li>
+                <li class="lf-rail-nav-item">Resolved</li>
+                <li class="lf-rail-nav-item">Snoozed</li>
+              </ul>
+            </div>
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Severity</div>
+              <ul class="lf-rail-nav">
+                <li class="lf-rail-nav-item active">All</li>
+                <li class="lf-rail-nav-item">Critical</li>
+                <li class="lf-rail-nav-item">High</li>
+                <li class="lf-rail-nav-item">Medium</li>
+                <li class="lf-rail-nav-item">Low</li>
+              </ul>
+            </div>
+            <div class="lf-rail-section">
+              <div class="lf-rail-label">Confined Stat Modules</div>
+              <div class="lf-rail-stats">
+                <div class="lf-rail-stat">
+                  <div class="stat-label">Open</div>
+                  <div class="stat-value">4</div>
+                  <div class="stat-delta">Across all severities</div>
+                </div>
+                <div class="lf-rail-stat emphasis">
+                  <div class="stat-label">Unassigned</div>
+                  <div class="stat-value">1</div>
+                  <div class="stat-delta">Needs an owner</div>
+                </div>
+                <div class="lf-rail-stat">
+                  <div class="stat-label">Avg Age</div>
+                  <div class="stat-value">47m</div>
+                  <div class="stat-delta">Since opened</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <div class="lf-body">
+            <div class="lf-body-header">
+              <h1 class="lf-body-title">Open Alerts: 4 Active, 1 Needs an Immediate Owner</h1>
+              <p class="lf-body-dek">Filtered to status = open across all severities &mdash; the rail's severity facet narrows this list without leaving the page.</p>
+            </div>
+            <div class="lf-hero-panel">
+              <h3>ALERT-4471 &mdash; Payment webhook retries exceeding threshold</h3>
+              <p>Critical &middot; Unassigned &middot; Retry rate crossed 12/min at 09:14 UTC, six minutes ago.</p>
+            </div>
+            <div class="lf-insight">Only the hero above and the row directly below it carry any visual weight beyond the divider &mdash; the other two are exactly as urgent as they look: not very. Matching every row's styling to its actual severity, not to a template, is what keeps a long list scannable.</div>
+            <div class="lf-record-list">
+              <div class="lf-record-row flag">
+                <span class="lf-record-name">ALERT-4468 &mdash; Elevated queue depth, notifications-worker</span>
+                <span class="lf-record-meta">High &middot; 41m ago &middot; J. Ruiz</span>
+              </div>
+              <div class="lf-record-row">
+                <span class="lf-record-name">ALERT-4460 &mdash; Disk usage above 80%, log-shipper-03</span>
+                <span class="lf-record-meta">Medium &middot; 2h ago &middot; on-call</span>
+              </div>
+              <div class="lf-record-row">
+                <span class="lf-record-name">ALERT-4452 &mdash; Certificate expiring in 14 days, api.internal</span>
+                <span class="lf-record-meta">Low &middot; yesterday &middot; platform-team</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-alpha-signal', 'theme-vault-theorem', 'theme-eigenvalue');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

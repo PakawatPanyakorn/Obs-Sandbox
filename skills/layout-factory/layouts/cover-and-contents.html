@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="cover-and-contents">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: cover-and-contents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Victor+Mono:ital,wght@0,300;0,400;1,300&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:wght@300;400;500;700&family=Cutive+Mono&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "cover-and-contents",
+    "description": "A two-page ceremonial opening: a full-bleed title cover, followed by a flatter, numbered contents index — separated by a literal page-break seam.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "cover-and-contents",
+    "family": "editorial-narrative",
+    "composition": {
+      "summary": "Page one is a full-bleed cover that isolates a single title, a kicker, and an attribution line, with nothing else on the page. Page two immediately follows with a quieter, numbered contents index. The seam between them — a literal page-break indicator — is what marks this as two committed pages, not one continuous scroll with a big headline at the top.",
+      "regions": [
+        { "id": "cover", "role": "full-bleed title/cover treatment — kicker, headline, attribution", "columnSpan": "1-12", "order": 1, "notes": "The only region that gets the theme's hero gradient/shadow at full strength" },
+        { "id": "seam", "role": "literal page-break indicator between page 1 and page 2", "columnSpan": "1-12", "order": 2, "notes": "Chrome-only structural marker — dashed rule + folio numbers, not a content region itself" },
+        { "id": "contents", "role": "numbered/sectioned table-of-contents index", "columnSpan": "1-12", "order": 3, "notes": "Deliberately flatter register than the cover — restraint, not oversight" }
+      ],
+      "hierarchy": { "primary": "cover", "secondary": "contents", "tertiary": "seam" },
+      "readingOrder": ["cover", "seam", "contents"],
+      "entryPoint": "The cover's headline — the only large display type and the only hero-treated background on the page",
+      "balance": "symmetric"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "24px",
+      "maxWidth": "1100px",
+      "marginInline": "6vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Cover and contents both stay single-column full-bleed; only the type scale shrinks." },
+        "md": { "columns": 8, "gutter": "20px", "notes": "No structural change — this archetype has no multi-column content to reflow." },
+        "lg": { "columns": 12, "gutter": "24px", "notes": "Full-bleed cover, full-width contents list." }
+      },
+      "regionSpans": { "cover": "1 / 13", "seam": "1 / 13", "contents": "1 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 40, 64, 96],
+      "unit": "px",
+      "rhythm": "1.5x body line-height between contents entries; a full section-gap at the seam so it reads as a genuine page break, not a section divider",
+      "sectionGap": "96px",
+      "blockGap": "24px",
+      "inlineGap": "16px",
+      "density": "spacious"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Once, inside the cover — a single quotable line beneath the kicker, echoing a book jacket's blurb", "style": "Large italic display type, left rule, no quotation marks" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "numeral" },
+      "dropCaps": false,
+      "captions": { "style": "small mono attribution line", "position": "bottom edge of the cover, below the pull quote" },
+      "numbering": { "sections": true, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "Two stacked full-height <section>-like blocks (.lf-cover-page, .lf-contents-page) in ordinary block flow with a distinct visual seam between them — not CSS Grid, since each 'page' is single-column by definition.",
+      "presentation": "Page 1 becomes the deck's title slide (kicker + headline + attribution, full-bleed background). Page 2 becomes the agenda slide: one line per section, descriptions dropped — decks compress contents entries to titles only.",
+      "print": "Literal two-page pairing: page 1 is the cover (no running header/footer, full bleed); page 2 is the table of contents (page numbers become real, folio marks move into the running header). page-break-before:always is set on the contents page.",
+      "markdown": "Page 1 becomes a title block: H1 + kicker as an italic sub-line + attribution as a horizontal rule beneath. Page 2 becomes an ordinary Markdown numbered list of section headings — dot leaders and page numbers don't survive the format, so each entry's one-line description is what preserves the 'annotated contents' feel."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "Contents entries are a numbered list with dot leaders, never boxed cards — even in the card/list-heavy variant, entries stay hairline-rule list items with variable-length descriptions, not uniform boxes. Only the cover receives the hero gradient/shadow; the contents page stays flat by rule, and entries never get a filled background, only an optional left-border on the single emphasized item."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The contents list runs the narrative sections in argument order — Executive Summary through Recommendation — each with a one-line descriptor instead of a figure count. The cover drops any suggestion of visual apparatus; it's kicker + headline + dek + attribution only.",
+        "bestFor": "Long-form reports, whitepapers, board memos, research monographs — any document that argues something across multiple sections and benefits from the reader knowing the shape before starting.",
+        "avoid": "Don't pad the contents list to look fuller — five honest sections beat nine invented ones. And don't add cover artwork just to fill space; a text-only cover is the correct choice for text-only content."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The contents page gains a second, smaller list beneath the section index — a 'Figures' index, each exhibit numbered and one-line captioned, same discipline as magazine-well's well entries. The cover itself stays typographic; findings live on the contents/body pages, never crammed onto the title page.",
+        "bestFor": "Quarterly reviews, analyst reports, research-findings decks — anything where readers will flip to a specific exhibit by number.",
+        "avoid": "Don't let the figures index degrade into bare numbers with no caption — that's the dashboard-trope anti-pattern. Every figure entry keeps its one-line interpretation, even inside the index."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "Contents entries become the comparable items themselves — candidates, vendors, portfolio pieces — rather than chapter names. They stay a numbered, hairline-rule list with variable-length descriptions, never boxed into uniform cards.",
+        "bestFor": "Vendor shortlists, board packets comparing options, portfolio or case-study indexes — a set of comparable items formal enough to need a cover page in front of them.",
+        "avoid": "Don't convert the list into a 3-up card grid once it reaches the contents page — the numbered list *is* the structure. Boxing each entry duplicates the numbering and reintroduces the uniform-card tell this skill exists to prevent."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "nocturne-nouveau", "why": "Ornate, formal Art Nouveau register with Italiana display type reads as ceremonial front matter — the dark radial-nebula hero and dramatic elevation shadow give the cover real weight without needing a photo." },
+      { "theme": "embassy-gold", "why": "Its own description — 'institutional cover-page authority' — is a more direct fit for this archetype than the split-hero preset it was first paired with; navy/gold restraint and Cormorant display read as board-document gravitas." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 24px;
+      --lf-max-width: 1100px;
+      --lf-margin-inline: 6vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 40px; --lf-space-8: 64px;
+      /* theme-overridable — full set, applied only inside .lf-variant-stage (see scoping rule below) */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body), so the chrome above
+       (meta bar, specs, tabs, captions) stays neutral. Values pulled from each theme's own
+       theme-data JSON + component markup — see skills/theme-factory/themes/<name>.html. */
+    .lf-variant-stage.theme-nocturne-nouveau {
+      --lf-ink: #E8E0D0; --lf-ink-muted: #8080A0; --lf-paper: #0A0818;
+      --lf-line: #2A2048; --lf-region-outline: #2A2048; --lf-accent: #D4A840;
+      --lf-font-body: 'Fraunces', Georgia, serif; --lf-font-display: 'Italiana', Georgia, serif;
+      --lf-font-mono: 'Victor Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.78; --lf-card-radius: 0px;
+      /* ambient 4-layer radial nebula — applied to the whole stage, quiet atmosphere on both pages */
+      --lf-bg-image: radial-gradient(ellipse at 30% 20%, rgba(212,168,64,0.12) 0%, transparent 52%), radial-gradient(ellipse at 70% 80%, rgba(42,136,136,0.1) 0%, transparent 48%), radial-gradient(ellipse at 80% 10%, rgba(232,96,74,0.07) 0%, transparent 42%), radial-gradient(ellipse at 10% 90%, rgba(120,80,200,0.08) 0%, transparent 40%);
+      --lf-bg-size: cover; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      --lf-surface: #120E28;
+      /* cover-only hero, pulled from the theme's own gradients.hero + shadows.xl (its "dramatic" elevation) */
+      --lf-gradient-hero: linear-gradient(135deg, #160E30 0%, #0A0818 50%, #0E0A20 100%);
+      --lf-shadow-hero: 0 16px 60px rgba(6,4,20,0.85);
+      --lf-border-width: 1px;
+      /* no explicit pull-quote demo in this theme's markup — nearest analog is its badge system,
+         which does colour text/border by category, so gold carries into the quote rather than
+         staying neutral; that's a deliberate reading of the theme's own richness, not an invention */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+    .lf-variant-stage.theme-embassy-gold {
+      --lf-ink: #1A1C24; --lf-ink-muted: #6A6458; --lf-paper: #F0EBE0;
+      --lf-line: #C8BEA8; --lf-region-outline: #C8BEA8; --lf-accent: #B8860B;
+      --lf-font-body: 'Libre Franklin', 'Helvetica Neue', sans-serif; --lf-font-display: 'Cormorant Garamond', Georgia, serif;
+      --lf-font-mono: 'Cutive Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 500; --lf-line-height: 1.65; --lf-card-radius: 2px;
+      /* ambient thin gold architectural grid — the theme's own body background, applied to both pages */
+      --lf-bg-image: linear-gradient(rgba(180,140,11,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(180,140,11,0.07) 1px, transparent 1px);
+      --lf-bg-size: 48px 48px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #EBE4D6;
+      /* cover-only hero, pulled from the theme's own gradients.hero (subtle ivory) + shadows.colored
+         (navy-tinted) — the theme's actual "authority" component (.tf-header) is a solid navy block,
+         which the fixed --lf-* vocabulary can't literally reproduce, so the gold top-rule + colored
+         shadow below carry that institutional weight instead */
+      --lf-gradient-hero: linear-gradient(135deg, #EBE4D6 0%, #F0EBE0 50%, #E8E0D0 100%);
+      --lf-shadow-hero: 0 3px 16px rgba(30,58,95,0.25), 0 0 0 1px rgba(30,58,95,0.3);
+      --lf-border-width: 1px;
+      /* pulled from embassy-gold's own .tf-glow-demo (its pull-quote: border-left 3px goldenrod,
+         quote text coloured goldenrod) and .tf-card.gold (its alt card: 3px goldenrod top-rule) */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected. color/font-family/line-height/
+       background re-declared here (not just inherited from body) so descendants that don't set
+       their own colour re-inherit from THIS scope once .theme-* overrides the custom properties. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Masthead — quiet identity bar above each demo page, never competes with the cover beneath it */
+    .lf-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* PAGE 1 — Cover. The only region on the page allowed real presence: theme's own hero
+       gradient + shadow at full strength, a top-rule in the theme's accent colour. Everything
+       on page 2 stays flat by rule — this is the single "hero" this archetype permits. */
+    .lf-cover-page {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 380px;
+      padding: var(--lf-space-8);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-top: calc(var(--lf-border-width) * 3) solid var(--lf-accent);
+      border-radius: var(--lf-card-radius);
+    }
+    .lf-cover-eyebrow {
+      font-family: var(--lf-font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-cover-title {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.08;
+      color: var(--lf-ink);
+      max-width: 17ch;
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-cover-dek {
+      font-size: 1.02rem;
+      color: var(--lf-ink-muted);
+      max-width: 56ch;
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-cover-meta {
+      display: flex;
+      gap: var(--lf-space-6);
+      flex-wrap: wrap;
+      font-family: var(--lf-font-mono);
+      font-size: 0.72rem;
+      color: var(--lf-ink-muted);
+      border-top: 1px solid var(--lf-line);
+      padding-top: var(--lf-space-3);
+      margin-top: var(--lf-space-4);
+      width: 100%;
+    }
+    /* Matches each theme's own pull-quote component: surface-tinted, left rule sized/coloured
+       per theme, quote text coloured when the theme uses colour for emphasis. */
+    .lf-pullquote {
+      background-color: var(--lf-surface);
+      color: var(--lf-quote-text-color);
+      font-size: 1.3rem;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.4;
+      padding: var(--lf-space-3) var(--lf-space-4);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      margin-bottom: var(--lf-space-4);
+      max-width: 44ch;
+    }
+
+    /* SEAM — the literal page-break indicator. Chrome-quality (ink-muted, mono, no accent) on
+       purpose: this is the one thing on the page that never gets "hero" treatment. */
+    .lf-page-seam {
+      display: flex;
+      align-items: center;
+      gap: var(--lf-space-3);
+      margin: var(--lf-space-6) 0;
+      font-family: var(--lf-font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+    }
+    .lf-page-seam-rule { flex: 1; height: 0; border-top: 1px dashed var(--lf-line); }
+    .lf-page-seam-folio {
+      flex: none;
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--lf-line);
+      border-radius: 999px;
+      background-color: var(--lf-surface);
+      font-size: 0.62rem;
+    }
+    .lf-page-seam-label { white-space: nowrap; }
+
+    /* PAGE 2 — Contents. Deliberately flat: no gradient-hero, no shadow-hero. A numbered index
+       with dot leaders — never boxed cards, even when the content mix is a set of comparable items. */
+    .lf-contents-page { padding-top: var(--lf-space-2); }
+    .lf-contents-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-contents-header h2 {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 1.5rem;
+      color: var(--lf-ink);
+    }
+    .lf-contents-header span {
+      font-family: var(--lf-font-mono);
+      font-size: 0.68rem;
+      color: var(--lf-ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .lf-contents-list { display: flex; flex-direction: column; }
+    .lf-contents-entry {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: var(--lf-space-3);
+      padding: var(--lf-space-3) 0;
+      border-bottom: 1px solid var(--lf-line);
+    }
+    /* Echoes each theme's own "alt card" convention (embassy-gold's .tf-card.gold top-rule,
+       nocturne-nouveau's coloured badge border) — one entry gets a themed left-rule, same
+       restraint as the theme's own component: a rule only, never a filled box. */
+    .lf-contents-entry.emphasis { border-left: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); padding-left: var(--lf-space-3); }
+    .lf-contents-num { font-family: var(--lf-font-mono); font-size: 0.85rem; color: var(--lf-ink-muted); }
+    .lf-contents-title-row { display: flex; align-items: baseline; gap: var(--lf-space-2); }
+    .lf-contents-title { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.05rem; color: var(--lf-ink); white-space: nowrap; }
+    .lf-contents-leader { flex: 1; border-bottom: 1px dotted var(--lf-line); margin-bottom: 5px; min-width: 16px; }
+    .lf-contents-page-num { font-family: var(--lf-font-mono); font-size: 0.8rem; color: var(--lf-ink-muted); white-space: nowrap; }
+    .lf-contents-desc { font-size: 0.82rem; color: var(--lf-ink-muted); margin-top: 3px; }
+    .lf-contents-subentry {
+      margin: var(--lf-space-2) 0 0 var(--lf-space-6);
+      padding-bottom: var(--lf-space-2);
+      border-bottom: 1px solid var(--lf-line);
+      font-size: 0.86rem;
+    }
+    .lf-contents-subentry .lf-contents-title { font-size: 0.9rem; font-family: var(--lf-font-body); font-weight: 400; font-style: italic; white-space: normal; }
+
+    /* Figures index — chartHeavy's secondary block beneath the section list. Still numbered and
+       captioned, one line each — the discipline that keeps this from becoming a dashboard. */
+    .lf-figures-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      margin: var(--lf-space-6) 0 var(--lf-space-3);
+    }
+    .lf-figures-list { display: flex; flex-direction: column; gap: var(--lf-space-2); }
+    .lf-figures-entry { font-size: 0.85rem; color: var(--lf-ink-muted); }
+    .lf-figures-entry strong { color: var(--lf-ink); font-weight: 600; }
+
+    /* Full View (house style, not optional) */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">cover-and-contents</span>
+    <span class="lf-meta-tags">cover-and-contents &middot; editorial-narrative</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">24px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1100px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">spacious</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">cover-and-contents — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> long-form reports, whitepapers, board memos — content that argues something across multiple sections.<br><strong>Avoid:</strong> padding the contents list to look fuller, or inventing cover artwork just to fill space." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> quarterly reviews, analyst reports — content readers will flip to a specific exhibit by number.<br><strong>Avoid:</strong> a figures index with bare numbers and no caption — that's the dashboard-trope anti-pattern." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> vendor shortlists, board packets — a set of comparable items formal enough to need a cover page.<br><strong>Avoid:</strong> converting the list into a 3-up card grid once it reaches the contents page." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="nocturne-nouveau" role="tab" aria-selected="false">nocturne-nouveau</button>
+      <button class="lf-theme-tab" data-theme-option="embassy-gold" role="tab" aria-selected="false">embassy-gold</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all three — only colour, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <!-- CONCEPT -->
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>cover-and-contents</span>
+        </div>
+
+        <div class="lf-cover-page">
+          <div class="lf-cover-eyebrow">Layout Archetype &middot; Editorial-Narrative Family</div>
+          <h1 class="lf-cover-title">Cover &amp; Contents: A Formal Opening Before the Argument Begins</h1>
+          <blockquote class="lf-pullquote">&ldquo;A cover promises weight; the page that follows has to prove it.&rdquo;</blockquote>
+          <p class="lf-cover-dek">Two committed pages, not one continuous scroll: a full-bleed cover isolates a single title and lets it own the whole page, uninterrupted by anything else. Immediately beneath it, a numbered contents index proves the weight was earned — that pairing, cover then index, is the entire mechanism.</p>
+          <div class="lf-cover-meta">
+            <span>PREPARED AS &middot; Front Matter for Reports &amp; Decks</span>
+            <span>PAGE 1 OF 2 &middot; COVER</span>
+          </div>
+        </div>
+
+        <div class="lf-page-seam">
+          <span class="lf-page-seam-folio">01</span>
+          <span class="lf-page-seam-rule"></span>
+          <span class="lf-page-seam-label">Page Break &mdash; Cover Ends, Contents Begins</span>
+          <span class="lf-page-seam-rule"></span>
+          <span class="lf-page-seam-folio">02</span>
+        </div>
+
+        <div class="lf-contents-page">
+          <div class="lf-contents-header">
+            <h2>Contents</h2>
+            <span>Page 2 of 2</span>
+          </div>
+          <div class="lf-contents-list">
+            <div class="lf-contents-entry emphasis">
+              <span class="lf-contents-num">01</span>
+              <div>
+                <div class="lf-contents-title-row">
+                  <span class="lf-contents-title">When to Reach for This Archetype</span>
+                  <span class="lf-contents-leader"></span>
+                  <span class="lf-contents-page-num">03</span>
+                </div>
+                <div class="lf-contents-desc">Formal reports, board decks, research monographs, RFP responses &mdash; anything whose reader expects a title page and an index, because the alternative reads as unfinished.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">02</span>
+              <div>
+                <div class="lf-contents-title-row">
+                  <span class="lf-contents-title">When Not To</span>
+                  <span class="lf-contents-leader"></span>
+                  <span class="lf-contents-page-num">04</span>
+                </div>
+                <div class="lf-contents-desc">Skip it for informal memos, one-pagers, or a quick internal brief &mdash; pairing a full ceremonial cover with a numbered TOC on a half-page document reads as bureaucratic throat-clearing. Use a plain heading, or <em>magazine-well</em>'s masthead, instead.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">03</span>
+              <div>
+                <div class="lf-contents-title-row">
+                  <span class="lf-contents-title">The Structural Rule</span>
+                  <span class="lf-contents-leader"></span>
+                  <span class="lf-contents-page-num">05</span>
+                </div>
+                <div class="lf-contents-desc">Page two is a numbered index, not a second cover. The moment its entries get boxed, shadowed, or turned into cards, it has drifted into the uniform-card-grid look this skill exists to prevent &mdash; keep the list a list.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">04</span>
+              <div>
+                <div class="lf-contents-title-row">
+                  <span class="lf-contents-title">Editorial Devices This Archetype Favors</span>
+                  <span class="lf-contents-leader"></span>
+                  <span class="lf-contents-page-num">06</span>
+                </div>
+                <div class="lf-contents-desc">Dot-leader numbering, a literal folio-marked seam between the two pages, and restrained page-two typography &mdash; page two intentionally under-performs page one.</div>
+                <div class="lf-contents-subentry">
+                  <div class="lf-contents-title-row"><span class="lf-contents-title">4.1 Dot leaders, not tables</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">06</span></div>
+                </div>
+                <div class="lf-contents-subentry">
+                  <div class="lf-contents-title-row"><span class="lf-contents-title">4.2 Folio marks at the seam, not a section rule</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">07</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOSTLY TEXT -->
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>cover-and-contents</span>
+        </div>
+
+        <div class="lf-cover-page">
+          <div class="lf-cover-eyebrow">Internal Report &middot; Platform Engineering</div>
+          <h1 class="lf-cover-title">The Long Version: Migrating the Monolith Without a Freeze</h1>
+          <blockquote class="lf-pullquote">&ldquo;Nobody remembers the migration plan. Everyone remembers whether the freeze happened.&rdquo;</blockquote>
+          <p class="lf-cover-dek">A retrospective report prepared for the engineering leadership review, covering the zero-freeze strategy, what broke, and whether to repeat it.</p>
+          <div class="lf-cover-meta">
+            <span>PREPARED BY &middot; Platform Team</span>
+            <span>Q3 2026 &middot; 41 Pages</span>
+          </div>
+        </div>
+
+        <div class="lf-page-seam">
+          <span class="lf-page-seam-folio">01</span>
+          <span class="lf-page-seam-rule"></span>
+          <span class="lf-page-seam-label">Page Break &mdash; Cover Ends, Contents Begins</span>
+          <span class="lf-page-seam-rule"></span>
+          <span class="lf-page-seam-folio">02</span>
+        </div>
+
+        <div class="lf-contents-page">
+          <div class="lf-contents-header">
+            <h2>Contents</h2>
+            <span>5 Sections</span>
+          </div>
+          <div class="lf-contents-list">
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">01</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Executive Summary</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">03</span></div>
+                <div class="lf-contents-desc">What changed, what it cost, and the one metric that mattered.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">02</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Background</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">06</span></div>
+                <div class="lf-contents-desc">Why the monolith couldn't wait another release cycle.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">03</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Approach</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">14</span></div>
+                <div class="lf-contents-desc">The zero-freeze strategy, and the three teams it required.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">04</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Risks &amp; Mitigations</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">27</span></div>
+                <div class="lf-contents-desc">What we expected to break, and what actually did.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry emphasis">
+              <span class="lf-contents-num">05</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Recommendation</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">38</span></div>
+                <div class="lf-contents-desc">Whether to repeat this approach for the next migration.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHART / DATA-HEAVY -->
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>cover-and-contents</span>
+        </div>
+
+        <div class="lf-cover-page">
+          <div class="lf-cover-eyebrow">Quarterly Analyst Report &middot; Growth &amp; Retention</div>
+          <h1 class="lf-cover-title">State of Retention: Q2 FY26 Findings</h1>
+          <p class="lf-cover-dek">Prepared for the growth review board &mdash; five sections and four supporting exhibits, indexed on the following page.</p>
+          <div class="lf-cover-meta">
+            <span>PREPARED BY &middot; Data Science</span>
+            <span>Q2 FY26 &middot; Figures 1&ndash;4</span>
+          </div>
+        </div>
+
+        <div class="lf-page-seam">
+          <span class="lf-page-seam-folio">01</span>
+          <span class="lf-page-seam-rule"></span>
+          <span class="lf-page-seam-label">Page Break &mdash; Cover Ends, Contents Begins</span>
+          <span class="lf-page-seam-rule"></span>
+          <span class="lf-page-seam-folio">02</span>
+        </div>
+
+        <div class="lf-contents-page">
+          <div class="lf-contents-header">
+            <h2>Contents</h2>
+            <span>5 Sections &middot; 4 Figures</span>
+          </div>
+          <div class="lf-contents-list">
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">01</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Executive Summary</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">03</span></div>
+                <div class="lf-contents-desc">The one-sentence finding leadership needs before the detail.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">02</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Cohort Retention</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">04</span></div>
+                <div class="lf-contents-desc">Fig. 1 &mdash; retention plateaus at week six, across every cohort.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">03</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Activation Funnel</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">06</span></div>
+                <div class="lf-contents-desc">Fig. 2 &mdash; where users drop off before reaching week six.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">04</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Channel Mix</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">08</span></div>
+                <div class="lf-contents-desc">Fig. 3 &mdash; acquisition channel shifted materially; the retention floor didn't.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry emphasis">
+              <span class="lf-contents-num">05</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Recommendation</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">10</span></div>
+                <div class="lf-contents-desc">Where next quarter's engineering effort should go.</div>
+              </div>
+            </div>
+          </div>
+          <div class="lf-figures-label">List of Figures</div>
+          <div class="lf-figures-list">
+            <div class="lf-figures-entry"><strong>Fig. 1</strong> &mdash; Retention by cohort, weeks 1&ndash;12 &middot; p.4</div>
+            <div class="lf-figures-entry"><strong>Fig. 2</strong> &mdash; Activation funnel, drop-off by step &middot; p.6</div>
+            <div class="lf-figures-entry"><strong>Fig. 3</strong> &mdash; Channel mix vs. retention floor &middot; p.8</div>
+            <div class="lf-figures-entry"><strong>Fig. 4</strong> &mdash; Support ticket volume vs. activation &middot; p.9</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD / LIST-HEAVY -->
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>cover-and-contents</span>
+        </div>
+
+        <div class="lf-cover-page">
+          <div class="lf-cover-eyebrow">Procurement Committee &middot; Board Packet</div>
+          <h1 class="lf-cover-title">Vendor Shortlist: FY26 Renewal Decision</h1>
+          <p class="lf-cover-dek">Four vendors under consideration for the FY26 platform renewal, prepared for board sign-off.</p>
+          <div class="lf-cover-meta">
+            <span>PREPARED BY &middot; Procurement</span>
+            <span>Board Packet &middot; 4 Candidates</span>
+          </div>
+        </div>
+
+        <div class="lf-page-seam">
+          <span class="lf-page-seam-folio">01</span>
+          <span class="lf-page-seam-rule"></span>
+          <span class="lf-page-seam-label">Page Break &mdash; Cover Ends, Contents Begins</span>
+          <span class="lf-page-seam-rule"></span>
+          <span class="lf-page-seam-folio">02</span>
+        </div>
+
+        <div class="lf-contents-page">
+          <div class="lf-contents-header">
+            <h2>Contents</h2>
+            <span>4 Candidates + Recommendation</span>
+          </div>
+          <div class="lf-contents-list">
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">01</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Vendor A &mdash; Meridian Cloud</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">03</span></div>
+                <div class="lf-contents-desc">Incumbent. Lowest switching cost, weakest roadmap commitment.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry emphasis">
+              <span class="lf-contents-num">02</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Vendor B &mdash; Anchorpoint Systems</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">05</span></div>
+                <div class="lf-contents-desc">Strongest SLA terms; highest three-year total cost. Committee's leading candidate as of this draft.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">03</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Vendor C &mdash; Fielding Data Co.</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">07</span></div>
+                <div class="lf-contents-desc">Newest entrant; steepest discount, shortest reference list.</div>
+              </div>
+            </div>
+            <div class="lf-contents-entry">
+              <span class="lf-contents-num">04</span>
+              <div>
+                <div class="lf-contents-title-row"><span class="lf-contents-title">Recommendation &amp; Next Steps</span><span class="lf-contents-leader"></span><span class="lf-contents-page-num">09</span></div>
+                <div class="lf-contents-desc">Committee's preferred candidate, and the contingency if negotiations stall.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-nocturne-nouveau', 'theme-embassy-gold');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

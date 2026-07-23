@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="z-pattern-landing">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: z-pattern-landing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,75..125,100;0,75..125,700;0,75..125,900;1,75..125,400&family=Figtree:ital,wght@0,300;0,400;0,600;1,400&family=Fira+Code:wght@300;400&family=Syne:wght@400;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "z-pattern-landing",
+    "description": "A directed Z-shaped eye-path -- logo to nav CTA to diagonal supporting content to a single bottom-right closing CTA -- built to convert attention into one click, not to be read start-to-finish.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "z-pattern-landing",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "A directed eye-path, not a content hierarchy: logo and a light nav CTA form the top bar, a supporting visual and proof copy sweep diagonally down the page, and a single heavily-treated closing CTA sits bottom-right as the page's one required action. Every other element is deliberately quieter than the CTA -- this archetype measures success by clicks on one button, not by how thoroughly the page gets read.",
+      "regions": [
+        { "id": "masthead", "role": "identity/logo left + lightweight nav CTA right -- the Z-path's top bar", "columnSpan": "1-12", "order": 1, "notes": "The nav CTA here is deliberately the QUIET call-to-action -- outline style, no hero treatment. Full visual weight is reserved for the closing CTA." },
+        { "id": "lead", "role": "diagonal sweep zone: supporting headline/copy + one supporting visual, staggered so the eye travels from top-right down toward bottom-left", "columnSpan": "1-12 (internally split 1-7 copy / 8-12 visual)", "order": 2, "notes": "The visual is offset downward via margin so its top edge sits lower than the copy's top edge, physically tracing the diagonal instead of just asserting it in prose." },
+        { "id": "body", "role": "closing call-to-action, bottom-right -- the destination the whole page has been steering toward", "columnSpan": "7-12", "order": 3, "notes": "This region, not the lead's visual, carries this archetype's --lf-shadow-hero/--lf-gradient-hero treatment -- the CTA button is the single most visually weighted element on the page." }
+      ],
+      "hierarchy": { "primary": "body", "secondary": "lead", "tertiary": "masthead" },
+      "readingOrder": ["masthead", "lead", "body"],
+      "entryPoint": "The logo, top-left -- smallest element on the page but the first fixation point per Z-pattern eye-tracking; attention immediately sweeps right to the nav CTA, then diagonally down through the supporting visual and proof copy, then right again to the closing CTA.",
+      "balance": "asymmetric-right"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "24px",
+      "maxWidth": "1200px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "The Z collapses to a single vertical column in strict reading order: logo, nav CTA beneath it, headline, visual, closing CTA. The diagonal sweep isn't literal on a screen with no width to sweep across -- the ORDER still steers toward the same one action, just via scroll instead of eye movement." },
+        "md": { "columns": 8, "gutter": "20px", "notes": "The diagonal is partially restored -- lead splits into a stacked headline above a right-aligned visual -- but the closing CTA still runs full width until there's room at lg." },
+        "lg": { "columns": 12, "gutter": "24px", "notes": "Full Z-path: two horizontal top anchors, a diagonal sweep through the lead, and the closing CTA anchored bottom-right." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "lead": "1 / 13", "body": "7 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 32, 48, 64, 96, 128],
+      "unit": "px",
+      "rhythm": "1.5x body line-height between paragraphs; a full 96px sectionGap between masthead / lead / closing so the closing CTA reads as a deliberate final stop, not another stacked block.",
+      "sectionGap": "96px",
+      "blockGap": "32px",
+      "inlineGap": "24px",
+      "density": "spacious"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Within the lead's supporting copy, as a single-line social-proof testimonial", "style": "Short attributed customer quote, italic, left rule sized/colored per theme -- reads as proof, not as an editorial aside" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": true, "types": ["closing-CTA microcopy (e.g. \"no credit card required\")"] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "whitespace" },
+      "dropCaps": false,
+      "captions": { "style": "italic, small, flush-left to the visual", "position": "directly below the lead's supporting visual" },
+      "numbering": { "sections": false, "figures": false }
+    },
+    "mediaAdaptation": {
+      "html": "12-col grid; masthead is a flex row (logo left, nav CTA right); lead uses an asymmetric 7/5 column split (copy first, supporting visual second) with the visual nudged down via margin-top to stagger the diagonal; the closing CTA block is right-aligned (max-width + margin-left:auto) with a large top margin so it reads as the page's final stop, not another entry in a list.",
+      "presentation": "Does not translate meaningfully. A slide deck has no scroll-driven Z eye-path -- forcing this into a slide master just produces a hero slide followed by a CTA slide, which is a different pattern wearing this one's name. Use a picture-and-message or divider-slide pattern instead.",
+      "print": "Does not translate meaningfully. Print has no single click to convert on, and the diagonal eye-path only exists inside a viewport with defined, known edges. Forcing a print layout here just reproduces magazine-well with an extra box. Use single-column-editorial or asymmetric-split for anything meant to be printed.",
+      "markdown": "Does not translate meaningfully. Markdown has no positional eye-path at all, only linear top-to-bottom flow -- a markdown render degrades to headline, paragraph, link, which is just prose. If the content must live in markdown, don't force the metaphor: write it as prose with one clear call-to-action link instead of pretending the Z-path survived."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only -- combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "The closing CTA is the only element carrying --lf-shadow-hero/--lf-gradient-hero -- the lead's supporting visual gets --lf-surface only, the same restraint magazine-well applies to its well entries, just reassigned to fit this archetype's actual hero (the CTA, not a photo). The masthead's nav CTA is deliberately smaller and outline-only so it never competes with the closing CTA. The card/list variant's benefit list is a hairline-rule list, never a boxed 3-up grid."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The lead drops its visual slot entirely -- the diagonal is carried by copy alone, ending in a short proof line nudged toward the bottom-right instead of an invented picture.",
+        "bestFor": "SaaS waitlist pages, single-offer landing pages, beta-signup pages -- anything pitching one product in prose before asking for the click.",
+        "avoid": "Don't invent a product screenshot or illustration just to fill the visual slot -- an empty slot (copy running full width instead) is honest; a decorative filler image isn't."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The lead's visual becomes a single captioned proof exhibit -- a growth curve, before/after comparison, or traction chart -- standing in for the product shot. Still only one exhibit; this archetype has no well to hold a second.",
+        "bestFor": "Metrics-led landing pages: 'we cut load time 80%' pitches, funding/traction one-pagers, investor-facing product pages built around a single number.",
+        "avoid": "Don't let the closing CTA turn into a stat tile ('bigger number = more conversions') -- that's the dashboard-trope anti-pattern. The CTA stays a verb-led button; the number stays in the captioned exhibit."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "The lead's copy column gains a short 3-item benefit list (hairline-rule separated, one item may carry the theme's emphasis rule) to build the case -- still one diagonal sweep; the list is a supporting device inside the lead, not a second competing block of cards.",
+        "bestFor": "Feature-comparison or 'why choose us' landing pages, pricing-adjacent one-pagers with a handful of concrete benefits.",
+        "avoid": "Don't let the benefit list grow into a uniform icon-card 3-up grid -- that competes with the CTA for attention. Keep it a plain rule-separated list so the closing CTA remains the only button-styled element on the page."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "solarpunk-utopia", "why": "An optimistic, CTA-driven landing-page register -- cooperative/climate-tech marketing copy with its own pill-button, gradient-CTA convention -- is a direct fit for a single-action conversion page." },
+      { "theme": "eigenvalue", "why": "Its own asymmetric hero panel and live signal readouts already read as a confident single-CTA fintech/quant-product landing page, a register distinct from solarpunk-utopia's soft optimism despite sharing this archetype." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 24px;
+      --lf-max-width: 1200px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 32px; --lf-space-8: 64px;
+      /* theme-overridable -- full set, plus one archetype-specific addition (--lf-cta-radius)
+         documented just below the required set. */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      --lf-font-display: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 700;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      /* This archetype's "hero" is the closing CTA, not a photo/exhibit -- see antiPatternCheck.notes.
+         --lf-surface tones the lead's supporting visual only; --lf-shadow-hero/--lf-gradient-hero are
+         reserved for the CTA button, pulled from each theme's ACTUAL button component, not its hero panel. */
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+      /* Archetype-specific addition: CTA buttons use the theme's actual buttonRadius (often a pill,
+         distinct from cardRadius) -- falls back to --lf-card-radius when no theme override sets it,
+         so the neutral "No theme" state still renders a sane flat-cornered button. */
+      --lf-cta-radius: var(--lf-card-radius);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides, scoped to .lf-variant-stage (never body) -- see magazine-well.html for
+       the full explanation of why the scoping matters. */
+    .lf-variant-stage.theme-solarpunk-utopia {
+      --lf-ink: #1A2C1A; --lf-ink-muted: #5A7A5A; --lf-paper: #F0FCE8;
+      --lf-line: #A8D8A0; --lf-region-outline: #A8D8A0;
+      /* accent = theme's own "primary" (Leaf green) -- the color this theme actually uses for
+         buttons/glows/gradient-text; its literal "accent" field (Harvest orange) is used sparingly
+         for tags/badges only, not for interactive/emphasis elements. */
+      --lf-accent: #2A8C3A;
+      --lf-font-body: 'Figtree', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Anybody', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'Fira Code', 'Courier New', monospace;
+      --lf-font-weight-heading: 900; --lf-line-height: 1.65; --lf-card-radius: 16px;
+      --lf-bg-image: radial-gradient(ellipse at 15% 30%, rgba(42,140,58,0.14) 0%, transparent 48%), radial-gradient(ellipse at 85% 15%, rgba(212,178,0,0.1) 0%, transparent 42%), radial-gradient(ellipse at 60% 85%, rgba(240,112,32,0.07) 0%, transparent 40%);
+      --lf-bg-size: cover; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      --lf-surface: #E4F8D8;
+      /* pulled from solarpunk-utopia's own .sp-btn-primary: shadows.colored + gradients.button --
+         this is the theme's real CTA convention, applied here to the CTA (this archetype's hero),
+         not to a photo panel. */
+      --lf-shadow-hero: 0 4px 20px rgba(42,140,58,0.3);
+      --lf-gradient-hero: linear-gradient(135deg, #34A845 0%, #1E7A2E 100%);
+      --lf-border-width: 1px;
+      --lf-cta-radius: 999px;
+      /* solarpunk-utopia has no explicit blockquote/alt-card demo in its own markup -- these values
+         echo its general accent-color emphasis convention (badges, mono metrics) rather than
+         inventing a bespoke component the theme doesn't show. */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+    .lf-variant-stage.theme-eigenvalue {
+      --lf-ink: #14103C; --lf-ink-muted: #5A5878; --lf-paper: #EEF0FF;
+      --lf-line: #BEC0E0; --lf-region-outline: #BEC0E0;
+      /* accent = theme's own "primary" (electric violet) -- the color driving its hero title,
+         stat values, and section-title rule; its literal "accent" field (acid lime) is reserved
+         for a single badge/tag variant, never the dominant interactive color. */
+      --lf-accent: #5C2EFF;
+      --lf-font-body: 'Source Serif 4', Georgia, serif;
+      --lf-font-display: 'Syne', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'Space Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 800; --lf-line-height: 1.65; --lf-card-radius: 8px;
+      --lf-bg-image: radial-gradient(circle, rgba(92,46,255,0.18) 1px, transparent 1px), radial-gradient(ellipse at 20% 30%, rgba(92,46,255,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(0,212,204,0.07) 0%, transparent 45%);
+      --lf-bg-size: 24px 24px, cover, cover; --lf-bg-position: 0 0, 0 0, 0 0; --lf-bg-repeat: repeat, no-repeat, no-repeat;
+      --lf-surface: #E4E6F8;
+      /* pulled from eigenvalue's own .btn-primary: shadows.colored + gradients.button -- again the
+         theme's real CTA convention, applied to this archetype's actual hero (the CTA). */
+      --lf-shadow-hero: 0 4px 16px rgba(92,46,255,0.12);
+      --lf-gradient-hero: linear-gradient(135deg, #7A50FF 0%, #4A18E8 100%);
+      --lf-border-width: 1px;
+      --lf-cta-radius: 4px;
+      /* pulled from eigenvalue's own .section-title (border-left: 3px solid var(--color-primary))
+         as the closest real analog to a pull-quote rule, and its .factor-card/.stat-block accent
+         top-bar (~3px) as the alt/"emphasis" convention -- body prose itself stays neutral ink,
+         matching the theme's own restraint of coloring only mono/stat values, never running text. */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* ---- z-pattern-landing archetype-specific structure ---- */
+
+    /* Masthead -- logo left, quiet nav CTA right. The top bar of the Z. */
+    .lf-z-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--lf-space-4);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      margin-bottom: var(--lf-space-8);
+    }
+    .lf-z-masthead-logo {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+      color: var(--lf-ink);
+    }
+    /* Nav CTA -- deliberately the QUIET action: outline only, no hero tokens, so it never competes
+       with the closing CTA below for attention. */
+    .lf-z-cta-nav {
+      appearance: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--lf-font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: var(--lf-cta-radius);
+      background: transparent;
+      color: var(--lf-ink);
+      border: var(--lf-border-width) solid var(--lf-ink);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-z-cta-nav:hover { background: var(--lf-ink); color: var(--lf-paper); }
+
+    /* Lead -- the diagonal sweep zone. Copy sits upper-left-ish (cols 1-7); the supporting visual
+       is nudged down via margin-top so it physically traces the diagonal instead of only being
+       described as one. */
+    .lf-z-lead {
+      display: grid;
+      grid-template-columns: repeat(var(--lf-columns), 1fr);
+      gap: var(--lf-gutter);
+      margin-bottom: var(--lf-space-8);
+    }
+    .lf-z-lead-copy { grid-column: 1 / 8; }
+    .lf-z-lead-copy.full { grid-column: 1 / 13; }
+    .lf-z-lead-visual { grid-column: 8 / 13; margin-top: var(--lf-space-6); }
+    .lf-z-eyebrow {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted); margin-bottom: var(--lf-space-2);
+    }
+    .lf-z-headline {
+      font-family: var(--lf-font-display);
+      font-size: 2.1rem;
+      line-height: 1.15;
+      font-weight: var(--lf-font-weight-heading);
+      letter-spacing: -0.01em;
+      max-width: 22ch;
+      margin-bottom: var(--lf-space-3);
+      color: var(--lf-ink);
+    }
+    .lf-z-dek { font-size: 1.02rem; color: var(--lf-ink-muted); max-width: 52ch; margin-bottom: var(--lf-space-4); }
+    .lf-z-body { max-width: 56ch; font-size: 0.95rem; color: var(--lf-ink); }
+    .lf-z-body p { margin-bottom: var(--lf-space-3); }
+    .lf-z-proof-line { text-align: right; font-size: 0.85rem; color: var(--lf-ink-muted); font-style: italic; margin-top: var(--lf-space-4); }
+
+    /* The lead's supporting visual gets --lf-surface only -- NEVER --lf-shadow-hero/--lf-gradient-hero.
+       Those are reserved exclusively for the closing CTA (see antiPatternCheck.notes). */
+    .lf-z-visual-box {
+      height: 220px;
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin-bottom: var(--lf-space-2); }
+
+    /* Shared vocabulary pull-quote, restyled per-theme via quote tokens -- used here as a single-line
+       social-proof testimonial inside the lead, not an editorial aside. */
+    .lf-pullquote {
+      background-color: var(--lf-surface);
+      color: var(--lf-quote-text-color);
+      font-size: 1.02rem;
+      font-style: italic;
+      line-height: 1.5;
+      padding: var(--lf-space-3) var(--lf-space-4);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      margin: var(--lf-space-4) 0;
+      max-width: 46ch;
+    }
+    .lf-pullquote cite { display: block; font-style: normal; font-size: 0.78rem; color: var(--lf-ink-muted); margin-top: var(--lf-space-2); }
+
+    /* Benefit list (card/list-heavy variant) -- hairline-rule list, never a boxed 3-up grid. */
+    .lf-z-benefits { display: flex; flex-direction: column; gap: var(--lf-space-3); margin-top: var(--lf-space-4); }
+    .lf-z-benefit { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-2); font-size: 0.9rem; color: var(--lf-ink-muted); }
+    .lf-z-benefit strong { color: var(--lf-ink); }
+    .lf-z-benefit.emphasis { border-top: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); }
+
+    /* Closing CTA -- the destination. Right-aligned block, large top margin so it reads as a
+       deliberate final stop rather than another stacked entry. This is the ONLY element carrying
+       --lf-shadow-hero/--lf-gradient-hero in the whole archetype. */
+    .lf-z-closing {
+      max-width: 460px;
+      margin: var(--lf-space-8) 0 0 auto;
+      padding-top: var(--lf-space-6);
+      border-top: var(--lf-border-width) solid var(--lf-line);
+    }
+    .lf-z-closing h2 {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 1.5rem;
+      line-height: 1.2;
+      color: var(--lf-ink);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-z-closing-dek { color: var(--lf-ink-muted); font-size: 0.9rem; max-width: 40ch; margin-bottom: var(--lf-space-4); }
+    .lf-z-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--lf-font-body);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border: none;
+      border-radius: var(--lf-cta-radius);
+      cursor: pointer;
+      color: var(--lf-paper);
+      background-color: var(--lf-accent);
+      background-image: var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      transition: filter .12s, transform .12s;
+    }
+    .lf-z-cta-primary:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    .lf-z-closing-micro { display: block; margin-top: var(--lf-space-2); font-size: 0.72rem; color: var(--lf-ink-muted); }
+
+    /* Concept-only teaching apparatus -- NOT one of the archetype's 3 structural regions, just
+       explanatory copy for the Concept tab (parallels magazine-well's well-label/well-entry trio,
+       under fresh class names since this archetype has no "well"). */
+    .lf-z-notes-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2);
+      margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+    .lf-z-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--lf-space-6); }
+    .lf-z-note { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-3); }
+    .lf-z-note h3 { font-family: var(--lf-font-display); font-size: 1.05rem; font-weight: var(--lf-font-weight-heading); line-height: 1.25; margin-bottom: var(--lf-space-2); color: var(--lf-ink); }
+    .lf-z-note p { font-size: 0.86rem; color: var(--lf-ink-muted); }
+
+    /* Concept-view Z-path guide -- an actual visual device (numbered eye-path markers + a faint
+       dashed guide line) so the diagonal is legible, not just asserted in prose. Concept tab only. */
+    .lf-z-guide { position: relative; }
+    .lf-z-guide-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .lf-z-guide-path { fill: none; stroke: var(--lf-line); stroke-width: 1.5; stroke-dasharray: 5 5; opacity: 0.9; }
+    .lf-z-marker {
+      position: absolute;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--lf-ink);
+      color: var(--lf-paper);
+      display: flex; align-items: center; justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      z-index: 2;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 3px var(--lf-paper);
+    }
+    .lf-z-marker-1 { top: 4%; left: 4%; }
+    .lf-z-marker-2 { top: 4%; left: 96%; }
+    .lf-z-marker-3 { top: 90%; left: 6%; }
+    .lf-z-marker-4 { top: 97%; left: 94%; }
+
+    /* ---- shared chrome/vocabulary (copied verbatim per house style) ---- */
+
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View (house style, not optional). */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">z-pattern-landing</span>
+    <span class="lf-meta-tags">z-pattern-landing &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">24px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1200px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">spacious</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-right</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">z-pattern-landing — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> SaaS waitlist pages, single-offer landing pages, beta-signup pages — anything pitching one product in prose before asking for the click.<br><strong>Avoid:</strong> inventing a product screenshot just to fill the visual slot — an empty slot is honest, a decorative filler image isn't." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> metrics-led landing pages — 'we cut load time 80%' pitches, funding/traction one-pagers, investor-facing product pages built around a single number.<br><strong>Avoid:</strong> turning the closing CTA into a stat tile — that's the dashboard-trope anti-pattern; the CTA stays a verb-led button, the number stays in the captioned exhibit." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> feature-comparison or 'why choose us' landing pages, pricing-adjacent one-pagers with a handful of concrete benefits.<br><strong>Avoid:</strong> letting the benefit list grow into a uniform icon-card 3-up grid — keep it a plain rule-separated list so the CTA remains the only button-styled element on the page." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="solarpunk-utopia" role="tab" aria-selected="false">solarpunk-utopia</button>
+      <button class="lf-theme-tab" data-theme-option="eigenvalue" role="tab" aria-selected="false">eigenvalue</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all three — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-z-guide">
+          <svg class="lf-z-guide-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polyline class="lf-z-guide-path" points="4,4 96,4 6,90 94,96"></polyline>
+          </svg>
+          <div class="lf-z-marker lf-z-marker-1">1</div>
+          <div class="lf-z-marker lf-z-marker-2">2</div>
+          <div class="lf-z-marker lf-z-marker-3">3</div>
+          <div class="lf-z-marker lf-z-marker-4">4</div>
+
+          <div class="lf-z-masthead">
+            <span class="lf-z-masthead-logo">Layout-Factory &middot; View: Concept</span>
+            <a href="#" class="lf-z-cta-nav">Sign Up</a>
+          </div>
+
+          <div class="lf-z-lead">
+            <div class="lf-z-lead-copy">
+              <div class="lf-z-eyebrow">The Concept</div>
+              <h1 class="lf-z-headline">One Path, One Action</h1>
+              <p class="lf-z-dek">This archetype exists to move attention, not to be read start-to-finish. The eye tracks an actual Z: logo <strong>(1)</strong> &rarr; nav CTA <strong>(2)</strong> &rarr; a diagonal sweep through the supporting visual and proof copy <strong>(3)</strong> &rarr; the closing call-to-action <strong>(4)</strong>, which is deliberately the single most visually treated element on the page.</p>
+              <div class="lf-z-body">
+                <p>Unlike an editorial layout, nothing here is competing to be "read most" — everything upstream of the closing CTA exists only to make that one click feel like the obvious next move. Size, color, and shadow are spent almost entirely on the button at point 4, not on a hero photo.</p>
+                <blockquote class="lf-pullquote">"We didn't redesign the product page. We just made sure everything pointed at the same button."<cite>&mdash; a made-up but representative line of the register this pattern is built for</cite></blockquote>
+                <p><strong>Use this when</strong> you have exactly one conversion action and the whole page's job is steering toward it: a product landing page, a waitlist or beta signup, a single-offer marketing page, a campaign landing page tied to one ad.</p>
+              </div>
+            </div>
+            <div class="lf-z-lead-visual">
+              <div class="lf-z-visual-box"></div>
+              <div class="lf-caption">Stand-in for a product shot or hero illustration. It supports the diagonal sweep but is NOT the page's dominant visual — that treatment is reserved for the closing CTA below.</div>
+            </div>
+          </div>
+
+          <div class="lf-z-closing">
+            <h2>Ready to see this applied?</h2>
+            <p class="lf-z-closing-dek">The closing CTA is the only element on this entire page carrying the theme's real button gradient and shadow — everything above it is comparatively quiet on purpose.</p>
+            <button class="lf-z-cta-primary" type="button">Get Started Free</button>
+            <span class="lf-z-closing-micro">No credit card required</span>
+          </div>
+
+          <div class="lf-z-notes-label">When Not to Use This Archetype</div>
+          <div class="lf-z-notes">
+            <div class="lf-z-note">
+              <h3>Content meant to be read start-to-finish</h3>
+              <p>An essay, a report, a documentation page — anything where comprehension of the whole matters more than one click. Reach for <em>single-column-editorial</em> or <em>asymmetric-split</em> instead, where the structure serves reading, not conversion.</p>
+            </div>
+            <div class="lf-z-note">
+              <h3>Structural rule that keeps this from becoming a dashboard</h3>
+              <p>Exactly one region gets --lf-shadow-hero/--lf-gradient-hero: the closing CTA. If a second element (a hero photo, a stat tile) starts competing for that same visual weight, the "one action" premise collapses.</p>
+            </div>
+            <div class="lf-z-note">
+              <h3>Editorial devices this archetype favors</h3>
+              <p>One short social-proof testimonial in the lead, styled as a pull-quote. Microcopy under the CTA (e.g. "no credit card required") to lower last-second friction. No footnotes, no sidebars — those belong to reference material, not a conversion page.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-z-masthead">
+          <span class="lf-z-masthead-logo">Layout-Factory &middot; Variant: Mostly Text</span>
+          <a href="#" class="lf-z-cta-nav">Log In</a>
+        </div>
+        <div class="lf-z-lead">
+          <div class="lf-z-lead-copy full">
+            <div class="lf-z-eyebrow">Now in Private Beta</div>
+            <h1 class="lf-z-headline">Stop Reconciling Spreadsheets by Hand</h1>
+            <p class="lf-z-dek">No visual slot in this variant — with prose-only content, the diagonal is carried by copy alone, ending in a proof line nudged toward the bottom-right instead of an invented screenshot.</p>
+            <div class="lf-z-body">
+              <p>Ledger connects to the four accounting tools your finance team already uses and reconciles line items automatically overnight, flagging only the entries that actually need a human look. Most customers cut their month-end close from six days to under two.</p>
+              <blockquote class="lf-pullquote">"I used to block off a full week for close. Now I check a nine-item list on Tuesday morning."<cite>&mdash; illustrative customer line, not a real quote</cite></blockquote>
+            </div>
+            <p class="lf-z-proof-line">Trusted by finance teams at 340+ companies &rarr;</p>
+          </div>
+        </div>
+        <div class="lf-z-closing">
+          <h2>Join the private beta</h2>
+          <p class="lf-z-closing-dek">Early access opens on a rolling basis. No sales call required to try it.</p>
+          <button class="lf-z-cta-primary" type="button">Join the Waitlist</button>
+          <span class="lf-z-closing-micro">Takes 45 seconds &middot; no credit card</span>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-z-masthead">
+          <span class="lf-z-masthead-logo">Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <a href="#" class="lf-z-cta-nav">Sign In</a>
+        </div>
+        <div class="lf-z-lead">
+          <div class="lf-z-lead-copy">
+            <div class="lf-z-eyebrow">The Metric That Sells This</div>
+            <h1 class="lf-z-headline">80% Faster Cold Starts, Measured</h1>
+            <p class="lf-z-dek">The single proof exhibit stands in for a product shot here — same scarcity principle, one number, captioned like a figure, never a bare stat.</p>
+            <div class="lf-z-body">
+              <p>Median cold-start latency across 12,000 production functions, before and after switching runtimes. This is the one chart this page needs — a second exhibit would start competing with the closing CTA for attention.</p>
+            </div>
+          </div>
+          <div class="lf-z-lead-visual">
+            <div class="lf-z-visual-box"></div>
+            <div class="lf-caption">Fig. 1 — Median cold-start latency, before/after, 12,000 functions, 30-day window.</div>
+          </div>
+        </div>
+        <div class="lf-z-closing">
+          <h2>See it on your own workload</h2>
+          <p class="lf-z-closing-dek">Run a free trace against your top 3 endpoints — results in under 10 minutes.</p>
+          <button class="lf-z-cta-primary" type="button">Start Free Trace</button>
+          <span class="lf-z-closing-micro">No integration required to preview results</span>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-z-masthead">
+          <span class="lf-z-masthead-logo">Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <a href="#" class="lf-z-cta-nav">Compare Plans</a>
+        </div>
+        <div class="lf-z-lead">
+          <div class="lf-z-lead-copy">
+              <div class="lf-z-eyebrow">Why Teams Switch</div>
+              <h1 class="lf-z-headline">One Inbox, Every Channel</h1>
+              <p class="lf-z-dek">A short benefit list builds the case here — still one diagonal sweep; the list is a supporting device inside the lead, never a second competing block of cards.</p>
+              <div class="lf-z-benefits">
+                <div class="lf-z-benefit emphasis"><strong>Unified inbox</strong> &mdash; email, chat, and social replies land in one queue, routed by the same rules.</div>
+                <div class="lf-z-benefit"><strong>Shared macros</strong> &mdash; every agent replies from the same approved library, no copy-paste drift.</div>
+                <div class="lf-z-benefit"><strong>15-minute setup</strong> &mdash; no migration project required to try it against your existing helpdesk.</div>
+              </div>
+          </div>
+          <div class="lf-z-lead-visual">
+            <div class="lf-z-visual-box"></div>
+            <div class="lf-caption">Stand-in for a product screenshot of the unified inbox view.</div>
+          </div>
+        </div>
+        <div class="lf-z-closing">
+          <h2>Try it with your team</h2>
+          <p class="lf-z-closing-dek">Free for up to 3 seats. Upgrade only when you need more.</p>
+          <button class="lf-z-cta-primary" type="button">Get Started Free</button>
+          <span class="lf-z-closing-micro">No credit card required</span>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    var themeNames = ['solarpunk-utopia', 'eigenvalue'];
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        themeNames.forEach(function (t) { stage.classList.remove('theme-' + t); });
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

@@ -344,6 +344,196 @@
             grid: { columns: 12 },
             spacing: { density: "compact" }
           }
+        },
+        {
+          filename: "layouts/marginalia-annotated.html",
+          data: {
+            name: "marginalia-annotated",
+            description: "A running manuscript column paired with a dense gloss column: not sparse citations locked one-per-paragraph, but frequent claim-level commentary — challenges, clarifications, queries, agreement — that argues back at the text beside it.",
+            archetype: "marginalia-annotated",
+            family: "data-dense-report",
+            tags: ["academic-research", "documentation-reference", "analyst-report"],
+            composition: {
+              regions: [
+                { id: "body", columnSpan: "1-7" },
+                { id: "sidenote", columnSpan: "8-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
+          filename: "layouts/bento-mosaic.html",
+          data: {
+            name: "bento-mosaic",
+            description: "A modular grid of deliberately varied-size tiles where cell area is a claim about importance, recency, or data density — never decoration.",
+            archetype: "bento-mosaic",
+            family: "grid-discipline",
+            tags: ["dashboard-analytics", "analyst-report", "portfolio-showcase"],
+            composition: {
+              regions: [
+                { id: "lead", columnSpan: "1-3 of 6" },
+                { id: "exhibit-b", columnSpan: "4-5 of 6" },
+                { id: "exhibit-a", columnSpan: "1-3 of 6" },
+                { id: "river", columnSpan: "1 of 6" }
+              ]
+            },
+            grid: { columns: 6 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
+          filename: "layouts/timeline-river.html",
+          data: {
+            name: "timeline-river",
+            description: "A continuous vertical spine anchors chronological entries that alternate left and right to avoid a flat scroll; exactly one entry, chosen by significance rather than position, rises to pivotal scale.",
+            archetype: "timeline-river",
+            family: "editorial-narrative",
+            tags: ["essay-long-form", "analyst-report", "portfolio-showcase"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "spine", columnSpan: "6-7" },
+                { id: "river", columnSpan: "1-5 / 8-12" },
+                { id: "pivotal", columnSpan: "2-11" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "comfortable" }
+          }
+        },
+        {
+          filename: "layouts/card-catalogue-index.html",
+          data: {
+            name: "card-catalogue-index",
+            description: "A dense, aligned index/table where rules and columns — not boxes — carry the structure; an optional alphabetic/category rail lets readers jump straight to a row-group.",
+            archetype: "card-catalogue-index",
+            family: "grid-discipline",
+            tags: ["documentation-reference", "dashboard-analytics", "academic-research"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "rail", columnSpan: "1-3" },
+                { id: "body", columnSpan: "4-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
+          filename: "layouts/poster-broadside.html",
+          data: {
+            name: "poster-broadside",
+            description: "A single dominant typographic statement fills the page; hierarchy comes entirely from scale contrast between one giant headline and, at most, one small supporting line — no boxes, no secondary content.",
+            archetype: "poster-broadside",
+            family: "grid-discipline",
+            tags: ["marketing-landing", "portfolio-showcase", "newsletter-digest"],
+            composition: {
+              regions: [
+                { id: "lead", columnSpan: "1-12" },
+                { id: "support", columnSpan: "3-10" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "spacious" }
+          }
+        },
+        {
+          filename: "layouts/cover-and-contents.html",
+          data: {
+            name: "cover-and-contents",
+            description: "A two-page ceremonial opening: a full-bleed title cover, followed by a flatter, numbered contents index — separated by a literal page-break seam.",
+            archetype: "cover-and-contents",
+            family: "editorial-narrative",
+            tags: ["analyst-report", "academic-research", "essay-long-form"],
+            composition: {
+              regions: [
+                { id: "cover", columnSpan: "1-12" },
+                { id: "seam", columnSpan: "1-12" },
+                { id: "contents", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "spacious" }
+          }
+        },
+        {
+          filename: "layouts/masonry-photo-essay.html",
+          data: {
+            name: "masonry-photo-essay",
+            description: "Variable-height image blocks with cutline captions, driven by each photo's own aspect ratio and narrative weight — a wide panorama is wide because it IS wide, not because it's the most important thing on the page.",
+            archetype: "masonry-photo-essay",
+            family: "editorial-narrative",
+            tags: ["portfolio-showcase", "essay-long-form"],
+            composition: {
+              regions: [
+                { id: "essay-head", columnSpan: "1-8" },
+                { id: "exhibit-hero", columnSpan: "1-12" },
+                { id: "exhibit", columnSpan: "3-12" },
+                { id: "essay-close", columnSpan: "1-8" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "spacious" }
+          }
+        },
+        {
+          filename: "layouts/slide-rule-of-thirds.html",
+          data: {
+            name: "slide-rule-of-thirds",
+            description: "A single slide's visual anchor occupies one third of the frame; supporting text occupies the remaining two-thirds — replaces the default centered-title-plus-bullets slide.",
+            archetype: "slide-rule-of-thirds",
+            family: "grid-discipline",
+            tags: ["marketing-landing", "portfolio-showcase"],
+            composition: {
+              regions: [
+                { id: "lead", columnSpan: "1-4" },
+                { id: "body", columnSpan: "5-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "spacious" }
+          }
+        },
+        {
+          filename: "layouts/z-pattern-landing.html",
+          data: {
+            name: "z-pattern-landing",
+            description: "A directed Z-shaped eye-path — logo to nav CTA to diagonal supporting content to a single bottom-right closing CTA — built to convert attention into one click, not to be read start-to-finish.",
+            archetype: "z-pattern-landing",
+            family: "grid-discipline",
+            tags: ["marketing-landing", "portfolio-showcase"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "lead", columnSpan: "1-12" },
+                { id: "body", columnSpan: "7-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "spacious" }
+          }
+        },
+        {
+          filename: "layouts/slide-master-deck-grid.html",
+          data: {
+            name: "slide-master-deck-grid",
+            description: "A fixed masthead/footer zone system holds constant across every slide in a deck; only the body zone's per-slide content pattern changes.",
+            archetype: "slide-master-deck-grid",
+            family: "grid-discipline",
+            tags: ["marketing-landing", "analyst-report", "portfolio-showcase"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "body", columnSpan: "1-12" },
+                { id: "footer", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
         }
         // { filename: "layouts/<name>.html", data: { ...layout-data JSON... } }
       ];
@@ -407,10 +597,15 @@
             btn.dataset.value = value;
             btn.textContent = label;
             btn.addEventListener('click', () => {
-              if (group.selected.has(value)) group.selected.delete(value);
-              else group.selected.add(value);
-              btn.classList.toggle('active', group.selected.has(value));
-              allBtn.classList.toggle('active', group.selected.size === 0);
+              const wasSelected = group.selected.has(value);
+              group.selected.clear();
+              group.el.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+              if (wasSelected) {
+                allBtn.classList.add('active');
+              } else {
+                group.selected.add(value);
+                btn.classList.add('active');
+              }
               render();
             });
             group.el.appendChild(btn);
@@ -442,7 +637,6 @@
           <div class="card-desc">${data.description || ''}</div>
           <div class="card-footer">
             ${data.family ? `<span class="tag family">${data.family}</span>` : ''}
-            ${data.grid && data.grid.columns ? `<span class="tag">${data.grid.columns}-col</span>` : ''}
             ${data.spacing && data.spacing.density ? `<span class="tag">${data.spacing.density}</span>` : ''}
             ${jobTags.map(label => `<span class="tag job">${label}</span>`).join('')}
           </div>`;

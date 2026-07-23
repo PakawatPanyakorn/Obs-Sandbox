@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="slide-rule-of-thirds">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: slide-rule-of-thirds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow+Condensed:wght@300;400;500&family=Fira+Code:wght@400;700&family=Megrim&family=Raleway:ital,wght@0,200;0,300;0,400;1,300&family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "slide-rule-of-thirds",
+    "description": "A single slide's visual anchor occupies one third of the frame; supporting text occupies the remaining two-thirds — replaces the default centered-title-plus-bullets slide.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "slide-rule-of-thirds",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "One 16:9 slide splits along a single axis into a one-third visual anchor and a two-thirds text region (or the reverse — visual right, text left). The imbalance itself is the message: it gives the eye something to land on before it reads, and its narrowness caps how much text can fit, forcing one idea per slide instead of five bullets.",
+      "regions": [
+        { "id": "lead", "role": "visual anchor — the one image, chart, diagram, or big stat this slide is actually about", "columnSpan": "1-4", "order": 1, "notes": "Never a decorative stock photo filling empty space; if there's nothing real to show, use text-heavy's minimal-icon-or-stat adaptation instead." },
+        { "id": "body", "role": "supporting text — one headline plus a short list or 2-4 lines of prose", "columnSpan": "5-12", "order": 2, "notes": "Two-thirds width at slide-reading distance is deliberately too narrow for five bullets — if the copy needs more room, that's two slides, not smaller type." }
+      ],
+      "hierarchy": { "primary": "lead", "secondary": "body", "tertiary": "" },
+      "readingOrder": ["lead", "body"],
+      "entryPoint": "The lead visual — its position and size give the eye an anchor before a single word is read; the eye then moves into the body.",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "modular",
+      "columns": 12,
+      "gutter": "32px",
+      "maxWidth": "1200px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "True 16:9 can't be preserved on a phone-width viewport meant for scrolling. Lead stacks above body, both full width, aspect-ratio dropped — this is a deliberate export/handout adaptation, not the slide itself." },
+        "md": { "columns": 8, "gutter": "24px", "notes": "Lead keeps roughly one-third width; body wraps sooner but the ratio holds." },
+        "lg": { "columns": 12, "gutter": "32px", "notes": "Full 1/3:2/3 split as designed — this is the only breakpoint that represents an actual slide." }
+      },
+      "regionSpans": { "lead": "1 / 5", "body": "5 / 13" }
+    },
+    "spacing": {
+      "scale": [8, 16, 24, 32, 48, 64, 96, 128],
+      "unit": "px",
+      "rhythm": "Generous vertical rhythm inside the body — headline to list ~16-24px, between list items ~24-32px. Presentation type is read from a distance, so gaps run larger than web body copy at the same visual weight.",
+      "sectionGap": "64px",
+      "blockGap": "32px",
+      "inlineGap": "48px",
+      "density": "spacious"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Inside the body region only, one per slide — a single stat callout or short quote functioning as the slide's one visual break", "style": "Large, bold, left-ruled, no quotation marks — sized for back-of-room legibility, not web-body italics" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": true, "types": ["stat callout", "figure number tag on the visual"] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "whitespace" },
+      "dropCaps": false,
+      "captions": { "style": "small mono tag, overlaid at the bottom of the visual pane", "position": "inside the lead region, not stacked beneath it — there's no vertical room left in a fixed 16:9 frame" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid: grid-template-columns: 1fr 2fr (or 2fr 1fr reversed) inside a fixed aspect-ratio:16/9 container. On an actual web page (not a slide deck) this same shape reworks cleanly as a hero-with-sidebar section — but the aspect-ratio lock is what makes it read as 'a slide' rather than 'a web layout'.",
+      "presentation": "This composition IS a slide master, not an adaptation of one. Lead occupies the left (or right) third at full slide height, bleeding to the frame edge — no letterboxing inside the slide itself. Body occupies the remaining two-thirds, vertically centered: one headline plus either a 2-4 line bullet list or 40-60 words of prose, never both at once. If the content needs more than that, the fix is a second slide, never smaller type or a fifth bullet. One exhibit per lead, always captioned; one stat callout per body, never more than one, or it stops reading as 'the one supporting idea.'",
+      "print": "One slide equals one page in a printed handout deck. Aspect-ratio stays locked at 16:9 regardless of paper orientation — centered on the page with even letterboxed margins top and bottom rather than stretched to fill a taller sheet.",
+      "markdown": "Degrades to an image reference (or a fenced quote/code block standing in for the visual) followed by a short paragraph or 2-4 item list beneath it. Reading order survives (visual reference first, then text) but the 1/3:2/3 ratio itself is lost in plain markdown — note it in a caption if the proportion matters to the argument."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "This archetype's entire reason to exist is replacing the centered-title-plus-bullet-list slide — the single most common bad slide pattern. The 1/3 visual gives the eye an anchor before it reads; the 2/3 width structurally caps how much text can fit, which is what prevents 'five bullets, none of them the point.' The two regions are deliberately unequal (never 50/50, never both cards) and the body's supporting list stays a plain rule-separated list, never a mini card grid of its own."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The visual third becomes a minimal diagram, icon, or single oversized stat/number instead of a photo — the eye still gets an anchor even when there's no real image to show. Body caps at one short headline plus 3-4 lines of prose, no bullet list at all.",
+        "bestFor": "A single-argument slide in a talk — one claim plus one or two sentences of reasoning, e.g. 'why we chose X.'",
+        "avoid": "Don't let the body creep past ~40-60 words to compensate for a thin visual — split into a second slide instead of cramming. And don't fill the visual third with a decorative stock photo that isn't the actual subject."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The visual third becomes the single chart or exhibit the slide exists to show, captioned like a numbered figure. Body holds the headline finding plus one or two numbered takeaways — never a data table repeating the chart's own numbers.",
+        "bestFor": "'Here is the one result that matters' slides in a data readout or board deck — one exhibit, one interpretation.",
+        "avoid": "Don't shrink two charts into the one-third visual slot to fit more data — that's the dashboard-trope this archetype is built to avoid. One exhibit per slide, always captioned and interpreted in the body, never left to speak for itself."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "The visual third becomes a single flagship item's image or icon — the one thing being featured. Body becomes a short list of 3-5 items, name plus one line each, since two-thirds width at slide-reading distance can't hold full descriptions.",
+        "bestFor": "A roadmap, feature-launch, or 'what shipped this quarter' slide built around one featured thing plus a short supporting list.",
+        "avoid": "Don't turn the body's two-thirds into a mini card grid of its own — it stays a plain rule-and-whitespace list, the same card-grid-default discipline layout-factory applies everywhere, even inside this archetype's supporting region."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "synthwave-84", "why": "A bold, confident visual-anchor register: hot-pink primary and neon glow shadows give the lead third real presence at a glance-from-the-back-of-the-room scale — exactly what a pitch-deck or conference-talk slide needs from its one visual third." },
+      { "theme": "ultraviolet-rave", "why": "An even more maximalist register than synthwave-84 (4-layer UV radial glow, Megrim geometric display) proves the archetype survives an extremely loud visual anchor without the 2/3 text region getting overwhelmed — both dark/neon, but distinct energy." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 32px;
+      --lf-max-width: 1200px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 32px; --lf-space-8: 48px;
+      /* theme-overridable — full set, not just color/font */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 4px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      /* full theme-token set — only the lead visual (the "hero") ever gets surface fill + shadow +
+         gradient; the body's supporting list stays bare regardless of theme, per this archetype's
+         own structural rule against uniform treatment. Quote/emphasis tokens pulled from each
+         theme's OWN pull-quote and "alt card" component convention — see theme override blocks
+         below for what was actually found (or genuinely absent) in each theme file. */
+      --lf-surface: #f4f4f4;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (never body), so the neutral chrome
+       above (meta bar, specs, both tab rows, captions) never gets recolored. Values pulled from
+       each theme's own theme-data JSON block AND its component markup — never invented. */
+    .lf-variant-stage.theme-synthwave-84 {
+      --lf-ink: #cbe3f6; --lf-ink-muted: #848bbd; --lf-paper: #262335;
+      --lf-line: #433d60; --lf-region-outline: #433d60; --lf-accent: #ff7edb;
+      --lf-font-body: 'Barlow Condensed', sans-serif;
+      --lf-font-display: 'Rajdhani', 'Exo 2', 'Inter', sans-serif;
+      --lf-font-mono: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.6; --lf-card-radius: 6px;
+      --lf-bg-image: none; --lf-bg-size: auto; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* synthwave-84's own "colored shadow" tile (Gradients & Effects section) is the closest
+         thing to a hero treatment it defines — reused verbatim for this archetype's one hero visual */
+      --lf-surface: #2d2145;
+      --lf-shadow-hero: 0 0 24px rgba(255,126,219,0.60), 0 0 48px rgba(255,126,219,0.30);
+      --lf-gradient-hero: linear-gradient(135deg, #3d2060 0%, #1a0e2e 100%);
+      --lf-border-width: 1px;
+      /* pulled from its own .tf-glow-demo: quote TEXT is colored to glowColor (pink); the theme
+         uses a full box+glow rather than a literal left rule, adapted here as a bold left rule */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      /* no distinct "alt card" convention in this theme (its 3rd card only swaps to surfaceAlt,
+         no accent border) — staying neutral here is faithful to that restraint, not an oversight */
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+    .lf-variant-stage.theme-ultraviolet-rave {
+      --lf-ink: #E8D8FF; --lf-ink-muted: #8860CC; --lf-paper: #0D0818;
+      --lf-line: #2A1A48; --lf-region-outline: #2A1A48; --lf-accent: #CC00FF;
+      --lf-font-body: 'Raleway', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Megrim', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'Space Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.65; --lf-card-radius: 8px;
+      /* its own body background IS this 4-layer UV radial mesh — reused faithfully on the stage
+         canvas (not just the hero), since the theme itself applies this ambient glow page-wide */
+      --lf-bg-image: radial-gradient(ellipse at 25% 50%, rgba(204,0,255,0.22) 0%, transparent 50%), radial-gradient(ellipse at 75% 20%, rgba(255,0,136,0.16) 0%, transparent 45%), radial-gradient(ellipse at 50% 90%, rgba(0,255,136,0.12) 0%, transparent 40%), radial-gradient(ellipse at 10% 10%, rgba(80,0,200,0.15) 0%, transparent 40%);
+      --lf-bg-size: cover; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      --lf-surface: #130E28;
+      --lf-shadow-hero: 0 0 30px rgba(204,0,255,0.55), 0 4px 20px rgba(8,4,24,0.9);
+      --lf-gradient-hero: linear-gradient(135deg, #1A0A38 0%, #0D0818 50%, #0A0420 100%);
+      --lf-border-width: 1px;
+      /* no literal blockquote exists in this theme's own markup — its closest emphasis device is
+         the header's glowing violet display text (shadow-colored), reused here for the pull-quote */
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      /* like synthwave-84, no distinct "alt card" treatment exists in this theme's own cards
+         (all three programme cards share identical styling) — neutral stays faithful here too */
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Region-schematic vocabulary (generic, used only in the Concept tab's mini diagrams) —
+       outlined boxes with labels, never filled/shadowed, per house style for grid explainers. */
+    .lf-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin-bottom: var(--lf-space-4); }
+    .lf-exhibit-label {
+      display: block; font-size: 0.62rem; color: var(--lf-ink-muted);
+      font-family: var(--lf-font-mono); letter-spacing: 0.04em; text-transform: uppercase;
+      margin-bottom: var(--lf-space-3);
+    }
+
+    /* ============ Archetype-specific: the slide itself ============
+       A single 16:9 frame, split 1/3 : 2/3. This is the whole reason this archetype exists —
+       everything else in this file is house-style chrome around it. */
+    .lf-slide {
+      aspect-ratio: 16 / 9;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      overflow: hidden;
+      background-color: var(--lf-paper);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-slide.reverse { grid-template-columns: 2fr 1fr; }
+    .lf-slide.reverse .lf-slide-visual { order: 2; border-right: none; border-left: var(--lf-border-width) solid var(--lf-line); }
+    .lf-slide.reverse .lf-slide-body { order: 1; }
+
+    /* Lead (visual anchor) — the ONE region in this archetype allowed real presence: surface
+       fill, the theme's actual hero gradient, the theme's actual hero shadow/glow. The body
+       region never receives this treatment — giving both regions the same weight would erase
+       the 1/3:2/3 hierarchy this archetype exists to create. */
+    .lf-slide-visual {
+      background-color: var(--lf-surface);
+      border-right: var(--lf-border-width) solid var(--lf-line);
+      padding: var(--lf-space-4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .lf-slide-visual-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: var(--lf-card-radius);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px), var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .lf-slide-visual-stat {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 2.4rem;
+      color: var(--lf-ink);
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
+    .lf-slide-tag {
+      position: absolute;
+      bottom: var(--lf-space-2);
+      left: var(--lf-space-2);
+      background: var(--lf-ink);
+      color: var(--lf-paper);
+      font-family: var(--lf-font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    /* Body (supporting text) — always bare: no surface fill, no shadow, no gradient. Its only
+       decoration is the single pull-quote/stat callout, styled via the quote tokens. */
+    .lf-slide-body {
+      padding: var(--lf-space-6) var(--lf-space-8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--lf-space-3);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+    }
+    .lf-slide-eyebrow {
+      font-family: var(--lf-font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+    }
+    .lf-slide-headline {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 1.7rem;
+      line-height: 1.15;
+      color: var(--lf-ink);
+      max-width: 22ch;
+    }
+    .lf-slide-text { font-size: 0.92rem; max-width: 46ch; }
+    .lf-slide-list { list-style: none; display: flex; flex-direction: column; gap: var(--lf-space-2); max-width: 44ch; }
+    .lf-slide-list li { padding-left: var(--lf-space-3); position: relative; font-size: 0.9rem; }
+    .lf-slide-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 0.55em;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--lf-accent);
+    }
+    /* Echoes each theme's own "alt card" convention where one exists — see the emphasis tokens
+       in the theme override blocks above; both assigned themes deliberately stay neutral here. */
+    .lf-slide-list li.emphasis {
+      border-top: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color);
+      padding-top: var(--lf-space-2);
+      margin-top: var(--lf-space-1);
+    }
+    /* Matches each theme's own pull-quote/emphasis-text convention — see comments in the theme
+       override blocks above for what each theme actually does with quote text color. */
+    .lf-slide-quote {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 1.35rem;
+      line-height: 1.3;
+      color: var(--lf-quote-text-color);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      padding-left: var(--lf-space-3);
+      max-width: 40ch;
+    }
+
+    /* Concept-tab-only: small side-by-side schematics proving the split works in either
+       direction ("1/3 visual, 2/3 text — or vice-versa"). Outlined + labeled, not themed —
+       same "region diagram" convention as .lf-grid/.lf-region elsewhere in this skill. */
+    .lf-mini-row { display: flex; flex-wrap: wrap; gap: var(--lf-space-6); margin: var(--lf-space-4) 0 var(--lf-space-6); }
+    .lf-mini-block { display: flex; flex-direction: column; gap: var(--lf-space-2); }
+    .lf-mini-slide {
+      width: 220px;
+      aspect-ratio: 16 / 9;
+      display: grid;
+      border: 1px dashed var(--lf-region-outline);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .lf-mini-slide.default { grid-template-columns: 1fr 2fr; }
+    .lf-mini-slide.reversed { grid-template-columns: 2fr 1fr; }
+    .lf-mini-visual, .lf-mini-body {
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--lf-font-mono); font-size: 0.58rem;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+    }
+    .lf-mini-visual { background: rgba(128,128,128,0.08); }
+    .lf-mini-slide.reversed .lf-mini-visual { order: 2; }
+    .lf-mini-slide.reversed .lf-mini-body { order: 1; }
+    .lf-mini-caption { font-size: 0.7rem; color: var(--lf-ink-muted); }
+
+    /* Concept-tab-only: "when not to use this archetype" notes beneath the demo slide. */
+    .lf-notes-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2);
+      margin: var(--lf-space-6) 0 var(--lf-space-4);
+    }
+    .lf-notes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--lf-space-6);
+    }
+    .lf-note { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-3); }
+    .lf-note.emphasis { grid-column: span 2; border-top: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); }
+    .lf-note h3 { font-family: var(--lf-font-display); font-size: 1rem; font-weight: var(--lf-font-weight-heading); line-height: 1.3; margin-bottom: var(--lf-space-2); }
+    .lf-note p { font-size: 0.85rem; color: var(--lf-ink-muted); }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected. color/font-family/line-height/
+       background are re-declared here (not just inherited from body) so that when .theme-*
+       overrides the custom properties above, descendants that don't set their own color pick up
+       the new value through normal inheritance from THIS element. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View (house style, not optional) — a fixed-position toggle that hides the picker
+       chrome so the selected variant/theme combination can be inspected the way it'd actually
+       be used, not as a gallery component. Stays fixed-position so it remains visible in both
+       states. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
+       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
+       with no unthemed white gap on any side. */
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">slide-rule-of-thirds</span>
+    <span class="lf-meta-tags">slide-rule-of-thirds &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">32px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1200px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">spacious</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">slide-rule-of-thirds — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> a single-argument slide — one claim plus one or two sentences of reasoning.<br><strong>Avoid:</strong> letting the body creep past ~40-60 words to compensate for a thin visual, or filling the visual with a decorative stock photo that isn't the subject." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> 'here is the one result that matters' slides — one exhibit, one interpretation.<br><strong>Avoid:</strong> shrinking two charts into the one-third slot to fit more data — that's the dashboard-trope this archetype exists to avoid." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> a roadmap or 'what shipped' slide — one featured thing plus a short supporting list.<br><strong>Avoid:</strong> turning the body's two-thirds into a mini card grid of its own — it stays a plain rule-and-whitespace list." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="synthwave-84" role="tab" aria-selected="false">synthwave-84</button>
+      <button class="lf-theme-tab" data-theme-option="ultraviolet-rave" role="tab" aria-selected="false">ultraviolet-rave</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all three — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <span class="lf-exhibit-label">Layout-Factory &middot; View: Concept &middot; slide-rule-of-thirds</span>
+
+        <div class="lf-slide">
+          <div class="lf-slide-visual">
+            <div class="lf-slide-visual-frame">
+              <span class="lf-slide-tag">Lead &middot; 1/3</span>
+            </div>
+          </div>
+          <div class="lf-slide-body">
+            <span class="lf-slide-eyebrow">Body &middot; 2/3</span>
+            <h1 class="lf-slide-headline">One Visual. One Idea.</h1>
+            <p class="lf-slide-text">The lead third gives the eye an anchor before it reads a single word. The body's two-thirds width is deliberately too narrow for five bullets — it forces one idea per slide, not a list of them.</p>
+            <blockquote class="lf-slide-quote">Replaces: a centered title plus a bullet list — the single most common bad slide pattern.</blockquote>
+          </div>
+        </div>
+        <div class="lf-caption">The size and position of the visual third is what makes it read as "the anchor" — not decoration, not an afterthought. Use this when a slide has exactly one visual and supporting text, never when it has five equal bullets and no image at all.</div>
+
+        <div class="lf-notes-label">Either Direction Is Valid — "1/3 Visual, 2/3 Text, Or Vice-Versa"</div>
+        <div class="lf-mini-row">
+          <div class="lf-mini-block">
+            <div class="lf-mini-slide default"><div class="lf-mini-visual">Lead</div><div class="lf-mini-body">Body</div></div>
+            <span class="lf-mini-caption">Default — visual left, text right</span>
+          </div>
+          <div class="lf-mini-block">
+            <div class="lf-mini-slide reversed"><div class="lf-mini-visual">Lead</div><div class="lf-mini-body">Body</div></div>
+            <span class="lf-mini-caption">Reversed — text left, visual right</span>
+          </div>
+        </div>
+
+        <div class="lf-notes-label">When Not to Use This Archetype</div>
+        <div class="lf-notes">
+          <div class="lf-note">
+            <h3>A title or section-divider slide</h3>
+            <p>This archetype needs real supporting text to fill its two-thirds; a title slide has none to give it. Use <em>poster-broadside</em> instead — full-bleed type treated as the entire visual event.</p>
+          </div>
+          <div class="lf-note">
+            <h3>A deck needing identical margins on every slide</h3>
+            <p>Rule-of-thirds is a single-slide content pattern, not a deck-wide grid system. Pair it with <em>slide-master-deck-grid</em>, which governs margins and safe zones across the whole deck — use both together, not one instead of the other.</p>
+          </div>
+          <div class="lf-note emphasis">
+            <h3>Structural rule: the body never becomes a card grid</h3>
+            <p>Supporting text stays a plain rule-and-whitespace list, sized by content length. The moment it turns into 3-4 identical bordered boxes, it has drifted into the uniform-grid anti-pattern this whole skill exists to prevent.</p>
+          </div>
+          <div class="lf-note">
+            <h3>Editorial devices this archetype favors</h3>
+            <p>One stat callout or short pull-quote per slide, styled boldly since it's read from a distance. Never a footnote or sidenote — a slide has no margin for either. Exhibits get a figure number and one line of interpretation, never a caption-less chart.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <span class="lf-exhibit-label">Layout-Factory &middot; Variant: Mostly Text &middot; slide-rule-of-thirds</span>
+        <div class="lf-slide">
+          <div class="lf-slide-visual">
+            <div class="lf-slide-visual-frame">
+              <span class="lf-slide-visual-stat">3&nbsp;mo</span>
+              <span class="lf-slide-tag">Anchor stat, not a photo</span>
+            </div>
+          </div>
+          <div class="lf-slide-body">
+            <span class="lf-slide-eyebrow">Slide 4 of 11</span>
+            <h1 class="lf-slide-headline">Ship the Runbook, Not the Full Migration</h1>
+            <p class="lf-slide-text">A two-week, all-hands cutover became a scheduled, single-engineer, four-hour change once we stopped trying to migrate everything at once and shipped the runbook for one service first. The other twelve followed the same script in a fraction of the time.</p>
+          </div>
+        </div>
+        <div class="lf-caption">No photo needed — with prose-only content, the visual third becomes an oversized stat instead. It still anchors the eye; the body still stays to one short paragraph, not a bullet list.</div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <span class="lf-exhibit-label">Layout-Factory &middot; Variant: Chart / Data-Heavy &middot; slide-rule-of-thirds</span>
+        <div class="lf-slide">
+          <div class="lf-slide-visual">
+            <div class="lf-slide-visual-frame">
+              <span class="lf-slide-tag">Fig. 1 &middot; Retention by cohort, wks 1&ndash;12</span>
+            </div>
+          </div>
+          <div class="lf-slide-body">
+            <span class="lf-slide-eyebrow">Slide 7 of 11</span>
+            <h1 class="lf-slide-headline">Retention Plateaus at Week Six, Across Every Cohort</h1>
+            <ul class="lf-slide-list">
+              <li>Every cohort since the March release converges to the same floor.</li>
+              <li>Channel mix shifted materially in the same window; retention did not.</li>
+              <li class="emphasis">Read: this is a product characteristic, not an acquisition-quality problem.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lf-caption">One exhibit, captioned and numbered inside the lead region itself — never two charts squeezed into the same third, and never a bare number with no interpretation beside it.</div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <span class="lf-exhibit-label">Layout-Factory &middot; Variant: Card / List-Heavy &middot; slide-rule-of-thirds</span>
+        <div class="lf-slide">
+          <div class="lf-slide-visual">
+            <div class="lf-slide-visual-frame">
+              <span class="lf-slide-tag">Featured &middot; migration runbook</span>
+            </div>
+          </div>
+          <div class="lf-slide-body">
+            <span class="lf-slide-eyebrow">Slide 9 of 11 &middot; This Quarter</span>
+            <h1 class="lf-slide-headline">Shipped This Quarter</h1>
+            <ul class="lf-slide-list">
+              <li class="emphasis">Migration runbook — the featured item above, four-hour cutover.</li>
+              <li>Search reindex pipeline — six hours down to forty minutes.</li>
+              <li>Billing retry logic — recovered ~2% of lost renewals.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lf-caption">The flagship item gets the visual third and the top line in the list; the rest stay one line each, plain rule separation — never boxed into a card grid of their own.</div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-synthwave-84', 'theme-ultraviolet-rave');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

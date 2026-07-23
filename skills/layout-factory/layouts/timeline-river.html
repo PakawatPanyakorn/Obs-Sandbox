@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="timeline-river">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: timeline-river</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600&family=Exo+2:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Josefin+Slab:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Source+Code+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "timeline-river",
+    "description": "A continuous vertical spine anchors chronological entries that alternate left and right to avoid a flat scroll; exactly one entry, chosen by significance rather than position, rises to pivotal scale.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "timeline-river",
+    "family": "editorial-narrative",
+    "composition": {
+      "summary": "Entries run down a literal vertical spine in chronological order, alternating left and right of the line so the eye has to actually read each one rather than skim a flat list. One entry — the pivotal one, chosen for narrative significance and not necessarily first or last — breaks the alternation, spans near-full width centered on the spine, and is the only entry that gets surface fill, hero shadow, and hero gradient.",
+      "regions": [
+        { "id": "masthead", "role": "identity/section label band", "columnSpan": "1-12", "order": 1, "notes": "Small, quiet — never competes with the pivotal entry" },
+        { "id": "spine", "role": "literal vertical rule the entries anchor to", "columnSpan": "6-7", "order": 2, "notes": "Not a content region — a continuous line running the full height of the entry sequence; a single rule down the page center on desktop, shifted to the left margin on narrow/print layouts" },
+        { "id": "river", "role": "repeated secondary entry, chronological", "columnSpan": "1-5 / 8-12 (alternating)", "order": 3, "notes": "Alternates left/right of the spine per entry — never all on one side — to avoid reading as a flat scrolling list" },
+        { "id": "pivotal", "role": "the one entry singled out at lead scale", "columnSpan": "2-11", "order": 4, "notes": "Chosen by narrative significance, not chronological position — may fall anywhere in the sequence, including the middle" }
+      ],
+      "hierarchy": { "primary": "pivotal", "secondary": "river", "tertiary": "masthead" },
+      "readingOrder": ["masthead", "river", "pivotal", "river"],
+      "entryPoint": "The pivotal entry — the only one with surface fill, the applied theme's hero gradient/shadow, and enlarged type — even though it may sit mid-sequence rather than first or last",
+      "balance": "symmetric"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "28px",
+      "maxWidth": "980px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Single column; spine shifts to the left margin and alternation collapses to a uniform left indent, not a naive stack" },
+        "md": { "columns": 8, "gutter": "20px", "notes": "Still single column — alternation needs enough width per side to read as intentional, not accidental" },
+        "lg": { "columns": 12, "gutter": "28px", "notes": "Full alternating left/right layout around a centered spine" }
+      },
+      "regionSpans": { "masthead": "1 / 13", "spine": "6 / 8", "river": "1 / 6 (left) or 8 / 13 (right)", "pivotal": "2 / 12" }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 32, 48, 64, 96],
+      "unit": "px",
+      "rhythm": "1.5x body line-height between an entry's own paragraphs, 2x between consecutive river entries, 3x flanking the pivotal entry on both sides",
+      "sectionGap": "64px",
+      "blockGap": "32px",
+      "inlineGap": "28px",
+      "density": "comfortable"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Inside the pivotal entry only — never in a river entry, so its mere presence signals which entry is pivotal", "style": "Italic, left-rule convention shared with other archetypes; tokens pulled from the applied theme's own pull-quote component" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "italic, small, muted — same convention as magazine-well's image captions", "position": "directly below each entry's exhibit, above its date label and heading" },
+      "numbering": { "sections": false, "figures": false }
+    },
+    "mediaAdaptation": {
+      "html": "A centered vertical rule (.lf-spine::before) with river entries alternating sides via .left/.right modifier classes, each carrying a small circular node positioned to interrupt the spine. The pivotal entry drops the left/right split, spans near-full width centered on the spine, and is the only entry that receives surface fill, hero shadow, and hero gradient.",
+      "presentation": "One slide per era/phase, in strict chronological order. The pivotal entry gets its own emphasized slide (larger date treatment, full-bleed background) rather than sharing a slide with river entries, and does not need to be the first or last slide in the deck.",
+      "print": "Spine renders as a single rule down the page's left margin — centered alternation doesn't survive a printed column. River entries stack single-column in chronological order; alternation is expressed only as a left/right indent, not true placement. The pivotal entry keeps its border/shadow treatment as a printed box.",
+      "markdown": "Degrades to a strict sequence of H2/H3 headings, one per entry, each opening with its date/sequence label — markdown has no native alternation device, so left/right rhythm is lost entirely and chronological order becomes the only remaining structural signal. The pivotal entry is distinguished by an H1-level heading (or a leading rule) and a longer opening paragraph instead of side placement."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "River entries carry no border/shadow/rounded box — only a hairline node marker and text, separated by whitespace and the spine itself, never card styling. Exactly one entry ever reaches pivotal scale; a second enlarged entry would erase the hierarchy and flatten the page back into an undifferentiated list of boxes."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "Entries drop any image/exhibit placeholder entirely — each is a date label, a heading, and one or two sentences of prose; the pivotal entry gets a longer paragraph and the archetype's one reserved pull quote instead of a photo.",
+        "bestFor": "Engineering retrospectives, project journals, changelogs, personal essay series told in chronological installments.",
+        "avoid": "Don't invent a photo or icon for every node just to fill space — an empty, unadorned node marker on a text-only entry is correct; a decorative thumbnail is not."
+      },
+      "chartHeavy": {
+        "howItAdapts": "Each river entry pairs a small captioned exhibit with one line of interpretation; the pivotal entry gets the single largest exhibit on the page plus the pull quote, exactly like a magazine-well lead exhibit but positioned wherever it falls chronologically rather than always first.",
+        "bestFor": "Expedition/dive logs with a measurement at each stage, quarterly retrospectives with a metric per phase, case studies charting a before/after across a project's timeline.",
+        "avoid": "A floating number with no caption or interpretation is the dashboard-trope anti-pattern here too — every exhibit on the spine needs a caption and a sentence of reading, not a bare stat."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "Entries become individual releases/milestones sized by actual content — most get one line, the pivotal entry (the flagship release) gets an outsized description — never forced into uniform card boxes regardless of theme.",
+        "bestFor": "Product roadmaps, release histories, milestone/changelog indexes ordered by ship date.",
+        "avoid": "Don't force every entry to the same visual weight just because they're all 'roadmap items' — only the pivotal release earns extra size; sizing every entry identically flattens the hierarchy back into a uniform card grid."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "biolumen-depths", "why": "Its own 'scientific field log meets alien wilderness' register maps directly onto a dive/expedition log — chronological depth entries down a spine, teal glow node markers and mono depth-reading labels reading as literal specimen timestamps." },
+      { "theme": "copper-alchemist", "why": "Dark steampunk workshop journal — a mechanical invention log built entry-by-entry over time is a distinct, non-scientific chronological register from biolumen-depths; copper accent nodes and a Josefin Slab date stamp read as ledger entries in an alchemist's logbook." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 28px;
+      --lf-max-width: 980px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 32px; --lf-space-8: 48px;
+      /* theme-overridable — full set, not just color/font */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (never body), so the neutral chrome
+       above (meta bar, specs, both tab rows, captions) stays untouched. See CRITICAL scoping rule
+       note in preset-template.html / magazine-well.html. */
+    .lf-variant-stage.theme-biolumen-depths {
+      --lf-ink: #b8e8e8; --lf-ink-muted: #4a8899; --lf-paper: #020d1a;
+      --lf-line: #0d3a52; --lf-region-outline: #0d3a52; --lf-accent: #00e5c8;
+      --lf-font-body: 'Oxanium', 'Share Tech', sans-serif;
+      --lf-font-display: 'Exo 2', 'Audiowide', sans-serif;
+      --lf-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.65; --lf-card-radius: 3px;
+      /* theme's own sonar depth-contour ring + fractalNoise grain background, copied verbatim */
+      --lf-bg-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+        radial-gradient(circle at 22% 72%, transparent 19%, rgba(0,229,200,0.045) 20%, transparent 21%),
+        radial-gradient(circle at 22% 72%, transparent 34%, rgba(0,229,200,0.028) 35%, transparent 36%),
+        radial-gradient(circle at 22% 72%, transparent 52%, rgba(0,229,200,0.016) 53%, transparent 54%),
+        radial-gradient(ellipse 55% 45% at 82% 18%, rgba(30,143,255,0.07) 0%, transparent 65%);
+      --lf-bg-size: 200px 200px, cover, cover, cover, cover;
+      --lf-bg-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+      --lf-bg-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+      --lf-surface: #051828;
+      /* pulled from the theme's own .tf-header box-shadow: shadow-md + inset teal highlight */
+      --lf-shadow-hero: 0 4px 20px rgba(0,0,0,0.85), inset 0 1px 0 rgba(0,229,200,0.08);
+      --lf-gradient-hero: linear-gradient(180deg, #041428 0%, #020d1a 100%);
+      --lf-border-width: 1px;
+      /* pulled from the theme's own .tf-glow-demo (border 1px rgba(teal,0.2), text colored teal) */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: rgba(0,229,200,0.35);
+      --lf-quote-text-color: #00e5c8;
+      /* pulled from the theme's own .tf-section-title left-accent (2px solid primary + glow) —
+         its actual emphasis convention elsewhere on the page, since its "alt card" (.tf-card--hex)
+         differentiates by texture rather than a colored border */
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #00e5c8;
+    }
+    .lf-variant-stage.theme-copper-alchemist {
+      --lf-ink: #D8C8A0; --lf-ink-muted: #8A7850; --lf-paper: #160E08;
+      --lf-line: #3A2810; --lf-region-outline: #3A2810; --lf-accent: #C87830;
+      --lf-font-body: 'Lora', Georgia, serif;
+      --lf-font-display: 'Josefin Slab', Georgia, serif;
+      --lf-font-mono: 'Source Code Pro', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.75; --lf-card-radius: 4px;
+      /* theme's own diagonal copper-lattice crosshatch background, copied verbatim */
+      --lf-bg-image:
+        repeating-linear-gradient(45deg, rgba(200,120,48,0.05) 0, rgba(200,120,48,0.05) 1px, transparent 0, transparent 50%),
+        repeating-linear-gradient(-45deg, rgba(200,120,48,0.05) 0, rgba(200,120,48,0.05) 1px, transparent 0, transparent 50%);
+      --lf-bg-size: 20px 20px, 20px 20px;
+      --lf-bg-position: 0 0, 0 0;
+      --lf-bg-repeat: repeat, repeat;
+      --lf-surface: #1E1408;
+      /* theme's boldest shadow token (shadow-lg) — reserved here for the one hero element */
+      --lf-shadow-hero: 0 8px 32px rgba(8,4,2,0.8);
+      --lf-gradient-hero: linear-gradient(160deg, #261A0A 0%, #160E08 55%, #120A04 100%);
+      --lf-border-width: 1px;
+      /* pulled from the theme's own .ca-card-accent border-top: 2px solid primary (copper) */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: #C87830;
+      /* pulled from the theme's own gold-accent typographic convention (.ca-header-tag/.ca-mono) */
+      --lf-quote-text-color: #E8B840;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #C87830;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Masthead — quiet, small, never competes with the pivotal entry */
+    .lf-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* Intro — title + dek sit above the spine, once per page, same scarcity discipline as
+       magazine-well's lead headline: this is the only large display-type moment outside the
+       pivotal entry itself. */
+    .lf-timeline-intro { margin-bottom: var(--lf-space-8); }
+    .lf-timeline-headline {
+      font-family: var(--lf-font-display);
+      font-size: 2.1rem;
+      line-height: 1.15;
+      font-weight: var(--lf-font-weight-heading);
+      letter-spacing: -0.01em;
+      max-width: 26ch;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-timeline-dek { font-size: 1.02rem; color: var(--lf-ink-muted); max-width: 64ch; }
+
+    /* Spine — the literal vertical rule every entry anchors to */
+    .lf-spine { position: relative; padding: var(--lf-space-4) 0 0; }
+    .lf-spine::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      transform: translateX(-50%);
+      background: var(--lf-line);
+    }
+
+    /* River entries — alternate sides, no card styling, only a node + whitespace + a hairline
+       separation from the spine. Width 50% + text-align means the box's inner edge lands exactly
+       on the spine (50%), so the node marker (positioned at the box's own edge) always sits
+       precisely on the line regardless of theme spacing tokens. */
+    .lf-timeline-entry {
+      position: relative;
+      width: 50%;
+      margin-bottom: var(--lf-space-8);
+    }
+    .lf-timeline-entry.left { padding-right: var(--lf-space-6); text-align: right; }
+    .lf-timeline-entry.right { margin-left: 50%; padding-left: var(--lf-space-6); text-align: left; }
+
+    .lf-timeline-entry::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--lf-paper);
+      border: 2px solid var(--lf-accent);
+      box-shadow: 0 0 0 3px var(--lf-paper);
+    }
+    .lf-timeline-entry.left::before { right: -7px; }
+    .lf-timeline-entry.right::before { left: -7px; }
+
+    .lf-timeline-date {
+      font-family: var(--lf-font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--lf-ink-muted);
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-timeline-entry h3 {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      font-size: 1.1rem;
+      line-height: 1.25;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-timeline-entry p { font-size: 0.88rem; color: var(--lf-ink-muted); }
+
+    /* Pivotal — the one entry that breaks alternation and reaches lead scale. This is the ONLY
+       element in this archetype allowed surface fill, the theme's real hero shadow, and its real
+       hero gradient — river entries never receive these regardless of theme, per this archetype's
+       own anti-uniform-grid rule. */
+    .lf-timeline-entry.pivotal {
+      width: 84%;
+      margin: 0 auto var(--lf-space-8);
+      padding: var(--lf-space-6);
+      text-align: left;
+      background-color: var(--lf-surface);
+      background-image: var(--lf-gradient-hero);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      box-shadow: var(--lf-shadow-hero);
+    }
+    .lf-timeline-entry.pivotal::before {
+      top: -9px;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background: var(--lf-accent);
+      border: 2px solid var(--lf-paper);
+      box-shadow: 0 0 0 3px var(--lf-paper);
+    }
+    .lf-timeline-entry.pivotal .lf-timeline-date { color: var(--lf-accent); font-size: 0.75rem; }
+    .lf-timeline-entry.pivotal h3 { font-size: 1.65rem; color: var(--lf-ink); }
+    .lf-timeline-entry.pivotal p { color: var(--lf-ink); font-size: 1rem; }
+
+    /* Matches each theme's own pull-quote component. Reserved for the pivotal entry only — its
+       presence is itself a structural signal, so it never appears in a river entry. */
+    .lf-pullquote {
+      font-size: 1.15rem;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--lf-quote-text-color);
+      padding: var(--lf-space-3) var(--lf-space-4);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      margin: var(--lf-space-4) 0;
+    }
+
+    /* Exhibit placeholders for the chart-heavy variant — mini per river entry, hero-scale inside
+       the pivotal entry, same restraint rule as magazine-well's lead-exhibit/exhibit-mini. */
+    .lf-timeline-exhibit {
+      border: 1px solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px);
+      height: 80px;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-timeline-exhibit-hero {
+      border: 1px solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      height: 160px;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin-bottom: var(--lf-space-2); }
+
+    /* Narrow-viewport adaptation (explicit, not a naive stack): spine moves to the left margin,
+       every entry becomes a single left-aligned column indented past it — alternation collapses
+       into a uniform indent rather than disappearing without a replacement rhythm. */
+    @media (max-width: 720px) {
+      .lf-spine::before { left: 20px; transform: none; }
+      .lf-timeline-entry,
+      .lf-timeline-entry.left,
+      .lf-timeline-entry.right {
+        width: 100%;
+        margin-left: 0;
+        padding-left: 40px;
+        padding-right: 0;
+        text-align: left;
+      }
+      .lf-timeline-entry.left::before,
+      .lf-timeline-entry.right::before { left: 13px; right: auto; }
+      .lf-timeline-entry.pivotal { width: 100%; padding-left: calc(var(--lf-space-6) + 40px); }
+      .lf-timeline-entry.pivotal::before { left: 13px; top: var(--lf-space-4); transform: none; }
+    }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View — lets the picker chrome drop away so the selected variant/theme combination can
+       be seen the way it'd actually be used, not as a component in a gallery page. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">timeline-river</span>
+    <span class="lf-meta-tags">timeline-river &middot; editorial-narrative</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">28px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">980px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">comfortable</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">timeline-river — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> engineering retrospectives, project journals, changelogs, personal essay series told in chronological installments.<br><strong>Avoid:</strong> inventing a photo or icon for every node just to fill space — an empty marker on a text-only entry is correct, a decorative thumbnail is not." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> expedition/dive logs with a measurement at each stage, quarterly retrospectives with a metric per phase, case studies charting a before/after across a project's timeline.<br><strong>Avoid:</strong> a floating number with no caption or interpretation — every exhibit on the spine needs a caption and a sentence of reading." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> product roadmaps, release histories, milestone/changelog indexes ordered by ship date.<br><strong>Avoid:</strong> forcing every entry to the same visual weight just because they're all 'roadmap items' — only the pivotal release earns extra size." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="biolumen-depths" role="tab" aria-selected="false">biolumen-depths</button>
+      <button class="lf-theme-tab" data-theme-option="copper-alchemist" role="tab" aria-selected="false">copper-alchemist</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all three — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>timeline-river</span>
+        </div>
+        <div class="lf-timeline-intro">
+          <h1 class="lf-timeline-headline">Timeline River: Chronology Alternates, One Moment Rises</h1>
+          <p class="lf-timeline-dek">Entries run down a literal spine in the order they happened, flipping left and right so the page never reads as one flat scroll. Exactly one entry — chosen for what it means, not when it fell — breaks the pattern and rises to lead scale.</p>
+        </div>
+        <div class="lf-spine">
+          <div class="lf-timeline-entry left">
+            <div class="lf-timeline-date">Stage 01</div>
+            <h3>A Literal Line the Entries Anchor To</h3>
+            <p>Every entry anchors to one continuous vertical rule — the spine. It isn't decorative: it's the structural device that tells the reader "these things happened in this order," the way a real logbook or case-study timeline works.</p>
+          </div>
+          <div class="lf-timeline-entry pivotal">
+            <div class="lf-timeline-date">Stage 04 &mdash; Pivotal</div>
+            <h3>One Moment Rises to Lead Scale</h3>
+            <p>Same discipline as magazine-well's lead-and-well split — one thing dominates, the rest support — but here the dominant entry is chosen by significance, not position. It doesn't have to be first or last; it's simply the moment the story pivots on.</p>
+            <blockquote class="lf-pullquote">The pivotal entry isn't the first item in the sequence — it's the only one at that scale. Position tells you when it happened; scale tells you why it mattered.</blockquote>
+          </div>
+          <div class="lf-timeline-entry right">
+            <div class="lf-timeline-date">Stage 07</div>
+            <h3>Left, Right, Left, Right</h3>
+            <p>Entries alternate sides of the spine purely to break up what would otherwise read as one long undifferentiated scroll. Best fit: case studies, changelogs, project retrospectives, expedition or dive logs — content with a genuine beginning, middle, and end.</p>
+          </div>
+          <div class="lf-timeline-entry left">
+            <div class="lf-timeline-date">Stage 09</div>
+            <h3>When Not to Use This Archetype</h3>
+            <p>If the content has no real date/sequence order — a feature comparison, a glossary, a set of independent case studies — forcing it onto a spine invents a chronology that isn't there. Reach for <em>magazine-well</em> (importance-only hierarchy) instead.</p>
+          </div>
+          <div class="lf-timeline-entry right">
+            <div class="lf-timeline-date">Stage 12</div>
+            <h3>Editorial Devices This Archetype Favors</h3>
+            <p>A mono date/sequence label on every node, never omitted — it's what makes the spine legible as chronology — exactly one pull quote reserved for the pivotal entry, and a caption under any image or exhibit. No sidebars: a rail beside a spine competes with it.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>timeline-river</span>
+        </div>
+        <div class="lf-timeline-intro">
+          <h1 class="lf-timeline-headline">The Search Reindex Saga, Told in Five Sprints</h1>
+          <p class="lf-timeline-dek">No exhibits — with prose-only content, each entry is a date, a heading, and a sentence or two; the pivotal entry gets the extra paragraph and the one reserved pull quote instead of a photo.</p>
+        </div>
+        <div class="lf-spine">
+          <div class="lf-timeline-entry left">
+            <div class="lf-timeline-date">Sprint 1</div>
+            <h3>Where the Idea Started</h3>
+            <p>Search response times crept past four seconds during peak load, and nobody could say why — the index looked healthy, the query planner looked fine. The only lead was that it always happened right after a deploy.</p>
+          </div>
+          <div class="lf-timeline-entry pivotal">
+            <div class="lf-timeline-date">Sprint 4 &mdash; Pivotal</div>
+            <h3>The Reindex Job Was Never the Bottleneck</h3>
+            <p>Profiling during a live incident showed the reindex job finishing in under a minute — the four-second stall was a lock held by an unrelated cache warmer that happened to run right after deploys. Once that was visible, the fix was a day of work, not a quarter.</p>
+            <blockquote class="lf-pullquote">We spent three sprints tuning the wrong system. The turning point wasn't a fix — it was finally profiling the right process.</blockquote>
+          </div>
+          <div class="lf-timeline-entry right">
+            <div class="lf-timeline-date">Sprint 7</div>
+            <h3>Shipping the Actual Fix</h3>
+            <p>Moving the cache warmer off the deploy hook and onto its own schedule cut peak-load response time from four seconds to under three hundred milliseconds, with zero changes to the reindex pipeline itself.</p>
+          </div>
+          <div class="lf-timeline-entry left">
+            <div class="lf-timeline-date">Sprint 9</div>
+            <h3>What Almost Got Missed</h3>
+            <p>Support had already opened a ticket to rewrite the reindex job from scratch. Closing that ticket, not opening a new one, was the actual outcome of this retrospective.</p>
+          </div>
+          <div class="lf-timeline-entry right">
+            <div class="lf-timeline-date">Sprint 12</div>
+            <h3>Why It's Written Up This Way</h3>
+            <p>The story only makes sense in order: symptom, false lead, the profiling session that changed the diagnosis, the fix, and the ticket that didn't need to happen. Any other order loses the point.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>timeline-river</span>
+        </div>
+        <div class="lf-timeline-intro">
+          <h1 class="lf-timeline-headline">Dive Log &mdash; Sector 7</h1>
+          <p class="lf-timeline-dek">Each entry pairs a small captioned exhibit with one line of interpretation; the pivotal entry gets the single largest exhibit on the page, at whatever depth it actually occurred.</p>
+        </div>
+        <div class="lf-spine">
+          <div class="lf-timeline-entry left">
+            <div class="lf-timeline-exhibit"></div>
+            <div class="lf-caption">Fig. 1 &mdash; Light transmittance by depth, first 200m.</div>
+            <div class="lf-timeline-date">Depth 200 m</div>
+            <h3>Entering the Twilight Zone</h3>
+            <p>Ambient light drops below 1% of surface intensity; the first bioluminescent flashes appear on the camera rig, consistent with prior surveys of this sector.</p>
+          </div>
+          <div class="lf-timeline-entry pivotal">
+            <div class="lf-timeline-exhibit-hero"></div>
+            <div class="lf-caption">Fig. 4 &mdash; Organism density spike, Sector 7, 2,400m.</div>
+            <div class="lf-timeline-date">Depth 2,400 m &mdash; Pivotal</div>
+            <h3>Organism Density Is Eleven Times the Baseline</h3>
+            <p>This single reading is why the rest of the expedition re-routed toward Sector 7 — every entry after this one exists because of what showed up at this depth, not because it was scheduled first.</p>
+            <blockquote class="lf-pullquote">One reading changed six weeks of remaining dive plans. Depth alone doesn't make an entry pivotal — what's found there does.</blockquote>
+          </div>
+          <div class="lf-timeline-entry right">
+            <div class="lf-timeline-exhibit"></div>
+            <div class="lf-caption">Fig. 5 &mdash; Repeat density scan, 3,600m, 48 hours later.</div>
+            <div class="lf-timeline-date">Depth 3,600 m</div>
+            <h3>Confirming It Wasn't Noise</h3>
+            <p>A second, deeper pass confirms the density spike wasn't a sensor artifact — the population extends at least 1,200m below the original reading.</p>
+          </div>
+          <div class="lf-timeline-entry left">
+            <div class="lf-timeline-exhibit"></div>
+            <div class="lf-caption">Fig. 6 &mdash; Pressure/temperature profile near the sector floor.</div>
+            <div class="lf-timeline-date">Depth 4,021 m</div>
+            <h3>Approaching the Hadal Boundary</h3>
+            <p>Readings begin to flatten near the sector floor, suggesting the population's lower boundary rather than an instrument limit.</p>
+          </div>
+          <div class="lf-timeline-entry right">
+            <div class="lf-timeline-date">Post-Dive Debrief</div>
+            <h3>Closing the Sector 7 Survey</h3>
+            <p>Six entries, one depth that mattered more than the rest — the survey's conclusion only makes sense read in the order the readings actually came in.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>timeline-river</span>
+        </div>
+        <div class="lf-timeline-intro">
+          <h1 class="lf-timeline-headline">Release History</h1>
+          <p class="lf-timeline-dek">Each entry is a shipped version, sized by what actually happened in it — most get one line; the flagship release earns the outsized description.</p>
+        </div>
+        <div class="lf-spine">
+          <div class="lf-timeline-entry left">
+            <div class="lf-timeline-date">v1.0</div>
+            <h3>First Public Release</h3>
+            <p>Core search and billing only — small enough to ship in six weeks, deliberately missing half of what the roadmap eventually needed.</p>
+          </div>
+          <div class="lf-timeline-entry pivotal">
+            <div class="lf-timeline-date">v1.4 &mdash; Pivotal</div>
+            <h3>The Release Every Later Version Assumes</h3>
+            <p>v1.4 replaced the original data model rather than extending it — every roadmap item after this point, including features shipped a year later, assumes v1.4's schema exists. That's what makes it the flagship release, not its version number.</p>
+            <blockquote class="lf-pullquote">Later releases don't reference v1.0. They all, eventually, reference v1.4.</blockquote>
+          </div>
+          <div class="lf-timeline-entry right">
+            <div class="lf-timeline-date">v1.6</div>
+            <h3>Small, on Schedule</h3>
+            <p>Two features, shipped on the date promised. Sized and described in one line here because that's genuinely all it was.</p>
+          </div>
+          <div class="lf-timeline-entry left">
+            <div class="lf-timeline-date">v2.0</div>
+            <h3>The Marketing Milestone</h3>
+            <p>Mostly a version-number and branding change; the underlying roadmap work had already shipped incrementally across v1.4&ndash;v1.9.</p>
+          </div>
+          <div class="lf-timeline-entry right">
+            <div class="lf-timeline-date">v2.3</div>
+            <h3>Current Release</h3>
+            <p>Latest shipped version — entries here will keep extending the spine forward as new releases go out, without disturbing which past release still holds pivotal status.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-biolumen-depths', 'theme-copper-alchemist');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

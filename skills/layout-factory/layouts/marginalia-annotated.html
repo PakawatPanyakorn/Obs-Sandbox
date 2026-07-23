@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="marginalia-annotated">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: marginalia-annotated</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+English:ital@0;1&family=VT323&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=Cinzel:wght@400;600;700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400&family=Cutive+Mono&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "marginalia-annotated",
+    "description": "A running manuscript column paired with a dense gloss column: not sparse citations locked one-per-paragraph, but frequent claim-level commentary — challenges, clarifications, queries, agreement — that argues back at the text beside it.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "marginalia-annotated",
+    "family": "data-dense-report",
+    "composition": {
+      "summary": "Two columns run the full height of the page, side by side and independently flowing: a wider manuscript column carries the primary text at full sentence detail, and a narrower gloss column beside it holds one commentary entry for every marked claim — sometimes several, stacked, against a single dense paragraph, and sometimes none at all for a stretch nobody had anything to say about. The gloss column is not row-locked to the paragraph it faces the way a citation margin is; it free-flows in document order, which is what lets density track actual editorial attention rather than a fixed one-per-paragraph rule.",
+      "regions": [
+        { "id": "body", "role": "primary reading column carrying the running text", "columnSpan": "1-7", "order": 1, "notes": "Full sentence-level prose, section subheads, the document's single pull quote, its flagship exhibit in chart-heavy content, and a plain hairline list in card/list-heavy content" },
+        { "id": "sidenote", "role": "dense, claim-anchored commentary column running beside the body", "columnSpan": "8-12", "order": 2, "notes": "Holds challenge/clarify/query/agree entries keyed to marked phrases in the body — never a citation margin, never navigation; free-flows rather than sharing a locked CSS grid row with a single paragraph" }
+      ],
+      "hierarchy": { "primary": "body", "secondary": "sidenote", "tertiary": "" },
+      "readingOrder": ["body", "sidenote"],
+      "entryPoint": "The opening line of the body column, same as any prose page — the gloss column only pulls the eye when a dotted-underline mark and its matching number appear beside the running text",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "20px",
+      "maxWidth": "1040px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "12px", "notes": "Gloss entries collapse beneath the paragraph cluster they annotate as inline blockquote-style asides, same marker numbers, no floating column" },
+        "md": { "columns": 8, "gutter": "16px", "notes": "Gloss column narrows to a minimum legible width (short label + one line) before collapsing the same way sm does" },
+        "lg": { "columns": 12, "gutter": "20px", "notes": "Full two-column gloss; entries free-flow rather than row-locking to a single paragraph, so several can stack beside one dense paragraph" }
+      },
+      "regionSpans": { "body": "1 / 8", "sidenote": "8 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32, 48, 64],
+      "unit": "px",
+      "rhythm": "Gloss entries snap to an 8px baseline independent of the body paragraph rhythm — the two columns are not row-locked, so their vertical rhythms may drift and resync naturally as density varies",
+      "sectionGap": "48px",
+      "blockGap": "16px",
+      "inlineGap": "20px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Once per document, mid-body, marking the author's single load-bearing claim — never inside the gloss column", "style": "Left-rule blockquote in the quote tokens, deliberately NOT styled like an annotation entry, so a reader never mistakes the author's own emphasis for someone else's commentary" },
+      "sidebars": { "used": true, "width": "5 of 12 columns", "contentType": "Dense, claim-anchored commentary — challenges, clarifications, queries, agreement — never citations or navigation" },
+      "callouts": { "used": true, "types": ["challenge", "clarify", "query", "agree"] },
+      "footnotes": { "used": true, "style": "sidenote" },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "italic, small, below the exhibit only", "position": "directly beneath the exhibit, in the body column — never inside the gloss column" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "Two independent flows inside one 12-column CSS Grid: grid-template-columns: minmax(0,7fr) minmax(0,5fr), columns 1-7 and 8-12. Unlike tufte-sidenote's fixed-width margin sharing one CSS grid row per paragraph, this archetype's gloss column stacks its own entries in document order, loosely tracking (not row-locked to) the paragraph that triggered them — that looseness is what lets several entries cluster beside one dense paragraph while other paragraphs carry none.",
+      "presentation": "Poor fit as a persistent two-column slide. Convert each marked claim into its own annotated-quote slide instead: the claim as a large pull quote, its gloss entries as a short comment list beneath it on the same slide — never force a standing margin column onto a slide master.",
+      "print": "A genuine critical-edition layout: the gloss column becomes the actual page margin, widened on the outer edge of each spread (recto/verso swap), dense enough to carry several stacked glosses per page the way a scholarly edition's apparatus criticus does.",
+      "markdown": "Degrades to inline blockquote comments directly beneath the sentence they annotate — e.g. '> **[Challenge]** ...' immediately after the marked sentence — rather than collected in an endnote list. That preserves the 'commentary interrupts, right here' feeling a true two-column layout gives; a sparser citation archetype like tufte-sidenote wouldn't need to interrupt this way since its notes are references, not a running argument."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "Gloss entries vary in length and are separated by hairline rules, never boxed as uniform cards; the flagged entry in every variant below uses the emphasis-border tokens to stand out, so the set is never visually uniform. The rail is never a nav/filter sidebar — every entry anchors to a specific marked phrase in the body, so the 'sidebar bolted onto a document' tell does not apply. Unlike tufte-sidenote, this archetype intentionally allows sparse-body stretches with no gloss at all (a paragraph nobody had anything to say about) alongside dense clusters of two or three stacked notes on a single sentence — density tracks actual editorial attention, not a one-note-per-paragraph rule."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "Full density: an essay or draft under review carries several stacked gloss entries per contentious paragraph and none at all on the paragraphs nobody flagged. Each entry is categorized (challenge/clarify/query/agree) rather than left as an undifferentiated note.",
+        "bestFor": "Draft manuscript review, editorial peer review, thesis/dissertation supervisor comments, legal or contract redlining commentary, a critical edition's running gloss on a source text.",
+        "avoid": "Don't invent a gloss entry for every paragraph out of habit just to fill the column — an entry with no real claim behind it reads as decoration, the same tell as an unused sidenote forced onto every row."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The body keeps one numbered, captioned exhibit carrying the finding. Gloss entries attach to specific claims about that exhibit — a methodology caveat, an excluded cohort, a causal-attribution question — not a running commentary on every sentence.",
+        "bestFor": "Analyst notes and research writeups under review, where a reviewer's methodology questions need to sit beside the exact claim they challenge rather than in a general comments field.",
+        "avoid": "This is the variant most likely to drift into a dashboard. The discipline that prevents it: every gloss entry names the specific claim or number it's challenging — a floating caveat with nothing to anchor to is the dashboard-trope tell, not this archetype."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "Comparable items become a plain, hairline-separated list in the body column — never bordered cards. Gloss entries attach only to the items that raised a question; items nobody flagged carry no entry.",
+        "bestFor": "Requirements or spec documents under review, structured proposals with per-clause reviewer sign-off, comparison lists where individual rows need commentary rather than a rating badge.",
+        "avoid": "Don't turn the gloss column into a second column of mini-cards running parallel to the list — that recreates a two-column card grid wearing a margin-note costume. Keep entries as plain text with hairline rules only."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "rabbit-hole", "why": "'Falling down a rabbit hole of annotations' is literal here — Wonderland's own horror vacui (every surface, including this theme's own card and effects components, crowded with meaning) makes a heavily-glossed manuscript feel like this theme's natural home rather than a stretch." },
+      { "theme": "vesper-furrow", "why": "Its own demo content is already land-register entries, parcel references, and surveyor notes set against a formal record — a close sibling of an annotated document's reviewer commentary, even though it was first paired with two-column-academic." },
+      { "theme": "crypt-scholastic", "why": "'Dark gothic academic' with a rare-books register (Bibliotheca Obscura, manuscript catalogue, folio references) — a critical edition of an old manuscript, glossed by a scholar's hand, is exactly this theme's implied use case." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 20px;
+      --lf-max-width: 1040px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      /* theme-overridable — full set, matches modules/preset-template.html */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body), see CRITICAL scoping note
+       in modules/preset-template.html. Values pulled from each theme's own colors JSON AND its own
+       component markup (glow-demo / alt-card / accent-badge conventions), never invented. */
+    .lf-variant-stage.theme-rabbit-hole {
+      --lf-ink: #EFE8FF; --lf-ink-muted: #7D6EA0; --lf-paper: #080611;
+      --lf-line: #342260; --lf-region-outline: #342260; --lf-accent: #9B2EE8;
+      --lf-font-body: 'IM Fell English', 'Garamond', 'Georgia', serif; --lf-font-display: 'Cinzel Decorative', 'Palatino Linotype', serif;
+      --lf-font-mono: 'VT323', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.7; --lf-card-radius: 6px;
+      --lf-bg-image: radial-gradient(ellipse 120% 80% at 50% -5%, rgba(155,46,232,0.18) 0%, transparent 55%),
+                      radial-gradient(ellipse 80% 60% at 0% 100%, rgba(0,229,200,0.1) 0%, transparent 50%),
+                      radial-gradient(ellipse 70% 60% at 100% 100%, rgba(232,25,122,0.08) 0%, transparent 50%),
+                      repeating-conic-gradient(rgba(52,34,96,0.3) 0deg 90deg, rgba(11,8,24,0.3) 90deg 180deg);
+      --lf-bg-size: cover, cover, cover, 40px 40px; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat, no-repeat, no-repeat, repeat;
+      --lf-surface: #120D1E;
+      /* rabbit-hole's own shadows.colored — the "dramatic" elevation its own design.notes calls for */
+      --lf-shadow-hero: 0 4px 24px rgba(155,46,232,0.55), 0 0 48px rgba(155,46,232,0.25);
+      --lf-gradient-hero: linear-gradient(to bottom, #1B0840 0%, #080611 40%, #0D1030 70%, #080611 100%);
+      --lf-border-width: 1px;
+      /* no boxed pull-quote in this theme's own markup (its ".fx-glow" tile is a plain centered
+         label, not a left-rule quote) — closest real analog is that tile's own treatment: colored
+         text on a plain surface, matching this maximalist theme's "every surface crowded with
+         meaning" ethos rather than the restraint a quieter theme would use here */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      /* its own alt card ("The Verdict" .tcard) only swaps background to a primary/secondary
+         gradient tint, never the border — same restraint carried through here */
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+    .lf-variant-stage.theme-vesper-furrow {
+      --lf-ink: #d4c9b4; --lf-ink-muted: #7a7060; --lf-paper: #1c1915;
+      --lf-line: #3a3426; --lf-region-outline: #3a3426; --lf-accent: #b8914a;
+      --lf-font-body: 'Lora', Georgia, serif; --lf-font-display: 'Fraunces', Georgia, serif;
+      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.65; --lf-card-radius: 6px;
+      --lf-bg-image: linear-gradient(180deg, rgba(168,122,58,0.14) 0%, rgba(28,25,21,0) 38%),
+                      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      --lf-bg-size: 100% auto, 200px 200px; --lf-bg-position: 0 0, 0 0; --lf-bg-repeat: no-repeat, repeat;
+      --lf-surface: #242018;
+      /* its own .tf-header (the theme's real "hero" element) uses shadows.md, not lg/xl —
+         matches shadows.elevation: "subtle" in this theme's own data */
+      --lf-shadow-hero: 0 2px 8px rgba(0,0,0,0.50);
+      --lf-gradient-hero: linear-gradient(160deg, #2a2218 0%, #1c1915 55%, #201c1a 100%);
+      --lf-border-width: 1px;
+      /* no boxed pull-quote in this theme's markup either — closest analog is its own
+         .tf-card-wide inline override (amber-tinted border reserved for "principal declarations,
+         summary findings") — border gets the accent, body text stays plain ink, matching this
+         theme's restrained/formal personality and its own "luminescence: none" */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      /* its own .tf-card-alt only swaps to surfaceAlt background, border stays neutral —
+         same restraint carried here */
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+    .lf-variant-stage.theme-crypt-scholastic {
+      --lf-ink: #D8C8C0; --lf-ink-muted: #806870; --lf-paper: #120A10;
+      --lf-line: #3A2030; --lf-region-outline: #3A2030; --lf-accent: #C8A840;
+      --lf-font-body: 'Gentium Plus', Georgia, serif; --lf-font-display: 'Cinzel', Georgia, serif;
+      --lf-font-mono: 'Cutive Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 600; --lf-line-height: 1.75; --lf-card-radius: 3px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      --lf-bg-size: 256px 256px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #1C1018;
+      /* its own .cs-card (the closest real component to our exhibit box) uses shadows.md */
+      --lf-shadow-hero: 0 4px 18px rgba(6,2,8,0.85);
+      --lf-gradient-hero: linear-gradient(160deg, #241420 0%, #120A10 55%, #100810 100%);
+      --lf-border-width: 1px;
+      /* no boxed pull-quote here either — its own .cs-body (italic prose) stays plain ink, while
+         its .cs-card-tag / .cs-mono labels are the only elements colored gilt — border gets the
+         accent, quote text stays ink, faithful to that same split */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      /* echoes its own .cs-badge-primary — accent-tinted border reserved for the one status
+         marker meant to stand out */
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* ── marginalia-annotated vocabulary ─────────────────────────────────────
+       Two independent flows, not a lead+well shape and not tufte-sidenote's
+       row-locked paragraph/note pairing: .lf-ms-body and .lf-ms-rail sit in the
+       same 12-column grid but each flows its own content in document order. */
+
+    .lf-ms-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    .lf-ms-title {
+      font-family: var(--lf-font-display);
+      font-size: 2rem;
+      line-height: 1.15;
+      font-weight: var(--lf-font-weight-heading);
+      letter-spacing: -0.01em;
+      max-width: 34ch;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-ms-dek {
+      font-size: 1rem;
+      color: var(--lf-ink-muted);
+      max-width: 60ch;
+      margin-bottom: var(--lf-space-6);
+    }
+
+    .lf-ms-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      column-gap: var(--lf-gutter);
+      align-items: start;
+    }
+
+    .lf-ms-body { max-width: 62ch; font-size: 1rem; }
+    .lf-ms-body p { margin-bottom: var(--lf-space-3); }
+    .lf-ms-body p:last-child { margin-bottom: 0; }
+    .lf-ms-body h3 {
+      font-family: var(--lf-font-display);
+      font-size: 1.1rem;
+      font-weight: var(--lf-font-weight-heading);
+      margin: var(--lf-space-4) 0 var(--lf-space-2);
+    }
+
+    /* The marked phrase in running text — dotted underline plus a small mono number, the only
+       "link" a mark needs to its gloss entry: shared accent color and proximity, no hover state
+       or JS required (same philosophy as tufte-sidenote's refnum, applied to a denser column). */
+    .lf-ms-mark { border-bottom: 1px dotted var(--lf-accent); }
+    .lf-ms-marker {
+      font-family: var(--lf-font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--lf-accent);
+      margin-left: 1px;
+      vertical-align: super;
+    }
+
+    /* Author's own single load-bearing claim — deliberately NOT styled like a gloss entry below,
+       so it never reads as someone else's commentary. */
+    .lf-ms-quote {
+      font-family: var(--lf-font-display);
+      font-size: 1.3rem;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--lf-quote-text-color);
+      padding: var(--lf-space-3) 0 var(--lf-space-3) var(--lf-space-4);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      margin: var(--lf-space-4) 0;
+      max-width: 42ch;
+    }
+
+    /* The one dominant visual per page (restraint rule, same as every other family member):
+       only the chart-heavy exhibit gets --lf-shadow-hero/--lf-gradient-hero. */
+    .lf-ms-exhibit {
+      border: 1px solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      height: 200px;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin-bottom: var(--lf-space-3); }
+
+    /* Plain hairline list for card/list-heavy content — never a bordered/shadowed card. */
+    .lf-ms-list-item { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-3); margin-bottom: var(--lf-space-4); }
+    .lf-ms-list-item h3 { font-family: var(--lf-font-display); font-size: 1.05rem; font-weight: var(--lf-font-weight-heading); margin-bottom: 4px; }
+    .lf-ms-list-item p { font-size: 0.92rem; color: var(--lf-ink-muted); }
+
+    /* Gloss rail — dense, categorized, free-flowing (not row-locked to a shared grid row). */
+    .lf-ms-rail-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-ms-rail-label.sub { margin-top: var(--lf-space-6); }
+    .lf-ms-rail { font-size: 0.82rem; }
+    .lf-ms-note {
+      border-left: var(--lf-border-width) solid var(--lf-line);
+      padding: 1px 0 1px var(--lf-space-3);
+      margin-bottom: var(--lf-space-3);
+    }
+    /* The one flagged entry per variant — the set's required "vary at least one dimension"
+       moment, same technique magazine-well uses for its emphasis well-entry. */
+    .lf-ms-note.flag {
+      border-left-width: var(--lf-emphasis-border-width);
+      border-left-color: var(--lf-emphasis-border-color);
+    }
+    .lf-ms-note-head { display: flex; align-items: baseline; gap: 6px; margin-bottom: 2px; }
+    .lf-ms-note-num { font-family: var(--lf-font-mono); font-size: 0.68rem; font-weight: 700; color: var(--lf-accent); }
+    .lf-ms-note-type {
+      font-family: var(--lf-font-mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+    }
+    .lf-ms-note.flag .lf-ms-note-type { color: var(--lf-ink); }
+    .lf-ms-note-body { color: var(--lf-ink-muted); line-height: 1.55; }
+
+    .lf-section-break { border: none; border-top: 1px solid var(--lf-line); margin: var(--lf-space-8) 0; }
+
+    @media (max-width: 720px) {
+      .lf-ms-wrap { grid-template-columns: 1fr; }
+      .lf-ms-rail { margin-top: var(--lf-space-6); border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-4); }
+    }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected.
+       color/font-family/line-height/background are re-declared here (not just inherited from
+       body) so that when .theme-* overrides the custom properties above, descendants that don't
+       set their own color (headlines, paragraphs) pick up the new value through normal
+       inheritance from THIS element, rather than the already-resolved neutral value from body. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View — lets the picker chrome (meta bar, specs, tabs, captions) drop away so the
+       selected variant/theme combination can be seen the way it'd actually be used, not as a
+       component in a gallery page. Fixed-position toggle stays visible in both states. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
+       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
+       with no unthemed white gap on any side. */
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">marginalia-annotated</span>
+    <span class="lf-meta-tags">marginalia-annotated &middot; data-dense-report</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">20px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1040px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">marginalia-annotated — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> draft manuscript review, editorial peer review, thesis supervisor comments, legal redlining — content under active review.<br><strong>Avoid:</strong> inventing a gloss entry for every paragraph out of habit just to fill the column." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> analyst notes and research writeups under review, where a reviewer's methodology question needs to sit beside the exact claim it challenges.<br><strong>Avoid:</strong> a floating caveat with nothing to anchor to — that's the dashboard-trope tell, not this archetype." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> requirements or spec documents under review, comparison lists needing per-row commentary rather than a rating badge.<br><strong>Avoid:</strong> a second column of mini-cards running parallel to the list — that's a card grid wearing a margin-note costume." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="rabbit-hole" role="tab" aria-selected="false">rabbit-hole</button>
+      <button class="lf-theme-tab" data-theme-option="vesper-furrow" role="tab" aria-selected="false">vesper-furrow</button>
+      <button class="lf-theme-tab" data-theme-option="crypt-scholastic" role="tab" aria-selected="false">crypt-scholastic</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-ms-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>marginalia-annotated</span>
+        </div>
+        <div class="lf-ms-wrap">
+          <div class="lf-ms-body">
+            <h1 class="lf-ms-title">The Manuscript and Its Gloss</h1>
+            <p class="lf-ms-dek">marginalia-annotated pairs a running main text with an annotation column dense enough to hold a live argument — not sparse citations, a running commentary that talks back to the text beside it.</p>
+            <p>Structurally this is two parallel columns, not a lead followed by a well: a wide manuscript column carries the primary text at full sentence detail<sup class="lf-ms-marker">1</sup>, and a narrower gloss column beside it carries one commentary entry for every marked claim, clarification, or objection<sup class="lf-ms-marker">2</sup> &mdash; including, as in this very paragraph, several stacked against one dense sentence<sup class="lf-ms-marker">3</sup>.</p>
+            <blockquote class="lf-ms-quote">"A gloss column earns its width by disagreeing, clarifying, or questioning &mdash; not by citing. That's what separates it from a citation margin."</blockquote>
+            <p><strong>Use this when</strong> a document is under active review with a specific person's commentary attached to it: draft manuscript review, editorial peer review, a supervisor's notes on a thesis chapter, legal or contract redlining, a critical edition's gloss on an old source text.</p>
+          </div>
+          <div class="lf-ms-rail">
+            <div class="lf-ms-rail-label">Marginal Notes</div>
+            <div class="lf-ms-note flag">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">1</span><span class="lf-ms-note-type">Challenge</span></div>
+              <div class="lf-ms-note-body">"Full sentence detail" undersells the body column's job &mdash; it also carries the document's single pull quote, which this gloss column never touches.</div>
+            </div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">2</span><span class="lf-ms-note-type">Clarify</span></div>
+              <div class="lf-ms-note-body">"One entry per marked claim" is the median case, not a rule &mdash; nothing stops several stacked entries against a single paragraph, as the next mark shows.</div>
+            </div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">3</span><span class="lf-ms-note-type">Agree</span></div>
+              <div class="lf-ms-note-body">Agreed &mdash; this is the one structural fact that actually separates marginalia-annotated from tufte-sidenote, more than the color-coded labels do.</div>
+            </div>
+            <div class="lf-ms-rail-label sub">About This Archetype</div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-type">When Not To Use This</span></div>
+              <div class="lf-ms-note-body">Reach for <strong style="color:var(--lf-ink)">tufte-sidenote</strong> instead when notes are citations or source references, one per paragraph, mostly empty margins &mdash; sparse by design. This archetype is for dense, argumentative commentary, not attribution.</div>
+            </div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-type">Structural Rule</span></div>
+              <div class="lf-ms-note-body">Every gloss entry anchors to a specific marked phrase in the body. An entry with no visible anchor is noise, not marginalia &mdash; and stacking notes just to fill the column is the same anti-pattern as a card grid with nothing to compare.</div>
+            </div>
+            <div class="lf-ms-note flag">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-type">Editorial Devices Favored</span></div>
+              <div class="lf-ms-note-body">Categorized labels (challenge / clarify / query / agree), one restrained pull quote for the author's own claim kept out of the annotation color, and hairline rules between entries &mdash; never boxes.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-ms-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>marginalia-annotated</span>
+        </div>
+        <div class="lf-ms-wrap">
+          <div class="lf-ms-body">
+            <h1 class="lf-ms-title">Why We Stopped Shipping Quarterly Roadmaps</h1>
+            <p class="lf-ms-dek">Draft v3 &mdash; inline notes from the editor, keyed to the sentences below.</p>
+            <p>Quarterly roadmaps promised predictability<sup class="lf-ms-marker">1</sup> and delivered theater instead<sup class="lf-ms-marker">2</sup>: a plan re-litigated every ninety days, signed by people who had stopped believing in it by day thirty.</p>
+            <p>We replaced it with a rolling six-week horizon<sup class="lf-ms-marker">3</sup> and, more importantly, stopped asking anyone to commit past that horizon<sup class="lf-ms-marker">4</sup>.</p>
+            <blockquote class="lf-ms-quote">"The horizon length was never the fix. The fix was refusing to make anyone promise what they couldn't yet see."</blockquote>
+          </div>
+          <div class="lf-ms-rail">
+            <div class="lf-ms-rail-label">Editor's Notes &mdash; Draft v3</div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">1</span><span class="lf-ms-note-type">Clarify</span></div>
+              <div class="lf-ms-note-body">Promised to whom &mdash; leadership, or the teams executing it? Worth naming the audience; the complaint that follows is really about the second group.</div>
+            </div>
+            <div class="lf-ms-note flag">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">2</span><span class="lf-ms-note-type">Challenge</span></div>
+              <div class="lf-ms-note-body">This is the strongest claim in the piece and it's currently unsupported. Either cite the March survey or soften to "felt like theater to the three teams we talked to."</div>
+            </div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">3</span><span class="lf-ms-note-type">Query</span></div>
+              <div class="lf-ms-note-body">Is six weeks a considered choice, or just "shorter than a quarter"? A sentence on why six specifically would preempt the obvious question.</div>
+            </div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">4</span><span class="lf-ms-note-type">Agree</span></div>
+              <div class="lf-ms-note-body">This is the actual mechanism, not the horizon length &mdash; good that the piece gets here, though it arrives a sentence later than it should.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-ms-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>marginalia-annotated</span>
+        </div>
+        <div class="lf-ms-wrap">
+          <div class="lf-ms-body">
+            <h1 class="lf-ms-title">Retention Recovers After the Onboarding Rewrite &mdash; With One Caveat</h1>
+            <p class="lf-ms-dek">Analyst draft under review &mdash; reviewer notes flag methodology questions on specific claims, not a caption on every line.</p>
+            <div class="lf-ms-exhibit"></div>
+            <div class="lf-caption">Fig. 1 &mdash; 12-week retention, pre/post onboarding rewrite.</div>
+            <p>Retention at week six rose from 41% to 53% after the rewrite shipped<sup class="lf-ms-marker">1</sup>, and the improvement holds across every acquisition channel we tracked<sup class="lf-ms-marker">2</sup>.</p>
+            <p>We attribute the lift to the rewrite and not to the concurrent pricing change<sup class="lf-ms-marker">3</sup>, since the pricing change shipped two weeks after the retention curve had already moved.</p>
+          </div>
+          <div class="lf-ms-rail">
+            <div class="lf-ms-rail-label">Reviewer Notes &mdash; Fig. 1</div>
+            <div class="lf-ms-note flag">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">1</span><span class="lf-ms-note-type">Challenge</span></div>
+              <div class="lf-ms-note-body">53% is the number after excluding the two cohorts hit by the payment-outage incident in the same window. That exclusion needs to be stated in the body text, not just here.</div>
+            </div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">2</span><span class="lf-ms-note-type">Query</span></div>
+              <div class="lf-ms-note-body">"Every channel we tracked" &mdash; did that include the referral channel onboarded in week 4 of this window? Sample size there is thin.</div>
+            </div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">3</span><span class="lf-ms-note-type">Clarify</span></div>
+              <div class="lf-ms-note-body">Worth stating this timeline explicitly in the body &mdash; "two weeks after" is doing most of the causal argument's work and is currently only defended here.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-ms-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>marginalia-annotated</span>
+        </div>
+        <div class="lf-ms-wrap">
+          <div class="lf-ms-body">
+            <h1 class="lf-ms-title">API Rate-Limit Proposal &mdash; Requirements Under Review</h1>
+            <p class="lf-ms-dek">Each requirement is a plain list entry, hairline-separated &mdash; never a bordered card &mdash; with reviewer commentary in the rail beside the entries that raised questions.</p>
+            <div class="lf-ms-list-item">
+              <h3>REQ-1 &mdash; Default limit of 100 req/min per API key<sup class="lf-ms-marker">1</sup></h3>
+              <p>Applies per authenticated key unless otherwise noted in the client's service agreement.</p>
+            </div>
+            <div class="lf-ms-list-item">
+              <h3>REQ-2 &mdash; Burst allowance of 20 req/sec for 5 seconds<sup class="lf-ms-marker">2</sup></h3>
+              <p>Intended to absorb legitimate traffic spikes without a hard reject.</p>
+            </div>
+            <div class="lf-ms-list-item">
+              <h3>REQ-3 &mdash; 429 responses must include a Retry-After header</h3>
+              <p>Value expressed in seconds, matching the remainder of the current limit window.</p>
+            </div>
+            <div class="lf-ms-list-item">
+              <h3>REQ-4 &mdash; Limit increases require a signed support ticket<sup class="lf-ms-marker">3</sup></h3>
+              <p>Standard increases capped at 5x default; anything beyond escalates to engineering review.</p>
+            </div>
+          </div>
+          <div class="lf-ms-rail">
+            <div class="lf-ms-rail-label">Reviewer Notes</div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">1</span><span class="lf-ms-note-type">Query</span></div>
+              <div class="lf-ms-note-body">Is 100/min a per-key or per-org ceiling? REQ-1 reads per-key, but the appendix diagram shows per-org.</div>
+            </div>
+            <div class="lf-ms-note flag">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">2</span><span class="lf-ms-note-type">Challenge</span></div>
+              <div class="lf-ms-note-body">20/sec burst on top of 100/min lets a client spend a whole minute's budget in the first five seconds. Confirm that's intended, not an oversight in the math.</div>
+            </div>
+            <div class="lf-ms-note">
+              <div class="lf-ms-note-head"><span class="lf-ms-note-num">3</span><span class="lf-ms-note-type">Clarify</span></div>
+              <div class="lf-ms-note-body">"Signed support ticket" &mdash; signed by whom? Worth naming the approver role so this isn't ambiguous during an incident.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-rabbit-hole', 'theme-vesper-furrow', 'theme-crypt-scholastic');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

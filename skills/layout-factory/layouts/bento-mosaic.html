@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="bento-mosaic">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: bento-mosaic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "bento-mosaic",
+    "description": "A modular grid of deliberately varied-size tiles where cell area is a claim about importance, recency, or data density — never decoration.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "bento-mosaic",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "Eight tiles share an 18-unit modular canvas (6 columns x 3 rows). One tile (lead) is large because it is genuinely the single most important item on the page. Two tiles (exhibit-a, exhibit-b) are mid-sized but shaped differently from each other on purpose: exhibit-b is narrow-and-tall because its content is data-dense and needs vertical room; exhibit-a is wide-and-short because its content is flat and one-dimensional. Five tiles (river-1..5) are identically 1x1 — the one place uniform sizing is legitimate, because those five items really are interchangeable peers ranked only by recency.",
+      "regions": [
+        { "id": "lead", "role": "single most important item this period", "columnSpan": "1-3 of 6, 2 rows", "order": 1, "notes": "Sized 3x2 (6 of 18 cell-units) because it is this period's single most statistically significant or otherwise dominant item — not because a big rectangle anchors the page visually." },
+        { "id": "exhibit-b", "role": "second-tier item whose underlying content is genuinely multi-dimensional or data-dense", "columnSpan": "4-5 of 6, 2 rows", "order": 2, "notes": "Sized 2x2 (4 units), narrower than lead but equally tall, because its content (e.g. a multi-series trend) needs vertical room to render honestly. Height here serves data density, not drama." },
+        { "id": "exhibit-a", "role": "second-tier item whose content is flat and one-dimensional", "columnSpan": "1-3 of 6, 1 row", "order": 3, "notes": "Sized 3x1 (3 units), wide but short, because its content is a single flat comparison with no need for height. Width tracks the content's actual shape, not an arbitrary 'medium' rank." },
+        { "id": "river-1", "role": "lowest-tier item, most recent", "columnSpan": "1 of 6, 1 row", "order": 4, "notes": "Sized 1x1, identical to river-2..5 on purpose: these five items really are equal in weight. Ranked left-to-right/top-to-bottom by recency only." },
+        { "id": "river-2", "role": "lowest-tier item", "columnSpan": "1 of 6, 1 row", "order": 5, "notes": "Same tier as river-1 — uniform sizing here is the legitimate case, not the anti-pattern." },
+        { "id": "river-3", "role": "lowest-tier item", "columnSpan": "1 of 6, 1 row", "order": 6, "notes": "Same tier as river-1." },
+        { "id": "river-4", "role": "lowest-tier item", "columnSpan": "1 of 6, 1 row", "order": 7, "notes": "Same tier as river-1." },
+        { "id": "river-5", "role": "lowest-tier item, least recent", "columnSpan": "1 of 6, 1 row", "order": 8, "notes": "Same tier as river-1." }
+      ],
+      "hierarchy": { "primary": "lead", "secondary": "exhibit-b", "tertiary": "exhibit-a" },
+      "readingOrder": ["lead", "exhibit-b", "river-1", "river-2", "exhibit-a", "river-3", "river-4", "river-5"],
+      "entryPoint": "lead — largest area (6 of 18 cell-units) and top-left position; both size and position point there first",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "modular",
+      "columns": 6,
+      "gutter": "24px",
+      "maxWidth": "1160px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 1, "gutter": "16px", "notes": "Mosaic collapses to a strict single-column list in the SAME hierarchy order (lead, exhibit-b, exhibit-a, river-1..5) — never a naive reflow of the grid-template-areas that would scramble the hierarchy." },
+        "md": { "columns": 4, "gutter": "20px", "notes": "Lead keeps its 2-row height at 4-col width (near full-bleed); exhibit-a/exhibit-b drop to 2 columns each; river tiles pair up 2-per-row." },
+        "lg": { "columns": 6, "gutter": "24px", "notes": "Full mosaic: lead 3x2, exhibit-b 2x2, exhibit-a 3x1, five river tiles 1x1." }
+      },
+      "regionSpans": {
+        "lead": "columns 1/4, rows 1/3",
+        "exhibit-b": "columns 4/6, rows 1/3",
+        "exhibit-a": "columns 1/4, row 3/4",
+        "river-1": "column 6, row 1/2",
+        "river-2": "column 6, row 2/3",
+        "river-3": "column 4, row 3/4",
+        "river-4": "column 5, row 3/4",
+        "river-5": "column 6, row 3/4"
+      }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 32, 48, 64, 96],
+      "unit": "px",
+      "rhythm": "row height locked to 16x the 8px baseline (128px) so every tile's height is a whole multiple of the vertical rhythm regardless of its row span",
+      "sectionGap": "64px",
+      "blockGap": "24px",
+      "inlineGap": "24px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Inside the lead tile only, breaking its explanation with the single sentence that defines legitimate vs. decorative sizing", "style": "Large italic, left rule, confined to the one tile that structurally earns it" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": true, "types": ["hierarchy-reason caption — a small mono line under a tile stating why it is that size, shown in the Concept view"] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "whitespace" },
+      "dropCaps": false,
+      "captions": { "style": "small mono caption directly under a tile's visual/number — states a figure interpretation (chart variant) or the hierarchy reason (concept variant)", "position": "directly below tile content" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid on .lf-mosaic: grid-template-columns: repeat(6, 1fr); grid-template-areas assigns each tile an explicit multi-column/multi-row span (lead 3x2, exhibit-b 2x2, exhibit-a 3x1, five river tiles 1x1 each) — spans are hard-coded per tile's hierarchy tier, never auto-placed.",
+      "presentation": "Bento does not compress onto one slide at full density. Split it: slide 1 = lead alone, full-bleed, the headline item; slide 2 = the two exhibit tiles side by side; slide 3 = river tiles as a simple ranked list. Forcing all eight tiles onto one slide master is the presentation-medium version of the anti-pattern.",
+      "print": "Lead tile prints as its own top band at full width; exhibit-a/exhibit-b follow as a two-column band beneath; river tiles print as a single ranked list at the foot of the page, hairline rules only — no shadows in print.",
+      "markdown": "Degrades to a strict sequential list in the SAME hierarchy order (lead, exhibit-b, exhibit-a, river-1..5), with heading level and paragraph length matching each item's former tile size — an H2 and a full paragraph for lead, H3 and one sentence for the exhibits, a single bolded clause for each river item. Never rendered as a flat bullet list of eight equal-looking items — that would erase the exact hierarchy the mosaic exists to assert."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "This archetype sits right next to the uniform-card-grid anti-pattern it must avoid, so every tile's size is traced to a stated signal, never to 'visual variety': lead is 3x2 because it is this period's single most important/significant item; exhibit-b is 2x2 (tall) because its data is genuinely multi-dimensional and needs vertical room; exhibit-a is 3x1 (wide, short) because its content is flat and one-dimensional; river-1..5 are 1x1 because they are this period's lowest-priority, genuinely interchangeable peers, ranked only by recency. The tell for drift into the anti-pattern: the shuffle test — if you can rearrange the tiles without changing what the page communicates, the sizing is decorative, not bento. Note the one legitimate use of uniform sizing here is WITHIN the river tier, precisely because those items really are equal in weight; the anti-pattern is force-equalizing items of genuinely different importance, or handing out different sizes with no traceable reason. Every stat tile also carries a one-line interpretation, not a bare floating number, to keep the chart-heavy variant clear of the dashboard-trope anti-pattern."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "Tile area is spent on word count, not imagery: the lead tile gets a full paragraph and headline, exhibit tiles get one to two sentences sized to their span (exhibit-b's height buys it two short paragraphs instead of one, exhibit-a's width does not), and river tiles get a single clause each — the archetype's own sizing rule applied to text length instead of chart size.",
+        "bestFor": "A quarterly letter or briefing where a handful of points carry genuinely unequal weight — one update big enough to earn the lead tile, the rest smaller by design, not by accident.",
+        "avoid": "Padding short filler text to fill a large tile, or writing every tile to roughly the same length. If nothing is actually more important than anything else, this is the wrong archetype — use a plain list or magazine-well's well band instead."
+      },
+      "chartHeavy": {
+        "howItAdapts": "This is the archetype's native content type: tile size maps directly to statistical significance, recency, or data density — lead is the headline metric of the period, exhibit-b's 2-row height accommodates a genuinely multi-series chart, exhibit-a's 3-column width suits a flat single-series comparison, and river tiles hold single-stat readouts ranked by recency.",
+        "bestFor": "A metrics dashboard or quarterly analytics review where tile size communicates real statistical significance, recency, or data density — the exact case this archetype is built for.",
+        "avoid": "This is the variant most likely to drift into the dashboard-trope anti-pattern: a floating number with no caption or interpretation, or a tile resized only because the layout 'needed a big one and a small one.' Every tile keeps a one-line interpretation, and every size traces back to a signal named in the Concept tab."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "Tile size maps to project or item scope: the lead tile is reserved for the single largest-scope item (a flagship case study), exhibit tiles hold medium-scope items, and river tiles hold small, quick items — never sized to make a set 'look organized.'",
+        "bestFor": "A portfolio or project index where items genuinely differ in scope or maturity — one flagship case study alongside several smaller, faster-shipped items.",
+        "avoid": "Forcing artificial size differences onto a set of items that are actually comparable in scope, just to manufacture the appearance of hierarchy — that is the uniform-card-grid anti-pattern wearing a bento skin. If every item is genuinely comparable, use a plain list instead."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "acid-garden", "why": "Chromatic-overload-by-design is exactly the kind of theme that tempts a mosaic toward decorative sizing 'for visual variety' — pairing it here proves the discipline holds even under a theme unafraid of color chaos: cell size still tracks importance/density, never the palette." },
+      { "theme": "cosmica", "why": "Dark maximalist glass-panel register reads as a literal sci-fi mission-control tile board — the register a bento dashboard-analytics use case is built for, a distinct register from acid-garden's light chromatic energy." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 6;
+      --lf-gutter: 24px;
+      --lf-max-width: 1160px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 32px; --lf-space-8: 48px;
+      /* theme-overridable — full set, exactly what a theme-factory preset would set via apply mode */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 4px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      /* full theme-token set — only the lead tile ever gets shadow-hero/gradient-hero; exhibit-a/
+         exhibit-b/river tiles stay on --lf-surface with no shadow regardless of theme, per this
+         archetype's own restraint rule: one hero, everything else earns weight by content. */
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body), so CSS custom properties
+       cascade only into the stage, keeping the chrome above (meta bar, specs, tabs, captions)
+       neutral. Values pulled from each theme's own theme-data JSON block and component markup. */
+    .lf-variant-stage.theme-acid-garden {
+      --lf-ink: #1A1A1A; --lf-ink-muted: #5C6852; --lf-paper: #EDFCE8;
+      --lf-line: #C8E8C0; --lf-region-outline: #C8E8C0; --lf-accent: #FF0099;
+      --lf-font-body: 'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Unbounded', 'Impact', sans-serif;
+      --lf-font-mono: 'Fira Code', 'Courier New', monospace;
+      --lf-font-weight-heading: 900; --lf-line-height: 1.6; --lf-card-radius: 16px;
+      --lf-bg-image: radial-gradient(ellipse at 10% 20%, rgba(255,0,153,0.12) 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, rgba(0,153,255,0.1) 0%, transparent 40%), radial-gradient(ellipse at 70% 80%, rgba(204,255,0,0.14) 0%, transparent 45%), radial-gradient(ellipse at 30% 70%, rgba(255,102,0,0.08) 0%, transparent 40%);
+      --lf-bg-size: cover; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      --lf-surface: #F8FFF4;
+      /* acid-garden's own shadows.colored — hard-edge dual offset shadow, matches its bold borderStyle */
+      --lf-shadow-hero: 6px 6px 0 rgba(255,0,153,0.3), -3px -3px 0 rgba(0,153,255,0.3);
+      --lf-gradient-hero: linear-gradient(135deg, #FFD6EE 0%, #D4EFFF 50%, #E8FFB0 100%);
+      --lf-border-width: 3px;
+      /* pulled from acid-garden's own .tf-glow-demo (border:2px solid primary, text colored primary)
+         and its .tf-card (border:3px solid, top rainbow strip) — this theme colors both border AND text */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+    .lf-variant-stage.theme-cosmica {
+      --lf-ink: #E8E0F8; --lf-ink-muted: #7060A0; --lf-paper: #06041A;
+      --lf-line: #2A1F50; --lf-region-outline: rgba(168,85,247,0.25); --lf-accent: #A855F7;
+      --lf-font-body: 'Exo 2', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Orbitron', 'Impact', sans-serif;
+      --lf-font-mono: 'Space Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.65; --lf-card-radius: 12px;
+      --lf-bg-image: radial-gradient(ellipse at 20% 40%, rgba(168,85,247,0.25) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.12) 0%, transparent 45%), radial-gradient(ellipse at 60% 80%, rgba(244,63,94,0.18) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(6,4,26,0.9) 0%, #06041A 100%);
+      --lf-bg-size: cover; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      /* cosmica's own glass-tint — a translucent panel color, faithful to its glassmorphism aesthetic even without backdrop-filter */
+      --lf-surface: rgba(13,8,40,0.6);
+      --lf-shadow-hero: 0 0 32px rgba(168,85,247,0.5), 0 4px 20px rgba(168,85,247,0.3);
+      --lf-gradient-hero: linear-gradient(135deg, #1A0A40 0%, #06041A 50%, #0A0420 100%);
+      --lf-border-width: 1px;
+      /* pulled from cosmica's own .tf-glow-demo — hairline border, colored text, glow shadow */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      /* cosmica's own alt card (CYAN GATE) swaps border color to secondary cyan, not width — same move here */
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: #06B6D4;
+    }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* ============================================================
+       Bento mosaic — archetype-specific region shape.
+       6-column x 3-row modular grid with explicit named areas, NOT
+       an auto-placed card grid. Every tile's span is hard-coded to
+       its hierarchy tier (lead 3x2, exhibit-b 2x2, exhibit-a 3x1,
+       river-1..5 1x1 each) — see composition.regions[].notes in the
+       layout-data block above for the stated reason each size exists.
+       ============================================================ */
+    .lf-mosaic {
+      display: grid;
+      grid-template-columns: repeat(var(--lf-columns), 1fr);
+      grid-auto-rows: 128px; /* 16 x 8px baseline, so every tile height is a whole rhythm multiple */
+      grid-template-areas:
+        "lead lead lead exhibit-b exhibit-b river-1"
+        "lead lead lead exhibit-b exhibit-b river-2"
+        "exhibit-a exhibit-a exhibit-a river-3 river-4 river-5";
+      gap: var(--lf-gutter);
+      margin-bottom: var(--lf-space-8);
+    }
+    @media (max-width: 640px) {
+      /* Deliberate adaptation, not a naive collapse: single column, SAME hierarchy order */
+      .lf-mosaic {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        grid-template-areas:
+          "lead"
+          "exhibit-b"
+          "exhibit-a"
+          "river-1"
+          "river-2"
+          "river-3"
+          "river-4"
+          "river-5";
+      }
+    }
+
+    .lf-tile {
+      background-color: var(--lf-surface);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      padding: var(--lf-space-4);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      color: var(--lf-ink);
+    }
+    /* Lead — the ONE tile allowed real presence (theme's actual hero gradient + shadow).
+       Every other tile stays on --lf-surface with no shadow-hero/gradient-hero, regardless of
+       theme — giving every tile the same visual weight is the exact anti-pattern this archetype
+       exists to avoid, and that restraint holds even when a theme is applied. */
+    .lf-tile-lead {
+      grid-area: lead;
+      background-image: var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+    }
+    .lf-tile-exhibit-b { grid-area: exhibit-b; }
+    .lf-tile-exhibit-a { grid-area: exhibit-a; justify-content: center; }
+    .lf-tile-river-1 { grid-area: river-1; }
+    .lf-tile-river-2 { grid-area: river-2; }
+    .lf-tile-river-3 { grid-area: river-3; }
+    .lf-tile-river-4 { grid-area: river-4; }
+    .lf-tile-river-5 { grid-area: river-5; }
+    /* Echoes each theme's own "alt card" convention (acid-garden's border-color accent on .tf-card,
+       cosmica's CYAN GATE swapping border to secondary) — applied to river-1, the most-recent
+       lowest-tier item, same restraint as the theme's own component: a border-color swap only. */
+    .lf-tile-emphasis { border-width: var(--lf-emphasis-border-width); border-color: var(--lf-emphasis-border-color); }
+
+    .lf-tile-label {
+      display: block;
+      font-family: var(--lf-font-mono);
+      font-size: 0.6rem;
+      color: var(--lf-ink-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-tile h3 {
+      font-family: var(--lf-font-display);
+      font-weight: var(--lf-font-weight-heading);
+      color: var(--lf-ink);
+      line-height: 1.2;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-tile-lead h3 { font-size: 1.7rem; max-width: 20ch; }
+    .lf-tile-exhibit-b h3, .lf-tile-exhibit-a h3 { font-size: 1.05rem; }
+    .lf-tile-river-1 h3, .lf-tile-river-2 h3, .lf-tile-river-3 h3, .lf-tile-river-4 h3, .lf-tile-river-5 h3 { font-size: 0.82rem; }
+    .lf-tile p { color: var(--lf-ink-muted); font-size: 0.85rem; }
+    .lf-tile-lead p { font-size: 0.95rem; color: var(--lf-ink); max-width: 46ch; }
+    .lf-tile-lead .lf-tile-dek { color: var(--lf-ink-muted); font-size: 0.9rem; margin-bottom: var(--lf-space-2); }
+
+    /* Placeholder visual — used only where content is genuinely visual (chart/portfolio image);
+       size varies per tile to match the tile's own shape, never uniform across tiles. */
+    .lf-tile-visual {
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px);
+      border: 1px solid var(--lf-region-outline);
+      border-radius: calc(var(--lf-card-radius) / 2);
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-tile-lead .lf-tile-visual { height: 96px; background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px), var(--lf-gradient-hero); }
+    .lf-tile-exhibit-b .lf-tile-visual { height: 130px; }
+    .lf-tile-exhibit-a .lf-tile-visual { height: 40px; width: 100%; }
+
+    /* Matches each theme's own pull-quote component (.tf-glow-demo): left rule sized/colored per
+       theme, quote text colored to match when the theme uses color for emphasis, left plain when
+       it deliberately doesn't. Confined to the lead tile only — this archetype's one "quotable" zone. */
+    .lf-pullquote {
+      background-color: transparent;
+      color: var(--lf-quote-text-color);
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 600;
+      line-height: 1.4;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      margin: var(--lf-space-2) 0;
+    }
+
+    .lf-tile-reason {
+      font-family: var(--lf-font-mono);
+      font-size: 0.68rem;
+      color: var(--lf-ink-muted);
+      border-top: 1px solid var(--lf-line);
+      padding-top: var(--lf-space-2);
+      margin-top: auto;
+    }
+    .lf-tile-reason strong { color: var(--lf-ink); font-style: normal; }
+
+    .lf-tile-caption {
+      font-size: 0.72rem;
+      color: var(--lf-ink-muted);
+      font-style: italic;
+      margin-top: auto;
+    }
+
+    /* Legitimacy-discipline notes — appears below the mosaic on the Concept page only */
+    .lf-notes-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2);
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-notes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--lf-space-6);
+    }
+    .lf-note { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-3); }
+    .lf-note h3 { font-family: var(--lf-font-display); font-size: 1.05rem; font-weight: var(--lf-font-weight-heading); line-height: 1.25; margin-bottom: var(--lf-space-2); color: var(--lf-ink); }
+    .lf-note p { font-size: 0.86rem; color: var(--lf-ink-muted); }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected.
+       color/font-family/line-height/background re-declared here (not just inherited from body)
+       so that when .theme-* overrides the custom properties above, descendants that don't set
+       their own color re-inherit the new value from THIS element rather than body's resolved one. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-mosaic-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View (house style, not optional) — a fixed-position toggle that hides the picker
+       chrome so the selected variant/theme combination can be inspected the way it'd actually
+       be used, not as a gallery component. Stays fixed-position so it remains visible in both
+       states. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
+       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
+       with no unthemed white gap on any side. */
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">bento-mosaic</span>
+    <span class="lf-meta-tags">bento-mosaic &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">6-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">24px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1160px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">bento-mosaic — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains what makes a bento grid legitimate versus decorative, and gives you the shuffle test for telling the difference." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> a quarterly letter or briefing where a handful of points carry genuinely unequal weight.<br><strong>Avoid:</strong> padding filler text to fill a large tile, or writing every tile to roughly the same length." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> a metrics dashboard where tile size communicates real statistical significance, recency, or data density.<br><strong>Avoid:</strong> a floating number with no caption or interpretation — the dashboard-trope anti-pattern." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> a portfolio or project index where items genuinely differ in scope or maturity.<br><strong>Avoid:</strong> forcing artificial size differences onto comparable items just to manufacture the appearance of hierarchy." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains what makes a bento grid legitimate versus decorative, and gives you the shuffle test for telling the difference.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="acid-garden" role="tab" aria-selected="false">acid-garden</button>
+      <button class="lf-theme-tab" data-theme-option="cosmica" role="tab" aria-selected="false">cosmica</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all three — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <!-- ================= CONCEPT ================= -->
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-mosaic-bar">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>bento-mosaic</span>
+        </div>
+
+        <div class="lf-mosaic">
+          <div class="lf-tile lf-tile-lead">
+            <span class="lf-tile-label">LEAD &middot; 3&times;2 (6 of 18 units)</span>
+            <div class="lf-tile-visual"></div>
+            <h3>Every Tile's Size Is a Claim</h3>
+            <p>Bento / modular mosaic: deliberately varied cell sizes — never uniform — where size itself asserts a hierarchy. This tile is the largest on the page because, within this page, its content is genuinely the single most important item — not because a big rectangle looks like it anchors the composition.</p>
+            <blockquote class="lf-pullquote">"If you can shuffle the tiles without changing what the page means, it isn't bento &mdash; it's decoration wearing a grid."</blockquote>
+            <div class="lf-tile-reason"><strong>Why this size:</strong> importance — the highest-ranked item this period earns the most area.</div>
+          </div>
+
+          <div class="lf-tile lf-tile-exhibit-b">
+            <span class="lf-tile-label">EXHIBIT-B &middot; 2&times;2 (4 units)</span>
+            <div class="lf-tile-visual"></div>
+            <h3>Height Serves Density, Not Drama</h3>
+            <p>Narrower than lead but equally tall, because its content is genuinely multi-dimensional (e.g. a multi-series trend) and needs vertical room to render honestly.</p>
+            <div class="lf-tile-reason"><strong>Why this size:</strong> data density — the content's own shape needs the height.</div>
+          </div>
+
+          <div class="lf-tile lf-tile-exhibit-a">
+            <span class="lf-tile-label">EXHIBIT-A &middot; 3&times;1 (3 units)</span>
+            <div class="lf-tile-visual"></div>
+            <h3>Width Tracks Shape, Not Rank</h3>
+            <p>Wide but short: this content is a single flat comparison with no need for height. Its shape, not a "medium" rank, decided its span.</p>
+          </div>
+
+          <div class="lf-tile lf-tile-river-1 lf-tile-emphasis">
+            <span class="lf-tile-label">RIVER-1 &middot; 1&times;1</span>
+            <h3>Most recent</h3>
+            <p>Lowest tier, genuinely interchangeable with river-2..5.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-2">
+            <span class="lf-tile-label">RIVER-2 &middot; 1&times;1</span>
+            <h3>Peer item</h3>
+            <p>Same tier as river-1.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-3">
+            <span class="lf-tile-label">RIVER-3 &middot; 1&times;1</span>
+            <h3>Peer item</h3>
+            <p>Same tier.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-4">
+            <span class="lf-tile-label">RIVER-4 &middot; 1&times;1</span>
+            <h3>Peer item</h3>
+            <p>Same tier.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-5">
+            <span class="lf-tile-label">RIVER-5 &middot; 1&times;1</span>
+            <h3>Least recent</h3>
+            <p>Same tier as river-1 &mdash; five equal tiles, on purpose.</p>
+          </div>
+        </div>
+
+        <div class="lf-notes-label">The Legitimacy Discipline</div>
+        <div class="lf-notes">
+          <div class="lf-note">
+            <h3>The Shuffle Test</h3>
+            <p>Ask, tile by tile: could this swap places with a differently-sized tile and lose nothing? If yes, the sizing is decorative, not bento &mdash; go back and either find the real signal or flatten the tiles to a plain list.</p>
+          </div>
+          <div class="lf-note">
+            <h3>Real Hierarchy Signals, Named</h3>
+            <p>Three legitimate reasons a tile earns extra space: importance/significance, recency, and data density (a chart that genuinely needs the height or width to render honestly). "Visual variety" and "it looked empty" are not on this list.</p>
+          </div>
+          <div class="lf-note">
+            <h3>When Not to Use This Archetype</h3>
+            <p>If every item is genuinely comparable in importance, recency, and density, don't invent size differences to look organized &mdash; use a plain list, magazine-well's well band, or two-column-academic instead.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= MOSTLY TEXT ================= -->
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-mosaic-bar">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>bento-mosaic</span>
+        </div>
+
+        <div class="lf-mosaic">
+          <div class="lf-tile lf-tile-lead">
+            <span class="lf-tile-label">LEAD</span>
+            <h3>The One Thing That Actually Changed This Quarter</h3>
+            <div class="lf-tile-dek">No image — with prose-only content, dominance comes entirely from area and word count, not imagery.</div>
+            <p>Support tickets tagged "billing confusion" dropped 61% the week we rewrote the invoice line-item labels, and stayed down. Nothing else shipped that week. That's the whole finding, and it's the one thing on this page worth a full paragraph instead of a line.</p>
+            <blockquote class="lf-pullquote">"We didn't fix the invoices. We fixed what the invoice called things."</blockquote>
+            <div class="lf-tile-reason"><strong>Why this size:</strong> this is the one update whose impact genuinely dwarfs the rest.</div>
+          </div>
+
+          <div class="lf-tile lf-tile-exhibit-b">
+            <span class="lf-tile-label">EXHIBIT-B</span>
+            <h3>Onboarding rewrite, in two parts</h3>
+            <p>Part one cut signup time from six minutes to two. Part two moved the plan-picker after activation instead of before it, which is the part that actually moved the retention number.</p>
+          </div>
+
+          <div class="lf-tile lf-tile-exhibit-a">
+            <span class="lf-tile-label">EXHIBIT-A</span>
+            <h3>Search reindex, faster</h3>
+            <p>Reindex time down from six hours to forty minutes; no user-facing change beyond that.</p>
+          </div>
+
+          <div class="lf-tile lf-tile-river-1 lf-tile-emphasis">
+            <span class="lf-tile-label">RIVER-1</span>
+            <p><strong>Also this week:</strong> retry logic recovered ~2% of lost renewals.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-2"><span class="lf-tile-label">RIVER-2</span><p>Docs site moved to a faster host.</p></div>
+          <div class="lf-tile lf-tile-river-3"><span class="lf-tile-label">RIVER-3</span><p>Two flaky tests fixed.</p></div>
+          <div class="lf-tile lf-tile-river-4"><span class="lf-tile-label">RIVER-4</span><p>Changelog page got a search box.</p></div>
+          <div class="lf-tile lf-tile-river-5"><span class="lf-tile-label">RIVER-5</span><p>Dependency bump, no visible change.</p></div>
+        </div>
+      </section>
+
+      <!-- ================= CHART / DATA-HEAVY ================= -->
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-mosaic-bar">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>bento-mosaic</span>
+        </div>
+
+        <div class="lf-mosaic">
+          <div class="lf-tile lf-tile-lead">
+            <span class="lf-tile-label">LEAD &middot; FIG. 1</span>
+            <div class="lf-tile-visual"></div>
+            <h3>Retention floor: 94%, third straight quarter</h3>
+            <p>The single most statistically significant result this period &mdash; every cohort since March converges to the same floor, regardless of channel. That convergence, not the exact number, is the headline.</p>
+            <div class="lf-tile-reason"><strong>Why this size:</strong> statistical significance — this is the finding the quarter turns on.</div>
+          </div>
+
+          <div class="lf-tile lf-tile-exhibit-b">
+            <span class="lf-tile-label">EXHIBIT-B &middot; FIG. 2</span>
+            <div class="lf-tile-visual"></div>
+            <h3>Retention by cohort, weeks 1&ndash;12</h3>
+            <p>A genuinely multi-series chart &mdash; six cohort lines. It needs the extra row of height to stay legible; that's the actual reason for the 2x2 span, not visual balance.</p>
+          </div>
+
+          <div class="lf-tile lf-tile-exhibit-a">
+            <span class="lf-tile-label">EXHIBIT-A &middot; FIG. 3</span>
+            <div class="lf-tile-visual"></div>
+            <h3>Channel mix vs. last quarter &mdash; one flat comparison, no need for height</h3>
+          </div>
+
+          <div class="lf-tile lf-tile-river-1 lf-tile-emphasis">
+            <span class="lf-tile-label">RIVER-1 &middot; FIG. 4</span>
+            <h3>Activation, this week</h3>
+            <p class="lf-tile-caption">71% &mdash; flat vs. last week.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-2">
+            <span class="lf-tile-label">RIVER-2 &middot; FIG. 5</span>
+            <h3>Support volume</h3>
+            <p class="lf-tile-caption">Down 8%, tracking activation.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-3">
+            <span class="lf-tile-label">RIVER-3 &middot; FIG. 6</span>
+            <h3>Signup funnel step 3</h3>
+            <p class="lf-tile-caption">Still the biggest drop-off point.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-4">
+            <span class="lf-tile-label">RIVER-4 &middot; FIG. 7</span>
+            <h3>Paid conversion</h3>
+            <p class="lf-tile-caption">4.1%, in line with plan.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-5">
+            <span class="lf-tile-label">RIVER-5 &middot; FIG. 8</span>
+            <h3>NPS, last survey</h3>
+            <p class="lf-tile-caption">42, oldest data point on the page.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CARD / LIST-HEAVY ================= -->
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-mosaic-bar">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>bento-mosaic</span>
+        </div>
+
+        <div class="lf-mosaic">
+          <div class="lf-tile lf-tile-lead">
+            <span class="lf-tile-label">LEAD</span>
+            <div class="lf-tile-visual"></div>
+            <h3>Field Notes: The Migration Runbook</h3>
+            <p>Of six projects this quarter, this is the one worth the full write-up: a two-week, all-hands cutover turned into a scheduled, single-engineer, four-hour change. Largest in scope of anything shipped &mdash; the reason it gets the largest tile.</p>
+            <div class="lf-tile-reason"><strong>Why this size:</strong> scope — the flagship item, by actual project size, not by how it's described.</div>
+          </div>
+
+          <div class="lf-tile lf-tile-exhibit-b">
+            <span class="lf-tile-label">EXHIBIT-B</span>
+            <h3>Billing retry logic, in detail</h3>
+            <p>Recovered ~2% of previously lost renewals. Medium scope, but enough moving parts (retry schedule, dunning emails, webhook replay) to earn the extra height for a fuller description than exhibit-a gets.</p>
+          </div>
+
+          <div class="lf-tile lf-tile-exhibit-a">
+            <span class="lf-tile-label">EXHIBIT-A</span>
+            <h3>Search reindex pipeline &mdash; six hours to forty minutes, one line, no further detail needed</h3>
+          </div>
+
+          <div class="lf-tile lf-tile-river-1 lf-tile-emphasis">
+            <span class="lf-tile-label">RIVER-1</span>
+            <p><strong>Onboarding email rewrite</strong> &mdash; genuinely smaller in scope, so its tile is genuinely smaller, not padded to match a grid.</p>
+          </div>
+          <div class="lf-tile lf-tile-river-2"><span class="lf-tile-label">RIVER-2</span><p><strong>Changelog search box</strong> &mdash; one afternoon of work.</p></div>
+          <div class="lf-tile lf-tile-river-3"><span class="lf-tile-label">RIVER-3</span><p><strong>Two flaky tests</strong> &mdash; fixed, unblocked CI.</p></div>
+          <div class="lf-tile lf-tile-river-4"><span class="lf-tile-label">RIVER-4</span><p><strong>Docs host migration</strong> &mdash; faster pages, no visible change.</p></div>
+          <div class="lf-tile lf-tile-river-5"><span class="lf-tile-label">RIVER-5</span><p><strong>Dependency bump</strong> &mdash; routine maintenance.</p></div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    var themeNames = ['acid-garden', 'cosmica'];
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        themeNames.forEach(function (t) { stage.classList.remove('theme-' + t); });
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

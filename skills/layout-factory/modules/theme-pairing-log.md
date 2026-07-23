@@ -36,6 +36,27 @@ Tracks which theme-factory presets have been used as `exampleThemePairings` in w
 | `thermal-fade` | `data-dense-report-grid` | Its receipt-ledger register (numbered TXN stamp, monospace line-item rows, dashed perforation dividers) is structurally the same discipline as a numbered exhibit stream. |
 | `amber-signal` | `data-dense-report-grid` | Its dieselpunk phosphor console, with a literal transmission log and RSSI/frequency readouts, reads as instrumentation for a report rather than a product UI. |
 | `cyber-terminal` | `data-dense-report-grid` | Green-on-black CRT terminal, monospace throughout, is the most literal "analyst workstation" register of the three — scanline texture reads as a terminal printing figures one at a time. |
+| `rabbit-hole` | `marginalia-annotated` | "Falling down a rabbit hole of annotations" is literal; the theme's own horror-vacui component style (every surface crowded with meaning) is a natural home for a heavily-glossed manuscript. |
+| `vesper-furrow` | `marginalia-annotated` | Its own demo content (land-register entries, parcel references, surveyor notes) is already a close sibling of annotated-document reviewer commentary — reused from `two-column-academic` (grid-discipline), a different family. |
+| `crypt-scholastic` | `marginalia-annotated` | "Dark gothic academic" rare-books register is exactly a critical edition's implied use case — reused from `two-column-academic` (grid-discipline), a different family. |
+| `acid-garden` | `bento-mosaic` | "Chromatic overload by design" — proves the archetype's sizing discipline holds even under a theme unafraid of color chaos; cell size still tracks importance/density, never the palette. |
+| `cosmica` | `bento-mosaic` | Dark maximalist glass-panel register reads as a literal sci-fi mission-control tile board, the register a bento dashboard-analytics use case is built for. |
+| `biolumen-depths` | `timeline-river` | "Scientific field log meets alien wilderness" maps directly onto a dive/expedition log register: chronological depth entries down a spine. |
+| `copper-alchemist` | `timeline-river` | Dark steampunk workshop-journal register (mechanical invention log building entry-by-entry) is a distinct, non-scientific chronological register from biolumen-depths. |
+| `moss-cottage` | `card-catalogue-index` | A card catalogue was historically literal library furniture; its gentle herbarium/field-guide register reads as exactly that kind of orderly reference shelf. |
+| `alpha-signal` | `card-catalogue-index` | Bloomberg-terminal density (monospace data columns, compact spacing) is exactly the dense, aligned register a metrics/API index calls for — reused from `dashboard-with-rail` (dashboard-legitimate), a different family. |
+| `velvet-noir` | `poster-broadside` | Dark Art Deco maximalist with ornate serif hierarchy and dramatic gold glow; its own hero panel already *is* this archetype's concept under a different name. |
+| `astral-drift` | `poster-broadside` | Its own hero is already a single dramatic typographic/visual statement (glitch-treated display headline, mandala rings) — this archetype's concept made literal, at full theatrical strength. |
+| `nocturne-nouveau` | `cover-and-contents` | Ornate, formal Art Nouveau register reads as ceremonial front matter for a report/deck's opening pages. |
+| `embassy-gold` | `cover-and-contents` | Its own description ("institutional cover-page authority") is a more direct fit here than the `split-hero` (grid-discipline) preset it was first paired with. |
+| `tokyo-screentone` | `masonry-photo-essay` | Manga panel layout (panels of deliberately varying size telling a visual story in sequence) is a real-world precedent for this exact archetype. |
+| `verdigris-patina` | `masonry-photo-essay` | Its own gimmick (color literally aging top-to-bottom) fits a photo essay's narrative arc even more directly than its original `asymmetric-split` (grid-discipline) pairing, a different family. |
+| `synthwave-84` | `slide-rule-of-thirds` | Bold, confident visual-anchor register (hot-pink primary + neon glow shadows) suited to a pitch-deck/conference-talk slide needing one striking visual third. |
+| `ultraviolet-rave` | `slide-rule-of-thirds` | An even more maximalist visual-anchor register than synthwave-84, proving the archetype survives a very loud visual anchor without the 2/3 text region getting overwhelmed. |
+| `solarpunk-utopia` | `z-pattern-landing` | Optimistic, CTA-driven landing-page register with its own pill-button + gradient-CTA convention, a direct fit for a single-action conversion page. |
+| `eigenvalue` | `z-pattern-landing` | Its own asymmetric hero panel + live signal readouts already read as a confident single-CTA fintech/quant-product landing page — reused from `dashboard-with-rail` (dashboard-legitimate), a different family. |
+| `vault-theorem` | `slide-master-deck-grid` | Institutional wealth-management framework with tiered navigation; its authoritative, unchanging-margin register fits a board/LP deck needing consistent zoning across every slide — reused from `dashboard-with-rail` (dashboard-legitimate), a different family. |
+| `thermal-fade` | `slide-master-deck-grid` | Receipt-ledger register with a literal numbered TXN stamp; its numbered/stamped line-item discipline mirrors a deck's numbered-slide, fixed-footer discipline — reused from `data-dense-report-grid` (data-dense-report), a different family. |
 
 ## Guidance
 

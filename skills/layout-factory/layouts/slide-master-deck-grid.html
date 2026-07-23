@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="slide-master-deck-grid">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: slide-master-deck-grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inconsolata:wght@300;400;600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "slide-master-deck-grid",
+    "description": "A fixed masthead/footer zone system holds constant across every slide in a deck; only the body zone's per-slide content pattern changes.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "slide-master-deck-grid",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "This archetype operates one level up from a single slide: it defines the title-zone and footer/citation-zone margins that stay pixel-identical on every slide in a deck, regardless of which per-slide content archetype (slide-rule-of-thirds, poster-broadside, a plain list) fills the body zone in between. The consistency itself is the deliverable, not any one slide's content shape.",
+      "regions": [
+        { "id": "masthead", "role": "title zone, fixed position across the whole deck", "columnSpan": "1-12", "order": 1, "notes": "Same height, same type treatment, same position on every slide — this is the fixed part." },
+        { "id": "body", "role": "content zone, varies per slide", "columnSpan": "1-12", "order": 2, "notes": "The only region a per-slide archetype is free to reshape — prose, a chart, a list, a rule-of-thirds split." },
+        { "id": "footer", "role": "page number / citation zone, fixed position across the whole deck", "columnSpan": "1-12", "order": 3, "notes": "Carries the slide number and a running citation or confidentiality line — position never moves, only the numbers increment." }
+      ],
+      "hierarchy": { "primary": "body", "secondary": "masthead", "tertiary": "footer" },
+      "readingOrder": ["masthead", "body", "footer"],
+      "entryPoint": "The masthead's slide title, top-left, identical position on every slide — establishes 'you're still in this deck' before the eye drops into whatever the body zone is doing that slide.",
+      "balance": "symmetric"
+    },
+    "grid": {
+      "type": "modular",
+      "columns": 12,
+      "gutter": "24px",
+      "maxWidth": "1200px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Mini slide mockups stack to a single column; masthead/footer zone HEIGHT proportions stay fixed even as the whole slide box scales down." },
+        "md": { "columns": 8, "gutter": "20px", "notes": "Mini slide mockups run two per row." },
+        "lg": { "columns": 12, "gutter": "24px", "notes": "Mini slide mockups run three per row; full-scale deck sequences run one full-width slide per row." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "body": "1 / 13", "footer": "1 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32, 48, 64],
+      "unit": "px",
+      "rhythm": "Titlezone and footerzone heights are fixed fractions of the slide box (roughly 1/5 and 1/9); bodyzone takes whatever remains.",
+      "sectionGap": "32px",
+      "blockGap": "24px",
+      "inlineGap": "16px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "Occasionally inside a body zone, when the per-slide archetype filling it calls for one", "style": "Borrowed from whichever per-slide archetype is in play — the deck grid itself doesn't style the quote, only guarantees it never touches the fixed zones above or below it." },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": true, "style": "footnote" },
+      "sectionBreaks": { "style": "numeral" },
+      "dropCaps": false,
+      "captions": { "style": "small mono, right-aligned in the footer zone", "position": "footer zone, opposite the page number" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "Each .lf-deck-slide is a flex column with three rows: a fixed-height titlezone, a flexible (flex: 1) bodyzone, and a fixed-height footerzone — identical row proportions on every slide instance regardless of what fills the middle row.",
+      "presentation": "This archetype IS the slide master — apply it directly as the master/theme layer in the presentation tool itself (PowerPoint slide master, Keynote master, Google Slides theme). The body zone is populated per-slide by whatever content archetype that slide actually needs; this layer only ever owns the margins around it.",
+      "print": "Each slide becomes one landscape page. The masthead becomes a running header repeated at the top of every page; the footer becomes a running footer (page number + citation) repeated at the bottom of every page — the same page-master concept a print document uses, just one slide per page instead of continuous text.",
+      "markdown": "One H2 per slide (the masthead's title), body content beneath in whatever form fits (paragraph, list, table, blockquote), and a single trailing citation line per slide standing in for the footer zone. The fixed pixel position markdown can't literally replicate becomes a fixed textual convention instead — the citation line appears in the same relative spot after every slide's content, never folded into the body."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "The masthead/footer zones ARE meant to be pixel-identical across every slide in a deck — that's this archetype's whole point, not a uniform-grid violation. The anti-pattern would only apply if the body zone were also forced into repeat sameness regardless of content; the demo below proves body zones diverge structurally (a rule-of-thirds split, a single dominant stat, a rule-separated list, a captioned exhibit) while the masthead/footer band heights stay locked in every case."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The body zone becomes a single flowing block of prose per slide — a condensed opening statement or finding, not a full paragraph of running text. Masthead and footer zones stay pixel-identical in position and size to every other slide in the deck.",
+        "bestFor": "Board decks, keynote talks, and thesis-defense decks carrying a long-form narrative across many slides.",
+        "avoid": "Don't cram a full paragraph into the body zone at a size illegible from the back of a room — summarize, even when the underlying content is prose. A deck's body zone always compresses; that's true of every content type, not unique to text."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The body zone hosts one dominant captioned exhibit per slide, each numbered like a figure — following whichever per-slide archetype (often slide-rule-of-thirds or poster-broadside) the content calls for. Only the single most important slide's exhibit gets the theme's hero shadow/gradient; the rest stay flat.",
+        "bestFor": "Board decks, quarterly business reviews, and data-heavy pitch decks built around a handful of key exhibits.",
+        "avoid": "Never resize the masthead or footer to make room for a busy chart. If an exhibit needs more room, split it across two slides — shrinking the fixed zones breaks the one guarantee this archetype makes."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "The body zone becomes a numbered agenda, roadmap, or comparison list, rule-separated and sized by actual content length. Masthead and footer hold their position exactly as they do in every other slide type.",
+        "bestFor": "Roadmap decks, org/team slides, and feature-comparison decks organized as a set of comparable items.",
+        "avoid": "Don't turn the body-zone list into a uniform icon-card grid. The fixed masthead/footer already supply the deck's consistency — the body doesn't need to add more sameness on top of it."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "vault-theorem", "why": "Its wealth-management 'institutional allocation framework' with tiered navigation is exactly the authoritative, unchanging title/body/footer zoning a board or LP deck needs slide after slide — reused deliberately from a different family (dashboard-with-rail) because that institutional-consistency register fits here just as well." },
+      { "theme": "thermal-fade", "why": "Its numbered TXN stamp and literal transmission-log discipline mirror a deck's numbered-slide, fixed-footer-citation discipline line for line — reused deliberately from a different family (data-dense-report-grid) for the same numbered-consistency reason." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 24px;
+      --lf-max-width: 1200px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      /* theme-overridable — full set, not just color/font */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Theme-preview overrides — scoped to .lf-variant-stage (not body), so the neutral chrome
+       above (meta bar, specs, both tab rows, captions) never picks up theme colors. Values pulled
+       from each theme's own theme-data JSON + its own component markup, not invented. ── */
+    .lf-variant-stage.theme-vault-theorem {
+      --lf-ink: #16112A; --lf-ink-muted: #68607A; --lf-paper: #F0EBF8;
+      --lf-line: #C4BADC; --lf-region-outline: #C4BADC; --lf-accent: #8B20FF;
+      --lf-font-body: 'Spectral', Georgia, serif; --lf-font-display: 'Josefin Slab', Georgia, serif;
+      --lf-font-mono: 'Inconsolata', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.72; --lf-card-radius: 8px;
+      --lf-bg-image: repeating-linear-gradient(45deg, transparent, transparent 22px, rgba(28,46,88,0.04) 22px, rgba(28,46,88,0.04) 23px), repeating-linear-gradient(-45deg, transparent, transparent 22px, rgba(28,46,88,0.04) 22px, rgba(28,46,88,0.04) 23px), radial-gradient(ellipse at 15% 20%, rgba(28,46,88,0.09) 0%, transparent 42%), radial-gradient(ellipse at 85% 75%, rgba(139,32,255,0.07) 0%, transparent 40%);
+      --lf-bg-size: 23px 23px, 23px 23px, cover, cover; --lf-bg-position: 0 0, 0 0, 0 0, 0 0; --lf-bg-repeat: repeat, repeat, no-repeat, no-repeat;
+      /* real theme.colors.surface + shadows.colored + gradients.hero */
+      --lf-surface: #E6E0F4;
+      --lf-shadow-hero: 0 4px 16px rgba(28,46,88,0.22);
+      --lf-gradient-hero: linear-gradient(135deg, #1C2E58 0%, #141E3C 50%, #1C2A50 100%);
+      --lf-border-width: 1px;
+      /* quote text pulled from vault-theorem's own .glow-demo (color: var(--glow-color), i.e. its
+         accent violet); quote border pulled from its own .section-title left-rule (3px, secondary
+         copper) — two different real components, two different colors, exactly as the theme uses them */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: #C87830;
+      --lf-quote-text-color: #8B20FF;
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: #C87830;
+    }
+    .lf-variant-stage.theme-thermal-fade {
+      --lf-ink: #1A1A0A; --lf-ink-muted: #888872; --lf-paper: #FFF8EE;
+      --lf-line: #C8C0A8; --lf-region-outline: #C8C0A8; --lf-accent: #AA7700;
+      --lf-font-body: 'Courier Prime', 'Courier New', monospace; --lf-font-display: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-mono: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.5; --lf-card-radius: 2px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      --lf-bg-size: 200px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* real theme.colors.surface + shadows.colored (its "Primary Card" hero-ish tile); no gradient — theme genuinely has none */
+      --lf-surface: #FFF3E0;
+      --lf-shadow-hero: 0 2px 8px rgba(170,119,0,0.2);
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      /* thermal-fade's own .tf-glow-demo (its pull-quote-equivalent) keeps text neutral (color:
+         var(--color-text)) and uses a plain hairline border, not a colored rule — that restraint
+         is the theme's actual design intent, carried through faithfully rather than forcing color
+         onto a theme that deliberately withholds it. Its one real point of color (the "Accent Ink"
+         $ tile) is what --lf-emphasis-border-color echoes instead. */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: #C8C0A8;
+      --lf-quote-text-color: #1A1A0A;
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: #AA7700;
+    }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-4);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* ── slide-master-deck-grid — archetype-specific classes ──
+       A deck-level meta-grid, not a single-slide content pattern: .lf-deck-slide is a fixed
+       three-row flex column (titlezone / bodyzone / footerzone). Title and footer rows are fixed
+       fractions of the slide height on every instance; only the bodyzone's internal content
+       pattern (prose, thirds-split, broadside stat, list, exhibit) changes between slides. */
+    .lf-deck-stage-label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3); margin-bottom: var(--lf-space-6);
+    }
+    .lf-deck-intro { max-width: 74ch; font-size: 1rem; margin-bottom: var(--lf-space-6); }
+    .lf-deck-intro strong { color: var(--lf-ink); }
+
+    /* Mini slide strip — 3 side-by-side mockups proving identical title/footer zoning */
+    .lf-deck-mini-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--lf-gutter);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-deck-mini {
+      aspect-ratio: 16 / 9;
+      display: flex; flex-direction: column;
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      overflow: hidden;
+      background-color: var(--lf-paper);
+    }
+    .lf-deck-mini-title {
+      flex: 0 0 26%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--lf-space-2);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      background-color: var(--lf-surface);
+      font-family: var(--lf-font-mono); font-size: 0.5rem;
+      color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .lf-deck-mini-body { flex: 1 1 auto; padding: var(--lf-space-2); overflow: hidden; }
+    .lf-deck-mini-footer {
+      flex: 0 0 15%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--lf-space-2);
+      border-top: var(--lf-border-width) solid var(--lf-line);
+      font-family: var(--lf-font-mono); font-size: 0.42rem;
+      color: var(--lf-ink-muted);
+    }
+    .lf-deck-mini-thirds { display: grid; grid-template-columns: 2fr 1fr; gap: 6px; height: 100%; }
+    .lf-deck-mini-thirds .block { border: 1px dashed var(--lf-region-outline); border-radius: var(--lf-card-radius); }
+    .lf-deck-mini-thirds .note { font-size: 0.42rem; line-height: 1.3; color: var(--lf-ink-muted); align-self: center; }
+    .lf-deck-mini-broadside { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
+    .lf-deck-mini-broadside .stat { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.3rem; color: var(--lf-ink); }
+    .lf-deck-mini-broadside .stat-label { font-size: 0.4rem; color: var(--lf-ink-muted); margin-top: 2px; }
+    .lf-deck-mini-list { display: flex; flex-direction: column; justify-content: center; gap: 3px; height: 100%; }
+    .lf-deck-mini-list .item { font-size: 0.42rem; border-top: 1px solid var(--lf-line); padding-top: 3px; color: var(--lf-ink); }
+    .lf-deck-mini-list .item:first-child { border-top: none; padding-top: 0; }
+    .lf-deck-strip-caption { font-size: 0.82rem; color: var(--lf-ink-muted); font-style: italic; margin-bottom: var(--lf-space-8); }
+    .lf-deck-strip-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* "When not to use" notes — parallel to, but distinct from, magazine-well's well/well-entry */
+    .lf-deck-notes-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin-bottom: var(--lf-space-4);
+    }
+    .lf-deck-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--lf-space-6); margin-bottom: var(--lf-space-8); }
+    .lf-deck-note { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-3); }
+    .lf-deck-note h3 { font-family: var(--lf-font-display); font-size: 1.05rem; font-weight: var(--lf-font-weight-heading); line-height: 1.25; margin-bottom: var(--lf-space-2); }
+    .lf-deck-note p { font-size: 0.86rem; color: var(--lf-ink-muted); }
+
+    /* Full-scale deck sequence — 3 slides stacked, used inside the three content-mix tabs */
+    .lf-deck-sequence { display: flex; flex-direction: column; gap: var(--lf-space-6); }
+    .lf-deck-slide {
+      aspect-ratio: 16 / 9;
+      display: flex; flex-direction: column;
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      overflow: hidden;
+      background-color: var(--lf-paper);
+    }
+    .lf-deck-titlezone {
+      flex: 0 0 18%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--lf-space-6);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      background-color: var(--lf-surface);
+    }
+    .lf-deck-titlezone-eyebrow { font-family: var(--lf-font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--lf-ink-muted); }
+    .lf-deck-titlezone-title { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.35rem; color: var(--lf-ink); }
+    .lf-deck-bodyzone { flex: 1 1 auto; padding: var(--lf-space-6); position: relative; overflow: hidden; }
+    .lf-deck-footerzone {
+      flex: 0 0 10%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--lf-space-6);
+      border-top: var(--lf-border-width) solid var(--lf-line);
+      font-family: var(--lf-font-mono); font-size: 0.68rem;
+      color: var(--lf-ink-muted);
+    }
+
+    /* Bodyzone content variants — the part that's free to change between slides */
+    .lf-deck-body-prose { display: flex; align-items: center; height: 100%; }
+    .lf-deck-body-prose p { font-size: 1.15rem; max-width: 60ch; line-height: var(--lf-line-height); color: var(--lf-ink); }
+
+    .lf-deck-body-thirds { display: grid; grid-template-columns: 2fr 1fr; gap: var(--lf-space-4); height: 100%; }
+    .lf-deck-body-thirds .primary-block {
+      border: 1px dashed var(--lf-region-outline); border-radius: var(--lf-card-radius);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--lf-font-mono); font-size: 0.75rem; color: var(--lf-ink-muted);
+    }
+    .lf-deck-body-thirds .note-block { display: flex; flex-direction: column; justify-content: center; font-size: 0.85rem; color: var(--lf-ink-muted); }
+
+    .lf-deck-body-broadside { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
+    .lf-deck-body-broadside .stat { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 3.2rem; line-height: 1; color: var(--lf-ink); }
+    .lf-deck-body-broadside .stat-label { font-size: 0.9rem; color: var(--lf-ink-muted); margin-top: var(--lf-space-2); }
+
+    .lf-deck-body-list { display: flex; flex-direction: column; justify-content: center; gap: var(--lf-space-3); height: 100%; }
+    .lf-deck-list-item { display: flex; gap: var(--lf-space-3); border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-2); align-items: baseline; }
+    .lf-deck-list-item:first-child { border-top: none; padding-top: 0; }
+    .lf-deck-list-num { font-family: var(--lf-font-mono); font-size: 0.75rem; color: var(--lf-ink-muted); }
+    .lf-deck-list-text { font-size: 0.95rem; color: var(--lf-ink); }
+
+    .lf-deck-body-chart { display: flex; flex-direction: column; height: 100%; }
+    .lf-deck-exhibit {
+      flex: 1 1 auto;
+      border: 1px solid var(--lf-region-outline); border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px);
+      margin-bottom: var(--lf-space-2);
+    }
+    /* Only ONE exhibit in the whole demo (the headline-finding slide) gets hero treatment —
+       repeated/secondary exhibits stay flat, per this skill's own restraint rule. */
+    .lf-deck-exhibit.hero {
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+    }
+    .lf-deck-exhibit-caption { font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic; }
+
+    .lf-deck-body-quote { display: flex; align-items: center; height: 100%; }
+    .lf-deck-body-quote blockquote {
+      font-size: 1.3rem; font-style: italic; line-height: 1.4; max-width: 50ch;
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      color: var(--lf-quote-text-color);
+      padding-left: var(--lf-space-4);
+    }
+
+    /* View tabs — copied verbatim from magazine-well */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-exhibit-label {
+      display: block; font-size: 0.62rem; color: var(--lf-ink-muted);
+      font-family: var(--lf-font-mono); margin-bottom: var(--lf-space-2);
+    }
+
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View (house style, not optional) */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">slide-master-deck-grid</span>
+    <span class="lf-meta-tags">slide-master-deck-grid &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">24px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1200px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">slide-master-deck-grid — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> board decks, keynote talks, and thesis-defense decks carrying a long-form narrative across many slides.<br><strong>Avoid:</strong> cramming a full paragraph into the body zone at a size illegible from the back of a room — summarize, even when the content is prose." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> board decks, quarterly business reviews, and data-heavy pitch decks built around a handful of key exhibits.<br><strong>Avoid:</strong> resizing the masthead or footer to make room for a busy chart — split it across two slides instead." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> roadmap decks, org/team slides, and feature-comparison decks organized as a set of comparable items.<br><strong>Avoid:</strong> turning the body-zone list into a uniform icon-card grid — the fixed masthead/footer already supply the deck's consistency." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="vault-theorem" role="tab" aria-selected="false">vault-theorem</button>
+      <button class="lf-theme-tab" data-theme-option="thermal-fade" role="tab" aria-selected="false">thermal-fade</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all three — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-deck-stage-label">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>slide-master-deck-grid</span>
+        </div>
+        <p class="lf-deck-intro">
+          <strong>The concept:</strong> this archetype operates one level up from any single slide. It fixes the title-zone and footer/citation-zone margins so they land in the exact same place, at the exact same size, on every slide in a deck — while leaving the body zone free to be whatever that slide's own content archetype needs. A slide built on <strong>slide-rule-of-thirds</strong> and a slide built on <strong>poster-broadside</strong> can sit back-to-back in the same deck and still feel like one continuous document, because the frame around them never moves. Best suited to any multi-slide deck that needs to feel like one authored artifact rather than a stack of loose pages: pitch decks, board decks, conference talks, investor updates.
+        </p>
+        <div class="lf-deck-mini-strip">
+          <div class="lf-deck-mini">
+            <div class="lf-deck-mini-title"><span>01 &mdash; Overview</span><span>DECK</span></div>
+            <div class="lf-deck-mini-body">
+              <div class="lf-deck-mini-thirds">
+                <div class="block"></div>
+                <div class="note">Rule-of-thirds split filling the body zone.</div>
+              </div>
+            </div>
+            <div class="lf-deck-mini-footer"><span>Q3 2026 Board Deck</span><span>01/12</span></div>
+          </div>
+          <div class="lf-deck-mini">
+            <div class="lf-deck-mini-title"><span>02 &mdash; Headline Result</span><span>DECK</span></div>
+            <div class="lf-deck-mini-body">
+              <div class="lf-deck-mini-broadside">
+                <div class="stat">6.1x</div>
+                <div class="stat-label">poster-broadside body</div>
+              </div>
+            </div>
+            <div class="lf-deck-mini-footer"><span>Q3 2026 Board Deck</span><span>05/12</span></div>
+          </div>
+          <div class="lf-deck-mini">
+            <div class="lf-deck-mini-title"><span>03 &mdash; Roadmap</span><span>DECK</span></div>
+            <div class="lf-deck-mini-body">
+              <div class="lf-deck-mini-list">
+                <div class="item">Item one &mdash; ships now</div>
+                <div class="item">Item two &mdash; ships Q4</div>
+                <div class="item">Item three &mdash; exploratory</div>
+              </div>
+            </div>
+            <div class="lf-deck-mini-footer"><span>Q3 2026 Board Deck</span><span>09/12</span></div>
+          </div>
+        </div>
+        <p class="lf-deck-strip-caption"><strong>Same title zone. Same footer zone.</strong> Three different per-slide archetypes filling the body zone in between &mdash; a thirds-split, a single dominant stat, and a rule-separated list. The masthead and footer never change position or height between them.</p>
+
+        <div class="lf-deck-notes-label">When Not to Use This Archetype</div>
+        <div class="lf-deck-notes">
+          <div class="lf-deck-note">
+            <h3>A one-off single slide</h3>
+            <p>If there's no deck around it &mdash; no set of slides that need to feel like one continuous document &mdash; there's no meta-grid to be consistent about. Reach for <em>slide-rule-of-thirds</em> or <em>poster-broadside</em> directly; this archetype only earns its keep across multiple slides.</p>
+          </div>
+          <div class="lf-deck-note">
+            <h3>Structural rule</h3>
+            <p>The masthead and footer zone heights are fixed the moment the deck starts. No slide is allowed to shrink or grow them to make room for its own content &mdash; if a slide's exhibit needs more space, it gets a second slide, not a taller body zone at the fixed zones' expense.</p>
+          </div>
+          <div class="lf-deck-note">
+            <h3>Editorial devices this archetype favors</h3>
+            <p>A numbered footer citation on every slide (page number + a running confidentiality or source line) and nothing else &mdash; no drop caps, no sidebars, no pull quotes as deck-level features. Those belong to whichever per-slide archetype fills the body zone, not to the fixed frame around it.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-deck-stage-label">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>slide-master-deck-grid</span>
+        </div>
+        <p class="lf-deck-intro">Three slides from a board narrative deck. Each body zone carries a short, condensed statement rather than a full paragraph &mdash; but the masthead and footer positions are identical across all three, exactly as they'd be across all forty slides of the real deck.</p>
+        <div class="lf-deck-sequence">
+          <div class="lf-deck-slide">
+            <div class="lf-deck-titlezone">
+              <span class="lf-deck-titlezone-eyebrow">01</span>
+              <span class="lf-deck-titlezone-title">Executive Summary</span>
+              <span class="lf-deck-titlezone-eyebrow">DECK</span>
+            </div>
+            <div class="lf-deck-bodyzone">
+              <div class="lf-deck-body-prose">
+                <p>Revenue grew 18% quarter over quarter, driven almost entirely by expansion within existing accounts rather than new logos &mdash; the opposite of what we projected in January.</p>
+              </div>
+            </div>
+            <div class="lf-deck-footerzone"><span>Q3 2026 Board Deck &middot; Confidential</span><span>01 / 12</span></div>
+          </div>
+          <div class="lf-deck-slide">
+            <div class="lf-deck-titlezone">
+              <span class="lf-deck-titlezone-eyebrow">02</span>
+              <span class="lf-deck-titlezone-title">Where We Slowed Down</span>
+              <span class="lf-deck-titlezone-eyebrow">DECK</span>
+            </div>
+            <div class="lf-deck-bodyzone">
+              <div class="lf-deck-body-quote">
+                <blockquote>&ldquo;New-logo velocity fell for the second straight quarter &mdash; not because demand softened, but because our qualification bar quietly rose without anyone deciding it should.&rdquo;</blockquote>
+              </div>
+            </div>
+            <div class="lf-deck-footerzone"><span>Q3 2026 Board Deck &middot; Confidential</span><span>02 / 12</span></div>
+          </div>
+          <div class="lf-deck-slide">
+            <div class="lf-deck-titlezone">
+              <span class="lf-deck-titlezone-eyebrow">03</span>
+              <span class="lf-deck-titlezone-title">What We're Asking For</span>
+              <span class="lf-deck-titlezone-eyebrow">DECK</span>
+            </div>
+            <div class="lf-deck-bodyzone">
+              <div class="lf-deck-body-prose">
+                <p>Board approval to reopen two SDR requisitions closed in Q1 &mdash; the qualification-bar fix only works if there's enough top-of-funnel volume behind it.</p>
+              </div>
+            </div>
+            <div class="lf-deck-footerzone"><span>Q3 2026 Board Deck &middot; Confidential</span><span>03 / 12</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-deck-stage-label">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>slide-master-deck-grid</span>
+        </div>
+        <p class="lf-deck-intro">Three slides from a quarterly review. Slide one carries the headline finding and is the only exhibit in the deck to get the theme's hero shadow/gradient &mdash; the two supporting exhibits stay flat, per this skill's own restraint rule, even though the masthead/footer treatment is identical across all three.</p>
+        <div class="lf-deck-sequence">
+          <div class="lf-deck-slide">
+            <div class="lf-deck-titlezone">
+              <span class="lf-deck-titlezone-eyebrow">04</span>
+              <span class="lf-deck-titlezone-title">Retention Plateaus at Week Six</span>
+              <span class="lf-deck-titlezone-eyebrow">DECK</span>
+            </div>
+            <div class="lf-deck-bodyzone">
+              <div class="lf-deck-body-chart">
+                <div class="lf-deck-exhibit hero"></div>
+                <div class="lf-deck-exhibit-caption">Fig. 1 &mdash; Retention by cohort, weeks 1&ndash;12. Every cohort since March converges to the same floor, regardless of acquisition channel.</div>
+              </div>
+            </div>
+            <div class="lf-deck-footerzone"><span>Q3 2026 Business Review</span><span>04 / 12</span></div>
+          </div>
+          <div class="lf-deck-slide">
+            <div class="lf-deck-titlezone">
+              <span class="lf-deck-titlezone-eyebrow">05</span>
+              <span class="lf-deck-titlezone-title">Supporting Exhibit &mdash; Activation Funnel</span>
+              <span class="lf-deck-titlezone-eyebrow">DECK</span>
+            </div>
+            <div class="lf-deck-bodyzone">
+              <div class="lf-deck-body-chart">
+                <div class="lf-deck-exhibit"></div>
+                <div class="lf-deck-exhibit-caption">Fig. 2 &mdash; Drop-off concentrates at step 3, the same step flagged in last quarter's exhibit.</div>
+              </div>
+            </div>
+            <div class="lf-deck-footerzone"><span>Q3 2026 Business Review</span><span>05 / 12</span></div>
+          </div>
+          <div class="lf-deck-slide">
+            <div class="lf-deck-titlezone">
+              <span class="lf-deck-titlezone-eyebrow">06</span>
+              <span class="lf-deck-titlezone-title">Supporting Exhibit &mdash; Channel Mix</span>
+              <span class="lf-deck-titlezone-eyebrow">DECK</span>
+            </div>
+            <div class="lf-deck-bodyzone">
+              <div class="lf-deck-body-chart">
+                <div class="lf-deck-exhibit"></div>
+                <div class="lf-deck-exhibit-caption">Fig. 3 &mdash; Channel mix shifted materially; the retention floor did not, supporting the product-not-acquisition read.</div>
+              </div>
+            </div>
+            <div class="lf-deck-footerzone"><span>Q3 2026 Business Review</span><span>06 / 12</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-deck-stage-label">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>slide-master-deck-grid</span>
+        </div>
+        <p class="lf-deck-intro">Three slides from a roadmap deck. Each body zone is a rule-separated list sized by actual item count &mdash; never a uniform icon-card grid &mdash; while the masthead and footer stay in the same place, same size, on every slide.</p>
+        <div class="lf-deck-sequence">
+          <div class="lf-deck-slide">
+            <div class="lf-deck-titlezone">
+              <span class="lf-deck-titlezone-eyebrow">07</span>
+              <span class="lf-deck-titlezone-title">Now &mdash; Shipping This Quarter</span>
+              <span class="lf-deck-titlezone-eyebrow">DECK</span>
+            </div>
+            <div class="lf-deck-bodyzone">
+              <div class="lf-deck-body-list">
+                <div class="lf-deck-list-item"><span class="lf-deck-list-num">01</span><span class="lf-deck-list-text">Search reindex pipeline &mdash; six hours to forty minutes</span></div>
+                <div class="lf-deck-list-item"><span class="lf-deck-list-num">02</span><span class="lf-deck-list-text">Billing retry logic &mdash; recovers ~2% of lost renewals</span></div>
+              </div>
+            </div>
+            <div class="lf-deck-footerzone"><span>Product Roadmap FY26</span><span>07 / 12</span></div>
+          </div>
+          <div class="lf-deck-slide">
+            <div class="lf-deck-titlezone">
+              <span class="lf-deck-titlezone-eyebrow">08</span>
+              <span class="lf-deck-titlezone-title">Next &mdash; Q4 Commitments</span>
+              <span class="lf-deck-titlezone-eyebrow">DECK</span>
+            </div>
+            <div class="lf-deck-bodyzone">
+              <div class="lf-deck-body-list">
+                <div class="lf-deck-list-item"><span class="lf-deck-list-num">01</span><span class="lf-deck-list-text">Migration runbook v2 &mdash; four-hour, single-engineer cutover</span></div>
+                <div class="lf-deck-list-item"><span class="lf-deck-list-num">02</span><span class="lf-deck-list-text">Onboarding email rewrite &mdash; smaller scope, shorter entry, not padded to match the others</span></div>
+                <div class="lf-deck-list-item"><span class="lf-deck-list-num">03</span><span class="lf-deck-list-text">Support macro cleanup</span></div>
+              </div>
+            </div>
+            <div class="lf-deck-footerzone"><span>Product Roadmap FY26</span><span>08 / 12</span></div>
+          </div>
+          <div class="lf-deck-slide">
+            <div class="lf-deck-titlezone">
+              <span class="lf-deck-titlezone-eyebrow">09</span>
+              <span class="lf-deck-titlezone-title">Later &mdash; Exploratory</span>
+              <span class="lf-deck-titlezone-eyebrow">DECK</span>
+            </div>
+            <div class="lf-deck-bodyzone">
+              <div class="lf-deck-body-list">
+                <div class="lf-deck-list-item"><span class="lf-deck-list-num">01</span><span class="lf-deck-list-text">Real-time collaboration spike &mdash; no committed date yet</span></div>
+              </div>
+            </div>
+            <div class="lf-deck-footerzone"><span>Product Roadmap FY26</span><span>09 / 12</span></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    var themeNames = ['vault-theorem', 'thermal-fade'];
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        themeNames.forEach(function (t) { stage.classList.remove('theme-' + t); });
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

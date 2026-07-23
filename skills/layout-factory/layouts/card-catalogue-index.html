@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="card-catalogue-index">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: card-catalogue-index</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Mulish:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Fira+Code:wght@300;400&family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "card-catalogue-index",
+    "description": "A dense, aligned index/table where rules and columns — not boxes — carry the structure; an optional alphabetic/category rail lets readers jump straight to a row-group.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "card-catalogue-index",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "The page is almost entirely the body: a real table of many comparable entries, grouped and separated by rules and category headers rather than boxes. An optional narrow rail lists the same group headers as jump-links, letting the reader navigate by lookup instead of by scrolling. This is the one archetype in the catalog where 'a grid of items' is the correct answer — because the grid is expressed as literal table rows and columns, never as decorative cards.",
+      "regions": [
+        { "id": "masthead", "role": "identity/section label band", "columnSpan": "1-12", "order": 1, "notes": "Quiet, small — carries the index's own metadata (entry count, category count), never a KPI dashboard opener" },
+        { "id": "rail", "role": "alphabetic/category jump-nav", "columnSpan": "1-3", "order": 2, "notes": "Optional — present once the index is long enough to need it; omit below roughly 30 entries" },
+        { "id": "body", "role": "the index itself, as a real table", "columnSpan": "4-12", "order": 3, "notes": "Rows and columns only — no borders, fills, shadows, or radius on individual entries" }
+      ],
+      "hierarchy": { "primary": "body", "secondary": "rail", "tertiary": "masthead" },
+      "readingOrder": ["masthead", "rail", "body"],
+      "entryPoint": "Either the rail's first jump-link or the body's first row, depending on whether the reader is browsing or looking something up — this archetype has no single dominant visual to enter through by design.",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "24px",
+      "maxWidth": "1200px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Rail collapses to a horizontal, wrapping strip pinned above the table; body becomes the sole column beneath it." },
+        "md": { "columns": 8, "gutter": "20px", "notes": "Rail holds at a narrow fixed width; body takes the remaining columns." },
+        "lg": { "columns": 12, "gutter": "24px", "notes": "Full rail (3 cols) + body (9 cols) split." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "rail": "1 / 4", "body": "4 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32, 48, 64],
+      "unit": "px",
+      "rhythm": "Row padding and group-heading gaps snap to the 8px baseline; row height is never a fraction of it, so table lines stay level across the whole list.",
+      "sectionGap": "32px",
+      "blockGap": "16px",
+      "inlineGap": "12px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": false, "placement": "", "style": "One axiom-style line in the Concept view only, styled with the quote tokens — not used inside the index itself, which carries no narrative voice." },
+      "sidebars": { "used": true, "width": "1-3 columns (~180px)", "contentType": "Alphabetic or category jump-nav linking to row-groups in the body" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "Small uppercase monospace label", "position": "As the group-heading row directly above the entries it labels" },
+      "numbering": { "sections": false, "figures": false }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid two-region shell (rail + body); body is a real <table> with hairline border-bottom row separators and a colspan group-heading row acting as both a rule and a label — alignment is carried entirely by table-column widths, no card treatment anywhere in body.",
+      "presentation": "Rail drops entirely (no in-slide navigation); each category group becomes its own slide with the group heading as the slide title and its rows as a simple aligned list, still no boxes.",
+      "print": "Rail becomes a running header repeating the current category at the top of each page, like a dictionary's guide word; body flows as a continuous table across pages, with the group-heading row repeating if a group spans a page break.",
+      "markdown": "Body degrades to a native markdown table (or a nested definition list for narrower content) with the same columns; the rail is dropped and replaced by the table's natural top-to-bottom order, since markdown has no sticky in-page navigation."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "This archetype is the one deliberate exception that reads as 'a grid of items' — legitimacy comes entirely from real table/row alignment (rules + columns), never boxes/shadows/rounded corners on individual entries. Hierarchy here is positional and role-based (body > rail > masthead), not size-based, which is the correct shape for content where every entry is genuinely comparable. --lf-card-radius and --lf-shadow-hero are intentionally almost unused — reserved for one decorative, textless spine strip, never for a row."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "Body becomes a true glossary — one term plus one definition per row, category groups collapse to alphabet letters (A, B, C…), and the rail becomes an A–Z jump list.",
+        "bestFor": "Glossaries, terminology references, style guides, bibliographies.",
+        "avoid": "Don't pad short definitions with filler to make rows visually even — ragged row heights are correct; forcing uniform height is the card-grid instinct creeping back in."
+      },
+      "chartHeavy": {
+        "howItAdapts": "Body's non-label columns become numeric/data fields (latency, rate, count), right-aligned and set in the mono font so digits line up; category groups become module/service names instead of letters.",
+        "bestFor": "API reference indexes, metrics dictionaries, changelog tables with numeric fields, endpoint directories.",
+        "avoid": "Don't add sparklines, bars, or colored status dots to every row — that's a dashboard rail, not an index. Keep numeric columns as plain aligned text."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "This is the archetype's native mode — little to no adaptation needed. Each row is one item in the set (a component, a product, a directory entry) with a name, category, status, and one-line description, exactly as designed.",
+        "bestFor": "Component libraries, product/plugin directories, staff or vendor directories, catalog pages.",
+        "avoid": "Do not promote any single row to a card with a border/shadow/larger padding 'because it's featured.' A pinned or emphasized row earns a heavier rule at most (see --lf-emphasis-border-*), never a box."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "moss-cottage", "why": "A card catalogue was historically literal library furniture — moss-cottage's gentle herbarium/field-guide register (Gilda Display headings, soft sage/terracotta palette, dot-grid paper) reads as exactly that kind of orderly reference shelf, without ever reaching for a card grid." },
+      { "theme": "alpha-signal", "why": "Reused deliberately from dashboard-with-rail: alpha-signal's Bloomberg-terminal density (Share Tech Mono data columns, teal grid, compact spacing) is exactly the dense, aligned, monospace-heavy register a metrics/API index calls for — proving the same theme can skin two structurally different archetypes." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 24px;
+      --lf-max-width: 1200px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      /* theme-overridable — full set, not just color/font */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (not body), so the layout-factory
+       chrome above (meta bar, specs, tabs, captions) stays neutral regardless of which theme is
+       selected below. Values pulled from each theme's own theme-data JSON + component markup —
+       see skills/theme-factory/themes/moss-cottage.html and alpha-signal.html. */
+    .lf-variant-stage.theme-moss-cottage {
+      --lf-ink: #2A2818; --lf-ink-muted: #7A7060; --lf-paper: #F2EEE0;
+      --lf-line: #C8C0A0; --lf-region-outline: #C8C0A0; --lf-accent: #5A7A3A;
+      --lf-font-body: 'Mulish', 'Helvetica Neue', sans-serif; --lf-font-display: 'Gilda Display', Georgia, serif;
+      --lf-font-mono: 'Fira Code', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.72; --lf-card-radius: 16px;
+      --lf-bg-image: radial-gradient(circle, rgba(90,122,58,0.1) 1px, transparent 1px);
+      --lf-bg-size: 18px 18px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* moss-cottage's own shadows are "subtle" elevation; used only on the decorative spine strip,
+         never on a row — matches this archetype's own no-boxes-on-rows rule */
+      --lf-surface: #EAE4D0;
+      --lf-shadow-hero: 0 3px 14px rgba(42,40,24,0.12);
+      --lf-gradient-hero: linear-gradient(135deg, #E8E2CC 0%, #F2EEE0 50%, #EAE4D0 100%);
+      --lf-border-width: 1px;
+      /* moss-cottage has no dedicated pull-quote or alt-card component in its own markup (its
+         .mc-card is applied identically to every entry) — so restraint is the faithful choice:
+         color the rule only, leave the quote TEXT neutral, echoing the theme's own gentle register */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      /* emphasis borrows moss-cottage's own honey "accent" badge color — its warmest highlight tone */
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #E8A840;
+    }
+    .lf-variant-stage.theme-alpha-signal {
+      --lf-ink: #0A1C18; --lf-ink-muted: #4A7068; --lf-paper: #E8FBF5;
+      --lf-line: #A8D8CC; --lf-region-outline: #A8D8CC; --lf-accent: #FFD600;
+      --lf-font-body: 'Crimson Pro', Georgia, serif; --lf-font-display: 'Bebas Neue', 'Impact', sans-serif;
+      --lf-font-mono: 'Share Tech Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.68; --lf-card-radius: 6px;
+      --lf-bg-image: linear-gradient(rgba(10,112,96,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(10,112,96,0.06) 1px, transparent 1px), radial-gradient(ellipse at 25% 35%, rgba(10,112,96,0.1) 0%, transparent 45%), radial-gradient(ellipse at 75% 65%, rgba(255,78,58,0.07) 0%, transparent 40%);
+      --lf-bg-size: 24px 24px, 24px 24px, cover, cover;
+      --lf-bg-position: 0 0, 0 0, 0 0, 0 0; --lf-bg-repeat: repeat, repeat, no-repeat, no-repeat;
+      /* alpha-signal's own header-bar uses exactly this gradient + a dark background — reused here
+         on the textless spine strip only, never behind readable index text (contrast-safe by design) */
+      --lf-surface: #D8F4EC;
+      --lf-shadow-hero: 0 4px 20px rgba(10,112,96,0.3);
+      --lf-gradient-hero: linear-gradient(135deg, #0A7060 0%, #085848 50%, #0A6050 100%);
+      --lf-border-width: 1px;
+      /* alpha-signal's own pull-quote analog (.glow-demo) colors BOTH its glow (teal, not its
+         declared "accent" yellow) and its text — bold/technical, the opposite restraint choice
+         from moss-cottage above */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: #0A7060;
+      --lf-quote-text-color: #0A7060;
+      /* emphasis borrows the theme's literal "accent" field (solar yellow) — same color as its own
+         status-live pill and header-bar bottom rule, its real convention for "this one is live/new" */
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Generic region-annotation vocabulary (from preset-template) — used only in the Concept
+       diagram to label masthead/rail/body; never reused for the actual working index below. */
+    .lf-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--lf-columns), 1fr);
+      gap: var(--lf-gutter);
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-region {
+      border: 1px dashed var(--lf-region-outline);
+      padding: var(--lf-space-4);
+      position: relative;
+      min-height: 70px;
+    }
+    .lf-region-label {
+      position: absolute; top: -1px; left: -1px;
+      background: var(--lf-ink); color: var(--lf-paper);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 2px 6px;
+    }
+    .lf-region-content { margin-top: var(--lf-space-4); color: var(--lf-ink-muted); font-size: 0.85rem; }
+
+    /* ── card-catalogue-index — archetype-specific vocabulary ── */
+
+    .lf-index-masthead {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    .lf-index-headline {
+      font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading);
+      font-size: 2rem; line-height: 1.15; max-width: 26ch; margin-bottom: var(--lf-space-3);
+    }
+    .lf-index-dek { font-size: 1.05rem; color: var(--lf-ink-muted); max-width: 68ch; margin-bottom: var(--lf-space-4); }
+    .lf-index-body-copy { max-width: 70ch; font-size: 0.95rem; margin-bottom: var(--lf-space-6); }
+    .lf-index-body-copy p { margin-bottom: var(--lf-space-3); }
+
+    /* The ONE spot in this archetype allowed shadow-hero/gradient-hero/card-radius — a decorative,
+       textless "spine strip" (the labeled plate on a real card-catalogue drawer). Deliberately
+       carries no text, so it's contrast-safe regardless of how dark a theme's hero gradient is;
+       the actual stat numbers sit below it on the page's normal ink/paper pairing. */
+    .lf-index-overview { margin-bottom: var(--lf-space-6); }
+    .lf-index-overview-bar {
+      height: 10px;
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-index-overview-stats { display: flex; flex-wrap: wrap; gap: var(--lf-space-6); }
+    .lf-index-stat { display: flex; flex-direction: column; gap: 2px; }
+    .lf-index-stat .k { font-family: var(--lf-font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--lf-ink-muted); }
+    .lf-index-stat .v { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.3rem; color: var(--lf-ink); }
+
+    /* The axiom — this archetype's only pull-quote-like element, used once, in Concept only */
+    .lf-index-axiom {
+      font-size: 1.25rem; font-style: italic; line-height: 1.4;
+      color: var(--lf-quote-text-color);
+      padding: var(--lf-space-3) var(--lf-space-4);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      background-color: var(--lf-surface);
+      margin: var(--lf-space-4) 0 var(--lf-space-6);
+      max-width: 52ch;
+    }
+
+    /* "When not to / structural rule / editorial devices" notes — deliberately EQUAL width, only
+       the emphasized one gets a heavier rule, never a wider span: the archetype's own point about
+       rule-weight-not-size proven in its own exposition. */
+    .lf-index-notes-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin-bottom: var(--lf-space-4);
+    }
+    .lf-index-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--lf-space-6); }
+    .lf-index-note { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-3); }
+    .lf-index-note.emphasis { border-top: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); }
+    .lf-index-note h3 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.05rem; line-height: 1.25; margin-bottom: var(--lf-space-2); }
+    .lf-index-note p { font-size: 0.85rem; color: var(--lf-ink-muted); }
+
+    /* The working index: rail + body shell */
+    .lf-index-shell {
+      display: grid;
+      grid-template-columns: minmax(140px, 190px) 1fr;
+      gap: var(--lf-gutter);
+      align-items: start;
+    }
+    .lf-index-jumpnav { position: sticky; top: var(--lf-space-6); }
+    .lf-index-jumpnav-title {
+      font-family: var(--lf-font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--lf-ink-muted); margin-bottom: var(--lf-space-3);
+    }
+    .lf-index-jumpnav-list { list-style: none; display: flex; flex-direction: column; }
+    .lf-index-jumpnav-link {
+      display: block; color: var(--lf-ink-muted); text-decoration: none;
+      font-size: 0.82rem; padding: var(--lf-space-1) 0 var(--lf-space-1) var(--lf-space-3);
+      border-left: 2px solid transparent;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-index-jumpnav-link:hover, .lf-index-jumpnav-link:focus-visible {
+      color: var(--lf-ink); border-left-color: var(--lf-accent);
+    }
+
+    .lf-index-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+    .lf-index-table thead th {
+      font-family: var(--lf-font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em;
+      text-align: left; color: var(--lf-ink-muted);
+      padding: 0 var(--lf-space-3) var(--lf-space-2);
+      border-bottom: 2px solid var(--lf-ink);
+    }
+    .lf-index-table thead th.num { text-align: right; }
+    .lf-index-table tbody td {
+      padding: var(--lf-space-2) var(--lf-space-3);
+      border-bottom: 1px solid var(--lf-line);
+      vertical-align: top;
+    }
+    .lf-index-table tbody td.num {
+      text-align: right; font-family: var(--lf-font-mono); font-variant-numeric: tabular-nums;
+    }
+    .lf-index-table tbody td:first-child { padding-left: var(--lf-space-1); }
+    .lf-index-table .lf-index-term { font-weight: 700; color: var(--lf-ink); }
+    .lf-index-table .lf-index-muted { color: var(--lf-ink-muted); }
+    .lf-index-group-row th {
+      text-align: left; padding: var(--lf-space-4) var(--lf-space-3) var(--lf-space-1) var(--lf-space-1);
+      font-family: var(--lf-font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-accent);
+      border-bottom: 1px solid var(--lf-line);
+    }
+    .lf-index-table tr:first-child.lf-index-group-row th { padding-top: 0; }
+    /* Pinned/featured row — the ONLY size-neutral emphasis this archetype allows: a heavier left
+       rule, never a border/shadow/fill on all four sides */
+    tr.lf-index-row.pinned td:first-child {
+      border-left: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color);
+      padding-left: calc(var(--lf-space-1) + var(--lf-space-2));
+    }
+    tr.lf-index-row.pinned .lf-index-pin-tag {
+      display: inline-block; margin-left: var(--lf-space-2); font-family: var(--lf-font-mono);
+      font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--lf-accent);
+    }
+
+    @media (max-width: 720px) {
+      .lf-index-shell { grid-template-columns: 1fr; }
+      .lf-index-jumpnav {
+        position: static; border-bottom: 1px solid var(--lf-line);
+        padding-bottom: var(--lf-space-3); margin-bottom: var(--lf-space-4);
+      }
+      .lf-index-jumpnav-list { flex-direction: row; flex-wrap: wrap; gap: var(--lf-space-2) var(--lf-space-4); }
+      .lf-index-jumpnav-link { padding-left: var(--lf-space-2); }
+    }
+
+    /* View tabs — single-line selector, matches house style verbatim */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View — house style, verbatim from preset-template.html */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">card-catalogue-index</span>
+    <span class="lf-meta-tags">card-catalogue-index &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">24px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1200px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">card-catalogue-index &mdash; select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before &mdash; explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> glossaries, terminology references, style guides, bibliographies.<br><strong>Avoid:</strong> padding short definitions to make rows visually even &mdash; ragged row heights are correct." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> API reference indexes, metrics dictionaries, endpoint directories.<br><strong>Avoid:</strong> sparklines, bars, or colored status dots on every row &mdash; that's a dashboard rail, not an index." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> component libraries, product/plugin directories, staff or vendor directories &mdash; this archetype's native mode.<br><strong>Avoid:</strong> promoting one row to a card with a border/shadow because it's 'featured' &mdash; a pinned row gets a heavier rule at most, never a box." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before &mdash; explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="moss-cottage" role="tab" aria-selected="false">moss-cottage</button>
+      <button class="lf-theme-tab" data-theme-option="alpha-signal" role="tab" aria-selected="false">alpha-signal</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all three &mdash; only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-index-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>card-catalogue-index</span>
+        </div>
+
+        <h1 class="lf-index-headline">The One Legitimate Grid of Items</h1>
+        <p class="lf-index-dek">Every other archetype in this catalog treats a uniform grid of identical boxes as an anti-pattern to design around. This one exists because sometimes the content really is a flat set of comparable items &mdash; and the honest answer isn't a card grid, it's a table.</p>
+
+        <div class="lf-grid">
+          <div class="lf-region" style="grid-column: span 12;">
+            <div class="lf-region-label">masthead &middot; 1-12</div>
+            <div class="lf-region-content">Quiet identity band &mdash; archetype name, entry count, category count. Metadata about the index, never a KPI dashboard opener.</div>
+          </div>
+          <div class="lf-region" style="grid-column: span 3;">
+            <div class="lf-region-label">rail &middot; 1-3</div>
+            <div class="lf-region-content">Optional alphabetic/category jump-nav. Present only once the index is long enough to need it &mdash; omit it below roughly 30 entries.</div>
+          </div>
+          <div class="lf-region" style="grid-column: span 9;">
+            <div class="lf-region-label">body &middot; 4-12</div>
+            <div class="lf-region-content">The index itself: a real table. Alignment and hairline rules are the ONLY structuring device &mdash; no borders, fills, shadows, or rounded corners on individual entries.</div>
+          </div>
+        </div>
+
+        <blockquote class="lf-index-axiom">Alignment is the argument. If a row needs a border to be told apart from its neighbor, the rule failed &mdash; not the row.</blockquote>
+
+        <div class="lf-index-body-copy">
+          <p>A card catalogue's discipline comes from three things working together: real table semantics (rows and columns, not divs pretending to be cards), a single sort order the reader can trust, and rules or whitespace instead of borders to separate entries. Take any one of the three away and it drifts back toward the uniform-card-grid anti-pattern this catalog exists to name and avoid everywhere else.</p>
+          <p><strong>Use this when</strong> you have many genuinely comparable items and no single one deserves to dominate: a glossary of terms, a directory of staff or vendors, an index of API endpoints, a bibliography, or a component library's catalog page.</p>
+        </div>
+
+        <div class="lf-index-notes-label">Reading This Archetype</div>
+        <div class="lf-index-notes">
+          <div class="lf-index-note emphasis">
+            <h3>When Not to Use This Archetype</h3>
+            <p>As soon as items have genuinely unequal importance &mdash; one flagship case study among five minor ones, one finding that matters more than the rest &mdash; reach for <em>magazine-well</em> (size-based dominance) or <em>asymmetric-split</em> instead. This archetype has no mechanism for hierarchy by size, only by position and rule-weight.</p>
+          </div>
+          <div class="lf-index-note">
+            <h3>The Rule That Prevents a Card-Grid Relapse</h3>
+            <p>No entry gets a border, background fill, shadow, or rounded corner &mdash; including a "featured" one. A pinned or emphasized row earns a heavier rule (see the Card / List-Heavy tab), never a box. The moment a row needs its own container to read as distinct, a card grid is creeping back in.</p>
+          </div>
+          <div class="lf-index-note">
+            <h3>Editorial Devices This Archetype Favors</h3>
+            <p>Category or letter group headers as rule-based section breaks, monospace for any field that's a code or number so digits line up, and a jump-nav rail once the list is long enough to need one. No pull quotes, no callouts, no drop caps &mdash; those are narrative devices, and this is reference material.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-index-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>card-catalogue-index</span>
+        </div>
+
+        <div class="lf-index-overview">
+          <div class="lf-index-overview-bar"></div>
+          <div class="lf-index-overview-stats">
+            <div class="lf-index-stat"><span class="k">Entries</span><span class="v">16 terms</span></div>
+            <div class="lf-index-stat"><span class="k">Categories</span><span class="v">4</span></div>
+            <div class="lf-index-stat"><span class="k">Format</span><span class="v">A&ndash;Z glossary</span></div>
+          </div>
+        </div>
+
+        <div class="lf-index-shell">
+          <nav class="lf-index-jumpnav">
+            <div class="lf-index-jumpnav-title">Jump to</div>
+            <ul class="lf-index-jumpnav-list">
+              <li><a class="lf-index-jumpnav-link" href="#text-g-a">A</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-b">B</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-d">D</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-e">E</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-f">F</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-g">G</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-h">H</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-k">K</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-l">L</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-m">M</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-o">O</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-p">P</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-r">R</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-s">S</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#text-g-w">W</a></li>
+            </ul>
+          </nav>
+
+          <table class="lf-index-table">
+            <thead>
+              <tr><th>Term</th><th>Category</th><th>Definition</th></tr>
+            </thead>
+            <tbody>
+              <tr class="lf-index-group-row" id="text-g-a"><th colspan="3">A</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Baseline grid</td><td class="lf-index-muted">Typography</td><td>An invisible horizontal grid that locks every line of text to the same vertical rhythm, so type across columns lines up.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-b"><th colspan="3">B</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Callout</td><td class="lf-index-muted">Editorial</td><td>A short aside pulled out of the main flow and visually set apart &mdash; distinct from a pull quote, which restates rather than adds.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-d"><th colspan="3">D</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Dek</td><td class="lf-index-muted">Editorial</td><td>The one- or two-sentence summary beneath a headline, smaller than the headline and larger than body text.</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Drop cap</td><td class="lf-index-muted">Typography</td><td>An oversized first letter spanning two or more lines of the paragraph it opens; a narrative signal, never used in reference material.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-e"><th colspan="3">E</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Em dash</td><td class="lf-index-muted">Typography</td><td>The long dash (&mdash;) used to set off an aside more emphatically than a comma, without the formality of parentheses.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-f"><th colspan="3">F</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Folio</td><td class="lf-index-muted">Print</td><td>The page number, and often the running head beside it, printed in the margin of every page.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-g"><th colspan="3">G</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Gutter</td><td class="lf-index-muted">Grid</td><td>The fixed space between two columns in a grid; distinct from the margin, which is the space outside the grid entirely.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-h"><th colspan="3">H</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Hierarchy</td><td class="lf-index-muted">Composition</td><td>The deliberate size, position, or weight contrast that tells a reader what to look at first, second, and last.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-k"><th colspan="3">K</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Kerning</td><td class="lf-index-muted">Typography</td><td>The adjustment of space between two specific letter pairs, as opposed to tracking, which adjusts space uniformly across a run of text.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-l"><th colspan="3">L</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Leading</td><td class="lf-index-muted">Typography</td><td>The vertical space between baselines of type, named for the strips of lead once inserted between lines of metal type.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-m"><th colspan="3">M</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Masthead</td><td class="lf-index-muted">Editorial</td><td>The quiet identity band at the top of a page &mdash; publication name, section, or issue &mdash; deliberately smaller than anything below it.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-o"><th colspan="3">O</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Orphan</td><td class="lf-index-muted">Typography</td><td>A single word or short line stranded alone at the top of a column or page, separated from the paragraph it belongs to.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-p"><th colspan="3">P</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Pull quote</td><td class="lf-index-muted">Editorial</td><td>A quoted sentence lifted from the body text and reset larger, breaking the column to draw the eye back in.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-r"><th colspan="3">R</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Rag</td><td class="lf-index-muted">Typography</td><td>The uneven right edge of left-aligned text; a "tight rag" has line lengths that vary only slightly.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-s"><th colspan="3">S</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Sidenote</td><td class="lf-index-muted">Editorial</td><td>A citation or aside set in the margin beside the line it annotates, rather than collected at the page's end.</td></tr>
+
+              <tr class="lf-index-group-row" id="text-g-w"><th colspan="3">W</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Widow</td><td class="lf-index-muted">Typography</td><td>The last line of a paragraph, isolated at the top of the next column or page &mdash; the counterpart to an orphan.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-index-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>card-catalogue-index</span>
+        </div>
+
+        <div class="lf-index-overview">
+          <div class="lf-index-overview-bar"></div>
+          <div class="lf-index-overview-stats">
+            <div class="lf-index-stat"><span class="k">Endpoints</span><span class="v">9</span></div>
+            <div class="lf-index-stat"><span class="k">Services</span><span class="v">4</span></div>
+            <div class="lf-index-stat"><span class="k">Tracked</span><span class="v">p95 latency</span></div>
+          </div>
+        </div>
+
+        <div class="lf-index-shell">
+          <nav class="lf-index-jumpnav">
+            <div class="lf-index-jumpnav-title">Jump to service</div>
+            <ul class="lf-index-jumpnav-list">
+              <li><a class="lf-index-jumpnav-link" href="#chart-g-auth">Auth</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#chart-g-billing">Billing</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#chart-g-search">Search</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#chart-g-notify">Notifications</a></li>
+            </ul>
+          </nav>
+
+          <table class="lf-index-table">
+            <thead>
+              <tr><th>Endpoint</th><th>Method</th><th class="num">Avg Latency</th><th class="num">Error Rate</th><th>Owner</th></tr>
+            </thead>
+            <tbody>
+              <tr class="lf-index-group-row" id="chart-g-auth"><th colspan="5">Auth</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">/auth/login</td><td class="lf-index-muted">POST</td><td class="num">142ms</td><td class="num">0.8%</td><td class="lf-index-muted">team-identity</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">/auth/refresh</td><td class="lf-index-muted">POST</td><td class="num">38ms</td><td class="num">0.1%</td><td class="lf-index-muted">team-identity</td></tr>
+
+              <tr class="lf-index-group-row" id="chart-g-billing"><th colspan="5">Billing</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">/billing/charge</td><td class="lf-index-muted">POST</td><td class="num">310ms</td><td class="num">1.2%</td><td class="lf-index-muted">team-payments</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">/billing/invoice</td><td class="lf-index-muted">GET</td><td class="num">96ms</td><td class="num">0.3%</td><td class="lf-index-muted">team-payments</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">/billing/refund</td><td class="lf-index-muted">POST</td><td class="num">275ms</td><td class="num">0.6%</td><td class="lf-index-muted">team-payments</td></tr>
+
+              <tr class="lf-index-group-row" id="chart-g-search"><th colspan="5">Search</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">/search/query</td><td class="lf-index-muted">GET</td><td class="num">64ms</td><td class="num">0.4%</td><td class="lf-index-muted">team-search</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">/search/index</td><td class="lf-index-muted">POST</td><td class="num">890ms</td><td class="num">0.2%</td><td class="lf-index-muted">team-search</td></tr>
+
+              <tr class="lf-index-group-row" id="chart-g-notify"><th colspan="5">Notifications</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">/notify/email</td><td class="lf-index-muted">POST</td><td class="num">210ms</td><td class="num">2.1%</td><td class="lf-index-muted">team-growth</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">/notify/push</td><td class="lf-index-muted">POST</td><td class="num">58ms</td><td class="num">0.9%</td><td class="lf-index-muted">team-growth</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-index-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>card-catalogue-index</span>
+        </div>
+
+        <div class="lf-index-overview">
+          <div class="lf-index-overview-bar"></div>
+          <div class="lf-index-overview-stats">
+            <div class="lf-index-stat"><span class="k">Components</span><span class="v">11</span></div>
+            <div class="lf-index-stat"><span class="k">Categories</span><span class="v">6</span></div>
+            <div class="lf-index-stat"><span class="k">Library</span><span class="v">v4.2</span></div>
+          </div>
+        </div>
+
+        <div class="lf-index-shell">
+          <nav class="lf-index-jumpnav">
+            <div class="lf-index-jumpnav-title">Jump to category</div>
+            <ul class="lf-index-jumpnav-list">
+              <li><a class="lf-index-jumpnav-link" href="#card-g-buttons">Buttons</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#card-g-forms">Forms</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#card-g-navigation">Navigation</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#card-g-feedback">Feedback</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#card-g-layout">Layout</a></li>
+              <li><a class="lf-index-jumpnav-link" href="#card-g-data">Data Display</a></li>
+            </ul>
+          </nav>
+
+          <table class="lf-index-table">
+            <thead>
+              <tr><th>Component</th><th>Status</th><th>Version</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr class="lf-index-group-row" id="card-g-buttons"><th colspan="4">Buttons</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Button</td><td class="lf-index-muted">Stable</td><td class="lf-index-muted">v3.1</td><td>Primary/secondary/ghost variants, icon-leading and icon-trailing slots.</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">IconButton</td><td class="lf-index-muted">Stable</td><td class="lf-index-muted">v2.4</td><td>Square tap target; tooltip required for accessibility.</td></tr>
+
+              <tr class="lf-index-group-row" id="card-g-forms"><th colspan="4">Forms</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">TextField</td><td class="lf-index-muted">Stable</td><td class="lf-index-muted">v3.0</td><td>Label, hint, and error states share one vertical rhythm.</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Select</td><td class="lf-index-muted">Beta</td><td class="lf-index-muted">v0.9</td><td>Native-feeling multi-select with keyboard nav; API may still change.</td></tr>
+
+              <tr class="lf-index-group-row" id="card-g-navigation"><th colspan="4">Navigation</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Tabs</td><td class="lf-index-muted">Stable</td><td class="lf-index-muted">v2.2</td><td>Underline-indicator pattern &mdash; this file's own tab convention.</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Breadcrumb</td><td class="lf-index-muted">Stable</td><td class="lf-index-muted">v1.4</td><td>Collapses to an ellipsis after three levels.</td></tr>
+
+              <tr class="lf-index-group-row" id="card-g-feedback"><th colspan="4">Feedback</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Toast</td><td class="lf-index-muted">Stable</td><td class="lf-index-muted">v2.0</td><td>Auto-dismisses at 6s, pauses on hover or focus.</td></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Banner</td><td class="lf-index-muted">Stable</td><td class="lf-index-muted">v1.1</td><td>Persistent until dismissed; one per page.</td></tr>
+
+              <tr class="lf-index-group-row" id="card-g-layout"><th colspan="4">Layout</th></tr>
+              <tr class="lf-index-row"><td class="lf-index-term">Divider</td><td class="lf-index-muted">Stable</td><td class="lf-index-muted">v1.0</td><td>Hairline only &mdash; the component version of this archetype's own rule.</td></tr>
+
+              <tr class="lf-index-group-row" id="card-g-data"><th colspan="4">Data Display</th></tr>
+              <tr class="lf-index-row pinned"><td class="lf-index-term">IndexTable<span class="lf-index-pin-tag">New</span></td><td class="lf-index-muted">Beta</td><td class="lf-index-muted">v0.6</td><td>This exact component &mdash; a real table, category groups, optional jump-nav rail.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    var themeNames = ['moss-cottage', 'alpha-signal'];
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        themeNames.forEach(function (t) { stage.classList.remove('theme-' + t); });
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

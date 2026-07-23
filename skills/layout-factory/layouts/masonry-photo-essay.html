@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="masonry-photo-essay">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: masonry-photo-essay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700;900&family=Mulish:ital,wght@0,300;0,400;0,700;1,300&family=Share+Tech+Mono&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Josefin+Sans:wght@300;600;700&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "masonry-photo-essay",
+    "description": "Variable-height image blocks with cutline captions, driven by each photo's own aspect ratio and narrative weight — a wide panorama is wide because it IS wide, not because it's the most important thing on the page.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "masonry-photo-essay",
+    "family": "editorial-narrative",
+    "composition": {
+      "summary": "A quiet text-only opener states the essay's premise, then a sequence of image blocks runs down the page in a packed masonry grid — each block's width and height set once, per image, from that image's real aspect ratio and its narrative weight in the sequence. Occasionally a text-only 'quote-break' block interrupts the images to carry commentary. A short closing passage returns to prose at the end.",
+      "regions": [
+        { "id": "essay-head", "role": "title + narrative opener — establishes the premise before any image appears", "columnSpan": "1-8", "order": 1, "notes": "Quiet and text-only on purpose; it is NOT the entry point — the first exhibit is" },
+        { "id": "exhibit-hero", "role": "opening exhibit — in this instance a wide panoramic crop, so it is short and full-width; in another essay it could just as easily be the tallest, narrowest block on the page", "columnSpan": "1-12", "order": 2, "notes": "Gets the archetype's only shadow-hero/gradient-hero treatment, echoing magazine-well's single-hero restraint rule" },
+        { "id": "exhibit-*", "role": "repeated exhibit entries — each independently sized to its own image's real aspect ratio and narrative beat, never to a shared formula", "columnSpan": "3-12 (varies per instance)", "order": "3+", "notes": "Row height varies genuinely (via grid-row span), not via a padding-percentage trick" },
+        { "id": "exhibit-quote-break", "role": "text-only interstitial that pauses the image sequence for editorial commentary", "columnSpan": "1-12", "order": "mid-sequence", "notes": "Occupies a masonry slot like any exhibit, but carries no image" },
+        { "id": "essay-close", "role": "closing passage — returns to prose after the visual sequence ends, covers when-not-to-use and favored devices", "columnSpan": "1-8", "order": "last", "notes": "" }
+      ],
+      "hierarchy": { "primary": "exhibit-hero", "secondary": "essay-head", "tertiary": "essay-close" },
+      "readingOrder": ["essay-head", "exhibit-hero", "exhibit-a", "exhibit-b", "exhibit-c", "exhibit-quote-break", "exhibit-wide", "exhibit-narrow", "exhibit-close", "essay-close"],
+      "entryPoint": "The opening exhibit, not the title — it is the largest single block on the page purely because its source image is the widest, reinforced by sitting immediately after a deliberately quiet, small-type opener",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "modular",
+      "columns": 12,
+      "gutter": "24px",
+      "maxWidth": "1320px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Exhibits stack to a single column, in reading order, each keeping its own real aspect ratio — never cropped to a forced uniform width:height" },
+        "md": { "columns": 8, "gutter": "20px", "notes": "columnSpans roughly halve (a 12-span exhibit becomes 8-span/full, a 4-span stays proportionally narrow); relative dominance between blocks is preserved, not flattened" },
+        "lg": { "columns": 12, "gutter": "24px", "notes": "Full masonry packing as authored, grid-auto-flow: dense" }
+      },
+      "regionSpans": { "essay-head": "1 / 9", "exhibit-hero": "1 / 13", "exhibit-a": "1 / 5", "exhibit-b": "5 / 9", "exhibit-c": "9 / 13", "exhibit-quote-break": "1 / 13", "exhibit-wide": "1 / 9", "exhibit-narrow": "9 / 13", "essay-close": "1 / 9" }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 32, 48, 64, 96],
+      "unit": "px",
+      "rhythm": "The 8px baseline is also the masonry's grid-auto-rows unit, so every exhibit's height snaps to the same rhythm as the rest of the page, not a separate image-grid math.",
+      "sectionGap": "64px",
+      "blockGap": "24px",
+      "inlineGap": "16px",
+      "density": "spacious"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": true, "placement": "As a dedicated exhibit-quote-break block mid-sequence, interrupting the images the way a real photo essay pauses for a paragraph of commentary", "style": "Large italic serif/display, left rule sized per theme, set inside its own masonry slot rather than breaking a text column" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "whitespace" },
+      "dropCaps": false,
+      "captions": { "style": "cutline — small mono/sans caption, plate-numbered, sits directly under each exhibit inside its own block", "position": "directly beneath each exhibit's image, inside the exhibit block" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid: grid-template-columns: repeat(12,1fr); grid-auto-rows: var(--lf-baseline) (8px); grid-auto-flow: dense; column-gap: var(--lf-gutter), row-gap: 0. Each .lf-exhibit sets --col-span/--row-span inline once per image (derived from that image's real aspect ratio), and absorbs the visual gutter as its own bottom padding so grid-row spans stay simple integer arithmetic instead of compounding gaps across many spanned tracks.",
+      "presentation": "Each exhibit becomes its own slide at the image's real proportions — a wide exhibit becomes a widescreen slide, a tall one a portrait slide — never resized to one shared 16:9 master. essay-head becomes a title slide; the quote-break exhibit becomes a text-only interstitial slide in the same sequence position it holds on the web.",
+      "print": "Exhibits flow in reading order at their real aspect ratio; page breaks fall between exhibits, never mid-image. A very tall exhibit may take most of a page alone; several short-wide ones may share one. There is no fixed n-per-page rule — the images' own proportions set the page rhythm.",
+      "markdown": "Weak fit — flag this to the author rather than silently degrading. Standard markdown renderers have no masonry/grid support and mostly ignore aspect ratio and sizing hints; every image renders at native or full container width in a single stacked column, which erases the entire size-hierarchy signal this archetype depends on. If markdown is unavoidable, at minimum preserve reading order and put each cutline as an italic line directly under its image — but recommend a web or PDF export instead of pretending markdown can carry this archetype."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "Exhibits are never boxed identically — only the single opening exhibit gets --lf-shadow-hero/--lf-gradient-hero; every other exhibit is a bare surface-filled rectangle with a hairline outline only, the same restraint magazine-well applies to its well entries. Column/row spans are recorded per exhibit from that image's own aspect ratio and narrative beat, not computed from a shared formula — swapping two exhibits' images without re-deriving their spans looks wrong immediately, which is the tell that this is image-driven sizing, not decorative variety for its own sake. Distinct from bento-mosaic, whose sizing signal is importance/data hierarchy, not literal image shape — see contentTypeVariants.chartHeavy.avoid for the explicit boundary."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "Exhibits thin out. Most blocks become genuinely text-only — a prose passage promoted to its own masonry slot at whatever height its content actually needs — sitting alongside the handful of exhibits that do keep a real image. Sizing still comes from the block's actual content, never a shared image quota.",
+        "bestFor": "Long-form narrative essays with photography, travel writing, memoir-with-images, editorial features where prose carries roughly half the page's weight.",
+        "avoid": "Don't invent a placeholder image just to keep the masonry rhythm going — a text-only block set in body type, spanning fewer columns, is correct and often better than a decorative photo with nothing to say."
+      },
+      "chartHeavy": {
+        "howItAdapts": "Exhibits become captioned charts, maps, or diagrams instead of photos. Here the sizing signal quietly shifts: a wide exhibit is wide because the underlying figure (a timeline, a wide comparison table) genuinely needs the width, not because it was scaled for visual variety — the block still earns its span from its own content, just a different kind of content shape.",
+        "bestFor": "Visual research reports, cartographic essays, data-journalism pieces built primarily around maps or diagrams with a narrative throughline.",
+        "avoid": "If the real sizing signal is 'this finding matters more' rather than 'this figure is shaped this way,' that's bento-mosaic's job, not this archetype's — don't relabel a bento-mosaic as a photo essay just because the boxes happen to be different sizes."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "Weakest fit of the three. Each item can be forced into an exhibit slot with a representative image and a cutline-as-caption, but the archetype's core narrative-sequence read (one continuous scroll telling a story in order) fights against a set of independent, non-sequential, comparable items.",
+        "bestFor": "A visual portfolio or case-study index where every item genuinely does have its own real image at its own real aspect ratio — actual different-shaped work, not stock thumbnails forced square.",
+        "avoid": "Don't use this for a feature/pricing/spec comparison list — that's a uniform card grid's job. Forcing comparable, equal-weight items into varying-aspect exhibit blocks implies a false narrative-weight difference between things that are actually equal."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "tokyo-screentone", "why": "Manga panel layout — panels of deliberately varying size and shape telling a visual story in sequence — is a real-world precedent for this exact archetype; its zero-softening, hard-edged ink aesthetic reads as confident photo-essay presentation rather than decoration." },
+      { "theme": "verdigris-patina", "why": "Its own gimmick is color literally aging top-to-bottom down the page — a visual-progression device that fits a photo essay's narrative arc even more directly than its original asymmetric-split pairing; reused here deliberately." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 24px;
+      --lf-max-width: 1320px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 32px; --lf-space-8: 48px;
+      /* theme-overridable — full set, see comment blocks on each .theme-* rule below for source values */
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage (never body), so the neutral chrome
+       above (meta bar, specs, both tab rows, captions) never inherits theme color/type. Values
+       pulled from skills/theme-factory/themes/<name>.html — its theme-data JSON AND its actual
+       component markup (pull-quote and "alt card" conventions), never invented. */
+    .lf-variant-stage.theme-tokyo-screentone {
+      --lf-ink: #181410; --lf-ink-muted: #8A8078; --lf-paper: #F8F5EE;
+      --lf-line: #C8C0B0; --lf-region-outline: #C8C0B0; --lf-accent: #D42A20;
+      --lf-font-body: 'Mulish', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Big Shoulders Display', 'Impact', sans-serif;
+      --lf-font-mono: 'Share Tech Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 900; --lf-line-height: 1.6; --lf-card-radius: 0px;
+      --lf-bg-image: radial-gradient(circle, rgba(24,20,16,0.12) 1px, transparent 1px);
+      --lf-bg-size: 8px 8px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      /* tokyo-screentone: hard offset "ink" shadow, zero blur — its own shadow-colored token
+         (4px 4px 0 #D42A20), tinted with its vermillion secondary. Gradients are genuinely
+         none in this theme (design.notes: "no glow, no gradients") — not filled in here either. */
+      --lf-surface: #F0EDE4;
+      --lf-shadow-hero: 4px 4px 0 #D42A20;
+      --lf-gradient-hero: none;
+      --lf-border-width: 2px;
+      /* No dedicated pull-quote demo in this theme's own markup, so quote/emphasis are pulled
+         from its real recurring emphasis convention instead: .ts-display-red colors the
+         emphasized span of a heading in vermillion (--color-secondary); .ts-card-number does
+         the same. .ts-badge-blue shows the theme's OTHER real accent (--color-accent, screen
+         blue) used for a distinct "different kind of highlight" — so quote and emphasis get
+         two different real theme colors, not one color reused twice. */
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: #1890CC;
+    }
+    .lf-variant-stage.theme-verdigris-patina {
+      --lf-ink: #DCF0EA; --lf-ink-muted: #78BAA8; --lf-paper: #0F1C18;
+      --lf-line: rgba(52,188,162,0.28); --lf-region-outline: rgba(52,188,162,0.28);
+      --lf-accent: #C8A830;
+      --lf-font-body: 'Cormorant Garamond', Georgia, serif;
+      --lf-font-display: 'Josefin Sans', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'Courier New', monospace;
+      --lf-font-weight-heading: 600; --lf-line-height: 1.7; --lf-card-radius: 4px;
+      /* verdigris-patina's actual multi-layer radial-gradient oxidation texture (copied
+         verbatim from its body background-image, a representative subset of its 20 layers —
+         the theme's own background is deliberately elaborate; attachment:fixed has no
+         --lf-bg-* equivalent token so it is omitted, same limitation as any theme using it) */
+      --lf-bg-image:
+        radial-gradient(ellipse 210px 165px at 11% 23%, rgba(42,208,178,0.72) 0%, rgba(42,208,178,0.18) 48%, transparent 72%),
+        radial-gradient(ellipse 155px 98px at 79% 8%, rgba(38,198,172,0.68) 0%, transparent 64%),
+        radial-gradient(ellipse 125px 98px at 40% 18%, rgba(4,10,18,0.88) 0%, transparent 67%),
+        radial-gradient(ellipse 165px 128px at 16% 80%, rgba(38,180,155,0.62) 0%, transparent 64%),
+        radial-gradient(ellipse 135px 98px at 74% 84%, rgba(42,190,165,0.58) 0%, transparent 60%);
+      --lf-bg-size: auto; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      /* verdigris-patina's actual --shadow-md and --gradient-hero (brass fading to teal,
+         top-to-bottom — the theme's whole "color ages down the page" gimmick, echoed here on
+         the one hero exhibit only, per this archetype's own single-hero restraint rule) */
+      --lf-surface: rgba(15,38,30,0.88);
+      --lf-shadow-hero: 0 2px 16px rgba(0,0,0,0.5);
+      --lf-gradient-hero: linear-gradient(180deg, rgba(200,168,48,0.18) 0%, rgba(42,192,168,0.14) 100%);
+      --lf-border-width: 1px;
+      /* pulled from its own .tf-glow-demo: border stays neutral (zone-border/color-border,
+         hairline) while the quote TEXT is colored to zone-primary/color-primary — border and
+         text deliberately diverge here, unlike tokyo-screentone where both are colored. Emphasis
+         border uses the theme's own era-brass-border value — a warm brass tint standing apart
+         from the cooler teal --lf-line used everywhere else, echoing its brass-vs-verdigris
+         duality even without literal top-to-bottom zone markup. */
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: var(--lf-line);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: rgba(200,168,48,0.55);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Masthead — quiet identity band, reused as-is across every archetype */
+    .lf-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* Essay head — deliberately quiet, text-only opener. NOT the entry point; see composition.entryPoint. */
+    .lf-essay-head { max-width: 70ch; margin-bottom: var(--lf-space-8); }
+    .lf-essay-kicker {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted); margin-bottom: var(--lf-space-2);
+    }
+    .lf-essay-title {
+      font-family: var(--lf-font-display);
+      font-size: 2.3rem; line-height: 1.12; font-weight: var(--lf-font-weight-heading);
+      letter-spacing: -0.01em; max-width: 21ch; margin-bottom: var(--lf-space-3);
+    }
+    .lf-essay-dek { font-size: 1.05rem; color: var(--lf-ink-muted); max-width: 62ch; margin-bottom: var(--lf-space-4); }
+    .lf-essay-lede p { max-width: 66ch; font-size: 1rem; margin-bottom: var(--lf-space-3); }
+
+    /* Masonry — the archetype's actual structure. grid-auto-rows is the shared 8px baseline;
+       row-gap stays 0 so many-track spans never compound gutters (each exhibit instead bakes
+       the visual gutter into its own bottom padding, keeping --row-span simple integer math).
+       grid-auto-flow: dense lets shorter columns backfill, which is what makes it read as a
+       packed masonry rather than a naive row-by-row stack. */
+    .lf-masonry {
+      display: grid;
+      grid-template-columns: repeat(var(--lf-columns), 1fr);
+      grid-auto-rows: var(--lf-baseline);
+      grid-auto-flow: dense;
+      column-gap: var(--lf-gutter);
+      row-gap: 0;
+      margin-bottom: var(--lf-space-8);
+    }
+    .lf-exhibit {
+      grid-column: span var(--col-span, 4);
+      grid-row: span var(--row-span, 30);
+      display: flex;
+      flex-direction: column;
+      padding-bottom: var(--lf-gutter);
+      box-sizing: border-box;
+    }
+    /* The ONE exhibit per view that gets real presence — surface fill, the theme's actual hero
+       gradient (if it has one) and shadow. Every other exhibit stays a bare outlined rectangle;
+       giving every block the same visual weight is the uniform-grid tell this archetype exists
+       to avoid, and that discipline holds even once a theme is applied. */
+    .lf-exhibit-image {
+      flex: 1 1 auto;
+      min-height: 0;
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px);
+      border: 1px solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+    }
+    .lf-exhibit.hero .lf-exhibit-image {
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+    }
+    .lf-cutline {
+      flex: 0 0 auto;
+      padding-top: var(--lf-space-2);
+      font-family: var(--lf-font-mono);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      color: var(--lf-ink-muted);
+    }
+    .lf-cutline .plate { font-weight: 700; color: var(--lf-ink); text-transform: uppercase; letter-spacing: 0.04em; margin-right: 6px; }
+    .lf-exhibit.hero .lf-cutline { color: var(--lf-ink); font-size: 0.78rem; }
+
+    /* Text-only exhibit — occupies a masonry slot with no image at all, per contentTypeVariants.textHeavy */
+    .lf-exhibit.text-only { justify-content: center; }
+    .lf-exhibit.text-only .lf-text-block { font-size: 0.95rem; color: var(--lf-ink); line-height: var(--lf-line-height); }
+    .lf-exhibit.text-only .lf-text-block strong { font-weight: 700; }
+
+    /* Quote-break exhibit — the archetype's pull-quote device, sitting in the sequence as its own slot */
+    .lf-exhibit.quote-break { justify-content: center; }
+    .lf-pullquote {
+      background-color: var(--lf-surface);
+      color: var(--lf-quote-text-color);
+      font-size: 1.3rem;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.4;
+      padding: var(--lf-space-3) var(--lf-space-4);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      max-width: 62ch;
+    }
+
+    /* Closing band — returns to prose; covers when-not-to-use, the anti-card-grid rule, and
+       favored editorial devices. Deliberately its own identity, not a reuse of a "well". */
+    .lf-close-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2);
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-close-notes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--lf-space-6);
+    }
+    .lf-close-note { border-top: 1px solid var(--lf-line); padding-top: var(--lf-space-3); }
+    .lf-close-note h3 { font-family: var(--lf-font-display); font-size: 1rem; font-weight: var(--lf-font-weight-heading); margin-bottom: var(--lf-space-2); line-height: 1.25; }
+    .lf-close-note p { font-size: 0.85rem; color: var(--lf-ink-muted); }
+
+    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Stage — full-scale page for whichever option is selected. color/font-family/line-height/
+       background are re-declared here (not just inherited from body) so that when .theme-*
+       overrides the custom properties above, descendants that don't set their own color pick up
+       the new value through normal inheritance from THIS element, not the resolved body value. */
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    /* Theme-preview selector — same tab convention as the view selector, second row */
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    /* Full View — lets the picker chrome (meta bar, specs, tabs, captions) drop away so the
+       selected variant/theme combination can be seen the way it'd actually be used, not as a
+       component in a gallery page. Fixed-position toggle stays visible in both states. */
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
+       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
+       with no unthemed white gap on any side. */
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">masonry-photo-essay</span>
+    <span class="lf-meta-tags">masonry-photo-essay &middot; editorial-narrative</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">24px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1320px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">spacious</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">masonry-photo-essay — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> long-form narrative essays with photography, travel writing, memoir-with-images — content where prose carries roughly half the page's weight.<br><strong>Avoid:</strong> inventing a placeholder image just to keep the masonry rhythm going." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> visual research reports, cartographic essays, data-journalism built around maps or diagrams with a narrative throughline.<br><strong>Avoid:</strong> relabeling a bento-mosaic as a photo essay just because the boxes are different sizes — if the signal is importance rather than shape, use bento-mosaic instead." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> a visual portfolio or case-study index where every item genuinely has its own image at its own real aspect ratio.<br><strong>Avoid:</strong> a feature/pricing/spec comparison list — forcing equal-weight items into varying-aspect blocks implies a false narrative-weight difference." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="tokyo-screentone" role="tab" aria-selected="false">tokyo-screentone</button>
+      <button class="lf-theme-tab" data-theme-option="verdigris-patina" role="tab" aria-selected="false">verdigris-patina</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all three — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>masonry-photo-essay</span>
+        </div>
+
+        <div class="lf-essay-head">
+          <div class="lf-essay-kicker">Field Notes &middot; On Structure</div>
+          <h1 class="lf-essay-title">Every Block's Size Comes From the Photograph, Not a Decision</h1>
+          <p class="lf-essay-dek">The concept: lay out a sequence of images where each block's width and height are recorded once, per image, from that image's own aspect ratio and its weight in the story — never from a shared grid formula applied uniformly.</p>
+          <div class="lf-essay-lede">
+            <p>This region — the one you're reading now — is deliberately the quietest thing on the page. No image, small type, a single opening paragraph. That's on purpose: the entry point isn't the title, it's the first exhibit below, which earns its size purely because its source photo is a wide panorama. A tall portrait crop elsewhere on this page is tall for the identical reason — it IS tall. Nobody decided it mattered more.</p>
+          </div>
+        </div>
+
+        <div class="lf-masonry">
+          <div class="lf-exhibit hero" style="--col-span:12; --row-span:33;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 01</span>Full 12-column span, short row height — a wide panoramic crop. This is the archetype's only hero treatment (shadow + gradient); everything below it stays a bare outlined rectangle on purpose.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:63;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 02</span>Narrow column, the tallest block on the page — a portrait crop. Tall because the photo is tall, not because it's "next most important."</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:43;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 03</span>Same column width as Plate 02, noticeably shorter — a squarer crop sitting beside it in the packed grid.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:28;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 04</span>Shortest of the three narrow blocks — a low landscape crop. grid-auto-flow: dense lets it backfill next to its taller neighbors instead of leaving a gap.</div>
+          </div>
+          <div class="lf-exhibit quote-break" style="--col-span:12; --row-span:20;">
+            <blockquote class="lf-pullquote">"A block is wide because the photo is wide. That's the whole rule — and the only rule this archetype has."</blockquote>
+          </div>
+          <div class="lf-exhibit" style="--col-span:8; --row-span:36;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 05</span>An 8-column block paired with a 4-column one at the same row height — a two-up spread, the same pairing a print photo essay would call a spread.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:36;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 06</span>Its companion — same height as Plate 05 so the pair reads as one deliberate row, not a coincidence.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:12; --row-span:48;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 07</span>Closing exhibit — full width again, but taller than the opener, giving the sequence a deliberate final beat rather than just trailing off.</div>
+          </div>
+        </div>
+
+        <div class="lf-close-label">When Not to Use This Archetype</div>
+        <div class="lf-close-notes">
+          <div class="lf-close-note">
+            <h3>Content where size should signal importance, not shape</h3>
+            <p>If a block being bigger is meant to say "this finding matters more" rather than "this photo is this shape," reach for <em>bento-mosaic</em> instead — same variable-cell look, opposite sizing logic.</p>
+          </div>
+          <div class="lf-close-note">
+            <h3>The rule that prevents a card-grid slide</h3>
+            <p>Column/row spans are recorded once per exhibit from its real aspect ratio and narrative beat. If every exhibit ends up the same shape, the archetype has quietly become a boring uniform grid and should be abandoned, not forced.</p>
+          </div>
+          <div class="lf-close-note">
+            <h3>Editorial devices this archetype favors</h3>
+            <p>A quote-break exhibit for commentary mid-sequence, plate-numbered cutlines under every image, and nothing else — no drop caps, no footnotes. This reads as a visual sequence, not reference material.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>masonry-photo-essay</span>
+        </div>
+
+        <div class="lf-essay-head">
+          <h1 class="lf-essay-title">Notes From a Two-Week Walk Along the Coast Road</h1>
+          <p class="lf-essay-dek">Prose carries most of this piece — the masonry thins to a handful of real photos, and several blocks are text-only, sized to what they actually say.</p>
+          <div class="lf-essay-lede">
+            <p>The road only exists on maps as a single line, but it's really three different surfaces depending on which decade the county last repaved it. That's the kind of detail that doesn't need a photo to land — so it doesn't get one.</p>
+          </div>
+        </div>
+
+        <div class="lf-masonry">
+          <div class="lf-exhibit hero" style="--col-span:12; --row-span:30;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 01</span>The one photo that opens the piece — everything after this leans on text.</div>
+          </div>
+          <div class="lf-exhibit text-only" style="--col-span:6; --row-span:28;">
+            <div class="lf-text-block"><strong>Day 4.</strong> Nobody warns you that the coast road smells like diesel for the first six miles before it smells like anything else. By mile seven it's just salt.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:6; --row-span:28;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 02</span>Paired at the same height as the text block beside it — no image invented to fill a slot that didn't need one.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:48;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Plate 03</span>The lighthouse at the halfway point — tall because the shot is tall.</div>
+          </div>
+          <div class="lf-exhibit text-only" style="--col-span:8; --row-span:48;">
+            <div class="lf-text-block">The lighthouse keeper's log, still bolted to the wall behind glass, records weather in a shorthand nobody working there now can fully translate — three words per day, forty years, ending mid-sentence in 1987 when the light went automatic.</div>
+          </div>
+        </div>
+
+        <div class="lf-close-label">Also From This Trip</div>
+        <div class="lf-close-notes">
+          <div class="lf-close-note"><h3>On the smell of the first six miles</h3><p>Turns out it's the ferry terminal, not the road itself.</p></div>
+          <div class="lf-close-note"><h3>On the shorthand log</h3><p>A retired keeper's daughter translated three more pages by mail after this ran.</p></div>
+          <div class="lf-close-note"><h3>On why there's no photo of the terminal</h3><p>Some things are funnier described than seen.</p></div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>masonry-photo-essay</span>
+        </div>
+
+        <div class="lf-essay-head">
+          <h1 class="lf-essay-title">Mapping Six Years of Coastal Erosion, County by County</h1>
+          <p class="lf-essay-dek">Exhibits become maps and charts instead of photos — a wide exhibit here is wide because the underlying timeline needs the width, not for visual variety.</p>
+          <div class="lf-essay-lede">
+            <p>Three counties account for most of the measured retreat. The rest is noise within the margin of error, which the maps below make obvious in a way the raw table did not.</p>
+          </div>
+        </div>
+
+        <div class="lf-masonry">
+          <div class="lf-exhibit hero" style="--col-span:12; --row-span:36;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Fig. 1</span>Shoreline retreat, 2020&ndash;2026, all six counties. Wide because a six-year timeline genuinely needs the width — not scaled for variety.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:5; --row-span:44;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Fig. 2</span>County A detail map — tall aspect because the coastline itself runs north-south here.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:7; --row-span:44;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Fig. 3</span>County B and C, side by side — a wider coastline segment, plotted at the width the geography actually has.</div>
+          </div>
+          <div class="lf-exhibit quote-break" style="--col-span:12; --row-span:18;">
+            <blockquote class="lf-pullquote">"The chart is wide because six years of data is wide. If it were wide because it mattered more, this would be a different archetype."</blockquote>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:26;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Fig. 4</span>Sediment composition — a compact pie, sized to its own content, not stretched to match its neighbors.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:8; --row-span:26;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Fig. 5</span>Funding allocation by county over the same period — a wide bar comparison sitting beside the compact pie.</div>
+          </div>
+        </div>
+
+        <div class="lf-close-label">Notes on This Data Set</div>
+        <div class="lf-close-notes">
+          <div class="lf-close-note"><h3>On the margin of error</h3><p>Three counties, not six, is the honest headline; the other three are within measurement noise.</p></div>
+          <div class="lf-close-note"><h3>On why this isn't bento-mosaic</h3><p>Every figure's span comes from its own content's real shape — nothing here is sized to signal "this matters more."</p></div>
+          <div class="lf-close-note"><h3>On the funding chart's width</h3><p>Six counties across six years needed the space; it wasn't widened for balance.</p></div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>masonry-photo-essay</span>
+        </div>
+
+        <div class="lf-essay-head">
+          <h1 class="lf-essay-title">Six Projects, Six Real Photographs, Six Real Shapes</h1>
+          <p class="lf-essay-dek">A portfolio index — each item keeps its own image at its own real aspect ratio rather than being cropped to a uniform thumbnail.</p>
+          <div class="lf-essay-lede">
+            <p>None of these six are more important than the others — this is the weakest-fit variant of the three, and it shows: without a genuine narrative sequence, the varying shapes just describe six different photographs, not six different weights.</p>
+          </div>
+        </div>
+
+        <div class="lf-masonry">
+          <div class="lf-exhibit hero" style="--col-span:8; --row-span:40;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Item 01</span>Harbor Signal House — a wide-format architectural shot, client: Port Authority.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:40;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Item 02</span>Stairwell Study — a tall interior crop, client: private residence.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:26;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Item 03</span>Market Awning Series — a square-ish crop, self-initiated.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:26;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Item 04</span>Foundry Floor — low landscape crop, client: Regional Museum.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:4; --row-span:26;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Item 05</span>Loading Dock at Dusk — matches Item 03/04's height only because that's this photo's actual shape.</div>
+          </div>
+          <div class="lf-exhibit" style="--col-span:12; --row-span:30;">
+            <div class="lf-exhibit-image"></div>
+            <div class="lf-cutline"><span class="plate">Item 06</span>Full-Width Panorama, Rail Yard — client: Transit Authority. Full width because the shot is a panorama, same rule as every other item here.</div>
+          </div>
+        </div>
+
+        <div class="lf-close-label">A Note on This Variant</div>
+        <div class="lf-close-notes">
+          <div class="lf-close-note"><h3>Why this feels like the weak link</h3><p>All six items are genuinely equal — a uniform card grid would serve a client index just as well.</p></div>
+          <div class="lf-close-note"><h3>When it does earn its keep</h3><p>Only when the images are real and really do vary in shape — not stock photos forced square to fit a template.</p></div>
+          <div class="lf-close-note"><h3>The line not to cross</h3><p>Don't use varying spans here to imply Item 01 matters more than Item 05 — that would misuse the archetype's own sizing signal.</p></div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    var themeNames = ['tokyo-screentone', 'verdigris-patina'];
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        themeNames.forEach(function (t) { stage.classList.remove('theme-' + t); });
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+    });
+  </script>
+
+</body>
+</html>

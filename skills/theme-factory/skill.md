@@ -16,12 +16,13 @@ A message containing "theme" alone (no action) is **not** a trigger — do not a
 
 ## Step 1: Detect Intent
 
-| Mode        | Trigger (must include "theme" + one of these, or slash command)                                                                                                                    |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **create**  | `theme extract` · `theme capture` · `theme save` · `theme design` · `theme create` · `create theme` · `design theme` · `make theme` · `new theme` · screenshot/HTML path + "theme" |
-| **list**    | `theme list` · `list themes` · `show themes` · `browse themes` · `what themes`                                                                                                     |
-| **delete**  | `theme delete <name>` · `delete theme <name>` · `remove theme <name>`                                                                                                              |
-| **apply**   | `theme apply <name>` · `apply theme <name>` · `use theme <name>` · `theme <name> on <file>`                                                                                        |
+| Mode          | Trigger (must include "theme" + one of these, or slash command)                                                                                                                    |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **create**    | `theme extract` · `theme capture` · `theme save` · `theme design` · `theme create` · `create theme` · `design theme` · `make theme` · `new theme` · screenshot/HTML path + "theme" |
+| **list**      | `theme list` · `list themes` · `show themes` · `browse themes` · `what themes`                                                                                                     |
+| **delete**    | `theme delete <name>` · `delete theme <name>` · `remove theme <name>`                                                                                                              |
+| **apply**     | `theme apply <name>` · `apply theme <name>` · `use theme <name>` · `theme <name> on <file>`                                                                                        |
+| **recommend** | `theme recommend` · `recommend theme` · `suggest theme` · `which theme` · `best theme for`                                                                                         |
 
 Ambiguous (has "theme" but action unclear) → ask: "Create, list, delete, or apply a theme?"
 
@@ -36,13 +37,13 @@ Ambiguous (has "theme" but action unclear) → ask: "Create, list, delete, or ap
    - No file path / describes theme in words → **Path C**: Read `modules/path-c-text-extraction.md`
 3. For all paths, also read `modules/shared-color-slots.md` for the 14-slot color reference and `modules/shared-design-dna.md` for the design DNA taxonomy.
 4. **Anti-pattern gate** — Read `modules/anti-patterns.md`. Before writing anything, audit and silently fix all violations.
-5. **Write** preset HTML (using `modules/preset-template.html`) → **update** `index.html` THEMES array → tell user the preset path and to open `~/.claude/skills/theme-factory/index.html` to preview
+5. **Write** preset HTML (using `modules/preset-template.html`) → **write per-preset doc** `themes/<name>.md` using `modules/doc-template.md` (read the HTML you just wrote in full — JSON and markup — so the doc can cite real class names) → **append a row** to `modules/SUMMARY.md` → **update** `index.html` THEMES array → tell user the preset path and to open `~/.claude/skills/theme-factory/index.html` to preview
 
 ### List Mode
 
-Tell the user: "Open [Theme Gallery](https://pakawatpanyakorn.github.io/Obs-Sandbox/skills/theme-factory/index.html) for global presets, or check `~/.claude/skills/theme-factory/themes/` for local presets."
+Read `modules/SUMMARY.md` and print its table directly. Then tell the user: "Open [Theme Gallery](https://pakawatpanyakorn.github.io/Obs-Sandbox/skills/theme-factory/index.html) for visual browsing, or `theme recommend <context>` for a ranked shortlist."
 
-Do not read files, render swatches, or summarize themes.
+Do not open individual preset `.html`/`.md` files in this mode — `SUMMARY.md` exists precisely so List mode never needs to.
 
 ### Delete Mode
 
@@ -50,9 +51,10 @@ Do not read files, render swatches, or summarize themes.
 2. Check exists (Glob). If not: "No theme named '\<name\>' found."
 3. Read file → show swatch summary as confirmation
 4. Ask: "Delete theme **\<name\>**? This cannot be undone. Reply 'yes' to confirm."
-5. On confirm: `Remove-Item "~/.claude/skills/theme-factory/themes/<name>.html"`
+5. On confirm: `Remove-Item "~/.claude/skills/theme-factory/themes/<name>.html"`, then `Remove-Item "~/.claude/skills/theme-factory/themes/<name>.md"`
 6. Update `index.html`: remove the `{ filename: 'themes/<name>.html', data: ... }` entry from `THEMES` array, write back
-7. Confirm: "Deleted theme **\<name\>**."
+7. Remove the corresponding row from `modules/SUMMARY.md`
+8. Confirm: "Deleted theme **\<name\>**."
 
 ### Apply Mode
 
@@ -60,7 +62,7 @@ Do not read files, render swatches, or summarize themes.
 
 Read `modules/apply-mode-token-harmonize.md` for the full token template, harmonize steps, and report format.
 
-**Load theme** — read `~/.claude/skills/theme-factory/themes/<name>.html`, parse JSON from `<script id="theme-data">`, note background lightness. Then proceed with the matched path below.
+**Load theme** — read `~/.claude/skills/theme-factory/themes/<name>.html`, parse JSON from `<script id="theme-data">`, note background lightness. Also read `~/.claude/skills/theme-factory/themes/<name>.md` if it exists — use its **Color Role Guidance** section to inform harmonize step 4a's primary/secondary/accent distribution (it can override the generic ">60% primary → introduce a counterpoint" rule when the doc states a theme-specific reason not to), and its **How To Use — Full Potential** section to decide which target-file components get the theme's signature treatment first. Then proceed with the matched path below.
 
 ---
 
@@ -87,6 +89,12 @@ The theme is a **starting point** — designer reskin, not find-replace. Goal: p
 2. **Inject `:root` block** — add token block at top of `<style>` using the template in `modules/apply-mode-token-harmonize.md`; use `Edit`, never rewrite whole file
 3. **Harmonize** — follow steps 4a–4k in `modules/apply-mode-token-harmonize.md`
 4. **Report** using the report format in `modules/apply-mode-token-harmonize.md`
+
+---
+
+### Recommend Mode
+
+Read `modules/recommend-mode.md` for the full intake/scoring/output workflow. In short: gather free-text context (project description, mood, medium — ask 1-2 clarifying questions if none given), read `modules/SUMMARY.md` only to shortlist, then open just the top 3 candidates' `.md` docs for final reasoning. Report the top 3 with one-sentence reasons each. As a bonus, cross-check `../layout-factory/modules/theme-pairing-log.md` for any of the top 3 and surface a matching layout suggestion if one exists — never block the theme ranking on this.
 
 </what-to-do>
 

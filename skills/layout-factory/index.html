@@ -99,7 +99,7 @@
       /* live thumbnail — a scaled-down real render of the preset (top-of-page crop, chrome stripped
          via ?fullview=1), so the gallery shows the actual styled composition, not an abstract diagram */
       .thumb {
-        position: relative; height: 168px; margin-bottom: 0.85rem;
+        position: relative; height: 235px; margin-bottom: 0.85rem;
         border: 1px solid var(--border); border-radius: 2px; overflow: hidden; background: var(--bg);
       }
       .thumb-frame { position: absolute; top: 0; left: 0; width: 1200px; transform-origin: top left; pointer-events: none; }
@@ -620,6 +620,29 @@
         });
       });
 
+      /* Thumbnails are `file://` iframes, and Chromium appears to cap simultaneous same-page
+         `file://` subframe loads at a small number (empirically ~6 in this gallery) — the rest
+         just sit pending forever, `loading="lazy"` or not, scrolled into view or not. Loading
+         them through a small concurrency-limited queue instead of all-at-once/native-lazy avoids
+         that ceiling: only a handful navigate at a time, and each `load` event dequeues the next. */
+      const THUMB_LOAD_CONCURRENCY = 4;
+      const thumbLoadQueue = [];
+      let thumbLoadsInFlight = 0;
+      function pumpThumbQueue() {
+        while (thumbLoadsInFlight < THUMB_LOAD_CONCURRENCY && thumbLoadQueue.length) {
+          const iframe = thumbLoadQueue.shift();
+          thumbLoadsInFlight++;
+          const done = () => { thumbLoadsInFlight--; pumpThumbQueue(); };
+          iframe.addEventListener('load', done, { once: true });
+          iframe.addEventListener('error', done, { once: true });
+          iframe.src = iframe.dataset.src;
+        }
+      }
+      function enqueueThumbLoad(iframe) {
+        thumbLoadQueue.push(iframe);
+        pumpThumbQueue();
+      }
+
       function card({ filename, data }) {
         const a = document.createElement('a');
         a.className = 'card';
@@ -629,7 +652,7 @@
         a.innerHTML = `
           <div class="thumb">
             <div class="thumb-frame">
-              <iframe src="${filename}?fullview=1" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+              <iframe data-src="${filename}?fullview=1" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
             </div>
           </div>
           <div class="card-name">${data.name || filename}</div>
@@ -659,11 +682,13 @@
           return matchesGroups && matchesQuery;
         });
         thumbObserver.disconnect();
+        thumbLoadQueue.length = 0;
         grid.innerHTML = '';
         filtered.forEach(item => grid.appendChild(card(item)));
         countEl.textContent = filtered.length;
         empty.style.display = filtered.length ? 'none' : 'block';
         grid.querySelectorAll('.thumb').forEach(thumb => thumbObserver.observe(thumb));
+        grid.querySelectorAll('.thumb iframe').forEach(iframe => enqueueThumbLoad(iframe));
       }
 
       searchEl.addEventListener('input', render);

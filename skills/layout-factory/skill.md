@@ -20,12 +20,13 @@ layout-factory owns **structure only**: grid systems, spacing/rhythm, compositio
 
 ## Step 1: Detect Intent
 
-| Mode       | Trigger (must include "layout" + one of these, or slash command)                                                                                            |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **create** | `layout extract` · `layout capture` · `layout save` · `layout design` · `layout create` · `create layout` · `design layout` · `make layout` · `new layout` · screenshot/HTML path + "layout" · "use the `<archetype>` layout for this" |
-| **list**   | `layout list` · `list layouts` · `show layouts` · `browse layouts` · `what layouts`                                                                        |
-| **delete** | `layout delete <name>` · `delete layout <name>` · `remove layout <name>`                                                                                    |
-| **apply**  | `layout apply <name>` · `apply layout <name>` · `use layout <name>` · `layout <name> on <file>` · `restructure <file> as <name>`                            |
+| Mode          | Trigger (must include "layout" + one of these, or slash command)                                                                                            |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **create**    | `layout extract` · `layout capture` · `layout save` · `layout design` · `layout create` · `create layout` · `design layout` · `make layout` · `new layout` · screenshot/HTML path + "layout" · "use the `<archetype>` layout for this" |
+| **list**      | `layout list` · `list layouts` · `show layouts` · `browse layouts` · `what layouts`                                                                        |
+| **delete**    | `layout delete <name>` · `delete layout <name>` · `remove layout <name>`                                                                                    |
+| **apply**     | `layout apply <name>` · `apply layout <name>` · `use layout <name>` · `layout <name> on <file>` · `restructure <file> as <name>`                            |
+| **recommend** | `layout recommend` · `recommend layout` · `suggest layout` · `which layout` · `best layout for`                                                              |
 
 Ambiguous (has "layout" but action unclear) → ask: "Create, list, delete, or apply a layout?"
 
@@ -41,13 +42,13 @@ Ambiguous (has "layout" but action unclear) → ask: "Create, list, delete, or a
 3. For all paths, also read `modules/shared-grid-vocabulary.md` for grid/spacing terminology and `modules/shared-composition-archetypes.md` for the catalog of named archetypes to match or diverge from.
 4. **Anti-pattern gate** — read `modules/anti-patterns.md`. Before writing anything, audit and silently fix all violations.
 5. **Pick 2-3 theme-factory pairings** — check `modules/theme-pairing-log.md` for what's already been used, then pick real presets from `skills/theme-factory/themes/` that genuinely fit this archetype's family (prefer unused themes over convenient repeats; only repeat a theme when it's a strong fit for both presets). Pull actual color/typography/spacing values from the theme's file — never invent plausible-looking tokens. Add a row to `theme-pairing-log.md` after choosing.
-6. **Write** preset HTML (using `modules/preset-template.html`) — demo content must explain the archetype (concept, hierarchy mechanism, best-fit use cases, when to reach for something else) through the actual regions being demonstrated, not fictional filler; the theme-preview tab row (defaulting to "No theme") lets the picked pairings be previewed live against the same structure; see the convention notes in `modules/preset-template.html` → **update** `index.html` LAYOUTS array → tell user the preset path and to open `~/.claude/skills/layout-factory/index.html` to preview
+6. **Write** preset HTML (using `modules/preset-template.html`) — demo content must explain the archetype (concept, hierarchy mechanism, best-fit use cases, when to reach for something else) through the actual regions being demonstrated, not fictional filler; the theme-preview tab row (defaulting to "No theme") lets the picked pairings be previewed live against the same structure; see the convention notes in `modules/preset-template.html` → **write per-preset doc** `layouts/<name>.md` using `modules/doc-template.md` (read the HTML you just wrote in full — JSON and markup — so the doc can cite real region names/classes) → **append a row** to `modules/SUMMARY.md` → **update** `index.html` LAYOUTS array → tell user the preset path and to open `~/.claude/skills/layout-factory/index.html` to preview
 
 ### List Mode
 
-Tell the user: "Open [Layout Gallery](https://pakawatpanyakorn.github.io/Obs-Sandbox/skills/layout-factory/index.html) for global presets, or check `~/.claude/skills/layout-factory/layouts/` for local presets."
+Read `modules/SUMMARY.md` and print its table directly. Then tell the user: "Open [Layout Gallery](https://pakawatpanyakorn.github.io/Obs-Sandbox/skills/layout-factory/index.html) for visual browsing, or `layout recommend <context>` for a ranked shortlist."
 
-Do not read files, render previews, or summarize layouts.
+Do not open individual preset `.html`/`.md` files in this mode — `SUMMARY.md` exists precisely so List mode never needs to.
 
 ### Delete Mode
 
@@ -55,15 +56,16 @@ Do not read files, render previews, or summarize layouts.
 2. Check exists (Glob). If not: "No layout named '\<name\>' found."
 3. Read file → show a structural summary (archetype, family, region count) as confirmation
 4. Ask: "Delete layout **\<name\>**? This cannot be undone. Reply 'yes' to confirm."
-5. On confirm: `Remove-Item "~/.claude/skills/layout-factory/layouts/<name>.html"`
+5. On confirm: `Remove-Item "~/.claude/skills/layout-factory/layouts/<name>.html"`, then `Remove-Item "~/.claude/skills/layout-factory/layouts/<name>.md"`
 6. Update `index.html`: remove the `{ filename: 'layouts/<name>.html', data: ... }` entry from `LAYOUTS` array, write back
-7. Confirm: "Deleted layout **\<name\>**."
+7. Remove the corresponding row from `modules/SUMMARY.md`
+8. Confirm: "Deleted layout **\<name\>**."
 
 ### Apply Mode
 
 Read `modules/apply-mode-restructure.md` first — it is the entry point for every apply, regardless of target medium.
 
-**Load layout** — read `~/.claude/skills/layout-factory/layouts/<name>.html`, parse JSON from `<script id="layout-data">`.
+**Load layout** — read `~/.claude/skills/layout-factory/layouts/<name>.html`, parse JSON from `<script id="layout-data">`. Also read `~/.claude/skills/layout-factory/layouts/<name>.md` if it exists — its **Region / Component Guidance** and **Content-Type Notes** sections give concrete judgment calls for assigning content to regions and hierarchy that the JSON alone leaves to improvisation.
 
 **Determine target medium**, then follow the matching branch in `modules/apply-mode-restructure.md`:
 
@@ -72,6 +74,12 @@ Read `modules/apply-mode-restructure.md` first — it is the entry point for eve
 - **Presentation/slide request** → slide-structuring branch in `modules/apply-mode-restructure.md`. Output a slide outline or slide markup, following the archetype's `mediaAdaptation.presentation` notes.
 
 All branches run the full anti-pattern audit (`modules/anti-patterns.md`) against the result before reporting, and end with the structured change report described in `modules/apply-mode-restructure.md`.
+
+---
+
+### Recommend Mode
+
+Read `modules/recommend-mode.md` for the full intake/scoring/output workflow. In short: gather free-text context (project description, content shape, medium — ask 1-2 clarifying questions if none given), use `modules/shared-signal-table.md` as a first-pass filter, then read `modules/SUMMARY.md` only to shortlist, then open just the top 3 candidates' `.md` docs for final reasoning. Report the top 3 with one-sentence reasons each, and surface each one's own `exampleThemePairings` from its JSON as a bonus pairing suggestion.
 
 </what-to-do>
 

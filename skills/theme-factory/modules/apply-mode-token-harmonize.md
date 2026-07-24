@@ -103,6 +103,12 @@ Common shorthand → token mappings:
 
 ---
 
+## Coexistence with layout-factory
+
+A target file may already carry a `/* Layout: <name> - applied by obs-layout-factory */` marker with its own `--layout-*` token block, `data-layout`/`data-region` attributes, and `grid-template-areas`. Leave that block and those attributes untouched — every step above (4a-4k) only ever reads/writes `--color-*`, `--font-*`, `--radius-*`, `--shadow-*`, `--gradient-*`, `--glow-*`, `--glass-*`, `--bg-*`, and `--space-*`/`--duration-*` tokens, a disjoint namespace from `--layout-*`. If a future harmonize step needs to touch spacing or structural CSS properties (grid, position, region sizing), check for a `data-layout` attribute or `--layout-*` block first and skip those properties/selectors rather than overwriting them.
+
+---
+
 ## Harmonize Steps
 
 **4a. Color distribution** — if `primary` appears in >60% of colored elements, introduce `secondary`/`accent` as counterpoint.

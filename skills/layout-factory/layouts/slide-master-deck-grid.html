@@ -492,6 +492,8 @@
       border: 1px solid var(--lf-ink);
       border-radius: 2px;
       color: var(--lf-ink);
+      width: 7.5rem;
+      text-align: center;
       padding: var(--lf-space-2) var(--lf-space-3);
       transition: background-color .12s, color .12s;
     }
@@ -515,11 +517,103 @@
       padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
       min-height: 100vh;
     }
+  
+    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
+       derived from location.pathname, so this block never needs per-file editing). Fetches and
+       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
+       blocked (e.g. plain file:// with no local server). Stacked below Full View, hidden in
+       embed/thumbnail mode same as Full View. */
+    .lf-doc-toggle {
+      position: fixed;
+      top: calc(var(--lf-space-4) + 2.4rem);
+      right: var(--lf-space-4);
+      z-index: 20;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      width: 7.5rem;
+      text-align: center;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-doc-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-doc-toggle { display: none; }
+    .lf-doc-overlay {
+      position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .lf-doc-overlay[hidden] { display: none; }
+    .lf-doc-panel {
+      background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh;
+      border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .lf-doc-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .lf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .lf-doc-close:hover { color: #111; }
+    .lf-doc-body {
+      margin: 0; padding: 1.25rem; overflow: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.86rem; line-height: 1.65; color: #222;
+    }
+    .lf-doc-body > *:first-child { margin-top: 0; }
+    .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 {
+      font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111;
+    }
+    .lf-doc-body h1 { font-size: 1.3rem; }
+    .lf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .lf-doc-body h3 { font-size: 0.92rem; }
+    .lf-doc-body h4 { font-size: 0.86rem; }
+    .lf-doc-body p { margin: 0 0 0.85em; }
+    .lf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .lf-doc-body li { margin-bottom: 0.35em; }
+    .lf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .lf-doc-body strong { font-weight: 700; }
+    .lf-doc-body em { font-style: italic; }
+    .lf-doc-body code {
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em;
+      background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .lf-doc-panel { background: #1c1c22; color: #ddd; }
+      .lf-doc-panel-head { border-bottom-color: #333; }
+      .lf-doc-panel-title { color: #eee; }
+      .lf-doc-close { color: #999; }
+      .lf-doc-close:hover { color: #fff; }
+      .lf-doc-body { color: #ccc; }
+      .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 { color: #f0f0f0; }
+      .lf-doc-body h2 { border-bottom-color: #333; }
+      .lf-doc-body hr { border-top-color: #333; }
+      .lf-doc-body code { background: #2a2a30; }
+    }
   </style>
 </head>
 <body>
 
   <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+  <button class="lf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="lf-doc-overlay" id="doc-overlay" hidden>
+    <div class="lf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="lf-doc-panel-head">
+        <span class="lf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="lf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="lf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
 
   <div class="lf-meta">
     <span class="lf-meta-name">slide-master-deck-grid</span>
@@ -817,5 +911,82 @@
     });
   </script>
 
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
 </body>
 </html>

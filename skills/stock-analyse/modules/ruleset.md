@@ -30,6 +30,18 @@ Token names (e.g. `--color-accent`) refer to whatever values the active theme de
 |------|-----------|-----|
 | **Surface tokens** | `background: #ffffff`, `background: #000`, raw hex not in the theme palette | Always use theme CSS tokens — page bg, card surface, alternate surface, primary text, text-on-primary. Never introduce a hex value outside the token palette |
 | **Value color-coding** | Revenue growth and net loss both in the same color | Positive/growth/beat → `val-green`; Negative/loss/miss → `val-red`; Mixed/cautionary/guidance range → `val-yellow` |
+| **No fixed theme** | Copying a prior report's `:root` block, or defaulting to `wisdom` because it's familiar | The theme is picked fresh each report by `style-selection.md` — always read the selected theme's own `.html`/`.md` files per `html-theme.md` Part 1, never reuse a hardcoded token set |
+| **Signature markers** | Missing `/* Theme: ... - applied by obs-theme-factory */` or `/* Layout: ... - applied by obs-layout-factory */` comments, or a missing `data-layout` attribute on `<body>` | Both markers are required in every report — they're what lets theme-factory/layout-factory detect and re-skin the file later |
+
+---
+
+## 3b. Layout & Structure
+
+| Rule | Violation | Fix |
+|------|-----------|-----|
+| **No fixed layout** | Every report using the same container width, grid gutter, and spacing regardless of what `style-selection.md` picked | Apply the structural token block and the family-matched blend pattern from `layout.md` Part 1 — container width, gutter, and spacing rhythm should visibly differ between reports that picked different layouts |
+| **Skipping the blend** | Writing the 16 sections with zero acknowledgment of the selected layout's family (no captions, no lead treatment, no rail, no grid-snap) | Apply exactly one family-matched blend pattern from `layout.md` Part 1 — it's a small, targeted change (a caption here, a sticky rail there), not optional |
+| **Card overuse** | Every section — stat grid, story boxes, competitive edge, scorecard, debate — wrapped in its own `.card`/`.stat-card`/`.scenario-card`/`.debate-card`, so the page reads as a stack of identical boxes regardless of which layout was picked | `.tldr` and `.verdict` are the only two boxed/shadowed treatments a report gets (its bookend "pull-quote" moments). Everything else uses the flat/tabular components from `html-theme.md` — `.report-table` for comparable rows (financial metrics, scenarios, rated items), `.split-cols` for paired text, `.item-list` for icon rows, `.exhibit-visual` for chart frames. This applies regardless of which layout-factory archetype is active — it's the report's baseline, not a per-layout choice |
 
 ---
 

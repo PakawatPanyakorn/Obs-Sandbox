@@ -1,75 +1,50 @@
-# Stock Analysis — HTML Theme (Wisdom)
+# Stock Analysis — HTML Theme (Dynamic)
 
-## Google Fonts — Add to `<head>` Before `<style>`
-
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap"
-  rel="stylesheet"
-/>
-```
+The theme is picked per-report by `style-selection.md`, not fixed. This file has two parts: **(1)** how to pull the chosen theme's actual tokens in, **(2)** the component CSS every report shares, written entirely against those tokens — no hex literal ever belongs in this file or in a generated report.
 
 ---
 
-## CSS Custom Properties — Copy Exactly
+## Part 1 — Load the Selected Theme
 
-```css
-:root {
-  --color-primary: #1e3b6f;
-  --color-primary-light: #c8d8ec;
-  --color-secondary: #8b4513;
-  --color-accent: #b8860b;
-  --color-bg: #f4efe2;
-  --color-surface: #ebe4d1;
-  --color-surface-alt: #ddd5bc;
-  --color-text: #1c1812;
-  --color-text-muted: #6e5e48;
-  --color-text-on-primary: #f4efe2;
-  --color-border: #c4b59a;
-  --color-success: #3d6e3a;
-  --color-warning: #b07820;
-  --color-error: #8b2020;
-
-  --font-family: "EB Garamond", Georgia, serif;
-  --font-family-display: "Cinzel", "Times New Roman", serif;
-  --font-family-mono: "Courier Prime", "Courier New", monospace;
-  --font-size-base: 16px;
-  --font-weight-heading: 700;
-  --line-height: 1.65;
-  --radius-card: 10px;
-  --shadow-sm: 0 1px 3px rgba(28, 24, 18, 0.08);
-  --shadow-md: 0 4px 12px rgba(28, 24, 18, 0.12);
-  --shadow-lg: 0 8px 24px rgba(28, 24, 18, 0.16);
-
-  /* Shorthand aliases */
-  --bg: var(--color-bg);
-  --card: var(--color-surface);
-  --card2: var(--color-surface-alt);
-  --border: var(--color-border);
-  --accent: var(--color-primary);
-  --green: var(--color-success);
-  --red: var(--color-error);
-  --yellow: var(--color-warning);
-  --text: var(--color-text);
-  --muted: var(--color-text-muted);
-  --radius: var(--radius-card);
-}
-```
+1. Read `~/.claude/skills/theme-factory/themes/<selected-theme>.html`. It contains a ready-made `<link>` Google Fonts block and a complete `:root { ... }` token block inside `<style>` — copy both verbatim into the report's `<head>`.
+2. Read `~/.claude/skills/theme-factory/themes/<selected-theme>.md` — use its **Color Role Guidance** section when a component below gives you a choice (e.g. which token carries "secondary" weight), and its **Apply-Mode Notes** for anything theme-specific (some themes explicitly forbid glow/luminescence, some want a specific gradient treatment — honor those).
+3. Above the copied `:root` block, add the signature comment so the file is detectable by theme-factory later:
+   ```css
+   /* Theme: <selected-theme> - applied by obs-theme-factory */
+   ```
+4. Immediately after the copied token block, append the shorthand aliases the component CSS below relies on (only the ones the theme file doesn't already define):
+   ```css
+   --bg: var(--color-bg);
+   --card: var(--color-surface);
+   --card2: var(--color-surface-alt);
+   --border: var(--color-border);
+   --accent: var(--color-primary);
+   --green: var(--color-success);
+   --red: var(--color-error);
+   --yellow: var(--color-warning);
+   --text: var(--color-text);
+   --muted: var(--color-text-muted);
+   --radius: var(--radius-card);
+   ```
+5. **Background** — check the theme's `background.type` field (from its JSON):
+   - `solid` → `body { background-color: var(--color-bg); }`, no background-image.
+   - `pattern` / `noise` / `gradient` → use the theme's own `--bg-image` / `--bg-size` / `--bg-position` / `--bg-repeat` tokens (already in the copied `:root` block) on `body`. Do not invent a new texture — the fallback marble-grain SVG in older versions of this file was wisdom-specific and must not leak into other themes.
+6. **Font weights** — `--font-weight-heading` / `--font-weight-body` come from the theme; use them on `h1`-`h3`/`.section-title`/`.stat-value` (heading weight) and body copy (body weight) instead of assuming 700 everywhere.
 
 ---
 
-## Body & Page Container
+## Part 2 — Component CSS (token-only, copy exactly)
+
+Every value below is a `var(--...)` reference or a `color-mix()` derived from one — never a hex literal. Paste this block after the token `:root` from Part 1.
+
+### Body & Page Container
 
 ```css
 body {
-  background-color: #f4efe2;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  background-size: 300px 300px;
-  background-repeat: repeat;
   font-family: var(--font-family);
+  font-weight: var(--font-weight-body, 400);
   color: var(--text);
+  line-height: var(--line-height);
   margin: 0;
   padding: 20px;
 }
@@ -80,14 +55,14 @@ body {
 }
 ```
 
----
+(`.page` max-width is overridden per Part 3 of `layout.md` using the selected layout's `grid.maxWidth` — leave the 900px default only if no layout override applies.)
 
-## Hero Banner
+### Hero Banner
 
 ```css
 .hero {
-  background: linear-gradient(135deg, #1e3b6f 0%, #2c5298 60%, #1a3260 100%);
-  border-top: 3px solid #c9a84c;
+  background: var(--gradient-hero);
+  border-top: 3px solid var(--color-accent);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   color: var(--color-text-on-primary);
@@ -103,33 +78,29 @@ body {
   right: -60px;
   width: 220px;
   height: 220px;
-  background: radial-gradient(
-    circle,
-    rgba(200, 216, 236, 0.12) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-primary-light) 12%, transparent) 0%, transparent 70%);
   border-radius: 50%;
 }
 .hero-ticker {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2.5px;
-  color: #b8860b;
+  color: var(--color-accent);
   text-transform: uppercase;
   margin-bottom: 6px;
   font-family: var(--font-family-display);
 }
 .hero-name {
   font-size: 28px;
-  font-weight: 700;
+  font-weight: var(--font-weight-heading, 700);
   margin-bottom: 8px;
-  color: #f4efe2;
+  color: var(--color-text-on-primary);
   font-family: var(--font-family-display);
   letter-spacing: 0.03em;
 }
 .hero-tagline {
   font-size: 15px;
-  color: rgba(244, 239, 226, 0.78);
+  color: color-mix(in srgb, var(--color-text-on-primary) 78%, transparent);
   max-width: 540px;
   margin-bottom: 20px;
   font-style: italic;
@@ -149,30 +120,28 @@ body {
   font-family: var(--font-family-display);
 }
 .pill-blue {
-  background: rgba(200, 216, 236, 0.18);
-  border-color: rgba(200, 216, 236, 0.45);
-  color: #c8d8ec;
+  background: color-mix(in srgb, var(--color-primary-light) 18%, transparent);
+  border-color: color-mix(in srgb, var(--color-primary-light) 45%, transparent);
+  color: var(--color-primary-light);
 }
 .pill-green {
-  background: rgba(61, 110, 58, 0.25);
-  border-color: rgba(61, 110, 58, 0.6);
-  color: #a8d5a4;
+  background: color-mix(in srgb, var(--color-success) 25%, transparent);
+  border-color: color-mix(in srgb, var(--color-success) 60%, transparent);
+  color: color-mix(in srgb, var(--color-success) 55%, white);
 }
 .pill-red {
-  background: rgba(139, 32, 32, 0.25);
-  border-color: rgba(139, 32, 32, 0.6);
-  color: #e8a4a4;
+  background: color-mix(in srgb, var(--color-error) 25%, transparent);
+  border-color: color-mix(in srgb, var(--color-error) 60%, transparent);
+  color: color-mix(in srgb, var(--color-error) 55%, white);
 }
 .pill-yellow {
-  background: rgba(176, 120, 32, 0.25);
-  border-color: rgba(176, 120, 32, 0.6);
-  color: #e8cc90;
+  background: color-mix(in srgb, var(--color-warning) 25%, transparent);
+  border-color: color-mix(in srgb, var(--color-warning) 60%, transparent);
+  color: color-mix(in srgb, var(--color-warning) 55%, white);
 }
 ```
 
----
-
-## Section & Card Structure
+### Section & Card Structure
 
 ```css
 .section {
@@ -181,7 +150,7 @@ body {
 .section-title {
   font-family: var(--font-family-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: var(--font-weight-heading, 700);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--color-primary);
@@ -199,7 +168,7 @@ body {
 .card h3 {
   font-family: var(--font-family-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: var(--font-weight-heading, 700);
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--color-primary);
@@ -218,9 +187,7 @@ body {
 }
 ```
 
----
-
-## Stat Grid
+### Stat Grid
 
 ```css
 .stat-grid {
@@ -257,7 +224,7 @@ body {
 .stat-value {
   font-family: var(--font-family-display);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: var(--font-weight-heading, 700);
   color: var(--color-text);
 }
 .stat-sub {
@@ -266,20 +233,12 @@ body {
   color: var(--muted);
   margin-top: 4px;
 }
-.val-green {
-  color: var(--color-success);
-}
-.val-red {
-  color: var(--color-error);
-}
-.val-yellow {
-  color: var(--color-warning);
-}
+.val-green { color: var(--color-success); }
+.val-red { color: var(--color-error); }
+.val-yellow { color: var(--color-warning); }
 ```
 
----
-
-## TL;DR Box
+### TL;DR Box
 
 ```css
 .tldr {
@@ -293,7 +252,7 @@ body {
 .tldr h2 {
   font-family: var(--font-family-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: var(--font-weight-heading, 700);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--color-primary);
@@ -317,14 +276,10 @@ body {
 }
 ```
 
----
-
-## Analyst Scorecard Meters
+### Analyst Scorecard Meters
 
 ```css
-.meter-row {
-  margin-bottom: 14px;
-}
+.meter-row { margin-bottom: 14px; }
 .meter-label {
   display: flex;
   justify-content: space-between;
@@ -342,24 +297,13 @@ body {
   height: 10px;
   overflow: hidden;
 }
-.meter-fill {
-  height: 100%;
-  border-radius: 6px;
-}
-.meter-fill.green {
-  background: var(--green);
-}
-.meter-fill.yellow {
-  background: var(--yellow);
-}
-.meter-fill.red {
-  background: var(--red);
-}
+.meter-fill { height: 100%; border-radius: 6px; }
+.meter-fill.green { background: var(--green); }
+.meter-fill.yellow { background: var(--yellow); }
+.meter-fill.red { background: var(--red); }
 ```
 
----
-
-## Scenario Cards
+### Scenario Cards
 
 ```css
 .scenario-grid {
@@ -377,7 +321,7 @@ body {
 .scenario-card h3 {
   font-family: var(--font-family-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: var(--font-weight-heading, 700);
   letter-spacing: 1px;
   text-transform: uppercase;
   margin: 0 0 6px 0;
@@ -400,26 +344,15 @@ body {
   font-size: 14px;
   line-height: 1.6;
 }
-.scenario-bull h3 {
-  color: var(--color-success);
-}
-.scenario-base h3 {
-  color: var(--color-warning);
-}
-.scenario-bear h3 {
-  color: var(--color-error);
-}
+.scenario-bull h3 { color: var(--color-success); }
+.scenario-base h3 { color: var(--color-warning); }
+.scenario-bear h3 { color: var(--color-error); }
 ```
 
----
-
-## Timeline Component
+### Timeline Component
 
 ```css
-.timeline {
-  position: relative;
-  padding-left: 28px;
-}
+.timeline { position: relative; padding-left: 28px; }
 .timeline::before {
   content: "";
   position: absolute;
@@ -429,10 +362,7 @@ body {
   width: 2px;
   background: var(--border);
 }
-.timeline-item {
-  position: relative;
-  margin-bottom: 20px;
-}
+.timeline-item { position: relative; margin-bottom: 20px; }
 .timeline-dot {
   position: absolute;
   left: -25px;
@@ -443,10 +373,7 @@ body {
   border: 2px solid var(--border);
   background: var(--card2);
 }
-.timeline-dot.past {
-  background: var(--color-text-muted);
-  border-color: var(--color-text-muted);
-}
+.timeline-dot.past { background: var(--color-text-muted); border-color: var(--color-text-muted); }
 .timeline-dot.present {
   background: var(--color-primary);
   border-color: var(--color-primary);
@@ -454,33 +381,21 @@ body {
   height: 14px;
   left: -26px;
 }
-.timeline-dot.future {
-  background: var(--card);
-  border-color: var(--color-accent);
-}
+.timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
 .timeline-date {
   font-family: var(--font-family-mono);
   font-size: 11px;
   color: var(--muted);
   margin-bottom: 2px;
 }
-.timeline-event {
-  font-size: 14px;
-  line-height: 1.5;
-}
+.timeline-event { font-size: 14px; line-height: 1.5; }
 ```
 
----
-
-## Verdict / Bottom Line Card
+### Verdict / Bottom Line Card
 
 ```css
 .verdict {
-  background: linear-gradient(
-    135deg,
-    var(--color-surface) 0%,
-    var(--color-surface-alt) 100%
-  );
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
   border-radius: var(--radius);
   border-top: 3px solid var(--color-accent);
   box-shadow: var(--shadow-md);
@@ -489,53 +404,31 @@ body {
 .verdict-title {
   font-family: var(--font-family-display);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: var(--font-weight-heading, 700);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--color-primary);
   margin-bottom: 16px;
 }
-.verdict p {
-  font-size: 16px;
-  line-height: 1.7;
-  margin-bottom: 14px;
-}
-.verdict p:last-child {
-  margin-bottom: 0;
-}
+.verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+.verdict p:last-child { margin-bottom: 0; }
 ```
 
----
-
-## Icon Rows (Competitive Edge, Growth/Risk cards)
+### Icon Rows (Competitive Edge, Growth/Risk cards)
 
 ```css
-.item-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-.item-icon {
-  width: 20px;
-  flex-shrink: 0;
-  text-align: center;
-  font-size: 14px;
-  margin-top: 1px;
-}
+.item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; }
 .item-title {
   font-family: var(--font-family-display);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: var(--font-weight-heading, 700);
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--color-primary);
   margin-bottom: 2px;
 }
-.item-desc {
-  font-size: 14px;
-  line-height: 1.55;
-}
+.item-desc { font-size: 14px; line-height: 1.55; }
 .item-meta {
   font-family: var(--font-family-mono);
   font-size: 11px;
@@ -544,16 +437,10 @@ body {
 }
 ```
 
----
-
-## Debate Box
+### Debate Box
 
 ```css
-.debate-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
+.debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .debate-card {
   background: var(--card);
   border-radius: var(--radius);
@@ -564,72 +451,35 @@ body {
 .debate-card h3 {
   font-family: var(--font-family-display);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: var(--font-weight-heading, 700);
   letter-spacing: 1px;
   text-transform: uppercase;
   margin: 0 0 12px 0;
 }
-.debate-card.optimist h3 {
-  color: var(--color-success);
-}
-.debate-card.pessimist h3 {
-  color: var(--color-error);
-}
-.debate-card ul {
-  margin: 0;
-  padding-left: 16px;
-  font-size: 14px;
-  line-height: 1.65;
-}
-.debate-card li {
-  margin-bottom: 6px;
-}
+.debate-card.optimist h3 { color: var(--color-success); }
+.debate-card.pessimist h3 { color: var(--color-error); }
+.debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+.debate-card li { margin-bottom: 6px; }
 ```
 
----
-
-## Donut Chart
+### Donut Chart
 
 The SVG donut is 200×200. Center is at cx="100" cy="100". Use `r="70"` for the ring (circumference ≈ 440). Each segment is a `<circle>` with `stroke-dasharray` and `stroke-dashoffset`. Legend sits beside it in a flex row.
 
+The empty-ring base circle uses `stroke="var(--border)"`. Each filled segment uses one of `var(--color-primary)`, `var(--color-secondary)`, `var(--color-accent)`, `var(--color-success)`, `var(--color-warning)` in that priority order (repeat/mix if more than 5 segments) — never introduce a color outside those five tokens. Center label text uses `fill="var(--color-text)"` and `font-family` matching `--font-family-display`.
+
 ```css
-.donut-wrap {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  flex-wrap: wrap;
-}
-.donut-legend {
-  flex: 1;
-  min-width: 180px;
-}
-.legend-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.legend-pct {
-  font-family: var(--font-family-mono);
-  font-weight: 700;
-  margin-left: auto;
-  font-size: 13px;
-}
+.donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.donut-legend { flex: 1; min-width: 180px; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
 ```
 
-Segment bar rows (current vs projected, below the donut):
+Segment bar rows (current vs projected, below the donut) — `.seg-fill`/`.seg-proj` inline `background` uses the same segment token as the matching donut wedge:
 
 ```css
-.seg-row {
-  margin-bottom: 16px;
-}
+.seg-row { margin-bottom: 16px; }
 .seg-label {
   display: flex;
   justify-content: space-between;
@@ -639,25 +489,105 @@ Segment bar rows (current vs projected, below the donut):
   font-weight: 700;
   letter-spacing: 0.5px;
 }
-.seg-track {
-  background: var(--card2);
-  border-radius: 4px;
-  height: 8px;
-  overflow: hidden;
-  position: relative;
+.seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+.seg-fill { height: 100%; border-radius: 4px; }
+.seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+.seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+```
+
+### Flat / Tabular Components (default for comparable or tabular content)
+
+Per `ruleset.md`'s card-discipline rule: `.tldr` and `.verdict` are the only two boxed/shadowed treatments a report gets — every other section uses one of these flatter components instead of a `.card`/`.stat-card`/`.scenario-card`/`.debate-card` grid. The boxed components above (Stat Grid, Scenario Cards, Debate Box) stay defined for the rare case a section genuinely needs individually-weighted boxes, but default to the components below first.
+
+```css
+/* Exhibit visual — bordered, unshadowed frame for a chart (never a card: no fill, no shadow) */
+.exhibit-visual {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 14px;
 }
-.seg-fill {
-  height: 100%;
-  border-radius: 4px;
+
+/* Subhead — a labeled sub-block within a section that doesn't need its own card */
+.subhead {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: var(--font-weight-heading, 700);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 10px 0;
 }
-.seg-proj {
-  height: 100%;
-  border-radius: 4px;
-  opacity: 0.45;
+
+/* Split columns — flat two-up text layout divided by a hairline rule, no card boxes.
+   Default for any paired-column content (story/bet, how-it-works/why-clever,
+   opportunity/why-we-win, growth/risks, optimist/pessimist). */
+.split-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.split-cols > div + div { border-left: 1px solid var(--border); padding-left: 32px; }
+.split-cols h3 {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: var(--font-weight-heading, 700);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 10px 0;
 }
-.seg-note {
-  font-size: 12px;
+.split-cols p { font-size: 15px; line-height: 1.65; margin: 0; }
+.split-cols ul { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.65; }
+.split-cols li { margin-bottom: 6px; }
+
+/* Item list — icon rows separated by hairline rules instead of sitting in a card.
+   Default wrapper for Competitive Edge and Growth/Risk item-rows. */
+.item-list .item-row { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.item-list .item-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+/* Report table — theme-native tabular exhibit for comparable rows: financial metrics,
+   scenarios, rated items. Default for Financial Snapshot, Hidden Catalyst stats,
+   Catalyst Scenarios, Overall Scenario Analysis, and Wall Street Consensus. */
+.report-table-wrap { overflow-x: auto; }
+.report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.report-table th {
+  font-family: var(--font-family-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   color: var(--muted);
-  margin-top: 4px;
+  text-align: left;
+  padding: 0 16px 8px 0;
+  border-bottom: 2px solid var(--color-primary);
+  white-space: nowrap;
+}
+.report-table td {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.report-table tr:hover td { background: color-mix(in srgb, var(--color-primary) 4%, transparent); }
+.report-table tr:last-child td { border-bottom: 1px solid var(--border); }
+.report-table .row-label {
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.report-table .mono { font-family: var(--font-family-mono); font-weight: 700; }
+.report-table ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.55; }
+.report-table li { margin-bottom: 3px; }
+```
+
+Add the matching responsive rules to every report's required media-query block (`layout.md`'s Page Shell):
+
+```css
+@media (max-width: 760px) {
+  .split-cols { grid-template-columns: 1fr; }
+  .split-cols > div + div {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
 }
 ```

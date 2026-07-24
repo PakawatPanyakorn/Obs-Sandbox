@@ -1,10 +1,68 @@
 # Stock Analysis — HTML Layout & Section Templates
 
-All sections sit inside `<div class="page">`. Write them in this exact order.
+All sections sit inside `<div class="page">`, in the order below. The 16 sections themselves (their content and data bindings) are the same regardless of which layout-factory archetype was picked; what changes per report is the **structural blend** in Part 1 below: container width, grid module, spacing rhythm, masthead/hero treatment, and one signature structural move drawn from the selected archetype.
+
+**Card discipline (baseline for every report, independent of layout family):** `.tldr` and `.verdict` are the only two boxed/shadowed treatments a report gets — they're the report's bookend "pull-quote" moments. Every other section uses the flat/tabular components from `html-theme.md`'s "Flat / Tabular Components" block instead of stacking `.card`/`.stat-card`/`.scenario-card`/`.debate-card` boxes: `.report-table` for comparable rows (financial metrics, scenarios, rated items), `.split-cols` for paired text (story/bet, opportunity/why-we-win, growth/risks, optimist/pessimist), `.item-list` for icon rows (Competitive Edge, and the two Growth/Risk columns), `.exhibit-visual` for the chart frame in Revenue Mix, and a bare `.subhead` for the Timeline label. A report that boxes every section in a shadowed card, regardless of which layout was picked, is the anti-pattern this baseline exists to prevent — see `ruleset.md`'s "Card overuse" rule.
 
 ---
 
-## Page Shell
+## Part 1 — Structural Blend (Selected Layout Archetype)
+
+`style-selection.md` picked one layout-factory preset and noted its `family`. Read `~/.claude/skills/layout-factory/layouts/<selected-layout>.html` for its JSON (`grid.columns`, `grid.gutter`, `grid.maxWidth`, `grid.marginInline`, `spacing.scale`, `spacing.sectionGap`) and `~/.claude/skills/layout-factory/layouts/<selected-layout>.md` for its **Region / Component Guidance** and **Content-Type Notes** (use the `cardOrListHeavy` notes — that's the closest match to this report's shape).
+
+### Structural token block
+
+Inject alongside (never inside) the theme-factory `:root` block from `html-theme.md` — separate namespace, per `apply-mode-html-implementation.md`'s coexistence rule:
+
+```css
+/* Layout: <selected-layout> - applied by obs-layout-factory */
+:root {
+  --layout-columns: <from grid.columns>;
+  --layout-gutter: <from grid.gutter>;
+  --layout-max-width: <from grid.maxWidth>;
+  --layout-margin-inline: <from grid.marginInline>;
+  --layout-space-2: <spacing.scale[1]>;
+  --layout-space-4: <spacing.scale[3]>;
+  --layout-space-6: <spacing.scale[5]>;
+  --layout-section-gap: <spacing.sectionGap or spacing.scale[6]>;
+}
+```
+
+Apply `--layout-max-width` to `.page` (replacing the 900px default in `html-theme.md`) and `--layout-section-gap` to `.section { margin-bottom: ... }`. Add `data-layout="<selected-layout>"` on `<body>`.
+
+### Blend pattern by family
+
+Pick the block matching the selected layout's `family`. Apply it on top of the existing 16 sections — don't remove or reorder sections, just adjust how they're grouped, captioned, and spaced.
+
+**`data-dense-report`** (e.g. `data-dense-report-grid`, `marginalia-annotated`, `tufte-sidenote`)
+- This family is where the report-table/split-cols/item-list baseline matters most — lean into it fully rather than the minimum. Add a quiet masthead identity band as the very first element inside `.page` (report name · ticker · series label, small mono uppercase, hairline border-bottom) and give every `.section` a hairline `border-top` (instead of bare margin) so the page reads as a numbered stream, not a scroll of loosely-spaced blocks.
+- Add a one-line mono caption above every major exhibit — not just three — using a colored `FIG. NN` prefix: `<div class="fig-caption"><span class="fig-num">FIG. 01</span>What this exhibit shows.</div>`. Number sequentially through the report across all of: Financial Snapshot, Revenue Mix, Hidden Catalyst stats, Analyst Scorecard, Growth & Risks, Overall Scenario Analysis, and Wall Street Consensus. Narrative-only sections (Simple Story, Business Model, Hidden Catalyst opportunity/wins, Competitive Edge, Investor Debate, Verdict) stay caption-free — they're argument, not exhibits.
+- Give the TL;DR box the archetype's one allowed pull-quote treatment (per its doc) if it has one — e.g. bumping its shadow to `--shadow-lg` instead of the default `--shadow-md`.
+
+**`editorial-narrative`** (e.g. `magazine-well`, `single-column-editorial`, `masthead-feature-river`, `timeline-river`, `cover-and-contents`)
+- Pick ONE section to act as the dominant lead — Hidden Catalyst Deep Dive is the natural choice (it's already the longest, most-researched section); occasionally Bottom Line Verdict if the catalyst section came back thin.
+- Give the lead section a larger `.section-title` (add 2-3px) and, if the archetype uses pull quotes, pull one sentence from it into a `<blockquote>` styled per `html-theme.md`'s verdict treatment (surface-tinted, hero shadow).
+- Quiet the other sections slightly by comparison: drop their card `box-shadow` to `--shadow-sm` even where they'd default to `--shadow-md`, and don't give them oversized captions.
+
+**`grid-discipline`** (e.g. `swiss-international-grid`, `bauhaus-geometry`, `bauhaus-konstrukt`, `bento-mosaic`, `two-column-academic`, `asymmetric-split`, `card-catalogue-index`)
+- Snap `.split-cols` and `.report-table` gaps/gutters to `--layout-gutter` and the archetype's declared column span for that region — no ad hoc gap values outside the injected spacing scale.
+- Flush-left every `.section-title`, `.split-cols h3`, and `.report-table th` (already default; just don't center anything).
+- If the archetype is `asymmetric-split`: move the Footer/Sources section into a persistent text-only rail beside the main body (8:4 ratio) instead of stacking it at the bottom — rail entries are plain hairline-divided text, matching the `.item-list` convention already used elsewhere in the report.
+
+**`dashboard-legitimate`** (`dashboard-with-rail` — rare pick; `style-selection.md` disqualifies it by default for this static content, only chosen when the request explicitly wants that feel)
+- Confine the TL;DR box and Financial Snapshot's report-table into a persistent left rail (`position: sticky; top: 20px`) at `--layout-columns` fraction ~1/4 width; the rest of the sections (business story, catalyst, competitive edge, debate, verdict) run in the remaining body column.
+- Everything inside the rail keeps its existing card markup — only the container becomes sticky/narrow, not the components themselves.
+
+### Responsive grid behaviour
+
+| Window width | `.split-cols` | `.report-table` |
+|---|---|---|
+| > 760 px | 2 columns, hairline vertical divider | Full table, normal layout |
+| ≤ 760 px | 1 column, divider flips to a horizontal hairline (`border-top` instead of `border-left`) | Wrapped in `.report-table-wrap` (`overflow-x: auto`) so it scrolls horizontally instead of breaking |
+
+The donut chart (`donut-wrap`) stacks vertically below 520 px. If any section still uses the boxed `.grid-2`/`.grid-3`/`.stat-grid`/`.scenario-grid`/`.debate-grid` components (rare — see the card-discipline note above), they follow the older 3-column → 2-column → 1-column collapse at 760px/520px. If the selected layout's JSON declares its own `grid.breakpoints`, use those column counts instead — but keep the same two breakpoint widths (760px, 520px) so the rest of the CSS doesn't need per-report media query rewrites.
+
+### Page Shell
 
 ```html
 <!DOCTYPE html>
@@ -13,16 +71,25 @@ All sections sit inside `<div class="page">`. Write them in this exact order.
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TICKER — Stock Analysis · MonYY</title>
-  <!-- Google Fonts (from html-theme.md) -->
+  <!-- Google Fonts (copied from the selected theme-factory preset, per html-theme.md Part 1) -->
   <style>
-    /* CSS from html-theme.md — paste the full block here */
+    /* Theme :root block (html-theme.md Part 1) */
+    /* Layout :root block (this file, Part 1) */
+    /* Component CSS (html-theme.md Part 2) */
 
     /* Responsive layout — REQUIRED in every report */
     @media (max-width: 760px) {
       body { padding: 12px; }
       .grid-2,
-      .debate-grid {
+      .debate-grid,
+      .split-cols {
         grid-template-columns: 1fr;
+      }
+      .split-cols > div + div {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid var(--border);
+        padding-top: 20px;
       }
       .grid-3,
       .stat-grid,
@@ -46,10 +113,10 @@ All sections sit inside `<div class="page">`. Write them in this exact order.
     }
   </style>
 </head>
-<body>
+<body data-layout="<selected-layout>">
 <div class="page">
 
-  <!-- Sections 1–16 in order below -->
+  <!-- Sections 1–16 in order below, blended per the family pattern in Part 1 -->
 
 </div>
 <script>
@@ -58,16 +125,6 @@ All sections sit inside `<div class="page">`. Write them in this exact order.
 </body>
 </html>
 ```
-
-**Responsive grid behaviour:**
-
-| Window width | `.grid-2` / `.debate-grid` | `.grid-3` / `.stat-grid` / `.scenario-grid` |
-|---|---|---|
-| > 760 px | 2 columns | 3 columns |
-| 521–760 px | 1 column | 2 columns |
-| ≤ 520 px | 1 column | 1 column |
-
-The donut chart (`donut-wrap`) stacks vertically below 520 px.
 
 ---
 
@@ -126,27 +183,23 @@ Place immediately after the hero. Uses `+` / `!` / `-` / `►` prefix symbols.
 
 ## Section 3 · Financial Snapshot
 
-Three-column stat grid. Minimum 9 stat cards. Color-code values: green = positive/growing, red = negative/loss, yellow = mixed.
+A `.report-table` exhibit: Metric | Value | Detail. Minimum 9 rows. Color-code the Value cell: green = positive/growing, red = negative/loss, yellow = mixed.
 
 ```html
 <div class="section">
   <div class="section-title">Financial Snapshot</div>
-  <div class="stat-grid">
-    <div class="stat-card">
-      <div class="stat-label">Stock Price</div>
-      <div class="stat-value">$XX.XX</div>
-      <div class="stat-sub">As of Mon YYYY</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Market Cap</div>
-      <div class="stat-value">$XXB</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Revenue (TTM)</div>
-      <div class="stat-value val-green">$XXB</div>
-      <div class="stat-sub">+XX% YoY</div>
-    </div>
-    <!-- Continue: Net Income, EPS, Gross Margin, Forward Guidance, Analyst Target, Next Event -->
+  <div class="report-table-wrap">
+    <table class="report-table">
+      <thead>
+        <tr><th>Metric</th><th>Value</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">Stock Price</td><td class="mono">$XX.XX</td><td>As of Mon YYYY</td></tr>
+        <tr><td class="row-label">Market Cap</td><td class="mono">$XXB</td><td>—</td></tr>
+        <tr><td class="row-label">Revenue (TTM)</td><td class="mono val-green">$XXB</td><td>+XX% YoY</td></tr>
+        <!-- Continue: Net Income, EPS, Gross Margin, Forward Guidance, Analyst Target, Next Event -->
+      </tbody>
+    </table>
   </div>
 </div>
 ```
@@ -160,21 +213,22 @@ Three-column stat grid. Minimum 9 stat cards. Color-code values: green = positiv
 ```html
 <div class="section">
   <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
-  <div class="card">
+  <div class="exhibit-visual">
 
     <!-- Donut SVG + legend side by side -->
     <div class="donut-wrap">
       <svg width="200" height="200" viewBox="0 0 200 200">
         <!-- Each segment: stroke-dasharray="<seg_len> 440" stroke-dashoffset="<offset>" -->
-        <circle cx="100" cy="100" r="70" fill="none" stroke="#E5DCC8" stroke-width="28"/>
-        <circle cx="100" cy="100" r="70" fill="none" stroke="#1E3B6F" stroke-width="28"
+        <circle cx="100" cy="100" r="70" fill="none" stroke="var(--border)" stroke-width="28"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="var(--color-primary)" stroke-width="28"
                 stroke-dasharray="220 440" stroke-dashoffset="0" stroke-linecap="butt"/>
-        <!-- repeat per segment, incrementing offset by previous segment lengths -->
-        <text x="100" y="104" text-anchor="middle" font-family="'Cinzel',serif" font-size="13" font-weight="700" fill="#1C1812">Revenue</text>
+        <!-- repeat per segment, incrementing offset by previous segment lengths; cycle through
+             var(--color-primary), var(--color-secondary), var(--color-accent), var(--color-success), var(--color-warning) -->
+        <text x="100" y="104" text-anchor="middle" font-family="var(--font-family-display)" font-size="13" font-weight="700" fill="var(--color-text)">Revenue</text>
       </svg>
       <div class="donut-legend">
         <div class="legend-row">
-          <div class="legend-dot" style="background:#1E3B6F"></div>
+          <div class="legend-dot" style="background:var(--color-primary)"></div>
           <span>Segment Name</span>
           <span class="legend-pct">50%</span>
         </div>
@@ -189,12 +243,12 @@ Three-column stat grid. Minimum 9 stat cards. Color-code values: green = positiv
     <div class="seg-row">
       <div class="seg-label"><span>Segment Name</span><span style="font-family:var(--font-family-mono)">50% → 60%</span></div>
       <div class="seg-track">
-        <div class="seg-fill" style="width:50%;background:#1E3B6F"></div>
+        <div class="seg-fill" style="width:50%;background:var(--color-primary)"></div>
       </div>
-      <div class="seg-proj js-proj-bar" data-target="60" style="width:0%;background:#1E3B6F;margin-top:3px;height:4px;border-radius:2px"></div>
+      <div class="seg-proj js-proj-bar" data-target="60" style="width:0%;background:var(--color-primary);margin-top:3px;height:4px;border-radius:2px"></div>
       <div class="seg-note">Brief annotation explaining expected shift.</div>
     </div>
-    <!-- repeat per segment -->
+    <!-- repeat per segment, matching the same color used for that segment's donut wedge -->
 
   </div>
 </div>
@@ -206,17 +260,17 @@ IntersectionObserver JS (add to bottom of file) animates `.js-proj-bar` elements
 
 ## Section 5 · What Does This Company Actually Do?
 
-Two story-boxes with top accent borders.
+Two flat text columns divided by a hairline rule — no card boxes.
 
 ```html
 <div class="section">
   <div class="section-title">What Does This Company Actually Do?</div>
-  <div class="grid-2">
-    <div class="card">
+  <div class="split-cols">
+    <div>
       <h3>The Simple Story</h3>
       <p>Explain the business in one paragraph. Zero jargon. Use a simple analogy (e.g. "like Netflix but for your health"). Write as if explaining to a 10-year-old.</p>
     </div>
-    <div class="card">
+    <div>
       <h3>The Big Bet Right Now</h3>
       <p>What is the company betting on this year? What would need to go right for it to pay off?</p>
     </div>
@@ -228,22 +282,22 @@ Two story-boxes with top accent borders.
 
 ## Section 6 · Business Model
 
-Two-column grid.
+Two flat text columns divided by a hairline rule.
 
 ```html
 <div class="section">
   <div class="section-title">Business Model</div>
-  <div class="grid-2">
-    <div class="card">
+  <div class="split-cols">
+    <div>
       <h3>How They Make Money</h3>
-      <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.65">
+      <ul>
         <li>Revenue stream 1 — brief description</li>
         <li>Revenue stream 2</li>
       </ul>
     </div>
-    <div class="card">
+    <div>
       <h3>Why the Model Is Clever</h3>
-      <ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.65">
+      <ul>
         <li>Structural advantage 1</li>
         <li>Structural advantage 2</li>
       </ul>
@@ -258,43 +312,43 @@ Two-column grid.
 
 This is the longest and most researched section. If no catalyst was found, write: *"Insufficient public data found to identify a clear underreported catalyst. A follow-up search is recommended."* — do not pad with generic commentary.
 
+If the `editorial-narrative` blend pattern (Part 1) picked this section as the lead, apply its larger section-title and pull-quote treatment here.
+
 Structure:
 
 ```html
 <div class="section">
   <div class="section-title">Hidden Catalyst Deep Dive</div>
 
-  <!-- Two story-boxes: what it is + why this company wins -->
-  <div class="grid-2" style="margin-bottom:16px">
-    <div class="card">
+  <!-- Two flat text columns: what it is + why this company wins -->
+  <div class="split-cols" style="margin-bottom:24px">
+    <div>
       <h3>The Opportunity</h3>
       <p>Specifics: what exactly, how big, what the timeline looks like.</p>
     </div>
-    <div class="card">
+    <div>
       <h3>Why This Company Wins</h3>
       <p>Why this specific company has an advantage over competitors for this catalyst.</p>
     </div>
   </div>
 
-  <!-- Stat grid: TAM, key date/event, company readiness -->
-  <div class="stat-grid" style="margin-bottom:20px">
-    <div class="stat-card">
-      <div class="stat-label">TAM / Market Size</div>
-      <div class="stat-value">$XXB</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Key Date / Event</div>
-      <div class="stat-value" style="font-size:16px">Mon YYYY</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Company Readiness</div>
-      <div class="stat-value" style="font-size:15px">High / Medium / Early</div>
-    </div>
+  <!-- Report table: TAM, key date/event, company readiness -->
+  <div class="report-table-wrap" style="margin-bottom:24px">
+    <table class="report-table">
+      <thead>
+        <tr><th>Metric</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">TAM / Market Size</td><td class="mono">$XXB</td></tr>
+        <tr><td class="row-label">Key Date / Event</td><td class="mono">Mon YYYY</td></tr>
+        <tr><td class="row-label">Company Readiness</td><td class="mono">High / Medium / Early</td></tr>
+      </tbody>
+    </table>
   </div>
 
-  <!-- Vertical timeline: past milestones → present → future inflection -->
-  <div class="card" style="margin-bottom:16px">
-    <h3>Timeline</h3>
+  <!-- Vertical timeline: past milestones → present → future inflection — bare subhead, no card -->
+  <div style="margin-bottom:24px">
+    <div class="subhead">Timeline</div>
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-dot past"></div>
@@ -314,27 +368,34 @@ Structure:
     </div>
   </div>
 
-  <!-- Catalyst-specific 3-scenario grid — EDITORIAL OPINION tag on title -->
+  <!-- Catalyst-specific scenario table — EDITORIAL OPINION tag on title -->
   <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
-  <div class="scenario-grid">
-    <div class="scenario-card scenario-bull">
-      <h3>Positive Outcome</h3>
-      <div class="scenario-prob val-green">XX%</div>
-      <div class="scenario-target">+XX% stock impact</div>
-      <ul><li>Condition 1</li><li>Condition 2</li></ul>
-    </div>
-    <div class="scenario-card scenario-base">
-      <h3>Mixed Outcome</h3>
-      <div class="scenario-prob val-yellow">XX%</div>
-      <div class="scenario-target">+X% to -X% stock impact</div>
-      <ul><li>Condition 1</li></ul>
-    </div>
-    <div class="scenario-card scenario-bear">
-      <h3>Negative Outcome</h3>
-      <div class="scenario-prob val-red">XX%</div>
-      <div class="scenario-target">-XX% stock impact</div>
-      <ul><li>Condition 1</li></ul>
-    </div>
+  <div class="report-table-wrap">
+    <table class="report-table">
+      <thead>
+        <tr><th>Outcome</th><th>Probability</th><th>Stock Impact</th><th>Conditions</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label" style="color:var(--color-success)">Positive</td>
+          <td class="mono val-green">XX%</td>
+          <td class="mono val-green">+XX%</td>
+          <td><ul><li>Condition 1</li><li>Condition 2</li></ul></td>
+        </tr>
+        <tr>
+          <td class="row-label" style="color:var(--color-warning)">Mixed</td>
+          <td class="mono val-yellow">XX%</td>
+          <td class="mono val-yellow">+X% to -X%</td>
+          <td><ul><li>Condition 1</li></ul></td>
+        </tr>
+        <tr>
+          <td class="row-label" style="color:var(--color-error)">Negative</td>
+          <td class="mono val-red">XX%</td>
+          <td class="mono val-red">-XX%</td>
+          <td><ul><li>Condition 1</li></ul></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
 </div>
@@ -344,12 +405,12 @@ Structure:
 
 ## Section 8 · Competitive Edge
 
-Four to six item-rows. Include at least one underappreciated advantage.
+Four to six item-rows, hairline-divided — no wrapping card. Include at least one underappreciated advantage.
 
 ```html
 <div class="section">
   <div class="section-title">Competitive Edge</div>
-  <div class="card">
+  <div class="item-list">
     <div class="item-row">
       <div class="item-icon">★</div>
       <div>
@@ -366,12 +427,12 @@ Four to six item-rows. Include at least one underappreciated advantage.
 
 ## Section 9 · Analyst Scorecard
 
-Seven metrics on 0–10 scale. High score always means good/strong (see ruleset.md for naming constraint).
+Seven metrics on 0–10 scale, no wrapping card — the colored bars already carry enough visual weight. High score always means good/strong (see ruleset.md for naming constraint).
 
 ```html
 <div class="section">
   <div class="section-title">Analyst Scorecard</div>
-  <div class="card">
+  <div>
     <div class="meter-row">
       <div class="meter-label"><span>Business Model Strength</span><span>7 / 10</span></div>
       <div class="meter-track"><div class="meter-fill green" style="width:70%"></div></div>
@@ -408,34 +469,38 @@ Seven metrics on 0–10 scale. High score always means good/strong (see ruleset.
 
 ## Section 10 · Current Situation — Growth & Risks
 
-Two-column grid. Left = growth drivers (green header). Right = risks (red header). Only include ACTIVE or REDUCED risks — never RESOLVED.
+Two flat text columns divided by a hairline rule. Left = growth drivers (green header). Right = risks (red header). Only include ACTIVE or REDUCED risks — never RESOLVED.
 
 ```html
 <div class="section">
   <div class="section-title">Current Situation</div>
-  <div class="grid-2">
-    <div class="card">
+  <div class="split-cols">
+    <div>
       <h3 style="color:var(--color-success)">Growth Drivers</h3>
-      <div class="item-row">
-        <div class="item-icon" style="color:var(--green)">→</div>
-        <div>
-          <div class="item-title">Driver Title</div>
-          <div class="item-desc">Description of why this drives growth.</div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--green)">→</div>
+          <div>
+            <div class="item-title">Driver Title</div>
+            <div class="item-desc">Description of why this drives growth.</div>
+          </div>
         </div>
+        <!-- 3–4 drivers total -->
       </div>
-      <!-- 3–4 drivers total -->
     </div>
-    <div class="card">
+    <div>
       <h3 style="color:var(--color-error)">Risks</h3>
-      <div class="item-row">
-        <div class="item-icon" style="color:var(--red)">⚠</div>  <!-- red for ACTIVE, yellow for REDUCED -->
-        <div>
-          <div class="item-title">Risk Title [ACTIVE RISK]</div>
-          <div class="item-desc">Plain-English description of the risk.</div>
-          <div class="item-meta">Active as of Jun 2026 · Source: Reuters</div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-icon" style="color:var(--red)">⚠</div>  <!-- red for ACTIVE, yellow for REDUCED -->
+          <div>
+            <div class="item-title">Risk Title [ACTIVE RISK]</div>
+            <div class="item-desc">Plain-English description of the risk.</div>
+            <div class="item-meta">Active as of Jun 2026 · Source: Reuters</div>
+          </div>
         </div>
+        <!-- 3–4 risks total; each must show status + last-verified date + source -->
       </div>
-      <!-- 3–4 risks total; each must show status + last-verified date + source -->
     </div>
   </div>
 </div>
@@ -445,36 +510,43 @@ Two-column grid. Left = growth drivers (green header). Right = risks (red header
 
 ## Section 11 · Overall Scenario Analysis
 
-`[EDITORIAL OPINION]` tag on section title. Three cards: Bull / Base / Bear. All use $ price targets (not %).
+`[EDITORIAL OPINION]` tag on section title. A `.report-table`: Case | Probability | Price Target | Key Conditions — Bull / Base / Bear rows. All use $ price targets (not %).
 
 ```html
 <div class="section">
   <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
-  <div class="scenario-grid">
-    <div class="scenario-card scenario-bull">
-      <h3>Bull Case</h3>
-      <div class="scenario-prob val-green">XX%</div>
-      <div class="scenario-target">$XX–$XX target</div>
-      <ul>
-        <li>Condition for bull case 1</li>
-        <li>Condition 2</li>
-        <li>Condition 3</li>
-        <li>Condition 4</li>
-        <li>Condition 5</li>
-      </ul>
-    </div>
-    <div class="scenario-card scenario-base">
-      <h3>Base Case</h3>
-      <div class="scenario-prob val-yellow">XX%</div>
-      <div class="scenario-target">$XX–$XX target</div>
-      <ul><!-- 5–6 conditions --></ul>
-    </div>
-    <div class="scenario-card scenario-bear">
-      <h3>Bear Case</h3>
-      <div class="scenario-prob val-red">XX%</div>
-      <div class="scenario-target">$XX–$XX target</div>
-      <ul><!-- 5–6 conditions --></ul>
-    </div>
+  <div class="report-table-wrap">
+    <table class="report-table">
+      <thead>
+        <tr><th>Case</th><th>Probability</th><th>Price Target</th><th>Key Conditions</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label" style="color:var(--color-success)">Bull</td>
+          <td class="mono val-green">XX%</td>
+          <td class="mono val-green">$XX–$XX</td>
+          <td><ul>
+            <li>Condition for bull case 1</li>
+            <li>Condition 2</li>
+            <li>Condition 3</li>
+            <li>Condition 4</li>
+            <li>Condition 5</li>
+          </ul></td>
+        </tr>
+        <tr>
+          <td class="row-label" style="color:var(--color-warning)">Base</td>
+          <td class="mono val-yellow">XX%</td>
+          <td class="mono val-yellow">$XX–$XX</td>
+          <td><ul><!-- 5–6 conditions --></ul></td>
+        </tr>
+        <tr>
+          <td class="row-label" style="color:var(--color-error)">Bear</td>
+          <td class="mono val-red">XX%</td>
+          <td class="mono val-red">$XX–$XX</td>
+          <td><ul><!-- 5–6 conditions --></ul></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 ```
@@ -483,14 +555,14 @@ Two-column grid. Left = growth drivers (green header). Right = risks (red header
 
 ## Section 12 · Investor Debate
 
-`[EDITORIAL OPINION]` tag. Five bullets each side. Honest representation of both views — no bias.
+`[EDITORIAL OPINION]` tag. Five bullets each side, as flat text columns divided by a hairline rule — no card boxes. Honest representation of both views — no bias.
 
 ```html
 <div class="section">
   <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
-  <div class="debate-grid">
-    <div class="debate-card optimist">
-      <h3>The Optimist Sees…</h3>
+  <div class="split-cols">
+    <div>
+      <h3 style="color:var(--color-success)">The Optimist Sees…</h3>
       <ul>
         <li>Bull point 1</li>
         <li>Bull point 2</li>
@@ -499,8 +571,8 @@ Two-column grid. Left = growth drivers (green header). Right = risks (red header
         <li>Bull point 5</li>
       </ul>
     </div>
-    <div class="debate-card pessimist">
-      <h3>The Pessimist Sees…</h3>
+    <div>
+      <h3 style="color:var(--color-error)">The Pessimist Sees…</h3>
       <ul>
         <li>Bear point 1</li>
         <li>Bear point 2</li>
@@ -535,27 +607,22 @@ Two-column grid. Left = growth drivers (green header). Right = risks (red header
 
 ## Section 14 · Wall Street Consensus
 
-`[ANALYST ESTIMATE]` tag on section title.
+`[ANALYST ESTIMATE]` tag on section title. A `.report-table`: Metric | Value | Detail.
 
 ```html
 <div class="section">
   <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
-  <div class="stat-grid">
-    <div class="stat-card">
-      <div class="stat-label">Consensus Rating</div>
-      <div class="stat-value" style="font-size:18px">Buy</div>
-      <div class="stat-sub">X Buy · X Hold · X Sell</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Avg. Price Target</div>
-      <div class="stat-value val-green">$XX.XX</div>
-      <div class="stat-sub">vs. current $XX.XX (+XX%)</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Additional Signal</div>
-      <div class="stat-value" style="font-size:16px">XX%</div>
-      <div class="stat-sub">Short interest / Insider buying / Fair value estimate</div>
-    </div>
+  <div class="report-table-wrap">
+    <table class="report-table">
+      <thead>
+        <tr><th>Metric</th><th>Value</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">Consensus Rating</td><td class="mono">Buy</td><td>X Buy · X Hold · X Sell</td></tr>
+        <tr><td class="row-label">Avg. Price Target</td><td class="mono val-green">$XX.XX</td><td>vs. current $XX.XX (+XX%)</td></tr>
+        <tr><td class="row-label">Additional Signal</td><td class="mono">XX%</td><td>Short interest / Insider buying / Fair value estimate</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 ```
@@ -574,6 +641,8 @@ Two-column grid. Left = growth drivers (green header). Right = risks (red header
   <p style="font-size:12px;color:var(--muted);margin-top:16px">This is not financial advice. For informational purposes only. Analysis produced: Month YYYY.</p>
 </div>
 ```
+
+(If the `grid-discipline` blend pattern in Part 1 applies and the selected archetype is `asymmetric-split`, this section moves into the rail instead of staying here — see Part 1.)
 
 ---
 

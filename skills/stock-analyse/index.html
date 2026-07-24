@@ -659,6 +659,7 @@
           <button class="overlay-back" id="overlay-close">← Back</button>
           <div class="overlay-bar-divider"></div>
           <span id="overlay-title"></span>
+          <span id="overlay-date" class="card-date"></span>
         </div>
         <div class="overlay-actions">
           <a id="overlay-open" href="#">Open report ↗</a>
@@ -673,12 +674,14 @@
         const overlay = document.getElementById("overlay");
         const frame = document.getElementById("overlay-frame");
         const title = document.getElementById("overlay-title");
+        const dateEl = document.getElementById("overlay-date");
         const openBtn = document.getElementById("overlay-open");
         const closeBtn = document.getElementById("overlay-close");
 
-        function openOverlay(href, label) {
+        function openOverlay(href, label, date) {
           frame.src = href;
           title.textContent = label;
+          dateEl.textContent = date || "";
           openBtn.href = href;
           overlay.classList.remove("hidden");
           document.body.style.overflow = "hidden";
@@ -705,7 +708,8 @@
           const company = card
             .querySelector(".card-company")
             .textContent.trim();
-          openOverlay(card.href, `${ticker} — ${company}`);
+          const date = card.querySelector(".card-date").textContent.trim();
+          openOverlay(card.href, `${ticker} — ${company}`, date);
         });
 
         const btns = document.querySelectorAll(".sort-btn");

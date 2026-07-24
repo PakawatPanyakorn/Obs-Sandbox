@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="feature-trio-grid">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: feature-trio-grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&family=DM+Serif+Display&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "feature-trio-grid",
+    "description": "A hero headline sits above exactly three (rarely four) equal-width feature panels in a single row — the ubiquitous SaaS/product 'why choose us' section, disciplined to earn its uniform sizing instead of defaulting to it.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "feature-trio-grid",
+    "family": "grid-discipline",
+    "composition": {
+      "summary": "A centered hero (headline, one-line subhead, single primary CTA) sits above a 'well' of exactly three panels of identical width, each carrying a small icon or line-art visual, a short heading, and one sentence of description. The trio's equal sizing is not the default-card-grid anti-pattern — it's the one case in this catalog where uniform width is the correct structural signal, because the three claims genuinely are parallel and equally weighted. An optional single-line closing CTA band may follow.",
+      "regions": [
+        { "id": "masthead", "role": "logo, primary nav, and a single secondary CTA/login link", "columnSpan": "1-12", "order": 1, "notes": "One quiet row — never a second nav row or a mega-menu" },
+        { "id": "lead", "role": "the page's one hero statement: headline, one-line subhead, single primary CTA", "columnSpan": "1-12", "order": 2, "notes": "The only region allowed real visual weight (a gradient/shadow treatment); centered, not bisected" },
+        { "id": "well", "role": "exactly three (rarely four) equal-width feature panels in a single row", "columnSpan": "1-12", "order": 3, "notes": "The archetype's core discipline: capped item count, identical width, no card border/shadow — separation by whitespace and a hairline rule only" },
+        { "id": "body", "role": "optional single-line closing CTA band", "columnSpan": "1-12", "order": 4, "notes": "Omit entirely rather than inventing a second CTA just to fill space" }
+      ],
+      "hierarchy": { "primary": "lead", "secondary": "well", "tertiary": "masthead" },
+      "readingOrder": ["masthead", "lead", "well", "body"],
+      "entryPoint": "The hero headline and its single primary CTA button — the only two elements on the page at that scale, both centered on the same axis",
+      "balance": "symmetric"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "32px",
+      "maxWidth": "1200px",
+      "marginInline": "6vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Trio stacks to a single column, in the same order — never reflows or reorders by 'importance.'" },
+        "md": { "columns": 8, "gutter": "24px", "notes": "Trio becomes 2-up-plus-1, never forced 3-across at a width where it would cramp." },
+        "lg": { "columns": 12, "gutter": "32px", "notes": "Full 3-across row as shown in every variant below." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "lead": "1 / 13", "well": "1 / 13", "body": "1 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 32, 48, 64, 96],
+      "unit": "px",
+      "rhythm": "1.5x body line-height within a panel; a full section-gap step between hero, trio, and closing band",
+      "sectionGap": "64px",
+      "blockGap": "24px",
+      "inlineGap": "24px",
+      "density": "spacious"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": false, "placement": "", "style": "" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": true, "types": ["single proof-point callout beneath the trio (a stat or short quote), used at most once"] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "whitespace" },
+      "dropCaps": false,
+      "captions": { "style": "", "position": "" },
+      "numbering": { "sections": false, "figures": false }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid: the well uses grid-template-columns: repeat(3, 1fr) at desktop width, collapsing per the breakpoints above; lead and body stay single full-width blocks directly above and below it.",
+      "presentation": "Adapts directly and cleanly: the trio becomes one slide with three equal columns (slide-master-deck-grid's body zone at a 3-up split), or three consecutive single-idea slides — never one slide with three cramped bullet blocks.",
+      "print": "Lead spans the top of the page; the trio prints as a 3-column band directly beneath it on the same page.",
+      "markdown": "Lead becomes an H1 plus a one-line subhead. The trio becomes three H3 subsections in sequence, each with exactly one sentence — resist padding any single one longer just because markdown loses the equal-width visual cue that would otherwise signal parity."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "This is the one archetype in the catalog where uniform width across three items is the correct choice, not the card-grid anti-pattern's default: the trio's entire claim is 'these three things matter equally.' The discipline that keeps it from sliding into the generic anti-pattern: exactly three panels (never 'as many features as we happen to have'), no border or shadow on the panels themselves — separation comes from whitespace and a hairline top-rule only — a small icon or line-art mark rather than a photo, and one sentence of description, never a paragraph. The moment a fourth item gets added 'real quick,' or the panels grow borders/shadows, this has drifted into the generic marketing-page card-grid this skill's own checklist flags."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The trio drops icons entirely — each panel becomes a short heading and one sentence of prose, no visual placeholder. The hero's subhead carries more of the argument since there's no supporting image anywhere on the page.",
+        "bestFor": "SaaS/product marketing pages, service pages, 'why choose us' sections — three genuinely parallel value propositions stated in words alone.",
+        "avoid": "Padding a fourth benefit onto the row because it exists. If it doesn't carry equal weight to the other three, it belongs in a plain list below the trio, not inside it."
+      },
+      "chartHeavy": {
+        "howItAdapts": "Each panel becomes one small proof-point stat (a number plus one line of context) instead of an icon and description — this only works when the three numbers are genuinely comparable claims (three adoption metrics, three before/after deltas), never three unrelated KPIs dressed up to look parallel.",
+        "bestFor": "Product landing pages proving traction with three comparable metrics — users, uptime, time saved.",
+        "avoid": "This is the variant most likely to drift into a dashboard. If the three numbers wouldn't make sense read aloud together in one sentence, they aren't parallel enough for this archetype — use data-dense-report-grid instead."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "The trio becomes three genuinely comparable offerings — three plans, three product tiers, three use-cases — still capped at three, still equal width, still no shadow or border beyond a hairline top-rule.",
+        "bestFor": "Landing pages introducing exactly three comparable options before a dedicated pricing or comparison page takes over the detail.",
+        "avoid": "Don't let this grow into a four-or-more item product grid. Once there are more genuinely parallel items than three, that's card-catalogue-index's job — a real table or list — not this hero-plus-trio pattern."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "bauhaus-geometry", "why": "Its own philosophy is 'shapes ARE the UI' — three deliberately equal geometric badges are this archetype's trio made literal, no borrowed card convention required." },
+      { "theme": "acid-garden", "why": "Its 'chromatic overload by design' energy stress-tests whether the trio's discipline (exactly three, one sentence each) survives a maximalist marketing register that wants to shout." },
+      { "theme": "harbor-clay", "why": "Its 'corporate-editorial, not craft-boho' restraint is the calm counterpoint, proving the archetype reads as trustworthy enterprise marketing just as easily as playful product marketing." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 32px;
+      --lf-max-width: 1200px;
+      --lf-margin-inline: 6vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 32px; --lf-space-8: 48px;
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage, never body (see scoping rule in
+       modules/preset-template.html). Values read from each theme's own file/component markup:
+       skills/theme-factory/themes/<name>.html. */
+    .lf-variant-stage.theme-bauhaus-geometry {
+      --lf-ink: #1A1918; --lf-ink-muted: #6B6560; --lf-paper: #F5F0E8;
+      --lf-line: #D4CFC4; --lf-region-outline: #D4CFC4; --lf-accent: #E63329;
+      --lf-font-body: 'Josefin Sans', 'Futura', 'Century Gothic', sans-serif;
+      --lf-font-display: 'Josefin Sans', 'Futura', 'Century Gothic', sans-serif;
+      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.6; --lf-card-radius: 0px;
+      --lf-bg-image: none; --lf-bg-size: auto; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #FAFAF7;
+      /* bauhaus-geometry has no tf-glow-demo/tf-card component at all — its whole UI is
+         clip-path shape badges instead. Its closest real analog is the hard, blurless offset
+         shadow it uses everywhere (shadows.md) plus its red/blue Bauhaus-triad accent pair. */
+      --lf-shadow-hero: 6px 6px 0 #1A1918;
+      --lf-gradient-hero: none;
+      --lf-border-width: 2px;
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: #E63329;
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: #1B47D4;
+    }
+    .lf-variant-stage.theme-acid-garden {
+      --lf-ink: #1A1A1A; --lf-ink-muted: #5C6852; --lf-paper: #EDFCE8;
+      --lf-line: #C8E8C0; --lf-region-outline: #C8E8C0; --lf-accent: #FF0099;
+      --lf-font-body: 'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Unbounded', 'Impact', sans-serif;
+      --lf-font-mono: 'Fira Code', 'Courier New', monospace;
+      --lf-font-weight-heading: 900; --lf-line-height: 1.6; --lf-card-radius: 16px;
+      --lf-bg-image: radial-gradient(ellipse at 10% 20%, rgba(255,0,153,0.12) 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, rgba(0,153,255,0.1) 0%, transparent 40%), radial-gradient(ellipse at 70% 80%, rgba(204,255,0,0.14) 0%, transparent 45%), radial-gradient(ellipse at 30% 70%, rgba(255,102,0,0.08) 0%, transparent 40%);
+      --lf-bg-size: cover; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      --lf-surface: #F8FFF4;
+      /* acid-garden's own .tf-glow-demo: 2px solid primary border, shadow-colored, primary text —
+         its signature dual-offset "impact" shadow becomes this archetype's one hero treatment */
+      --lf-shadow-hero: 6px 6px 0 #FF0099, -3px -3px 0 #0099FF;
+      --lf-gradient-hero: linear-gradient(135deg, #FFD6EE 0%, #D4EFFF 50%, #E8FFB0 100%);
+      --lf-border-width: 2px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: #FF0099;
+      --lf-quote-text-color: #FF0099;
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: #0099FF;
+    }
+    .lf-variant-stage.theme-harbor-clay {
+      --lf-ink: #242B38; --lf-ink-muted: #6E6A61; --lf-paper: #F5F1E9;
+      --lf-line: #D6CFC0; --lf-region-outline: #D6CFC0; --lf-accent: #3B4A63;
+      --lf-font-body: 'Lora', Georgia, serif; --lf-font-display: 'DM Serif Display', Georgia, serif;
+      --lf-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.6; --lf-card-radius: 12px;
+      --lf-bg-image: none; --lf-bg-size: auto; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #ECE6DA;
+      --lf-shadow-hero: 0 4px 20px rgba(191,95,73,0.30), 0 2px 8px rgba(191,95,73,0.18);
+      --lf-gradient-hero: linear-gradient(135deg, #3B4A63 0%, #64708A 55%, #BF5F49 100%);
+      --lf-border-width: 1px;
+      /* harbor-clay's own .tf-glow-demo colors its quote text with glow-color, which resolves to
+         its SECONDARY terracotta (#BF5F49), not the primary navy — its "warmth" hue carries
+         emphasis, navy carries authority elsewhere. Its "Alt Surface" card changes background
+         only, no accent border, so emphasis here stays neutral (faithful restraint, not a gap). */
+      --lf-quote-border-width: 3px;
+      --lf-quote-border-color: #BF5F49;
+      --lf-quote-text-color: #BF5F49;
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Masthead — one quiet row: logo, nav, single secondary CTA */
+    .lf-ftg-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      padding-bottom: var(--lf-space-3);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-8);
+    }
+    .lf-ftg-brand { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.05rem; }
+    .lf-ftg-nav { display: flex; gap: var(--lf-space-4); font-size: 0.82rem; color: var(--lf-ink-muted); list-style: none; }
+    .lf-ftg-cta-link { font-size: 0.8rem; font-weight: 600; color: var(--lf-ink); }
+
+    /* Lead — the hero. Centered, symmetric (unlike split-hero's bisection) — the trio below is
+       what carries the asymmetric/parallel-claim discipline instead. */
+    .lf-ftg-hero { text-align: center; max-width: 720px; margin: 0 auto var(--lf-space-8); }
+    .lf-ftg-eyebrow { font-family: var(--lf-font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lf-ink-muted); margin-bottom: var(--lf-space-3); }
+    .lf-ftg-headline { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 2.6rem; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: var(--lf-space-3); }
+    .lf-ftg-subhead { font-size: 1.05rem; color: var(--lf-ink-muted); max-width: 56ch; margin: 0 auto var(--lf-space-4); }
+    .lf-ftg-cta {
+      display: inline-block;
+      background-color: var(--lf-surface);
+      background-image: var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      color: var(--lf-ink);
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: var(--lf-space-3) var(--lf-space-6);
+    }
+
+    /* Well — the trio itself. Exactly 3 equal-width panels; whitespace + hairline top-rule only,
+       never a bordered/shadowed card, per this archetype's own structural rule. */
+    .lf-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--lf-space-6); }
+    .lf-trio-item { border-top: var(--lf-border-width) solid var(--lf-line); padding-top: var(--lf-space-4); text-align: left; }
+    .lf-trio-item.emphasis { border-top-width: var(--lf-emphasis-border-width); border-top-color: var(--lf-emphasis-border-color); }
+    .lf-trio-icon {
+      width: 40px; height: 40px;
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-trio-item h3 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.1rem; margin-bottom: var(--lf-space-2); }
+    .lf-trio-item p { font-size: 0.88rem; color: var(--lf-ink-muted); }
+    .lf-trio-stat { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 2rem; color: var(--lf-quote-text-color); margin-bottom: var(--lf-space-2); }
+
+    /* Single proof-point callout — this archetype's stand-in for a pull quote, used at most once, beneath the trio */
+    .lf-ftg-insight {
+      background-color: var(--lf-surface);
+      color: var(--lf-quote-text-color);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      padding: var(--lf-space-3) var(--lf-space-4);
+      margin: var(--lf-space-6) auto 0;
+      max-width: 60ch;
+      font-size: 0.95rem; line-height: 1.55; text-align: left;
+    }
+
+    /* Optional closing CTA band — one line, omitted more often than shown */
+    .lf-ftg-closing { text-align: center; margin-top: var(--lf-space-8); padding-top: var(--lf-space-6); border-top: 1px solid var(--lf-line); }
+    .lf-ftg-closing h2 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.3rem; margin-bottom: var(--lf-space-3); }
+
+    .lf-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin: var(--lf-space-2) 0 var(--lf-space-4); }
+
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      min-width: 7.5rem;
+      text-align: center;
+      white-space: nowrap;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+
+    .lf-doc-toggle {
+      position: fixed;
+      top: calc(var(--lf-space-4) + 2.4rem);
+      right: var(--lf-space-4);
+      z-index: 20;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      min-width: 7.5rem;
+      text-align: center;
+      white-space: nowrap;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-doc-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-doc-toggle { display: none; }
+    .lf-doc-overlay {
+      position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .lf-doc-overlay[hidden] { display: none; }
+    .lf-doc-panel {
+      background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh;
+      border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .lf-doc-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .lf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .lf-doc-close:hover { color: #111; }
+    .lf-doc-body {
+      margin: 0; padding: 1.25rem; overflow: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.86rem; line-height: 1.65; color: #222;
+    }
+    .lf-doc-body > *:first-child { margin-top: 0; }
+    .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 {
+      font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111;
+    }
+    .lf-doc-body h1 { font-size: 1.3rem; }
+    .lf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .lf-doc-body h3 { font-size: 0.92rem; }
+    .lf-doc-body h4 { font-size: 0.86rem; }
+    .lf-doc-body p { margin: 0 0 0.85em; }
+    .lf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .lf-doc-body li { margin-bottom: 0.35em; }
+    .lf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .lf-doc-body strong { font-weight: 700; }
+    .lf-doc-body em { font-style: italic; }
+    .lf-doc-body code {
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em;
+      background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .lf-doc-panel { background: #1c1c22; color: #ddd; }
+      .lf-doc-panel-head { border-bottom-color: #333; }
+      .lf-doc-panel-title { color: #eee; }
+      .lf-doc-close { color: #999; }
+      .lf-doc-close:hover { color: #fff; }
+      .lf-doc-body { color: #ccc; }
+      .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 { color: #f0f0f0; }
+      .lf-doc-body h2 { border-bottom-color: #333; }
+      .lf-doc-body hr { border-top-color: #333; }
+      .lf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+  <button class="lf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="lf-doc-overlay" id="doc-overlay" hidden>
+    <div class="lf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="lf-doc-panel-head">
+        <span class="lf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="lf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="lf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">feature-trio-grid</span>
+    <span class="lf-meta-tags">feature-trio-grid &middot; grid-discipline</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">32px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1200px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">spacious</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">feature-trio-grid — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> SaaS/product marketing pages, 'why choose us' sections — three genuinely parallel value propositions.<br><strong>Avoid:</strong> padding a fourth benefit onto the row because it exists." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> landing pages proving traction with three comparable metrics — users, uptime, time saved.<br><strong>Avoid:</strong> three unrelated KPIs dressed up to look parallel when they aren't." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> landing pages introducing exactly three comparable offerings before a dedicated pricing page.<br><strong>Avoid:</strong> growing this into a four-or-more item product grid — that's card-catalogue-index's job." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="bauhaus-geometry" role="tab" aria-selected="false">bauhaus-geometry</button>
+      <button class="lf-theme-tab" data-theme-option="acid-garden" role="tab" aria-selected="false">acid-garden</button>
+      <button class="lf-theme-tab" data-theme-option="harbor-clay" role="tab" aria-selected="false">harbor-clay</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-ftg-header">
+          <span class="lf-ftg-brand">Layout-Factory</span>
+          <ul class="lf-ftg-nav">
+            <li>Product</li>
+            <li>Pricing</li>
+            <li>Docs</li>
+          </ul>
+          <span class="lf-ftg-cta-link">Sign in</span>
+        </div>
+        <div class="lf-ftg-hero">
+          <div class="lf-ftg-eyebrow">Feature Trio Grid</div>
+          <h1 class="lf-ftg-headline">Three Claims, Equally Weighted, Never a Fourth</h1>
+          <p class="lf-ftg-subhead">The concept: a centered hero states one argument, and exactly three panels beneath it back it up with three genuinely parallel, equally important reasons — never a card grid sized "as many as we have."</p>
+          <a class="lf-ftg-cta" href="#">Get Started</a>
+        </div>
+        <div class="lf-trio">
+          <div class="lf-trio-item">
+            <div class="lf-trio-icon"></div>
+            <h3>Why exactly three</h3>
+            <p>Three is the largest count a reader can hold as "equally weighted" at a glance. A fourth item quietly demotes the other three from a trio to a list — reach for card-catalogue-index once that happens.</p>
+          </div>
+          <div class="lf-trio-item">
+            <div class="lf-trio-icon"></div>
+            <h3>Why no card boxes</h3>
+            <p>A bordered, shadowed box implies a boundary content needs. These three claims don't need boundaries from each other — whitespace and a hairline top-rule communicate "distinct but equal" without implying separation that isn't there.</p>
+          </div>
+          <div class="lf-trio-item">
+            <h3>When not to use this</h3>
+            <p>If the three things aren't actually parallel — one matters more, or there are really five — this archetype will flatten a real hierarchy into a fake one. Use magazine-well or bento-mosaic instead, where size is allowed to vary.</p>
+          </div>
+        </div>
+        <div class="lf-ftg-insight">The tell that separates a real trio from a padded one: could you swap the order of the three panels and lose nothing? If one clearly has to come first, they were never equal — this archetype only fits content that's genuinely interchangeable in order.</div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-ftg-header">
+          <span class="lf-ftg-brand">Fieldnote</span>
+          <ul class="lf-ftg-nav">
+            <li>Features</li>
+            <li>Pricing</li>
+          </ul>
+          <span class="lf-ftg-cta-link">Log in</span>
+        </div>
+        <div class="lf-ftg-hero">
+          <div class="lf-ftg-eyebrow">Notes, Actually Organized</div>
+          <h1 class="lf-ftg-headline">The Notes App That Doesn't Fight You</h1>
+          <p class="lf-ftg-subhead">No folders to maintain, no tags to remember to apply, no sync conflicts to resolve at 2am.</p>
+          <a class="lf-ftg-cta" href="#">Try it free</a>
+        </div>
+        <div class="lf-trio">
+          <div class="lf-trio-item">
+            <h3>Finds itself</h3>
+            <p>Search understands what you meant, not just what you typed.</p>
+          </div>
+          <div class="lf-trio-item">
+            <h3>Syncs quietly</h3>
+            <p>Every device stays current within a second, with no conflict dialogs to resolve.</p>
+          </div>
+          <div class="lf-trio-item">
+            <h3>Never locks you in</h3>
+            <p>Export everything as plain markdown, any time, with one click.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-ftg-header">
+          <span class="lf-ftg-brand">Pathwise</span>
+          <ul class="lf-ftg-nav">
+            <li>Platform</li>
+            <li>Customers</li>
+          </ul>
+          <span class="lf-ftg-cta-link">Request a demo</span>
+        </div>
+        <div class="lf-ftg-hero">
+          <div class="lf-ftg-eyebrow">Proof, Not Promises</div>
+          <h1 class="lf-ftg-headline">The Numbers Teams Actually Cite in Renewal Meetings</h1>
+          <p class="lf-ftg-subhead">Three metrics, measured the same way, across every customer cohort since launch.</p>
+          <a class="lf-ftg-cta" href="#">See the methodology</a>
+        </div>
+        <div class="lf-trio">
+          <div class="lf-trio-item">
+            <div class="lf-trio-stat">40%</div>
+            <h3>Faster time-to-first-value</h3>
+            <p>Median across all cohorts onboarded in the last two quarters.</p>
+          </div>
+          <div class="lf-trio-item emphasis">
+            <div class="lf-trio-stat">99.98%</div>
+            <h3>Platform uptime</h3>
+            <p>Trailing 12 months, including every planned maintenance window.</p>
+          </div>
+          <div class="lf-trio-item">
+            <div class="lf-trio-stat">6.2x</div>
+            <h3>Return within year one</h3>
+            <p>Self-reported by customers on renewal, averaged across plan tiers.</p>
+          </div>
+        </div>
+        <div class="lf-ftg-insight">All three numbers are measured the same way across every customer — that consistency is what makes them parallel enough to sit in one trio. A metric measured differently per segment would break that claim.</div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-ftg-header">
+          <span class="lf-ftg-brand">Loft Studio</span>
+          <ul class="lf-ftg-nav">
+            <li>Work</li>
+            <li>Process</li>
+          </ul>
+          <span class="lf-ftg-cta-link">Start a project</span>
+        </div>
+        <div class="lf-ftg-hero">
+          <div class="lf-ftg-eyebrow">Three Ways We Work</div>
+          <h1 class="lf-ftg-headline">Pick the Engagement That Matches Where You Are</h1>
+          <p class="lf-ftg-subhead">Every project starts as one of these three — never a menu of a dozen packages.</p>
+          <a class="lf-ftg-cta" href="#">Compare in detail</a>
+        </div>
+        <div class="lf-trio">
+          <div class="lf-trio-item">
+            <h3>Sprint</h3>
+            <p>A two-week engagement to validate one specific idea before committing further.</p>
+          </div>
+          <div class="lf-trio-item">
+            <h3>Build</h3>
+            <p>A quarter-long engagement to ship a first version end to end.</p>
+          </div>
+          <div class="lf-trio-item">
+            <h3>Partner</h3>
+            <p>An ongoing retainer for teams that need continuous product work.</p>
+          </div>
+        </div>
+        <div class="lf-ftg-closing">
+          <h2>Not sure which one fits?</h2>
+          <a class="lf-ftg-cta" href="#">Talk to us for fifteen minutes</a>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-bauhaus-geometry', 'theme-acid-garden', 'theme-harbor-clay');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'lf-fullview', active: isFull }, '*');
+      }
+    });
+  </script>
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="kanban-board">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: kanban-board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;700&family=Bebas+Neue&family=Share+Tech+Mono&family=Exo+2:wght@400;500;700&family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Archivo:wght@400;500;700;900&family=League+Spartan:wght@400;700;900&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "kanban-board",
+    "description": "A variable number of equal-width vertical lanes (one per workflow stage), each holding a content-driven stack of individually bordered cards — the Trello/Jira board pattern, and the one archetype in this catalog where bordered card boxes are the correct default, not the anti-pattern.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "kanban-board",
+    "family": "dashboard-legitimate",
+    "composition": {
+      "summary": "A masthead band (title, filters, add-card control) sits above a row of equal-width lanes — typically three to six, one per workflow stage — each a vertical stack of cards. Every lane is structurally identical; every card within a lane shares the same small field set (title, optional tag, assignee, due date). Card height is entirely content-driven and never forced to match its neighbors within or across lanes. Unlike almost everything else in this catalog, individually bordered card boxes are the correct structural choice here, because each card is a genuinely discrete, independently movable unit of work — the exact 'distinct unit' exception the anti-pattern guide itself allows for boxes.",
+      "regions": [
+        { "id": "masthead", "role": "board title, filters, add-card control", "columnSpan": "1-12", "order": 1, "notes": "One row; a per-lane card-count badge lives in the lane header, not here" },
+        { "id": "rail", "role": "board/project switcher and saved views", "columnSpan": "1-2", "order": 2, "notes": "Optional — omit entirely when there's only one board; don't add a rail just to look more like a 'real' tool" },
+        { "id": "lane", "role": "one workflow stage; a vertical, content-driven stack of cards", "columnSpan": "flexible, equal fractions of the remaining width", "order": 3, "notes": "Repeated 3-6 times depending on the board's own workflow — count is data-driven, not fixed at authoring time" }
+      ],
+      "hierarchy": { "primary": "lane", "secondary": "masthead", "tertiary": "rail" },
+      "readingOrder": ["masthead", "rail", "lane"],
+      "entryPoint": "Whichever lane currently holds the most cards, or a single flagged/blocked card if one exists — a kanban board is scanned, not read start to finish, so there is no fixed entry point the way narrative archetypes have one",
+      "balance": "symmetric"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "16px",
+      "maxWidth": "1400px",
+      "marginInline": "3vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "12px", "notes": "Lanes stack vertically full-width in workflow order, one at a time (scrollable), rather than compressing side by side into unreadable slivers." },
+        "md": { "columns": 8, "gutter": "12px", "notes": "Lanes scroll horizontally at reduced width rather than wrapping — wrapping would break the left-to-right workflow order the whole archetype depends on." },
+        "lg": { "columns": 12, "gutter": "16px", "notes": "Full side-by-side lanes as shown in every variant below; exact count depends on the board's own workflow stages." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "rail": "1 / 3", "lane": "flexible — equal fractions of the remaining track via flexbox, not fixed 12-col spans, since lane count varies per board" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32],
+      "unit": "px",
+      "rhythm": "1.5x body line-height within a card; a block-gap step between stacked cards in a lane",
+      "sectionGap": "24px",
+      "blockGap": "12px",
+      "inlineGap": "12px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": false, "placement": "", "style": "" },
+      "sidebars": { "used": true, "width": "2 of 12 columns, optional", "contentType": "board/project switcher and saved views" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "", "position": "" },
+      "numbering": { "sections": false, "figures": false }
+    },
+    "mediaAdaptation": {
+      "html": "Lanes use display: flex with equal flex: 1 tracks (not fixed 12-col spans, since lane count varies per board), each lane a vertical flex column of card elements. The board container scrolls horizontally on narrow viewports rather than wrapping lanes, preserving left-to-right workflow order.",
+      "presentation": "Poor fit — a live, draggable board has no static-slide equivalent. If a snapshot is genuinely needed for a deck, render it as a static image of the current state and caption it with the capture date, rather than trying to rebuild interactivity.",
+      "print": "Weak fit for the same reason as presentation. A data-dense-report-grid table (task, stage, owner) usually communicates the same information better on paper than a printed lane snapshot.",
+      "markdown": "Degrades to a set of H2 sections, one per lane, each containing a bullet list of that lane's cards — left-to-right order becomes top-to-bottom, the only structural cue markdown preserves."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "This is the one archetype in the catalog where individually bordered card boxes are the correct choice, not the anti-pattern: each card represents a genuinely discrete, independently movable unit of work — draggable, individually assigned, individually labeled — exactly the 'distinct unit' exception anti-patterns.md itself carves out for boxes and borders. The discipline that keeps it from sliding into decoration: card height stays entirely content-driven, never forced to match its neighbors, and every card must be a real, actionable unit someone could drag to another lane. A card that's really just decorative section-header content dressed up as a task card is the failure mode to watch for."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "Cards hold a title and at most one line of description — no card becomes a mini-document. If a task genuinely needs paragraph-length context, that context belongs in a linked document, not expanded inline on the card.",
+        "bestFor": "Lightweight task boards, simple workflow trackers, personal to-do systems organized by stage rather than priority.",
+        "avoid": "Letting cards grow into full write-ups. A kanban card is a pointer to work, not the work's documentation."
+      },
+      "chartHeavy": {
+        "howItAdapts": "A compact per-lane count badge (e.g., '4 cards') is the only number that belongs directly in the lane header; per-card metrics (age, story points) appear as a small tag on the card itself, never as a separate chart floating in the board.",
+        "bestFor": "Boards that want a lightweight sense of flow or volume per stage without becoming a full analytics dashboard.",
+        "avoid": "Bolting a real chart onto the board. If genuine flow analytics are needed (cycle time, throughput), that belongs in a separate kpi-strip-hero-chart or dashboard-with-rail view, not wedged between lanes."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "The native mode: each card carries a title, an optional short tag or label, an assignee initial, and a due date — a fixed small field set so every card in every lane looks structurally identical, varying only in content and height.",
+        "bestFor": "Software issue trackers, editorial content pipelines, hiring pipelines, sales pipelines — any workflow genuinely organized by discrete stage.",
+        "avoid": "Giving different lanes different card templates. A card's fields should stay consistent across lanes so it doesn't need to change shape when it moves."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "neon-foundry", "why": "Kanban itself descends from Toyota's factory-floor production control system — this theme's own 'factory-floor precision' industrial register makes that lineage explicit rather than incidental." },
+      { "theme": "cosmica", "why": "Its own description calls itself a sci-fi 'mission-control tile board' aesthetic — a near-literal description of what a kanban board's lanes-of-cards structure already is." },
+      { "theme": "bauhaus-konstrukt", "why": "Its multi-hue card-bar system (each card getting a distinct top-color accent) gives lanes a way to carry a second signal — label/type — without inventing a new component beyond what the theme already provides." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 16px;
+      --lf-max-width: 1400px;
+      --lf-margin-inline: 3vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage, never body (see scoping rule in
+       modules/preset-template.html). Blocks reused verbatim from split-hero.html (neon-foundry),
+       bento-mosaic.html (cosmica), and swiss-international-grid.html (bauhaus-konstrukt). */
+    .lf-variant-stage.theme-neon-foundry {
+      --lf-ink: #D8DCE8; --lf-ink-muted: #6A7088; --lf-paper: #0E1014;
+      --lf-line: #2A2E3A; --lf-region-outline: #2A2E3A; --lf-accent: #FF6B35;
+      --lf-font-body: 'Barlow', 'Helvetica Neue', sans-serif; --lf-font-display: 'Bebas Neue', 'Impact', sans-serif;
+      --lf-font-mono: 'Share Tech Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.6; --lf-card-radius: 3px;
+      --lf-bg-image: linear-gradient(rgba(255,107,53,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,53,0.03) 1px, transparent 1px);
+      --lf-bg-size: 32px 32px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #161820;
+      --lf-shadow-hero: 0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,107,53,0.15);
+      --lf-gradient-hero: linear-gradient(160deg, #1C1F28 0%, #0E1014 50%, #12100E 100%);
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: #FF6B35;
+      --lf-quote-text-color: #FF6B35;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #FF6B35;
+    }
+    .lf-variant-stage.theme-cosmica {
+      --lf-ink: #E8E0F8; --lf-ink-muted: #7060A0; --lf-paper: #06041A;
+      --lf-line: #2A1F50; --lf-region-outline: rgba(168,85,247,0.25); --lf-accent: #A855F7;
+      --lf-font-body: 'Exo 2', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Orbitron', 'Impact', sans-serif;
+      --lf-font-mono: 'Space Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.65; --lf-card-radius: 12px;
+      --lf-bg-image: radial-gradient(ellipse at 20% 40%, rgba(168,85,247,0.25) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.12) 0%, transparent 45%), radial-gradient(ellipse at 60% 80%, rgba(244,63,94,0.18) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(6,4,26,0.9) 0%, #06041A 100%);
+      --lf-bg-size: cover; --lf-bg-position: 0 0; --lf-bg-repeat: no-repeat;
+      --lf-surface: rgba(13,8,40,0.6);
+      --lf-shadow-hero: 0 0 32px rgba(168,85,247,0.5), 0 4px 20px rgba(168,85,247,0.3);
+      --lf-gradient-hero: linear-gradient(135deg, #1A0A40 0%, #06041A 50%, #0A0420 100%);
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: #A855F7;
+      --lf-quote-text-color: #A855F7;
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: #06B6D4;
+    }
+    .lf-variant-stage.theme-bauhaus-konstrukt {
+      --lf-ink: #1A1A18; --lf-ink-muted: #6A6A60; --lf-paper: #F5F0E8;
+      --lf-line: #C0B8A8; --lf-region-outline: #C0B8A8; --lf-accent: #D42020;
+      --lf-font-body: 'Archivo', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'League Spartan', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 900; --lf-line-height: 1.55; --lf-card-radius: 0px;
+      --lf-bg-image: repeating-linear-gradient(45deg, rgba(26,26,24,0.04) 0, rgba(26,26,24,0.04) 2px, transparent 0, transparent 28px);
+      --lf-bg-size: 40px 40px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #EDE8DC;
+      --lf-shadow-hero: 8px 8px 0 #C0B8A8;
+      --lf-gradient-hero: none;
+      --lf-border-width: 2px;
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 4px;
+      --lf-emphasis-border-color: #1040A0;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    .lf-kb-header {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      padding-bottom: var(--lf-space-3);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      margin-bottom: var(--lf-space-4);
+    }
+    .lf-kb-title { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.1rem; }
+    .lf-kb-filters { display: flex; gap: var(--lf-space-3); font-size: 0.78rem; color: var(--lf-ink-muted); }
+    .lf-kb-add { font-family: var(--lf-font-mono); font-size: 0.72rem; border: var(--lf-border-width) solid var(--lf-region-outline); border-radius: var(--lf-card-radius); padding: var(--lf-space-1) var(--lf-space-3); color: var(--lf-ink); }
+
+    .lf-kb-body { display: flex; gap: var(--lf-gutter); align-items: flex-start; }
+    .lf-kb-rail { flex: 0 0 160px; border-right: var(--lf-border-width) solid var(--lf-line); padding-right: var(--lf-space-3); display: flex; flex-direction: column; gap: var(--lf-space-2); }
+    .lf-kb-rail-label { font-family: var(--lf-font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--lf-ink-muted); margin-bottom: var(--lf-space-1); }
+    .lf-kb-rail-item { font-size: 0.82rem; padding: var(--lf-space-1) 0; }
+    .lf-kb-rail-item.active { font-weight: 700; color: var(--lf-ink); }
+
+    /* The board — flexible equal-width lanes, count varies per board */
+    .lf-kb-board { display: flex; gap: var(--lf-gutter); flex: 1; overflow-x: auto; align-items: flex-start; }
+    .lf-kb-lane { flex: 1 1 0; min-width: 200px; display: flex; flex-direction: column; gap: var(--lf-space-3); }
+    .lf-kb-lane-header { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--lf-font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--lf-ink-muted); border-bottom: var(--lf-border-width) solid var(--lf-ink); padding-bottom: var(--lf-space-2); }
+    .lf-kb-lane-count { color: var(--lf-ink-muted); }
+
+    /* Cards — the ONE legitimate case of individually bordered boxes: each is a real, discrete,
+       movable unit of work, not decorative content wrapped in a box for no structural reason. */
+    .lf-kb-card {
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      padding: var(--lf-space-3);
+    }
+    .lf-kb-card.flagged { border-left: var(--lf-emphasis-border-width) solid var(--lf-emphasis-border-color); }
+    .lf-kb-card-tag {
+      display: inline-block; font-family: var(--lf-font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--lf-quote-text-color); border: var(--lf-quote-border-width) solid var(--lf-quote-border-color); border-radius: 999px;
+      padding: 1px 8px; margin-bottom: var(--lf-space-2);
+    }
+    .lf-kb-card-title { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 0.92rem; margin-bottom: var(--lf-space-1); }
+    .lf-kb-card-desc { font-size: 0.78rem; color: var(--lf-ink-muted); margin-bottom: var(--lf-space-2); }
+    .lf-kb-card-footer { display: flex; justify-content: space-between; align-items: center; font-family: var(--lf-font-mono); font-size: 0.68rem; color: var(--lf-ink-muted); }
+    .lf-kb-card-avatar { width: 18px; height: 18px; border-radius: 50%; background: var(--lf-region-outline); display: inline-flex; align-items: center; justify-content: center; font-size: 0.55rem; color: var(--lf-paper); font-weight: 700; }
+    .lf-kb-card-stat { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.1rem; color: var(--lf-quote-text-color); }
+
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      min-width: 7.5rem;
+      text-align: center;
+      white-space: nowrap;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+
+    .lf-doc-toggle {
+      position: fixed;
+      top: calc(var(--lf-space-4) + 2.4rem);
+      right: var(--lf-space-4);
+      z-index: 20;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      min-width: 7.5rem;
+      text-align: center;
+      white-space: nowrap;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-doc-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-doc-toggle { display: none; }
+    .lf-doc-overlay {
+      position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .lf-doc-overlay[hidden] { display: none; }
+    .lf-doc-panel {
+      background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh;
+      border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .lf-doc-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .lf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .lf-doc-close:hover { color: #111; }
+    .lf-doc-body {
+      margin: 0; padding: 1.25rem; overflow: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.86rem; line-height: 1.65; color: #222;
+    }
+    .lf-doc-body > *:first-child { margin-top: 0; }
+    .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 {
+      font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111;
+    }
+    .lf-doc-body h1 { font-size: 1.3rem; }
+    .lf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .lf-doc-body h3 { font-size: 0.92rem; }
+    .lf-doc-body h4 { font-size: 0.86rem; }
+    .lf-doc-body p { margin: 0 0 0.85em; }
+    .lf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .lf-doc-body li { margin-bottom: 0.35em; }
+    .lf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .lf-doc-body strong { font-weight: 700; }
+    .lf-doc-body em { font-style: italic; }
+    .lf-doc-body code {
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em;
+      background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .lf-doc-panel { background: #1c1c22; color: #ddd; }
+      .lf-doc-panel-head { border-bottom-color: #333; }
+      .lf-doc-panel-title { color: #eee; }
+      .lf-doc-close { color: #999; }
+      .lf-doc-close:hover { color: #fff; }
+      .lf-doc-body { color: #ccc; }
+      .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 { color: #f0f0f0; }
+      .lf-doc-body h2 { border-bottom-color: #333; }
+      .lf-doc-body hr { border-top-color: #333; }
+      .lf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+  <button class="lf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="lf-doc-overlay" id="doc-overlay" hidden>
+    <div class="lf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="lf-doc-panel-head">
+        <span class="lf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="lf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="lf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">kanban-board</span>
+    <span class="lf-meta-tags">kanban-board &middot; dashboard-legitimate</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">flex lanes</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">16px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1400px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">kanban-board — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> lightweight task boards, simple workflow trackers, personal to-do systems organized by stage.<br><strong>Avoid:</strong> letting cards grow into full write-ups — a card is a pointer to work, not the documentation." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> boards wanting a lightweight sense of flow/volume per stage without becoming a full dashboard.<br><strong>Avoid:</strong> bolting a real chart onto the board — flow analytics belong in a separate view." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> issue trackers, editorial pipelines, hiring pipelines, sales pipelines — any stage-based workflow.<br><strong>Avoid:</strong> giving different lanes different card templates." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="neon-foundry" role="tab" aria-selected="false">neon-foundry</button>
+      <button class="lf-theme-tab" data-theme-option="cosmica" role="tab" aria-selected="false">cosmica</button>
+      <button class="lf-theme-tab" data-theme-option="bauhaus-konstrukt" role="tab" aria-selected="false">bauhaus-konstrukt</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-kb-header">
+          <span class="lf-kb-title">Layout-Factory Roadmap</span>
+          <span class="lf-kb-filters">Assignee: All &middot; Label: All</span>
+          <span class="lf-kb-add">+ Add card</span>
+        </div>
+        <div class="lf-kb-body">
+          <div class="lf-kb-rail">
+            <div class="lf-kb-rail-label">Boards</div>
+            <div class="lf-kb-rail-item active">Roadmap</div>
+            <div class="lf-kb-rail-item">Bugs</div>
+            <div class="lf-kb-rail-item">Content Pipeline</div>
+          </div>
+          <div class="lf-kb-board">
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Backlog</span><span class="lf-kb-lane-count">6</span></div>
+              <div class="lf-kb-card">
+                <div class="lf-kb-card-title">Cards are boxes on purpose</div>
+                <div class="lf-kb-card-desc">Each card is a real, draggable unit — the one legitimate exception to this skill's "avoid boxes" rule.</div>
+                <div class="lf-kb-card-footer"><span>#102</span><span class="lf-kb-card-avatar">JL</span></div>
+              </div>
+              <div class="lf-kb-card">
+                <div class="lf-kb-card-title">Lane count is data, not design</div>
+                <div class="lf-kb-card-footer"><span>#103</span><span class="lf-kb-card-avatar">AK</span></div>
+              </div>
+            </div>
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>In Progress</span><span class="lf-kb-lane-count">2</span></div>
+              <div class="lf-kb-card flagged">
+                <span class="lf-kb-card-tag">Blocked</span>
+                <div class="lf-kb-card-title">When Not to Use This Archetype</div>
+                <div class="lf-kb-card-desc">A one-time linear process (an onboarding checklist walked once) is a plain list, not a board people move cards through repeatedly.</div>
+                <div class="lf-kb-card-footer"><span>#98</span><span class="lf-kb-card-avatar">JL</span></div>
+              </div>
+            </div>
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Review</span><span class="lf-kb-lane-count">1</span></div>
+              <div class="lf-kb-card">
+                <div class="lf-kb-card-title">Card height is content-driven</div>
+                <div class="lf-kb-card-desc">Never forced to match neighbors — a one-line card and a five-line card are both structurally correct.</div>
+                <div class="lf-kb-card-footer"><span>#95</span><span class="lf-kb-card-avatar">MR</span></div>
+              </div>
+            </div>
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Done</span><span class="lf-kb-lane-count">4</span></div>
+              <div class="lf-kb-card">
+                <div class="lf-kb-card-title">Fields stay consistent per lane</div>
+                <div class="lf-kb-card-footer"><span>#90</span><span class="lf-kb-card-avatar">AK</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-kb-header">
+          <span class="lf-kb-title">Personal Tasks</span>
+          <span class="lf-kb-filters">This week</span>
+          <span class="lf-kb-add">+ Add card</span>
+        </div>
+        <div class="lf-kb-body">
+          <div class="lf-kb-board">
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>To Do</span><span class="lf-kb-lane-count">3</span></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-title">Renew passport</div></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-title">Book dentist</div></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-title">Return library books</div></div>
+            </div>
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Doing</span><span class="lf-kb-lane-count">1</span></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-title">Plan weekend trip</div><div class="lf-kb-card-desc">Just the outline, not the full itinerary — that's a doc, not a card.</div></div>
+            </div>
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Done</span><span class="lf-kb-lane-count">2</span></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-title">Pay rent</div></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-title">Call mom</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-kb-header">
+          <span class="lf-kb-title">Support Queue</span>
+          <span class="lf-kb-filters">Priority: All</span>
+          <span class="lf-kb-add">+ Add ticket</span>
+        </div>
+        <div class="lf-kb-body">
+          <div class="lf-kb-board">
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>New</span><span class="lf-kb-lane-count">12</span></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-stat">2h</div><div class="lf-kb-card-title">Avg. wait, new tickets</div></div>
+            </div>
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Investigating</span><span class="lf-kb-lane-count">5</span></div>
+              <div class="lf-kb-card flagged"><span class="lf-kb-card-tag">SLA risk</span><div class="lf-kb-card-title">Checkout timeout report</div><div class="lf-kb-card-footer"><span>Age: 4h</span><span class="lf-kb-card-avatar">DR</span></div></div>
+            </div>
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Resolved</span><span class="lf-kb-lane-count">31</span></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-stat">94%</div><div class="lf-kb-card-title">First-contact resolution</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-kb-header">
+          <span class="lf-kb-title">Hiring: Senior Engineer</span>
+          <span class="lf-kb-filters">Role: All</span>
+          <span class="lf-kb-add">+ Add candidate</span>
+        </div>
+        <div class="lf-kb-body">
+          <div class="lf-kb-board">
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Screen</span><span class="lf-kb-lane-count">8</span></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-title">A. Torres</div><div class="lf-kb-card-footer"><span>Applied 2d</span><span class="lf-kb-card-avatar">AT</span></div></div>
+              <div class="lf-kb-card"><div class="lf-kb-card-title">J. Wu</div><div class="lf-kb-card-footer"><span>Applied 1d</span><span class="lf-kb-card-avatar">JW</span></div></div>
+            </div>
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Interview</span><span class="lf-kb-lane-count">3</span></div>
+              <div class="lf-kb-card"><span class="lf-kb-card-tag">Onsite</span><div class="lf-kb-card-title">R. Okoye</div><div class="lf-kb-card-footer"><span>Fri 2pm</span><span class="lf-kb-card-avatar">RO</span></div></div>
+            </div>
+            <div class="lf-kb-lane">
+              <div class="lf-kb-lane-header"><span>Offer</span><span class="lf-kb-lane-count">1</span></div>
+              <div class="lf-kb-card flagged"><span class="lf-kb-card-tag">Pending</span><div class="lf-kb-card-title">S. Park</div><div class="lf-kb-card-footer"><span>Sent 3d ago</span><span class="lf-kb-card-avatar">SP</span></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-neon-foundry', 'theme-cosmica', 'theme-bauhaus-konstrukt');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'lf-fullview', active: isFull }, '*');
+      }
+    });
+  </script>
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+</body>
+</html>

@@ -578,7 +578,10 @@
        embed/thumbnail mode same as Full View. */
     .lf-doc-toggle {
       position: fixed;
-      top: calc(var(--lf-space-4) + 2.4rem);
+      /* this preset's own --lf-space-2 (12px vs the 8px baseline elsewhere) plus its 1.5
+         line-height make the Full View button ~7px taller than the shared 2.4rem offset
+         assumes, so it needs a larger gap here to actually clear that button. */
+      top: calc(var(--lf-space-4) + 3rem);
       right: var(--lf-space-4);
       z-index: 20;
       appearance: none;
@@ -929,6 +932,9 @@
     fullviewBtn.addEventListener('click', function () {
       var isFull = document.body.classList.toggle('lf-fullview');
       fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'lf-fullview', active: isFull }, '*');
+      }
     });
   </script>
 

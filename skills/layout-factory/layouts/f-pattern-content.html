@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="f-pattern-content">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: f-pattern-content</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Courier+Prime:wght@400;700&family=Outfit:wght@300;400;500;600;700&family=Figtree:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@0,300;0,400;1,300&family=Gilda+Display&family=Mulish:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "f-pattern-content",
+    "description": "A scannable list where the first entry gets full-width attention and every entry beneath it carries progressively less horizontal weight — modeled directly on F-pattern eye-tracking heatmaps, with a narrow right rail that's deliberately treated as a low-attention zone.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "f-pattern-content",
+    "family": "editorial-narrative",
+    "composition": {
+      "summary": "Modeled directly on F-pattern eye-tracking heatmaps: the first entry gets full attention — both horizontal 'bars' of the F, a heading plus a full excerpt — each entry beneath it carries progressively less horizontal read-weight (a shorter excerpt, then eventually heading-only), and a narrow right rail sits beside the list as an explicitly low-attention zone that real eye-tracking data shows gets almost no engagement. The decreasing weight isn't laziness — it's the archetype's whole justification, modeling how attention genuinely decays down a scannable page.",
+      "regions": [
+        { "id": "masthead", "role": "page identity plus a search or filter control", "columnSpan": "1-12", "order": 1, "notes": "One quiet row above the list" },
+        { "id": "lead", "role": "the first one or two entries — the only ones read in full", "columnSpan": "1-9", "order": 2, "notes": "Full heading plus a 2-3 line excerpt; both horizontal strokes of the F" },
+        { "id": "river", "role": "subsequent entries, each with a shrinking excerpt down to heading-only", "columnSpan": "1-9", "order": 3, "notes": "The vertical stroke of the F: a left-anchored heading scan with decreasing horizontal weight per entry" },
+        { "id": "rail", "role": "a narrow, deliberately low-attention zone beside the list", "columnSpan": "10-12", "order": 4, "notes": "Never primary content, a key CTA, or exclusive information — eye-tracking shows this zone is barely scanned" }
+      ],
+      "hierarchy": { "primary": "lead", "secondary": "river", "tertiary": "rail" },
+      "readingOrder": ["masthead", "lead", "river", "rail"],
+      "entryPoint": "The first entry's heading, flush left — the single point of full attention before the decay curve this archetype models sets in",
+      "balance": "asymmetric-left"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "24px",
+      "maxWidth": "1200px",
+      "marginInline": "5vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "16px", "notes": "Rail drops beneath the list entirely — its content was barely scanned even at desktop width. Entries stack full width." },
+        "md": { "columns": 8, "gutter": "20px", "notes": "Rail narrows or drops; the list stays a single column at nearly full width." },
+        "lg": { "columns": 12, "gutter": "24px", "notes": "Full reading column (9 of 12) beside the low-attention rail (3 of 12), as shown in every variant below." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "lead": "1 / 10", "river": "1 / 10", "rail": "10 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 16, 24, 32, 48, 64],
+      "unit": "px",
+      "rhythm": "1.5x body line-height within an entry; a full section-gap step between the lead and the river, a block-gap step between river entries",
+      "sectionGap": "32px",
+      "blockGap": "24px",
+      "inlineGap": "16px",
+      "density": "comfortable"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": false, "placement": "", "style": "" },
+      "sidebars": { "used": true, "width": "3 of 12 columns, explicitly a low-attention zone", "contentType": "filters, related links, or promo — never primary content" },
+      "callouts": { "used": false, "types": [] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "", "position": "" },
+      "numbering": { "sections": false, "figures": false }
+    },
+    "mediaAdaptation": {
+      "html": "CSS: a single reading column (9 of 12 columns) holds the lead entry and river entries stacked vertically; the rail is a separate narrow column beside it that never receives primary content, matching the near-zero-attention right-hand zone eye-tracking studies observe.",
+      "presentation": "Poor fit — a scanning/skimming pattern has no slide equivalent. If a deck is required, render only the top one or two entries as their own slides and drop the rail and the skimmed lower entries entirely.",
+      "print": "Weak fit: eye-tracking heatmaps describe screen-scanning behavior tied to viewport-relative reading, not printed-page behavior. If printed, treat it as a plain single-column list instead of trying to preserve the decay curve.",
+      "markdown": "Degrades cleanly: the lead becomes an H2 plus a full paragraph, each river entry becomes an H3 plus a shortening line of body text in the same decreasing order, and the rail is dropped entirely."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "The tell this archetype gets right on purpose: entry weight decreases top-to-bottom by design, mirroring genuine eye-tracking data (the Nielsen Norman Group's F-pattern studies), not a case of 'later items matter less' laziness. The rail exists but is deliberately treated as a low-attention zone — never place a primary CTA, key metric, or exclusive content there. That's the specific failure mode this archetype is named to prevent: burying something important in a zone real users don't scan."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The lead entry carries a full 2-3 line excerpt; each subsequent river entry's excerpt shortens by roughly one line until entries are heading-only by the fourth or fifth position.",
+        "bestFor": "Blog archive pages, documentation search results, knowledge-base article listings — content that's fundamentally a scannable list of entries, not a single narrative.",
+        "avoid": "Writing every entry's excerpt to the same length 'for fairness.' That defeats the entire point of modeling how attention actually decays down the page."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The lead entry pairs its excerpt with one small inline chart or thumbnail; every entry after it drops the visual entirely and keeps only a shortening text line — charts are exactly the kind of content real eye-tracking shows gets skipped past the second or third position.",
+        "bestFor": "Analytics changelog or metrics-digest listings where only the top result genuinely deserves a visual.",
+        "avoid": "Giving every entry its own chart thumbnail. That assumes uniform attention this archetype explicitly denies."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "Each entry keeps the same heading-plus-shrinking-excerpt shape as the text-heavy variant, but the entry is a search result, product listing, or directory row instead of an article — the decreasing excerpt length still applies down the list.",
+        "bestFor": "Search results pages, marketplace listing pages, directory pages ranked by relevance.",
+        "avoid": "Boxing every result in an identical bordered card. Use whitespace plus a hairline rule between entries instead, exactly like masthead-feature-river's river entries."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "moss-cottage", "why": "Its own register — an orderly herbarium/field-guide shelf — already reads as a browsable, scannable index, a natural home for a listing whose whole design principle is graceful attention decay down the page." },
+      { "theme": "chalk-press", "why": "Its stated philosophy, 'typographic hierarchy does all the work,' is the same claim this archetype makes about attention: no boxes, no color cues, just type weight and position carrying the decreasing-emphasis signal down the list." },
+      { "theme": "titanium-cloud", "why": "Its own 'enterprise developer platform' register is exactly what a documentation search-results or article-index page looks like in practice — this archetype's most literal real-world habitat." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 24px;
+      --lf-max-width: 1200px;
+      --lf-margin-inline: 5vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
+      --lf-space-4: 24px; --lf-space-6: 32px; --lf-space-8: 48px;
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage, never body (see scoping rule in
+       modules/preset-template.html). titanium-cloud block reused verbatim from swiss-international-
+       grid.html/holy-grail.html; chalk-press reused verbatim from magazine-well.html; moss-cottage
+       reused verbatim from card-catalogue-index.html — all the same theme files, different archetypes. */
+    .lf-variant-stage.theme-moss-cottage {
+      --lf-ink: #2A2818; --lf-ink-muted: #7A7060; --lf-paper: #F2EEE0;
+      --lf-line: #C8C0A0; --lf-region-outline: #C8C0A0; --lf-accent: #5A7A3A;
+      --lf-font-body: 'Mulish', 'Helvetica Neue', sans-serif; --lf-font-display: 'Gilda Display', Georgia, serif;
+      --lf-font-mono: 'Fira Code', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.72; --lf-card-radius: 16px;
+      --lf-bg-image: radial-gradient(circle, rgba(90,122,58,0.1) 1px, transparent 1px);
+      --lf-bg-size: 18px 18px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #EAE4D0;
+      --lf-shadow-hero: 0 3px 14px rgba(42,40,24,0.12);
+      --lf-gradient-hero: linear-gradient(135deg, #E8E2CC 0%, #F2EEE0 50%, #EAE4D0 100%);
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #E8A840;
+    }
+    .lf-variant-stage.theme-chalk-press {
+      --lf-ink: #1C1916; --lf-ink-muted: #786A5C; --lf-paper: #F7F4EE;
+      --lf-line: #D5CFC4; --lf-region-outline: #D5CFC4; --lf-accent: #C41A1A;
+      --lf-font-body: 'Crimson Pro', Georgia, serif; --lf-font-display: 'Playfair Display', Georgia, serif;
+      --lf-font-mono: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-weight-heading: 900; --lf-line-height: 1.7; --lf-card-radius: 0px;
+      --lf-bg-image: repeating-linear-gradient(transparent, transparent 27px, rgba(139,90,70,0.09) 27px, rgba(139,90,70,0.09) 28px);
+      --lf-bg-size: auto 28px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #F2EEE6;
+      --lf-shadow-hero: 0 2px 0 #D5CFC4, 0 1px 8px rgba(28,25,22,0.06);
+      --lf-gradient-hero: none;
+      --lf-border-width: 2px;
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: var(--lf-accent);
+    }
+    .lf-variant-stage.theme-titanium-cloud {
+      --lf-ink: #111827; --lf-ink-muted: #6B7280; --lf-paper: #F6F8FA;
+      --lf-line: #D1D5DB; --lf-region-outline: #D1D5DB; --lf-accent: #2563EB;
+      --lf-font-body: 'Figtree', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Outfit', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'JetBrains Mono', 'Courier New', monospace;
+      --lf-font-weight-heading: 700; --lf-line-height: 1.6; --lf-card-radius: 12px;
+      --lf-bg-image: linear-gradient(rgba(107,114,128,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(107,114,128,0.07) 1px, transparent 1px);
+      --lf-bg-size: 32px 32px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #ECEEF2;
+      --lf-shadow-hero: 0 10px 24px rgba(17,24,39,0.1), 0 4px 8px rgba(17,24,39,0.06);
+      --lf-gradient-hero: linear-gradient(135deg, #EDF2FF 0%, #F6F8FA 60%, #F0F4FF 100%);
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: #0891B2;
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    .lf-fp-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      padding-bottom: var(--lf-space-3);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-fp-title { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.05rem; }
+    .lf-fp-search { font-family: var(--lf-font-mono); font-size: 0.75rem; color: var(--lf-ink-muted); border: var(--lf-border-width) solid var(--lf-line); border-radius: var(--lf-card-radius); padding: var(--lf-space-2) var(--lf-space-3); }
+
+    .lf-fp-shell { display: grid; grid-template-columns: repeat(var(--lf-columns), 1fr); gap: var(--lf-gutter); align-items: start; }
+    .lf-fp-column { grid-column: 1 / 10; }
+    .lf-fp-rail { grid-column: 10 / 13; border-left: var(--lf-border-width) solid var(--lf-line); padding-left: var(--lf-space-4); }
+    .lf-fp-rail-label { font-family: var(--lf-font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--lf-ink-muted); border-bottom: var(--lf-border-width) solid var(--lf-line); padding-bottom: var(--lf-space-2); margin-bottom: var(--lf-space-3); }
+    .lf-fp-rail-note { font-size: 0.78rem; color: var(--lf-ink-muted); line-height: 1.6; font-style: italic; margin-bottom: var(--lf-space-4); }
+    .lf-fp-rail-item { font-size: 0.82rem; padding: var(--lf-space-2) 0; border-top: var(--lf-border-width) solid var(--lf-line); }
+
+    /* Lead — the only entry read in full, both horizontal strokes of the F */
+    .lf-fp-lead { padding-bottom: var(--lf-space-4); margin-bottom: var(--lf-space-4); border-bottom: var(--lf-border-width) solid var(--lf-line); }
+    .lf-fp-lead h2 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.4rem; margin-bottom: var(--lf-space-2); }
+    .lf-fp-lead p { font-size: 0.95rem; color: var(--lf-ink); max-width: 68ch; margin-bottom: var(--lf-space-1); }
+    .lf-fp-lead .lf-fp-meta { font-family: var(--lf-font-mono); font-size: 0.7rem; color: var(--lf-ink-muted); margin-top: var(--lf-space-2); }
+
+    /* River — decreasing excerpt length per entry, no boxes, hairline rule only */
+    .lf-fp-entry { padding: var(--lf-space-3) 0; border-top: var(--lf-border-width) solid var(--lf-line); }
+    .lf-fp-entry h3 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.05rem; margin-bottom: var(--lf-space-1); }
+    .lf-fp-entry p { font-size: 0.85rem; color: var(--lf-ink-muted); max-width: 60ch; }
+    .lf-fp-entry .lf-fp-meta { font-family: var(--lf-font-mono); font-size: 0.68rem; color: var(--lf-ink-muted); margin-top: 2px; }
+
+    /* Attention heatmap bar — Concept view only, a small decorative device that visualizes the
+       archetype's own core claim (decreasing horizontal read-weight), not fictional filler */
+    .lf-fp-heat { display: flex; align-items: center; gap: var(--lf-space-2); margin-top: var(--lf-space-2); }
+    .lf-fp-heat .bar { height: 6px; background: var(--lf-accent); opacity: 0.55; border-radius: 2px; }
+    .lf-fp-heat .label { font-family: var(--lf-font-mono); font-size: 0.62rem; color: var(--lf-ink-muted); white-space: nowrap; }
+
+    .lf-fp-thumb {
+      width: 96px; height: 64px; flex-shrink: 0;
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 8px);
+    }
+    .lf-fp-lead-with-thumb { display: flex; gap: var(--lf-space-4); align-items: flex-start; }
+
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      min-width: 7.5rem;
+      text-align: center;
+      white-space: nowrap;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+
+    .lf-doc-toggle {
+      position: fixed;
+      top: calc(var(--lf-space-4) + 2.4rem);
+      right: var(--lf-space-4);
+      z-index: 20;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      min-width: 7.5rem;
+      text-align: center;
+      white-space: nowrap;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-doc-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-doc-toggle { display: none; }
+    .lf-doc-overlay {
+      position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .lf-doc-overlay[hidden] { display: none; }
+    .lf-doc-panel {
+      background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh;
+      border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .lf-doc-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .lf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .lf-doc-close:hover { color: #111; }
+    .lf-doc-body {
+      margin: 0; padding: 1.25rem; overflow: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.86rem; line-height: 1.65; color: #222;
+    }
+    .lf-doc-body > *:first-child { margin-top: 0; }
+    .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 {
+      font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111;
+    }
+    .lf-doc-body h1 { font-size: 1.3rem; }
+    .lf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .lf-doc-body h3 { font-size: 0.92rem; }
+    .lf-doc-body h4 { font-size: 0.86rem; }
+    .lf-doc-body p { margin: 0 0 0.85em; }
+    .lf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .lf-doc-body li { margin-bottom: 0.35em; }
+    .lf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .lf-doc-body strong { font-weight: 700; }
+    .lf-doc-body em { font-style: italic; }
+    .lf-doc-body code {
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em;
+      background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .lf-doc-panel { background: #1c1c22; color: #ddd; }
+      .lf-doc-panel-head { border-bottom-color: #333; }
+      .lf-doc-panel-title { color: #eee; }
+      .lf-doc-close { color: #999; }
+      .lf-doc-close:hover { color: #fff; }
+      .lf-doc-body { color: #ccc; }
+      .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 { color: #f0f0f0; }
+      .lf-doc-body h2 { border-bottom-color: #333; }
+      .lf-doc-body hr { border-top-color: #333; }
+      .lf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+  <button class="lf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="lf-doc-overlay" id="doc-overlay" hidden>
+    <div class="lf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="lf-doc-panel-head">
+        <span class="lf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="lf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="lf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">f-pattern-content</span>
+    <span class="lf-meta-tags">f-pattern-content &middot; editorial-narrative</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">24px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1200px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">comfortable</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">asymmetric-left</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">f-pattern-content — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> blog archives, documentation search results, knowledge-base listings — a scannable list of entries.<br><strong>Avoid:</strong> writing every excerpt the same length 'for fairness.'" role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> analytics changelog/metrics-digest listings where only the top result deserves a visual.<br><strong>Avoid:</strong> giving every entry its own chart thumbnail." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> search results, marketplace listings, directory pages ranked by relevance.<br><strong>Avoid:</strong> boxing every result in an identical bordered card." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="moss-cottage" role="tab" aria-selected="false">moss-cottage</button>
+      <button class="lf-theme-tab" data-theme-option="chalk-press" role="tab" aria-selected="false">chalk-press</button>
+      <button class="lf-theme-tab" data-theme-option="titanium-cloud" role="tab" aria-selected="false">titanium-cloud</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-fp-header">
+          <span class="lf-fp-title">Layout-Factory Docs</span>
+          <span class="lf-fp-search">Search&hellip;</span>
+        </div>
+        <div class="lf-fp-shell">
+          <div class="lf-fp-column">
+            <div class="lf-fp-lead">
+              <h2>F-Pattern Content: Attention Decays Down the Page, So the Layout Should Too</h2>
+              <p>The concept: eye-tracking studies show readers fully process the first entry on a scannable page — both a heading and its full excerpt, the two horizontal "bars" of an F — then read down the left edge scanning headings alone, barely touching anything on the right. This archetype builds the layout to match that real behavior instead of pretending every entry gets equal attention.</p>
+              <div class="lf-fp-heat"><div class="bar" style="width:220px"></div><span class="label">Entry 1 — full read</span></div>
+              <div class="lf-fp-meta">The only entry that gets both a heading and a complete excerpt</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>Entry two still earns a shorter excerpt</h3>
+              <p>Attention has already started to decay, but not to zero — a single trimmed line still gets read.</p>
+              <div class="lf-fp-heat"><div class="bar" style="width:150px"></div><span class="label">Entry 2 — partial read</span></div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>By entry three, only the heading is scanned</h3>
+              <div class="lf-fp-heat"><div class="bar" style="width:80px"></div><span class="label">Entry 3 — heading only</span></div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>When Not to Use This Archetype</h3>
+              <p>Content where every entry is genuinely equally important — a numbered legal document, a set of parallel product tiers — should not have its later items artificially starved of attention. Use card-catalogue-index or feature-trio-grid instead, where every entry gets identical treatment on purpose.</p>
+            </div>
+          </div>
+          <aside class="lf-fp-rail">
+            <div class="lf-fp-rail-label">Low-Attention Zone</div>
+            <p class="lf-fp-rail-note">Eye-tracking data shows this column gets almost no engagement. Never place a primary CTA, a key metric, or exclusive content here.</p>
+            <div class="lf-fp-rail-item">Related searches</div>
+            <div class="lf-fp-rail-item">Filter by category</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-fp-header">
+          <span class="lf-fp-title">Field Notes Archive</span>
+          <span class="lf-fp-search">Search posts&hellip;</span>
+        </div>
+        <div class="lf-fp-shell">
+          <div class="lf-fp-column">
+            <div class="lf-fp-lead">
+              <h2>The Retro That Finally Changed Something</h2>
+              <p>After eighteen months split across two time zones, the team's real problem surfaced in a retro that almost didn't happen: nobody agreed on what "done" meant for the same ticket. Engineering called it done at merge, product called it done at release, support called it done when the ticket stopped reopening.</p>
+              <div class="lf-fp-meta">March 12 &middot; 6 min read</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>On Saying No to a Fourth Definition of Done</h3>
+              <p>Design wanted "done" to mean user-tested. The team held the line at three.</p>
+              <div class="lf-fp-meta">March 8</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>On-Call Rotation, Revisited</h3>
+              <p>One line change to the schedule cut weekend pages in half.</p>
+              <div class="lf-fp-meta">March 2</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>Why We Killed the Weekly Status Doc</h3>
+              <div class="lf-fp-meta">Feb 24</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>Postmortem Template v3</h3>
+              <div class="lf-fp-meta">Feb 18</div>
+            </div>
+          </div>
+          <aside class="lf-fp-rail">
+            <div class="lf-fp-rail-label">Browse</div>
+            <div class="lf-fp-rail-item">Engineering</div>
+            <div class="lf-fp-rail-item">Process</div>
+            <div class="lf-fp-rail-item">Retrospectives</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-fp-header">
+          <span class="lf-fp-title">Metrics Digest</span>
+          <span class="lf-fp-search">Filter by service&hellip;</span>
+        </div>
+        <div class="lf-fp-shell">
+          <div class="lf-fp-column">
+            <div class="lf-fp-lead-with-thumb">
+              <div class="lf-fp-thumb"></div>
+              <div class="lf-fp-lead" style="border:none;padding:0;margin:0">
+                <h2>Checkout Latency Regression, Resolved in 40 Minutes</h2>
+                <p>P99 latency crossed 300ms in the EU region at 14:02 UTC, traced to a single fraud-scoring deploy, and rolled back by 14:42 UTC.</p>
+                <div class="lf-fp-meta">Fig. 1 attached &middot; This week</div>
+              </div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>Error Budget Burn Rate, Q1</h3>
+              <p>Tracking within policy across all four tracked services.</p>
+              <div class="lf-fp-meta">Last week</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>Deploy Frequency, February</h3>
+              <div class="lf-fp-meta">2 weeks ago</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>Uptime Summary, January</h3>
+              <div class="lf-fp-meta">5 weeks ago</div>
+            </div>
+          </div>
+          <aside class="lf-fp-rail">
+            <div class="lf-fp-rail-label">Services</div>
+            <div class="lf-fp-rail-item">Checkout</div>
+            <div class="lf-fp-rail-item">Search</div>
+            <div class="lf-fp-rail-item">Billing</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-fp-header">
+          <span class="lf-fp-title">Search Results</span>
+          <span class="lf-fp-search">"layout factory grid" &mdash; 214 results</span>
+        </div>
+        <div class="lf-fp-shell">
+          <div class="lf-fp-column">
+            <div class="lf-fp-lead">
+              <h2>Layout Gallery &mdash; layout-factory</h2>
+              <p>Structural composition presets: grid, spacing, hierarchy, editorial devices. Browse and preview every archetype's full page.</p>
+              <div class="lf-fp-meta">layout-factory/index.html</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>swiss-international-grid.md</h3>
+              <p>A strict modular column grid with grid-locked imagery and disciplined placement.</p>
+              <div class="lf-fp-meta">layout-factory/layouts</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>card-catalogue-index.md</h3>
+              <div class="lf-fp-meta">layout-factory/layouts</div>
+            </div>
+            <div class="lf-fp-entry">
+              <h3>bento-mosaic.md</h3>
+              <div class="lf-fp-meta">layout-factory/layouts</div>
+            </div>
+          </div>
+          <aside class="lf-fp-rail">
+            <div class="lf-fp-rail-label">Related Searches</div>
+            <div class="lf-fp-rail-item">CSS grid tutorial</div>
+            <div class="lf-fp-rail-item">theme-factory presets</div>
+          </aside>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-moss-cottage', 'theme-chalk-press', 'theme-titanium-cloud');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'lf-fullview', active: isFull }, '*');
+      }
+    });
+  </script>
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+</body>
+</html>

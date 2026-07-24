@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en" data-archetype="kpi-strip-hero-chart">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout: kpi-strip-hero-chart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Poiret+One&family=Overpass:ital,wght@0,300;0,400;0,600;1,300&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet">
+
+  <script id="layout-data" type="application/json">
+  {
+    "name": "kpi-strip-hero-chart",
+    "description": "A capped strip of 3-6 top-line KPI tiles sits above one dominant hero chart and a small set of supporting exhibits — the default shape of a BI/analytics overview screen: scan the numbers, then read the one chart that explains them.",
+    "createdAt": "2026-07-24T00:00:00.000Z",
+    "source": "archetype-request",
+    "sourceFile": "",
+    "archetype": "kpi-strip-hero-chart",
+    "family": "dashboard-legitimate",
+    "composition": {
+      "summary": "A single-screen overview shape, deliberately simpler than dashboard-with-rail: no persistent nav rail at all, just a header, a capped horizontal strip of equally-weighted KPI tiles, one dominant hero chart directly beneath it that explains those numbers, and 2-3 smaller captioned exhibits elaborating specific facets of the hero chart. The strip and the hero chart are not independent — the hero chart's whole job is to answer 'why do the numbers in the strip look like that.'",
+      "regions": [
+        { "id": "masthead", "role": "product/report identity, date-range or scope selector, view tabs", "columnSpan": "1-12", "order": 1, "notes": "One quiet row — no nav rail exists in this archetype, unlike dashboard-with-rail" },
+        { "id": "summary", "role": "3-6 equal, capped top-line KPI tiles", "columnSpan": "1-12", "order": 2, "notes": "The page's single legal strip of bare numbers; no other region may hold stat tiles" },
+        { "id": "lead", "role": "the one dominant chart that explains the strip's numbers", "columnSpan": "1-12", "order": 3, "notes": "Mandatory — a strip with no chart beneath it is stat-tile decoration, not this archetype" },
+        { "id": "river", "role": "2-3 smaller captioned exhibits elaborating specific facets of the hero chart", "columnSpan": "1-12", "order": 4, "notes": "Each numbered and captioned like a figure, each paired with one sentence of interpretation" }
+      ],
+      "hierarchy": { "primary": "lead", "secondary": "summary", "tertiary": "river" },
+      "readingOrder": ["masthead", "summary", "lead", "river"],
+      "entryPoint": "The KPI strip, scanned left to right in under two seconds, immediately followed by the hero chart it points toward — the strip creates the question, the chart answers it",
+      "balance": "symmetric"
+    },
+    "grid": {
+      "type": "column",
+      "columns": 12,
+      "gutter": "20px",
+      "maxWidth": "1280px",
+      "marginInline": "4vw",
+      "baselineUnit": "8px",
+      "breakpoints": {
+        "sm": { "columns": 4, "gutter": "12px", "notes": "KPI strip wraps to 2 tiles per row, never 1 — a single-column strip loses the 'at a glance' scan this archetype exists for. Hero chart and river stack full width." },
+        "md": { "columns": 8, "gutter": "16px", "notes": "KPI strip stays one row if 4 or fewer tiles, otherwise wraps to two even rows; hero chart stays full width." },
+        "lg": { "columns": 12, "gutter": "20px", "notes": "Full single-row KPI strip (up to 6 tiles) as shown in every variant below." }
+      },
+      "regionSpans": { "masthead": "1 / 13", "summary": "1 / 13", "lead": "1 / 13", "river": "1 / 13" }
+    },
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32, 48],
+      "unit": "px",
+      "rhythm": "1.5x body line-height in captions; a full section-gap step between the strip, hero chart, and river",
+      "sectionGap": "32px",
+      "blockGap": "16px",
+      "inlineGap": "12px",
+      "density": "compact"
+    },
+    "editorialFeatures": {
+      "pullQuotes": { "used": false, "placement": "", "style": "" },
+      "sidebars": { "used": false, "width": "", "contentType": "" },
+      "callouts": { "used": true, "types": ["insight callout beneath the hero chart, at most one per screen"] },
+      "footnotes": { "used": false, "style": "" },
+      "sectionBreaks": { "style": "rule" },
+      "dropCaps": false,
+      "captions": { "style": "small mono caption, numbered like a figure", "position": "directly below each exhibit" },
+      "numbering": { "sections": false, "figures": true }
+    },
+    "mediaAdaptation": {
+      "html": "CSS Grid: the strip uses grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)), visually capped at six tiles; the hero chart and river exhibits stay single full-width blocks stacked beneath it.",
+      "presentation": "Adapts well: the KPI strip becomes a title-strip across the top of one slide (or its own brief opening slide), the hero chart becomes that slide's dominant visual per slide-rule-of-thirds, and each river exhibit becomes its own follow-up slide.",
+      "print": "A reasonable print fit as a one-page executive summary: the strip prints as a numbers band across the top of the page, the hero chart directly beneath it, supporting exhibits following in a single column.",
+      "markdown": "The strip becomes one line or a small table of 'Metric: value' pairs directly under the H1. The hero chart becomes an H2, an image reference, and one paragraph. River exhibits become H3 subsections beneath it."
+    },
+    "themeCompatibility": {
+      "ownsColor": false,
+      "ownsTypography": false,
+      "note": "structure/grid/spacing/hierarchy only — combine with theme-factory for color and type"
+    },
+    "antiPatternCheck": {
+      "cardGridDefault": false,
+      "uniformBoxSizes": false,
+      "hierarchyPresent": true,
+      "gridAligned": true,
+      "dashboardTropeAvoided": true,
+      "notes": "This archetype's whole discipline is capping the strip: three to six tiles, never growing past that count, and never letting a second stat strip appear elsewhere on the page — that's dashboard-with-rail's rail territory, not this one. Every tile must be genuinely top-line; if a number needs its own paragraph of context to make sense, it belongs in the river's captioned exhibits, not the strip. The hero chart is mandatory: a KPI strip with no chart beneath it is bare stat-tile decoration, the exact 'dashboard trope' this skill's own checklist flags."
+    },
+    "contentTypeVariants": {
+      "textHeavy": {
+        "howItAdapts": "The strip becomes three or four short status indicators ('Operational', 'Degraded', '2 Incidents') instead of numeric tiles, and the hero region becomes a written status narrative instead of a chart — still the one dominant element on the screen, just prose instead of a visual.",
+        "bestFor": "Status pages and incident-summary pages that open with an at-a-glance state before the narrative.",
+        "avoid": "Turning the strip into a paragraph-length list of caveats. If a status needs more than three words, it belongs in the narrative below, not the strip."
+      },
+      "chartHeavy": {
+        "howItAdapts": "The archetype's native mode: three to six numeric KPI tiles above one hero chart — the trend or breakdown that most explains the KPIs — followed by two or three smaller captioned exhibits in the river, each numbered and paired with one sentence of interpretation.",
+        "bestFor": "BI/analytics overview screens, executive dashboards, weekly metrics review pages — the default 'landing screen' of a data product.",
+        "avoid": "Letting the tile count creep past six, or letting a second, unrelated chart compete with the hero chart for dominance. There is only one hero per screen."
+      },
+      "cardOrListHeavy": {
+        "howItAdapts": "The strip stays numeric (open count, average age, oldest item), and the hero region becomes the single most urgent record rendered as a bounded hero panel instead of a chart; the river becomes a hairline-divided list of the remaining records.",
+        "bestFor": "Ticket or alert queues and admin overview screens that want a numeric pulse before the record list.",
+        "avoid": "Rendering every record in the list as its own shadowed card — only the hero record gets that treatment, exactly as in dashboard-with-rail's card-heavy variant."
+      }
+    },
+    "exampleThemePairings": [
+      { "theme": "cyber-terminal", "why": "Its green-on-black CRT terminal register is the most literal 'analyst workstation' read of the three — a monochrome phosphor readout is exactly what a KPI strip looks like on a hacker's monitoring screen." },
+      { "theme": "prism-ledger", "why": "Its 'finance/accounting editorial luxury' register, with ruled ledger lines and ruled tables, reads as a literal executive KPI summary — ledger numbers are this archetype's native content." },
+      { "theme": "amber-signal", "why": "Its dieselpunk phosphor console, rendered in a single amber wavelength, gives the strip and hero chart a distinct instrumentation register from cyber-terminal's green, proving the archetype survives more than one CRT palette." }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --lf-columns: 12;
+      --lf-gutter: 20px;
+      --lf-max-width: 1280px;
+      --lf-margin-inline: 4vw;
+      --lf-baseline: 8px;
+      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 12px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
+      --lf-ink: #111111;
+      --lf-ink-muted: #6b6b6b;
+      --lf-paper: #ffffff;
+      --lf-line: #d8d8d8;
+      --lf-region-outline: #b7b7b7;
+      --lf-accent: #111111;
+      --lf-font-body: Georgia, 'Times New Roman', serif;
+      --lf-font-display: Georgia, 'Times New Roman', serif;
+      --lf-font-mono: 'SFMono-Regular', Consolas, monospace;
+      --lf-font-weight-heading: 400;
+      --lf-line-height: 1.6;
+      --lf-card-radius: 0px;
+      --lf-bg-image: none;
+      --lf-bg-size: auto;
+      --lf-bg-position: 0 0;
+      --lf-bg-repeat: repeat;
+      --lf-surface: #ffffff;
+      --lf-shadow-hero: none;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 1px;
+      --lf-emphasis-border-color: var(--lf-line);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      padding: var(--lf-space-8) 0 96px;
+      transition: background-color .15s, color .15s;
+    }
+
+    /* Theme-preview overrides — scoped to .lf-variant-stage, never body (see scoping rule in
+       modules/preset-template.html). Values read from each theme's own file/component markup:
+       skills/theme-factory/themes/<name>.html. */
+    .lf-variant-stage.theme-cyber-terminal {
+      --lf-ink: #00CC33; --lf-ink-muted: #008822; --lf-paper: #000900;
+      --lf-line: #004800; --lf-region-outline: #004800; --lf-accent: #00FF41;
+      --lf-font-body: 'JetBrains Mono', 'Cascadia Code', monospace;
+      --lf-font-display: 'JetBrains Mono', 'Cascadia Code', monospace;
+      --lf-font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
+      --lf-font-weight-heading: 800; --lf-line-height: 1.72; --lf-card-radius: 3px;
+      --lf-bg-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,255,65,0.025) 1px, rgba(0,255,65,0.025) 2px);
+      --lf-bg-size: 100% 4px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #001200;
+      /* cyber-terminal's own shadows.colored token — its real "glow" signature */
+      --lf-shadow-hero: 0 0 24px rgba(0,255,65,0.5), 0 0 0 1px #00FF41;
+      --lf-gradient-hero: none;
+      --lf-border-width: 1px;
+      /* pulled from its own .tf-glow-demo: color: var(--glow-color) resolves to primary green */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: #00FF41;
+      --lf-quote-text-color: #00FF41;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #00CCFF;
+    }
+    .lf-variant-stage.theme-prism-ledger {
+      --lf-ink: #1C1A14; --lf-ink-muted: #7A6C58; --lf-paper: #F8F2EA;
+      --lf-line: #C8BEAC; --lf-region-outline: #C8BEAC; --lf-accent: #1A5C3A;
+      --lf-font-body: 'Lora', Georgia, serif; --lf-font-display: 'Playfair Display', Georgia, serif;
+      --lf-font-mono: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-weight-heading: 900; --lf-line-height: 1.72; --lf-card-radius: 6px;
+      --lf-bg-image: repeating-linear-gradient(45deg, transparent, transparent 28px, rgba(26,92,58,0.04) 28px, rgba(26,92,58,0.04) 29px), radial-gradient(ellipse at 10% 20%, rgba(26,92,58,0.09) 0%, transparent 40%), radial-gradient(ellipse at 90% 80%, rgba(200,48,120,0.07) 0%, transparent 40%);
+      --lf-bg-size: 29px 29px, cover, cover; --lf-bg-position: 0 0, 0 0, 0 0; --lf-bg-repeat: repeat, no-repeat, no-repeat;
+      --lf-surface: #F0E8DC;
+      --lf-shadow-hero: 0 4px 20px rgba(26,92,58,0.22);
+      --lf-gradient-hero: linear-gradient(135deg, #EEE4D4 0%, #F8F2EA 50%, #F0E8DC 100%);
+      --lf-border-width: 1px;
+      /* pulled from its own .pull-quote (border-left: 4px solid primary, text colored primary)
+         and its second pull-quote variant (border-left-color + text: accent) — both real,
+         not invented */
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: #1A5C3A;
+      --lf-quote-text-color: #1A5C3A;
+      --lf-emphasis-border-width: 4px;
+      --lf-emphasis-border-color: #C83078;
+    }
+    .lf-variant-stage.theme-amber-signal {
+      --lf-ink: #E8B840; --lf-ink-muted: #8A6020; --lf-paper: #0A0800;
+      --lf-line: #3A2C08; --lf-region-outline: #3A2C08; --lf-accent: #FF9D00;
+      --lf-font-body: 'Overpass', 'Helvetica Neue', sans-serif; --lf-font-display: 'Poiret One', 'Helvetica Neue', sans-serif;
+      --lf-font-mono: 'Inconsolata', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.65; --lf-card-radius: 3px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      --lf-bg-size: 256px 256px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #120E04;
+      --lf-shadow-hero: 0 0 20px rgba(255,157,0,0.5), 0 4px 16px rgba(4,3,0,0.8);
+      --lf-gradient-hero: linear-gradient(160deg, #1A1608 0%, #0A0800 55%, #080600 100%);
+      --lf-border-width: 1px;
+      /* amber-signal's own notes: "total amber monochrome... no other hues" — quote and emphasis
+         both stay within the amber family (primary vs. its lighter accent shade), never a second
+         hue, matching the theme's own stated restraint */
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: #FF9D00;
+      --lf-quote-text-color: #FF9D00;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #FFD040;
+    }
+
+    .lf-meta {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      padding-bottom: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-meta-name { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lf-meta-tags { font-size: 0.72rem; color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .lf-specs {
+      max-width: var(--lf-max-width);
+      margin: 0 auto var(--lf-space-8);
+      padding: 0 var(--lf-margin-inline);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-3);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.72rem;
+    }
+    .lf-spec { border: 1px solid var(--lf-line); border-radius: 2px; padding: var(--lf-space-2) var(--lf-space-3); }
+    .lf-spec .k { color: var(--lf-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.62rem; display: block; margin-bottom: 2px; }
+    .lf-spec .v { color: var(--lf-ink); }
+
+    .lf-page {
+      max-width: var(--lf-max-width);
+      margin: 0 auto;
+      padding: 0 var(--lf-margin-inline);
+    }
+
+    /* Masthead — quiet identity bar. No rail exists anywhere in this archetype. */
+    .lf-masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lf-ink-muted);
+      border-bottom: var(--lf-border-width) solid var(--lf-line);
+      padding-bottom: var(--lf-space-3);
+      margin-bottom: var(--lf-space-6);
+    }
+
+    /* Strip — the archetype's single legal home for bare stat tiles. Capped visually at six;
+       bounded as one band, not scattered cards, echoing dashboard-with-rail's summary-zone
+       concept promoted to a full top-of-page region. */
+    .lf-kpi-strip {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--lf-space-4);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background: var(--lf-surface);
+      padding: var(--lf-space-4);
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-kpi-tile .label { font-family: var(--lf-font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--lf-ink-muted); margin-bottom: 2px; }
+    .lf-kpi-tile .value { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.5rem; color: var(--lf-ink); line-height: 1.15; }
+    .lf-kpi-tile .delta { font-size: 0.72rem; color: var(--lf-ink-muted); margin-top: 2px; }
+    .lf-kpi-tile.emphasis .value { color: var(--lf-quote-text-color); }
+
+    /* Lead — the one hero chart. The only region with real visual dominance. */
+    .lf-kpi-hero-header { margin-bottom: var(--lf-space-4); }
+    .lf-kpi-hero-title { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.7rem; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: var(--lf-space-2); max-width: 42ch; }
+    .lf-kpi-hero-dek { font-size: 0.95rem; color: var(--lf-ink-muted); max-width: 64ch; }
+    .lf-hero-exhibit {
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 12px), var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      height: 240px;
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-hero-panel {
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: var(--lf-gradient-hero);
+      box-shadow: var(--lf-shadow-hero);
+      padding: var(--lf-space-4);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-hero-panel h3 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.05rem; margin-bottom: var(--lf-space-2); }
+    .lf-hero-panel p { font-size: 0.9rem; color: var(--lf-ink-muted); max-width: 60ch; }
+    .lf-caption { font-size: 0.75rem; color: var(--lf-ink-muted); font-style: italic; margin: var(--lf-space-2) 0 var(--lf-space-4); }
+
+    .lf-kpi-insight {
+      background-color: var(--lf-surface);
+      color: var(--lf-quote-text-color);
+      border-left: var(--lf-quote-border-width) solid var(--lf-quote-border-color);
+      padding: var(--lf-space-3) var(--lf-space-4);
+      margin: var(--lf-space-4) 0 var(--lf-space-6);
+      font-size: 0.92rem; line-height: 1.55; max-width: 62ch;
+    }
+
+    /* River — 2-3 smaller supporting exhibits, each numbered/captioned, never bare numbers */
+    .lf-exhibit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--lf-space-4); }
+    .lf-exhibit-mini {
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px);
+      height: 96px;
+      margin-bottom: var(--lf-space-2);
+    }
+    .lf-exhibit-grid h3 { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 0.95rem; margin-bottom: 2px; }
+    .lf-exhibit-grid p { font-size: 0.82rem; color: var(--lf-ink-muted); }
+
+    .lf-record-list { display: flex; flex-direction: column; }
+    .lf-record-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--lf-space-4); padding: var(--lf-space-3) 0; border-bottom: var(--lf-border-width) solid var(--lf-line); }
+    .lf-record-name { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 0.98rem; }
+    .lf-record-meta { font-size: 0.78rem; color: var(--lf-ink-muted); white-space: nowrap; }
+
+    .lf-status-strip { display: flex; gap: var(--lf-space-4); flex-wrap: wrap; }
+    .lf-status-chip { font-family: var(--lf-font-mono); font-size: 0.75rem; padding: var(--lf-space-2) var(--lf-space-3); border: var(--lf-border-width) solid var(--lf-region-outline); border-radius: var(--lf-card-radius); background: var(--lf-surface); }
+
+    .lf-section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--lf-ink-muted); border-bottom: 1px solid var(--lf-ink);
+      padding-bottom: var(--lf-space-2); margin: var(--lf-space-8) 0 var(--lf-space-4);
+    }
+
+    .lf-variant-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-variant-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-variant-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-variant-tab:hover { color: var(--lf-ink); }
+    .lf-variant-tab:hover::before, .lf-variant-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-variant-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-variant-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+
+    .lf-variant-active-caption {
+      font-size: 0.82rem; line-height: 1.7; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-8); min-height: 2.9em;
+    }
+    .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-variant-stage {
+      border-top: 1px solid var(--lf-ink);
+      padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
+      margin: 0 calc(-1 * var(--lf-space-6));
+      color: var(--lf-ink);
+      font-family: var(--lf-font-body);
+      line-height: var(--lf-line-height);
+      background-color: var(--lf-paper);
+      background-image: var(--lf-bg-image);
+      background-size: var(--lf-bg-size);
+      background-position: var(--lf-bg-position);
+      background-repeat: var(--lf-bg-repeat);
+      transition: background-color .15s, color .15s;
+    }
+    .lf-variant-page { display: none; }
+    .lf-variant-page.active { display: block; }
+
+    .lf-theme-tabs {
+      display: flex; flex-wrap: wrap; align-items: baseline;
+      gap: var(--lf-space-1) var(--lf-space-4);
+      border-bottom: 1px solid var(--lf-line);
+      margin-bottom: var(--lf-space-3);
+    }
+    .lf-theme-tab {
+      appearance: none; background: none; border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--lf-ink-muted);
+      padding: var(--lf-space-2) 0 var(--lf-space-3);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .12s, border-color .12s;
+    }
+    .lf-theme-tab::before { content: '\25B8'; display: inline-block; margin-right: 5px; font-size: 0.7em; opacity: 0; transform: translateX(-2px); transition: opacity .12s, transform .12s; }
+    .lf-theme-tab:hover { color: var(--lf-ink); }
+    .lf-theme-tab:hover::before, .lf-theme-tab.active::before { opacity: 1; transform: translateX(0); }
+    .lf-theme-tab.active { color: var(--lf-ink); border-bottom-color: var(--lf-ink); }
+    .lf-theme-tab:focus-visible { outline: 1px dashed var(--lf-ink); outline-offset: 2px; }
+    .lf-theme-note {
+      font-size: 0.78rem; color: var(--lf-ink-muted); font-style: italic;
+      margin-bottom: var(--lf-space-6);
+    }
+    .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
+
+    .lf-fullview-toggle {
+      position: fixed;
+      top: var(--lf-space-4);
+      right: var(--lf-space-4);
+      z-index: 10;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      min-width: 7.5rem;
+      text-align: center;
+      white-space: nowrap;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-fullview-toggle { display: none; }
+
+    body.lf-fullview .lf-meta,
+    body.lf-fullview .lf-specs,
+    body.lf-fullview .lf-section-title,
+    body.lf-fullview .lf-variant-tabs,
+    body.lf-fullview .lf-variant-active-caption,
+    body.lf-fullview .lf-theme-tabs,
+    body.lf-fullview .lf-theme-note {
+      display: none;
+    }
+    body.lf-fullview { padding: 0; }
+    body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
+    body.lf-fullview .lf-variant-stage {
+      border-top: none;
+      margin: 0;
+      padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
+      min-height: 100vh;
+    }
+
+    .lf-doc-toggle {
+      position: fixed;
+      top: calc(var(--lf-space-4) + 2.4rem);
+      right: var(--lf-space-4);
+      z-index: 20;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: var(--lf-paper);
+      border: 1px solid var(--lf-ink);
+      border-radius: 2px;
+      color: var(--lf-ink);
+      min-width: 7.5rem;
+      text-align: center;
+      white-space: nowrap;
+      padding: var(--lf-space-2) var(--lf-space-3);
+      transition: background-color .12s, color .12s;
+    }
+    .lf-doc-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
+    body.lf-embed .lf-doc-toggle { display: none; }
+    .lf-doc-overlay {
+      position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .lf-doc-overlay[hidden] { display: none; }
+    .lf-doc-panel {
+      background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh;
+      border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .lf-doc-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .lf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .lf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .lf-doc-close:hover { color: #111; }
+    .lf-doc-body {
+      margin: 0; padding: 1.25rem; overflow: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.86rem; line-height: 1.65; color: #222;
+    }
+    .lf-doc-body > *:first-child { margin-top: 0; }
+    .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 {
+      font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111;
+    }
+    .lf-doc-body h1 { font-size: 1.3rem; }
+    .lf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .lf-doc-body h3 { font-size: 0.92rem; }
+    .lf-doc-body h4 { font-size: 0.86rem; }
+    .lf-doc-body p { margin: 0 0 0.85em; }
+    .lf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .lf-doc-body li { margin-bottom: 0.35em; }
+    .lf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .lf-doc-body strong { font-weight: 700; }
+    .lf-doc-body em { font-style: italic; }
+    .lf-doc-body code {
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em;
+      background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .lf-doc-panel { background: #1c1c22; color: #ddd; }
+      .lf-doc-panel-head { border-bottom-color: #333; }
+      .lf-doc-panel-title { color: #eee; }
+      .lf-doc-close { color: #999; }
+      .lf-doc-close:hover { color: #fff; }
+      .lf-doc-body { color: #ccc; }
+      .lf-doc-body h1, .lf-doc-body h2, .lf-doc-body h3, .lf-doc-body h4 { color: #f0f0f0; }
+      .lf-doc-body h2 { border-bottom-color: #333; }
+      .lf-doc-body hr { border-top-color: #333; }
+      .lf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="lf-fullview-toggle" id="fullview-toggle" type="button">&#10530; Full View</button>
+  <button class="lf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="lf-doc-overlay" id="doc-overlay" hidden>
+    <div class="lf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="lf-doc-panel-head">
+        <span class="lf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="lf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="lf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <div class="lf-meta">
+    <span class="lf-meta-name">kpi-strip-hero-chart</span>
+    <span class="lf-meta-tags">kpi-strip-hero-chart &middot; dashboard-legitimate</span>
+  </div>
+
+  <div class="lf-specs">
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">20px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1280px</span></div>
+    <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
+    <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
+  </div>
+
+  <div class="lf-page">
+
+    <div class="lf-section-title">kpi-strip-hero-chart — select a view</div>
+
+    <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
+      <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> status pages and incident-summary pages that open with an at-a-glance state before the narrative.<br><strong>Avoid:</strong> turning the strip into a paragraph-length list of caveats." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> BI/analytics overview screens, executive dashboards, weekly metrics review pages.<br><strong>Avoid:</strong> letting the tile count creep past six, or a second chart competing with the hero." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> ticket/alert queues and admin overview screens that want a numeric pulse before the record list.<br><strong>Avoid:</strong> rendering every record as its own shadowed card — only the hero record earns that." role="tab" aria-selected="false">Card / List-Heavy</button>
+    </div>
+    <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
+
+    <div class="lf-section-title">Preview with a theme-factory theme</div>
+    <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
+      <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
+      <button class="lf-theme-tab" data-theme-option="cyber-terminal" role="tab" aria-selected="false">cyber-terminal</button>
+      <button class="lf-theme-tab" data-theme-option="prism-ledger" role="tab" aria-selected="false">prism-ledger</button>
+      <button class="lf-theme-tab" data-theme-option="amber-signal" role="tab" aria-selected="false">amber-signal</button>
+    </div>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+
+    <div class="lf-variant-stage">
+
+      <section class="lf-variant-page active" data-variant-page="concept">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; View: Concept</span>
+          <span>kpi-strip-hero-chart</span>
+        </div>
+        <div class="lf-kpi-strip">
+          <div class="lf-kpi-tile"><div class="label">Tiles, Max</div><div class="value">6</div><div class="delta">Never more</div></div>
+          <div class="lf-kpi-tile"><div class="label">Rails</div><div class="value">0</div><div class="delta">By design</div></div>
+          <div class="lf-kpi-tile emphasis"><div class="label">Hero Charts</div><div class="value">1</div><div class="delta">Always exactly one</div></div>
+          <div class="lf-kpi-tile"><div class="label">Supporting Exhibits</div><div class="value">2&ndash;3</div><div class="delta">Numbered, captioned</div></div>
+        </div>
+        <div class="lf-kpi-hero-header">
+          <h1 class="lf-kpi-hero-title">The Strip Asks a Question, the Chart Answers It</h1>
+          <p class="lf-kpi-hero-dek">The concept: a capped row of top-line numbers creates a question at a glance ("why does uptime look like that?"), and exactly one hero chart directly beneath it answers that question — never a second, unrelated chart competing for the same attention.</p>
+        </div>
+        <div class="lf-hero-exhibit"></div>
+        <p class="lf-caption">Fig. 1 &mdash; The hero chart's whole job is to explain the strip above it, not to introduce a new topic.</p>
+        <div class="lf-kpi-insight">The tell that separates this from dashboard-with-rail: there is no persistent nav here at all. This is a single overview screen, not an app shell with sections to switch between — if the content genuinely needs section navigation, reach for dashboard-with-rail or holy-grail instead.</div>
+        <div class="lf-section-title" style="margin-top:0">When Not to Use This Archetype</div>
+        <div class="lf-exhibit-grid">
+          <div>
+            <h3>Content with no real top-line numbers</h3>
+            <p>Manufacturing KPI tiles for a document that doesn't have any is worse than having none — see the Mostly Text variant for the honest alternative.</p>
+          </div>
+          <div>
+            <h3>More than one hero-worthy chart</h3>
+            <p>If two charts are both genuinely dominant, split the screen into two of these archetypes rather than fighting for one hero slot.</p>
+          </div>
+          <div>
+            <h3>Content needing persistent navigation</h3>
+            <p>A multi-section app belongs in dashboard-with-rail or holy-grail; this archetype is deliberately a single, rail-free screen.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="text">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Mostly Text</span>
+          <span>kpi-strip-hero-chart</span>
+        </div>
+        <div class="lf-status-strip">
+          <div class="lf-status-chip">API: Operational</div>
+          <div class="lf-status-chip">Dashboard: Operational</div>
+          <div class="lf-status-chip">Webhooks: Degraded</div>
+        </div>
+        <div class="lf-kpi-hero-header" style="margin-top:var(--lf-space-6)">
+          <h1 class="lf-kpi-hero-title">Webhook Delivery Delays, Investigating</h1>
+          <p class="lf-kpi-hero-dek">A queue backlog is causing delivery delays of up to ten minutes for a subset of webhook subscribers.</p>
+        </div>
+        <div class="lf-hero-panel">
+          <h3>Timeline</h3>
+          <p>14:02 UTC &mdash; Elevated queue depth detected. 14:11 UTC &mdash; Root cause identified as a stuck consumer in the EU region. 14:19 UTC &mdash; Consumer restarted; backlog draining.</p>
+        </div>
+        <div class="lf-kpi-insight">The status strip stays three words per chip on purpose. Anything requiring more explanation belongs in the narrative panel below it, not the strip.</div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="chart">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Chart / Data-Heavy</span>
+          <span>kpi-strip-hero-chart</span>
+        </div>
+        <div class="lf-kpi-strip">
+          <div class="lf-kpi-tile"><div class="label">Uptime, 30d</div><div class="value">99.982%</div><div class="delta">4 services</div></div>
+          <div class="lf-kpi-tile"><div class="label">Error Rate</div><div class="value">0.14%</div><div class="delta">&uarr; from 0.03%</div></div>
+          <div class="lf-kpi-tile emphasis"><div class="label">P99 Latency</div><div class="value">312ms</div><div class="delta">EU region only</div></div>
+          <div class="lf-kpi-tile"><div class="label">Open Incidents</div><div class="value">1</div><div class="delta">Needs an owner</div></div>
+        </div>
+        <div class="lf-kpi-hero-header">
+          <h1 class="lf-kpi-hero-title">Checkout Service: Elevated Latency in the EU Region</h1>
+          <p class="lf-kpi-hero-dek">Filtering to the last 24 hours in production isolates the regression to a single downstream dependency.</p>
+        </div>
+        <div class="lf-hero-exhibit"></div>
+        <p class="lf-caption">Fig. 1 &mdash; P99 latency by region, last 24h. EU crosses the 300ms threshold at 14:02 UTC; US and APAC stay flat.</p>
+        <div class="lf-kpi-insight">The regression tracks a single deploy to the fraud-scoring service at 13:58 UTC &mdash; every other checkout dependency stays within its normal band across the same window.</div>
+        <div class="lf-exhibit-grid">
+          <div>
+            <div class="lf-exhibit-mini"></div>
+            <h3>Fig. 2 &mdash; Dependency latency</h3>
+            <p>Fraud-scoring alone crosses baseline; every other dependency stays flat.</p>
+          </div>
+          <div>
+            <div class="lf-exhibit-mini"></div>
+            <h3>Fig. 3 &mdash; Error budget burn</h3>
+            <p>Burn rate accelerates in lockstep with the latency regression, same window.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lf-variant-page" data-variant-page="card">
+        <div class="lf-masthead">
+          <span>Layout-Factory &middot; Variant: Card / List-Heavy</span>
+          <span>kpi-strip-hero-chart</span>
+        </div>
+        <div class="lf-kpi-strip">
+          <div class="lf-kpi-tile"><div class="label">Open Tickets</div><div class="value">14</div></div>
+          <div class="lf-kpi-tile emphasis"><div class="label">Avg. Age</div><div class="value">2.3d</div></div>
+          <div class="lf-kpi-tile"><div class="label">Oldest</div><div class="value">9d</div></div>
+        </div>
+        <div class="lf-kpi-hero-header">
+          <h1 class="lf-kpi-hero-title">Oldest Open Ticket: Billing Retry Loop</h1>
+          <p class="lf-kpi-hero-dek">The single most urgent item gets the hero panel; everything else is a plain list beneath it.</p>
+        </div>
+        <div class="lf-hero-panel">
+          <h3>#4021 &mdash; Billing retry loop causing duplicate charges</h3>
+          <p>Open nine days, no owner assigned. Affects an estimated 40 accounts on the annual plan.</p>
+        </div>
+        <div class="lf-record-list">
+          <div class="lf-record-row"><span class="lf-record-name">Search reindex stuck</span><span class="lf-record-meta">Opened 3d ago</span></div>
+          <div class="lf-record-row"><span class="lf-record-name">Export timeout on large accounts</span><span class="lf-record-meta">Opened 1d ago</span></div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script>
+    var caption = document.getElementById('variant-caption');
+    document.querySelectorAll('.lf-variant-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-variant-option');
+        document.querySelectorAll('.lf-variant-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lf-variant-page').forEach(function (p) {
+          p.classList.toggle('active', p.getAttribute('data-variant-page') === target);
+        });
+        caption.innerHTML = btn.getAttribute('data-caption');
+      });
+    });
+
+    var stage = document.querySelector('.lf-variant-stage');
+    document.querySelectorAll('.lf-theme-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-theme-option');
+        document.querySelectorAll('.lf-theme-tab').forEach(function (b) {
+          var isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        stage.classList.remove('theme-cyber-terminal', 'theme-prism-ledger', 'theme-amber-signal');
+        if (target !== 'none') stage.classList.add('theme-' + target);
+      });
+    });
+
+    var fullviewBtn = document.getElementById('fullview-toggle');
+    if (/[?&]fullview=1/.test(location.search)) {
+      document.body.classList.add('lf-fullview', 'lf-embed');
+      fullviewBtn.innerHTML = '&#10005; Exit Full View';
+    }
+    fullviewBtn.addEventListener('click', function () {
+      var isFull = document.body.classList.toggle('lf-fullview');
+      fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'lf-fullview', active: isFull }, '*');
+      }
+    });
+  </script>
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+</body>
+</html>

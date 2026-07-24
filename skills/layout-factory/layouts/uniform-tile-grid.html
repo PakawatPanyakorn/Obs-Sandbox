@@ -1,55 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" data-archetype="poster-broadside">
+<html lang="en" data-archetype="uniform-tile-grid">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Layout: poster-broadside</title>
+  <title>Layout: uniform-tile-grid</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&family=Cinzel+Decorative:wght@400;700;900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=Cinzel:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Mulish:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Big+Shoulders+Display:wght@400;700;900&family=Share+Tech+Mono&family=Gilda+Display&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet">
 
   <script id="layout-data" type="application/json">
   {
-    "name": "poster-broadside",
-    "description": "A single dominant typographic statement fills the page; hierarchy comes entirely from scale contrast between one giant headline and, at most, one small supporting line — no boxes, no secondary content.",
+    "name": "uniform-tile-grid",
+    "description": "A dense wall of perfectly equal square tiles — no size variation, no order significance, no captions by default. The purest form of legitimate uniform sizing in this catalog: the tiles are genuine peers because the content itself has no hierarchy to encode.",
     "createdAt": "2026-07-24T00:00:00.000Z",
     "source": "archetype-request",
     "sourceFile": "",
-    "archetype": "poster-broadside",
+    "archetype": "uniform-tile-grid",
     "family": "grid-discipline",
     "composition": {
-      "summary": "One headline occupies almost the entire page at the largest type scale the medium allows, centered in a generous field of whitespace. An optional, radically smaller supporting line sits beneath it. There is no third region — the scale gap between exactly these two is the whole structural device.",
+      "summary": "A masthead band sits above a dense grid of identically-sized square tiles, packed edge-to-edge or near-edge-to-edge with a minimal gutter. Every tile is cropped to a 1:1 aspect ratio regardless of source content, carries no persistent caption, and may be freely reordered, added, or removed without breaking any structural claim — because, unlike every other archetype in this catalog, the content genuinely has no hierarchy to encode. This is the Instagram-profile-grid / photography-portfolio / simple-catalog pattern, and it is only legitimate when the items really are equal peers; the moment one item is actually more important than the others, this has become the generic uniform-card-grid anti-pattern by definition.",
       "regions": [
-        { "id": "lead", "role": "the single dominant typographic statement — the entire reason the page exists", "columnSpan": "1-12", "order": 1, "notes": "Centered, largest type on the page; nothing else on the page competes with it in size" },
-        { "id": "support", "role": "optional, radically smaller supporting line — a date, edition mark, scope note, or one sentence of context", "columnSpan": "3-10", "order": 2, "notes": "Omit entirely for a pure title-only page; this region is optional, never required, and never grows past one short line" }
+        { "id": "masthead", "role": "page or profile title, optional sort/filter control", "columnSpan": "1-12", "order": 1, "notes": "One quiet row above the grid" },
+        { "id": "well", "role": "the tile grid itself — N identically-sized squares, count and order both insignificant", "columnSpan": "1-12", "order": 2, "notes": "The archetype's entire reason to exist; tiles are flush squares, never bordered/shadowed 'cards'" },
+        { "id": "body", "role": "optional load-more or pagination control beneath the grid", "columnSpan": "1-12", "order": 3, "notes": "Omit when the full set already fits; never invent pagination for a short set just to look complete" }
       ],
-      "hierarchy": { "primary": "lead", "secondary": "support", "tertiary": "" },
-      "readingOrder": ["lead", "support"],
-      "entryPoint": "The headline — it is the only element on the page large enough to read from across a room, so there is nothing else competing for the eye's attention first.",
+      "hierarchy": { "primary": "well", "secondary": "masthead", "tertiary": "body" },
+      "readingOrder": ["masthead", "well", "body"],
+      "entryPoint": "No single tile — by design, every tile carries equal visual weight and equal claim on attention. The entry point is the grid as a whole, scanned rather than read, which is itself the archetype's defining property.",
       "balance": "symmetric"
     },
     "grid": {
-      "type": "column",
+      "type": "modular",
       "columns": 12,
-      "gutter": "24px",
-      "maxWidth": "880px",
-      "marginInline": "8vw",
+      "gutter": "4px",
+      "maxWidth": "1000px",
+      "marginInline": "5vw",
       "baselineUnit": "8px",
       "breakpoints": {
-        "sm": { "columns": 4, "gutter": "16px", "notes": "Headline scale drops via clamp(); support line stays a single line or wraps to two at most" },
-        "md": { "columns": 8, "gutter": "20px", "notes": "No structural change — same centered single-column composition, only type scale adjusts" },
-        "lg": { "columns": 12, "gutter": "24px", "notes": "Full headline scale, maximum whitespace" }
+        "sm": { "columns": 4, "gutter": "2px", "notes": "Tiles render three per row (not one) even at narrow widths — a uniform grid degrading to a single column loses the entire 'wall of equal peers' effect this archetype exists for." },
+        "md": { "columns": 8, "gutter": "4px", "notes": "Four tiles per row." },
+        "lg": { "columns": 12, "gutter": "4px", "notes": "Five to six tiles per row — a full dense wall of equal squares, as shown in every variant below." }
       },
-      "regionSpans": { "lead": "1 / 13", "support": "4 / 11" }
+      "regionSpans": { "masthead": "1 / 13", "well": "1 / 13 (internally repeat(auto-fill, minmax(140px, 1fr)))", "body": "1 / 13" }
     },
     "spacing": {
-      "scale": [4, 8, 16, 24, 40, 64, 96, 128],
+      "scale": [2, 4, 8, 16, 24, 32],
       "unit": "px",
-      "rhythm": "one deliberate large jump between headline and support — no intermediate steps; the whitespace itself is part of the scale-contrast device, not filler",
-      "sectionGap": "96px",
-      "blockGap": "40px",
-      "inlineGap": "16px",
-      "density": "spacious"
+      "rhythm": "Tiles sit nearly flush — the minimal gutter itself is the point, signaling 'wall,' not 'collection of separate items'",
+      "sectionGap": "24px",
+      "blockGap": "4px",
+      "inlineGap": "4px",
+      "density": "compact"
     },
     "editorialFeatures": {
       "pullQuotes": { "used": false, "placement": "", "style": "" },
@@ -58,14 +59,14 @@
       "footnotes": { "used": false, "style": "" },
       "sectionBreaks": { "style": "whitespace" },
       "dropCaps": false,
-      "captions": { "style": "small-caps eyebrow line above the headline, or one muted sentence below it — never both at full length", "position": "eyebrow above the headline; support line below it" },
+      "captions": { "style": "reveal-on-hover only, never a persistent caption band", "position": "overlay, bottom edge" },
       "numbering": { "sections": false, "figures": false }
     },
     "mediaAdaptation": {
-      "html": "A single centered flex column (max-width ~880px, generous 8vw margin, filling the available stage height) with a fluid clamp()-scaled headline; an optional thin ornamental rule and one support line sit beneath it. No grid tracks beyond the single centered column are ever needed.",
-      "presentation": "This archetype already IS a slide master — it maps 1:1 onto a title slide or section-divider slide with zero adaptation: lead becomes the slide's giant title text, support (if present) becomes the small date/section-number line at the foot. Every other archetype in this catalog has to be adapted DOWN to slide scale; this one starts there.",
-      "print": "A full standalone page — a cover or section-divider — with generous, symmetric margins and no running header or footer, headline centered on both axes. It never shares a page with body content.",
-      "markdown": "Degrades hard: markdown has no mechanism for scale contrast, so a poster-broadside collapses to an indistinguishable plain H1 in a rendered document. This archetype's entire value is visual/presentation-only — don't target markdown output with it; use a plain title line there instead and reserve this archetype for HTML, slide, or print output."
+      "html": "CSS Grid: grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); every tile gets aspect-ratio: 1 to force the square regardless of source proportions, with object-fit: cover doing the cropping — never letterboxing, which would break the uniform-square illusion.",
+      "presentation": "Weak fit — a dense wall of many equal tiles doesn't translate to a slide's limited real estate. If genuinely needed, show a representative subset (six to nine tiles) rather than the full grid, captioned as a sample.",
+      "print": "Reasonable at small scale (a contact-sheet-style printed grid), weak at large tile counts — the same subset-sampling approach as presentation applies.",
+      "markdown": "Degrades to a flat list of item names or image references in the same order — the equal-weight visual effect is entirely lost; markdown has no native way to express 'this wall of things has no hierarchy.'"
     },
     "themeCompatibility": {
       "ownsColor": false,
@@ -78,28 +79,29 @@
       "hierarchyPresent": true,
       "gridAligned": true,
       "dashboardTropeAvoided": true,
-      "notes": "No boxes anywhere on the page by design — hierarchy is scale contrast alone between exactly two type sizes, never color, borders, or shadowed containers. The moment a second real idea needs its own region or box, this archetype has been outgrown; that constraint is deliberate, not an oversight."
+      "notes": "This is the purest form of legitimate uniform sizing in the catalog: unlike feature-trio-grid (capped at exactly three, interchangeable order), pricing-comparison-table (exactly one deliberate exception), or quad-chart-briefing-grid (exactly four, fixed order), a uniform-tile-grid has no count cap and no order significance at all — tiles may be reordered, added, or removed freely without breaking any structural claim, because the content genuinely has no hierarchy to encode. The test that separates this from the generic card-grid anti-pattern: are the items truly peers with no real importance difference? If one item is actually more important, that IS the anti-pattern by name — reach for bento-mosaic (varied by importance) or masonry-photo-essay (varied by aspect ratio/narrative weight) instead. Tiles here also never carry a border/shadow 'card' treatment — they sit flush, edge-to-edge or near-edge-to-edge, not boxed, keeping them visually distinct from a feature-trio-grid or pricing-table's bordered panels."
     },
     "contentTypeVariants": {
       "textHeavy": {
-        "howItAdapts": "The lead becomes a single title line (a chapter or section name); the optional support line becomes at most one sentence of transition text — never an opening paragraph. If the content needs an opening paragraph, it has already become a different archetype.",
-        "bestFor": "Chapter title pages, section dividers inside a long report or book, a single declarative section name between long-form pages.",
-        "avoid": "Don't let the support line grow into a paragraph 'just this once' — a title page that argues a point has stopped being a title page. Use single-column-editorial or magazine-well's text variant for the actual prose."
+        "howItAdapts": "Each tile becomes a short label or a single initial/icon rather than an image — still perfectly square, still no caption band, with a hover or tap revealing the full label. This is the archetype's weakest content fit; text needs more room to stay legible than a decorative image does.",
+        "bestFor": "A tag or category wall, an icon-only sitemap, a simple glossary index rendered as clickable squares instead of a list.",
+        "avoid": "Cramming full sentences into a square tile. If there's enough text to need more than a two-word label, this isn't the right archetype — use card-catalogue-index instead."
       },
       "chartHeavy": {
-        "howItAdapts": "The lead becomes a single monumental statistic typeset as text at headline scale — never as a chart, axis, or table — the one number the report that follows opens on. The support line is a single sentence of context, nothing more.",
-        "bestFor": "A deck's opening title slide built around one headline statistic; a report cover page stating its single most important finding before the actual exhibits begin.",
-        "avoid": "Never place an actual chart, axis, or data table on this archetype — that turns a cover page into a report page wearing a poster's typography. The real exhibits belong on magazine-well's chartHeavy variant instead."
+        "howItAdapts": "Each tile becomes a tiny sparkline or single-number stat instead of an image — but only when every tile's number is drawn from the exact same metric and time window; otherwise the tiles aren't true peers and the format misrepresents them as comparable.",
+        "bestFor": "A wall of many small, genuinely identical-shaped metrics — one tile per SKU or region showing the same trend over the same window.",
+        "avoid": "Mixing metric types across tiles. A uniform grid of dissimilar numbers reads as comparable when it isn't, which is worse than no grid at all."
       },
       "cardOrListHeavy": {
-        "howItAdapts": "The lead becomes a single category or part name — a divider between groups of items. The support line, if present, is a one-line scope note. The actual items live on the pages before and after, never on this one.",
-        "bestFor": "A category-divider page inside a catalogue or index, a 'Part Two' interstitial between list sections, a single-item spotlight cover with no comparison list attached.",
-        "avoid": "Don't let a second item creep onto the page 'while we're here' — even two items of equal weight breaks the single-statement rule this archetype exists to enforce. Put the actual list on magazine-well or card-catalogue-index instead."
+        "howItAdapts": "The native mode: each tile is one image or product thumbnail, cropped to a perfect square via object-fit: cover, with no caption visible by default — identity is established by the image alone or a hover reveal, never a persistent label band.",
+        "bestFor": "Instagram-style profile grids, photography portfolios, simple product catalog grids, avatar or team walls.",
+        "avoid": "Adding a persistent caption bar under every tile 'just in case.' That reintroduces the uneven-height problem this archetype's strict aspect-ratio lock exists to prevent."
       }
     },
     "exampleThemePairings": [
-      { "theme": "velvet-noir", "why": "Dark Art Deco maximalist with ornate serif hierarchy and dramatic gold glow — a 1920s theatrical-bill register is a direct, strong fit for a single dominant typographic statement; its own hero panel (Playfair Display headline, dark plum gradient, gold text-glow) is already this archetype's concept, just wearing a different name." },
-      { "theme": "astral-drift", "why": "Its own hero is already a single dramatic typographic/visual statement — a glitch-treated Cinzel Decorative headline over a psychedelic nebula field with counter-rotating conic rings — exactly this archetype's concept made literal, at full theatrical strength." }
+      { "theme": "wisdom", "why": "Its own contemplative, museum-wall register — 'Platonic marble, Aegean lapis lazuli' — reads naturally as a gallery wall of equally-weighted works, the archetype's own concept made literal." },
+      { "theme": "tokyo-screentone", "why": "A manga panel wall of uniform screentone-dotted squares is a direct visual precedent for this exact grid, distinct from its own masonry-photo-essay pairing where it instead skins deliberately varied panel sizes." },
+      { "theme": "moss-cottage", "why": "Its cottagecore, handmade register reads as an artisan shop's product-photo wall — genuinely equal small-batch items with no real importance hierarchy between them." }
     ]
   }
   </script>
@@ -107,14 +109,12 @@
   <style>
     :root {
       --lf-columns: 12;
-      --lf-gutter: 24px;
-      --lf-max-width: 880px;
-      --lf-margin-inline: 8vw;
+      --lf-gutter: 4px;
+      --lf-max-width: 1000px;
+      --lf-margin-inline: 5vw;
       --lf-baseline: 8px;
-      --lf-space-1: 4px; --lf-space-2: 8px; --lf-space-3: 16px;
-      --lf-space-4: 24px; --lf-space-6: 40px; --lf-space-8: 64px;
-      /* theme-overridable — full set, not just color/font. This archetype's "hero" equivalent is the
-         headline's own panel (see restraint-rule note below), not an image/exhibit box. */
+      --lf-space-1: 2px; --lf-space-2: 4px; --lf-space-3: 8px;
+      --lf-space-4: 16px; --lf-space-6: 24px; --lf-space-8: 32px;
       --lf-ink: #111111;
       --lf-ink-muted: #6b6b6b;
       --lf-paper: #ffffff;
@@ -135,9 +135,6 @@
       --lf-shadow-hero: none;
       --lf-gradient-hero: none;
       --lf-border-width: 1px;
-      /* quote/emphasis tokens declared for schema completeness — this archetype has no pull-quote,
-         sidebar, or list/well component (editorialFeatures.pullQuotes/callouts are both false), so
-         they are never consumed by the CSS below. Left at template defaults, not per-theme tuned. */
       --lf-quote-border-width: 2px;
       --lf-quote-border-color: var(--lf-accent);
       --lf-quote-text-color: var(--lf-ink);
@@ -160,43 +157,64 @@
       transition: background-color .15s, color .15s;
     }
 
-    /* Theme-preview overrides — scoped to .lf-variant-stage (not body), per the scoping rule below.
-       Values pulled from each theme's own theme-data JSON and component markup — never invented.
-       --lf-shadow-hero here holds each theme's own most dramatic shadow/glow level (their shadows.xl
-       or effects.glowLg), since this archetype's single hero element is the poster panel itself. */
-    .lf-variant-stage.theme-velvet-noir {
-      --lf-ink: #E8DCC8; --lf-ink-muted: #8A7860; --lf-paper: #1A1018;
-      --lf-line: #3A2838; --lf-region-outline: #3A2838; --lf-accent: #E8C96A;
-      --lf-font-body: 'Cormorant Garamond', Georgia, serif; --lf-font-display: 'Playfair Display', Georgia, serif;
-      --lf-font-mono: 'IBM Plex Mono', 'Courier New', monospace;
-      --lf-font-weight-heading: 700; --lf-line-height: 1.75; --lf-card-radius: 4px;
-      /* velvet-noir's own diamond-crosshatch background, applied at the stage level exactly as it
-         is on the theme's own body */
-      --lf-bg-image: repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(201,168,76,0.045) 18px, rgba(201,168,76,0.045) 19px), repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(201,168,76,0.045) 18px, rgba(201,168,76,0.045) 19px);
-      --lf-bg-size: 38px 38px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
-      --lf-surface: #221520;
-      /* theme's own shadows.xl — the most dramatic level, at full strength on the one hero panel */
-      --lf-shadow-hero: 0 16px 60px rgba(10,5,12,0.9), 0 0 0 1px rgba(201,168,76,0.2);
-      /* theme's own gradients.hero — the exact dark-plum wash behind its .tf-header */
-      --lf-gradient-hero: linear-gradient(135deg, #2D1835 0%, #1A1018 45%, #251520 100%);
-      --lf-border-width: 1px; /* design.borderStyle: hairline */
+    /* Theme-preview overrides — scoped to .lf-variant-stage, never body (see scoping rule in
+       modules/preset-template.html). Blocks reused verbatim from single-column-editorial.html
+       (wisdom), masonry-photo-essay.html (tokyo-screentone), and card-catalogue-index.html
+       (moss-cottage). */
+    .lf-variant-stage.theme-wisdom {
+      --lf-ink: #1C1812; --lf-ink-muted: #6E5E48; --lf-paper: #F4EFE2;
+      --lf-line: #C4B59A; --lf-region-outline: #C4B59A; --lf-accent: #B8860B;
+      --lf-font-body: 'EB Garamond', Georgia, serif; --lf-font-display: 'Cinzel', 'Times New Roman', serif;
+      --lf-font-mono: 'Courier Prime', 'Courier New', monospace;
+      --lf-font-weight-heading: 600; --lf-line-height: 1.72; --lf-card-radius: 4px;
+      --lf-bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      --lf-bg-size: 300px 300px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #EBE4D1;
+      --lf-shadow-hero: 0 8px 32px rgba(28,24,18,0.20);
+      --lf-gradient-hero: linear-gradient(135deg, #1E3B6F 0%, #2C5298 60%, #1A3260 100%);
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 1px;
+      --lf-quote-border-color: #C9A84C;
+      --lf-quote-text-color: #B8860B;
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #8B4513;
     }
-    .lf-variant-stage.theme-astral-drift {
-      --lf-ink: #F0E8FF; --lf-ink-muted: #8070B0; --lf-paper: #08061A;
-      --lf-line: #2A1858; --lf-region-outline: #2A1858; --lf-accent: #00EEFF;
-      --lf-font-body: 'Philosopher', Georgia, serif; --lf-font-display: 'Cinzel Decorative', Georgia, serif;
+    .lf-variant-stage.theme-tokyo-screentone {
+      --lf-ink: #181410; --lf-ink-muted: #8A8078; --lf-paper: #F8F5EE;
+      --lf-line: #C8C0B0; --lf-region-outline: #C8C0B0; --lf-accent: #D42A20;
+      --lf-font-body: 'Mulish', 'Helvetica Neue', sans-serif;
+      --lf-font-display: 'Big Shoulders Display', 'Impact', sans-serif;
       --lf-font-mono: 'Share Tech Mono', 'Courier New', monospace;
-      --lf-font-weight-heading: 700; --lf-line-height: 1.75; --lf-card-radius: 12px;
-      /* astral-drift's own 6-layer nebula field, applied at the stage level exactly as it is fixed
-         behind the theme's own body */
-      --lf-bg-image: radial-gradient(ellipse at 80% 85%, rgba(200,0,255,0.28) 0%, transparent 45%), radial-gradient(ellipse at 80% 20%, rgba(255,0,136,0.18) 0%, transparent 40%), radial-gradient(ellipse at 20% 15%, rgba(0,200,255,0.15) 0%, transparent 42%), radial-gradient(ellipse at 15% 75%, rgba(64,255,128,0.12) 0%, transparent 38%), radial-gradient(ellipse at 85% 80%, rgba(230,160,40,0.14) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(100,0,220,0.2) 0%, transparent 55%);
-      --lf-bg-size: cover; --lf-bg-position: 50% 50%; --lf-bg-repeat: no-repeat;
-      --lf-surface: #10083A;
-      /* theme's own effects.glowLg — its signature magenta glow, at full strength on the one hero panel */
-      --lf-shadow-hero: 0 0 56px rgba(204,0,255,0.7), 0 0 100px rgba(204,0,255,0.3);
-      /* theme's own gradients.hero — the dark-indigo wash behind its .hero panel */
-      --lf-gradient-hero: linear-gradient(135deg, rgba(16,8,58,0.95) 0%, rgba(8,6,26,0.9) 100%);
-      --lf-border-width: 1px; /* design.borderStyle: hairline */
+      --lf-font-weight-heading: 900; --lf-line-height: 1.6; --lf-card-radius: 0px;
+      --lf-bg-image: radial-gradient(circle, rgba(24,20,16,0.12) 1px, transparent 1px);
+      --lf-bg-size: 8px 8px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #F0EDE4;
+      --lf-shadow-hero: 4px 4px 0 #D42A20;
+      --lf-gradient-hero: none;
+      --lf-border-width: 2px;
+      --lf-quote-border-width: 4px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-accent);
+      --lf-emphasis-border-width: 3px;
+      --lf-emphasis-border-color: #1890CC;
+    }
+    .lf-variant-stage.theme-moss-cottage {
+      --lf-ink: #2A2818; --lf-ink-muted: #7A7060; --lf-paper: #F2EEE0;
+      --lf-line: #C8C0A0; --lf-region-outline: #C8C0A0; --lf-accent: #5A7A3A;
+      --lf-font-body: 'Mulish', 'Helvetica Neue', sans-serif; --lf-font-display: 'Gilda Display', Georgia, serif;
+      --lf-font-mono: 'Fira Code', 'Courier New', monospace;
+      --lf-font-weight-heading: 400; --lf-line-height: 1.72; --lf-card-radius: 16px;
+      --lf-bg-image: radial-gradient(circle, rgba(90,122,58,0.1) 1px, transparent 1px);
+      --lf-bg-size: 18px 18px; --lf-bg-position: 0 0; --lf-bg-repeat: repeat;
+      --lf-surface: #EAE4D0;
+      --lf-shadow-hero: 0 3px 14px rgba(42,40,24,0.12);
+      --lf-gradient-hero: linear-gradient(135deg, #E8E2CC 0%, #F2EEE0 50%, #EAE4D0 100%);
+      --lf-border-width: 1px;
+      --lf-quote-border-width: 2px;
+      --lf-quote-border-color: var(--lf-accent);
+      --lf-quote-text-color: var(--lf-ink);
+      --lf-emphasis-border-width: 2px;
+      --lf-emphasis-border-color: #E8A840;
     }
 
     .lf-meta {
@@ -234,83 +252,47 @@
       padding: 0 var(--lf-margin-inline);
     }
 
-    /* ── Archetype-specific vocabulary ──
-       poster-broadside has no "well," no card, no pull-quote — one panel, two type sizes.
-       .lf-broadside is the single region: a centered panel that is this archetype's own
-       "hero" (per the restraint rule, the one element allowed real surface/gradient/shadow
-       presence). Its headline and support line stay plain text, no color/shape treatment of
-       their own beyond size and the theme's ink/font tokens. */
-    .lf-broadside {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 46vh;
-      padding: var(--lf-space-8) var(--lf-space-6);
-      background-color: var(--lf-surface);
-      background-image: var(--lf-gradient-hero);
-      background-size: cover;
-      border: var(--lf-border-width) solid var(--lf-region-outline);
-      border-radius: var(--lf-card-radius);
-      box-shadow: var(--lf-shadow-hero);
-    }
-    .lf-broadside-eyebrow {
-      font-family: var(--lf-font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--lf-ink-muted);
+    .lf-utg-header {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--lf-space-4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      padding: 0 var(--lf-space-2) var(--lf-space-3);
+      border-bottom: var(--lf-border-width) solid var(--lf-ink);
       margin-bottom: var(--lf-space-4);
     }
-    .lf-broadside-headline {
-      font-family: var(--lf-font-display);
-      font-weight: var(--lf-font-weight-heading);
-      font-size: clamp(3rem, 8.5vw, 6.2rem);
-      line-height: 0.95;
-      letter-spacing: -0.01em;
-      color: var(--lf-ink);
-      max-width: 16ch;
+    .lf-utg-title { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.1rem; }
+    .lf-utg-sort { font-family: var(--lf-font-mono); font-size: 0.72rem; color: var(--lf-ink-muted); }
+
+    /* The grid itself — flush equal squares, never bordered "cards" */
+    .lf-utg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--lf-gutter); }
+    .lf-utg-tile {
+      aspect-ratio: 1;
+      background-color: var(--lf-surface);
+      background-image: repeating-linear-gradient(45deg, var(--lf-line), var(--lf-line) 1px, transparent 1px, transparent 10px);
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      position: relative;
+      overflow: hidden;
     }
-    .lf-broadside-rule {
-      width: 48px;
-      height: var(--lf-border-width);
-      background-color: var(--lf-accent);
-      margin: var(--lf-space-6) auto;
+    .lf-utg-tile .cap {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6); color: #fff;
+      font-family: var(--lf-font-mono); font-size: 0.6rem;
+      padding: 3px 6px; opacity: 0; transition: opacity .15s;
     }
-    .lf-broadside-support {
-      font-size: 1.02rem;
-      color: var(--lf-ink-muted);
-      max-width: 46ch;
-      margin-top: var(--lf-space-4);
-    }
-    /* Concept tab only: the archetype's own explanation needs a little more room than a real
-       support line ever should — still small, still muted, still visibly subordinate to the
-       headline, but structured as short labeled lines rather than one sentence. This is the one
-       place this file bends its own minimalism, to teach the rule rather than demonstrate it. */
-    .lf-broadside-notes {
-      text-align: left;
-      max-width: 52ch;
-      margin-top: var(--lf-space-6);
-      display: flex;
-      flex-direction: column;
-      gap: var(--lf-space-3);
-    }
-    .lf-broadside-notes dt {
-      font-family: var(--lf-font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--lf-accent);
-      margin-bottom: 2px;
-    }
-    .lf-broadside-notes dd {
-      font-size: 0.88rem;
-      color: var(--lf-ink-muted);
-      line-height: 1.55;
+    .lf-utg-tile:hover .cap { opacity: 1; }
+    .lf-utg-tile.stat { display: flex; align-items: center; justify-content: center; }
+    .lf-utg-tile.stat .value { font-family: var(--lf-font-display); font-weight: var(--lf-font-weight-heading); font-size: 1.3rem; color: var(--lf-quote-text-color); }
+    .lf-utg-tile.label { display: flex; align-items: center; justify-content: center; padding: var(--lf-space-2); text-align: center; }
+    .lf-utg-tile.label span { font-family: var(--lf-font-mono); font-size: 0.72rem; color: var(--lf-ink); }
+
+    .lf-utg-footer { text-align: center; margin-top: var(--lf-space-6); }
+    .lf-utg-footer button {
+      font-family: var(--lf-font-mono); font-size: 0.75rem;
+      border: var(--lf-border-width) solid var(--lf-region-outline);
+      border-radius: var(--lf-card-radius);
+      background: var(--lf-surface); color: var(--lf-ink);
+      padding: var(--lf-space-2) var(--lf-space-4);
     }
 
-    /* View tabs — single-line selector; underline + hover/active states signal "clickable" by convention */
     .lf-section-title {
       font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
       font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
@@ -346,11 +328,6 @@
     }
     .lf-variant-active-caption strong { font-style: normal; color: var(--lf-ink); }
 
-    /* Stage — full-scale page for whichever option is selected.
-       color/font-family/line-height/background re-declared here (not just inherited from body)
-       so that when .theme-* overrides the custom properties above, descendants that don't set
-       their own color re-inherit from THIS element rather than the already-resolved neutral
-       value from body. */
     .lf-variant-stage {
       border-top: 1px solid var(--lf-ink);
       padding: var(--lf-space-6) var(--lf-space-6) var(--lf-space-8);
@@ -368,7 +345,6 @@
     .lf-variant-page { display: none; }
     .lf-variant-page.active { display: block; }
 
-    /* Theme-preview selector — same tab convention as the view selector, second row */
     .lf-theme-tabs {
       display: flex; flex-wrap: wrap; align-items: baseline;
       gap: var(--lf-space-1) var(--lf-space-4);
@@ -396,10 +372,6 @@
     }
     .lf-theme-note strong { font-style: normal; color: var(--lf-ink); }
 
-    /* Full View (house style, not optional) — a fixed-position toggle that hides the picker
-       chrome so the selected variant/theme combination can be inspected the way it'd actually
-       be used, not as a gallery component. Stays fixed-position so it remains visible in both
-       states. */
     .lf-fullview-toggle {
       position: fixed;
       top: var(--lf-space-4);
@@ -423,7 +395,6 @@
       transition: background-color .12s, color .12s;
     }
     .lf-fullview-toggle:hover { background-color: var(--lf-ink); color: var(--lf-paper); }
-    /* embed mode (loaded via ?fullview=1, e.g. a gallery thumbnail iframe) — no interactive exit affordance needed */
     body.lf-embed .lf-fullview-toggle { display: none; }
 
     body.lf-fullview .lf-meta,
@@ -435,9 +406,6 @@
     body.lf-fullview .lf-theme-note {
       display: none;
     }
-    /* Zero out every layer of padding/margin/max-width between body and .lf-variant-stage so the
-       theme's background (scoped to .lf-variant-stage, not body) fills the viewport edge-to-edge
-       with no unthemed white gap on any side. */
     body.lf-fullview { padding: 0; }
     body.lf-fullview .lf-page { max-width: none; padding: 0; margin: 0; }
     body.lf-fullview .lf-variant-stage {
@@ -446,12 +414,7 @@
       padding: var(--lf-space-8) var(--lf-margin-inline) 96px;
       min-height: 100vh;
     }
-  
-    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
-       derived from location.pathname, so this block never needs per-file editing). Fetches and
-       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
-       blocked (e.g. plain file:// with no local server). Stacked below Full View, hidden in
-       embed/thumbnail mode same as Full View. */
+
     .lf-doc-toggle {
       position: fixed;
       top: calc(var(--lf-space-4) + 2.4rem);
@@ -546,88 +509,115 @@
   </div>
 
   <div class="lf-meta">
-    <span class="lf-meta-name">poster-broadside</span>
-    <span class="lf-meta-tags">poster-broadside &middot; grid-discipline</span>
+    <span class="lf-meta-name">uniform-tile-grid</span>
+    <span class="lf-meta-tags">uniform-tile-grid &middot; grid-discipline</span>
   </div>
 
   <div class="lf-specs">
-    <div class="lf-spec"><span class="k">Grid</span><span class="v">12-col</span></div>
-    <div class="lf-spec"><span class="k">Gutter</span><span class="v">24px</span></div>
-    <div class="lf-spec"><span class="k">Max width</span><span class="v">880px</span></div>
+    <div class="lf-spec"><span class="k">Grid</span><span class="v">modular</span></div>
+    <div class="lf-spec"><span class="k">Gutter</span><span class="v">4px</span></div>
+    <div class="lf-spec"><span class="k">Max width</span><span class="v">1000px</span></div>
     <div class="lf-spec"><span class="k">Baseline</span><span class="v">8px</span></div>
-    <div class="lf-spec"><span class="k">Density</span><span class="v">spacious</span></div>
+    <div class="lf-spec"><span class="k">Density</span><span class="v">compact</span></div>
     <div class="lf-spec"><span class="k">Balance</span><span class="v">symmetric</span></div>
   </div>
 
   <div class="lf-page">
 
-    <div class="lf-section-title">poster-broadside — select a view</div>
+    <div class="lf-section-title">uniform-tile-grid — select a view</div>
 
     <div class="lf-variant-tabs" role="tablist" aria-label="Select a view">
       <button class="lf-variant-tab active" data-variant-option="concept" data-caption="<strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it." role="tab" aria-selected="true">Concept</button>
-      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> chapter title pages, section dividers inside a long report or book, a single declarative section name between long-form pages.<br><strong>Avoid:</strong> letting the support line grow into a paragraph 'just this once' — a title page that argues a point has stopped being a title page." role="tab" aria-selected="false">Mostly Text</button>
-      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> a deck's opening title slide built around one headline statistic; a report cover page stating its single most important finding before the exhibits begin.<br><strong>Avoid:</strong> placing an actual chart, axis, or data table here — that's a report page wearing a poster's typography." role="tab" aria-selected="false">Chart / Data-Heavy</button>
-      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> a category-divider page inside a catalogue or index, a 'Part Two' interstitial between list sections, a single-item spotlight cover with no comparison list attached.<br><strong>Avoid:</strong> letting a second item creep onto the page 'while we're here' — even two items of equal weight breaks the rule." role="tab" aria-selected="false">Card / List-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="text" data-caption="<strong>Best for:</strong> a tag/category wall, an icon-only sitemap, a glossary index rendered as clickable squares.<br><strong>Avoid:</strong> cramming full sentences into a square tile." role="tab" aria-selected="false">Mostly Text</button>
+      <button class="lf-variant-tab" data-variant-option="chart" data-caption="<strong>Best for:</strong> a wall of many small, genuinely identical-shaped metrics — same metric, same window, per item.<br><strong>Avoid:</strong> mixing metric types across tiles." role="tab" aria-selected="false">Chart / Data-Heavy</button>
+      <button class="lf-variant-tab" data-variant-option="card" data-caption="<strong>Best for:</strong> Instagram-style profile grids, photography portfolios, product catalog grids, avatar walls.<br><strong>Avoid:</strong> adding a persistent caption bar under every tile 'just in case.'" role="tab" aria-selected="false">Card / List-Heavy</button>
     </div>
     <p class="lf-variant-active-caption" id="variant-caption"><strong>Start here</strong> if you haven't used this archetype before — explains the concept and when not to use it.</p>
 
     <div class="lf-section-title">Preview with a theme-factory theme</div>
     <div class="lf-theme-tabs" role="tablist" aria-label="Preview with a theme">
       <button class="lf-theme-tab active" data-theme-option="none" role="tab" aria-selected="true">No theme (default)</button>
-      <button class="lf-theme-tab" data-theme-option="velvet-noir" role="tab" aria-selected="false">velvet-noir</button>
-      <button class="lf-theme-tab" data-theme-option="astral-drift" role="tab" aria-selected="false">astral-drift</button>
+      <button class="lf-theme-tab" data-theme-option="wisdom" role="tab" aria-selected="false">wisdom</button>
+      <button class="lf-theme-tab" data-theme-option="tokyo-screentone" role="tab" aria-selected="false">tokyo-screentone</button>
+      <button class="lf-theme-tab" data-theme-option="moss-cottage" role="tab" aria-selected="false">moss-cottage</button>
     </div>
-    <p class="lf-theme-note">Structure stays identical across all three — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
+    <p class="lf-theme-note">Structure stays identical across all four — only color, type, and shape tokens change. This is layout-factory (structure) composed with <strong>theme-factory</strong> (skin); only the panel below is themed, this picker and the specs above stay neutral.</p>
 
     <div class="lf-variant-stage">
 
       <section class="lf-variant-page active" data-variant-page="concept">
-        <div class="lf-broadside">
-          <div class="lf-broadside-eyebrow">Poster / Broadside &middot; Concept</div>
-          <h1 class="lf-broadside-headline">Scale Is the Hierarchy.</h1>
-          <div class="lf-broadside-rule"></div>
-          <dl class="lf-broadside-notes">
-            <div>
-              <dt>The rule</dt>
-              <dd>One statement, one scale jump, no boxes. Hierarchy comes entirely from how large the headline is relative to everything else on the page — never from color, borders, or a shadowed container.</dd>
-            </div>
-            <div>
-              <dt>Best for</dt>
-              <dd>Cover pages, section dividers, title slides — a single moment, not a page of content. It adapts directly and strongly to a slide's title or section-divider layout.</dd>
-            </div>
-            <div>
-              <dt>Never</dt>
-              <dd>A second real idea. The instant a page needs a second paragraph, a second box, or a chart, this archetype has been outgrown — reach for magazine-well or single-column-editorial instead.</dd>
-            </div>
-          </dl>
+        <div class="lf-utg-header">
+          <span class="lf-utg-title">Uniform Tile Grid</span>
+          <span class="lf-utg-sort">12 items &middot; no sort order matters</span>
+        </div>
+        <div class="lf-utg-grid">
+          <div class="lf-utg-tile"><span class="cap">Tile 1</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 2</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 3</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 4</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 5</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 6</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 7</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 8</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 9</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 10</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 11</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tile 12</span></div>
         </div>
       </section>
 
       <section class="lf-variant-page" data-variant-page="text">
-        <div class="lf-broadside">
-          <div class="lf-broadside-eyebrow">Section 02 of 04</div>
-          <h1 class="lf-broadside-headline">The Long Middle</h1>
-          <div class="lf-broadside-rule"></div>
-          <p class="lf-broadside-support">This page exists to mark a transition — the essay's actual argument lives in the single-column-editorial pages before and after it, never here.</p>
+        <div class="lf-utg-header">
+          <span class="lf-utg-title">Documentation Tags</span>
+          <span class="lf-utg-sort">Alphabetical</span>
+        </div>
+        <div class="lf-utg-grid">
+          <div class="lf-utg-tile label"><span>Grid</span></div>
+          <div class="lf-utg-tile label"><span>Spacing</span></div>
+          <div class="lf-utg-tile label"><span>Editorial</span></div>
+          <div class="lf-utg-tile label"><span>Hierarchy</span></div>
+          <div class="lf-utg-tile label"><span>Print</span></div>
+          <div class="lf-utg-tile label"><span>Slides</span></div>
+          <div class="lf-utg-tile label"><span>Markdown</span></div>
+          <div class="lf-utg-tile label"><span>Themes</span></div>
         </div>
       </section>
 
       <section class="lf-variant-page" data-variant-page="chart">
-        <div class="lf-broadside">
-          <div class="lf-broadside-eyebrow">Q3 Findings &middot; Title Slide</div>
-          <h1 class="lf-broadside-headline">73%</h1>
-          <div class="lf-broadside-rule"></div>
-          <p class="lf-broadside-support">Retention plateau reached six weeks post-launch — the one number this deck opens on. Every supporting exhibit lives on the report pages that follow, never here.</p>
+        <div class="lf-utg-header">
+          <span class="lf-utg-title">Weekly Growth by SKU</span>
+          <span class="lf-utg-sort">Same metric, same window</span>
+        </div>
+        <div class="lf-utg-grid">
+          <div class="lf-utg-tile stat"><span class="value">+4%</span></div>
+          <div class="lf-utg-tile stat"><span class="value">+1%</span></div>
+          <div class="lf-utg-tile stat"><span class="value">-2%</span></div>
+          <div class="lf-utg-tile stat"><span class="value">+9%</span></div>
+          <div class="lf-utg-tile stat"><span class="value">+3%</span></div>
+          <div class="lf-utg-tile stat"><span class="value">0%</span></div>
+          <div class="lf-utg-tile stat"><span class="value">+6%</span></div>
+          <div class="lf-utg-tile stat"><span class="value">+2%</span></div>
         </div>
       </section>
 
       <section class="lf-variant-page" data-variant-page="card">
-        <div class="lf-broadside">
-          <div class="lf-broadside-eyebrow">Catalog &middot; Part Two</div>
-          <h1 class="lf-broadside-headline">Featured</h1>
-          <div class="lf-broadside-rule"></div>
-          <p class="lf-broadside-support">A category divider between list groups — the flagship items and the full comparison table live on the pages before and after, never crammed onto this one.</p>
+        <div class="lf-utg-header">
+          <span class="lf-utg-title">@fieldnotes.studio</span>
+          <span class="lf-utg-sort">142 posts</span>
         </div>
+        <div class="lf-utg-grid">
+          <div class="lf-utg-tile"><span class="cap">Morning light, studio</span></div>
+          <div class="lf-utg-tile"><span class="cap">Materials shelf</span></div>
+          <div class="lf-utg-tile"><span class="cap">Work in progress</span></div>
+          <div class="lf-utg-tile"><span class="cap">Finished piece, no. 12</span></div>
+          <div class="lf-utg-tile"><span class="cap">Packing for shipment</span></div>
+          <div class="lf-utg-tile"><span class="cap">Studio window</span></div>
+          <div class="lf-utg-tile"><span class="cap">Tool detail</span></div>
+          <div class="lf-utg-tile"><span class="cap">Finished piece, no. 11</span></div>
+          <div class="lf-utg-tile"><span class="cap">Sketch page</span></div>
+          <div class="lf-utg-tile"><span class="cap">Client install</span></div>
+        </div>
+        <div class="lf-utg-footer"><button type="button">Load more</button></div>
       </section>
 
     </div>
@@ -660,7 +650,7 @@
           b.classList.toggle('active', isActive);
           b.setAttribute('aria-selected', isActive ? 'true' : 'false');
         });
-        stage.classList.remove('theme-velvet-noir', 'theme-astral-drift');
+        stage.classList.remove('theme-wisdom', 'theme-tokyo-screentone', 'theme-moss-cottage');
         if (target !== 'none') stage.classList.add('theme-' + target);
       });
     });
@@ -678,7 +668,6 @@
       }
     });
   </script>
-
 
   <script>
     (function () {

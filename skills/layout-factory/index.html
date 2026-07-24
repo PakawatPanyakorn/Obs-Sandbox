@@ -114,6 +114,33 @@
       .tag.job { text-transform: none; letter-spacing: 0; }
 
       .empty { max-width: 1100px; margin: 3rem auto; text-align: center; color: var(--muted); font-size: 0.85rem; }
+
+      /* ── Preview overlay ── */
+      .overlay { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; background: var(--bg); }
+      .overlay.hidden { display: none; }
+      .overlay.bar-hidden .overlay-bar { display: none; }
+      .overlay-bar {
+        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        padding: 0 1.25rem; height: 48px; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0;
+      }
+      .overlay-bar-left { display: flex; align-items: center; gap: 0.75rem; min-width: 0; overflow: hidden; }
+      .overlay-back {
+        display: flex; align-items: center; gap: 0.3rem; background: transparent; border: 1px solid var(--border);
+        border-radius: 99px; color: var(--muted); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em;
+        cursor: pointer; padding: 0.28rem 0.8rem; font-family: inherit; transition: border-color .12s, color .12s;
+        flex-shrink: 0; white-space: nowrap;
+      }
+      .overlay-back:hover { border-color: var(--text); color: var(--text); }
+      .overlay-bar-divider { width: 1px; height: 14px; background: var(--border); flex-shrink: 0; }
+      #overlay-title { font-size: 0.8rem; font-weight: 600; letter-spacing: -0.015em; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .overlay-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+      #overlay-open {
+        display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em;
+        color: var(--accent); text-decoration: none; border: 1px solid var(--border); border-radius: 99px;
+        padding: 0.28rem 0.8rem; transition: border-color .12s, background .12s; white-space: nowrap; font-family: inherit;
+      }
+      #overlay-open:hover { border-color: var(--accent); background: var(--bg); }
+      #overlay-frame { flex: 1; border: none; width: 100%; display: block; }
     </style>
   </head>
   <body>
@@ -153,9 +180,64 @@
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty" style="display:none">No layouts match.</div>
 
+    <!-- Preview overlay -->
+    <div class="overlay hidden" id="overlay">
+      <div class="overlay-bar">
+        <div class="overlay-bar-left">
+          <button class="overlay-back" id="overlay-close">← Back</button>
+          <div class="overlay-bar-divider"></div>
+          <span id="overlay-title"></span>
+        </div>
+        <div class="overlay-actions">
+          <a id="overlay-open" href="#" target="_blank">Open layout ↗</a>
+        </div>
+      </div>
+      <iframe id="overlay-frame" src=""></iframe>
+    </div>
+
     <script>
       /* ── LAYOUTS — filled in by create/delete mode, mirrors theme-factory's THEMES array shape ── */
       const LAYOUTS = [
+        {
+          filename: "layouts/f-pattern-content.html",
+          data: {
+            name: "f-pattern-content",
+            description: "A scannable list where the first entry gets full-width attention and every entry beneath it carries progressively less horizontal weight — modeled directly on F-pattern eye-tracking heatmaps, with a narrow right rail that's deliberately treated as a low-attention zone.",
+            archetype: "f-pattern-content",
+            family: "editorial-narrative",
+            tags: ["documentation-reference", "essay-long-form", "newsletter-digest"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "lead", columnSpan: "1-9" },
+                { id: "river", columnSpan: "1-9" },
+                { id: "rail", columnSpan: "10-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "comfortable" }
+          }
+        },
+        {
+          filename: "layouts/feature-trio-grid.html",
+          data: {
+            name: "feature-trio-grid",
+            description: "A hero headline sits above exactly three (rarely four) equal-width feature panels in a single row — the ubiquitous SaaS/product 'why choose us' section, disciplined to earn its uniform sizing instead of defaulting to it.",
+            archetype: "feature-trio-grid",
+            family: "grid-discipline",
+            tags: ["marketing-landing", "portfolio-showcase"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "lead", columnSpan: "1-12" },
+                { id: "well", columnSpan: "1-12" },
+                { id: "body", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "spacious" }
+          }
+        },
         {
           filename: "layouts/magazine-well.html",
           data: {
@@ -196,6 +278,27 @@
           }
         },
         {
+          filename: "layouts/quad-chart-briefing-grid.html",
+          data: {
+            name: "quad-chart-briefing-grid",
+            description: "A fixed 2x2 grid of four visually co-equal quadrants — Situation, Complication, Data, Ask — the classic executive/military/policy one-page briefing format, where a strict reading sequence carries the hierarchy instead of size contrast.",
+            archetype: "quad-chart-briefing-grid",
+            family: "data-dense-report",
+            tags: ["analyst-report", "documentation-reference"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "exhibit-a", columnSpan: "1-6" },
+                { id: "exhibit-b", columnSpan: "7-12" },
+                { id: "exhibit-c", columnSpan: "1-6" },
+                { id: "exhibit-d", columnSpan: "7-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
           filename: "layouts/single-column-editorial.html",
           data: {
             name: "single-column-editorial",
@@ -229,6 +332,66 @@
             },
             grid: { columns: 12 },
             spacing: { density: "spacious" }
+          }
+        },
+        {
+          filename: "layouts/kanban-board.html",
+          data: {
+            name: "kanban-board",
+            description: "A variable number of equal-width vertical lanes (one per workflow stage), each holding a content-driven stack of individually bordered cards — the Trello/Jira board pattern, and the one archetype in this catalog where bordered card boxes are the correct default, not the anti-pattern.",
+            archetype: "kanban-board",
+            family: "dashboard-legitimate",
+            tags: ["dashboard-analytics", "documentation-reference"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "rail", columnSpan: "1-2" },
+                { id: "lane", columnSpan: "flexible" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
+          filename: "layouts/kpi-strip-hero-chart.html",
+          data: {
+            name: "kpi-strip-hero-chart",
+            description: "A capped strip of 3-6 top-line KPI tiles sits above one dominant hero chart and a small set of supporting exhibits — the default shape of a BI/analytics overview screen: scan the numbers, then read the one chart that explains them.",
+            archetype: "kpi-strip-hero-chart",
+            family: "dashboard-legitimate",
+            tags: ["dashboard-analytics"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "summary", columnSpan: "1-12" },
+                { id: "lead", columnSpan: "1-12" },
+                { id: "river", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
+          }
+        },
+        {
+          filename: "layouts/holy-grail.html",
+          data: {
+            name: "holy-grail",
+            description: "A four-zone page shell — full-width header, a left navigation rail, a main content column, a right contextual rail, and a full-width footer — the persistent chrome behind most navigable web apps and documentation platforms.",
+            archetype: "holy-grail",
+            family: "dashboard-legitimate",
+            tags: ["dashboard-analytics", "documentation-reference"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "rail", columnSpan: "1-2" },
+                { id: "body", columnSpan: "3-10" },
+                { id: "sidenote", columnSpan: "11-12" },
+                { id: "footer", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
           }
         },
         {
@@ -423,6 +586,26 @@
           }
         },
         {
+          filename: "layouts/pricing-comparison-table.html",
+          data: {
+            name: "pricing-comparison-table",
+            description: "Three (rarely four) equal-width plan columns beneath a hero headline, with exactly one column — the recommended plan — deliberately elevated by scale, shadow, or badge. The one archetype where breaking uniformity on a single item is correct discipline, not decoration.",
+            archetype: "pricing-comparison-table",
+            family: "grid-discipline",
+            tags: ["marketing-landing"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "lead", columnSpan: "1-12" },
+                { id: "well", columnSpan: "1-12" },
+                { id: "body", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "spacious" }
+          }
+        },
+        {
           filename: "layouts/poster-broadside.html",
           data: {
             name: "poster-broadside",
@@ -495,6 +678,25 @@
             },
             grid: { columns: 12 },
             spacing: { density: "spacious" }
+          }
+        },
+        {
+          filename: "layouts/uniform-tile-grid.html",
+          data: {
+            name: "uniform-tile-grid",
+            description: "A dense wall of perfectly equal square tiles — no size variation, no order significance, no captions by default. The purest form of legitimate uniform sizing in this catalog: the tiles are genuine peers because the content itself has no hierarchy to encode.",
+            archetype: "uniform-tile-grid",
+            family: "grid-discipline",
+            tags: ["portfolio-showcase", "marketing-landing"],
+            composition: {
+              regions: [
+                { id: "masthead", columnSpan: "1-12" },
+                { id: "well", columnSpan: "1-12" },
+                { id: "body", columnSpan: "1-12" }
+              ]
+            },
+            grid: { columns: 12 },
+            spacing: { density: "compact" }
           }
         },
         {
@@ -647,7 +849,6 @@
         const a = document.createElement('a');
         a.className = 'card';
         a.href = filename;
-        a.target = '_blank';
         const jobTags = (data.tags || []).map(t => JOB_TAG_LABELS[t] || t);
         a.innerHTML = `
           <div class="thumb">
@@ -704,6 +905,50 @@
 
       buildChips();
       render();
+
+      /* ── Card click → open overlay ── */
+      const overlay = document.getElementById('overlay');
+      const overlayFrame = document.getElementById('overlay-frame');
+      const overlayTitle = document.getElementById('overlay-title');
+      const overlayOpen = document.getElementById('overlay-open');
+      const overlayCloseBtn = document.getElementById('overlay-close');
+
+      function openOverlay(src, title) {
+        overlayFrame.src = src;
+        overlayTitle.textContent = title;
+        overlayOpen.href = src;
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeOverlay() {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('bar-hidden');
+        overlayFrame.src = '';
+        document.body.style.overflow = '';
+      }
+
+      overlayCloseBtn.addEventListener('click', closeOverlay);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !overlay.classList.contains('hidden')) closeOverlay();
+      });
+
+      /* Presets have their own in-page "Full View" toggle that hides their meta/specs chrome;
+         when that fires inside the overlay iframe, also hide our own overlay-bar so the preview
+         is truly unobstructed. Esc still closes the overlay regardless of bar visibility. */
+      window.addEventListener('message', (e) => {
+        if (e.source !== overlayFrame.contentWindow) return;
+        if (!e.data || e.data.type !== 'lf-fullview') return;
+        overlay.classList.toggle('bar-hidden', !!e.data.active);
+      });
+
+      grid.addEventListener('click', (e) => {
+        const cardEl = e.target.closest('.card');
+        if (!cardEl) return;
+        e.preventDefault();
+        const title = cardEl.querySelector('.card-name')?.textContent?.trim() || cardEl.href;
+        openOverlay(cardEl.href, title);
+      });
 
       /* ── Theme toggle ── */
       const toggleBtn = document.getElementById('theme-toggle');

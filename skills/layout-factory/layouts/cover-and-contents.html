@@ -1016,6 +1016,9 @@
     fullviewBtn.addEventListener('click', function () {
       var isFull = document.body.classList.toggle('lf-fullview');
       fullviewBtn.innerHTML = isFull ? '&#10005; Exit Full View' : '&#10530; Full View';
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'lf-fullview', active: isFull }, '*');
+      }
     });
   </script>
 

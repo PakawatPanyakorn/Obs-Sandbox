@@ -405,10 +405,10 @@
       <div class="toolbar">
         <p class="section-label">Reports</p>
         <div class="sort-bar">
-          <button class="sort-btn active" data-sort="name" data-dir="asc">
+          <button class="sort-btn" data-sort="name" data-dir="asc">
             Name <span class="arrow" id="arrow-name">A→Z</span>
           </button>
-          <button class="sort-btn" data-sort="date" data-dir="desc">
+          <button class="sort-btn active" data-sort="date" data-dir="desc">
             Date <span class="arrow" id="arrow-date">newest</span>
           </button>
         </div>
@@ -419,7 +419,7 @@
           class="report-card"
           href="analysis/HIMS_jun26.html"
           data-name="HIMS"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">HIMS</span>
@@ -435,7 +435,7 @@
           class="report-card"
           href="analysis/OKLO_jun26.html"
           data-name="OKLO"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">OKLO</span>
@@ -451,7 +451,7 @@
           class="report-card"
           href="analysis/PLTR_jun26.html"
           data-name="PLTR"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">PLTR</span>
@@ -467,7 +467,7 @@
           class="report-card"
           href="analysis/AMZN_jun26.html"
           data-name="AMZN"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">AMZN</span>
@@ -483,7 +483,7 @@
           class="report-card"
           href="analysis/ZETA_jun26.html"
           data-name="ZETA"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">ZETA</span>
@@ -499,7 +499,7 @@
           class="report-card"
           href="analysis/AAOI_jun26.html"
           data-name="AAOI"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">AAOI</span>
@@ -515,7 +515,7 @@
           class="report-card"
           href="analysis/OSCR_jun26.html"
           data-name="OSCR"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">OSCR</span>
@@ -531,7 +531,7 @@
           class="report-card"
           href="analysis/IREN_jun26.html"
           data-name="IREN"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">IREN</span>
@@ -547,7 +547,7 @@
           class="report-card"
           href="analysis/NBIS_jun26.html"
           data-name="NBIS"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">NBIS</span>
@@ -563,7 +563,7 @@
           class="report-card"
           href="analysis/SOFI_jun26.html"
           data-name="SOFI"
-          data-date="202606"
+          data-date="20260626"
         >
           <div class="card-left">
             <span class="card-ticker">SOFI</span>
@@ -579,7 +579,7 @@
           class="report-card"
           href="analysis/ENHA_jul26.html"
           data-name="ENHA"
-          data-date="202607"
+          data-date="20260701"
         >
           <div class="card-left">
             <span class="card-ticker">ENHA</span>
@@ -595,7 +595,7 @@
           class="report-card"
           href="analysis/ONDS_jul26.html"
           data-name="ONDS"
-          data-date="202607"
+          data-date="20260702"
         >
           <div class="card-left">
             <span class="card-ticker">ONDS</span>
@@ -611,7 +611,7 @@
           class="report-card"
           href="analysis/NOW_jul26.html"
           data-name="NOW"
-          data-date="202607"
+          data-date="20260706"
         >
           <div class="card-left">
             <span class="card-ticker">NOW</span>
@@ -627,7 +627,7 @@
           class="report-card"
           href="analysis/ALAB_jul26.html"
           data-name="ALAB"
-          data-date="202607"
+          data-date="20260724"
         >
           <div class="card-left">
             <span class="card-ticker">ALAB</span>
@@ -710,8 +710,8 @@
 
         const btns = document.querySelectorAll(".sort-btn");
 
-        let currentSort = "name";
-        let currentDir = "asc";
+        let currentSort = "date";
+        let currentDir = "desc";
 
         const ARROW = {
           name: { asc: "A→Z", desc: "Z→A" },
@@ -769,7 +769,7 @@
           });
         });
 
-        sortCards("name", "asc");
+        sortCards("date", "desc");
       })();
     </script>
   </body>

@@ -20,3 +20,5 @@ Log of which theme-factory theme and layout-factory layout were used on each rep
 | ONDS | Jul 2026 | wisdom | classic-stacked |
 | NOW | Jul 2026 | wisdom | classic-stacked |
 | ALAB | Jul 2026 | vault-theorem | data-dense-report-grid |
+| DASH | Jul 2026 | prism-ledger | masthead-feature-river |
+| MU | Jul 2026 | alpha-signal | cover-and-contents |

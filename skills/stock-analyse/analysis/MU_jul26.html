@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MU — Stock Analysis · Jul 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    /* Theme: alpha-signal - applied by obs-theme-factory */
+    :root {
+      --bg-base: #E8FBF5;
+      --bg-image: linear-gradient(rgba(10,112,96,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(10,112,96,0.06) 1px, transparent 1px), radial-gradient(ellipse at 25% 35%, rgba(10,112,96,0.1) 0%, transparent 45%), radial-gradient(ellipse at 75% 65%, rgba(255,78,58,0.07) 0%, transparent 40%);
+      --bg-size: 24px 24px, 24px 24px, cover, cover;
+      --bg-position: 0 0, 0 0, 0 0, 0 0; --bg-repeat: repeat, repeat, no-repeat, no-repeat;
+      --color-primary: #0A7060; --color-primary-light: #B8E8E0; --color-secondary: #FF4E3A; --color-accent: #FFD600;
+      --color-bg: #E8FBF5; --color-surface: #D8F4EC; --color-surface-alt: #C8EDE2;
+      --color-text: #0A1C18; --color-text-muted: #4A7068; --color-text-on-primary: #E8FBF5;
+      --color-border: #A8D8CC; --color-success: #128A6A; --color-warning: #CC8800; --color-error: #D83020;
+      --font-family: 'Crimson Pro', Georgia, serif;
+      --font-family-mono: 'Share Tech Mono', 'Courier New', monospace;
+      --font-family-display: 'Bebas Neue', 'Impact', sans-serif;
+      --font-size-base: 16px; --font-weight-heading: 400; --font-weight-body: 300; --line-height: 1.68;
+      --radius: 3px; --radius-card: 6px; --radius-button: 2px;
+      --shadow-sm: 0 1px 5px rgba(10,28,24,0.08); --shadow-md: 0 3px 14px rgba(10,28,24,0.12);
+      --shadow-lg: 0 6px 28px rgba(10,28,24,0.16); --shadow-xl: 0 12px 44px rgba(10,28,24,0.20);
+      --shadow-colored: 0 4px 20px rgba(10,112,96,0.3); --shadow-inset: inset 0 2px 5px rgba(10,28,24,0.08);
+      --gradient-hero: linear-gradient(135deg, #0A7060 0%, #085848 50%, #0A6050 100%);
+      --gradient-card: linear-gradient(180deg, #D8F4EC 0%, #CFF0E8 100%);
+      --gradient-button: linear-gradient(135deg, #128A6A 0%, #0A7060 100%);
+      --gradient-text: linear-gradient(135deg, #0A7060 0%, #FFD600 50%, #FF4E3A 100%);
+      --gradient-accent: linear-gradient(90deg, #0A7060 0%, #FFD600 50%, #FF4E3A 100%);
+      --glow-color: #0A7060; --glow-sm: 0 0 6px rgba(10,112,96,0.3);
+      --glow-md: 0 0 14px rgba(10,112,96,0.35); --glow-lg: 0 0 28px rgba(10,112,96,0.4);
+      --glass-blur: 0; --glass-tint: none; --backdrop-filter: none; --text-shadow: none;
+      --border-gradient: linear-gradient(90deg, #0A7060, #FFD600, #FF4E3A); --noise-opacity: 0;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 80ms; --duration-base: 160ms; --duration-slow: 280ms;
+      --easing: cubic-bezier(0.25, 0, 0.5, 1); --border-width: 1px;
+
+      --bg: var(--color-bg);
+      --card: var(--color-surface);
+      --card2: var(--color-surface-alt);
+      --border: var(--color-border);
+      --accent: var(--color-primary);
+      --green: var(--color-success);
+      --red: var(--color-error);
+      --yellow: var(--color-warning);
+      --text: var(--color-text);
+      --muted: var(--color-text-muted);
+    }
+
+    /* Layout: cover-and-contents - applied by obs-layout-factory */
+    :root {
+      --layout-columns: 12;
+      --layout-gutter: 24px;
+      --layout-max-width: 1100px;
+      --layout-margin-inline: 6vw;
+      --layout-space-2: 8px;
+      --layout-space-4: 24px;
+      --layout-space-6: 64px;
+      --layout-section-gap: 96px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      background-attachment: fixed;
+      font-family: var(--font-family);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--text);
+      line-height: var(--line-height);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .page {
+      max-width: var(--layout-max-width);
+      margin: 0 auto;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: var(--gradient-hero);
+      border-top: 3px solid var(--color-accent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      color: var(--color-text-on-primary);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, color-mix(in srgb, var(--color-primary-light) 12%, transparent) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-ticker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-family: var(--font-family-display);
+    }
+    .hero-name {
+      font-size: 28px;
+      font-weight: var(--font-weight-heading, 700);
+      margin-bottom: 8px;
+      color: var(--color-text-on-primary);
+      font-family: var(--font-family-display);
+      letter-spacing: 0.03em;
+    }
+    .hero-tagline {
+      font-size: 15px;
+      color: color-mix(in srgb, var(--color-text-on-primary) 78%, transparent);
+      max-width: 540px;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid;
+      letter-spacing: 0.04em;
+      font-family: var(--font-family-display);
+    }
+    .pill-blue {
+      background: color-mix(in srgb, var(--color-primary-light) 18%, transparent);
+      border-color: color-mix(in srgb, var(--color-primary-light) 45%, transparent);
+      color: var(--color-primary-light);
+    }
+    .pill-green {
+      background: color-mix(in srgb, var(--color-success) 25%, transparent);
+      border-color: color-mix(in srgb, var(--color-success) 60%, transparent);
+      color: color-mix(in srgb, var(--color-success) 55%, white);
+    }
+    .pill-red {
+      background: color-mix(in srgb, var(--color-error) 25%, transparent);
+      border-color: color-mix(in srgb, var(--color-error) 60%, transparent);
+      color: color-mix(in srgb, var(--color-error) 55%, white);
+    }
+    .pill-yellow {
+      background: color-mix(in srgb, var(--color-warning) 25%, transparent);
+      border-color: color-mix(in srgb, var(--color-warning) 60%, transparent);
+      color: color-mix(in srgb, var(--color-warning) 55%, white);
+    }
+
+    /* Section & Card Structure */
+    .section {
+      margin-bottom: var(--layout-section-gap);
+    }
+    .section-title {
+      font-family: var(--font-family-display);
+      font-size: 13px;
+      font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm);
+      padding: 20px 22px;
+      margin-bottom: 14px;
+    }
+    .card h3 {
+      font-family: var(--font-family-display);
+      font-size: 13px;
+      font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin: 0 0 10px 0;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--layout-gutter); }
+
+    /* Stat Grid */
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .stat-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm);
+      padding: 16px 18px;
+    }
+    .stat-label {
+      font-family: var(--font-family-display);
+      font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--color-primary); margin-bottom: 6px;
+    }
+    .stat-value {
+      font-family: var(--font-family-display);
+      font-size: 22px; font-weight: var(--font-weight-heading, 700); color: var(--color-text);
+    }
+    .stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .val-green { color: var(--color-success); }
+    .val-red { color: var(--color-error); }
+    .val-yellow { color: var(--color-warning); }
+
+    /* TL;DR Box */
+    .tldr {
+      background: var(--card);
+      border-radius: var(--radius);
+      border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-md);
+      padding: 22px 24px;
+      margin-bottom: 28px;
+    }
+    .tldr h2 {
+      font-family: var(--font-family-display);
+      font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 2px;
+      text-transform: uppercase; color: var(--color-primary); margin: 0 0 14px 0;
+    }
+    .tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+    .tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+    /* Scorecard Radar Chart */
+    .radar-hint { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+    .scorecard-body { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+    .radar-wrap { flex-shrink: 0; display: flex; justify-content: center; width: 100%; max-width: 480px; }
+    #scorecardRadar { width: 100%; height: auto; display: block; }
+    .radar-axis-label { font-family: var(--font-family-display); font-size: 15px; font-weight: 700; fill: var(--color-primary); cursor: pointer; }
+    .radar-dot { cursor: pointer; transition: r 0.15s; }
+    .radar-dot:hover, .radar-dot.active { r: 10; }
+    .scorecard-why { flex: 1; min-width: 220px; border-left: 1px solid var(--border); padding: 4px 0 4px 26px; }
+    .scorecard-why .wp-title { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px; }
+    .scorecard-why .wp-score { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-accent); font-weight: 700; margin-bottom: 10px; display: block; }
+    .scorecard-why .wp-text { font-size: 15px; line-height: 1.65; margin: 0; }
+    .scorecard-why .wp-back { display: block; font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 10px; text-decoration: underline; }
+    .scorecard-why .wp-back:hover { color: var(--color-accent); }
+    @media (max-width: 640px) {
+      .scorecard-body { flex-direction: column; }
+      .scorecard-why { border-left: none; border-top: 1px solid var(--border); padding: 20px 0 0; margin-top: 20px; }
+    }
+
+    /* Scenario Cards */
+    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .scenario-card { background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 18px 20px; }
+    .scenario-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 1px; text-transform: uppercase; margin: 0 0 6px 0; }
+    .scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+    .scenario-bull h3 { color: var(--color-success); }
+    .scenario-base h3 { color: var(--color-warning); }
+    .scenario-bear h3 { color: var(--color-error); }
+
+    /* Timeline Component */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+    .timeline-item { position: relative; margin-bottom: 20px; }
+    .timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+    .timeline-dot.past { background: var(--color-text-muted); border-color: var(--color-text-muted); }
+    .timeline-dot.present { background: var(--color-primary); border-color: var(--color-primary); width: 14px; height: 14px; left: -26px; }
+    .timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+    .timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+    .timeline-event { font-size: 14px; line-height: 1.5; }
+
+    /* Verdict / Bottom Line Card */
+    .verdict {
+      background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+      border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-md);
+      padding: 28px 30px;
+    }
+    .verdict-title { font-family: var(--font-family-display); font-size: 14px; font-weight: var(--font-weight-heading, 700); letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 16px; }
+    .verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+    .verdict p:last-child { margin-bottom: 0; }
+
+    /* Icon Rows / Row Text */
+    .item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; }
+    .item-title { font-family: var(--font-family-display); font-size: 12px; font-weight: var(--font-weight-heading, 700); letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 2px; }
+    .item-desc { font-size: 14px; line-height: 1.55; }
+    .item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    /* Debate Box */
+    .debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .debate-card { background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 20px 22px; }
+    .debate-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 1px; text-transform: uppercase; margin: 0 0 12px 0; }
+    .debate-card.optimist h3 { color: var(--color-success); }
+    .debate-card.pessimist h3 { color: var(--color-error); }
+    .debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+    .debate-card li { margin-bottom: 6px; }
+    .debate-vs { position: relative; }
+    .debate-vs .vs-badge {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: var(--color-primary); color: var(--color-text-on-primary);
+      font-family: var(--font-family-display); font-size: 11px; font-weight: 700;
+      width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md); z-index: 2; letter-spacing: 0.5px;
+    }
+    @media (max-width: 760px) { .debate-vs .vs-badge { display: none; } }
+
+    /* Donut Chart */
+    .donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .donut-legend { flex: 1; min-width: 180px; }
+    .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; border-radius: 3px; padding: 2px 4px; cursor: pointer; transition: background 0.15s, opacity 0.15s; }
+    .legend-row.dim { opacity: 0.35; }
+    .legend-row.hi { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+    .seg-dim { opacity: 0.3; transition: opacity 0.15s; }
+    .seg-hi { transition: opacity 0.15s, filter 0.15s; }
+    .seg-hi.active-glow { filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent) 55%, transparent)); }
+    .seg-row { margin-bottom: 16px; }
+    .seg-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.5px; }
+    .seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+    .seg-fill { height: 100%; border-radius: 4px; }
+    .seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+    .seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* Flat / Tabular Components */
+    .exhibit-visual { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 14px; }
+    .subhead { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0; }
+    .fig-caption { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+    .fig-num { color: var(--color-accent); font-weight: 700; margin-right: 6px; }
+
+    .split-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+    .split-cols > div + div { border-left: 1px solid var(--border); padding-left: 32px; }
+    .split-cols h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0; }
+    .split-cols p { font-size: 15px; line-height: 1.65; margin: 0; }
+    .split-cols ul { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.65; }
+    .split-cols li { margin-bottom: 6px; }
+
+    .item-list .item-row { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+    .item-list .item-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+    .severity-list .sev-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .severity-list .sev-row:last-child { border-bottom: none; }
+    .sev-stripe { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 40px; }
+
+    .report-table-wrap { overflow-x: auto; }
+    .report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .report-table th { font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 16px 8px 0; border-bottom: 2px solid var(--color-primary); white-space: nowrap; }
+    .report-table td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .report-table tr:hover td { background: color-mix(in srgb, var(--color-primary) 4%, transparent); }
+    .report-table tr:last-child td { border-bottom: 1px solid var(--border); }
+    .report-table .row-label { font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.3px; color: var(--text); white-space: nowrap; }
+    .report-table .mono { font-family: var(--font-family-mono); font-weight: 700; }
+    .report-table ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.55; }
+    .report-table li { margin-bottom: 3px; }
+
+    .scenario-tabs .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .scenario-tabs .tab { flex: 1; text-align: center; cursor: pointer; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 8px; background: var(--card); font-family: var(--font-family-display); font-size: 12px; font-weight: 700; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+    .scenario-tabs .tab:hover { transform: translateY(-1px); }
+    .scenario-tabs .tab .p { font-family: var(--font-family-mono); font-weight: 700; display: block; font-size: 14px; margin-top: 3px; }
+    .scenario-tabs .tab.bull, .scenario-tabs .tab.positive { color: var(--green); }
+    .scenario-tabs .tab.base, .scenario-tabs .tab.mixed { color: var(--yellow); }
+    .scenario-tabs .tab.bear, .scenario-tabs .tab.negative { color: var(--red); }
+    .scenario-tabs .tab.active.bull, .scenario-tabs .tab.active.positive { background: color-mix(in srgb, var(--green) 14%, var(--card)); border-color: var(--green); }
+    .scenario-tabs .tab.active.base, .scenario-tabs .tab.active.mixed { background: color-mix(in srgb, var(--yellow) 14%, var(--card)); border-color: var(--yellow); }
+    .scenario-tabs .tab.active.bear, .scenario-tabs .tab.active.negative { background: color-mix(in srgb, var(--red) 14%, var(--card)); border-color: var(--red); }
+    .scenario-tabs .tab-panel { display: none; background: var(--card); border-radius: var(--radius); padding: 18px 20px; border-left: 3px solid var(--border); }
+    .scenario-tabs .tab-panel.show { display: block; }
+    .scenario-tabs .tab-panel h4 { margin: 0 0 4px; font-family: var(--font-family-display); font-size: 14px; letter-spacing: 0.5px; }
+    .scenario-tabs .tab-panel .range { font-family: var(--font-family-mono); font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+    .scenario-tabs .tab-panel ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+    .scenario-tabs .tab-panel li { margin-bottom: 5px; }
+
+    .spy-rail { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 9px; z-index: 40; }
+    .spy-rail .spy-item { display: flex; align-items: center; gap: 8px; cursor: pointer; justify-content: flex-end; }
+    .spy-rail .spy-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.15s, transform 0.15s; }
+    .spy-rail .spy-item.active .spy-dot { background: var(--color-accent); transform: scale(1.5); }
+    .spy-rail .spy-label { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); opacity: 0; white-space: nowrap; transition: opacity 0.15s; }
+    .spy-rail .spy-item.active .spy-label { opacity: 1; color: var(--color-primary); font-weight: 700; }
+    @media (max-width: 1180px) { .spy-rail { display: none; } }
+
+    /* Pull-quote — Hidden Catalyst is this report's editorial-narrative lead section */
+    .pullquote {
+      background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+      border-top: 3px solid var(--color-accent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 22px 26px;
+      margin: 4px 0 24px;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+    .pullquote strong { color: var(--color-primary); }
+
+    /* Responsive layout — REQUIRED in every report */
+    @media (max-width: 760px) {
+      body { padding: 12px; }
+      .grid-2, .debate-grid, .split-cols { grid-template-columns: 1fr; }
+      .split-cols > div + div { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 24px 20px; }
+      .hero-name { font-size: 22px; }
+      .debate-vs .vs-badge { display: none; }
+    }
+    @media (max-width: 520px) {
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+      .donut-wrap { flex-direction: column; align-items: flex-start; }
+      .scenario-tabs .tabs { flex-direction: column; }
+    }
+  </style>
+</head>
+<body data-layout="cover-and-contents">
+<nav class="spy-rail" id="spyRail" aria-label="Section navigation"></nav>
+<div class="page">
+
+  <!-- Section 1 · Hero -->
+  <div class="hero" id="hero">
+    <div class="hero-ticker">NASDAQ: MU &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+    <div class="hero-name">Micron Technology, Inc.</div>
+    <div class="hero-tagline">Makes the memory chips that let computers — and the AI systems built on them — remember things instantly.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">Semiconductors — Memory &amp; Storage</span>
+      <span class="pill pill-green">Profitable</span>
+      <span class="pill pill-red">China Competition Risk</span>
+    </div>
+  </div>
+
+  <!-- Section 2 · TL;DR -->
+  <div class="tldr" id="tldr" style="box-shadow:var(--shadow-sm)">
+    <h2>TL;DR</h2>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>Micron makes DRAM and NAND memory chips — the "working memory" and storage inside phones, PCs, cars, and AI data centers.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--yellow)">!</span>
+      <span>An AI-driven memory shortage just produced the best quarter in company history — revenue up 346% year-over-year — but the stock has swung wildly (roughly $1,255 to $850 in weeks) on China-competition and export-policy headlines.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--accent)">►</span>
+      <span>The underreported catalyst: roughly $100B of multi-year "take-or-pay" customer agreements, backed by $22B in deposits, that convert Micron's historically boom-bust business into something closer to a subscription.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--red)">-</span>
+      <span>Main risk: China's CXMT just raised $8.5B in an IPO and is closing the memory-chip technology gap, while a synchronized capex race among Micron, Samsung, SK Hynix and CXMT raises the odds of a 2027-2028 supply glut.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>Verdict: average analyst target $1,492 vs. today's $884.99 (+68.6%), rated Strong Buy. Next binary event: Q4 FY2026 earnings, expected ~Sept 23-29, 2026.</span>
+    </div>
+  </div>
+
+  <!-- Section 3 · Financial Snapshot -->
+  <div class="section" id="snapshot">
+    <div class="section-title">Financial Snapshot</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 01</span>Core financial metrics as of the most recent quarter (Q3 FY2026, ended May 2026) and July 27, 2026 trading session.</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Stock Price</div><div class="stat-value mono">$884.99</div><div class="stat-sub">As of Jul 27, 2026</div></div>
+      <div class="stat-card"><div class="stat-label">Market Cap</div><div class="stat-value mono">$1.02T</div><div class="stat-sub">—</div></div>
+      <div class="stat-card"><div class="stat-label">Revenue (TTM)</div><div class="stat-value mono val-green">$90.3B</div><div class="stat-sub">Q3 rev. +346% YoY</div></div>
+      <div class="stat-card"><div class="stat-label">Net Income (TTM)</div><div class="stat-value mono val-green">$50.5B</div><div class="stat-sub">55.9% Q3 net margin</div></div>
+      <div class="stat-card"><div class="stat-label">EPS (Q3 FY26)</div><div class="stat-value mono val-green">$25.11</div><div class="stat-sub">Beat est. $20.49</div></div>
+      <div class="stat-card"><div class="stat-label">Gross Margin</div><div class="stat-value mono val-green">85%</div><div class="stat-sub">Record, Q3 FY26</div></div>
+      <div class="stat-card"><div class="stat-label">Forward Guidance</div><div class="stat-value mono val-yellow" style="font-size:15px">$50B rev · $31 EPS</div><div class="stat-sub">Q4 FY26 (±$1B / ±$1)</div></div>
+      <div class="stat-card"><div class="stat-label">Analyst Target</div><div class="stat-value mono val-green">$1,492</div><div class="stat-sub">Strong Buy · 45 analysts</div></div>
+      <div class="stat-card"><div class="stat-label">Next Event</div><div class="stat-value mono" style="font-size:15px">Q4 FY26 Earnings</div><div class="stat-sub">~Sept 23-29, 2026</div></div>
+    </div>
+  </div>
+
+  <!-- Section 4 · Revenue Breakdown -->
+  <div class="section" id="mix">
+    <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+    <div class="fig-caption"><span class="fig-num">FIG. 02</span>Product-line revenue mix, current vs. two-year projected share. <em>Hover a segment below to trace it through the chart.</em></div>
+    <div class="exhibit-visual">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200" id="revenueDonut">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--border)" stroke-width="28"/>
+          <circle class="seg-hi" data-seg="dram" cx="100" cy="100" r="70" fill="none" stroke="var(--color-primary)" stroke-width="28"
+                  stroke-dasharray="334.4 440" stroke-dashoffset="0" stroke-linecap="butt"/>
+          <circle class="seg-hi" data-seg="nand" cx="100" cy="100" r="70" fill="none" stroke="var(--color-secondary)" stroke-width="28"
+                  stroke-dasharray="105.6 440" stroke-dashoffset="-334.4" stroke-linecap="butt"/>
+          <text x="100" y="104" text-anchor="middle" font-family="var(--font-family-display)" font-size="13" font-weight="700" fill="var(--color-text)">Revenue</text>
+        </svg>
+        <div class="donut-legend" id="revenueLegend">
+          <div class="legend-row" data-seg="dram">
+            <div class="legend-dot" style="background:var(--color-primary)"></div>
+            <span>DRAM</span>
+            <span class="legend-pct">76%</span>
+          </div>
+          <div class="legend-row" data-seg="nand">
+            <div class="legend-dot" style="background:var(--color-secondary)"></div>
+            <span>NAND</span>
+            <span class="legend-pct">24%</span>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Current split (DRAM 76% / NAND 24%) is Micron's actual Q3 FY2026 product-line revenue. The two-year projected split is a model estimate — not company guidance — based on stated HBM capacity trends.</p>
+
+      <div class="seg-row">
+        <div class="seg-label"><span>DRAM (incl. HBM)</span><span style="font-family:var(--font-family-mono)">76% → 82%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:76%;background:var(--color-primary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="82" style="width:0%;background:var(--color-primary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">HBM's outsized pricing and AI-driven demand should keep pulling DRAM's share of revenue higher.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>NAND</span><span style="font-family:var(--font-family-mono)">24% → 18%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:24%;background:var(--color-secondary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="18" style="width:0%;background:var(--color-secondary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">NAND growth is real but structurally slower than the AI-driven DRAM/HBM cycle.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5 · What Does This Company Actually Do? -->
+  <div class="section" id="story">
+    <div class="section-title">What Does This Company Actually Do?</div>
+    <div class="split-cols">
+      <div>
+        <h3>The Simple Story</h3>
+        <p>Micron makes memory chips — the parts of a computer that remember things while it's working, like a very fast notepad next to a chef's cutting board. If the processor is the chef, memory chips are the counter space the chef needs to work quickly. The more complicated the meal (or the AI model), the more counter space is needed — and that's exactly what's driving unprecedented demand for Micron's chips right now.</p>
+      </div>
+      <div>
+        <h3>Who Actually Buys It</h3>
+        <p>Micron sells almost entirely to other companies, not consumers directly: cloud giants building AI data centers (now its single largest and fastest-growing customer category), phone and PC makers who put memory in every device they build, and carmakers whose vehicles carry increasing amounts of onboard computing.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6 · Business Model -->
+  <div class="section" id="model">
+    <div class="section-title">Business Model</div>
+    <div class="split-cols">
+      <div>
+        <h3>How They Make Money</h3>
+        <ul>
+          <li>Selling DRAM chips (76% of revenue) — fast, short-term memory used in servers, PCs, and phones</li>
+          <li>Selling NAND flash chips (24% of revenue) — longer-term storage used in SSDs and phones</li>
+          <li>High-Bandwidth Memory (HBM) — a premium DRAM variant built specifically for AI chips, commanding much higher prices than standard memory</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Why the Model Is Clever</h3>
+        <ul>
+          <li>Building competitive memory fabs costs many billions of dollars and takes years, so only three companies worldwide can compete at scale — that scarcity is Micron's real structural edge</li>
+          <li>Locking in multi-year "take-or-pay" customer contracts converts a historically boom-bust commodity business into something closer to a subscription — see Hidden Catalyst Deep Dive below</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 7 · Hidden Catalyst Deep Dive (editorial-narrative lead section) -->
+  <div class="section" id="catalyst">
+    <div class="section-title" style="font-size:16px">Hidden Catalyst Deep Dive</div>
+
+    <blockquote class="pullquote"><strong>Roughly half of Micron's future revenue is already under contract</strong> — locked in years ahead of time, through Strategic Customer Agreements backed by $22B in customer cash deposits.</blockquote>
+
+    <div class="split-cols" style="margin-bottom:24px">
+      <div>
+        <h3>The Opportunity</h3>
+        <p>Most investors are still pricing Micron as a normal cyclical memory company — great this quarter, doomed to crash next cycle. What's underreported is that Micron has converted a meaningful share of the current AI memory boom into Strategic Customer Agreements: multi-year, take-or-pay supply contracts (reportedly including a partnership tied to Anthropic's AI compute buildout) that lock in roughly $100B in aggregate future revenue, backed by around $22B in customer deposits already collected. That's a structural change in how memory demand gets monetized, not just a strong quarter.</p>
+      </div>
+      <div>
+        <h3>Why This Company Wins</h3>
+        <p>The DRAM market has consolidated into a genuine three-player oligopoly — Micron, Samsung, and SK Hynix — after years of unprofitable overcapacity drove out weaker competitors. Of the three, Micron has been the most aggressive about converting AI-era demand into binding contracts with cash already in hand, which reduces its own downside if AI capital spending ever slows, unlike prior cycles where Micron simply sold into the spot market and rode the crash down with everyone else.</p>
+      </div>
+    </div>
+
+    <div class="report-table-wrap" style="margin-bottom:24px">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">TAM / Locked-In Value</td><td class="mono">~$100B in customer agreements</td></tr>
+          <tr><td class="row-label">Key Date / Event</td><td class="mono">Sept 2026 — Q4 FY26 earnings</td></tr>
+          <tr><td class="row-label">Company Readiness</td><td class="mono">High — HBM capacity reportedly sold out into 2028</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-bottom:24px">
+      <div class="subhead">Timeline</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot past"></div>
+          <div class="timeline-date">Mar 2026</div>
+          <div class="timeline-event">Q2 FY26 record results — Mobile &amp; Client business unit hits $7.7B, a record 32% of total revenue.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot past"></div>
+          <div class="timeline-date">Jun 2026</div>
+          <div class="timeline-event">Q3 FY26: revenue up 346% YoY to $41.46B, record 85% gross margin, and roughly $100B in Strategic Customer Agreements disclosed.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot present"></div>
+          <div class="timeline-date">Now — Jul 2026</div>
+          <div class="timeline-event">China's CXMT prices an $8.5B IPO and the US weighs new HBM export restrictions — Micron's pricing power is being tested in real time.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot future"></div>
+          <div class="timeline-date">~Sept 23-29, 2026</div>
+          <div class="timeline-event">Q4 FY26 earnings (guided $50B revenue, $31 adjusted EPS) — the first real read on whether the AI memory boom is durable or already peaking.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card scenario-bull">
+        <h3>Positive</h3>
+        <div class="scenario-prob" style="color:var(--color-success)">55%</div>
+        <div class="scenario-target">+30% stock impact</div>
+        <ul>
+          <li>HBM shortage persists into 2028 as management has guided</li>
+          <li>Customer agreements convert into sustained ASP premiums, not one-time spot pricing</li>
+          <li>No major new capacity comes online before 2028</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-base">
+        <h3>Mixed</h3>
+        <div class="scenario-prob" style="color:var(--color-warning)">30%</div>
+        <div class="scenario-target">+5% to -10% stock impact</div>
+        <ul>
+          <li>AI capex growth decelerates but doesn't reverse</li>
+          <li>CXMT gains share only in low-end DDR5, not premium HBM</li>
+        </ul>
+      </div>
+      <div class="scenario-card scenario-bear">
+        <h3>Negative</h3>
+        <div class="scenario-prob" style="color:var(--color-error)">15%</div>
+        <div class="scenario-target">-35% stock impact</div>
+        <ul>
+          <li>New export restrictions cut off a major customer segment</li>
+          <li>2027-28 capacity wave arrives early and crashes ASPs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8 · Competitive Edge -->
+  <div class="section" id="edge">
+    <div class="section-title">Competitive Edge</div>
+    <div class="item-list">
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">Oligopoly Position</div>
+          <div class="item-desc">Only three companies worldwide — Micron, Samsung, and SK Hynix — can produce advanced memory at scale, giving Micron durable pricing power unusual for what looks like a commodity chip.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">Locked-In Demand</div>
+          <div class="item-desc">Roughly $100B in Strategic Customer Agreements, backed by $22B in deposits, means much of Micron's next few years of revenue is already contracted, not just forecast.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">→</div>
+        <div>
+          <div class="item-title">HBM Technology Leadership</div>
+          <div class="item-desc">Micron's HBM output is reportedly sold out into 2028, positioning it alongside SK Hynix as a primary AI memory supplier to Nvidia and other AI chipmakers.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">⚠</div>
+        <div>
+          <div class="item-title">US Policy Tailwind (Underappreciated)</div>
+          <div class="item-desc">Export controls that restrict Chinese rivals' access to advanced chipmaking tools function as a competitive moat for Micron, even though they weren't designed as industrial policy for the company specifically.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">→</div>
+        <div>
+          <div class="item-title">$250B US Investment Plan</div>
+          <div class="item-desc">Large-scale domestic fab expansion aligns with government incentives and reduces reliance on offshore capacity.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 9 · Analyst Scorecard -->
+  <div class="section" id="scorecard">
+    <div class="section-title">Analyst Scorecard</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 04</span>Seven-metric scoring of business quality, each on a 0–10 scale where higher is always better.</div>
+    <div class="radar-hint">click a point or label to see why it scored that way</div>
+    <div class="scorecard-body">
+      <div class="radar-wrap"><svg id="scorecardRadar" width="480" viewBox="0 0 400 400"></svg></div>
+      <div class="scorecard-why" id="scorecardWhy"></div>
+    </div>
+  </div>
+
+  <!-- Section 10 · Current Situation — Growth & Risks -->
+  <div class="section" id="situation">
+    <div class="section-title">Current Situation</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 05</span>Growth drivers weighed against active, recency-verified risks.</div>
+    <div class="split-cols">
+      <div>
+        <h3 style="color:var(--color-success)">Growth Drivers</h3>
+        <div class="severity-list">
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--green)"></div>
+            <div>
+              <div class="item-title">AI-Driven HBM Demand</div>
+              <div class="item-desc">High-bandwidth memory demand for AI data centers is outstripping supply, with management expecting shortages to persist beyond 2027.</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--green)"></div>
+            <div>
+              <div class="item-title">$100B in Locked-In Customer Agreements</div>
+              <div class="item-desc">Strategic Customer Agreements cover roughly half of future sales, backed by ~$22B in customer deposits, insulating Micron from the usual memory-cycle whiplash.</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--green)"></div>
+            <div>
+              <div class="item-title">Record Margins &amp; Cash Generation</div>
+              <div class="item-desc">Q3 FY26 gross margin hit a record 85% with $18.3B adjusted free cash flow; Q4 FCF is guided above $30B.</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--green)"></div>
+            <div>
+              <div class="item-title">US Manufacturing Investment</div>
+              <div class="item-desc">A planned $250B US investment expands domestic capacity, aligning with government incentives and reducing geopolitical exposure.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--color-error)">Risks</h3>
+        <div class="severity-list">
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--red)"></div>
+            <div>
+              <div class="item-title">China Competition (CXMT) [ACTIVE RISK]</div>
+              <div class="item-desc">China's CXMT priced an $8.5B IPO on Shanghai's STAR Market and its DDR5 chips are now validated by every major motherboard maker, signaling a serious long-term threat to Micron's pricing power.</div>
+              <div class="item-meta">Active as of Jul 2026 · Source: TradingKey</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--red)"></div>
+            <div>
+              <div class="item-title">Export-Control Uncertainty [ACTIVE RISK]</div>
+              <div class="item-desc">The US is weighing new HBM export restrictions that could cut into Micron's own overseas sales, even as separate measures target Chinese competitors — a double-edged regulatory environment.</div>
+              <div class="item-meta">Active as of Jul 2026 · Source: TradingKey / Idaho Business Review</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--yellow)"></div>
+            <div>
+              <div class="item-title">Oversupply / Cyclicality Risk [REDUCED — see note]</div>
+              <div class="item-desc">A synchronized capex race — Micron's $25B+ FY26 spend plus expansion from Samsung, SK Hynix, and CXMT — could cause a supply glut when new fabs ramp in 2027-2028, though multi-year customer agreements now soften the usual downside.</div>
+              <div class="item-meta">Reduced as of Jul 2026 · Source: Trefis / FX Leaders</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 11 · Overall Scenario Analysis -->
+  <div class="section" id="scenario">
+    <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="fig-caption"><span class="fig-num">FIG. 06</span>Twelve-month price scenarios weighted by probability, in dollar terms.</div>
+    <div class="scenario-tabs" data-tabgroup="overall">
+      <div class="tabs">
+        <div class="tab bull active" data-tab="bull">Bull <span class="p mono">35%</span></div>
+        <div class="tab base" data-tab="base">Base <span class="p mono">45%</span></div>
+        <div class="tab bear" data-tab="bear">Bear <span class="p mono">20%</span></div>
+      </div>
+      <div class="tab-panel show" data-panel="bull">
+        <h4 style="color:var(--color-success)">Bull Case · $1,200–$1,600</h4>
+        <div class="range">35% probability · 12-month price target</div>
+        <ul>
+          <li>HBM/DRAM shortage persists through 2028 as management projects</li>
+          <li>Strategic Customer Agreements convert into durable ASP premiums, not one-time spot pricing</li>
+          <li>CXMT and other Chinese suppliers remain confined to legacy nodes by export controls</li>
+          <li>AI data center capex from hyperscalers keeps compounding through 2027</li>
+          <li>Micron's $250B US expansion comes online on schedule without major cost overruns</li>
+          <li>Analyst price targets (avg. $1,492) prove directionally correct as fundamentals catch up</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="base">
+        <h4 style="color:var(--color-warning)">Base Case · $850–$1,100</h4>
+        <div class="range">45% probability · 12-month price target</div>
+        <ul>
+          <li>Memory prices stay elevated but moderate from current extremes as supply catches up</li>
+          <li>Data center demand remains strong but decelerates from the +346% pace</li>
+          <li>China competition stays contained to lower-margin, legacy DRAM segments</li>
+          <li>Q4 FY26 guidance ($50B revenue, $31 EPS) is met but not dramatically exceeded</li>
+          <li>Valuation compresses toward historical cyclical multiples even as earnings grow</li>
+          <li>Stock keeps trading in a wide range reflecting genuine uncertainty about cycle duration</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="bear">
+        <h4 style="color:var(--color-error)">Bear Case · $400–$650</h4>
+        <div class="range">20% probability · 12-month price target</div>
+        <ul>
+          <li>New US export restrictions on HBM cut off a meaningful revenue segment</li>
+          <li>Synchronized capex race among Micron, Samsung, SK Hynix and CXMT causes 2027-28 oversupply</li>
+          <li>AI capex growth slows sharply as hyperscalers digest existing infrastructure</li>
+          <li>CXMT and other Chinese suppliers close the technology gap faster than expected</li>
+          <li>Memory ASPs revert toward pre-boom levels, compressing the record 85% gross margin</li>
+          <li>Market re-rates Micron back to a traditional cyclical-semiconductor multiple</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 12 · Investor Debate -->
+  <div class="section" id="debate">
+    <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="debate-grid debate-vs">
+      <div class="debate-card optimist">
+        <h3>The Optimist Sees…</h3>
+        <ul>
+          <li>The DRAM market is now a genuine three-player oligopoly, not a fragmented commodity race</li>
+          <li>~$100B in Strategic Customer Agreements provides multi-year revenue visibility unprecedented in Micron's history</li>
+          <li>HBM capacity is reportedly sold out into 2028 as the AI compute buildout continues</li>
+          <li>Record 85% gross margin and $18.3B in quarterly free cash flow show real earnings power, not just hype</li>
+          <li>An average analyst price target of $1,492 implies significant upside from today's price</li>
+        </ul>
+      </div>
+      <div class="debate-card pessimist">
+        <h3>The Pessimist Sees…</h3>
+        <ul>
+          <li>Every previous memory "supercycle" in Micron's history has ended in an oversupply crash — this one may not be different</li>
+          <li>China's CXMT just raised $8.5B and is closing the DDR5 technology gap faster than expected</li>
+          <li>A combined $25B+ capex race among Micron, Samsung, SK Hynix and CXMT sets up a 2027-28 supply glut</li>
+          <li>New US export restrictions could cut Micron off from meaningful HBM revenue just as easily as they protect it from Chinese competition</li>
+          <li>The stock already swung from roughly $1,255 to $850 in a matter of weeks — the market itself doesn't fully trust the boom to last</li>
+        </ul>
+      </div>
+      <div class="vs-badge">VS</div>
+    </div>
+  </div>
+
+  <!-- Section 13 · Bottom Line Verdict -->
+  <div class="section" id="verdict">
+    <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="verdict" style="box-shadow:var(--shadow-sm)">
+      <div class="verdict-title">The Verdict</div>
+      <p>Micron today is like a farmer during the best harvest in a generation — the barns are overflowing with cash, but everyone remembers the droughts, and nobody knows exactly when the weather turns.</p>
+      <p>The long-term story is believable: the DRAM market has consolidated into a genuine three-player oligopoly, and Micron has converted this AI-driven memory boom into roughly $100B of contracted, deposit-backed revenue — a structural change from prior cycles where Micron simply rode the spot market up and back down.</p>
+      <p>But the near-term pain is real: China's CXMT is closing the technology gap faster than expected, a synchronized industry-wide capex race raises genuine oversupply risk by 2027-2028, and export-control policy could cut either for or against Micron with little warning. Long-term investors with a 2-3+ year horizon are best positioned to ride out this volatility; short-term traders should expect continued sharp swings around every China and export-policy headline.</p>
+    </div>
+  </div>
+
+  <!-- Section 14 · Wall Street Consensus -->
+  <div class="section" id="wall">
+    <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+    <div class="report-table-wrap">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Consensus Rating</td><td class="mono">Strong Buy</td><td>45 analysts polled (S&amp;P Global)</td></tr>
+          <tr><td class="row-label">Avg. Price Target</td><td class="mono val-green">$1,492</td><td>vs. current $884.99 (+68.6%)</td></tr>
+          <tr><td class="row-label">Target Range</td><td class="mono">$361 – $2,200</td><td>Unusually wide spread — reflects real disagreement on cycle durability</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 15 · Footer -->
+  <div class="section" style="border-top:1px solid var(--border);padding-top:20px;margin-top:32px">
+    <div style="font-family:var(--font-family-display);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Sources</div>
+    <ul style="font-size:13px;line-height:1.8;padding-left:18px;color:var(--muted)">
+      <li><a href="https://www.chartmill.com/stock/quote/MU/fundamental-analysis" style="color:var(--color-primary)">MU Fundamental Analysis — ChartMill</a></li>
+      <li><a href="https://investors.micron.com/news-releases/news-release-details/micron-technology-inc-reports-record-results-third-quarter" style="color:var(--color-primary)">Micron Technology Reports Record Results for Q3 FY2026 — Micron Investor Relations</a></li>
+      <li><a href="https://www.stocktitan.net/news/MU/micron-technology-inc-reports-record-results-for-the-third-quarter-6f50161e5zxh.html" style="color:var(--color-primary)">Micron's memory boom lifts revenue to $41.5B — StockTitan</a></li>
+      <li><a href="https://www.forbes.com/sites/greatspeculations/2026/07/01/can-micron-stock-survive-chinas-memory-playbook/" style="color:var(--color-primary)">Can Micron Stock Survive China's Memory Playbook? — Forbes</a></li>
+      <li><a href="https://www.tradingkey.com/analysis/stocks/us-stocks/262033102-micron-mu-stock-falls-cxmt-ipo-hbm-export-restriction-2026-tradingkey" style="color:var(--color-primary)">Micron Stock Crashes Below $910 as CXMT Plans $8.5B IPO — TradingKey</a></li>
+      <li><a href="https://seekingalpha.com/article/4919053-micron-stock-q3-hidden-growth-story" style="color:var(--color-primary)">Micron's Hidden Growth Story — Seeking Alpha</a></li>
+      <li><a href="https://public.com/stocks/mu/forecast-price-target" style="color:var(--color-primary)">Micron Technology (MU) Stock Forecast &amp; Price Target — Public.com</a></li>
+      <li><a href="https://www.wallstreetzen.com/stocks/us/nasdaq/mu" style="color:var(--color-primary)">Micron Technology Stock Price Today — WallStreetZen</a></li>
+      <li><a href="https://www.investing.com/news/company-news/micron-q3-2026-slides-record-margins-100b-customer-agreements-93CH-4759276" style="color:var(--color-primary)">Micron Q3 2026 Slides: Record Margins, $100B Customer Agreements — Investing.com</a></li>
+      <li><a href="https://simplywall.st/stocks/us/semiconductors/nasdaq-mu/micron-technology/news/micron-technology-mu-stock-faces-narratives-test-as-net-marg" style="color:var(--color-primary)">Micron Technology Stock Faces Narratives Test as Net Margin Hits 55.9% — Simply Wall St</a></li>
+      <li><a href="https://www.tipranks.com/stocks/mu/earnings" style="color:var(--color-primary)">Micron Technology Earnings Dates &amp; Reports — TipRanks</a></li>
+      <li><a href="https://idahobusinessreview.com/2026/04/22/micron-urges-congress-tighten-chip-tool-export-rules-china/" style="color:var(--color-primary)">Micron Urges Congress to Tighten Chip Tool Export Rules Targeting China — Idaho Business Review</a></li>
+      <li><a href="https://www.trefis.com/stock/mu/articles/600487/structural-risks-to-watch-for-mu-stock-over-the-next-6-months/2026-05-27" style="color:var(--color-primary)">Structural Risks to Watch For MU Stock — Trefis</a></li>
+      <li><a href="https://www.fxleaders.com/news/2026/07/16/micron-mu-stock-slides-to-the-key-850-zone-as-china-competition-and-supply-risks-shake-memory-outlook/" style="color:var(--color-primary)">Micron MU Stock Slides to the Key $850 Zone — FX Leaders</a></li>
+    </ul>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</p>
+  </div>
+
+</div>
+<script>
+  /* Animated Segment Bars */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        const target = bar.dataset.target;
+        bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+        bar.style.width = target + '%';
+        observer.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+
+  /* Scenario Tabs */
+  document.querySelectorAll('.scenario-tabs').forEach(function (group) {
+    group.querySelectorAll('.tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var name = tab.getAttribute('data-tab');
+        group.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        group.querySelectorAll('.tab-panel').forEach(function (p) {
+          p.classList.toggle('show', p.getAttribute('data-panel') === name);
+        });
+      });
+    });
+  });
+
+  /* Revenue Mix Donut <-> Legend Hover-Link */
+  (function () {
+    var legend = document.getElementById('revenueLegend');
+    var svg = document.getElementById('revenueDonut');
+    if (!legend || !svg) return;
+    legend.querySelectorAll('.legend-row').forEach(function (row) {
+      row.addEventListener('mouseenter', function () {
+        var seg = row.getAttribute('data-seg');
+        legend.querySelectorAll('.legend-row').forEach(function (r) {
+          r.classList.toggle('dim', r !== row);
+          r.classList.toggle('hi', r === row);
+        });
+        svg.querySelectorAll('circle[data-seg]').forEach(function (c) {
+          var match = c.getAttribute('data-seg') === seg;
+          c.classList.toggle('seg-dim', !match);
+          c.classList.toggle('active-glow', match);
+        });
+      });
+      row.addEventListener('mouseleave', function () {
+        legend.querySelectorAll('.legend-row').forEach(function (r) { r.classList.remove('dim', 'hi'); });
+        svg.querySelectorAll('circle[data-seg]').forEach(function (c) { c.classList.remove('seg-dim', 'active-glow'); });
+      });
+    });
+  })();
+
+  /* Scroll-Spy Section Rail */
+  (function () {
+    var rail = document.getElementById('spyRail');
+    if (!rail) return;
+    var sections = [
+      ['hero', 'Hero'], ['tldr', 'TL;DR'], ['snapshot', 'Snapshot'], ['mix', 'Revenue Mix'],
+      ['story', 'What It Does'], ['model', 'Biz Model'], ['catalyst', 'Catalyst'], ['edge', 'Comp. Edge'],
+      ['scorecard', 'Scorecard'], ['situation', 'Growth/Risks'], ['scenario', 'Scenarios'],
+      ['debate', 'Debate'], ['verdict', 'Verdict'], ['wall', 'Consensus']
+    ];
+    var items = sections.map(function (s) {
+      var el = document.getElementById(s[0]);
+      if (!el) return null;
+      var item = document.createElement('div');
+      item.className = 'spy-item';
+      item.innerHTML = '<span class="spy-label">' + s[1] + '</span><span class="spy-dot"></span>';
+      item.addEventListener('click', function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      rail.appendChild(item);
+      return { id: s[0], el: el, item: item };
+    }).filter(Boolean);
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var match = items.find(function (i) { return i.el === entry.target; });
+          if (!match) return;
+          items.forEach(function (i) { i.item.classList.toggle('active', i === match); });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    items.forEach(function (i) { obs.observe(i.el); });
+    if (items.length) items[0].item.classList.add('active');
+  })();
+
+  /* Analyst Scorecard Radar Chart */
+  (function () {
+    var svgEl = document.getElementById('scorecardRadar');
+    var whyEl = document.getElementById('scorecardWhy');
+    if (!svgEl || !whyEl) return;
+
+    var METRICS = [
+      { label: 'Business Model', full: 'Business Model Strength', value: 8, why: 'DRAM has consolidated into a three-player oligopoly (Micron, Samsung, SK Hynix), a structural change from the fragmented, price-crushing market of a decade ago.' },
+      { label: 'Revenue Growth', full: 'Revenue Growth', value: 10, why: 'Q3 FY26 revenue grew 346% year-over-year to $41.46B, the fastest growth rate in Micron\'s history.' },
+      { label: 'Profitability', full: 'Profitability', value: 9, why: 'Gross margin hit a record 85% in Q3 FY26, alongside $28.24B in quarterly GAAP net income.' },
+      { label: 'Competitive Moat', full: 'Competitive Moat', value: 6, why: 'China\'s CXMT just priced an $8.5B IPO and every major motherboard maker now validates its DDR5 chips — the moat is real but visibly eroding at the low end.' },
+      { label: 'Regulatory Safety', full: 'Regulatory Safety', value: 5, why: 'Export-control rules cut both ways: they\'ve throttled CXMT\'s access to advanced tools, but proposed new HBM restrictions could just as easily cut into Micron\'s own overseas sales.' },
+      { label: 'Mgmt Execution', full: 'Management Execution', value: 8, why: 'Management converted AI demand into roughly $100B of Strategic Customer Agreements backed by $22B in deposits, well ahead of how prior memory upcycles were monetized.' },
+      { label: 'Long-Term Potential', full: 'Long-Term Potential', value: 8, why: 'Management says HBM capacity is already sold out into 2028, with supply constraints expected to persist beyond 2027.' }
+    ];
+    var MAX = 10;
+    var dots = [];
+
+    function svgNode(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+    function average(data) {
+      var sum = data.reduce(function (acc, d) { return acc + d.value; }, 0);
+      return Math.round((sum / data.length) * 10) / 10;
+    }
+
+    function showOverall() {
+      var avg = average(METRICS);
+      var best = METRICS.reduce(function (a, b) { return b.value > a.value ? b : a; });
+      var worst = METRICS.reduce(function (a, b) { return b.value < a.value ? b : a; });
+      whyEl.innerHTML =
+        '<div class="wp-title">Overall</div>' +
+        '<span class="wp-score">' + avg + ' / 10 average</span>' +
+        '<p class="wp-text">Strong across nearly every dimension, led by ' + best.full + ' (' + best.value + '/10). The one real soft spot is ' +
+        worst.full + ' (' + worst.value + '/10) — click any point on the chart for the reasoning behind each score.</p>';
+    }
+
+    function showWhy(d) {
+      whyEl.innerHTML =
+        '<button class="wp-back" type="button">&larr; Overall</button>' +
+        '<div class="wp-title">' + d.full + '</div>' +
+        '<span class="wp-score">' + d.value + ' / 10</span>' +
+        '<p class="wp-text">' + d.why + '</p>';
+      whyEl.querySelector('.wp-back').addEventListener('click', function () {
+        dots.forEach(function (dd) { dd.classList.remove('active'); });
+        showOverall();
+      });
+    }
+
+    var cx = 200, cy = 200, maxR = 140;
+    var n = METRICS.length;
+    var angleStep = (Math.PI * 2) / n;
+    var startAngle = -Math.PI / 2;
+
+    function pt(i, ratio) {
+      var a = startAngle + i * angleStep;
+      return [cx + maxR * ratio * Math.cos(a), cy + maxR * ratio * Math.sin(a)];
+    }
+
+    [0.25, 0.5, 0.75, 1].forEach(function (ratio) {
+      var pts = METRICS.map(function (_, i) { return pt(i, ratio).join(','); }).join(' ');
+      var poly = svgNode('polygon');
+      poly.setAttribute('points', pts);
+      poly.setAttribute('fill', 'none');
+      poly.setAttribute('stroke', 'var(--border)');
+      poly.setAttribute('stroke-width', ratio === 1 ? '1.2' : '1');
+      poly.setAttribute('stroke-dasharray', ratio === 1 ? 'none' : '2,3');
+      svgEl.appendChild(poly);
+    });
+
+    METRICS.forEach(function (_, i) {
+      var p = pt(i, 1);
+      var line = svgNode('line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', p[0]); line.setAttribute('y2', p[1]);
+      line.setAttribute('stroke', 'var(--border)');
+      line.setAttribute('stroke-width', '1');
+      svgEl.appendChild(line);
+    });
+
+    var dataPts = METRICS.map(function (d, i) { return pt(i, d.value / MAX); });
+    var dataPoly = svgNode('polygon');
+    dataPoly.setAttribute('points', dataPts.map(function (p) { return p.join(','); }).join(' '));
+    dataPoly.setAttribute('fill', 'var(--color-accent)');
+    dataPoly.setAttribute('fill-opacity', '0.18');
+    dataPoly.setAttribute('stroke', 'var(--color-accent)');
+    dataPoly.setAttribute('stroke-width', '2');
+    svgEl.appendChild(dataPoly);
+
+    dataPts.forEach(function (p, i) {
+      var dot = svgNode('circle');
+      dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]);
+      dot.setAttribute('r', 7);
+      dot.setAttribute('fill', 'var(--color-accent)');
+      dot.setAttribute('class', 'radar-dot');
+      dot.addEventListener('click', function () {
+        dots.forEach(function (dd) { dd.classList.remove('active'); });
+        dot.classList.add('active');
+        showWhy(METRICS[i]);
+      });
+      svgEl.appendChild(dot);
+      dots.push(dot);
+    });
+
+    METRICS.forEach(function (d, i) {
+      var lp = pt(i, 1.26);
+      var anchor = 'middle';
+      if (lp[0] < cx - 5) anchor = 'end';
+      else if (lp[0] > cx + 5) anchor = 'start';
+      var text = svgNode('text');
+      text.setAttribute('x', lp[0]); text.setAttribute('y', lp[1]);
+      text.setAttribute('text-anchor', anchor);
+      text.setAttribute('dominant-baseline', 'middle');
+      text.setAttribute('class', 'radar-axis-label');
+      text.textContent = d.label;
+      text.addEventListener('click', function () {
+        dots.forEach(function (dd) { dd.classList.remove('active'); });
+        dots[i].classList.add('active');
+        showWhy(d);
+      });
+      svgEl.appendChild(text);
+    });
+
+    var bbox = svgEl.getBBox();
+    var pad = 16;
+    var vbW = bbox.width + pad * 2;
+    var vbH = bbox.height + pad * 2;
+    svgEl.setAttribute('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + vbW + ' ' + vbH);
+    var targetWidth = parseFloat(svgEl.getAttribute('width')) || 480;
+    svgEl.setAttribute('height', Math.round(targetWidth * (vbH / vbW)));
+
+    showOverall();
+  })();
+</script>
+</body>
+</html>

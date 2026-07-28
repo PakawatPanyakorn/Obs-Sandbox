@@ -311,6 +311,8 @@ The Analyst Scorecard's default is now the Radar Chart component below. This met
 
 Flat on the page — not a boxed card. Pairs with the "Analyst Scorecard Radar Chart" block in `layout.md`'s "Shared Interactive JS" appendix, which builds the chart from the `METRICS` array and auto-fits the `viewBox` to the actually-rendered label text (see `ruleset.md`'s "Match canvas to content, not the reverse" rule — never hand-pick a `viewBox` size and hope the font fits).
 
+The `<svg id="scorecardRadar" width="480" ...>` markup in Section 9 keeps `width="480"` as a presentation-attribute fallback, but the `#scorecardRadar { width: 100%; height: auto }` rule below overrides it for layout purposes — the browser derives height from the `viewBox` aspect ratio instead. Combined with `.radar-wrap`'s `width: 100%; max-width: 480px`, the chart caps at 480px on desktop and shrinks fluidly on narrow viewports instead of overflowing (this was a real bug in an early report — the chart clipped its own axis labels off the right edge on mobile until this was added).
+
 ```css
 .radar-hint {
   font-family: var(--font-family-mono);
@@ -320,7 +322,8 @@ Flat on the page — not a boxed card. Pairs with the "Analyst Scorecard Radar C
   margin-bottom: 10px;
 }
 .scorecard-body { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-.radar-wrap { flex-shrink: 0; display: flex; justify-content: center; }
+.radar-wrap { flex-shrink: 0; display: flex; justify-content: center; width: 100%; max-width: 480px; }
+#scorecardRadar { width: 100%; height: auto; display: block; }
 .radar-axis-label {
   font-family: var(--font-family-display);
   font-size: 15px;

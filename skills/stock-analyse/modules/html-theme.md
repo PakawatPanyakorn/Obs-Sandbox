@@ -187,7 +187,9 @@ body {
 }
 ```
 
-### Stat Grid
+### Stat Grid (default for Financial Snapshot)
+
+One of the report's established boxed-treatment exceptions (see `layout.md`'s card discipline note and `ruleset.md`'s "Card overuse" rule) — the only other boxed defaults are `.tldr`/`.verdict` and `.debate-card`. Numeric tiles read faster than table rows for the handful of headline metrics a reader scans for first.
 
 ```css
 .stat-grid {
@@ -276,7 +278,9 @@ body {
 }
 ```
 
-### Analyst Scorecard Meters
+### Analyst Scorecard Meters (legacy fallback — no longer the default)
+
+The Analyst Scorecard's default is now the Radar Chart component below. This meter-row CSS stays defined for the rare edge case (e.g. a non-HTML medium that can't render SVG) but a fresh report should not reach for it without a specific reason.
 
 ```css
 .meter-row { margin-bottom: 14px; }
@@ -301,6 +305,81 @@ body {
 .meter-fill.green { background: var(--green); }
 .meter-fill.yellow { background: var(--yellow); }
 .meter-fill.red { background: var(--red); }
+```
+
+### Scorecard Radar Chart (default for Analyst Scorecard)
+
+Flat on the page — not a boxed card. Pairs with the "Analyst Scorecard Radar Chart" block in `layout.md`'s "Shared Interactive JS" appendix, which builds the chart from the `METRICS` array and auto-fits the `viewBox` to the actually-rendered label text (see `ruleset.md`'s "Match canvas to content, not the reverse" rule — never hand-pick a `viewBox` size and hope the font fits).
+
+```css
+.radar-hint {
+  font-family: var(--font-family-mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 10px;
+}
+.scorecard-body { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.radar-wrap { flex-shrink: 0; display: flex; justify-content: center; }
+.radar-axis-label {
+  font-family: var(--font-family-display);
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--color-primary);
+  cursor: pointer;
+}
+.radar-dot { cursor: pointer; transition: r 0.15s; }
+.radar-dot:hover, .radar-dot.active { r: 10; }
+
+/* Answer panel — a hairline divider, never a filled/boxed card (matches
+   .split-cols' own divider convention; see ruleset.md's card-overuse rule) */
+.scorecard-why {
+  flex: 1;
+  min-width: 220px;
+  border-left: 1px solid var(--border);
+  padding: 4px 0 4px 26px;
+}
+.scorecard-why .wp-title {
+  font-family: var(--font-family-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+.scorecard-why .wp-score {
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  color: var(--color-accent);
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: block;
+}
+.scorecard-why .wp-text { font-size: 15px; line-height: 1.65; margin: 0; }
+.scorecard-why .wp-back {
+  display: block;
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+.scorecard-why .wp-back:hover { color: var(--color-accent); }
+
+@media (max-width: 640px) {
+  .scorecard-body { flex-direction: column; }
+  .scorecard-why {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding: 20px 0 0;
+    margin-top: 20px;
+  }
+}
 ```
 
 ### Scenario Cards
@@ -414,7 +493,9 @@ body {
 .verdict p:last-child { margin-bottom: 0; }
 ```
 
-### Icon Rows (Competitive Edge, Growth/Risk cards)
+### Icon Rows (Competitive Edge) / Row Text (also reused by Severity List)
+
+`.item-row`/`.item-icon` are Competitive Edge's own row wrapper. `.item-title`/`.item-desc`/`.item-meta` are shared row-content primitives — Severity List rows (Growth Drivers, Risks) reuse these same three classes inside `.sev-row` instead of `.item-row`, so risk/driver text keeps the same typographic treatment as everywhere else.
 
 ```css
 .item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
@@ -437,7 +518,9 @@ body {
 }
 ```
 
-### Debate Box
+### Debate Box (default for Investor Debate)
+
+One of the report's established boxed-treatment exceptions — a debate is a genuinely oppositional shape, not paired narrative, so it earns its own card identity instead of the `.split-cols` flat default.
 
 ```css
 .debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -460,6 +543,33 @@ body {
 .debate-card.pessimist h3 { color: var(--color-error); }
 .debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
 .debate-card li { margin-bottom: 6px; }
+
+/* VS badge — centered overlay, only makes sense with two side-by-side cards;
+   hidden once .debate-grid collapses to one column (see the 760px media query) */
+.debate-vs { position: relative; }
+.debate-vs .vs-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-primary);
+  color: var(--color-text-on-primary);
+  font-family: var(--font-family-display);
+  font-size: 11px;
+  font-weight: 700;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+  letter-spacing: 0.5px;
+}
+@media (max-width: 760px) {
+  .debate-vs .vs-badge { display: none; }
+}
 ```
 
 ### Donut Chart
@@ -471,10 +581,30 @@ The empty-ring base circle uses `stroke="var(--border)"`. Each filled segment us
 ```css
 .donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
 .donut-legend { flex: 1; min-width: 180px; }
-.legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; }
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  /* hover-link state */
+  border-radius: 3px;
+  padding: 2px 4px;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+.legend-row.dim { opacity: 0.35; }
+.legend-row.hi { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 .legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+
+/* Hover-link target state, applied to each donut <circle data-seg="..."> */
+.seg-dim { opacity: 0.3; transition: opacity 0.15s; }
+.seg-hi { transition: opacity 0.15s, filter 0.15s; }
+.seg-hi.active-glow { filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent) 55%, transparent)); }
 ```
+
+Give each donut wedge `<circle>` a `data-seg="<slug>"` attribute matching its `.legend-row`'s own `data-seg` — that's the only markup requirement for the hover-link JS in `layout.md`'s appendix to work.
 
 Segment bar rows (current vs projected, below the donut) — `.seg-fill`/`.seg-proj` inline `background` uses the same segment token as the matching donut wedge:
 
@@ -497,7 +627,7 @@ Segment bar rows (current vs projected, below the donut) — `.seg-fill`/`.seg-p
 
 ### Flat / Tabular Components (default for comparable or tabular content)
 
-Per `ruleset.md`'s card-discipline rule: `.tldr` and `.verdict` are the only two boxed/shadowed treatments a report gets — every other section uses one of these flatter components instead of a `.card`/`.stat-card`/`.scenario-card`/`.debate-card` grid. The boxed components above (Stat Grid, Scenario Cards, Debate Box) stay defined for the rare case a section genuinely needs individually-weighted boxes, but default to the components below first.
+Per `ruleset.md`'s card-discipline rule, boxed/shadowed treatment is reserved for four moments — `.tldr`, `.verdict`, `.stat-card` (Financial Snapshot), and `.debate-card` (Investor Debate) — every other section uses one of these flatter components instead of a `.card`/`.scenario-card` grid.
 
 ```css
 /* Exhibit visual — bordered, unshadowed frame for a chart (never a card: no fill, no shadow) */
@@ -538,13 +668,23 @@ Per `ruleset.md`'s card-discipline rule: `.tldr` and `.verdict` are the only two
 .split-cols li { margin-bottom: 6px; }
 
 /* Item list — icon rows separated by hairline rules instead of sitting in a card.
-   Default wrapper for Competitive Edge and Growth/Risk item-rows. */
+   Default wrapper for Competitive Edge. */
 .item-list .item-row { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
 .item-list .item-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
 
-/* Report table — theme-native tabular exhibit for comparable rows: financial metrics,
-   scenarios, rated items. Default for Financial Snapshot, Hidden Catalyst stats,
-   Catalyst Scenarios, Overall Scenario Analysis, and Wall Street Consensus. */
+/* Severity list — a colored stripe per row instead of an icon, hairline-divided.
+   Default for the Growth Drivers / Risks columns (Section 10) — both columns use
+   this same component so they read as one consistent system side by side, not
+   two different treatments. Green stripe = driver, red = active/severe risk,
+   yellow = reduced/moderate risk. */
+.severity-list .sev-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.severity-list .sev-row:last-child { border-bottom: none; }
+.sev-stripe { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 40px; }
+
+/* Report table — theme-native tabular exhibit for comparable rows: rated items,
+   sizing metrics. Default for Hidden Catalyst stats and Wall Street Consensus
+   (Financial Snapshot now uses Stat Grid tiles; Catalyst Scenarios and Overall
+   Scenario Analysis now default to Scenario Tabs — see below). */
 .report-table-wrap { overflow-x: auto; }
 .report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .report-table th {
@@ -576,6 +716,76 @@ Per `ruleset.md`'s card-discipline rule: `.tldr` and `.verdict` are the only two
 .report-table .mono { font-family: var(--font-family-mono); font-weight: 700; }
 .report-table ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.55; }
 .report-table li { margin-bottom: 3px; }
+
+/* Scenario tabs — Bull/Base/Bear or Positive/Mixed/Negative as clickable tabs,
+   one reusable pattern for Section 11 (always) and Section 7's Catalyst
+   Scenarios (when the outcome sets are dense enough to earn the click — see
+   ruleset.md's "Interaction must earn its click" rule). */
+.scenario-tabs .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.scenario-tabs .tab {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 8px;
+  background: var(--card);
+  font-family: var(--font-family-display);
+  font-size: 12px;
+  font-weight: 700;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.scenario-tabs .tab:hover { transform: translateY(-1px); }
+.scenario-tabs .tab .p { font-family: var(--font-family-mono); font-weight: 700; display: block; font-size: 14px; margin-top: 3px; }
+.scenario-tabs .tab.bull, .scenario-tabs .tab.positive { color: var(--green); }
+.scenario-tabs .tab.base, .scenario-tabs .tab.mixed { color: var(--yellow); }
+.scenario-tabs .tab.bear, .scenario-tabs .tab.negative { color: var(--red); }
+.scenario-tabs .tab.active.bull, .scenario-tabs .tab.active.positive { background: color-mix(in srgb, var(--green) 14%, var(--card)); border-color: var(--green); }
+.scenario-tabs .tab.active.base, .scenario-tabs .tab.active.mixed { background: color-mix(in srgb, var(--yellow) 14%, var(--card)); border-color: var(--yellow); }
+.scenario-tabs .tab.active.bear, .scenario-tabs .tab.active.negative { background: color-mix(in srgb, var(--red) 14%, var(--card)); border-color: var(--red); }
+.scenario-tabs .tab-panel {
+  display: none;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  border-left: 3px solid var(--border);
+}
+.scenario-tabs .tab-panel.show { display: block; }
+.scenario-tabs .tab-panel h4 { margin: 0 0 4px; font-family: var(--font-family-display); font-size: 14px; letter-spacing: 0.5px; }
+.scenario-tabs .tab-panel .range { font-family: var(--font-family-mono); font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+.scenario-tabs .tab-panel ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+.scenario-tabs .tab-panel li { margin-bottom: 5px; }
+
+/* Scroll-spy rail — sticky section nav, one per report (see layout.md's
+   "Section Navigation" note). Fixed to the viewport, not the page column, so
+   it doesn't compete with .page's own max-width for space. Hidden below
+   1180px — there's no room for it once the page content plus its margins
+   gets that close to the viewport edge. */
+.spy-rail {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  z-index: 40;
+}
+.spy-rail .spy-item { display: flex; align-items: center; gap: 8px; cursor: pointer; justify-content: flex-end; }
+.spy-rail .spy-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.15s, transform 0.15s; }
+.spy-rail .spy-item.active .spy-dot { background: var(--color-accent); transform: scale(1.5); }
+.spy-rail .spy-label {
+  font-family: var(--font-family-mono);
+  font-size: 10px;
+  color: var(--muted);
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.spy-rail .spy-item.active .spy-label { opacity: 1; color: var(--color-primary); font-weight: 700; }
+@media (max-width: 1180px) {
+  .spy-rail { display: none; }
+}
 ```
 
 Add the matching responsive rules to every report's required media-query block (`layout.md`'s Page Shell):
@@ -589,5 +799,10 @@ Add the matching responsive rules to every report's required media-query block (
     border-top: 1px solid var(--border);
     padding-top: 20px;
   }
+  .debate-vs .vs-badge { display: none; }
+}
+
+@media (max-width: 520px) {
+  .scenario-tabs .tabs { flex-direction: column; }
 }
 ```

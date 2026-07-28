@@ -41,7 +41,7 @@ Token names (e.g. `--color-accent`) refer to whatever values the active theme de
 |------|-----------|-----|
 | **No fixed layout** | Every report using the same container width, grid gutter, and spacing regardless of what `style-selection.md` picked | Apply the structural token block and the family-matched blend pattern from `layout.md` Part 1 — container width, gutter, and spacing rhythm should visibly differ between reports that picked different layouts |
 | **Skipping the blend** | Writing the 16 sections with zero acknowledgment of the selected layout's family (no captions, no lead treatment, no rail, no grid-snap) | Apply exactly one family-matched blend pattern from `layout.md` Part 1 — it's a small, targeted change (a caption here, a sticky rail there), not optional |
-| **Card overuse** | Every section — stat grid, story boxes, competitive edge, scorecard, debate — wrapped in its own `.card`/`.stat-card`/`.scenario-card`/`.debate-card`, so the page reads as a stack of identical boxes regardless of which layout was picked | `.tldr` and `.verdict` are the only two boxed/shadowed treatments a report gets (its bookend "pull-quote" moments). Everything else uses the flat/tabular components from `html-theme.md` — `.report-table` for comparable rows (financial metrics, scenarios, rated items), `.split-cols` for paired text, `.item-list` for icon rows, `.exhibit-visual` for chart frames. This applies regardless of which layout-factory archetype is active — it's the report's baseline, not a per-layout choice |
+| **Card overuse** | Every section — story boxes, competitive edge, growth/risks, scenario data — wrapped in its own `.card`/`.scenario-card`, so the page reads as a stack of identical boxes regardless of which layout was picked | Boxed/shadowed treatment is reserved for four specific moments, never applied by default elsewhere: `.tldr` and `.verdict` (the report's bookend pull-quote moments), `.stat-card` tiles (Financial Snapshot only — scannable numeric tiles, not narrative), and `.debate-card` + the VS badge (Investor Debate only — a genuinely oppositional two-sided comparison). Everything else uses the flat/tabular components from `html-theme.md` — `.report-table` for comparable rows, `.split-cols` for paired text, `.item-list` for icon rows (Competitive Edge), `.severity-list` for stripe-marked rows (Growth Drivers, Risks), `.exhibit-visual` for chart frames. This applies regardless of which layout-factory archetype is active — it's the report's baseline, not a per-layout choice |
 
 ---
 
@@ -51,9 +51,21 @@ Token names (e.g. `--color-accent`) refer to whatever values the active theme de
 |------|-----------|-----|
 | **Card accent border** | `border-left: 4px solid var(--color-accent)` | Top border only: `border-top: 3px solid var(--color-accent)`. Never left, right, or bottom accent borders on any card |
 | **Gradient headlines** | `background-clip: text` + `linear-gradient` + `-webkit-text-fill-color: transparent` | Use `color` + `font-weight` only. Display font at weight 700 is distinctive enough |
-| **Meter fill color** | `<div class="meter-fill" style="width:70%;background:#3D6E3A">` | Color via semantic class only: `<div class="meter-fill green" style="width:70%">`. Classes `green`, `yellow`, `red` map to success/warning/error tokens |
-| **Meter score placement** | Separate `<div class="meter-score">7 / 10</div>` element | Score is the second `<span>` inside `.meter-label`: `<div class="meter-label"><span>Label</span><span>7 / 10</span></div>` |
+| **Radar chart, not meter bars** | Seven `.meter-row` horizontal bars for the Analyst Scorecard | The Analyst Scorecard is a filled radar/spider chart (see `html-theme.md`'s Scorecard Radar Chart component) — bars read the 7 metrics as a disconnected list, the radar shows the shape of the business at a glance. `.meter-row`/`.meter-fill` stay defined for legacy/fallback use only, never the default |
+| **Radar default state** | Chart loads with an empty "click a point" placeholder and no answer until the reader acts | Always call `showOverall()` on load — an overall average + best/worst callout, generated from the same data, must be visible before any click. Empty-state placeholders are not acceptable defaults |
+| **Radar click reasoning** | A "why" panel that just restates the score ("Competitive Moat: 6/10") | Every metric's click-through reasoning must cite a specific fact already established elsewhere in this same report (a number, a named competitor, a dated event) — never a generic restatement of the label |
 | **Fixed grid columns** | `.grid-2 { grid-template-columns: 1fr 1fr }` with no media queries | Every report MUST include the two responsive breakpoints from `layout.md`: 760 px (2-col grids collapse to 1 col; 3-col grids collapse to 2 col) and 520 px (all grids collapse to 1 col). The `donut-wrap` must also stack vertically at 520 px |
+
+---
+
+## 4b. Interactivity
+
+| Rule | Violation | Fix |
+|------|-----------|-----|
+| **Interaction must earn its click** | Wrapping 2–3 short bullet points behind a tab click (e.g. thin Catalyst Scenarios content) | Reserve interactive tabs for outcome sets with 4+ conditions each (the 12-month Overall Scenario Analysis, which always has 5–6). Thinner scenario sets use static side-by-side `.scenario-card`s instead — no click required to read 2–3 lines |
+| **No dead-empty default states** | Radar chart "why" panel showing only "click a point"; scroll-spy rail with no item marked active on load | The radar always shows an overall summary (average score + best/worst callout) before any click. The scroll-spy rail always marks the first section active on load. An interactive component's resting state must already show something useful |
+| **Keyboard/large-target parity** | A hover-link or accordion that only responds to a mouse over a tiny SVG dot | Click handlers go on both the vertex/dot AND its adjacent text label (a bigger, easier target); nothing reveals content on `:hover` alone if there's no click-equivalent |
+| **Match canvas to content, not the reverse** | Enlarging a chart's font/size repeatedly while its `viewBox` and physical width drift out of sync, silently re-shrinking the effective render scale each time | Any chart built by measuring text (radar, or similar) must call `getBBox()` after drawing and set `viewBox` from the measured bounds — never hand-pick a `viewBox` size and hope the font fits. Physical `width`/`height` and `viewBox` aspect ratio should match so there's no letterboxed empty space |
 
 ---
 
@@ -82,7 +94,7 @@ Token names (e.g. `--color-accent`) refer to whatever values the active theme de
 | Rule | Violation | Fix |
 |------|-----------|-----|
 | **No fabrication** | Writing `Revenue: $4.2B` when no source confirmed it; describing an unverified partnership | Unfound figure → `[Data not found]`. Whole section unsourceable → `[No source found — this section could not be completed]`. Every estimate labeled `[MODEL ESTIMATE]` or `[ANALYST ESTIMATE]` |
-| **No stale risks** | Listing a settled regulatory issue as `[ACTIVE RISK]` based on a year-old article | Every risk must pass recency verification. Resolved risks → omit from the Risks card entirely (brief narrative mention with `[RESOLVED]` label at most). Each risk must show: status + last-verified month/year + source name |
+| **No stale risks** | Listing a settled regulatory issue as `[ACTIVE RISK]` based on a year-old article | Every risk must pass recency verification. Resolved risks → omit from the Risks list entirely (brief narrative mention with `[RESOLVED]` label at most). Each risk must show: status + last-verified month/year + source name |
 
 ---
 

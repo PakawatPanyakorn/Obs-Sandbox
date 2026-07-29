@@ -194,9 +194,11 @@
     .cdk-card p { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.55; font-weight: 500; text-transform: none; margin-bottom: var(--space-4); }
 
     .cdk-toggle-row { display: flex; align-items: center; gap: var(--space-3); }
-    .cdk-toggle { width: 44px; height: 22px; background: var(--color-secondary); border-radius: 2px; box-shadow: var(--shadow-inset); position: relative; flex: none; }
-    .cdk-toggle::after { content: ""; position: absolute; top: 2px; left: 22px; width: 18px; height: 18px; background: linear-gradient(180deg, var(--color-surface), var(--color-surface-alt)); box-shadow: 0 1px 2px rgba(0,0,0,0.4); border-radius: 1px; }
+    .cdk-toggle { width: 44px; height: 22px; background: var(--color-accent); border-radius: 2px; box-shadow: var(--shadow-inset); position: relative; flex: none; cursor: pointer; transition: background-color var(--duration-base) var(--ease); }
+    .cdk-toggle::after { content: ""; position: absolute; top: 2px; left: 22px; width: 18px; height: 18px; background: linear-gradient(180deg, var(--color-surface), var(--color-surface-alt)); box-shadow: 0 1px 2px rgba(0,0,0,0.4); border-radius: 1px; transition: left var(--duration-base) var(--ease); }
+    .cdk-toggle.off { background: var(--color-secondary); }
     .cdk-toggle.off::after { left: 2px; }
+    .cdk-toggle:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
     .cdk-vu { display: flex; gap: 3px; align-items: flex-end; height: 20px; }
     .cdk-vu span { width: 6px; display: block; border-radius: 1px; }
 
@@ -327,13 +329,13 @@
         <span class="cdk-card-tag">Fuel Cell A</span>
         <h3>71% Nominal</h3>
         <p>Steady draw, no drift detected across the last logging interval.</p>
-        <div class="cdk-toggle-row"><div class="cdk-toggle"></div><span class="cdk-mono-chip">auto-feed on</span></div>
+        <div class="cdk-toggle-row"><div class="cdk-toggle" role="switch" aria-checked="true" tabindex="0"></div><span class="cdk-mono-chip" data-on-text="auto-feed on" data-off-text="auto-feed off">auto-feed on</span></div>
       </div>
       <div class="cdk-card">
         <span class="cdk-card-tag">Navigation Lock</span>
         <h3>Course Held</h3>
         <p>Gyro-locked to heading 214. Manual override is armed but untouched.</p>
-        <div class="cdk-toggle-row"><div class="cdk-toggle off"></div><span class="cdk-mono-chip">override off</span></div>
+        <div class="cdk-toggle-row"><div class="cdk-toggle off" role="switch" aria-checked="false" tabindex="0"></div><span class="cdk-mono-chip" data-on-text="override on" data-off-text="override off">override off</span></div>
       </div>
       <div class="cdk-card">
         <span class="cdk-card-tag">Comms Array</span>
@@ -373,11 +375,29 @@
   <div class="cdk-section">
     <div class="cdk-section-title">Hardware Details</div>
     <div class="cdk-effects-grid">
-      <div class="cdk-effect-tile"><div class="cdk-tile-label">Toggle Switch</div><div class="cdk-toggle-row"><div class="cdk-toggle"></div><div class="cdk-toggle off"></div></div></div>
+      <div class="cdk-effect-tile"><div class="cdk-tile-label">Toggle Switch</div><div class="cdk-toggle-row"><div class="cdk-toggle" role="switch" aria-checked="true" tabindex="0"></div><div class="cdk-toggle off" role="switch" aria-checked="false" tabindex="0"></div></div></div>
       <div class="cdk-effect-tile"><div class="cdk-tile-label">VU Meter</div><div class="cdk-vu"><span style="height:50%;background:var(--color-accent)"></span><span style="height:75%;background:var(--color-accent)"></span><span style="height:95%;background:var(--color-warning)"></span><span style="height:60%;background:var(--color-accent)"></span></div></div>
       <div class="cdk-effect-tile"><div class="cdk-tile-label">Inset Well</div><div class="cdk-mono-chip" style="box-shadow:var(--shadow-inset)">volts=12.4</div></div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      function flipToggle(el) {
+        var isOff = el.classList.toggle('off');
+        el.setAttribute('aria-checked', isOff ? 'false' : 'true');
+        var row = el.parentElement;
+        var chip = row && row.querySelector('.cdk-mono-chip[data-on-text]');
+        if (chip) chip.textContent = isOff ? chip.getAttribute('data-off-text') : chip.getAttribute('data-on-text');
+      }
+      document.querySelectorAll('.cdk-toggle').forEach(function (el) {
+        el.addEventListener('click', function () { flipToggle(el); });
+        el.addEventListener('keydown', function (e) {
+          if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flipToggle(el); }
+        });
+      });
+    })();
+  </script>
 
   <script>
     (function () {

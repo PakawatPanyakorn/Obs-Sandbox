@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="transit-wayfinding">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transit Wayfinding — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Outfit:wght@400;500;600&display=swap">
+  <script id="theme-data" type="application/json">{
+    "name": "transit-wayfinding",
+    "description": "Flat metro/subway signage system — off-white ground, cobalt line-blue primary, safety orange secondary, signal red accent, thick black-blue rules, pill route badges. Jost + Outfit. Vignelli-grade wayfinding.",
+    "createdAt": "2026-07-29T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#F5F4F0",
+      "image": "linear-gradient(rgba(30,79,214,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(30,79,214,0.05) 1px, transparent 1px)",
+      "size": "24px 24px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "grid",
+      "patternColor": "rgba(30,79,214,0.05)",
+      "patternOpacity": "0.05",
+      "patternSpacing": "24px",
+      "notes": "Faint cobalt-tinted 24px grid under an off-white ground — reads as a transit map's underlying survey grid, not a decoration"
+    },
+    "colors": {
+      "primary": "#1E4FD6",
+      "primaryLight": "#D9E3FA",
+      "secondary": "#FF6A13",
+      "accent": "#E0122B",
+      "background": "#F5F4F0",
+      "surface": "#FFFFFF",
+      "surfaceAlt": "#ECEAE2",
+      "text": "#14161A",
+      "textMuted": "#5B6068",
+      "textOnPrimary": "#FFFFFF",
+      "border": "#23262F",
+      "success": "#14793D",
+      "warning": "#9C6300",
+      "error": "#E0122B"
+    },
+    "typography": {
+      "fontFamily": "'Outfit', 'Helvetica Neue', sans-serif",
+      "fontFamilyMono": "'Outfit', 'Helvetica Neue', sans-serif",
+      "fontFamilyDisplay": "'Jost', 'Helvetica Neue', sans-serif",
+      "scaleBase": "16px",
+      "headingWeight": "700",
+      "bodyWeight": "400",
+      "lineHeight": "1.55"
+    },
+    "spacing": {
+      "borderRadius": "2px",
+      "cardRadius": "2px",
+      "buttonRadius": "100px",
+      "spaceUnit": "8px",
+      "density": "compact"
+    },
+    "shadows": {
+      "sm": "0 1px 2px rgba(20,22,26,0.08)",
+      "md": "0 2px 6px rgba(20,22,26,0.10)",
+      "lg": "0 4px 10px rgba(20,22,26,0.12)",
+      "xl": "0 8px 20px rgba(20,22,26,0.14)",
+      "colored": "none",
+      "inset": "none",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "none",
+      "card": "none",
+      "button": "none",
+      "text": "none",
+      "accent": "none"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#1E4FD6",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "none",
+      "noiseOpacity": "0",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "100ms",
+      "durationBase": "160ms",
+      "durationSlow": "220ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "flat",
+      "personality": ["systemic", "utilitarian", "wayfinding", "confident"],
+      "borderStyle": "bold",
+      "iconStyle": "sharp",
+      "imageStyle": "none",
+      "surfaceTexture": "flat",
+      "hierarchyClarity": "high",
+      "notes": "Route identity is carried by a small square line-chip beside each title, never by an asymmetric colored side-border — cards keep a uniform hairline all around. Buttons in a flat color use whichever of --color-text/--color-text-on-primary actually passes contrast against that specific fill; secondary's safety orange pairs with dark text, primary's cobalt pairs with white."
+    }
+  }</script>
+  <style>
+    :root {
+      --color-primary: #1E4FD6;
+      --color-primary-light: #D9E3FA;
+      --color-secondary: #FF6A13;
+      --color-accent: #E0122B;
+      --color-bg: #F5F4F0;
+      --color-surface: #FFFFFF;
+      --color-surface-alt: #ECEAE2;
+      --color-text: #14161A;
+      --color-text-muted: #5B6068;
+      --color-text-on-primary: #FFFFFF;
+      --color-border: #23262F;
+      --color-success: #14793D;
+      --color-warning: #9C6300;
+      --color-error: #E0122B;
+
+      --font-family: 'Outfit', 'Helvetica Neue', sans-serif;
+      --font-family-mono: 'Outfit', 'Helvetica Neue', sans-serif;
+      --font-family-display: 'Jost', 'Helvetica Neue', sans-serif;
+
+      --radius: 2px; --radius-card: 2px; --radius-button: 100px;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 1px 2px rgba(20,22,26,0.08);
+      --shadow-md: 0 2px 6px rgba(20,22,26,0.10);
+      --shadow-lg: 0 4px 10px rgba(20,22,26,0.12);
+      --shadow-xl: 0 8px 20px rgba(20,22,26,0.14);
+
+      --easing: cubic-bezier(0.4, 0, 0.2, 1);
+      --duration-fast: 100ms; --duration-base: 160ms; --duration-slow: 220ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px; font-weight: 400; line-height: 1.55;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image: linear-gradient(rgba(30,79,214,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(30,79,214,0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3 { font-family: var(--font-family-display); font-weight: 700; letter-spacing: -0.01em; }
+
+    .tw-header {
+      background: var(--color-surface);
+      border-bottom: 4px solid var(--color-text);
+      padding: var(--space-12) var(--space-8) var(--space-8);
+    }
+    .tw-header-tag { font-family: var(--font-family-display); font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-primary); margin-bottom: var(--space-3); display: block; }
+    .tw-header h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); color: var(--color-text); margin-bottom: var(--space-3); }
+    .tw-header p { font-size: 1rem; color: var(--color-text-muted); max-width: 520px; }
+    .tw-line-row { display: flex; gap: var(--space-3); margin-top: var(--space-6); flex-wrap: wrap; }
+    .tw-line-chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 8px; border-radius: 100px; background: var(--color-surface-alt); font-family: var(--font-family-display); font-size: 0.8rem; font-weight: 600; color: var(--color-text); }
+    .tw-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+    .tw-section { padding: var(--space-10) var(--space-8); max-width: 1000px; margin: 0 auto; }
+    .tw-section-title { font-family: var(--font-family-display); font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-text-muted); border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-2); margin-bottom: var(--space-6); }
+
+    .tw-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--space-2); }
+    .tw-swatch { border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; }
+    .tw-swatch-color { height: 56px; }
+    .tw-swatch-label { font-size: 10px; padding: 4px 6px; color: var(--color-text-muted); background: var(--color-surface); font-family: var(--font-family-display); font-weight: 600; }
+
+    .tw-type-stack > * + * { margin-top: var(--space-3); }
+    .tw-display { font-family: var(--font-family-display); font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--color-text); }
+    .tw-h2 { font-family: var(--font-family-display); font-size: 1.5rem; color: var(--color-text); }
+    .tw-h3 { font-family: var(--font-family-display); font-size: 1.1rem; color: var(--color-primary); }
+    .tw-body { font-size: 1rem; color: var(--color-text); }
+    .tw-muted { font-size: 0.875rem; color: var(--color-text-muted); }
+
+    .tw-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .tw-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 11px 22px; border-radius: var(--radius-button);
+      font-family: var(--font-family-display); font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; border: 2px solid transparent;
+      transition: background-color var(--duration-base) var(--easing), color var(--duration-base) var(--easing);
+    }
+    .tw-btn-primary { background: var(--color-primary); color: var(--color-text-on-primary); }
+    .tw-btn-secondary { background: var(--color-secondary); color: var(--color-text); }
+    .tw-btn-outline { background: transparent; color: var(--color-text); border-color: var(--color-text); }
+    .tw-btn-ghost { background: transparent; color: var(--color-text-muted); }
+
+    .tw-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-5); }
+    .tw-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-6); }
+    .tw-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: var(--space-2); }
+    .tw-card h3 { font-family: var(--font-family-display); font-size: 1.1rem; color: var(--color-text); }
+    .tw-card p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.55; margin-bottom: var(--space-4); }
+    .tw-card-eta { font-family: var(--font-family-display); font-size: 1.3rem; font-weight: 700; color: var(--color-text); }
+    .tw-card-eta span { font-size: 0.8rem; font-weight: 400; color: var(--color-text-muted); }
+
+    .tw-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); max-width: 520px; }
+    .tw-form-group label { display: block; font-family: var(--font-family-display); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 6px; }
+    .tw-input { width: 100%; padding: 11px 14px; background: var(--color-surface); border: 1.5px solid var(--color-border); border-radius: var(--radius); color: var(--color-text); font-family: var(--font-family); font-size: 0.95rem; outline: none; }
+    .tw-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary-light); }
+
+    .tw-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .tw-badge { display: inline-flex; align-items: center; padding: 5px 14px; border-radius: 100px; font-family: var(--font-family-display); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em; }
+    .tw-badge-primary { color: var(--color-primary); background: var(--color-primary-light); }
+    .tw-badge-secondary { color: #8A3E0A; background: rgba(255,106,19,0.14); }
+    .tw-badge-success { color: var(--color-success); background: rgba(20,121,61,0.1); }
+    .tw-badge-warning { color: var(--color-warning); background: rgba(156,99,0,0.12); }
+    .tw-badge-error { color: var(--color-error); background: rgba(224,18,43,0.1); }
+
+    .tw-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .tw-effect-tile { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3); min-height: 96px; font-family: var(--font-family-display); font-size: 0.7rem; font-weight: 600; color: var(--color-text-muted); text-align: center; }
+    .tw-rule-demo { width: 100%; height: 4px; background: var(--color-text); }
+    .tw-pill-demo { padding: 6px 18px; border-radius: 100px; background: var(--color-primary); color: #fff; font-size: 0.8rem; font-weight: 600; }
+
+    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
+       derived from location.pathname, so this block never needs per-file editing). Fetches and
+       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
+       blocked (e.g. plain file:// with no local server). */
+    .tf-doc-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 20;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: #fff;
+      border: 1px solid #111;
+      border-radius: 2px;
+      color: #111;
+      padding: 0.5rem 0.75rem;
+      transition: background-color .12s, color .12s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tf-doc-toggle:hover { background-color: #111; color: #fff; }
+    .tf-doc-overlay {
+      position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .tf-doc-overlay[hidden] { display: none; }
+    .tf-doc-panel {
+      background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh;
+      border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .tf-doc-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .tf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .tf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .tf-doc-close:hover { color: #111; }
+    .tf-doc-body {
+      margin: 0; padding: 1.25rem; overflow: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.86rem; line-height: 1.65; color: #222;
+    }
+    .tf-doc-body > *:first-child { margin-top: 0; }
+    .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 {
+      font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111;
+    }
+    .tf-doc-body h1 { font-size: 1.3rem; }
+    .tf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .tf-doc-body h3 { font-size: 0.92rem; }
+    .tf-doc-body h4 { font-size: 0.86rem; }
+    .tf-doc-body p { margin: 0 0 0.85em; }
+    .tf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .tf-doc-body li { margin-bottom: 0.35em; }
+    .tf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .tf-doc-body strong { font-weight: 700; }
+    .tf-doc-body em { font-style: italic; }
+    .tf-doc-body code {
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em;
+      background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .tf-doc-panel { background: #1c1c22; color: #ddd; }
+      .tf-doc-panel-head { border-bottom-color: #333; }
+      .tf-doc-panel-title { color: #eee; }
+      .tf-doc-close { color: #999; }
+      .tf-doc-close:hover { color: #fff; }
+      .tf-doc-body { color: #ccc; }
+      .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { color: #f0f0f0; }
+      .tf-doc-body h2 { border-bottom-color: #333; }
+      .tf-doc-body hr { border-top-color: #333; }
+      .tf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="tf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="tf-doc-overlay" id="doc-overlay" hidden>
+    <div class="tf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="tf-doc-panel-head">
+        <span class="tf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="tf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <header class="tw-header">
+    <span class="tw-header-tag">Metro Transit Authority · System Status</span>
+    <h1>Network Status</h1>
+    <p>Real-time departures across three lines. Tap a line for platform detail and service alerts.</p>
+    <div class="tw-line-row">
+      <span class="tw-line-chip"><span class="tw-dot" style="background:#1E4FD6"></span>Line 4</span>
+      <span class="tw-line-chip"><span class="tw-dot" style="background:#FF6A13"></span>Line 9</span>
+      <span class="tw-line-chip"><span class="tw-dot" style="background:#E0122B"></span>Line 2</span>
+    </div>
+  </header>
+
+  <div class="tw-section">
+    <div class="tw-section-title">Line Colors</div>
+    <div class="tw-swatches">
+      <div class="tw-swatch"><div class="tw-swatch-color" style="background:#1E4FD6"></div><div class="tw-swatch-label">Primary<br>#1E4FD6</div></div>
+      <div class="tw-swatch"><div class="tw-swatch-color" style="background:#FF6A13"></div><div class="tw-swatch-label">Secondary<br>#FF6A13</div></div>
+      <div class="tw-swatch"><div class="tw-swatch-color" style="background:#E0122B"></div><div class="tw-swatch-label">Accent<br>#E0122B</div></div>
+      <div class="tw-swatch"><div class="tw-swatch-color" style="background:#F5F4F0"></div><div class="tw-swatch-label">Ground<br>#F5F4F0</div></div>
+      <div class="tw-swatch"><div class="tw-swatch-color" style="background:#FFFFFF"></div><div class="tw-swatch-label">Surface<br>#FFFFFF</div></div>
+      <div class="tw-swatch"><div class="tw-swatch-color" style="background:#14161A"></div><div class="tw-swatch-label">Text<br>#14161A</div></div>
+      <div class="tw-swatch"><div class="tw-swatch-color" style="background:#14793D"></div><div class="tw-swatch-label">On Time<br>#14793D</div></div>
+      <div class="tw-swatch"><div class="tw-swatch-color" style="background:#9C6300"></div><div class="tw-swatch-label">Delay<br>#9C6300</div></div>
+    </div>
+  </div>
+
+  <div class="tw-section">
+    <div class="tw-section-title">Typography</div>
+    <div class="tw-type-stack">
+      <div class="tw-display">Network Status — Live</div>
+      <div class="tw-h2">Line 4 — Platform 2</div>
+      <div class="tw-h3">Next Departures</div>
+      <div class="tw-body">Outfit body copy: service on Line 4 is running with a two-minute gap due to signal maintenance north of Harbor Junction. Alternate routing is available via Line 9.</div>
+      <div class="tw-muted">Updated 00:42 ago · Data refreshes every 30 seconds</div>
+    </div>
+  </div>
+
+  <div class="tw-section">
+    <div class="tw-section-title">Controls</div>
+    <div class="tw-btn-row">
+      <a href="#" class="tw-btn tw-btn-primary">View Schedule</a>
+      <a href="#" class="tw-btn tw-btn-secondary">Report Delay</a>
+      <a href="#" class="tw-btn tw-btn-outline">Station Map</a>
+      <a href="#" class="tw-btn tw-btn-ghost">Dismiss</a>
+    </div>
+  </div>
+
+  <div class="tw-section">
+    <div class="tw-section-title">Line Status</div>
+    <div class="tw-card-grid">
+      <div class="tw-card">
+        <div class="tw-card-head"><span class="tw-dot" style="background:#1E4FD6"></span><h3>Line 4 — Central</h3></div>
+        <p>Platform 2, northbound. Minor gap due to signal maintenance near Harbor Junction.</p>
+        <div class="tw-card-eta">4 min <span>to next arrival</span></div>
+      </div>
+      <div class="tw-card">
+        <div class="tw-card-head"><span class="tw-dot" style="background:#FF6A13"></span><h3>Line 9 — Riverside</h3></div>
+        <p>Platform 1, running on schedule. Express service to Riverside Terminal until 22:00.</p>
+        <div class="tw-card-eta">7 min <span>to next arrival</span></div>
+      </div>
+      <div class="tw-card">
+        <div class="tw-card-head"><span class="tw-dot" style="background:#E0122B"></span><h3>Line 2 — Uptown</h3></div>
+        <p>Platform 3, suspended between Uptown and Fairview for weekend track work.</p>
+        <div class="tw-card-eta">— <span>replacement bus active</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tw-section">
+    <div class="tw-section-title">Trip Planner</div>
+    <div class="tw-form-grid">
+      <div class="tw-form-group">
+        <label>From</label>
+        <input class="tw-input" type="text" placeholder="Harbor Junction">
+      </div>
+      <div class="tw-form-group">
+        <label>To</label>
+        <input class="tw-input" type="text" placeholder="Riverside Terminal">
+      </div>
+    </div>
+    <div class="tw-btn-row" style="margin-top: var(--space-4)">
+      <a href="#" class="tw-btn tw-btn-primary">Plan Trip</a>
+      <a href="#" class="tw-btn tw-btn-ghost">Clear</a>
+    </div>
+  </div>
+
+  <div class="tw-section">
+    <div class="tw-section-title">Service Status</div>
+    <div class="tw-badge-row">
+      <span class="tw-badge tw-badge-primary">On Time</span>
+      <span class="tw-badge tw-badge-secondary">Boarding</span>
+      <span class="tw-badge tw-badge-success">Clear</span>
+      <span class="tw-badge tw-badge-warning">Delayed</span>
+      <span class="tw-badge tw-badge-error">Suspended</span>
+    </div>
+  </div>
+
+  <div class="tw-section">
+    <div class="tw-section-title">System Marks</div>
+    <div class="tw-effects-grid">
+      <div class="tw-effect-tile"><div class="tw-rule-demo"></div><span>Structural Rule</span></div>
+      <div class="tw-effect-tile"><div class="tw-pill-demo">Line 4</div><span>Route Pill</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+</body>
+</html>

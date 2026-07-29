@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="aeroglass">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aeroglass — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=Nova+Mono&display=swap">
+  <script id="theme-data" type="application/json">
+  {
+    "name": "aeroglass",
+    "description": "Light glossy Frutiger-Aero / Y2K tech-optimism theme — sky-blue-to-lime glass panels, specular highlights, bubble/droplet motifs recalling early-2000s consumer tech (Luna, Aqua, iTunes chrome). Jost display + DM Sans body + Nova Mono for system readouts. Pill buttons, frosted glass cards, no gradient-text headlines.",
+    "createdAt": "2026-07-29T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "gradient",
+      "baseColor": "#EAF6FC",
+      "image": "linear-gradient(160deg, #EAF6FC 0%, #CBE9F8 45%, #8FCDEB 100%), radial-gradient(38% 55% at 12% 8%, rgba(255,255,255,0.85), transparent 70%), radial-gradient(10% 14% at 88% 78%, rgba(255,255,255,0.55), transparent 70%), radial-gradient(5% 6% at 72% 90%, rgba(255,255,255,0.45), transparent 70%)",
+      "size": "auto",
+      "position": "0 0",
+      "repeat": "no-repeat",
+      "patternType": "other",
+      "patternColor": "rgba(255,255,255,0.6)",
+      "patternOpacity": "0.5",
+      "patternSpacing": "0px",
+      "notes": "Glass sweep gradient (sky blue to deeper blue) plus a large specular highlight top-left and two small bubble highlights bottom-right — simulates a curved glossy panel, not a flat gradient."
+    },
+    "colors": {
+      "primary": "#2E8FD6",
+      "primaryLight": "#CDEBFA",
+      "secondary": "#8CC63F",
+      "accent": "#F2924B",
+      "background": "#EAF6FC",
+      "surface": "#F6FBFE",
+      "surfaceAlt": "#DCEFF8",
+      "text": "#0B3050",
+      "textMuted": "#4C7893",
+      "textOnPrimary": "#FAFEFF",
+      "border": "#BFE0F2",
+      "success": "#2E9E5B",
+      "warning": "#E0932E",
+      "error": "#E2585B"
+    },
+    "typography": {
+      "fontFamily": "'DM Sans', sans-serif",
+      "fontFamilyMono": "'Nova Mono', monospace",
+      "fontFamilyDisplay": "'Jost', sans-serif",
+      "scaleBase": "16px",
+      "headingWeight": "600",
+      "bodyWeight": "400",
+      "lineHeight": "1.6"
+    },
+    "spacing": {
+      "borderRadius": "14px",
+      "cardRadius": "20px",
+      "buttonRadius": "999px",
+      "spaceUnit": "8px",
+      "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 2px 6px rgba(11,48,80,0.08)",
+      "md": "0 6px 18px rgba(11,48,80,0.10)",
+      "lg": "0 14px 32px rgba(11,48,80,0.14)",
+      "xl": "0 24px 48px rgba(11,48,80,0.16)",
+      "colored": "0 10px 24px rgba(46,143,214,0.35)",
+      "inset": "inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -6px 10px rgba(46,143,214,0.08)",
+      "elevation": "layered"
+    },
+    "gradients": {
+      "hero": "linear-gradient(160deg, #EAF6FC 0%, #BEE4F6 45%, #6FB8E8 100%)",
+      "card": "linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.10) 100%)",
+      "button": "linear-gradient(180deg, #FFFFFF 0%, #D3EDFB 55%, #A9DCF3 100%)",
+      "text": "none",
+      "accent": "linear-gradient(90deg, #8CC63F 0%, #2E8FD6 100%)"
+    },
+    "effects": {
+      "luminescence": "subtle",
+      "glowColor": "#2E8FD6",
+      "glowBlur": "24",
+      "glowSm": "0 2px 8px rgba(46,143,214,0.25)",
+      "glowMd": "0 6px 20px rgba(46,143,214,0.30)",
+      "glowLg": "0 14px 36px rgba(46,143,214,0.35)",
+      "glassBlur": "16",
+      "glassTint": "rgba(255,255,255,0.35)",
+      "gradientBorder": "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.05))",
+      "noiseOpacity": "0.02",
+      "textShadow": "0 1px 0 rgba(255,255,255,0.5)",
+      "backdropFilter": "blur(16px) saturate(160%)"
+    },
+    "motion": {
+      "durationFast": "120ms",
+      "durationBase": "220ms",
+      "durationSlow": "380ms",
+      "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "feel": "expressive"
+    },
+    "design": {
+      "aesthetic": "glassmorphism",
+      "personality": ["glossy", "optimistic", "aquatic", "chrome"],
+      "borderStyle": "subtle",
+      "iconStyle": "rounded",
+      "imageStyle": "abstract",
+      "surfaceTexture": "frosted",
+      "hierarchyClarity": "high",
+      "notes": "Headline stays solid ink (#0B3050) with a soft glass text-shadow — never background-clip gradient text, which would read as generic AI gloss rather than genuine glass carving. Bubbles are fixed decorative elements sized/placed once, not scattered confetti. Buttons are pill-shaped per the era's chrome; cards stay 20px rounded rectangles (glass 'window' proportions, not full pills)."
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --color-primary: #2E8FD6;
+      --color-primary-light: #CDEBFA;
+      --color-secondary: #8CC63F;
+      --color-accent: #F2924B;
+      --color-bg: #EAF6FC;
+      --color-surface: #F6FBFE;
+      --color-surface-alt: #DCEFF8;
+      --color-text: #0B3050;
+      --color-text-muted: #4C7893;
+      --color-text-on-primary: #FAFEFF;
+      --color-border: #BFE0F2;
+      --color-success: #2E9E5B;
+      --color-warning: #E0932E;
+      --color-error: #E2585B;
+
+      --font-family: 'DM Sans', sans-serif;
+      --font-family-mono: 'Nova Mono', monospace;
+      --font-family-display: 'Jost', sans-serif;
+
+      --radius: 14px; --radius-card: 20px; --radius-button: 999px;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 2px 6px rgba(11,48,80,0.08);
+      --shadow-md: 0 6px 18px rgba(11,48,80,0.10);
+      --shadow-lg: 0 14px 32px rgba(11,48,80,0.14);
+      --shadow-xl: 0 24px 48px rgba(11,48,80,0.16);
+      --shadow-colored: 0 10px 24px rgba(46,143,214,0.35);
+      --shadow-inset: inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -6px 10px rgba(46,143,214,0.08);
+
+      --gradient-hero: linear-gradient(160deg, #EAF6FC 0%, #BEE4F6 45%, #6FB8E8 100%);
+      --gradient-card: linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.10) 100%);
+      --gradient-button: linear-gradient(180deg, #FFFFFF 0%, #D3EDFB 55%, #A9DCF3 100%);
+      --gradient-accent: linear-gradient(90deg, #8CC63F 0%, #2E8FD6 100%);
+
+      --glass-blur: 16px; --glass-tint: rgba(255,255,255,0.35);
+      --backdrop-filter: blur(16px) saturate(160%);
+      --glow-color: #2E8FD6; --glow-sm: 0 2px 8px rgba(46,143,214,0.25); --glow-md: 0 6px 20px rgba(46,143,214,0.30); --glow-lg: 0 14px 36px rgba(46,143,214,0.35);
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --duration-base: 220ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px; line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image:
+        linear-gradient(160deg, #EAF6FC 0%, #CBE9F8 45%, #8FCDEB 100%),
+        radial-gradient(38% 55% at 12% 8%, rgba(255,255,255,0.85), transparent 70%),
+        radial-gradient(10% 14% at 88% 78%, rgba(255,255,255,0.55), transparent 70%),
+        radial-gradient(5% 6% at 72% 90%, rgba(255,255,255,0.45), transparent 70%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-family-display); font-weight: 600; }
+    code, .ag-mono { font-family: var(--font-family-mono); }
+
+    .ag-header {
+      position: relative; overflow: hidden;
+      background: var(--gradient-hero);
+      border-radius: 0 0 var(--space-12) var(--space-12);
+      padding: var(--space-16) 0 var(--space-12);
+    }
+    .ag-header::before {
+      content: ""; position: absolute; inset: -20% -5% auto -5%; height: 60%;
+      background: radial-gradient(60% 100% at 50% 0%, rgba(255,255,255,0.8), transparent 70%);
+      pointer-events: none;
+    }
+    .ag-bubble { position: absolute; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(255,255,255,0.1) 45%, transparent 70%); }
+    .ag-bubble.b1 { width: 120px; height: 120px; right: 8%; top: 12%; }
+    .ag-bubble.b2 { width: 54px; height: 54px; right: 22%; bottom: 14%; opacity: 0.85; }
+    .ag-bubble.b3 { width: 30px; height: 30px; right: 12%; bottom: 34%; opacity: 0.7; }
+    .ag-header-inner { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 var(--space-8); }
+    .ag-eyebrow { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #0B6EA8; margin-bottom: var(--space-3); display: block; }
+    .ag-header h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--color-text); line-height: 1.12; margin-bottom: var(--space-4); text-shadow: var(--text-shadow, 0 1px 0 rgba(255,255,255,0.5)); }
+    .ag-header p { font-size: 1.05rem; color: #1C4A68; max-width: 480px; }
+
+    .ag-section { padding: var(--space-10) var(--space-8); max-width: 960px; margin: 0 auto; }
+    .ag-section-title { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-2); margin-bottom: var(--space-6); }
+
+    .ag-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--space-3); }
+    .ag-swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); }
+    .ag-swatch-color { height: 56px; }
+    .ag-swatch-label { font-family: var(--font-family-mono); font-size: 9.5px; padding: 6px 8px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    .ag-type-stack > * + * { margin-top: var(--space-4); }
+    .ag-display { font-size: clamp(1.9rem, 4.5vw, 2.8rem); color: var(--color-text); line-height: 1.15; }
+    .ag-h2 { font-size: 1.6rem; color: var(--color-text); }
+    .ag-h3 { font-size: 1.15rem; color: var(--color-text); }
+    .ag-body { font-size: 1rem; color: var(--color-text); }
+    .ag-muted { font-size: 0.875rem; color: var(--color-text-muted); }
+    .ag-mono-chip { font-family: var(--font-family-mono); font-size: 0.78rem; color: #0B6EA8; background: var(--color-surface-alt); display: inline-block; padding: 4px 10px; border-radius: var(--radius); }
+
+    .ag-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+    .ag-btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: 11px 24px; border-radius: var(--radius-button); font-family: var(--font-family); font-size: 0.92rem; font-weight: 500; cursor: pointer; border: none; transition: transform var(--duration-base) var(--ease), box-shadow var(--duration-base) var(--ease); }
+    .ag-btn-primary { background: var(--gradient-button); color: #04324F; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), var(--shadow-colored); }
+    .ag-btn-primary:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 14px 30px rgba(46,143,214,0.4); }
+    .ag-btn-secondary { background: var(--color-secondary); color: #1E3D0A; box-shadow: var(--shadow-sm); }
+    .ag-btn-outline { background: rgba(255,255,255,0.5); color: var(--color-primary); border: 1.5px solid var(--color-primary); backdrop-filter: var(--backdrop-filter); }
+    .ag-btn-ghost { background: transparent; color: var(--color-text-muted); }
+
+    .ag-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: var(--space-5); }
+    .ag-card { position: relative; background: var(--color-surface); border-radius: var(--radius-card); padding: var(--space-6); box-shadow: var(--shadow-md); border: 1px solid var(--color-border); overflow: hidden; }
+    .ag-card::before { content: ""; position: absolute; inset: 0; background: var(--gradient-card); pointer-events: none; }
+    .ag-card-tag { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #0B6EA8; margin-bottom: var(--space-2); display: block; position: relative; }
+    .ag-card h3 { font-size: 1.15rem; color: var(--color-text); margin-bottom: var(--space-2); position: relative; }
+    .ag-card p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; position: relative; }
+    .ag-card-meter { height: 6px; border-radius: 999px; background: var(--color-border); margin-top: var(--space-4); overflow: hidden; position: relative; }
+    .ag-card-meter span { display: block; height: 100%; background: var(--gradient-accent); }
+
+    .ag-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); max-width: 460px; }
+    .ag-form-group label { display: block; font-size: 0.8rem; font-weight: 500; color: var(--color-text-muted); margin-bottom: 6px; }
+    .ag-input { width: 100%; padding: 11px 16px; background: rgba(255,255,255,0.7); border: 1.5px solid var(--color-border); border-radius: var(--radius); color: var(--color-text); font-family: var(--font-family); font-size: 0.92rem; transition: border-color var(--duration-base) var(--ease); }
+    .ag-input:focus { outline: none; border-color: var(--color-primary); }
+
+    .ag-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .ag-badge { display: inline-flex; align-items: center; gap: 5px; padding: 5px 14px; border-radius: 999px; font-size: 0.75rem; font-weight: 500; }
+    .ag-badge-primary { background: var(--color-primary-light); color: #0B5C8C; }
+    .ag-badge-success { background: rgba(46,158,91,0.16); color: #1E7A42; }
+    .ag-badge-warning { background: rgba(224,147,46,0.18); color: #8A5F10; }
+    .ag-badge-error { background: rgba(226,88,91,0.16); color: #B23A3C; }
+    .ag-badge-neutral { background: var(--color-surface-alt); color: var(--color-text-muted); border: 1px solid var(--color-border); }
+
+    .ag-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .ag-effect-tile { background: var(--color-surface); border-radius: var(--radius-card); padding: var(--space-5); border: 1px solid var(--color-border); display: flex; flex-direction: column; gap: var(--space-3); }
+    .ag-tile-label { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); }
+    .ag-glass-demo { border-radius: var(--radius); padding: var(--space-4); background: var(--glass-tint); backdrop-filter: var(--backdrop-filter); border: 1px solid rgba(255,255,255,0.6); font-size: 0.85rem; color: var(--color-text); }
+    .ag-inset-demo { background: var(--color-surface-alt); border-radius: var(--radius); padding: 10px 14px; box-shadow: var(--shadow-inset); font-size: 0.85rem; color: var(--color-text-muted); font-family: var(--font-family-mono); }
+    .ag-glow-demo { background: var(--color-surface); border-radius: var(--radius-card); padding: var(--space-4); text-align: center; box-shadow: var(--glow-md); border: 1px solid var(--color-border); font-weight: 600; color: var(--color-primary); }
+
+    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
+       derived from location.pathname, so this block never needs per-file editing). Fetches and
+       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
+       blocked (e.g. plain file:// with no local server). Copy this block verbatim into every new
+       preset — see any file in themes/ for the worked example. */
+    .tf-doc-toggle {
+      position: fixed; top: 1rem; right: 1rem; z-index: 20; appearance: none; cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      background-color: #fff; border: 1px solid #111; border-radius: 2px; color: #111;
+      padding: 0.5rem 0.75rem; transition: background-color .12s, color .12s; box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tf-doc-toggle:hover { background-color: #111; color: #fff; }
+    .tf-doc-overlay { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .tf-doc-overlay[hidden] { display: none; }
+    .tf-doc-panel { background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh; border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35); display: flex; flex-direction: column; overflow: hidden; }
+    .tf-doc-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; }
+    .tf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .tf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .tf-doc-close:hover { color: #111; }
+    .tf-doc-body { margin: 0; padding: 1.25rem; overflow: auto; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; font-size: 0.86rem; line-height: 1.65; color: #222; }
+    .tf-doc-body > *:first-child { margin-top: 0; }
+    .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111; }
+    .tf-doc-body h1 { font-size: 1.3rem; }
+    .tf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .tf-doc-body h3 { font-size: 0.92rem; }
+    .tf-doc-body h4 { font-size: 0.86rem; }
+    .tf-doc-body p { margin: 0 0 0.85em; }
+    .tf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .tf-doc-body li { margin-bottom: 0.35em; }
+    .tf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .tf-doc-body strong { font-weight: 700; }
+    .tf-doc-body em { font-style: italic; }
+    .tf-doc-body code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em; background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px; }
+    @media (prefers-color-scheme: dark) {
+      .tf-doc-panel { background: #1c1c22; color: #ddd; }
+      .tf-doc-panel-head { border-bottom-color: #333; }
+      .tf-doc-panel-title { color: #eee; }
+      .tf-doc-close { color: #999; }
+      .tf-doc-close:hover { color: #fff; }
+      .tf-doc-body { color: #ccc; }
+      .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { color: #f0f0f0; }
+      .tf-doc-body h2 { border-bottom-color: #333; }
+      .tf-doc-body hr { border-top-color: #333; }
+      .tf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="tf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="tf-doc-overlay" id="doc-overlay" hidden>
+    <div class="tf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="tf-doc-panel-head">
+        <span class="tf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="tf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <header class="ag-header">
+    <div class="ag-bubble b1"></div><div class="ag-bubble b2"></div><div class="ag-bubble b3"></div>
+    <div class="ag-header-inner">
+      <span class="ag-eyebrow">status: all systems synced</span>
+      <h1>SyncStream Control Panel</h1>
+      <p>Weather, storage, and your library — glowing behind glass, always up to date.</p>
+    </div>
+  </header>
+
+  <div class="ag-section">
+    <div class="ag-section-title">Palette — Sky &amp; Chrome</div>
+    <div class="ag-swatches">
+      <div class="ag-swatch"><div class="ag-swatch-color" style="background:#2E8FD6"></div><div class="ag-swatch-label">Sky Blue<br>#2E8FD6</div></div>
+      <div class="ag-swatch"><div class="ag-swatch-color" style="background:#8CC63F"></div><div class="ag-swatch-label">Lime Grass<br>#8CC63F</div></div>
+      <div class="ag-swatch"><div class="ag-swatch-color" style="background:#F2924B"></div><div class="ag-swatch-label">Sunset Coral<br>#F2924B</div></div>
+      <div class="ag-swatch"><div class="ag-swatch-color" style="background:#EAF6FC"></div><div class="ag-swatch-label">Glass Air<br>#EAF6FC</div></div>
+      <div class="ag-swatch"><div class="ag-swatch-color" style="background:#F6FBFE"></div><div class="ag-swatch-label">Frost White<br>#F6FBFE</div></div>
+      <div class="ag-swatch"><div class="ag-swatch-color" style="background:#0B3050"></div><div class="ag-swatch-label">Deep Sea Ink<br>#0B3050</div></div>
+      <div class="ag-swatch"><div class="ag-swatch-color" style="background:#2E9E5B"></div><div class="ag-swatch-label">Signal Green<br>#2E9E5B</div></div>
+      <div class="ag-swatch"><div class="ag-swatch-color" style="background:#E2585B"></div><div class="ag-swatch-label">Alert Coral<br>#E2585B</div></div>
+    </div>
+  </div>
+
+  <div class="ag-section">
+    <div class="ag-section-title">Typography</div>
+    <div class="ag-type-stack">
+      <div class="ag-display">Jost — SyncStream Panel</div>
+      <div class="ag-h2">Today's Forecast Widget</div>
+      <div class="ag-h3">Storage &amp; Library Sync</div>
+      <div class="ag-body">DM Sans regular: Your photo library finished syncing at 6:42 AM. Three devices are connected and drawing from the same cloud folder — no duplicates, no conflicts.</div>
+      <div class="ag-muted">Last checked 2 minutes ago · Auto-refresh every 5 min</div>
+      <div class="ag-mono-chip">device_id=aero-04 · latency=38ms</div>
+    </div>
+  </div>
+
+  <div class="ag-section">
+    <div class="ag-section-title">Actions</div>
+    <div class="ag-btn-row">
+      <a href="#" class="ag-btn ag-btn-primary">Sync now →</a>
+      <a href="#" class="ag-btn ag-btn-secondary">Open library</a>
+      <a href="#" class="ag-btn ag-btn-outline">Add device</a>
+      <a href="#" class="ag-btn ag-btn-ghost">Preferences</a>
+    </div>
+  </div>
+
+  <div class="ag-section">
+    <div class="ag-section-title">Widgets</div>
+    <div class="ag-card-grid">
+      <div class="ag-card">
+        <span class="ag-card-tag">Cloud Storage</span>
+        <h3>68% of 500 GB used</h3>
+        <p>Photos and video are backed up automatically over Wi-Fi. Cellular sync stays off by default.</p>
+        <div class="ag-card-meter"><span style="width:68%"></span></div>
+      </div>
+      <div class="ag-card">
+        <span class="ag-card-tag">Now Playing</span>
+        <h3>Harbor Lights — The Coastline</h3>
+        <p>Streaming from the living-room speaker. Tap to move playback to your headphones.</p>
+      </div>
+      <div class="ag-card">
+        <span class="ag-card-tag">Weather Orb</span>
+        <h3>19°C, light clouds</h3>
+        <p>Clearing up by 4 PM. Tomorrow's forecast is already cached for offline viewing.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ag-section">
+    <div class="ag-section-title">Connect a Device</div>
+    <div class="ag-form-grid">
+      <div class="ag-form-group"><label>Device name</label><input class="ag-input" type="text" placeholder="Living Room Speaker"></div>
+      <div class="ag-form-group"><label>Network</label><input class="ag-input" type="text" placeholder="Home Wi-Fi"></div>
+    </div>
+  </div>
+
+  <div class="ag-section">
+    <div class="ag-section-title">Status Badges</div>
+    <div class="ag-badge-row">
+      <span class="ag-badge ag-badge-primary">Synced</span>
+      <span class="ag-badge ag-badge-success">Online</span>
+      <span class="ag-badge ag-badge-warning">Update available</span>
+      <span class="ag-badge ag-badge-error">Offline</span>
+      <span class="ag-badge ag-badge-neutral">Beta</span>
+    </div>
+  </div>
+
+  <div class="ag-section">
+    <div class="ag-section-title">Gradients &amp; Effects</div>
+    <div class="ag-effects-grid">
+      <div class="ag-effect-tile"><div class="ag-tile-label">Glass Panel</div><div class="ag-glass-demo">Frosted control surface</div></div>
+      <div class="ag-effect-tile"><div class="ag-tile-label">Glow</div><div class="ag-glow-demo">Active state</div></div>
+      <div class="ag-effect-tile"><div class="ag-tile-label">Inset Well</div><div class="ag-inset-demo">volume: -12dB</div></div>
+      <div class="ag-effect-tile"><div class="ag-tile-label">Progress Gradient</div><div class="ag-card-meter" style="margin-top:0"><span style="width:82%"></span></div></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function mdEscape(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = ''; var inList = false; var para = [];
+        function flushPara() { if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; } }
+        function closeList() { if (inList) { html += '</ul>'; inList = false; } }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) { flushPara(); closeList(); var level = h[1].length; html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>'; }
+          else if (li) { flushPara(); if (!inList) { html += '<ul>'; inList = true; } html += '<li>' + mdInline(li[1]) + '</li>'; }
+          else if (hr) { flushPara(); closeList(); html += '<hr>'; }
+          else if (line.trim() === '') { flushPara(); closeList(); }
+          else { para.push(line.trim()); }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) { if (!res.ok) throw new Error('not ok'); return res.text(); })
+          .then(function (text) { body.innerHTML = renderMarkdown(text); })
+          .catch(function () { overlay.hidden = true; loaded = false; window.open(mdPath, '_blank'); });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+
+</body>
+</html>

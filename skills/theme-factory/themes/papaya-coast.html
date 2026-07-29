@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="papaya-coast">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Papaya Coast — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Barlow:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+  <script id="theme-data" type="application/json">{
+    "name": "papaya-coast",
+    "description": "Light tropical-bright theme — sky-to-sand gradient with two soft cloud blobs, papaya-orange primary, turquoise secondary, hibiscus-pink accent used sparingly. Lilita One display + Barlow body. Bright, daylight warmth without going neon.",
+    "createdAt": "2026-07-29T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "gradient",
+      "baseColor": "#BFE3F0",
+      "image": "radial-gradient(ellipse 40% 20% at 20% 15%, rgba(255,255,255,0.5), transparent 70%), radial-gradient(ellipse 35% 18% at 75% 10%, rgba(255,255,255,0.4), transparent 70%), linear-gradient(180deg, #BFE3F0 0%, #F2E6C9 100%)",
+      "size": "auto",
+      "position": "0 0",
+      "repeat": "no-repeat",
+      "patternType": "other",
+      "patternColor": "rgba(255,255,255,0.5)",
+      "patternOpacity": "0.5",
+      "patternSpacing": "0px",
+      "notes": "Vertical sky-to-sand gradient with two soft white cloud blobs near the top — atmospheric daylight, not a neon mesh. Bright without going electric."
+    },
+    "colors": {
+      "primary": "#FF8A4C",
+      "primaryLight": "#FFD9BC",
+      "secondary": "#2FBFB0",
+      "accent": "#FF5C8A",
+      "background": "#BFE3F0",
+      "surface": "#FFFBF5",
+      "surfaceAlt": "#F2E6C9",
+      "text": "#0E3B3A",
+      "textMuted": "#3E7370",
+      "textOnPrimary": "#0E3B3A",
+      "border": "#BEE3DC",
+      "success": "#3FAE6E",
+      "warning": "#E0A23C",
+      "error": "#E85D5D"
+    },
+    "typography": {
+      "fontFamily": "'Barlow', 'Mukta', sans-serif",
+      "fontFamilyMono": "'Space Mono', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Lilita One', 'Fredoka', sans-serif",
+      "scaleBase": "16px",
+      "headingWeight": "400",
+      "bodyWeight": "400",
+      "lineHeight": "1.6"
+    },
+    "spacing": {
+      "borderRadius": "12px",
+      "cardRadius": "16px",
+      "buttonRadius": "999px",
+      "spaceUnit": "8px",
+      "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 2px 6px rgba(14,59,58,0.08)",
+      "md": "0 4px 14px rgba(14,59,58,0.10)",
+      "lg": "0 8px 24px rgba(14,59,58,0.12)",
+      "xl": "0 14px 36px rgba(14,59,58,0.14)",
+      "colored": "0 6px 18px rgba(255,138,76,0.30)",
+      "inset": "none",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "linear-gradient(180deg, #BFE3F0 0%, #F2E6C9 100%)",
+      "card": "none",
+      "button": "linear-gradient(135deg, #FFA363 0%, #FF8A4C 100%)",
+      "text": "none",
+      "accent": "linear-gradient(90deg, #2FBFB0 0%, #FF5C8A 100%)"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#FF8A4C",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "none",
+      "noiseOpacity": "0.02",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "130ms",
+      "durationBase": "240ms",
+      "durationSlow": "400ms",
+      "easing": "cubic-bezier(0.33, 0, 0.2, 1)",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["resort", "sun-bleached", "citrus", "breezy"],
+      "borderStyle": "subtle",
+      "iconStyle": "rounded",
+      "imageStyle": "photographic",
+      "surfaceTexture": "gradient",
+      "hierarchyClarity": "high",
+      "notes": "Sky-to-sand gradient plus two soft cloud blobs form the page background — deliberately atmospheric daylight, not a neon mesh, per the 'bright without going neon' brief. Card surfaces stay flat/ungradiented so the gradient reads only at the page level, never stacked into every component."
+    }
+  }</script>
+  <style>
+    :root {
+      --color-primary: #FF8A4C;
+      --color-primary-light: #FFD9BC;
+      --color-secondary: #2FBFB0;
+      --color-accent: #FF5C8A;
+      --color-bg: #BFE3F0;
+      --color-surface: #FFFBF5;
+      --color-surface-alt: #F2E6C9;
+      --color-text: #0E3B3A;
+      --color-text-muted: #3E7370;
+      --color-text-on-primary: #0E3B3A;
+      --color-border: #BEE3DC;
+      --color-success: #3FAE6E;
+      --color-warning: #E0A23C;
+      --color-error: #E85D5D;
+
+      --font-family: 'Barlow', 'Mukta', sans-serif;
+      --font-family-mono: 'Space Mono', 'Courier New', monospace;
+      --font-family-display: 'Lilita One', 'Fredoka', sans-serif;
+
+      --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
+      --radius-xl: 22px; --radius-button: 999px; --radius-card: 16px;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 2px 6px rgba(14,59,58,0.08);
+      --shadow-md: 0 4px 14px rgba(14,59,58,0.10);
+      --shadow-lg: 0 8px 24px rgba(14,59,58,0.12);
+      --shadow-xl: 0 14px 36px rgba(14,59,58,0.14);
+      --shadow-colored: 0 6px 18px rgba(255,138,76,0.30);
+
+      --gradient-hero: linear-gradient(180deg, #BFE3F0 0%, #F2E6C9 100%);
+      --gradient-button: linear-gradient(135deg, #FFA363 0%, #FF8A4C 100%);
+      --gradient-accent: linear-gradient(90deg, #2FBFB0 0%, #FF5C8A 100%);
+
+      --ease: cubic-bezier(0.33, 0, 0.2, 1);
+      --duration-base: 240ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px; font-weight: 400; line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image:
+        radial-gradient(ellipse 40% 20% at 20% 15%, rgba(255,255,255,0.5), transparent 70%),
+        radial-gradient(ellipse 35% 18% at 75% 10%, rgba(255,255,255,0.4), transparent 70%),
+        linear-gradient(180deg, #BFE3F0 0%, #F2E6C9 100%);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-family-display); font-weight: 400; }
+    code, pre { font-family: var(--font-family-mono); }
+
+    .pc-header {
+      padding: var(--space-16) var(--space-8) var(--space-12);
+      text-align: center;
+    }
+    .pc-header-tag { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text); opacity: 0.65; margin-bottom: var(--space-3); display: block; }
+    .pc-header h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); color: var(--color-text); line-height: 1.1; margin-bottom: var(--space-4); letter-spacing: 0.01em; }
+    .pc-header p { font-size: 1.05rem; color: var(--color-text); opacity: 0.75; max-width: 560px; margin: 0 auto; }
+
+    .pc-section { padding: var(--space-10) var(--space-8); max-width: 960px; margin: 0 auto; }
+    .pc-section-title { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text); opacity: 0.6; border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-2); margin-bottom: var(--space-6); }
+
+    .pc-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--space-3); }
+    .pc-swatch { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border); }
+    .pc-swatch-color { height: 54px; }
+    .pc-swatch-label { font-family: var(--font-family-mono); font-size: 9.5px; padding: 5px 7px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    .pc-type-stack > * + * { margin-top: var(--space-4); }
+    .pc-display { font-family: var(--font-family-display); font-size: clamp(1.9rem, 4.5vw, 2.8rem); color: var(--color-text); line-height: 1.2; }
+    .pc-h2 { font-family: var(--font-family-display); font-size: 1.5rem; color: var(--color-text); }
+    .pc-h3 { font-family: var(--font-family-display); font-size: 1.1rem; color: var(--color-text); }
+    .pc-body { font-size: 1rem; color: var(--color-text); }
+    .pc-muted { font-size: 0.85rem; color: var(--color-text-muted); }
+    .pc-mono { font-family: var(--font-family-mono); font-size: 0.8rem; color: var(--color-text); background: rgba(255,255,255,0.5); display: inline-block; padding: 4px 10px; border-radius: var(--radius-sm); }
+
+    .pc-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+    .pc-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 12px 24px; border-radius: var(--radius-button);
+      font-family: var(--font-family); font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; border: none; transition: transform var(--duration-base) var(--ease), box-shadow var(--duration-base) var(--ease);
+    }
+    .pc-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); }
+    .pc-btn-primary:hover { transform: translateY(-2px); }
+    .pc-btn-secondary { background: var(--color-secondary); color: #FFFBF5; }
+    .pc-btn-outline { background: rgba(255,251,245,0.6); color: var(--color-text); border: 1px solid var(--color-border); }
+    .pc-btn-ghost { background: transparent; color: var(--color-text); opacity: 0.65; }
+    .pc-btn-ghost:hover { opacity: 1; }
+
+    .pc-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-5); }
+    .pc-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-6); box-shadow: var(--shadow-sm); }
+    .pc-card-icon { font-size: 1.9rem; margin-bottom: var(--space-3); display: block; }
+    .pc-card h3 { font-size: 1.15rem; color: var(--color-text); margin-bottom: var(--space-2); }
+    .pc-card p { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.55; }
+    .pc-card-tag { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: var(--space-2); display: block; font-weight: 700; }
+
+    .pc-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    .pc-form-group { margin-bottom: var(--space-2); }
+    .pc-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 6px; }
+    .pc-input { width: 100%; padding: 11px 16px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); font-family: var(--font-family); font-size: 0.92rem; transition: border-color 180ms var(--ease); }
+    .pc-input::placeholder { color: var(--color-text-muted); }
+    .pc-input:focus { outline: none; border-color: var(--color-primary); }
+
+    .pc-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .pc-badge { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: var(--radius-sm); font-size: 0.74rem; font-weight: 700; }
+    .pc-badge-primary { background: var(--color-primary-light); color: #A8511F; }
+    .pc-badge-secondary { background: rgba(47,191,176,0.18); color: #1D7A70; }
+    .pc-badge-accent { background: rgba(255,92,138,0.18); color: #B23A62; }
+    .pc-badge-success { background: rgba(63,174,110,0.18); color: #276E48; }
+    .pc-badge-error { background: rgba(232,93,93,0.18); color: #A63A3A; }
+
+    .pc-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .pc-effect-tile { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3); min-height: 96px; font-family: var(--font-family-mono); font-size: 0.72rem; color: var(--color-text-muted); text-align: center; }
+    .pc-hero-swatch { height: 44px; width: 100%; border-radius: var(--radius-md); background: var(--gradient-hero); border: 1px solid var(--color-border); }
+    .pc-gradient-bar { height: 10px; border-radius: 999px; background: var(--gradient-accent); width: 100%; }
+    .pc-btn-swatch { height: 36px; width: 80%; border-radius: 999px; background: var(--gradient-button); box-shadow: var(--shadow-colored); }
+    .pc-glow-demo { padding: 10px 18px; border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-colored); font-weight: 700; color: var(--color-primary); font-size: 0.85rem; }
+
+    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
+       derived from location.pathname, so this block never needs per-file editing). Fetches and
+       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
+       blocked (e.g. plain file:// with no local server). */
+    .tf-doc-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 20;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: #fff;
+      border: 1px solid #111;
+      border-radius: 2px;
+      color: #111;
+      padding: 0.5rem 0.75rem;
+      transition: background-color .12s, color .12s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tf-doc-toggle:hover { background-color: #111; color: #fff; }
+    .tf-doc-overlay {
+      position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .tf-doc-overlay[hidden] { display: none; }
+    .tf-doc-panel {
+      background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh;
+      border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .tf-doc-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .tf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .tf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .tf-doc-close:hover { color: #111; }
+    .tf-doc-body {
+      margin: 0; padding: 1.25rem; overflow: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.86rem; line-height: 1.65; color: #222;
+    }
+    .tf-doc-body > *:first-child { margin-top: 0; }
+    .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 {
+      font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111;
+    }
+    .tf-doc-body h1 { font-size: 1.3rem; }
+    .tf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .tf-doc-body h3 { font-size: 0.92rem; }
+    .tf-doc-body h4 { font-size: 0.86rem; }
+    .tf-doc-body p { margin: 0 0 0.85em; }
+    .tf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .tf-doc-body li { margin-bottom: 0.35em; }
+    .tf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .tf-doc-body strong { font-weight: 700; }
+    .tf-doc-body em { font-style: italic; }
+    .tf-doc-body code {
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em;
+      background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .tf-doc-panel { background: #1c1c22; color: #ddd; }
+      .tf-doc-panel-head { border-bottom-color: #333; }
+      .tf-doc-panel-title { color: #eee; }
+      .tf-doc-close { color: #999; }
+      .tf-doc-close:hover { color: #fff; }
+      .tf-doc-body { color: #ccc; }
+      .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { color: #f0f0f0; }
+      .tf-doc-body h2 { border-bottom-color: #333; }
+      .tf-doc-body hr { border-top-color: #333; }
+      .tf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="tf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="tf-doc-overlay" id="doc-overlay" hidden>
+    <div class="tf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="tf-doc-panel-head">
+        <span class="tf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="tf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <header class="pc-header">
+    <span class="pc-header-tag">Papaya Coast Boardwalk · Rentals & Tide Desk</span>
+    <h1>Papaya Coast</h1>
+    <p>Sun-bleached blue behind papaya orange — the palette of a boardwalk at 5pm, when the light turns everything a little more orange than it should be.</p>
+  </header>
+
+  <div class="pc-section">
+    <div class="pc-section-title">Palette — Low Tide</div>
+    <div class="pc-swatches">
+      <div class="pc-swatch"><div class="pc-swatch-color" style="background:#FF8A4C"></div><div class="pc-swatch-label">Papaya<br>#FF8A4C</div></div>
+      <div class="pc-swatch"><div class="pc-swatch-color" style="background:#2FBFB0"></div><div class="pc-swatch-label">Turquoise<br>#2FBFB0</div></div>
+      <div class="pc-swatch"><div class="pc-swatch-color" style="background:#FF5C8A"></div><div class="pc-swatch-label">Hibiscus<br>#FF5C8A</div></div>
+      <div class="pc-swatch"><div class="pc-swatch-color" style="background:#BFE3F0"></div><div class="pc-swatch-label">Sky<br>#BFE3F0</div></div>
+      <div class="pc-swatch"><div class="pc-swatch-color" style="background:#0E3B3A"></div><div class="pc-swatch-label">Deep Teal<br>#0E3B3A</div></div>
+      <div class="pc-swatch"><div class="pc-swatch-color" style="background:#3FAE6E"></div><div class="pc-swatch-label">Palm<br>#3FAE6E</div></div>
+      <div class="pc-swatch"><div class="pc-swatch-color" style="background:#E0A23C"></div><div class="pc-swatch-label">Sun Gold<br>#E0A23C</div></div>
+      <div class="pc-swatch"><div class="pc-swatch-color" style="background:#E85D5D"></div><div class="pc-swatch-label">Coral<br>#E85D5D</div></div>
+    </div>
+  </div>
+
+  <div class="pc-section">
+    <div class="pc-section-title">Typography</div>
+    <div class="pc-type-stack">
+      <div class="pc-display">Papaya Coast Boardwalk</div>
+      <div class="pc-h2">Today's Rentals</div>
+      <div class="pc-h3">Tide & Ferry Times</div>
+      <div class="pc-body">Barlow regular: High tide rolls in around six, right when the rental stand starts pulling boards off the rack for the golden-hour crowd. Kayaks go out until sundown; paddleboards close an hour earlier once the wake picks up.</div>
+      <div class="pc-muted">Boardwalk Mile 3 · Tuesday · Water 82°F</div>
+      <div class="pc-mono">rental_id="kayak-07" status="out" return_by="18:00"</div>
+    </div>
+  </div>
+
+  <div class="pc-section">
+    <div class="pc-section-title">Actions</div>
+    <div class="pc-btn-row">
+      <a href="#" class="pc-btn pc-btn-primary">Reserve a Board</a>
+      <a href="#" class="pc-btn pc-btn-secondary">Check Tide Times</a>
+      <a href="#" class="pc-btn pc-btn-outline">View Rental Map</a>
+      <a href="#" class="pc-btn pc-btn-ghost">Sign Out</a>
+    </div>
+  </div>
+
+  <div class="pc-section">
+    <div class="pc-section-title">On the Rack Today</div>
+    <div class="pc-card-grid">
+      <div class="pc-card">
+        <span class="pc-card-tag">Kayak · Available</span>
+        <div class="pc-card-icon">🛶</div>
+        <h3>Single Kayak #07</h3>
+        <p>Out until 6pm — paddles and life vest included, no reservation needed after that.</p>
+      </div>
+      <div class="pc-card">
+        <span class="pc-card-tag">Paddleboard · Reserved</span>
+        <div class="pc-card-icon">🏄</div>
+        <h3>Longboard #12</h3>
+        <p>Booked for the 4pm lesson group — back on the rack by 5:30.</p>
+      </div>
+      <div class="pc-card">
+        <span class="pc-card-tag">Ferry · On Time</span>
+        <div class="pc-card-icon">⛴️</div>
+        <h3>Coral Express</h3>
+        <p>Next departure 5:45 from the north dock, last return trip at 8:15.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pc-section">
+    <div class="pc-section-title">Reserve Equipment</div>
+    <div class="pc-form-grid">
+      <div class="pc-form-group">
+        <label class="pc-label">Renter Name</label>
+        <input class="pc-input" type="text" placeholder="First and last…">
+      </div>
+      <div class="pc-form-group">
+        <label class="pc-label">Equipment Type</label>
+        <input class="pc-input" type="text" placeholder="Kayak, paddleboard, umbrella…">
+      </div>
+      <div class="pc-form-group">
+        <label class="pc-label">Pickup Time</label>
+        <input class="pc-input" type="text" placeholder="e.g. 2:00pm">
+      </div>
+      <div class="pc-form-group">
+        <label class="pc-label">Return Time</label>
+        <input class="pc-input" type="text" placeholder="e.g. 6:00pm">
+      </div>
+    </div>
+    <div class="pc-btn-row" style="margin-top: var(--space-4)">
+      <a href="#" class="pc-btn pc-btn-primary">Confirm Reservation</a>
+      <a href="#" class="pc-btn pc-btn-ghost">Clear</a>
+    </div>
+  </div>
+
+  <div class="pc-section">
+    <div class="pc-section-title">Rack Status</div>
+    <div class="pc-badge-row">
+      <span class="pc-badge pc-badge-success">Available</span>
+      <span class="pc-badge pc-badge-secondary">Reserved</span>
+      <span class="pc-badge pc-badge-primary">Out Now</span>
+      <span class="pc-badge pc-badge-accent">Closing Soon</span>
+      <span class="pc-badge pc-badge-error">Sold Out</span>
+    </div>
+  </div>
+
+  <div class="pc-section">
+    <div class="pc-section-title">Sun & Water</div>
+    <div class="pc-effects-grid">
+      <div class="pc-effect-tile"><div class="pc-hero-swatch"></div><span>Hero — Sky → Sand</span></div>
+      <div class="pc-effect-tile"><div class="pc-gradient-bar"></div><span>Accent — Turquoise → Hibiscus</span></div>
+      <div class="pc-effect-tile"><div class="pc-btn-swatch"></div><span>Button Gradient</span></div>
+      <div class="pc-effect-tile"><div class="pc-glow-demo">82°F</div><span>Warm Shadow, No Neon Glow</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+</body>
+</html>

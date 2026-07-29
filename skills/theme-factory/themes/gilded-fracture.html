@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="gilded-fracture">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gilded Fracture — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Spectral:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <script id="theme-data" type="application/json">
+  {
+    "name": "gilded-fracture",
+    "description": "Light wabi-sabi kintsugi theme — warm bone-clay canvas split into a subtle two-tone glaze, with a literal gold seam used as section dividers and the primary accent (never a background fill). Celadon secondary, burnt-clay accent, indigo ink text. Gilda Display roman + Spectral body. Restraint over glow: quiet shadows, hairline borders, gold reserved for the 'repair'.",
+    "createdAt": "2026-07-29T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "gradient",
+      "baseColor": "#E8DCC8",
+      "image": "linear-gradient(100deg, #E8DCC8 0%, #E8DCC8 48%, #E2D5C0 52%, #E2D5C0 100%), radial-gradient(1px 1px at 20% 30%, rgba(122,117,102,0.14) 50%, transparent 51%), radial-gradient(1px 1px at 68% 62%, rgba(122,117,102,0.12) 50%, transparent 51%), radial-gradient(1px 1px at 42% 82%, rgba(122,117,102,0.1) 50%, transparent 51%), radial-gradient(1px 1px at 85% 22%, rgba(122,117,102,0.1) 50%, transparent 51%)",
+      "size": "auto",
+      "position": "0 0",
+      "repeat": "no-repeat",
+      "patternType": "noise",
+      "patternColor": "rgba(122,117,102,0.12)",
+      "patternOpacity": "0.12",
+      "notes": "Two-tone diagonal glaze split (barely-there value shift at 100deg) simulating an unevenly fired clay surface, plus fine speckled grain. The gold seam itself is NOT part of the tiled background — it appears only as a deliberate per-section divider element, so it reads as a specific 'repair' rather than ambient sparkle.",
+      "patternSpacing": "0px"
+    },
+    "colors": {
+      "primary": "#C9A227",
+      "primaryLight": "#F2E4B8",
+      "secondary": "#8FA593",
+      "accent": "#B5651D",
+      "background": "#E8DCC8",
+      "surface": "#F1E8D6",
+      "surfaceAlt": "#DED0B4",
+      "text": "#2E3B4E",
+      "textMuted": "#7A7566",
+      "textOnPrimary": "#2A2318",
+      "border": "#D3C4A0",
+      "success": "#5B8A6E",
+      "warning": "#C97B2E",
+      "error": "#A94438"
+    },
+    "typography": {
+      "fontFamily": "'Spectral', serif",
+      "fontFamilyMono": "'IBM Plex Mono', monospace",
+      "fontFamilyDisplay": "'Gilda Display', serif",
+      "scaleBase": "16px",
+      "headingWeight": "500",
+      "bodyWeight": "400",
+      "lineHeight": "1.65"
+    },
+    "spacing": {
+      "borderRadius": "6px",
+      "cardRadius": "8px",
+      "buttonRadius": "4px",
+      "spaceUnit": "8px",
+      "density": "spacious"
+    },
+    "shadows": {
+      "sm": "0 1px 3px rgba(46,59,78,0.08)",
+      "md": "0 3px 10px rgba(46,59,78,0.08)",
+      "lg": "0 8px 20px rgba(46,59,78,0.10)",
+      "xl": "0 16px 34px rgba(46,59,78,0.12)",
+      "colored": "none",
+      "inset": "none",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "none",
+      "card": "none",
+      "button": "none",
+      "text": "none",
+      "accent": "linear-gradient(180deg, #C9A227, #E8C565 30%, #C9A227 60%, #A6811D 100%)"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#C9A227",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "linear-gradient(180deg, #C9A227, #E8C565 30%, #C9A227 60%, #A6811D 100%)",
+      "noiseOpacity": "0.03",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "150ms",
+      "durationBase": "320ms",
+      "durationSlow": "520ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["wabi-sabi", "ceramic", "gilded", "imperfect"],
+      "borderStyle": "hairline",
+      "iconStyle": "outlined",
+      "imageStyle": "photographic",
+      "surfaceTexture": "noise",
+      "hierarchyClarity": "high",
+      "notes": "Headings are set roman, not italic — italic is reserved for a single quiet caption/kicker element, avoiding the 'italic word dropped into every header' tell. Gold (--color-primary) appears only in the seam divider, one button, and small tag accents — never as a card or section background fill, which would read as generic luxury-gold rather than a specific repaired crack."
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --color-primary: #C9A227;
+      --color-primary-light: #F2E4B8;
+      --color-secondary: #8FA593;
+      --color-accent: #B5651D;
+      --color-bg: #E8DCC8;
+      --color-surface: #F1E8D6;
+      --color-surface-alt: #DED0B4;
+      --color-text: #2E3B4E;
+      --color-text-muted: #7A7566;
+      --color-text-on-primary: #2A2318;
+      --color-border: #D3C4A0;
+      --color-success: #5B8A6E;
+      --color-warning: #C97B2E;
+      --color-error: #A94438;
+
+      --font-family: 'Spectral', serif;
+      --font-family-mono: 'IBM Plex Mono', monospace;
+      --font-family-display: 'Gilda Display', serif;
+
+      --radius: 6px; --radius-card: 8px; --radius-button: 4px;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 1px 3px rgba(46,59,78,0.08);
+      --shadow-md: 0 3px 10px rgba(46,59,78,0.08);
+      --shadow-lg: 0 8px 20px rgba(46,59,78,0.10);
+      --shadow-xl: 0 16px 34px rgba(46,59,78,0.12);
+
+      --gradient-seam: linear-gradient(180deg, #C9A227, #E8C565 30%, #C9A227 60%, #A6811D 100%);
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --duration-base: 320ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px; line-height: 1.65;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image:
+        linear-gradient(100deg, #E8DCC8 0%, #E8DCC8 48%, #E2D5C0 52%, #E2D5C0 100%),
+        radial-gradient(1px 1px at 20% 30%, rgba(122,117,102,0.14) 50%, transparent 51%),
+        radial-gradient(1px 1px at 68% 62%, rgba(122,117,102,0.12) 50%, transparent 51%),
+        radial-gradient(1px 1px at 42% 82%, rgba(122,117,102,0.1) 50%, transparent 51%),
+        radial-gradient(1px 1px at 85% 22%, rgba(122,117,102,0.1) 50%, transparent 51%);
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-family-display); font-weight: 500; font-style: normal; }
+    code, .gf-mono { font-family: var(--font-family-mono); }
+    .gf-kicker { font-style: italic; }
+
+    .gf-header { position: relative; max-width: 900px; margin: 0 auto; padding: var(--space-16) var(--space-8) var(--space-10); }
+    .gf-seam { position: absolute; left: 46%; top: -6%; width: 5px; height: 112%; background: var(--gradient-seam); transform: rotate(7deg); }
+    .gf-header-inner { position: relative; z-index: 1; max-width: 480px; }
+    .gf-kicker-line { display: block; font-size: 0.95rem; color: var(--color-secondary); margin-bottom: var(--space-3); }
+    .gf-header h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); color: var(--color-text); line-height: 1.2; margin-bottom: var(--space-4); }
+    .gf-header p { font-size: 1.02rem; color: var(--color-text-muted); max-width: 46ch; }
+
+    .gf-section { padding: var(--space-10) var(--space-8); max-width: 900px; margin: 0 auto; }
+    .gf-section-title { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); padding-bottom: var(--space-2); margin-bottom: var(--space-6); position: relative; }
+    .gf-section-title::after { content: ""; display: block; margin-top: var(--space-2); height: 2px; width: 48px; background: var(--gradient-seam); }
+
+    .gf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--space-3); }
+    .gf-swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); }
+    .gf-swatch-color { height: 56px; }
+    .gf-swatch-label { font-family: var(--font-family-mono); font-size: 9.5px; padding: 6px 8px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    .gf-type-stack > * + * { margin-top: var(--space-4); }
+    .gf-display { font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--color-text); }
+    .gf-h2 { font-size: 1.5rem; color: var(--color-text); }
+    .gf-h3 { font-size: 1.1rem; color: var(--color-text); }
+    .gf-body { font-size: 1rem; color: var(--color-text); }
+    .gf-muted { font-size: 0.9rem; color: var(--color-text-muted); font-style: italic; }
+    .gf-mono-chip { font-family: var(--font-family-mono); font-size: 0.78rem; color: var(--color-text-muted); background: var(--color-surface-alt); display: inline-block; padding: 4px 10px; border-radius: var(--radius); }
+
+    .gf-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+    .gf-btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: 10px 22px; border-radius: var(--radius-button); font-family: var(--font-family); font-size: 0.92rem; cursor: pointer; transition: opacity var(--duration-base) var(--ease); }
+    .gf-btn-primary { background: var(--color-primary); color: var(--color-text-on-primary); box-shadow: var(--shadow-sm); }
+    .gf-btn-primary:hover { opacity: 0.88; }
+    .gf-btn-secondary { background: var(--color-secondary); color: var(--color-text-on-primary); }
+    .gf-btn-outline { background: transparent; color: var(--color-text); border: 1px solid var(--color-primary); }
+    .gf-btn-ghost { background: transparent; color: var(--color-text-muted); }
+
+    .gf-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: var(--space-6); }
+    .gf-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-6); box-shadow: var(--shadow-md); }
+    .gf-card-tag { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: var(--space-2); display: block; }
+    .gf-card h3 { font-size: 1.2rem; color: var(--color-text); margin-bottom: var(--space-2); }
+    .gf-card p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; }
+    .gf-card-seam { height: 2px; width: 36px; background: var(--gradient-seam); margin-top: var(--space-4); }
+
+    .gf-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); max-width: 460px; }
+    .gf-form-group label { display: block; font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 6px; }
+    .gf-input { width: 100%; padding: 10px 14px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text); font-family: var(--font-family); font-size: 0.95rem; transition: border-color var(--duration-base) var(--ease); }
+    .gf-input:focus { outline: none; border-color: var(--color-primary); }
+
+    .gf-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .gf-badge { display: inline-flex; align-items: center; gap: 5px; padding: 5px 14px; border-radius: 999px; font-size: 0.78rem; }
+    .gf-badge-primary { background: var(--color-primary-light); color: #7A5F10; }
+    .gf-badge-success { background: rgba(91,138,110,0.16); color: #3E634C; }
+    .gf-badge-warning { background: rgba(201,123,46,0.16); color: #8A521B; }
+    .gf-badge-error { background: rgba(169,68,56,0.14); color: #7C3025; }
+    .gf-badge-neutral { background: var(--color-surface-alt); color: var(--color-text-muted); border: 1px solid var(--color-border); }
+
+    .gf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .gf-effect-tile { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); }
+    .gf-tile-label { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); }
+    .gf-seam-demo { height: 60px; position: relative; overflow: hidden; }
+    .gf-seam-demo .line { position: absolute; left: 50%; top: -10%; width: 4px; height: 130%; background: var(--gradient-seam); transform: rotate(10deg); }
+    .gf-mono-well { background: var(--color-surface-alt); border-radius: var(--radius); padding: 10px 14px; font-family: var(--font-family-mono); font-size: 0.82rem; color: var(--color-text-muted); }
+
+    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
+       derived from location.pathname, so this block never needs per-file editing). Fetches and
+       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
+       blocked (e.g. plain file:// with no local server). Copy this block verbatim into every new
+       preset — see any file in themes/ for the worked example. */
+    .tf-doc-toggle {
+      position: fixed; top: 1rem; right: 1rem; z-index: 20; appearance: none; cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      background-color: #fff; border: 1px solid #111; border-radius: 2px; color: #111;
+      padding: 0.5rem 0.75rem; transition: background-color .12s, color .12s; box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tf-doc-toggle:hover { background-color: #111; color: #fff; }
+    .tf-doc-overlay { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .tf-doc-overlay[hidden] { display: none; }
+    .tf-doc-panel { background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh; border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35); display: flex; flex-direction: column; overflow: hidden; }
+    .tf-doc-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; }
+    .tf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .tf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .tf-doc-close:hover { color: #111; }
+    .tf-doc-body { margin: 0; padding: 1.25rem; overflow: auto; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; font-size: 0.86rem; line-height: 1.65; color: #222; }
+    .tf-doc-body > *:first-child { margin-top: 0; }
+    .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111; }
+    .tf-doc-body h1 { font-size: 1.3rem; }
+    .tf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .tf-doc-body h3 { font-size: 0.92rem; }
+    .tf-doc-body h4 { font-size: 0.86rem; }
+    .tf-doc-body p { margin: 0 0 0.85em; }
+    .tf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .tf-doc-body li { margin-bottom: 0.35em; }
+    .tf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .tf-doc-body strong { font-weight: 700; }
+    .tf-doc-body em { font-style: italic; }
+    .tf-doc-body code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em; background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px; }
+    @media (prefers-color-scheme: dark) {
+      .tf-doc-panel { background: #1c1c22; color: #ddd; }
+      .tf-doc-panel-head { border-bottom-color: #333; }
+      .tf-doc-panel-title { color: #eee; }
+      .tf-doc-close { color: #999; }
+      .tf-doc-close:hover { color: #fff; }
+      .tf-doc-body { color: #ccc; }
+      .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { color: #f0f0f0; }
+      .tf-doc-body h2 { border-bottom-color: #333; }
+      .tf-doc-body hr { border-top-color: #333; }
+      .tf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="tf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="tf-doc-overlay" id="doc-overlay" hidden>
+    <div class="tf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="tf-doc-panel-head">
+        <span class="tf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="tf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <header class="gf-header">
+    <div class="gf-seam"></div>
+    <div class="gf-header-inner">
+      <span class="gf-kicker-line gf-kicker">restored, not hidden</span>
+      <h1>Gilded Fracture Restoration Ledger</h1>
+      <p>Every piece that comes through the studio leaves with its break in plain sight, traced in gold instead of glue.</p>
+    </div>
+  </header>
+
+  <div class="gf-section">
+    <div class="gf-section-title">Palette — Clay &amp; Gold Seam</div>
+    <div class="gf-swatches">
+      <div class="gf-swatch"><div class="gf-swatch-color" style="background:#C9A227"></div><div class="gf-swatch-label">Gold Seam<br>#C9A227</div></div>
+      <div class="gf-swatch"><div class="gf-swatch-color" style="background:#8FA593"></div><div class="gf-swatch-label">Celadon<br>#8FA593</div></div>
+      <div class="gf-swatch"><div class="gf-swatch-color" style="background:#B5651D"></div><div class="gf-swatch-label">Burnt Clay<br>#B5651D</div></div>
+      <div class="gf-swatch"><div class="gf-swatch-color" style="background:#E8DCC8"></div><div class="gf-swatch-label">Bone Clay<br>#E8DCC8</div></div>
+      <div class="gf-swatch"><div class="gf-swatch-color" style="background:#F1E8D6"></div><div class="gf-swatch-label">Unglazed<br>#F1E8D6</div></div>
+      <div class="gf-swatch"><div class="gf-swatch-color" style="background:#2E3B4E"></div><div class="gf-swatch-label">Indigo Ink<br>#2E3B4E</div></div>
+      <div class="gf-swatch"><div class="gf-swatch-color" style="background:#5B8A6E"></div><div class="gf-swatch-label">Moss<br>#5B8A6E</div></div>
+      <div class="gf-swatch"><div class="gf-swatch-color" style="background:#A94438"></div><div class="gf-swatch-label">Brick<br>#A94438</div></div>
+    </div>
+  </div>
+
+  <div class="gf-section">
+    <div class="gf-section-title">Typography</div>
+    <div class="gf-type-stack">
+      <div class="gf-display">Gilda Display — Restoration Ledger</div>
+      <div class="gf-h2">Bowl No. 12, Intake Notes</div>
+      <div class="gf-h3">Repair Timeline</div>
+      <div class="gf-body">Spectral regular: The break runs in three pieces along the rim. We'll fill each seam with urushi lacquer and dust it in twenty-three karat gold once the resin has cured for a full week.</div>
+      <div class="gf-muted">"the crack is not a flaw to erase, but a line worth keeping"</div>
+      <div class="gf-mono-chip">piece_no=0012 · glaze=celadon</div>
+    </div>
+  </div>
+
+  <div class="gf-section">
+    <div class="gf-section-title">Actions</div>
+    <div class="gf-btn-row">
+      <a href="#" class="gf-btn gf-btn-primary">Book a Restoration</a>
+      <a href="#" class="gf-btn gf-btn-secondary">View Portfolio</a>
+      <a href="#" class="gf-btn gf-btn-outline">Read the Philosophy</a>
+      <a href="#" class="gf-btn gf-btn-ghost">Sign Out</a>
+    </div>
+  </div>
+
+  <div class="gf-section">
+    <div class="gf-section-title">Current Pieces</div>
+    <div class="gf-card-grid">
+      <div class="gf-card">
+        <span class="gf-card-tag">In Repair</span>
+        <h3>Bowl No. 12</h3>
+        <p>Celadon glaze, three-piece rim fracture. Gold dusting scheduled for next week once lacquer cures.</p>
+        <div class="gf-card-seam"></div>
+      </div>
+      <div class="gf-card">
+        <span class="gf-card-tag">Restored</span>
+        <h3>Tea Bowl, Edo Period</h3>
+        <p>A single hairline crack, now a thin gold thread across the glaze. Returned to its owner last spring.</p>
+        <div class="gf-card-seam"></div>
+      </div>
+      <div class="gf-card">
+        <span class="gf-card-tag">Awaiting Pickup</span>
+        <h3>Vase Fragment Set</h3>
+        <p>Four fragments rejoined along their original break lines — no piece reshaped, only rejoined.</p>
+        <div class="gf-card-seam"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gf-section">
+    <div class="gf-section-title">Request an Estimate</div>
+    <div class="gf-form-grid">
+      <div class="gf-form-group"><label>Piece type</label><input class="gf-input" type="text" placeholder="Tea bowl, glazed"></div>
+      <div class="gf-form-group"><label>Damage description</label><input class="gf-input" type="text" placeholder="Rim crack, three pieces"></div>
+    </div>
+  </div>
+
+  <div class="gf-section">
+    <div class="gf-section-title">Studio Status</div>
+    <div class="gf-badge-row">
+      <span class="gf-badge gf-badge-primary">In Repair</span>
+      <span class="gf-badge gf-badge-success">Restored</span>
+      <span class="gf-badge gf-badge-warning">Awaiting Pickup</span>
+      <span class="gf-badge gf-badge-error">Fragile</span>
+      <span class="gf-badge gf-badge-neutral">Archived</span>
+    </div>
+  </div>
+
+  <div class="gf-section">
+    <div class="gf-section-title">Gold Seam &amp; Texture</div>
+    <div class="gf-effects-grid">
+      <div class="gf-effect-tile"><div class="gf-tile-label">Seam Divider</div><div class="gf-seam-demo"><div class="line"></div></div></div>
+      <div class="gf-effect-tile"><div class="gf-tile-label">Kiln Notes</div><div class="gf-mono-well">firing_temp=1240C duration=9h</div></div>
+      <div class="gf-effect-tile"><div class="gf-tile-label">Quiet Shadow</div><div style="background:var(--color-surface);border-radius:var(--radius-card);padding:12px 16px;box-shadow:var(--shadow-lg);font-size:0.85rem;color:var(--color-text-muted)">card elevation, no glow</div></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function mdEscape(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = ''; var inList = false; var para = [];
+        function flushPara() { if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; } }
+        function closeList() { if (inList) { html += '</ul>'; inList = false; } }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) { flushPara(); closeList(); var level = h[1].length; html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>'; }
+          else if (li) { flushPara(); if (!inList) { html += '<ul>'; inList = true; } html += '<li>' + mdInline(li[1]) + '</li>'; }
+          else if (hr) { flushPara(); closeList(); html += '<hr>'; }
+          else if (line.trim() === '') { flushPara(); closeList(); }
+          else { para.push(line.trim()); }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) { if (!res.ok) throw new Error('not ok'); return res.text(); })
+          .then(function (text) { body.innerHTML = renderMarkdown(text); })
+          .catch(function () { overlay.hidden = true; loaded = false; window.open(mdPath, '_blank'); });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+
+</body>
+</html>

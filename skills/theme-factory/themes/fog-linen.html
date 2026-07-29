@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="fog-linen">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fog Linen — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=DM+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <script id="theme-data" type="application/json">{
+    "name": "fog-linen",
+    "description": "Light warm-Scandinavian-minimal theme — greige linen canvas with an almost-invisible 4px crosshatch weave, one taupe-clay hue used at three lightness steps as primary/secondary/accent. Jost display + DM Sans body. Flat elevation, hairline borders, zero gradients or glow by design.",
+    "createdAt": "2026-07-29T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#ECE9E3",
+      "image": "repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(139,126,106,0.05) 3px, rgba(139,126,106,0.05) 4px), repeating-linear-gradient(135deg, transparent, transparent 3px, rgba(139,126,106,0.05) 3px, rgba(139,126,106,0.05) 4px)",
+      "size": "4px 4px",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "crosshatch",
+      "patternColor": "rgba(139,126,106,0.05)",
+      "patternOpacity": "0.05",
+      "patternSpacing": "4px",
+      "notes": "Diagonal linen weave at 4px pitch, kept under 6% opacity — tactile, almost imperceptible; texture you'd feel more than see."
+    },
+    "colors": {
+      "primary": "#8B7E6A",
+      "primaryLight": "#E3DDD1",
+      "secondary": "#6E6255",
+      "accent": "#A69783",
+      "background": "#ECE9E3",
+      "surface": "#F5F3EF",
+      "surfaceAlt": "#E2DED5",
+      "text": "#332F29",
+      "textMuted": "#7A7266",
+      "textOnPrimary": "#F5F3EF",
+      "border": "#D9D3C6",
+      "success": "#5C8A6B",
+      "warning": "#B08A4A",
+      "error": "#A85C4E"
+    },
+    "typography": {
+      "fontFamily": "'DM Sans', 'Didact Gothic', sans-serif",
+      "fontFamilyMono": "'IBM Plex Mono', 'Courier New', monospace",
+      "fontFamilyDisplay": "'Jost', 'Century Gothic', sans-serif",
+      "scaleBase": "16px",
+      "headingWeight": "500",
+      "bodyWeight": "400",
+      "lineHeight": "1.65"
+    },
+    "spacing": {
+      "borderRadius": "6px",
+      "cardRadius": "8px",
+      "buttonRadius": "4px",
+      "spaceUnit": "8px",
+      "density": "spacious"
+    },
+    "shadows": {
+      "sm": "0 1px 2px rgba(51,47,41,0.05)",
+      "md": "0 2px 6px rgba(51,47,41,0.06)",
+      "lg": "0 4px 12px rgba(51,47,41,0.07)",
+      "xl": "0 8px 20px rgba(51,47,41,0.08)",
+      "colored": "none",
+      "inset": "none",
+      "elevation": "flat"
+    },
+    "gradients": {
+      "hero": "none",
+      "card": "none",
+      "button": "none",
+      "text": "none",
+      "accent": "none"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#8B7E6A",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "none",
+      "noiseOpacity": "0",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "120ms",
+      "durationBase": "220ms",
+      "durationSlow": "380ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "feel": "subtle"
+    },
+    "design": {
+      "aesthetic": "minimal",
+      "personality": ["hygge", "quiet", "tactile", "unhurried"],
+      "borderStyle": "hairline",
+      "iconStyle": "outlined",
+      "imageStyle": "photographic",
+      "surfaceTexture": "noise",
+      "hierarchyClarity": "medium",
+      "notes": "Primary/secondary/accent are the same taupe hue at three lightness steps — a deliberate single-hue commitment, not a missing palette. No gradients or glow anywhere in the system; elevation is entirely hairline-border driven."
+    }
+  }</script>
+  <style>
+    :root {
+      --color-primary: #8B7E6A;
+      --color-primary-light: #E3DDD1;
+      --color-secondary: #6E6255;
+      --color-accent: #A69783;
+      --color-bg: #ECE9E3;
+      --color-surface: #F5F3EF;
+      --color-surface-alt: #E2DED5;
+      --color-text: #332F29;
+      --color-text-muted: #7A7266;
+      --color-text-on-primary: #F5F3EF;
+      --color-border: #D9D3C6;
+      --color-success: #5C8A6B;
+      --color-warning: #B08A4A;
+      --color-error: #A85C4E;
+
+      --font-family: 'DM Sans', 'Didact Gothic', sans-serif;
+      --font-family-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --font-family-display: 'Jost', 'Century Gothic', sans-serif;
+
+      --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+      --radius-button: 4px; --radius-card: 8px;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 1px 2px rgba(51,47,41,0.05);
+      --shadow-md: 0 2px 6px rgba(51,47,41,0.06);
+      --shadow-lg: 0 4px 12px rgba(51,47,41,0.07);
+
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --duration-base: 220ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px; font-weight: 400; line-height: 1.65;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(139,126,106,0.05) 3px, rgba(139,126,106,0.05) 4px),
+        repeating-linear-gradient(135deg, transparent, transparent 3px, rgba(139,126,106,0.05) 3px, rgba(139,126,106,0.05) 4px);
+      background-size: 4px 4px;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-family-display); font-weight: 500; letter-spacing: 0.005em; }
+    code, pre { font-family: var(--font-family-mono); }
+
+    .fl-header {
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-16) var(--space-8) var(--space-10);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .fl-header-tag { font-family: var(--font-family-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-4); display: block; }
+    .fl-header h1 { font-size: clamp(2.1rem, 4.5vw, 3rem); color: var(--color-text); line-height: 1.2; margin-bottom: var(--space-4); }
+    .fl-header p { font-size: 1rem; color: var(--color-text-muted); max-width: 46ch; }
+
+    .fl-section { padding: var(--space-10) var(--space-8); max-width: 720px; margin: 0 auto; }
+    .fl-section-title { font-family: var(--font-family-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-muted); padding-bottom: var(--space-2); margin-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
+
+    .fl-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: var(--space-2); }
+    .fl-swatch { border: 1px solid var(--color-border); border-radius: var(--radius-sm); overflow: hidden; }
+    .fl-swatch-color { height: 48px; }
+    .fl-swatch-label { font-family: var(--font-family-mono); font-size: 9px; padding: 4px 6px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    .fl-type-stack > * + * { margin-top: var(--space-4); }
+    .fl-display { font-family: var(--font-family-display); font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--color-text); line-height: 1.25; }
+    .fl-h2 { font-family: var(--font-family-display); font-size: 1.35rem; color: var(--color-text); font-weight: 500; }
+    .fl-h3 { font-family: var(--font-family-display); font-size: 1.05rem; color: var(--color-text); font-weight: 500; }
+    .fl-body { font-size: 0.98rem; color: var(--color-text); }
+    .fl-muted { font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .fl-mono { font-family: var(--font-family-mono); font-size: 0.8rem; color: var(--color-text-muted); }
+
+    .fl-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+    .fl-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 10px 20px; border-radius: var(--radius-button);
+      font-family: var(--font-family); font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; border: 1px solid transparent; transition: border-color var(--duration-base) var(--ease), background var(--duration-base) var(--ease);
+    }
+    .fl-btn-primary { background: var(--color-primary); color: var(--color-text-on-primary); }
+    .fl-btn-primary:hover { background: var(--color-secondary); }
+    .fl-btn-outline { background: transparent; color: var(--color-text); border-color: var(--color-border); }
+    .fl-btn-outline:hover { border-color: var(--color-primary); }
+    .fl-btn-ghost { background: transparent; color: var(--color-text-muted); }
+    .fl-btn-ghost:hover { color: var(--color-text); }
+
+    .fl-card-grid { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--color-border); }
+    .fl-card { padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); }
+    .fl-card-main h3 { font-size: 1rem; color: var(--color-text); font-weight: 500; margin-bottom: 4px; }
+    .fl-card-main p { font-size: 0.85rem; color: var(--color-text-muted); }
+    .fl-card-meta { font-family: var(--font-family-mono); font-size: 0.78rem; color: var(--color-text-muted); white-space: nowrap; }
+
+    .fl-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    .fl-form-group { margin-bottom: var(--space-2); }
+    .fl-label { display: block; font-size: 0.75rem; font-weight: 500; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .fl-input { width: 100%; padding: 9px 12px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-family: var(--font-family); font-size: 0.9rem; transition: border-color 160ms var(--ease); }
+    .fl-input::placeholder { color: var(--color-text-muted); }
+    .fl-input:focus { outline: none; border-color: var(--color-primary); }
+
+    .fl-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .fl-badge { display: inline-flex; align-items: center; padding: 4px 11px; border: 1px solid var(--color-border); border-radius: 3px; font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); }
+    .fl-badge-primary { border-color: var(--color-primary); color: var(--color-primary); }
+    .fl-badge-success { border-color: var(--color-success); color: var(--color-success); }
+    .fl-badge-warning { border-color: var(--color-warning); color: var(--color-warning); }
+    .fl-badge-error { border-color: var(--color-error); color: var(--color-error); }
+
+    .fl-restraint-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .fl-restraint-tile { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); }
+    .fl-restraint-tile .label { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); }
+    .fl-hue-steps { display: flex; gap: 6px; }
+    .fl-hue-steps div { flex: 1; height: 28px; border-radius: 3px; }
+    .fl-well { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 10px 14px; font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-muted); }
+
+    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
+       derived from location.pathname, so this block never needs per-file editing). Fetches and
+       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
+       blocked (e.g. plain file:// with no local server). */
+    .tf-doc-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 20;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: #fff;
+      border: 1px solid #111;
+      border-radius: 2px;
+      color: #111;
+      padding: 0.5rem 0.75rem;
+      transition: background-color .12s, color .12s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tf-doc-toggle:hover { background-color: #111; color: #fff; }
+    .tf-doc-overlay {
+      position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .tf-doc-overlay[hidden] { display: none; }
+    .tf-doc-panel {
+      background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh;
+      border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .tf-doc-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .tf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .tf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .tf-doc-close:hover { color: #111; }
+    .tf-doc-body {
+      margin: 0; padding: 1.25rem; overflow: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.86rem; line-height: 1.65; color: #222;
+    }
+    .tf-doc-body > *:first-child { margin-top: 0; }
+    .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 {
+      font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111;
+    }
+    .tf-doc-body h1 { font-size: 1.3rem; }
+    .tf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .tf-doc-body h3 { font-size: 0.92rem; }
+    .tf-doc-body h4 { font-size: 0.86rem; }
+    .tf-doc-body p { margin: 0 0 0.85em; }
+    .tf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .tf-doc-body li { margin-bottom: 0.35em; }
+    .tf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .tf-doc-body strong { font-weight: 700; }
+    .tf-doc-body em { font-style: italic; }
+    .tf-doc-body code {
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em;
+      background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .tf-doc-panel { background: #1c1c22; color: #ddd; }
+      .tf-doc-panel-head { border-bottom-color: #333; }
+      .tf-doc-panel-title { color: #eee; }
+      .tf-doc-close { color: #999; }
+      .tf-doc-close:hover { color: #fff; }
+      .tf-doc-body { color: #ccc; }
+      .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { color: #f0f0f0; }
+      .tf-doc-body h2 { border-bottom-color: #333; }
+      .tf-doc-body hr { border-top-color: #333; }
+      .tf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="tf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="tf-doc-overlay" id="doc-overlay" hidden>
+    <div class="tf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="tf-doc-panel-head">
+        <span class="tf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="tf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <header class="fl-header">
+    <span class="fl-header-tag">Linen & Fog · Morning Practice</span>
+    <h1>Fog Linen</h1>
+    <p>One quiet color, used sparingly, so nothing here has to shout to be heard.</p>
+  </header>
+
+  <div class="fl-section">
+    <div class="fl-section-title">Palette — Grey Hour</div>
+    <div class="fl-swatches">
+      <div class="fl-swatch"><div class="fl-swatch-color" style="background:#8B7E6A"></div><div class="fl-swatch-label">Clay<br>#8B7E6A</div></div>
+      <div class="fl-swatch"><div class="fl-swatch-color" style="background:#6E6255"></div><div class="fl-swatch-label">Umber<br>#6E6255</div></div>
+      <div class="fl-swatch"><div class="fl-swatch-color" style="background:#A69783"></div><div class="fl-swatch-label">Fawn<br>#A69783</div></div>
+      <div class="fl-swatch"><div class="fl-swatch-color" style="background:#ECE9E3"></div><div class="fl-swatch-label">Linen<br>#ECE9E3</div></div>
+      <div class="fl-swatch"><div class="fl-swatch-color" style="background:#332F29"></div><div class="fl-swatch-label">Ink<br>#332F29</div></div>
+      <div class="fl-swatch"><div class="fl-swatch-color" style="background:#5C8A6B"></div><div class="fl-swatch-label">Sage<br>#5C8A6B</div></div>
+      <div class="fl-swatch"><div class="fl-swatch-color" style="background:#B08A4A"></div><div class="fl-swatch-label">Ochre<br>#B08A4A</div></div>
+      <div class="fl-swatch"><div class="fl-swatch-color" style="background:#A85C4E"></div><div class="fl-swatch-label">Brick<br>#A85C4E</div></div>
+    </div>
+  </div>
+
+  <div class="fl-section">
+    <div class="fl-section-title">Typography</div>
+    <div class="fl-type-stack">
+      <div class="fl-display">Jost — A Practice of Slowness</div>
+      <div class="fl-h2">This Week's Reading</div>
+      <div class="fl-h3">Tea, Logged Honestly</div>
+      <div class="fl-body">DM Sans regular: Thirty minutes, no notifications, one lamp. The point isn't the page count — it's the sitting still long enough to notice you've stopped checking your phone.</div>
+      <div class="fl-muted">Week 30 · Grey, mild, no wind</div>
+      <div class="fl-mono">practice="reading" duration_min=37 interrupted=false</div>
+    </div>
+  </div>
+
+  <div class="fl-section">
+    <div class="fl-section-title">Actions</div>
+    <div class="fl-btn-row">
+      <a href="#" class="fl-btn fl-btn-primary">Begin Session</a>
+      <a href="#" class="fl-btn fl-btn-outline">Log Pages Read</a>
+      <a href="#" class="fl-btn fl-btn-outline">View Archive</a>
+      <a href="#" class="fl-btn fl-btn-ghost">Sign Out</a>
+    </div>
+  </div>
+
+  <div class="fl-section">
+    <div class="fl-section-title">Today's Practice</div>
+    <div class="fl-card-grid">
+      <div class="fl-card">
+        <div class="fl-card-main">
+          <h3>Klara and the Sun</h3>
+          <p>Chapter four — the orchard scene, read twice.</p>
+        </div>
+        <span class="fl-card-meta">37 pages</span>
+      </div>
+      <div class="fl-card">
+        <div class="fl-card-main">
+          <h3>White peony, second steep</h3>
+          <p>Cooler water this time — less bitterness, more honey.</p>
+        </div>
+        <span class="fl-card-meta">12 min</span>
+      </div>
+      <div class="fl-card">
+        <div class="fl-card-main">
+          <h3>Walk, no phone</h3>
+          <p>Down to the canal and back, nothing decided.</p>
+        </div>
+        <span class="fl-card-meta">22 min</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fl-section">
+    <div class="fl-section-title">New Entry</div>
+    <div class="fl-form-grid">
+      <div class="fl-form-group">
+        <label class="fl-label">Practice Type</label>
+        <input class="fl-input" type="text" placeholder="Reading, tea, walking…">
+      </div>
+      <div class="fl-form-group">
+        <label class="fl-label">Duration</label>
+        <input class="fl-input" type="text" placeholder="Minutes">
+      </div>
+      <div class="fl-form-group">
+        <label class="fl-label">Note</label>
+        <input class="fl-input" type="text" placeholder="One honest sentence…">
+      </div>
+      <div class="fl-form-group">
+        <label class="fl-label">Date</label>
+        <input class="fl-input" type="text" placeholder="Today">
+      </div>
+    </div>
+    <div class="fl-btn-row" style="margin-top: var(--space-4)">
+      <a href="#" class="fl-btn fl-btn-primary">Save Entry</a>
+      <a href="#" class="fl-btn fl-btn-ghost">Clear</a>
+    </div>
+  </div>
+
+  <div class="fl-section">
+    <div class="fl-section-title">Practice Status</div>
+    <div class="fl-badge-row">
+      <span class="fl-badge fl-badge-primary">Logged</span>
+      <span class="fl-badge">In Progress</span>
+      <span class="fl-badge fl-badge-warning">Skipped Today</span>
+      <span class="fl-badge fl-badge-success">Streak: 6 Days</span>
+      <span class="fl-badge fl-badge-error">Archived</span>
+    </div>
+  </div>
+
+  <div class="fl-section">
+    <div class="fl-section-title">Restraint, By Design</div>
+    <div class="fl-restraint-grid">
+      <div class="fl-restraint-tile">
+        <span class="label">One Hue, Three Steps</span>
+        <div class="fl-hue-steps">
+          <div style="background:#A69783"></div>
+          <div style="background:#8B7E6A"></div>
+          <div style="background:#6E6255"></div>
+        </div>
+      </div>
+      <div class="fl-restraint-tile">
+        <span class="label">Elevation</span>
+        <div class="fl-well">flat — hairline border only, no shadow</div>
+      </div>
+      <div class="fl-restraint-tile">
+        <span class="label">Gradients</span>
+        <div class="fl-well">none — hero, card, button, text, accent all solid</div>
+      </div>
+      <div class="fl-restraint-tile">
+        <span class="label">Texture</span>
+        <div class="fl-well">4px crosshatch weave at 5% opacity</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+</body>
+</html>

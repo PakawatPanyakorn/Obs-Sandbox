@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="confetti-deco">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confetti Deco — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Karla:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+  <script id="theme-data" type="application/json">
+  {
+    "name": "confetti-deco",
+    "description": "Light postmodern Memphis-Milano theme — cream terrazzo-chip background scattered with pink/mint/yellow/ink confetti dots, chunky black squiggles, hard flat drop-shadows (no blur). Bangers display + Karla body + Space Mono for tags. Square-ish cut-paper shapes, never pill-rounded.",
+    "createdAt": "2026-07-29T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#F4ECD8",
+      "image": "radial-gradient(circle at 8% 15%, #F2417A 4px, transparent 5px), radial-gradient(circle at 22% 62%, #3EC6BE 5px, transparent 6px), radial-gradient(circle at 40% 10%, #FFD93D 4px, transparent 5px), radial-gradient(circle at 60% 45%, #17161A 3px, transparent 4px), radial-gradient(circle at 78% 20%, #F2417A 3px, transparent 4px), radial-gradient(circle at 88% 65%, #3EC6BE 3px, transparent 4px), radial-gradient(circle at 15% 85%, #FFD93D 3px, transparent 4px), radial-gradient(circle at 92% 90%, #17161A 4px, transparent 5px), radial-gradient(circle at 50% 78%, #F2417A 3px, transparent 4px), radial-gradient(circle at 35% 35%, #3EC6BE 2px, transparent 3px)",
+      "size": "auto",
+      "position": "0 0",
+      "repeat": "no-repeat",
+      "patternType": "other",
+      "patternColor": "#F2417A",
+      "patternOpacity": "1",
+      "patternSpacing": "0px",
+      "notes": "Terrazzo-chip confetti: ten fixed-position colored dots scattered across a cream base, sized 2-5px, in the four accent hues. Deliberately irregular placement, not a repeating tile — reads as flecked stone, not a grid."
+    },
+    "colors": {
+      "primary": "#F2417A",
+      "primaryLight": "#FCD3E0",
+      "secondary": "#FFD93D",
+      "accent": "#3EC6BE",
+      "background": "#F4ECD8",
+      "surface": "#FFFCF6",
+      "surfaceAlt": "#EFE3C8",
+      "text": "#17161A",
+      "textMuted": "#6B6558",
+      "textOnPrimary": "#FFFCF6",
+      "border": "#17161A",
+      "success": "#2FAE7A",
+      "warning": "#E8A93C",
+      "error": "#D93A3A"
+    },
+    "typography": {
+      "fontFamily": "'Karla', sans-serif",
+      "fontFamilyMono": "'Space Mono', monospace",
+      "fontFamilyDisplay": "'Bangers', cursive",
+      "scaleBase": "16px",
+      "headingWeight": "400",
+      "bodyWeight": "500",
+      "lineHeight": "1.55"
+    },
+    "spacing": {
+      "borderRadius": "4px",
+      "cardRadius": "8px",
+      "buttonRadius": "6px",
+      "spaceUnit": "8px",
+      "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "3px 3px 0 #17161A",
+      "md": "4px 4px 0 #17161A",
+      "lg": "6px 6px 0 #17161A",
+      "xl": "8px 8px 0 #17161A",
+      "colored": "4px 4px 0 #17161A",
+      "inset": "none",
+      "elevation": "flat"
+    },
+    "gradients": {
+      "hero": "none",
+      "card": "none",
+      "button": "none",
+      "text": "none",
+      "accent": "none"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#F2417A",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "none",
+      "noiseOpacity": "0.03",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "100ms",
+      "durationBase": "180ms",
+      "durationSlow": "300ms",
+      "easing": "cubic-bezier(0.33, 0, 0.2, 1)",
+      "feel": "expressive"
+    },
+    "design": {
+      "aesthetic": "playful",
+      "personality": ["postmodern", "terrazzo", "squiggly", "confetti"],
+      "borderStyle": "bold",
+      "iconStyle": "sharp",
+      "imageStyle": "abstract",
+      "surfaceTexture": "noise",
+      "hierarchyClarity": "medium",
+      "notes": "Corners stay square-to-slightly-rounded (4-8px) on purpose — a fully rounded pill treatment would collapse this into generic 'playful pastel' territory (see cloud-candy). The offset shadow is a hard flat graphic shape with zero blur, never a soft glow. Bangers was chosen over the more expected Anton/Bebas Neue brutalist pairing to keep the comic-poster inline-stroke energy rather than a harsh brutalist edge."
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --color-primary: #F2417A;
+      --color-primary-light: #FCD3E0;
+      --color-secondary: #FFD93D;
+      --color-accent: #3EC6BE;
+      --color-bg: #F4ECD8;
+      --color-surface: #FFFCF6;
+      --color-surface-alt: #EFE3C8;
+      --color-text: #17161A;
+      --color-text-muted: #6B6558;
+      --color-text-on-primary: #FFFCF6;
+      --color-border: #17161A;
+      --color-success: #2FAE7A;
+      --color-warning: #E8A93C;
+      --color-error: #D93A3A;
+
+      --font-family: 'Karla', sans-serif;
+      --font-family-mono: 'Space Mono', monospace;
+      --font-family-display: 'Bangers', cursive;
+
+      --radius: 4px; --radius-card: 8px; --radius-button: 6px;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 3px 3px 0 #17161A;
+      --shadow-md: 4px 4px 0 #17161A;
+      --shadow-lg: 6px 6px 0 #17161A;
+      --shadow-xl: 8px 8px 0 #17161A;
+      --border-width: 3px;
+      --ease: cubic-bezier(0.33, 0, 0.2, 1);
+      --duration-base: 180ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px; font-weight: 500; line-height: 1.55;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image:
+        radial-gradient(circle at 8% 15%, #F2417A 4px, transparent 5px),
+        radial-gradient(circle at 22% 62%, #3EC6BE 5px, transparent 6px),
+        radial-gradient(circle at 40% 10%, #FFD93D 4px, transparent 5px),
+        radial-gradient(circle at 60% 45%, #17161A 3px, transparent 4px),
+        radial-gradient(circle at 78% 20%, #F2417A 3px, transparent 4px),
+        radial-gradient(circle at 88% 65%, #3EC6BE 3px, transparent 4px),
+        radial-gradient(circle at 15% 85%, #FFD93D 3px, transparent 4px),
+        radial-gradient(circle at 92% 90%, #17161A 4px, transparent 5px),
+        radial-gradient(circle at 50% 78%, #F2417A 3px, transparent 4px),
+        radial-gradient(circle at 35% 35%, #3EC6BE 2px, transparent 3px);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-family-display); font-weight: 400; letter-spacing: 0.02em; }
+    code, .cd-mono { font-family: var(--font-family-mono); }
+
+    .cd-header { padding: var(--space-16) var(--space-8) var(--space-10); max-width: 960px; margin: 0 auto; }
+    .cd-header h1, .cd-header p { max-width: 640px; }
+    .cd-header-tag { display: inline-block; font-family: var(--font-family-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.04em; background: var(--color-text); color: var(--color-secondary); padding: 4px 12px; margin-bottom: var(--space-4); }
+    .cd-header h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); color: var(--color-text); line-height: 1.05; margin-bottom: var(--space-4); }
+    .cd-squiggle { display: block; margin: 0 0 var(--space-4); }
+    .cd-header p { font-size: 1.05rem; color: var(--color-text); max-width: 480px; }
+
+    .cd-section { padding: var(--space-10) var(--space-8); max-width: 960px; margin: 0 auto; }
+    .cd-section-title { font-family: var(--font-family-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); border-bottom: var(--border-width) solid var(--color-border); padding-bottom: var(--space-2); margin-bottom: var(--space-6); }
+
+    .cd-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--space-3); }
+    .cd-swatch { border: var(--border-width) solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .cd-swatch-color { height: 56px; }
+    .cd-swatch-label { font-family: var(--font-family-mono); font-size: 9.5px; padding: 6px 8px; color: var(--color-text); background: var(--color-surface); border-top: var(--border-width) solid var(--color-border); }
+
+    .cd-type-stack > * + * { margin-top: var(--space-4); }
+    .cd-display { font-size: clamp(2rem, 5vw, 3rem); color: var(--color-text); }
+    .cd-h2 { font-size: 1.8rem; color: var(--color-text); }
+    .cd-h3 { font-size: 1.3rem; color: var(--color-text); }
+    .cd-body { font-size: 1rem; color: var(--color-text); font-weight: 500; }
+    .cd-muted { font-size: 0.875rem; color: var(--color-text-muted); }
+    .cd-mono-chip { font-family: var(--font-family-mono); font-size: 0.78rem; font-weight: 700; color: var(--color-text-on-primary); background: var(--color-text); display: inline-block; padding: 4px 10px; }
+
+    .cd-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+    .cd-btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: 11px 22px; border-radius: var(--radius-button); font-family: var(--font-family); font-size: 0.92rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; cursor: pointer; border: var(--border-width) solid var(--color-border); transition: transform var(--duration-base) var(--ease), box-shadow var(--duration-base) var(--ease); }
+    .cd-btn-primary { background: var(--color-primary); color: var(--color-text-on-primary); box-shadow: var(--shadow-md); }
+    .cd-btn-primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #17161A; }
+    .cd-btn-secondary { background: var(--color-secondary); color: var(--color-text); box-shadow: var(--shadow-md); }
+    .cd-btn-outline { background: var(--color-surface); color: var(--color-text); box-shadow: var(--shadow-sm); }
+    .cd-btn-ghost { background: transparent; color: var(--color-text-muted); border-color: transparent; box-shadow: none; }
+
+    .cd-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: var(--space-6); }
+    .cd-card { background: var(--color-surface); border: var(--border-width) solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-5); box-shadow: var(--shadow-md); }
+    .cd-card-tag { display: inline-block; font-family: var(--font-family-mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--color-accent); color: var(--color-text); padding: 3px 8px; margin-bottom: var(--space-3); }
+    .cd-card h3 { font-size: 1.4rem; color: var(--color-text); margin-bottom: var(--space-2); }
+    .cd-card p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.55; font-weight: 500; }
+    .cd-card-price { font-family: var(--font-family-mono); font-size: 0.85rem; font-weight: 700; color: var(--color-primary); margin-top: var(--space-3); display: block; }
+
+    .cd-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); max-width: 460px; }
+    .cd-form-group label { display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-text); margin-bottom: 6px; }
+    .cd-input { width: 100%; padding: 10px 14px; background: var(--color-surface); border: var(--border-width) solid var(--color-border); border-radius: var(--radius); color: var(--color-text); font-family: var(--font-family); font-size: 0.92rem; font-weight: 500; transition: box-shadow var(--duration-base) var(--ease); }
+    .cd-input:focus { outline: none; box-shadow: var(--shadow-sm); }
+
+    .cd-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .cd-badge { display: inline-flex; align-items: center; gap: 5px; padding: 5px 14px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; border: 2px solid var(--color-border); }
+    .cd-badge-primary { background: var(--color-primary); color: var(--color-text-on-primary); }
+    .cd-badge-success { background: var(--color-success); color: var(--color-text-on-primary); }
+    .cd-badge-warning { background: var(--color-warning); color: var(--color-text); }
+    .cd-badge-error { background: var(--color-error); color: var(--color-text-on-primary); }
+    .cd-badge-neutral { background: var(--color-surface); color: var(--color-text); }
+
+    .cd-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-5); }
+    .cd-effect-tile { background: var(--color-surface); border: var(--border-width) solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); box-shadow: var(--shadow-sm); }
+    .cd-tile-label { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); }
+    .cd-offset-demo { width: 60px; height: 60px; background: var(--color-primary); border: var(--border-width) solid var(--color-border); box-shadow: var(--shadow-lg); }
+
+    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
+       derived from location.pathname, so this block never needs per-file editing). Fetches and
+       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
+       blocked (e.g. plain file:// with no local server). Copy this block verbatim into every new
+       preset — see any file in themes/ for the worked example. */
+    .tf-doc-toggle {
+      position: fixed; top: 1rem; right: 1rem; z-index: 20; appearance: none; cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      background-color: #fff; border: 1px solid #111; border-radius: 2px; color: #111;
+      padding: 0.5rem 0.75rem; transition: background-color .12s, color .12s; box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tf-doc-toggle:hover { background-color: #111; color: #fff; }
+    .tf-doc-overlay { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .tf-doc-overlay[hidden] { display: none; }
+    .tf-doc-panel { background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh; border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35); display: flex; flex-direction: column; overflow: hidden; }
+    .tf-doc-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; }
+    .tf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .tf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .tf-doc-close:hover { color: #111; }
+    .tf-doc-body { margin: 0; padding: 1.25rem; overflow: auto; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; font-size: 0.86rem; line-height: 1.65; color: #222; }
+    .tf-doc-body > *:first-child { margin-top: 0; }
+    .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111; }
+    .tf-doc-body h1 { font-size: 1.3rem; }
+    .tf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .tf-doc-body h3 { font-size: 0.92rem; }
+    .tf-doc-body h4 { font-size: 0.86rem; }
+    .tf-doc-body p { margin: 0 0 0.85em; }
+    .tf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .tf-doc-body li { margin-bottom: 0.35em; }
+    .tf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .tf-doc-body strong { font-weight: 700; }
+    .tf-doc-body em { font-style: italic; }
+    .tf-doc-body code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em; background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px; }
+    @media (prefers-color-scheme: dark) {
+      .tf-doc-panel { background: #1c1c22; color: #ddd; }
+      .tf-doc-panel-head { border-bottom-color: #333; }
+      .tf-doc-panel-title { color: #eee; }
+      .tf-doc-close { color: #999; }
+      .tf-doc-close:hover { color: #fff; }
+      .tf-doc-body { color: #ccc; }
+      .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { color: #f0f0f0; }
+      .tf-doc-body h2 { border-bottom-color: #333; }
+      .tf-doc-body hr { border-top-color: #333; }
+      .tf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="tf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="tf-doc-overlay" id="doc-overlay" hidden>
+    <div class="tf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="tf-doc-panel-head">
+        <span class="tf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="tf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <header class="cd-header">
+    <span class="cd-header-tag">Saturday Market · Stall 14</span>
+    <h1>Confetti Deco</h1>
+    <svg class="cd-squiggle" width="140" height="16" viewBox="0 0 140 16"><path d="M2 11 Q 18 2, 34 11 T 66 11 T 98 11 T 130 11" stroke="#17161A" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>
+    <p>Hand-cut paper goods, terrazzo coasters, and zigzag zines — everything on the table is a little bit crooked on purpose.</p>
+  </header>
+
+  <div class="cd-section">
+    <div class="cd-section-title">Palette — Terrazzo Confetti</div>
+    <div class="cd-swatches">
+      <div class="cd-swatch"><div class="cd-swatch-color" style="background:#F2417A"></div><div class="cd-swatch-label">Pop Pink<br>#F2417A</div></div>
+      <div class="cd-swatch"><div class="cd-swatch-color" style="background:#FFD93D"></div><div class="cd-swatch-label">Butter Yellow<br>#FFD93D</div></div>
+      <div class="cd-swatch"><div class="cd-swatch-color" style="background:#3EC6BE"></div><div class="cd-swatch-label">Mint Chip<br>#3EC6BE</div></div>
+      <div class="cd-swatch"><div class="cd-swatch-color" style="background:#F4ECD8"></div><div class="cd-swatch-label">Terrazzo Cream<br>#F4ECD8</div></div>
+      <div class="cd-swatch"><div class="cd-swatch-color" style="background:#FFFCF6"></div><div class="cd-swatch-label">Paper White<br>#FFFCF6</div></div>
+      <div class="cd-swatch"><div class="cd-swatch-color" style="background:#17161A"></div><div class="cd-swatch-label">Ink Black<br>#17161A</div></div>
+      <div class="cd-swatch"><div class="cd-swatch-color" style="background:#2FAE7A"></div><div class="cd-swatch-label">Go Green<br>#2FAE7A</div></div>
+      <div class="cd-swatch"><div class="cd-swatch-color" style="background:#D93A3A"></div><div class="cd-swatch-label">Sold-Out Red<br>#D93A3A</div></div>
+    </div>
+  </div>
+
+  <div class="cd-section">
+    <div class="cd-section-title">Typography</div>
+    <div class="cd-type-stack">
+      <div class="cd-display">Bangers — Confetti Deco Stall</div>
+      <div class="cd-h2">This Week's Handmade Drop</div>
+      <div class="cd-h3">Squiggle Tote, Restocked</div>
+      <div class="cd-body">Karla medium: Every coaster is cut from a different terrazzo offcut, so no two sets match exactly — that's the whole point of buying from the stall instead of a catalog.</div>
+      <div class="cd-muted">Stall open 9am–2pm · Cash or card</div>
+      <div class="cd-mono-chip">sku=squiggle-tote-04 stock=6</div>
+    </div>
+  </div>
+
+  <div class="cd-section">
+    <div class="cd-section-title">Actions</div>
+    <div class="cd-btn-row">
+      <a href="#" class="cd-btn cd-btn-primary">Add to Basket</a>
+      <a href="#" class="cd-btn cd-btn-secondary">Save for Later</a>
+      <a href="#" class="cd-btn cd-btn-outline">View Stall Map</a>
+      <a href="#" class="cd-btn cd-btn-ghost">Sign Out</a>
+    </div>
+  </div>
+
+  <div class="cd-section">
+    <div class="cd-section-title">Stall Table</div>
+    <div class="cd-card-grid">
+      <div class="cd-card">
+        <span class="cd-card-tag">Restocked</span>
+        <h3>Squiggle Tote</h3>
+        <p>Screen-printed canvas, one black squiggle per bag, hand-inked so the line never repeats.</p>
+        <span class="cd-card-price">$24</span>
+      </div>
+      <div class="cd-card">
+        <span class="cd-card-tag">Only 3 Left</span>
+        <h3>Terrazzo Coaster Set</h3>
+        <p>Four coasters cut from the same offcut slab — order stays as the chips fell, no sorting.</p>
+        <span class="cd-card-price">$18 / set of 4</span>
+      </div>
+      <div class="cd-card">
+        <span class="cd-card-tag">New Zine</span>
+        <h3>Zigzag Issue 04</h3>
+        <p>Risograph-printed, hand-stapled, forty copies only — this week's run covers stall gossip and offcut sourcing.</p>
+        <span class="cd-card-price">$6</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cd-section">
+    <div class="cd-section-title">Reserve a Pickup</div>
+    <div class="cd-form-grid">
+      <div class="cd-form-group"><label>Your name</label><input class="cd-input" type="text" placeholder="Maya Okonkwo"></div>
+      <div class="cd-form-group"><label>Pickup time</label><input class="cd-input" type="text" placeholder="11:30am"></div>
+    </div>
+  </div>
+
+  <div class="cd-section">
+    <div class="cd-section-title">Stock Badges</div>
+    <div class="cd-badge-row">
+      <span class="cd-badge cd-badge-primary">New Drop</span>
+      <span class="cd-badge cd-badge-success">In Stock</span>
+      <span class="cd-badge cd-badge-warning">Restocking Soon</span>
+      <span class="cd-badge cd-badge-error">Sold Out</span>
+      <span class="cd-badge cd-badge-neutral">Vendor Pick</span>
+    </div>
+  </div>
+
+  <div class="cd-section">
+    <div class="cd-section-title">Structural Details</div>
+    <div class="cd-effects-grid">
+      <div class="cd-effect-tile"><div class="cd-tile-label">Hard Offset Shadow</div><div class="cd-offset-demo"></div></div>
+      <div class="cd-effect-tile"><div class="cd-tile-label">Confetti Scatter</div><div class="cd-body" style="font-size:0.85rem">Ten fixed dots, four hues, irregular placement</div></div>
+      <div class="cd-effect-tile"><div class="cd-tile-label">Squiggle Divider</div><svg width="100" height="12" viewBox="0 0 100 12"><path d="M2 8 Q 12 2, 22 8 T 42 8 T 62 8 T 82 8" stroke="#17161A" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function mdEscape(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = ''; var inList = false; var para = [];
+        function flushPara() { if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; } }
+        function closeList() { if (inList) { html += '</ul>'; inList = false; } }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) { flushPara(); closeList(); var level = h[1].length; html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>'; }
+          else if (li) { flushPara(); if (!inList) { html += '<ul>'; inList = true; } html += '<li>' + mdInline(li[1]) + '</li>'; }
+          else if (hr) { flushPara(); closeList(); html += '<hr>'; }
+          else if (line.trim() === '') { flushPara(); closeList(); }
+          else { para.push(line.trim()); }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) { if (!res.ok) throw new Error('not ok'); return res.text(); })
+          .then(function (text) { body.innerHTML = renderMarkdown(text); })
+          .catch(function () { overlay.hidden = true; loaded = false; window.open(mdPath, '_blank'); });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+
+</body>
+</html>

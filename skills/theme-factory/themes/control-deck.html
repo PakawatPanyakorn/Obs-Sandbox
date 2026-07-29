@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="control-deck">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Deck — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Oxanium:wght@400;500;600&family=Share+Tech+Mono&display=swap">
+  <script id="theme-data" type="application/json">
+  {
+    "name": "control-deck",
+    "description": "Light 1970s analog-console 'cassette futurism' theme — cream control-panel base with a faint diagonal wood-grain stripe, burnt-orange primary switches, panel-brown secondary, VU-meter green accent. Teko condensed display + Oxanium body + Share Tech Mono for readouts. Chunky rectangular toggles and inset bevels stand in for glow/glass.",
+    "createdAt": "2026-07-29T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "pattern",
+      "baseColor": "#E8DFC8",
+      "image": "repeating-linear-gradient(95deg, rgba(91,70,54,0.05) 0px, rgba(91,70,54,0.05) 2px, transparent 2px, transparent 7px)",
+      "size": "auto",
+      "position": "0 0",
+      "repeat": "repeat",
+      "patternType": "other",
+      "patternColor": "rgba(91,70,54,0.05)",
+      "patternOpacity": "0.05",
+      "patternSpacing": "7px",
+      "notes": "Faint diagonal wood-grain stripe at 95deg, 7px pitch — reads as a laminate control-panel surface at a glance, not a strong pattern. No gradient mesh or glow anywhere in this theme."
+    },
+    "colors": {
+      "primary": "#C1552C",
+      "primaryLight": "#EAC0A8",
+      "secondary": "#5B4636",
+      "accent": "#7A9B57",
+      "background": "#E8DFC8",
+      "surface": "#F1E9D4",
+      "surfaceAlt": "#DCCFAE",
+      "text": "#3A2F24",
+      "textMuted": "#7A6F5D",
+      "textOnPrimary": "#FAF3E6",
+      "border": "#A8916A",
+      "success": "#4F8B3B",
+      "warning": "#D1A22E",
+      "error": "#A33228"
+    },
+    "typography": {
+      "fontFamily": "'Oxanium', sans-serif",
+      "fontFamilyMono": "'Share Tech Mono', monospace",
+      "fontFamilyDisplay": "'Teko', sans-serif",
+      "scaleBase": "16px",
+      "headingWeight": "600",
+      "bodyWeight": "500",
+      "lineHeight": "1.55"
+    },
+    "spacing": {
+      "borderRadius": "3px",
+      "cardRadius": "4px",
+      "buttonRadius": "3px",
+      "spaceUnit": "8px",
+      "density": "compact"
+    },
+    "shadows": {
+      "sm": "0 1px 2px rgba(58,47,36,0.18)",
+      "md": "0 3px 8px rgba(58,47,36,0.20)",
+      "lg": "0 8px 18px rgba(58,47,36,0.22)",
+      "xl": "0 14px 30px rgba(58,47,36,0.24)",
+      "colored": "none",
+      "inset": "inset 0 2px 4px rgba(0,0,0,0.35), inset 0 -1px 0 rgba(255,255,255,0.18)",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "none",
+      "card": "none",
+      "button": "linear-gradient(180deg, #D1683A 0%, #C1552C 100%)",
+      "text": "none",
+      "accent": "none"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#C1552C",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "none",
+      "noiseOpacity": "0",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "90ms",
+      "durationBase": "160ms",
+      "durationSlow": "260ms",
+      "easing": "cubic-bezier(0.4, 0, 0.6, 1)",
+      "feel": "instant"
+    },
+    "design": {
+      "aesthetic": "technical",
+      "personality": ["analog", "tactile", "retro-futuristic", "console"],
+      "borderStyle": "bold",
+      "iconStyle": "sharp",
+      "imageStyle": "abstract",
+      "surfaceTexture": "flat",
+      "hierarchyClarity": "high",
+      "notes": "Every switch/knob affordance is rectangular with a 3px radius, never a rounded pill or circular toggle — this is a hardware panel, not a modern app switch. Bevel comes from a literal inset box-shadow on wells/toggles only; there is zero glow or glassmorphism anywhere, which is what keeps this distinct from neon-foundry's dark neon-industrial register."
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --color-primary: #C1552C;
+      --color-primary-light: #EAC0A8;
+      --color-secondary: #5B4636;
+      --color-accent: #7A9B57;
+      --color-bg: #E8DFC8;
+      --color-surface: #F1E9D4;
+      --color-surface-alt: #DCCFAE;
+      --color-text: #3A2F24;
+      --color-text-muted: #7A6F5D;
+      --color-text-on-primary: #FAF3E6;
+      --color-border: #A8916A;
+      --color-success: #4F8B3B;
+      --color-warning: #D1A22E;
+      --color-error: #A33228;
+
+      --font-family: 'Oxanium', sans-serif;
+      --font-family-mono: 'Share Tech Mono', monospace;
+      --font-family-display: 'Teko', sans-serif;
+
+      --radius: 3px; --radius-card: 4px; --radius-button: 3px;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px; --space-16: 56px;
+
+      --shadow-sm: 0 1px 2px rgba(58,47,36,0.18);
+      --shadow-md: 0 3px 8px rgba(58,47,36,0.20);
+      --shadow-lg: 0 8px 18px rgba(58,47,36,0.22);
+      --shadow-xl: 0 14px 30px rgba(58,47,36,0.24);
+      --shadow-inset: inset 0 2px 4px rgba(0,0,0,0.35), inset 0 -1px 0 rgba(255,255,255,0.18);
+      --gradient-button: linear-gradient(180deg, #D1683A 0%, #C1552C 100%);
+      --ease: cubic-bezier(0.4, 0, 0.6, 1);
+      --duration-base: 160ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px; font-weight: 500; line-height: 1.55;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image: repeating-linear-gradient(95deg, rgba(91,70,54,0.05) 0px, rgba(91,70,54,0.05) 2px, transparent 2px, transparent 7px);
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-family-display); font-weight: 600; letter-spacing: 0.01em; text-transform: uppercase; }
+    code, .cdk-mono { font-family: var(--font-family-mono); }
+
+    .cdk-header { padding: var(--space-16) var(--space-8) var(--space-10); max-width: 960px; margin: 0 auto; }
+    .cdk-header h1, .cdk-header p { max-width: 640px; }
+    .cdk-header-tag { display: block; font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-3); }
+    .cdk-header h1 { font-size: clamp(2.6rem, 6vw, 4rem); color: var(--color-text); line-height: 1; margin-bottom: var(--space-4); }
+    .cdk-header p { font-size: 1.02rem; color: var(--color-text-muted); max-width: 46ch; font-weight: 500; }
+
+    .cdk-section { padding: var(--space-10) var(--space-8); max-width: 960px; margin: 0 auto; }
+    .cdk-section-title { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); border-bottom: 2px solid var(--color-border); padding-bottom: var(--space-2); margin-bottom: var(--space-6); }
+
+    .cdk-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--space-3); }
+    .cdk-swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); }
+    .cdk-swatch-color { height: 56px; }
+    .cdk-swatch-label { font-family: var(--font-family-mono); font-size: 9.5px; padding: 6px 8px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    .cdk-type-stack > * + * { margin-top: var(--space-4); }
+    .cdk-display { font-size: clamp(1.9rem, 4.5vw, 2.6rem); color: var(--color-text); text-transform: uppercase; }
+    .cdk-h2 { font-size: 1.5rem; color: var(--color-text); text-transform: uppercase; }
+    .cdk-h3 { font-size: 1.1rem; color: var(--color-text); text-transform: uppercase; }
+    .cdk-body { font-size: 1rem; color: var(--color-text); font-weight: 500; text-transform: none; }
+    .cdk-muted { font-size: 0.875rem; color: var(--color-text-muted); }
+    .cdk-mono-chip { font-family: var(--font-family-mono); font-size: 0.78rem; color: var(--color-text); background: var(--color-surface-alt); display: inline-block; padding: 4px 10px; border-radius: var(--radius); }
+
+    .cdk-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+    .cdk-btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: 10px 20px; border-radius: var(--radius-button); font-family: var(--font-family-mono); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; border: none; transition: transform var(--duration-base) var(--ease); }
+    .cdk-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -2px 0 rgba(0,0,0,0.25), var(--shadow-sm); }
+    .cdk-btn-primary:active { transform: translateY(1px); }
+    .cdk-btn-secondary { background: var(--color-secondary); color: var(--color-text-on-primary); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), var(--shadow-sm); }
+    .cdk-btn-outline { background: var(--color-surface); color: var(--color-text); border: 2px solid var(--color-border); }
+    .cdk-btn-ghost { background: transparent; color: var(--color-text-muted); }
+
+    .cdk-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: var(--space-5); }
+    .cdk-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-5); box-shadow: var(--shadow-md); }
+    .cdk-card-tag { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-2); display: block; }
+    .cdk-card h3 { font-size: 1.3rem; color: var(--color-text); margin-bottom: var(--space-2); }
+    .cdk-card p { font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.55; font-weight: 500; text-transform: none; margin-bottom: var(--space-4); }
+
+    .cdk-toggle-row { display: flex; align-items: center; gap: var(--space-3); }
+    .cdk-toggle { width: 44px; height: 22px; background: var(--color-secondary); border-radius: 2px; box-shadow: var(--shadow-inset); position: relative; flex: none; }
+    .cdk-toggle::after { content: ""; position: absolute; top: 2px; left: 22px; width: 18px; height: 18px; background: linear-gradient(180deg, var(--color-surface), var(--color-surface-alt)); box-shadow: 0 1px 2px rgba(0,0,0,0.4); border-radius: 1px; }
+    .cdk-toggle.off::after { left: 2px; }
+    .cdk-vu { display: flex; gap: 3px; align-items: flex-end; height: 20px; }
+    .cdk-vu span { width: 6px; display: block; border-radius: 1px; }
+
+    .cdk-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); max-width: 460px; }
+    .cdk-form-group label { display: block; font-family: var(--font-family-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); margin-bottom: 6px; }
+    .cdk-input { width: 100%; padding: 9px 12px; background: var(--color-surface-alt); border: 1px solid var(--color-border); border-radius: var(--radius); color: var(--color-text); font-family: var(--font-family); font-size: 0.9rem; box-shadow: var(--shadow-inset); }
+    .cdk-input:focus { outline: none; border-color: var(--color-primary); }
+
+    .cdk-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .cdk-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: var(--radius); font-family: var(--font-family-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .cdk-badge-primary { background: var(--color-primary); color: var(--color-text-on-primary); }
+    .cdk-badge-success { background: var(--color-success); color: var(--color-text-on-primary); }
+    .cdk-badge-warning { background: var(--color-warning); color: var(--color-text); }
+    .cdk-badge-error { background: var(--color-error); color: var(--color-text-on-primary); }
+    .cdk-badge-neutral { background: var(--color-surface-alt); color: var(--color-text-muted); border: 1px solid var(--color-border); }
+
+    .cdk-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .cdk-effect-tile { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); }
+    .cdk-tile-label { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); }
+
+    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
+       derived from location.pathname, so this block never needs per-file editing). Fetches and
+       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
+       blocked (e.g. plain file:// with no local server). Copy this block verbatim into every new
+       preset — see any file in themes/ for the worked example. */
+    .tf-doc-toggle {
+      position: fixed; top: 1rem; right: 1rem; z-index: 20; appearance: none; cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      background-color: #fff; border: 1px solid #111; border-radius: 2px; color: #111;
+      padding: 0.5rem 0.75rem; transition: background-color .12s, color .12s; box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tf-doc-toggle:hover { background-color: #111; color: #fff; }
+    .tf-doc-overlay { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .tf-doc-overlay[hidden] { display: none; }
+    .tf-doc-panel { background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh; border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35); display: flex; flex-direction: column; overflow: hidden; }
+    .tf-doc-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; }
+    .tf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .tf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .tf-doc-close:hover { color: #111; }
+    .tf-doc-body { margin: 0; padding: 1.25rem; overflow: auto; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; font-size: 0.86rem; line-height: 1.65; color: #222; }
+    .tf-doc-body > *:first-child { margin-top: 0; }
+    .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111; }
+    .tf-doc-body h1 { font-size: 1.3rem; }
+    .tf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .tf-doc-body h3 { font-size: 0.92rem; }
+    .tf-doc-body h4 { font-size: 0.86rem; }
+    .tf-doc-body p { margin: 0 0 0.85em; }
+    .tf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .tf-doc-body li { margin-bottom: 0.35em; }
+    .tf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .tf-doc-body strong { font-weight: 700; }
+    .tf-doc-body em { font-style: italic; }
+    .tf-doc-body code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em; background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px; }
+    @media (prefers-color-scheme: dark) {
+      .tf-doc-panel { background: #1c1c22; color: #ddd; }
+      .tf-doc-panel-head { border-bottom-color: #333; }
+      .tf-doc-panel-title { color: #eee; }
+      .tf-doc-close { color: #999; }
+      .tf-doc-close:hover { color: #fff; }
+      .tf-doc-body { color: #ccc; }
+      .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { color: #f0f0f0; }
+      .tf-doc-body h2 { border-bottom-color: #333; }
+      .tf-doc-body hr { border-top-color: #333; }
+      .tf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="tf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="tf-doc-overlay" id="doc-overlay" hidden>
+    <div class="tf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="tf-doc-panel-head">
+        <span class="tf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="tf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <header class="cdk-header">
+    <span class="cdk-header-tag">Deck 04 · Nav / Fuel / Comms</span>
+    <h1>Control Deck</h1>
+    <p>Every reading on this panel comes from a real sensor. Nothing here blinks just to look busy.</p>
+  </header>
+
+  <div class="cdk-section">
+    <div class="cdk-section-title">Palette — Console &amp; Copper</div>
+    <div class="cdk-swatches">
+      <div class="cdk-swatch"><div class="cdk-swatch-color" style="background:#C1552C"></div><div class="cdk-swatch-label">Burnt Orange<br>#C1552C</div></div>
+      <div class="cdk-swatch"><div class="cdk-swatch-color" style="background:#5B4636"></div><div class="cdk-swatch-label">Panel Brown<br>#5B4636</div></div>
+      <div class="cdk-swatch"><div class="cdk-swatch-color" style="background:#7A9B57"></div><div class="cdk-swatch-label">VU Green<br>#7A9B57</div></div>
+      <div class="cdk-swatch"><div class="cdk-swatch-color" style="background:#E8DFC8"></div><div class="cdk-swatch-label">Console Cream<br>#E8DFC8</div></div>
+      <div class="cdk-swatch"><div class="cdk-swatch-color" style="background:#F1E9D4"></div><div class="cdk-swatch-label">Panel Face<br>#F1E9D4</div></div>
+      <div class="cdk-swatch"><div class="cdk-swatch-color" style="background:#3A2F24"></div><div class="cdk-swatch-label">Deck Ink<br>#3A2F24</div></div>
+      <div class="cdk-swatch"><div class="cdk-swatch-color" style="background:#4F8B3B"></div><div class="cdk-swatch-label">Nominal Green<br>#4F8B3B</div></div>
+      <div class="cdk-swatch"><div class="cdk-swatch-color" style="background:#A33228"></div><div class="cdk-swatch-label">Alarm Red<br>#A33228</div></div>
+    </div>
+  </div>
+
+  <div class="cdk-section">
+    <div class="cdk-section-title">Typography</div>
+    <div class="cdk-type-stack">
+      <div class="cdk-display">Teko — Control Deck Readout</div>
+      <div class="cdk-h2">Fuel Cell A, Status Log</div>
+      <div class="cdk-h3">Comms Array Handshake</div>
+      <div class="cdk-body">Oxanium regular: Cell A is holding at 71 percent with no drift over the last six hours. Switch to Cell B manually before it drops under a quarter tank.</div>
+      <div class="cdk-muted">Last polled 00:04:12 ago · Manual override armed</div>
+      <div class="cdk-mono-chip">deck=04 sensor=fuel-a reading=71%</div>
+    </div>
+  </div>
+
+  <div class="cdk-section">
+    <div class="cdk-section-title">Actions</div>
+    <div class="cdk-btn-row">
+      <a href="#" class="cdk-btn cdk-btn-primary">Engage</a>
+      <a href="#" class="cdk-btn cdk-btn-secondary">Standby</a>
+      <a href="#" class="cdk-btn cdk-btn-outline">Run Diagnostic</a>
+      <a href="#" class="cdk-btn cdk-btn-ghost">Log Off</a>
+    </div>
+  </div>
+
+  <div class="cdk-section">
+    <div class="cdk-section-title">Panel Readouts</div>
+    <div class="cdk-card-grid">
+      <div class="cdk-card">
+        <span class="cdk-card-tag">Fuel Cell A</span>
+        <h3>71% Nominal</h3>
+        <p>Steady draw, no drift detected across the last logging interval.</p>
+        <div class="cdk-toggle-row"><div class="cdk-toggle"></div><span class="cdk-mono-chip">auto-feed on</span></div>
+      </div>
+      <div class="cdk-card">
+        <span class="cdk-card-tag">Navigation Lock</span>
+        <h3>Course Held</h3>
+        <p>Gyro-locked to heading 214. Manual override is armed but untouched.</p>
+        <div class="cdk-toggle-row"><div class="cdk-toggle off"></div><span class="cdk-mono-chip">override off</span></div>
+      </div>
+      <div class="cdk-card">
+        <span class="cdk-card-tag">Comms Array</span>
+        <h3>Signal Strong</h3>
+        <p>Handshake confirmed with relay station three minutes ago.</p>
+        <div class="cdk-vu">
+          <span style="height:40%;background:var(--color-accent)"></span>
+          <span style="height:65%;background:var(--color-accent)"></span>
+          <span style="height:90%;background:var(--color-warning)"></span>
+          <span style="height:55%;background:var(--color-accent)"></span>
+          <span style="height:100%;background:var(--color-error)"></span>
+          <span style="height:30%;background:var(--color-accent)"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cdk-section">
+    <div class="cdk-section-title">Log Flight Entry</div>
+    <div class="cdk-form-grid">
+      <div class="cdk-form-group"><label>Deck</label><input class="cdk-input" type="text" placeholder="04"></div>
+      <div class="cdk-form-group"><label>Note</label><input class="cdk-input" type="text" placeholder="Switched to Cell B at 0600"></div>
+    </div>
+  </div>
+
+  <div class="cdk-section">
+    <div class="cdk-section-title">System Status</div>
+    <div class="cdk-badge-row">
+      <span class="cdk-badge cdk-badge-primary">Engaged</span>
+      <span class="cdk-badge cdk-badge-success">Nominal</span>
+      <span class="cdk-badge cdk-badge-warning">Standby</span>
+      <span class="cdk-badge cdk-badge-error">Critical</span>
+      <span class="cdk-badge cdk-badge-neutral">Offline</span>
+    </div>
+  </div>
+
+  <div class="cdk-section">
+    <div class="cdk-section-title">Hardware Details</div>
+    <div class="cdk-effects-grid">
+      <div class="cdk-effect-tile"><div class="cdk-tile-label">Toggle Switch</div><div class="cdk-toggle-row"><div class="cdk-toggle"></div><div class="cdk-toggle off"></div></div></div>
+      <div class="cdk-effect-tile"><div class="cdk-tile-label">VU Meter</div><div class="cdk-vu"><span style="height:50%;background:var(--color-accent)"></span><span style="height:75%;background:var(--color-accent)"></span><span style="height:95%;background:var(--color-warning)"></span><span style="height:60%;background:var(--color-accent)"></span></div></div>
+      <div class="cdk-effect-tile"><div class="cdk-tile-label">Inset Well</div><div class="cdk-mono-chip" style="box-shadow:var(--shadow-inset)">volts=12.4</div></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function mdEscape(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = ''; var inList = false; var para = [];
+        function flushPara() { if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; } }
+        function closeList() { if (inList) { html += '</ul>'; inList = false; } }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) { flushPara(); closeList(); var level = h[1].length; html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>'; }
+          else if (li) { flushPara(); if (!inList) { html += '<ul>'; inList = true; } html += '<li>' + mdInline(li[1]) + '</li>'; }
+          else if (hr) { flushPara(); closeList(); html += '<hr>'; }
+          else if (line.trim() === '') { flushPara(); closeList(); }
+          else { para.push(line.trim()); }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) { if (!res.ok) throw new Error('not ok'); return res.text(); })
+          .then(function (text) { body.innerHTML = renderMarkdown(text); })
+          .catch(function () { overlay.hidden = true; loaded = false; window.open(mdPath, '_blank'); });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+
+</body>
+</html>

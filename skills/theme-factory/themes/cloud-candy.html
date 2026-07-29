@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cloud-candy">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Candy — Theme Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <script id="theme-data" type="application/json">{
+    "name": "cloud-candy",
+    "description": "Light pastel-playful sticker-shop theme — soft lilac canvas with a three-blob pastel gradient mesh, bubblegum-pink primary, teal-mint secondary, butterscotch accent. Fredoka display + Quicksand body. Pill shapes, zero borders, hard-pop 'sticker' shadow instead of glow.",
+    "createdAt": "2026-07-29T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "gradient",
+      "baseColor": "#F8F1FC",
+      "image": "radial-gradient(ellipse 60% 50% at 12% 18%, rgba(232,90,150,0.16), transparent 60%), radial-gradient(ellipse 55% 45% at 88% 12%, rgba(47,174,150,0.14), transparent 60%), radial-gradient(ellipse 55% 60% at 50% 95%, rgba(232,169,60,0.13), transparent 65%)",
+      "size": "auto",
+      "position": "0 0",
+      "repeat": "no-repeat",
+      "patternType": "other",
+      "patternColor": "rgba(232,90,150,0.16)",
+      "patternOpacity": "0.16",
+      "patternSpacing": "0px",
+      "notes": "Three soft pastel radial blobs (pink/mint/butterscotch) over a lilac base — candy-mesh atmosphere, deliberately no hard edges or repeating tile."
+    },
+    "colors": {
+      "primary": "#E85A96",
+      "primaryLight": "#FFD9E7",
+      "secondary": "#2FAE96",
+      "accent": "#E8A93C",
+      "background": "#F8F1FC",
+      "surface": "#FDF7FF",
+      "surfaceAlt": "#F1E1F7",
+      "text": "#3B1F4D",
+      "textMuted": "#83699C",
+      "textOnPrimary": "#FDF7FF",
+      "border": "#E8D2F0",
+      "success": "#4CAE50",
+      "warning": "#E0932E",
+      "error": "#E85D72"
+    },
+    "typography": {
+      "fontFamily": "'Quicksand', 'Comfortaa', sans-serif",
+      "fontFamilyMono": "'JetBrains Mono', 'Space Mono', monospace",
+      "fontFamilyDisplay": "'Fredoka', 'Baloo 2', sans-serif",
+      "scaleBase": "16px",
+      "headingWeight": "700",
+      "bodyWeight": "500",
+      "lineHeight": "1.6"
+    },
+    "spacing": {
+      "borderRadius": "20px",
+      "cardRadius": "24px",
+      "buttonRadius": "999px",
+      "spaceUnit": "8px",
+      "density": "spacious"
+    },
+    "shadows": {
+      "sm": "0 2px 6px rgba(59,31,77,0.08)",
+      "md": "0 6px 16px rgba(59,31,77,0.10)",
+      "lg": "0 12px 28px rgba(59,31,77,0.12)",
+      "xl": "0 20px 44px rgba(59,31,77,0.14)",
+      "colored": "0 8px 0 #C43F76, 0 16px 26px rgba(232,90,150,0.35)",
+      "inset": "none",
+      "elevation": "layered"
+    },
+    "gradients": {
+      "hero": "linear-gradient(135deg, #FFD9E7 0%, #F8F1FC 45%, #D8F5E7 100%)",
+      "card": "none",
+      "button": "linear-gradient(180deg, #FF7FAE 0%, #E85A96 100%)",
+      "text": "none",
+      "accent": "linear-gradient(90deg, #E8A93C 0%, #E85A96 100%)"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#E85A96",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "none",
+      "noiseOpacity": "0.015",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "140ms",
+      "durationBase": "260ms",
+      "durationSlow": "420ms",
+      "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "feel": "expressive"
+    },
+    "design": {
+      "aesthetic": "playful",
+      "personality": ["pastel", "tactile", "toy-box", "sticker"],
+      "borderStyle": "none",
+      "iconStyle": "rounded",
+      "imageStyle": "illustrative",
+      "surfaceTexture": "gradient",
+      "hierarchyClarity": "medium",
+      "notes": "Overshoot/bounce easing is deliberately NOT used globally (anti-pattern gate) — the standard ease-out ('cubic-bezier(0.22,1,0.36,1)') carries the energy instead. Cards stay flat against the textured bg rather than stacking shadow-on-shadow. The primary button's 'colored' shadow is a hard offset pop (sticker-on-paper), not a blurred glow."
+    }
+  }</script>
+  <style>
+    :root {
+      --color-primary: #E85A96;
+      --color-primary-light: #FFD9E7;
+      --color-secondary: #2FAE96;
+      --color-accent: #E8A93C;
+      --color-bg: #F8F1FC;
+      --color-surface: #FDF7FF;
+      --color-surface-alt: #F1E1F7;
+      --color-text: #3B1F4D;
+      --color-text-muted: #83699C;
+      --color-text-on-primary: #FDF7FF;
+      --color-border: #E8D2F0;
+      --color-success: #4CAE50;
+      --color-warning: #E0932E;
+      --color-error: #E85D72;
+
+      --font-family: 'Quicksand', 'Comfortaa', sans-serif;
+      --font-family-mono: 'JetBrains Mono', 'Space Mono', monospace;
+      --font-family-display: 'Fredoka', 'Baloo 2', sans-serif;
+
+      --radius-sm: 12px; --radius-md: 16px; --radius-lg: 20px;
+      --radius-xl: 26px; --radius-button: 999px; --radius-card: 24px;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px;
+
+      --shadow-sm: 0 2px 6px rgba(59,31,77,0.08);
+      --shadow-md: 0 6px 16px rgba(59,31,77,0.10);
+      --shadow-lg: 0 12px 28px rgba(59,31,77,0.12);
+      --shadow-xl: 0 20px 44px rgba(59,31,77,0.14);
+      --shadow-colored: 0 8px 0 #C43F76, 0 16px 26px rgba(232,90,150,0.35);
+
+      --gradient-hero: linear-gradient(135deg, #FFD9E7 0%, #F8F1FC 45%, #D8F5E7 100%);
+      --gradient-button: linear-gradient(180deg, #FF7FAE 0%, #E85A96 100%);
+      --gradient-accent: linear-gradient(90deg, #E8A93C 0%, #E85A96 100%);
+
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --duration-base: 260ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px; font-weight: 500; line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      background-image:
+        radial-gradient(ellipse 60% 50% at 12% 18%, rgba(232,90,150,0.16), transparent 60%),
+        radial-gradient(ellipse 55% 45% at 88% 12%, rgba(47,174,150,0.14), transparent 60%),
+        radial-gradient(ellipse 55% 60% at 50% 95%, rgba(232,169,60,0.13), transparent 65%);
+      background-repeat: no-repeat;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-family-display); font-weight: 700; }
+    code, pre { font-family: var(--font-family-mono); }
+
+    .cc-header {
+      background: var(--gradient-hero);
+      border-radius: 0 0 48px 48px;
+      padding: var(--space-16) var(--space-8) var(--space-12);
+      text-align: center;
+    }
+    .cc-header-tag { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-primary); margin-bottom: var(--space-3); display: block; font-weight: 500; }
+    .cc-header h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); color: var(--color-text); line-height: 1.12; margin-bottom: var(--space-4); }
+    .cc-header p { font-size: 1.05rem; color: var(--color-text); opacity: 0.75; max-width: 520px; margin: 0 auto; font-weight: 500; }
+
+    .cc-section { padding: var(--space-10) var(--space-8); max-width: 960px; margin: 0 auto; }
+    .cc-section-title { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-muted); border-bottom: 2px solid var(--color-border); padding-bottom: var(--space-2); margin-bottom: var(--space-6); }
+
+    .cc-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--space-3); }
+    .cc-swatch { border-radius: var(--radius-md); overflow: hidden; }
+    .cc-swatch-color { height: 56px; }
+    .cc-swatch-label { font-family: var(--font-family-mono); font-size: 9.5px; padding: 6px 8px; color: var(--color-text-muted); background: var(--color-surface); }
+
+    .cc-type-stack > * + * { margin-top: var(--space-4); }
+    .cc-display { font-family: var(--font-family-display); font-size: clamp(2rem, 5vw, 3.2rem); color: var(--color-text); line-height: 1.15; }
+    .cc-h2 { font-family: var(--font-family-display); font-size: 1.7rem; color: var(--color-text); }
+    .cc-h3 { font-family: var(--font-family-display); font-size: 1.2rem; color: var(--color-text); }
+    .cc-body { font-size: 1rem; color: var(--color-text); }
+    .cc-muted { font-size: 0.875rem; color: var(--color-text-muted); }
+    .cc-mono { font-family: var(--font-family-mono); font-size: 0.8rem; color: var(--color-secondary); background: var(--color-surface-alt); display: inline-block; padding: 4px 10px; border-radius: var(--radius-sm); }
+
+    .cc-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+    .cc-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 12px 26px; border-radius: var(--radius-button);
+      font-family: var(--font-family); font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; border: none; transition: transform var(--duration-base) var(--ease), box-shadow var(--duration-base) var(--ease);
+    }
+    .cc-btn-primary { background: var(--gradient-button); color: var(--color-text-on-primary); box-shadow: var(--shadow-colored); }
+    .cc-btn-primary:hover { transform: translateY(2px); box-shadow: 0 4px 0 #C43F76, 0 8px 16px rgba(232,90,150,0.3); }
+    .cc-btn-secondary { background: var(--color-secondary); color: var(--color-text-on-primary); box-shadow: 0 6px 0 #1E7E6C; }
+    .cc-btn-secondary:hover { transform: translateY(2px); box-shadow: 0 3px 0 #1E7E6C; }
+    .cc-btn-outline { background: var(--color-surface); color: var(--color-primary); border: 2px solid var(--color-primary-light); }
+    .cc-btn-outline:hover { border-color: var(--color-primary); }
+    .cc-btn-ghost { background: transparent; color: var(--color-text-muted); }
+    .cc-btn-ghost:hover { color: var(--color-text); }
+
+    .cc-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-5); }
+    .cc-card { background: var(--color-surface); border-radius: var(--radius-card); padding: var(--space-6); box-shadow: var(--shadow-md); transition: transform var(--duration-base) var(--ease); }
+    .cc-card:hover { transform: translateY(-4px) rotate(-1deg); }
+    .cc-card-icon { font-size: 2rem; margin-bottom: var(--space-3); display: block; }
+    .cc-card h3 { font-size: 1.2rem; color: var(--color-text); margin-bottom: var(--space-2); }
+    .cc-card p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; }
+    .cc-card-tag { font-family: var(--font-family-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-primary); margin-bottom: var(--space-2); display: block; font-weight: 600; }
+
+    .cc-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    .cc-form-group { margin-bottom: var(--space-2); }
+    .cc-label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); margin-bottom: 6px; }
+    .cc-input { width: 100%; padding: 12px 18px; background: var(--color-surface); border: 2px solid var(--color-border); border-radius: var(--radius-lg); color: var(--color-text); font-family: var(--font-family); font-size: 0.95rem; font-weight: 500; transition: border-color 200ms var(--ease); }
+    .cc-input::placeholder { color: var(--color-text-muted); opacity: 0.7; }
+    .cc-input:focus { outline: none; border-color: var(--color-primary); }
+
+    .cc-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .cc-badge { display: inline-flex; align-items: center; gap: 5px; padding: 6px 16px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.02em; }
+    .cc-badge-primary { background: var(--color-primary-light); color: #B23A72; }
+    .cc-badge-secondary { background: rgba(47,174,150,0.16); color: #1E7E6C; }
+    .cc-badge-accent { background: rgba(232,169,60,0.2); color: #8A5F10; }
+    .cc-badge-success { background: rgba(76,174,80,0.16); color: #2E7A32; }
+    .cc-badge-error { background: rgba(232,93,114,0.16); color: #B23A4A; }
+
+    .cc-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .cc-effect-tile { background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3); min-height: 96px; font-family: var(--font-family-mono); font-size: 0.72rem; color: var(--color-text-muted); text-align: center; box-shadow: var(--shadow-sm); }
+    .cc-gradient-bar { height: 10px; border-radius: 999px; background: var(--gradient-accent); width: 100%; }
+    .cc-hero-swatch { height: 44px; width: 100%; border-radius: var(--radius-md); background: var(--gradient-hero); }
+    .cc-btn-swatch { height: 34px; width: 80%; border-radius: 999px; background: var(--gradient-button); box-shadow: var(--shadow-colored); }
+    .cc-pop-demo { width: 52px; height: 52px; border-radius: 50%; background: var(--color-primary); box-shadow: 0 5px 0 #C43F76; }
+
+    /* Doc viewer (house style, not optional) — opens this preset's own .md file (same basename,
+       derived from location.pathname, so this block never needs per-file editing). Fetches and
+       shows it in an overlay when possible; falls back to opening the .md directly when fetch is
+       blocked (e.g. plain file:// with no local server). */
+    .tf-doc-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 20;
+      appearance: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: #fff;
+      border: 1px solid #111;
+      border-radius: 2px;
+      color: #111;
+      padding: 0.5rem 0.75rem;
+      transition: background-color .12s, color .12s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tf-doc-toggle:hover { background-color: #111; color: #fff; }
+    .tf-doc-overlay {
+      position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .tf-doc-overlay[hidden] { display: none; }
+    .tf-doc-panel {
+      background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh;
+      border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .tf-doc-panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    }
+    .tf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .tf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .tf-doc-close:hover { color: #111; }
+    .tf-doc-body {
+      margin: 0; padding: 1.25rem; overflow: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.86rem; line-height: 1.65; color: #222;
+    }
+    .tf-doc-body > *:first-child { margin-top: 0; }
+    .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 {
+      font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111;
+    }
+    .tf-doc-body h1 { font-size: 1.3rem; }
+    .tf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .tf-doc-body h3 { font-size: 0.92rem; }
+    .tf-doc-body h4 { font-size: 0.86rem; }
+    .tf-doc-body p { margin: 0 0 0.85em; }
+    .tf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .tf-doc-body li { margin-bottom: 0.35em; }
+    .tf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .tf-doc-body strong { font-weight: 700; }
+    .tf-doc-body em { font-style: italic; }
+    .tf-doc-body code {
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em;
+      background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .tf-doc-panel { background: #1c1c22; color: #ddd; }
+      .tf-doc-panel-head { border-bottom-color: #333; }
+      .tf-doc-panel-title { color: #eee; }
+      .tf-doc-close { color: #999; }
+      .tf-doc-close:hover { color: #fff; }
+      .tf-doc-body { color: #ccc; }
+      .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { color: #f0f0f0; }
+      .tf-doc-body h2 { border-bottom-color: #333; }
+      .tf-doc-body hr { border-top-color: #333; }
+      .tf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="tf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="tf-doc-overlay" id="doc-overlay" hidden>
+    <div class="tf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="tf-doc-panel-head">
+        <span class="tf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="tf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <header class="cc-header">
+    <span class="cc-header-tag">Fizzy Cloud Arcade · Prize Counter</span>
+    <h1>Cloud Candy</h1>
+    <p>Squish, swap, and stack stickers till the whole wall glows — every corner here is soft enough to bite.</p>
+  </header>
+
+  <div class="cc-section">
+    <div class="cc-section-title">Palette — Sugar Rush</div>
+    <div class="cc-swatches">
+      <div class="cc-swatch"><div class="cc-swatch-color" style="background:#E85A96"></div><div class="cc-swatch-label">Bubblegum<br>#E85A96</div></div>
+      <div class="cc-swatch"><div class="cc-swatch-color" style="background:#2FAE96"></div><div class="cc-swatch-label">Mint Fizz<br>#2FAE96</div></div>
+      <div class="cc-swatch"><div class="cc-swatch-color" style="background:#E8A93C"></div><div class="cc-swatch-label">Butterscotch<br>#E8A93C</div></div>
+      <div class="cc-swatch"><div class="cc-swatch-color" style="background:#F8F1FC"></div><div class="cc-swatch-label">Cloud Lilac<br>#F8F1FC</div></div>
+      <div class="cc-swatch"><div class="cc-swatch-color" style="background:#FDF7FF"></div><div class="cc-swatch-label">Marshmallow<br>#FDF7FF</div></div>
+      <div class="cc-swatch"><div class="cc-swatch-color" style="background:#3B1F4D"></div><div class="cc-swatch-label">Plum Ink<br>#3B1F4D</div></div>
+      <div class="cc-swatch"><div class="cc-swatch-color" style="background:#4CAE50"></div><div class="cc-swatch-label">Go Green<br>#4CAE50</div></div>
+      <div class="cc-swatch"><div class="cc-swatch-color" style="background:#E85D72"></div><div class="cc-swatch-label">Sour Cherry<br>#E85D72</div></div>
+    </div>
+  </div>
+
+  <div class="cc-section">
+    <div class="cc-section-title">Typography</div>
+    <div class="cc-type-stack">
+      <div class="cc-display">Fredoka — Cloud Candy Prize Wall</div>
+      <div class="cc-h2">This Week's Drops</div>
+      <div class="cc-h3">Sticker Pack Details</div>
+      <div class="cc-body">Quicksand medium: Every ticket you earn turns into a sticker — collect five matching swirls and trade them in for a plush cloud at the counter. No frowny stickers allowed, only squish.</div>
+      <div class="cc-muted">Sticker Wall · Week 14 · 212 claimed today</div>
+      <div class="cc-mono">prize_id="bubblegum-burst" stock=42 rarity="common"</div>
+    </div>
+  </div>
+
+  <div class="cc-section">
+    <div class="cc-section-title">Actions</div>
+    <div class="cc-btn-row">
+      <a href="#" class="cc-btn cc-btn-primary">Claim Sticker</a>
+      <a href="#" class="cc-btn cc-btn-secondary">Spin the Wheel</a>
+      <a href="#" class="cc-btn cc-btn-outline">Trade Stickers</a>
+      <a href="#" class="cc-btn cc-btn-ghost">Sign Out</a>
+    </div>
+  </div>
+
+  <div class="cc-section">
+    <div class="cc-section-title">Prize Wall</div>
+    <div class="cc-card-grid">
+      <div class="cc-card">
+        <span class="cc-card-tag">Common · Sticker Pack</span>
+        <div class="cc-card-icon">🍬</div>
+        <h3>Bubblegum Burst</h3>
+        <p>A glossy pink swirl that never fully dries — rub it and it squeaks.</p>
+      </div>
+      <div class="cc-card">
+        <span class="cc-card-tag">Rare · Plush Prize</span>
+        <div class="cc-card-icon">☁️</div>
+        <h3>Marshmallow Cloud</h3>
+        <p>Soft enough to nap on, small enough to pocket. Limited to twelve a week.</p>
+      </div>
+      <div class="cc-card" style="background:var(--color-surface-alt)">
+        <span class="cc-card-tag">Limited · Trade-Only</span>
+        <div class="cc-card-icon">🌈</div>
+        <h3>Sour Rainbow Drop</h3>
+        <p>Won't trade for tickets — only for three matching swirls from someone else's wall.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cc-section">
+    <div class="cc-section-title">Redeem a Prize</div>
+    <div class="cc-form-grid">
+      <div class="cc-form-group">
+        <label class="cc-label">Player Name</label>
+        <input class="cc-input" type="text" placeholder="Nickname or table number…">
+      </div>
+      <div class="cc-form-group">
+        <label class="cc-label">Table Number</label>
+        <input class="cc-input" type="text" placeholder="e.g. Table 7">
+      </div>
+      <div class="cc-form-group">
+        <label class="cc-label">Prize Code</label>
+        <input class="cc-input" type="text" placeholder="e.g. bubblegum-burst">
+      </div>
+      <div class="cc-form-group">
+        <label class="cc-label">Trade Note</label>
+        <input class="cc-input" type="text" placeholder="Trading for a rainbow drop…">
+      </div>
+    </div>
+    <div class="cc-btn-row" style="margin-top: var(--space-4)">
+      <a href="#" class="cc-btn cc-btn-primary">Claim Prize</a>
+      <a href="#" class="cc-btn cc-btn-ghost">Clear</a>
+    </div>
+  </div>
+
+  <div class="cc-section">
+    <div class="cc-section-title">Wall Status</div>
+    <div class="cc-badge-row">
+      <span class="cc-badge cc-badge-primary">Claimed</span>
+      <span class="cc-badge cc-badge-secondary">In Cart</span>
+      <span class="cc-badge cc-badge-accent">New Drop!</span>
+      <span class="cc-badge cc-badge-success">Restocked</span>
+      <span class="cc-badge cc-badge-error">Sold Out</span>
+    </div>
+  </div>
+
+  <div class="cc-section">
+    <div class="cc-section-title">Gradients & Effects</div>
+    <div class="cc-effects-grid">
+      <div class="cc-effect-tile"><div class="cc-hero-swatch"></div><span>Hero — Pink → Lilac → Mint</span></div>
+      <div class="cc-effect-tile"><div class="cc-gradient-bar"></div><span>Accent — Butterscotch → Pink</span></div>
+      <div class="cc-effect-tile"><div class="cc-btn-swatch"></div><span>Button Gradient + Pop Shadow</span></div>
+      <div class="cc-effect-tile"><div class="cc-pop-demo"></div><span>Sticker Pop (hard offset, no blur)</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+</body>
+</html>

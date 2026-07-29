@@ -33,3 +33,15 @@ Log of which theme-factory theme and layout-factory layout were used on each rep
 | FCFS | Jul 2026 | harbor-clay | single-column-editorial |
 | PANW | Jul 2026 | prussian-blueprint | tufte-sidenote |
 | FORM | Jul 2026 | biolumen-depths | kpi-strip-hero-chart |
+| SIMO | Jul 2026 | alpha-signal | data-dense-report-grid |
+| KTOS | Jul 2026 | neon-foundry | timeline-river |
+| CAMT | Jul 2026 | eigenvalue | asymmetric-split |
+| AXTI | Jul 2026 | cosmica | bento-mosaic |
+| UCTT | Jul 2026 | control-deck | swiss-international-grid |
+| VECO | Jul 2026 | prussian-blueprint | marginalia-annotated |
+| AEHR | Jul 2026 | biolumen-depths | magazine-well |
+| COHU | Jul 2026 | titanium-cloud | data-dense-report-grid |
+| AMBA | Jul 2026 | synthwave-84 | masthead-feature-river |
+| PDFS | Jul 2026 | eigenvalue | cover-and-contents |
+| PLAB | Jul 2026 | darkroom-safelight | timeline-river |
+| CEVA | Jul 2026 | vault-theorem | swiss-international-grid |

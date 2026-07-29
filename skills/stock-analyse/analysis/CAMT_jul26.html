@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAMT — Stock Analysis · Jul26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* Theme: eigenvalue - applied by obs-theme-factory */
+    :root {
+      --bg-base: #EEF0FF;
+      --bg-image: radial-gradient(circle, rgba(92,46,255,0.18) 1px, transparent 1px), radial-gradient(ellipse at 20% 30%, rgba(92,46,255,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(0,212,204,0.07) 0%, transparent 45%);
+      --bg-size: 24px 24px, cover, cover; --bg-position: 0 0, 0 0, 0 0; --bg-repeat: repeat, no-repeat, no-repeat;
+      --color-primary: #5C2EFF; --color-primary-light: #DDD5FF; --color-secondary: #00D4CC; --color-accent: #A8FF20;
+      --color-bg: #EEF0FF; --color-surface: #E4E6F8; --color-surface-alt: #D8DAEF;
+      --color-text: #14103C; --color-text-muted: #5A5878; --color-text-on-primary: #EEF0FF;
+      --color-border: #BEC0E0; --color-success: #20B890; --color-warning: #D4A020; --color-error: #E03050;
+      --font-family: 'Source Serif 4', Georgia, serif;
+      --font-family-mono: 'Space Mono', 'Courier New', monospace;
+      --font-family-display: 'Syne', 'Helvetica Neue', sans-serif;
+      --font-size-base: 15px; --font-weight-heading: 800; --font-weight-body: 300; --line-height: 1.65;
+      --radius: 4px; --radius-card: 8px; --radius-button: 4px;
+      --shadow-sm: 0 1px 6px rgba(20,16,60,0.08); --shadow-md: 0 3px 16px rgba(20,16,60,0.12);
+      --shadow-lg: 0 6px 32px rgba(20,16,60,0.16); --shadow-xl: 0 12px 48px rgba(20,16,60,0.20);
+      --shadow-colored: 0 4px 16px rgba(92,46,255,0.12); --shadow-inset: inset 0 2px 6px rgba(20,16,60,0.1);
+      --gradient-hero: linear-gradient(135deg, #E4E6F8 0%, #EEF0FF 50%, #D8DAEF 100%);
+      --gradient-card: linear-gradient(180deg, #E4E6F8 0%, #DDDFF4 100%);
+      --gradient-button: linear-gradient(135deg, #7A50FF 0%, #4A18E8 100%);
+      --gradient-text: #5C2EFF;
+      --gradient-accent: linear-gradient(90deg, #5C2EFF 0%, #00D4CC 100%);
+      --glow-color: #5C2EFF; --glow-sm: 0 2px 8px rgba(0,0,0,0.15);
+      --glow-md: 0 4px 20px rgba(0,0,0,0.25); --glow-lg: 0 8px 40px rgba(0,0,0,0.3);
+      --glass-blur: 0; --glass-tint: none; --backdrop-filter: none; --text-shadow: none;
+      --border-gradient: linear-gradient(135deg, #5C2EFF, #00D4CC, #A8FF20); --noise-opacity: 0;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 100ms; --duration-base: 200ms; --duration-slow: 360ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1); --border-width: 1px;
+
+      --bg: var(--color-bg);
+      --card: var(--color-surface);
+      --card2: var(--color-surface-alt);
+      --border: var(--color-border);
+      --accent: var(--color-primary);
+      --green: var(--color-success);
+      --red: var(--color-error);
+      --yellow: var(--color-warning);
+      --text: var(--color-text);
+      --muted: var(--color-text-muted);
+      --radius: var(--radius-card);
+    }
+
+    /* Layout: asymmetric-split - applied by obs-layout-factory */
+    :root {
+      --layout-columns: 12;
+      --layout-gutter: 32px;
+      --layout-max-width: 1200px;
+      --layout-margin-inline: 5vw;
+      --layout-space-2: 8px;
+      --layout-space-4: 24px;
+      --layout-space-6: 48px;
+      --layout-section-gap: 48px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-family);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--text);
+      line-height: var(--line-height);
+      margin: 0;
+      padding: 20px;
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      background-attachment: fixed;
+    }
+
+    .masthead {
+      max-width: var(--layout-max-width);
+      margin: 0 auto 20px;
+      padding-inline: var(--layout-margin-inline);
+      display: flex; justify-content: space-between; align-items: baseline;
+      border-bottom: 1px solid var(--border); padding-bottom: 10px;
+      font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .masthead b { color: var(--color-primary); font-weight: 700; }
+
+    .split-shell {
+      max-width: var(--layout-max-width);
+      margin: 0 auto;
+      padding-inline: var(--layout-margin-inline);
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--layout-gutter);
+      align-items: start;
+    }
+    .page { min-width: 0; }
+
+    .rail {
+      border-left: 1px solid var(--border);
+      padding-left: 24px;
+      position: sticky;
+      top: 24px;
+    }
+    .rail-title {
+      font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+    }
+    .rail .rail-row { border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px; }
+    .rail .rail-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .rail .rail-row a { color: var(--color-primary); text-decoration: none; font-size: 13px; line-height: 1.6; }
+    .rail .rail-row a:hover { text-decoration: underline; }
+    .rail .disclaimer { font-size: 11px; color: var(--muted); margin-top: 18px; line-height: 1.6; }
+
+    .hero {
+      background: var(--gradient-hero);
+      border-top: 3px solid var(--color-accent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      color: var(--color-text);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; top: -60px; right: -60px; width: 220px; height: 220px;
+      background: radial-gradient(circle, color-mix(in srgb, var(--color-primary-light) 30%, transparent) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-ticker {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: var(--color-primary);
+      text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-family-display);
+    }
+    .hero-name {
+      font-size: 28px; font-weight: var(--font-weight-heading, 700); margin-bottom: 8px;
+      color: var(--color-text); font-family: var(--font-family-display); letter-spacing: 0.02em;
+    }
+    .hero-tagline { font-size: 15px; color: var(--muted); max-width: 540px; margin-bottom: 20px; font-style: italic; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      padding: 4px 14px; border-radius: 50px; font-size: 11px; font-weight: 600; border: 1px solid;
+      letter-spacing: 0.04em; font-family: var(--font-family-display);
+    }
+    .pill-blue {
+      background: color-mix(in srgb, var(--color-primary-light) 40%, transparent);
+      border-color: color-mix(in srgb, var(--color-primary) 45%, transparent);
+      color: var(--color-primary);
+    }
+    .pill-green {
+      background: color-mix(in srgb, var(--color-success) 20%, transparent);
+      border-color: color-mix(in srgb, var(--color-success) 55%, transparent);
+      color: color-mix(in srgb, var(--color-success) 70%, black);
+    }
+    .pill-red {
+      background: color-mix(in srgb, var(--color-error) 18%, transparent);
+      border-color: color-mix(in srgb, var(--color-error) 55%, transparent);
+      color: color-mix(in srgb, var(--color-error) 70%, black);
+    }
+    .pill-yellow {
+      background: color-mix(in srgb, var(--color-warning) 20%, transparent);
+      border-color: color-mix(in srgb, var(--color-warning) 55%, transparent);
+      color: color-mix(in srgb, var(--color-warning) 70%, black);
+    }
+
+    .section { margin-bottom: var(--layout-section-gap); }
+    .section-title {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 14px;
+    }
+
+    .card {
+      background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm); padding: 20px 22px; margin-bottom: 14px;
+    }
+    .card h3 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .stat-card {
+      background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm); padding: 16px 18px;
+    }
+    .stat-label {
+      font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px;
+    }
+    .stat-value { font-family: var(--font-family-display); font-size: 22px; font-weight: var(--font-weight-heading, 700); color: var(--color-text); }
+    .stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .val-green { color: var(--color-success); }
+    .val-red { color: var(--color-error); }
+    .val-yellow { color: color-mix(in srgb, var(--color-warning) 75%, black); }
+
+    .tldr {
+      background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-md); padding: 22px 24px; margin-bottom: 28px;
+    }
+    .tldr h2 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 14px 0;
+    }
+    .tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+    .tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+    .scorecard-body { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+    .radar-hint { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+    .radar-wrap { flex-shrink: 0; display: flex; justify-content: center; width: 100%; max-width: 420px; }
+    #scorecardRadar { width: 100%; height: auto; display: block; }
+    .radar-axis-label { font-family: var(--font-family-display); font-size: 14px; font-weight: 700; fill: var(--color-primary); cursor: pointer; }
+    .radar-dot { cursor: pointer; transition: r 0.15s; }
+    .radar-dot:hover, .radar-dot.active { r: 10; }
+    .scorecard-why { flex: 1; min-width: 220px; border-left: 1px solid var(--border); padding: 4px 0 4px 26px; }
+    .scorecard-why .wp-title {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px;
+    }
+    .scorecard-why .wp-score { font-family: var(--font-family-mono); font-size: 12px; color: color-mix(in srgb, var(--color-accent) 60%, var(--color-primary)); font-weight: 700; margin-bottom: 10px; display: block; }
+    .scorecard-why .wp-text { font-size: 15px; line-height: 1.65; margin: 0; }
+    .scorecard-why .wp-back {
+      display: block; font-family: var(--font-family-mono); font-size: 11px; color: var(--muted);
+      background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 10px; text-decoration: underline;
+    }
+    .scorecard-why .wp-back:hover { color: var(--color-primary); }
+    @media (max-width: 640px) {
+      .scorecard-body { flex-direction: column; }
+      .scorecard-why { border-left: none; border-top: 1px solid var(--border); padding: 20px 0 0; margin-top: 20px; }
+    }
+
+    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .scenario-card {
+      background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm); padding: 18px 20px;
+    }
+    .scenario-card h3 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; margin: 0 0 6px 0;
+    }
+    .scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+    .scenario-bull h3 { color: var(--color-success); }
+    .scenario-base h3 { color: color-mix(in srgb, var(--color-warning) 75%, black); }
+    .scenario-bear h3 { color: var(--color-error); }
+
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+    .timeline-item { position: relative; margin-bottom: 20px; }
+    .timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+    .timeline-dot.past { background: var(--color-text-muted); border-color: var(--color-text-muted); }
+    .timeline-dot.present { background: var(--color-primary); border-color: var(--color-primary); width: 14px; height: 14px; left: -26px; }
+    .timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+    .timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+    .timeline-event { font-size: 14px; line-height: 1.5; }
+
+    .verdict {
+      background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+      border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-md); padding: 28px 30px;
+    }
+    .verdict-title {
+      font-family: var(--font-family-display); font-size: 14px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 16px;
+    }
+    .verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+    .verdict p:last-child { margin-bottom: 0; }
+
+    .item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; }
+    .item-title {
+      font-family: var(--font-family-display); font-size: 12px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 2px;
+    }
+    .item-desc { font-size: 14px; line-height: 1.55; }
+    .item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    .debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .debate-card {
+      background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm); padding: 20px 22px;
+    }
+    .debate-card h3 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; margin: 0 0 12px 0;
+    }
+    .debate-card.optimist h3 { color: var(--color-success); }
+    .debate-card.pessimist h3 { color: var(--color-error); }
+    .debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+    .debate-card li { margin-bottom: 6px; }
+    .debate-vs { position: relative; }
+    .debate-vs .vs-badge {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: var(--color-primary); color: var(--color-text-on-primary); font-family: var(--font-family-display);
+      font-size: 11px; font-weight: 700; width: 34px; height: 34px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; box-shadow: var(--shadow-md); z-index: 2; letter-spacing: 0.5px;
+    }
+    @media (max-width: 760px) { .debate-vs .vs-badge { display: none; } }
+
+    .donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .donut-legend { flex: 1; min-width: 180px; }
+    .legend-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px;
+      border-radius: 3px; padding: 2px 4px; cursor: pointer; transition: background 0.15s, opacity 0.15s;
+    }
+    .legend-row.dim { opacity: 0.35; }
+    .legend-row.hi { background: color-mix(in srgb, var(--color-primary) 10%, transparent); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+    .seg-dim { opacity: 0.3; transition: opacity 0.15s; }
+    .seg-hi { transition: opacity 0.15s, filter 0.15s; }
+    .seg-hi.active-glow { filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-primary) 55%, transparent)); }
+
+    .seg-row { margin-bottom: 16px; }
+    .seg-label {
+      display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px;
+      font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.5px;
+    }
+    .seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+    .seg-fill { height: 100%; border-radius: 4px; }
+    .seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+    .seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .exhibit-visual { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 14px; }
+    .subhead {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0;
+    }
+    .split-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+    .split-cols > div + div { border-left: 1px solid var(--border); padding-left: 32px; }
+    .split-cols h3 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0;
+    }
+    .split-cols p { font-size: 15px; line-height: 1.65; margin: 0; }
+    .split-cols ul { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.65; }
+    .split-cols li { margin-bottom: 6px; }
+
+    .item-list .item-row { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+    .item-list .item-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+    .severity-list .sev-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .severity-list .sev-row:last-child { border-bottom: none; }
+    .sev-stripe { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 40px; }
+
+    .report-table-wrap { overflow-x: auto; }
+    .report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .report-table th {
+      font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 16px 8px 0;
+      border-bottom: 2px solid var(--color-primary); white-space: nowrap;
+    }
+    .report-table td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .report-table tr:hover td { background: color-mix(in srgb, var(--color-primary) 4%, transparent); }
+    .report-table tr:last-child td { border-bottom: 1px solid var(--border); }
+    .report-table .row-label { font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.3px; color: var(--text); white-space: nowrap; }
+    .report-table .mono { font-family: var(--font-family-mono); font-weight: 700; }
+    .report-table ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.55; }
+    .report-table li { margin-bottom: 3px; }
+
+    .scenario-tabs .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .scenario-tabs .tab {
+      flex: 1; text-align: center; cursor: pointer; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 10px 8px; background: var(--card); font-family: var(--font-family-display); font-size: 12px; font-weight: 700;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .scenario-tabs .tab:hover { transform: translateY(-1px); }
+    .scenario-tabs .tab .p { font-family: var(--font-family-mono); font-weight: 700; display: block; font-size: 14px; margin-top: 3px; }
+    .scenario-tabs .tab.bull, .scenario-tabs .tab.positive { color: var(--green); }
+    .scenario-tabs .tab.base, .scenario-tabs .tab.mixed { color: color-mix(in srgb, var(--yellow) 75%, black); }
+    .scenario-tabs .tab.bear, .scenario-tabs .tab.negative { color: var(--red); }
+    .scenario-tabs .tab.active.bull, .scenario-tabs .tab.active.positive { background: color-mix(in srgb, var(--green) 14%, var(--card)); border-color: var(--green); }
+    .scenario-tabs .tab.active.base, .scenario-tabs .tab.active.mixed { background: color-mix(in srgb, var(--yellow) 20%, var(--card)); border-color: var(--yellow); }
+    .scenario-tabs .tab.active.bear, .scenario-tabs .tab.active.negative { background: color-mix(in srgb, var(--red) 14%, var(--card)); border-color: var(--red); }
+    .scenario-tabs .tab-panel { display: none; background: var(--card); border-radius: var(--radius); padding: 18px 20px; border-left: 3px solid var(--border); }
+    .scenario-tabs .tab-panel.show { display: block; }
+    .scenario-tabs .tab-panel h4 { margin: 0 0 4px; font-family: var(--font-family-display); font-size: 14px; letter-spacing: 0.5px; }
+    .scenario-tabs .tab-panel .range { font-family: var(--font-family-mono); font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+    .scenario-tabs .tab-panel ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+    .scenario-tabs .tab-panel li { margin-bottom: 5px; }
+
+    @media (max-width: 900px) {
+      .split-shell { grid-template-columns: 1fr; }
+      .rail { position: static; border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; margin-top: 32px; }
+    }
+    @media (max-width: 760px) {
+      body { padding: 12px; }
+      .grid-2, .debate-grid, .split-cols { grid-template-columns: 1fr; }
+      .split-cols > div + div { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 24px 20px; }
+      .hero-name { font-size: 22px; }
+      .debate-vs .vs-badge { display: none; }
+    }
+    @media (max-width: 520px) {
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+      .donut-wrap { flex-direction: column; align-items: flex-start; }
+      .scenario-tabs .tabs { flex-direction: column; }
+    }
+  </style>
+</head>
+<body data-layout="asymmetric-split">
+
+  <div class="masthead"><span><b>CAMT</b> — Camtek Ltd.</span><span>Analyst Report · Series 2026-07</span></div>
+
+  <div class="split-shell">
+    <div class="page">
+
+      <div class="hero" id="hero">
+        <div class="hero-ticker">NASDAQ: CAMT &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+        <div class="hero-name">Camtek Ltd.</div>
+        <div class="hero-tagline">Builds the high-precision inspection cameras that check advanced chip packages for defects — the quality-control eyes making sure AI chips are built right before they ship.</div>
+        <div class="hero-pills">
+          <span class="pill pill-blue">Semiconductor Equipment</span>
+          <span class="pill pill-green">Growing &amp; Profitable</span>
+          <span class="pill pill-yellow">China Export Control Risk</span>
+        </div>
+      </div>
+
+      <div class="tldr" id="tldr">
+        <h2>TL;DR</h2>
+        <div class="tldr-item"><span class="tldr-sym" style="color:var(--green)">+</span><span>Camtek makes inspection and metrology tools that check chip packages for defects — a critical quality-control step for advanced AI chip packaging, especially high-bandwidth memory (HBM).</span></div>
+        <div class="tldr-item"><span class="tldr-sym" style="color:var(--yellow)">!</span><span>Q1 2026 revenue rose to $121.7M with record orders, but operating margin dipped to 25.5% (from 31.5% a year ago) on higher R&amp;D spending and currency headwinds — management guides a recovery to ~30% in the second half.</span></div>
+        <div class="tldr-item"><span class="tldr-sym" style="color:var(--accent)">►</span><span>The underreported catalyst: Camtek's CEO has confirmed $260M in HBM-related orders spanning 2026-2027, including a $105M multi-system win from a tier-1 OSAT and a leading HBM manufacturer in June 2026 alone.</span></div>
+        <div class="tldr-item"><span class="tldr-sym" style="color:var(--red)">-</span><span>The main risk is China exposure: roughly 49% of 2025 revenue came from China, putting Camtek squarely in the path of evolving U.S. semiconductor equipment export controls.</span></div>
+        <div class="tldr-item"><span class="tldr-sym" style="color:var(--green)">+</span><span>Verdict: Buy consensus, $187.58 average target vs. $132.73 current price (+41% implied upside). Next event: Q2 2026 earnings, August 10, 2026.</span></div>
+      </div>
+
+      <div class="section" id="snapshot">
+        <div class="section-title">Financial Snapshot</div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-label">Stock Price</div><div class="stat-value mono">$132.73</div><div class="stat-sub">As of Jul 29, 2026</div></div>
+          <div class="stat-card"><div class="stat-label">Market Cap</div><div class="stat-value mono">$6.11B</div><div class="stat-sub">—</div></div>
+          <div class="stat-card"><div class="stat-label">Revenue (TTM)</div><div class="stat-value mono val-green">$499.1M</div><div class="stat-sub">+10.7% YoY</div></div>
+          <div class="stat-card"><div class="stat-label">Net Income (TTM)</div><div class="stat-value mono val-yellow">$48.1M</div><div class="stat-sub">Margin compressed, Q1 opex up</div></div>
+          <div class="stat-card"><div class="stat-label">EPS (TTM)</div><div class="stat-value mono val-yellow">$0.99</div><div class="stat-sub">Q1 2026: $0.70, beat estimates</div></div>
+          <div class="stat-card"><div class="stat-label">Op. Margin</div><div class="stat-value mono val-yellow">25.5%</div><div class="stat-sub">Q1 2026, vs 31.5% a year ago</div></div>
+          <div class="stat-card" style="font-size:15px"><div class="stat-label">Forward Guidance</div><div class="stat-value mono val-green" style="font-size:15px">$129M–$131M</div><div class="stat-sub">Q2 2026 revenue guide</div></div>
+          <div class="stat-card"><div class="stat-label">Analyst Target</div><div class="stat-value mono val-green">$187.58</div><div class="stat-sub">+41.3% implied</div></div>
+          <div class="stat-card" style="font-size:15px"><div class="stat-label">Next Event</div><div class="stat-value" style="font-size:15px">Q2 Earnings</div><div class="stat-sub">Aug 10, 2026</div></div>
+        </div>
+      </div>
+
+      <div class="section" id="mix">
+        <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+        <div class="exhibit-visual">
+          <div class="donut-wrap">
+            <svg width="200" height="200" viewBox="0 0 200 200" id="revenueDonut">
+              <circle cx="100" cy="100" r="70" fill="none" stroke="var(--border)" stroke-width="28"/>
+              <circle class="seg-hi" data-seg="aihbm" cx="100" cy="100" r="70" fill="none" stroke="var(--color-primary)" stroke-width="28"
+                      stroke-dasharray="220 440" stroke-dashoffset="0" stroke-linecap="butt"/>
+              <circle class="seg-hi" data-seg="advpkg" cx="100" cy="100" r="70" fill="none" stroke="var(--color-secondary)" stroke-width="28"
+                      stroke-dasharray="132 440" stroke-dashoffset="-220" stroke-linecap="butt"/>
+              <circle class="seg-hi" data-seg="legacy" cx="100" cy="100" r="70" fill="none" stroke="var(--color-accent)" stroke-width="28"
+                      stroke-dasharray="88 440" stroke-dashoffset="-352" stroke-linecap="butt"/>
+              <text x="100" y="104" text-anchor="middle" font-family="var(--font-family-display)" font-size="13" font-weight="700" fill="var(--color-text)">Revenue</text>
+            </svg>
+            <div class="donut-legend" id="revenueLegend">
+              <div class="legend-row" data-seg="aihbm"><div class="legend-dot" style="background:var(--color-primary)"></div><span>AI / HBM (Hawk + Eagle G5)</span><span class="legend-pct">50%</span></div>
+              <div class="legend-row" data-seg="advpkg"><div class="legend-dot" style="background:var(--color-secondary)"></div><span>Advanced Packaging / OSAT</span><span class="legend-pct">30%</span></div>
+              <div class="legend-row" data-seg="legacy"><div class="legend-dot" style="background:var(--color-accent)"></div><span>Legacy (Memory, CIS, MEMS, RF)</span><span class="legend-pct">20%</span></div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Estimated mix based on management commentary that AI-related products already drive ~50% of revenue and Hawk/Eagle G5 revenue is expected to double in 2026. Exact dollar breakdown not publicly disclosed.</p>
+          <div class="seg-row">
+            <div class="seg-label"><span>AI / HBM (Hawk + Eagle G5)</span><span style="font-family:var(--font-family-mono)">50% → 62%</span></div>
+            <div class="seg-track"><div class="seg-fill" style="width:50%;background:var(--color-primary)"></div></div>
+            <div class="seg-proj js-proj-bar" data-target="62" style="width:0%;background:var(--color-primary);margin-top:3px;height:4px;border-radius:2px"></div>
+            <div class="seg-note">Confirmed $260M in HBM orders spanning 2026-2027; this platform's revenue is expected to double in 2026.</div>
+          </div>
+          <div class="seg-row">
+            <div class="seg-label"><span>Advanced Packaging / OSAT</span><span style="font-family:var(--font-family-mono)">30% → 23%</span></div>
+            <div class="seg-track"><div class="seg-fill" style="width:30%;background:var(--color-secondary)"></div></div>
+            <div class="seg-proj js-proj-bar" data-target="23" style="width:0%;background:var(--color-secondary);margin-top:3px;height:4px;border-radius:2px"></div>
+            <div class="seg-note">Steady non-AI packaging inspection demand, growing slower than the AI/HBM line.</div>
+          </div>
+          <div class="seg-row">
+            <div class="seg-label"><span>Legacy (Memory, CIS, MEMS, RF)</span><span style="font-family:var(--font-family-mono)">20% → 15%</span></div>
+            <div class="seg-track"><div class="seg-fill" style="width:20%;background:var(--color-accent)"></div></div>
+            <div class="seg-proj js-proj-bar" data-target="15" style="width:0%;background:var(--color-accent);margin-top:3px;height:4px;border-radius:2px"></div>
+            <div class="seg-note">Mature legacy inspection markets; share dilutes as AI/HBM scales faster.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="story">
+        <div class="section-title">What Does This Company Actually Do?</div>
+        <div class="split-cols">
+          <div>
+            <h3>The Simple Story</h3>
+            <p>When a chipmaker stacks multiple memory chips on top of each other to build something like HBM (the ultra-fast memory that feeds AI chips), a single microscopic flaw can ruin the whole stack. Camtek builds the high-resolution camera-and-measurement systems that inspect every layer as it's built, catching defects before a chip becomes an expensive paperweight.</p>
+          </div>
+          <div>
+            <h3>Who Actually Buys It</h3>
+            <p>Its customers are chipmakers and outsourced assembly and test companies (OSATs) — the factories that package raw silicon into finished chips. Increasingly, its biggest customers are memory makers building HBM for AI accelerators and the OSATs assembling advanced AI chip packages for companies like Nvidia's supply chain.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="model">
+        <div class="section-title">Business Model</div>
+        <div class="split-cols">
+          <div>
+            <h3>How They Make Money</h3>
+            <ul>
+              <li>Sell inspection and 3D metrology systems (Eagle, Hawk platforms) to chipmakers and OSATs</li>
+              <li>Multi-system orders tied to new fab or packaging line buildouts, often booked a year or more ahead of delivery</li>
+              <li>Recurring parts, service, and upgrade revenue on its installed equipment base</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Why the Model Is Clever</h3>
+            <ul>
+              <li>Combines 2D inspection and 3D metrology on a single platform — fewer tools needed on a customer's line, and stickier once qualified into a process</li>
+              <li>Every new HBM or advanced packaging line needs inspection tooling, so unit growth in AI packaging translates fairly directly into equipment orders</li>
+              <li>A strong $850M balance sheet gives it room to keep investing in R&amp;D through cyclical downturns rather than cutting engineering when times get tough</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="catalyst">
+        <div class="section-title">Hidden Catalyst Deep Dive</div>
+        <div class="split-cols" style="margin-bottom:24px">
+          <div>
+            <h3>The Opportunity</h3>
+            <p>As AI accelerators demand more memory bandwidth, chipmakers are racing to scale production of HBM (high-bandwidth memory), which is built by stacking multiple memory dies with precision interconnects. Camtek's Hawk platform, paired with its Eagle G5 system, is purpose-built to inspect and measure these complex multi-die stacks. In June 2026 alone, Camtek secured $105M in new multi-system orders from a tier-1 OSAT and a leading HBM manufacturer, and its CEO has confirmed $260M in total HBM-related orders spanning 2026 and 2027.</p>
+          </div>
+          <div>
+            <h3>Why This Company Wins</h3>
+            <p>Camtek's combined 2D inspection + 3D metrology capability on one platform is purpose-built for the complex, multi-layer stacking process HBM production requires — an area where older-generation inspection tools, including some from larger rival KLA-Tencor, are less optimized for the newest packaging architectures. AI-related products already make up roughly half of Camtek's revenue, and Hawk/Eagle G5 revenue is expected to double in 2026 alone.</p>
+          </div>
+        </div>
+        <div class="report-table-wrap" style="margin-bottom:24px">
+          <table class="report-table">
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">Confirmed Order Value</td><td class="mono">$260M (HBM orders, 2026–2027)</td></tr>
+              <tr><td class="row-label">Key Date / Event</td><td class="mono">H2 2026 (+25%+ revenue growth guided vs. H1)</td></tr>
+              <tr><td class="row-label">Company Readiness</td><td class="mono">High — shipping against booked orders</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-bottom:24px">
+          <div class="subhead">Timeline</div>
+          <div class="timeline">
+            <div class="timeline-item"><div class="timeline-dot past"></div><div class="timeline-date">Jun 2026</div><div class="timeline-event">Secured $105M in new AI-linked multi-system orders from a tier-1 OSAT and a leading HBM manufacturer, deliveries scheduled for 2027.</div></div>
+            <div class="timeline-item"><div class="timeline-dot present"></div><div class="timeline-date">Now — Jul 2026</div><div class="timeline-event">CEO confirms $260M in total HBM orders through 2027; market weighing Q1's margin dip ahead of the Aug 10 Q2 print.</div></div>
+            <div class="timeline-item"><div class="timeline-dot future"></div><div class="timeline-date">H2 2026</div><div class="timeline-event">Guided 25%+ revenue growth vs. H1 as HBM/AI orders convert to shipped revenue; operating margin targeted back toward ~30%.</div></div>
+          </div>
+        </div>
+        <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+        <div class="scenario-grid">
+          <div class="scenario-card">
+            <h3 style="color:var(--color-success)">Positive</h3>
+            <div class="scenario-prob" style="color:var(--color-success)">45%</div>
+            <div class="scenario-target">+25% stock impact</div>
+            <ul><li>H2 2026 revenue growth exceeds the guided 25%+</li><li>Operating margin recovers to ~30% as promised</li><li>Additional HBM orders announced beyond the confirmed $260M</li></ul>
+          </div>
+          <div class="scenario-card">
+            <h3 style="color:var(--color-warning)">Mixed</h3>
+            <div class="scenario-prob" style="color:var(--color-warning)">35%</div>
+            <div class="scenario-target">+5% to -10% stock impact</div>
+            <ul><li>H2 growth lands near the low end of guidance</li><li>Margin recovery is partial or slower than promised</li><li>China export restrictions tighten further</li></ul>
+          </div>
+          <div class="scenario-card">
+            <h3 style="color:var(--color-error)">Negative</h3>
+            <div class="scenario-prob" style="color:var(--color-error)">20%</div>
+            <div class="scenario-target">-20% stock impact</div>
+            <ul><li>A major HBM customer order slips or is cancelled</li><li>KLA-Tencor wins a competitive displacement at a key account</li><li>China revenue drops sharply on new export rules</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="edge">
+        <div class="section-title">Competitive Edge</div>
+        <div class="item-list">
+          <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">2D + 3D on One Platform</div><div class="item-desc">Combining inspection and metrology in a single system is a real technical edge for the complex multi-die stacking that HBM production requires.</div></div></div>
+          <div class="item-row"><div class="item-icon">→</div><div><div class="item-title">$260M HBM Order Book</div><div class="item-desc">Confirmed HBM-related orders spanning 2026-2027 give unusually strong near-term revenue visibility for an equipment maker.</div></div></div>
+          <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">Strong Balance Sheet</div><div class="item-desc">An $850M balance sheet lets Camtek keep funding R&amp;D through cyclical downturns instead of cutting engineering investment when times get tough.</div></div></div>
+          <div class="item-row"><div class="item-icon">⚠</div><div><div class="item-title">AI Mix Already at 50%</div><div class="item-desc">AI-related products already drive roughly half of revenue, with that platform's revenue expected to double in 2026 — a growth rate not yet fully reflected in a fairly-valued stock.</div></div></div>
+          <div class="item-row"><div class="item-icon">→</div><div><div class="item-title">Tier-1 Customer Relationships</div><div class="item-desc">Recent multi-system wins from a tier-1 OSAT and a leading HBM manufacturer show Camtek is winning at the customers that matter most for AI packaging.</div></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="scorecard">
+        <div class="section-title">Analyst Scorecard</div>
+        <div class="radar-hint">click a point or label to see why it scored that way</div>
+        <div class="scorecard-body">
+          <div class="radar-wrap"><svg id="scorecardRadar" width="420" viewBox="0 0 400 400"></svg></div>
+          <div class="scorecard-why" id="scorecardWhy"></div>
+        </div>
+      </div>
+
+      <div class="section" id="situation">
+        <div class="section-title">Current Situation</div>
+        <div class="split-cols">
+          <div>
+            <h3 style="color:var(--color-success)">Growth Drivers</h3>
+            <div class="severity-list">
+              <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Confirmed HBM Order Book</div><div class="item-desc">$260M in HBM-related orders spanning 2026-2027, including a $105M win secured in June 2026 alone.</div></div></div>
+              <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">H2 2026 Growth Guidance</div><div class="item-desc">Management guides revenue to grow over 25% in H2 2026 versus H1, backed by record order momentum.</div></div></div>
+              <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">AI Product Mix Expansion</div><div class="item-desc">AI-related products already ~50% of revenue; Hawk/Eagle G5 platform revenue expected to double in 2026.</div></div></div>
+              <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Strong Balance Sheet</div><div class="item-desc">$850M balance sheet supports continued R&amp;D and capacity investment through the growth ramp.</div></div></div>
+            </div>
+          </div>
+          <div>
+            <h3 style="color:var(--color-error)">Risks</h3>
+            <div class="severity-list">
+              <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">China Export Control Exposure [ACTIVE RISK]</div><div class="item-desc">Roughly 49% of 2025 revenue came from China; U.S. export control rules on advanced semiconductor inspection equipment directly affect shipments to Chinese customers.</div><div class="item-meta">Active as of Jul 2026 · Source: Seeking Alpha</div></div></div>
+              <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">Intensifying Competition [ACTIVE RISK]</div><div class="item-desc">Larger rival KLA-Tencor is messaging advanced-packaging growth above 50%, directly contesting Camtek's core AI/HBM market.</div><div class="item-meta">Active as of Jul 2026 · Source: Investing.com, Seeking Alpha</div></div></div>
+              <div class="sev-row"><div class="sev-stripe" style="background:var(--yellow)"></div><div><div class="item-title">Margin Compression [REDUCED — see note]</div><div class="item-desc">Operating margin fell to 25.5% in Q1 2026 from 31.5% a year earlier on higher R&amp;D spend and a weaker U.S. dollar; management guides a recovery to ~30% in H2 2026.</div><div class="item-meta">Active as of Jul 2026 · Source: Camtek Q1 2026 earnings call</div></div></div>
+              <div class="sev-row"><div class="sev-stripe" style="background:var(--yellow)"></div><div><div class="item-title">Working Capital Absorption [ACTIVE RISK]</div><div class="item-desc">A sharp accounts-receivable increase and inventory buildup point to material working-capital absorption as shipments and ramping inventories align with order growth.</div><div class="item-meta">Active as of Jul 2026 · Source: StockAnalysis.com</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="scenario">
+        <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+        <div class="scenario-tabs" data-tabgroup="overall">
+          <div class="tabs">
+            <div class="tab bull active" data-tab="bull">Bull <span class="p mono">30%</span></div>
+            <div class="tab base" data-tab="base">Base <span class="p mono">45%</span></div>
+            <div class="tab bear" data-tab="bear">Bear <span class="p mono">25%</span></div>
+          </div>
+          <div class="tab-panel show" data-panel="bull">
+            <h4 style="color:var(--color-success)">Bull Case · $190–$260</h4>
+            <div class="range">30% probability · 12-month price target</div>
+            <ul>
+              <li>HBM order momentum continues well beyond the confirmed $260M</li>
+              <li>Operating margin recovers to 30%+ in H2 2026 as guided</li>
+              <li>AI packaging TAM expands faster than currently modeled by the Street</li>
+              <li>Camtek wins further tier-1 OSAT and HBM manufacturer accounts</li>
+              <li>Multiple re-rates higher as AI capex cycle broadens across memory makers</li>
+            </ul>
+          </div>
+          <div class="tab-panel" data-panel="base">
+            <h4 style="color:var(--color-warning)">Base Case · $145–$190</h4>
+            <div class="range">45% probability · 12-month price target</div>
+            <ul>
+              <li>Company executes to guided H2 growth of over 25% versus H1</li>
+              <li>FY2026 lands near consensus of ~$568.5M revenue and ~$3.52 EPS</li>
+              <li>Operating margin recovers roughly on the schedule management laid out</li>
+              <li>China exposure stays manageable without a major new restriction</li>
+              <li>Buy consensus holds near current levels without a major re-rating</li>
+            </ul>
+          </div>
+          <div class="tab-panel" data-panel="bear">
+            <h4 style="color:var(--color-error)">Bear Case · $85–$120</h4>
+            <div class="range">25% probability · 12-month price target</div>
+            <ul>
+              <li>China export restrictions tighten materially, cutting a meaningful revenue stream</li>
+              <li>A major confirmed HBM order slips into a later year</li>
+              <li>Margin recovery stalls below 28% into year-end</li>
+              <li>KLA-Tencor wins a key competitive displacement at a tier-1 account</li>
+              <li>Broader semiconductor capex cycle cools faster than the AI/HBM narrative suggests</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="debate">
+        <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+        <div class="debate-grid debate-vs">
+          <div class="debate-card optimist">
+            <h3>The Optimist Sees…</h3>
+            <ul>
+              <li>$260M in confirmed HBM orders spanning 2026-2027, with a further $105M booked in June 2026 alone</li>
+              <li>AI-related products already ~50% of revenue, with that platform's revenue set to double in 2026</li>
+              <li>A technically differentiated 2D+3D platform purpose-built for the hardest part of HBM inspection</li>
+              <li>An $850M balance sheet giving room to keep investing through any near-term cyclicality</li>
+              <li>Buy consensus and a $187.58 average target still imply over 40% upside from here</li>
+            </ul>
+          </div>
+          <div class="debate-card pessimist">
+            <h3>The Pessimist Sees…</h3>
+            <ul>
+              <li>Operating margin that just fell six points year-over-year, with recovery still unproven</li>
+              <li>Roughly half of 2025 revenue tied to China, a direct line of exposure to tightening U.S. export controls</li>
+              <li>A much larger, well-resourced rival in KLA-Tencor actively contesting the same AI packaging growth story</li>
+              <li>Rising receivables and inventory that could signal orders getting ahead of actual shipped, paid-for demand</li>
+              <li>A 133x trailing P/E that leaves little room for a margin miss or an order slipping</li>
+            </ul>
+          </div>
+          <div class="vs-badge">VS</div>
+        </div>
+      </div>
+
+      <div class="section" id="verdict">
+        <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+        <div class="verdict">
+          <div class="verdict-title">The Verdict</div>
+          <p>Camtek looks like a specialist inspector who just got hired onto the biggest construction project in tech — the AI data-center memory buildout — and is now proving it can handle the volume without cutting corners.</p>
+          <p>The long-term case is believable: a technically differentiated inspection platform purpose-built for HBM's hardest packaging steps, a confirmed $260M order book running through 2027, and management's own guidance for a 25%+ revenue acceleration in H2 2026. If margin recovers to the promised ~30% alongside that growth, the current valuation could look reasonable in hindsight.</p>
+          <p>The near-term pain is real: margin just compressed sharply, China exposure sits directly in the path of export-control policy, and a 133x trailing P/E leaves little room for the H2 story to disappoint. Investors comfortable with China-exposure and semiconductor-cycle risk can reasonably hold through the H2 2026 margin recovery on a 12-18 month horizon; more conservative investors may prefer to wait for the August 10 print to confirm the margin trajectory before adding.</p>
+        </div>
+      </div>
+
+      <div class="section" id="wall" style="margin-bottom:0">
+        <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+        <div class="report-table-wrap">
+          <table class="report-table">
+            <thead><tr><th>Metric</th><th>Value</th><th>Detail</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">Consensus Rating</td><td class="mono val-green">Buy</td><td>Majority Strong Buy/Buy, minority Hold (12 analysts)</td></tr>
+              <tr><td class="row-label">Avg. Price Target</td><td class="mono val-green">$187.58</td><td>vs. current $132.73 (+41.3%)</td></tr>
+              <tr><td class="row-label">Target Range</td><td class="mono">$160 – $220</td><td>Reflects HBM order visibility and margin-recovery expectations</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <aside class="rail">
+      <div class="rail-title">Sources</div>
+      <div class="rail-row"><a href="https://stockanalysis.com/stocks/camt/">Camtek (CAMT) Stock Overview — StockAnalysis.com</a></div>
+      <div class="rail-row"><a href="https://stockanalysis.com/stocks/camt/forecast/">CAMT Stock Forecast &amp; Price Targets — StockAnalysis.com</a></div>
+      <div class="rail-row"><a href="https://www.camtek.com/news-and-events/camtek-announces-results-for-the-first-quarter-of-2026/">Camtek Announces Results for the First Quarter of 2026 — Camtek</a></div>
+      <div class="rail-row"><a href="https://www.stocktitan.net/news/CAMT/camtek-to-report-second-quarter-2026-financial-results-on-monday-7vpa3azo4ifm.html">Camtek to Report Q2 2026 Financial Results Aug. 10 — StockTitan</a></div>
+      <div class="rail-row"><a href="https://www.sahmcapital.com/news/content/why-camtek-camt-is-down-75-after-securing-105-million-in-new-ai-linked-orders-2026-07-02">Why Camtek Is Down 7.5% After Securing $105M In New AI-Linked Orders — Sahm Capital</a></div>
+      <div class="rail-row"><a href="https://www.investing.com/news/analyst-ratings/cantor-fitzgerald-maintains-camtek-stock-rating-on-competitive-risks-93CH-4791163">Cantor Fitzgerald Maintains Camtek Rating on Competitive Risks — Investing.com</a></div>
+      <div class="rail-row"><a href="https://finance.yahoo.com/markets/stocks/articles/camtek-ltd-camt-q1-2026-010038109.html">Camtek Ltd (CAMT) Q1 2026 Earnings Call Highlights — Yahoo Finance / GuruFocus</a></div>
+      <div class="rail-row"><a href="https://247wallst.com/investing/2026/07/03/why-camtek-sits-at-the-heart-of-advanced-chip-packaging/">Why Camtek Sits at the Heart of Advanced Chip Packaging — 24/7 Wall St.</a></div>
+      <div class="disclaimer">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</div>
+    </aside>
+  </div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bar = entry.target;
+      const target = bar.dataset.target;
+      bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+      bar.style.width = target + '%';
+      observer.unobserve(bar);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+
+document.querySelectorAll('.scenario-tabs').forEach(function (group) {
+  group.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var name = tab.getAttribute('data-tab');
+      group.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      group.querySelectorAll('.tab-panel').forEach(function (p) {
+        p.classList.toggle('show', p.getAttribute('data-panel') === name);
+      });
+    });
+  });
+});
+
+(function () {
+  var legend = document.getElementById('revenueLegend');
+  var svg = document.getElementById('revenueDonut');
+  if (!legend || !svg) return;
+  legend.querySelectorAll('.legend-row').forEach(function (row) {
+    row.addEventListener('mouseenter', function () {
+      var seg = row.getAttribute('data-seg');
+      legend.querySelectorAll('.legend-row').forEach(function (r) {
+        r.classList.toggle('dim', r !== row);
+        r.classList.toggle('hi', r === row);
+      });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) {
+        var match = c.getAttribute('data-seg') === seg;
+        c.classList.toggle('seg-dim', !match);
+        c.classList.toggle('active-glow', match);
+      });
+    });
+    row.addEventListener('mouseleave', function () {
+      legend.querySelectorAll('.legend-row').forEach(function (r) { r.classList.remove('dim', 'hi'); });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) { c.classList.remove('seg-dim', 'active-glow'); });
+    });
+  });
+})();
+
+(function () {
+  var svgEl = document.getElementById('scorecardRadar');
+  var whyEl = document.getElementById('scorecardWhy');
+  if (!svgEl || !whyEl) return;
+
+  var METRICS = [
+    { label: 'Business Model', full: 'Business Model Strength', value: 8, why: 'A dominant niche position in advanced packaging inspection, an $850M balance sheet, and combined 2D/3D metrology on one platform give it a real structural edge.' },
+    { label: 'Revenue Growth', full: 'Revenue Growth', value: 8, why: 'TTM revenue up 10.7% YoY, FY2025 grew 15.6%, and management guides H2 2026 revenue to grow over 25% versus H1.' },
+    { label: 'Profitability', full: 'Profitability', value: 6, why: 'Operating margin fell to 25.5% in Q1 2026 from 31.5% a year earlier on higher R&D spend and FX headwinds, though management guides a recovery to ~30% in H2.' },
+    { label: 'Competitive Moat', full: 'Competitive Moat', value: 7, why: 'The combined 2D inspection + 3D metrology platform is a genuine technical edge in HBM packaging, but larger rival KLA-Tencor is a well-resourced, aggressive competitor.' },
+    { label: 'Regulatory Safety', full: 'Regulatory Safety', value: 5, why: 'Roughly 49% of 2025 revenue came from China, directly exposing Camtek to evolving U.S. semiconductor equipment export control rules.' },
+    { label: 'Mgmt Execution', full: 'Management Execution', value: 8, why: 'Record orders, a confirmed $260M HBM order book through 2027, and reaffirmed guidance despite a bumpy Q1 margin quarter point to strong execution.' },
+    { label: 'Long-Term Potential', full: 'Long-Term Potential', value: 8, why: 'AI/HBM packaging demand is a multi-year structural growth driver, with Hawk/Eagle G5 platform revenue expected to double in 2026 alone.' }
+  ];
+  var MAX = 10;
+  var dots = [];
+
+  function svgNode(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+  function average(data) {
+    var sum = data.reduce(function (acc, d) { return acc + d.value; }, 0);
+    return Math.round((sum / data.length) * 10) / 10;
+  }
+
+  function showOverall() {
+    var avg = average(METRICS);
+    var best = METRICS.reduce(function (a, b) { return b.value > a.value ? b : a; });
+    var worst = METRICS.reduce(function (a, b) { return b.value < a.value ? b : a; });
+    whyEl.innerHTML =
+      '<div class="wp-title">Overall</div>' +
+      '<span class="wp-score">' + avg + ' / 10 average</span>' +
+      '<p class="wp-text">Strong across most dimensions, led by ' + best.full + ' (' + best.value + '/10). The one real soft spot is ' +
+      worst.full + ' (' + worst.value + '/10) — click any point on the chart for the reasoning behind each score.</p>';
+  }
+
+  function showWhy(d) {
+    whyEl.innerHTML =
+      '<button class="wp-back" type="button">&larr; Overall</button>' +
+      '<div class="wp-title">' + d.full + '</div>' +
+      '<span class="wp-score">' + d.value + ' / 10</span>' +
+      '<p class="wp-text">' + d.why + '</p>';
+    whyEl.querySelector('.wp-back').addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      showOverall();
+    });
+  }
+
+  var cx = 200, cy = 200, maxR = 140;
+  var n = METRICS.length;
+  var angleStep = (Math.PI * 2) / n;
+  var startAngle = -Math.PI / 2;
+
+  function pt(i, ratio) {
+    var a = startAngle + i * angleStep;
+    return [cx + maxR * ratio * Math.cos(a), cy + maxR * ratio * Math.sin(a)];
+  }
+
+  [0.25, 0.5, 0.75, 1].forEach(function (ratio) {
+    var pts = METRICS.map(function (_, i) { return pt(i, ratio).join(','); }).join(' ');
+    var poly = svgNode('polygon');
+    poly.setAttribute('points', pts);
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', 'var(--border)');
+    poly.setAttribute('stroke-width', ratio === 1 ? '1.2' : '1');
+    poly.setAttribute('stroke-dasharray', ratio === 1 ? 'none' : '2,3');
+    svgEl.appendChild(poly);
+  });
+
+  METRICS.forEach(function (_, i) {
+    var p = pt(i, 1);
+    var line = svgNode('line');
+    line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+    line.setAttribute('x2', p[0]); line.setAttribute('y2', p[1]);
+    line.setAttribute('stroke', 'var(--border)');
+    line.setAttribute('stroke-width', '1');
+    svgEl.appendChild(line);
+  });
+
+  var dataPts = METRICS.map(function (d, i) { return pt(i, d.value / MAX); });
+  var dataPoly = svgNode('polygon');
+  dataPoly.setAttribute('points', dataPts.map(function (p) { return p.join(','); }).join(' '));
+  dataPoly.setAttribute('fill', 'var(--color-primary)');
+  dataPoly.setAttribute('fill-opacity', '0.16');
+  dataPoly.setAttribute('stroke', 'var(--color-primary)');
+  dataPoly.setAttribute('stroke-width', '2');
+  svgEl.appendChild(dataPoly);
+
+  dataPts.forEach(function (p, i) {
+    var dot = svgNode('circle');
+    dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]);
+    dot.setAttribute('r', 7);
+    dot.setAttribute('fill', 'var(--color-primary)');
+    dot.setAttribute('class', 'radar-dot');
+    dot.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dot.classList.add('active');
+      showWhy(METRICS[i]);
+    });
+    svgEl.appendChild(dot);
+    dots.push(dot);
+  });
+
+  METRICS.forEach(function (d, i) {
+    var lp = pt(i, 1.26);
+    var anchor = 'middle';
+    if (lp[0] < cx - 5) anchor = 'end';
+    else if (lp[0] > cx + 5) anchor = 'start';
+    var text = svgNode('text');
+    text.setAttribute('x', lp[0]); text.setAttribute('y', lp[1]);
+    text.setAttribute('text-anchor', anchor);
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('class', 'radar-axis-label');
+    text.textContent = d.label;
+    text.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dots[i].classList.add('active');
+      showWhy(d);
+    });
+    svgEl.appendChild(text);
+  });
+
+  var bbox = svgEl.getBBox();
+  var pad = 16;
+  var vbW = bbox.width + pad * 2;
+  var vbH = bbox.height + pad * 2;
+  svgEl.setAttribute('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + vbW + ' ' + vbH);
+  var targetWidth = parseFloat(svgEl.getAttribute('width')) || 420;
+  svgEl.setAttribute('height', Math.round(targetWidth * (vbH / vbW)));
+
+  showOverall();
+})();
+</script>
+</body>
+</html>

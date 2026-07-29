@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMBA — Stock Analysis · Jul26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow+Condensed:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Theme: synthwave-84 - applied by obs-theme-factory */
+    :root {
+      --bg-base: #262335; --bg-image: none; --bg-size: auto; --bg-position: 0 0; --bg-repeat: repeat;
+      --color-primary: #ff7edb; --color-primary-light: #4d1a40; --color-secondary: #36f9f6; --color-accent: #ffe66d;
+      --color-bg: #262335; --color-surface: #2d2145; --color-surface-alt: #241b2f;
+      --color-text: #cbe3f6; --color-text-muted: #848bbd; --color-text-on-primary: #1a0f2e;
+      --color-border: #433d60; --color-success: #72f1b8; --color-warning: #ffe66d; --color-error: #fe4450;
+      --font-family: 'Barlow Condensed', sans-serif;
+      --font-family-mono: "Fira Code", "JetBrains Mono", "Cascadia Code", monospace;
+      --font-family-display: "Rajdhani", "Exo 2", "Inter", sans-serif;
+      --font-size-base: 16px; --font-weight-heading: 700; --font-weight-body: 400; --line-height: 1.6;
+      --radius: 4px; --radius-card: 6px; --radius-button: 4px;
+      --shadow-sm: 0 0 8px rgba(255,126,219,0.25), 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md: 0 0 16px rgba(255,126,219,0.30), 0 2px 8px rgba(0,0,0,0.6);
+      --shadow-lg: 0 0 32px rgba(255,126,219,0.40), 0 4px 16px rgba(0,0,0,0.7);
+      --shadow-xl: 0 0 48px rgba(255,126,219,0.50), 0 8px 24px rgba(0,0,0,0.8);
+      --shadow-colored: 0 0 24px rgba(255,126,219,0.60), 0 0 48px rgba(255,126,219,0.30);
+      --shadow-inset: inset 0 1px 4px rgba(0,0,0,0.8), inset 0 0 8px rgba(255,126,219,0.1);
+      --gradient-hero: linear-gradient(135deg, #3d2060 0%, #1a0e2e 100%);
+      --gradient-card: linear-gradient(135deg, #2d2145 0%, #241b2f 100%);
+      --gradient-button: linear-gradient(135deg, #ff7edb 0%, #36f9f6 100%);
+      --gradient-text: linear-gradient(90deg, #ff7edb 0%, #36f9f6 100%);
+      --gradient-accent: linear-gradient(135deg, #ff7edb 0%, #ffe66d 50%, #36f9f6 100%);
+      --glow-color: #ff7edb; --glow-sm: 0 0 8px rgba(255,126,219,0.4), 0 0 16px rgba(255,126,219,0.2);
+      --glow-md: 0 0 16px rgba(255,126,219,0.5), 0 0 32px rgba(255,126,219,0.3);
+      --glow-lg: 0 0 32px rgba(255,126,219,0.6), 0 0 64px rgba(255,126,219,0.3);
+      --glass-blur: 12px; --glass-tint: rgba(45,33,69,0.6);
+      --gradient-border: linear-gradient(135deg, #ff7edb, #36f9f6); --noise-opacity: 0;
+      --text-shadow: 0 0 12px rgba(255,126,219,0.7); --backdrop-filter: blur(12px);
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 120ms; --duration-base: 220ms; --duration-slow: 400ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1); --border-width: 1px;
+
+      --bg: var(--color-bg);
+      --card: var(--color-surface);
+      --card2: var(--color-surface-alt);
+      --border: var(--color-border);
+      --accent: var(--color-accent);
+      --green: var(--color-success);
+      --red: var(--color-error);
+      --yellow: var(--color-warning);
+      --text: var(--color-text);
+      --muted: var(--color-text-muted);
+    }
+
+    /* Layout: masthead-feature-river - applied by obs-layout-factory */
+    :root {
+      --layout-columns: 12;
+      --layout-gutter: 20px;
+      --layout-max-width: 1240px;
+      --layout-margin-inline: 5vw;
+      --layout-space-2: 8px;
+      --layout-space-4: 16px;
+      --layout-space-6: 32px;
+      --layout-section-gap: 48px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-family);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--text);
+      line-height: var(--line-height);
+      margin: 0;
+      padding: 20px;
+      background-color: var(--bg-base);
+    }
+
+    .masthead {
+      max-width: var(--layout-max-width);
+      margin: 0 auto 28px;
+      padding-inline: var(--layout-margin-inline);
+      text-align: center;
+      border-bottom: 2px solid var(--color-primary);
+      padding-bottom: 16px;
+    }
+    .masthead-name {
+      font-family: var(--font-family-display); font-size: 22px; font-weight: 700; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--color-primary); text-shadow: var(--text-shadow); margin-bottom: 4px;
+    }
+    .masthead-sub {
+      font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
+    }
+
+    .page {
+      max-width: var(--layout-max-width);
+      margin: 0 auto;
+      padding-inline: var(--layout-margin-inline);
+    }
+
+    .hero {
+      background: var(--gradient-hero);
+      border-top: 3px solid var(--color-accent);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-lg);
+      color: var(--color-text);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; top: -80px; right: -80px; width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(255,126,219,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-ticker {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: var(--color-secondary);
+      text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-family-display);
+    }
+    .hero-name {
+      font-size: 28px; font-weight: var(--font-weight-heading, 700); margin-bottom: 8px;
+      color: var(--color-text); font-family: var(--font-family-display); letter-spacing: 0.02em;
+      text-shadow: var(--text-shadow);
+    }
+    .hero-tagline { font-size: 15px; color: color-mix(in srgb, var(--color-text) 80%, transparent); max-width: 540px; margin-bottom: 20px; font-style: italic; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      padding: 4px 14px; border-radius: 50px; font-size: 11px; font-weight: 600; border: 1px solid;
+      letter-spacing: 0.04em; font-family: var(--font-family-display);
+    }
+    .pill-blue { background: rgba(54,249,246,0.12); border-color: rgba(54,249,246,0.4); color: var(--color-secondary); }
+    .pill-green { background: rgba(114,241,184,0.15); border-color: rgba(114,241,184,0.45); color: var(--color-success); }
+    .pill-red { background: rgba(254,68,80,0.15); border-color: rgba(254,68,80,0.45); color: var(--color-error); }
+    .pill-yellow { background: rgba(255,230,109,0.15); border-color: rgba(255,230,109,0.45); color: var(--color-warning); }
+
+    .section { margin-bottom: var(--layout-section-gap); }
+    .section-title {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 2px; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 14px;
+    }
+    .section-title.lead-title { font-size: 16px; letter-spacing: 2.5px; text-shadow: var(--text-shadow); color: var(--color-primary); }
+
+    .card { background: var(--gradient-card), var(--card); border-radius: var(--radius-card); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 20px 22px; margin-bottom: 14px; }
+    .card h3 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; color: var(--color-secondary); margin: 0 0 10px 0;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .stat-card { background: var(--gradient-card), var(--card); border-radius: var(--radius-card); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 16px 18px; }
+    .stat-label {
+      font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--color-secondary); margin-bottom: 6px;
+    }
+    .stat-value { font-family: var(--font-family-display); font-size: 22px; font-weight: var(--font-weight-heading, 700); color: var(--color-text); }
+    .stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .val-green { color: var(--color-success); }
+    .val-red { color: var(--color-error); }
+    .val-yellow { color: var(--color-warning); }
+
+    .tldr { background: var(--gradient-card), var(--card); border-radius: var(--radius-card); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-md); padding: 22px 24px; margin-bottom: 28px; }
+    .tldr h2 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 2px; text-transform: uppercase; color: var(--color-secondary); margin: 0 0 14px 0;
+    }
+    .tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+    .tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+    .scorecard-body { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+    .radar-hint { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+    .radar-wrap { flex-shrink: 0; display: flex; justify-content: center; width: 100%; max-width: 420px; }
+    #scorecardRadar { width: 100%; height: auto; display: block; }
+    .radar-axis-label { font-family: var(--font-family-display); font-size: 14px; font-weight: 700; fill: var(--color-secondary); cursor: pointer; }
+    .radar-dot { cursor: pointer; transition: r 0.15s; }
+    .radar-dot:hover, .radar-dot.active { r: 10; }
+    .scorecard-why { flex: 1; min-width: 220px; border-left: 1px solid var(--border); padding: 4px 0 4px 26px; }
+    .scorecard-why .wp-title {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--color-secondary); margin-bottom: 6px;
+    }
+    .scorecard-why .wp-score { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-accent); font-weight: 700; margin-bottom: 10px; display: block; }
+    .scorecard-why .wp-text { font-size: 15px; line-height: 1.65; margin: 0; }
+    .scorecard-why .wp-back {
+      display: block; font-family: var(--font-family-mono); font-size: 11px; color: var(--muted);
+      background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 10px; text-decoration: underline;
+    }
+    .scorecard-why .wp-back:hover { color: var(--color-accent); }
+    @media (max-width: 640px) {
+      .scorecard-body { flex-direction: column; }
+      .scorecard-why { border-left: none; border-top: 1px solid var(--border); padding: 20px 0 0; margin-top: 20px; }
+    }
+
+    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .scenario-card { background: var(--gradient-card), var(--card); border-radius: var(--radius-card); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 18px 20px; }
+    .scenario-card h3 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; margin: 0 0 6px 0;
+    }
+    .scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+    .scenario-bull h3 { color: var(--color-success); }
+    .scenario-base h3 { color: var(--color-warning); }
+    .scenario-bear h3 { color: var(--color-error); }
+
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+    .timeline-item { position: relative; margin-bottom: 20px; }
+    .timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+    .timeline-dot.past { background: var(--color-text-muted); border-color: var(--color-text-muted); }
+    .timeline-dot.present { background: var(--color-primary); border-color: var(--color-primary); width: 14px; height: 14px; left: -26px; box-shadow: var(--glow-sm); }
+    .timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+    .timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+    .timeline-event { font-size: 14px; line-height: 1.5; }
+
+    .verdict { background: var(--gradient-card), linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%); border-radius: var(--radius-card); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-md); padding: 28px 30px; }
+    .verdict-title {
+      font-family: var(--font-family-display); font-size: 14px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 2px; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 16px;
+    }
+    .verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+    .verdict p:last-child { margin-bottom: 0; }
+
+    .item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; }
+    .item-title {
+      font-family: var(--font-family-display); font-size: 12px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 2px;
+    }
+    .item-desc { font-size: 14px; line-height: 1.55; }
+    .item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    .debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .debate-card { background: var(--gradient-card), var(--card); border-radius: var(--radius-card); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 20px 22px; }
+    .debate-card h3 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; margin: 0 0 12px 0;
+    }
+    .debate-card.optimist h3 { color: var(--color-success); }
+    .debate-card.pessimist h3 { color: var(--color-error); }
+    .debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+    .debate-card li { margin-bottom: 6px; }
+    .debate-vs { position: relative; }
+    .debate-vs .vs-badge {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: var(--color-primary); color: var(--color-text-on-primary); font-family: var(--font-family-display);
+      font-size: 11px; font-weight: 700; width: 34px; height: 34px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; box-shadow: var(--glow-md); z-index: 2; letter-spacing: 0.5px;
+    }
+    @media (max-width: 760px) { .debate-vs .vs-badge { display: none; } }
+
+    .donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .donut-legend { flex: 1; min-width: 180px; }
+    .legend-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px;
+      border-radius: 3px; padding: 2px 4px; cursor: pointer; transition: background 0.15s, opacity 0.15s;
+    }
+    .legend-row.dim { opacity: 0.35; }
+    .legend-row.hi { background: rgba(255,126,219,0.1); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+    .seg-dim { opacity: 0.3; transition: opacity 0.15s; }
+    .seg-hi { transition: opacity 0.15s, filter 0.15s; }
+    .seg-hi.active-glow { filter: drop-shadow(0 0 6px rgba(255,126,219,0.6)); }
+
+    .seg-row { margin-bottom: 16px; }
+    .seg-label {
+      display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px;
+      font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.5px;
+    }
+    .seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+    .seg-fill { height: 100%; border-radius: 4px; }
+    .seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+    .seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .exhibit-visual { border: 1px solid var(--border); border-radius: var(--radius-card); padding: 20px 22px; margin-bottom: 14px; }
+    .subhead {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; color: var(--color-secondary); margin: 0 0 10px 0;
+    }
+    .split-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+    .split-cols > div + div { border-left: 1px solid var(--border); padding-left: 24px; }
+    .split-cols h3 {
+      font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; color: var(--color-secondary); margin: 0 0 10px 0;
+    }
+    .split-cols p { font-size: 15px; line-height: 1.65; margin: 0; }
+    .split-cols ul { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.65; }
+    .split-cols li { margin-bottom: 6px; }
+
+    .item-list .item-row { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+    .item-list .item-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+    .severity-list .sev-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .severity-list .sev-row:last-child { border-bottom: none; }
+    .sev-stripe { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 40px; }
+
+    .report-table-wrap { overflow-x: auto; }
+    .report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .report-table th {
+      font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 16px 8px 0;
+      border-bottom: 2px solid var(--color-secondary); white-space: nowrap;
+    }
+    .report-table td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .report-table tr:hover td { background: rgba(255,126,219,0.05); }
+    .report-table tr:last-child td { border-bottom: 1px solid var(--border); }
+    .report-table .row-label { font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.3px; color: var(--text); white-space: nowrap; }
+    .report-table .mono { font-family: var(--font-family-mono); font-weight: 700; }
+    .report-table ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.55; }
+    .report-table li { margin-bottom: 3px; }
+
+    .scenario-tabs .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .scenario-tabs .tab {
+      flex: 1; text-align: center; cursor: pointer; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 10px 8px; background: var(--card); font-family: var(--font-family-display); font-size: 12px; font-weight: 700;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .scenario-tabs .tab:hover { transform: translateY(-1px); }
+    .scenario-tabs .tab .p { font-family: var(--font-family-mono); font-weight: 700; display: block; font-size: 14px; margin-top: 3px; }
+    .scenario-tabs .tab.bull, .scenario-tabs .tab.positive { color: var(--green); }
+    .scenario-tabs .tab.base, .scenario-tabs .tab.mixed { color: var(--yellow); }
+    .scenario-tabs .tab.bear, .scenario-tabs .tab.negative { color: var(--red); }
+    .scenario-tabs .tab.active.bull, .scenario-tabs .tab.active.positive { background: rgba(114,241,184,0.16); border-color: var(--green); }
+    .scenario-tabs .tab.active.base, .scenario-tabs .tab.active.mixed { background: rgba(255,230,109,0.16); border-color: var(--yellow); }
+    .scenario-tabs .tab.active.bear, .scenario-tabs .tab.active.negative { background: rgba(254,68,80,0.16); border-color: var(--red); }
+    .scenario-tabs .tab-panel { display: none; background: var(--card); border-radius: var(--radius); padding: 18px 20px; border-left: 3px solid var(--border); }
+    .scenario-tabs .tab-panel.show { display: block; }
+    .scenario-tabs .tab-panel h4 { margin: 0 0 4px; font-family: var(--font-family-display); font-size: 14px; letter-spacing: 0.5px; }
+    .scenario-tabs .tab-panel .range { font-family: var(--font-family-mono); font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+    .scenario-tabs .tab-panel ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+    .scenario-tabs .tab-panel li { margin-bottom: 5px; }
+
+    .spy-rail { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 9px; z-index: 40; }
+    .spy-rail .spy-item { display: flex; align-items: center; gap: 8px; cursor: pointer; justify-content: flex-end; }
+    .spy-rail .spy-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.15s, transform 0.15s; }
+    .spy-rail .spy-item.active .spy-dot { background: var(--color-accent); transform: scale(1.5); box-shadow: var(--glow-sm); }
+    .spy-rail .spy-label { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); opacity: 0; white-space: nowrap; transition: opacity 0.15s; }
+    .spy-rail .spy-item.active .spy-label { opacity: 1; color: var(--color-secondary); font-weight: 700; }
+    @media (max-width: 1180px) { .spy-rail { display: none; } }
+
+    .pull-quote {
+      background: var(--gradient-hero);
+      border-top: 3px solid var(--color-accent);
+      border-radius: var(--radius-card);
+      box-shadow: var(--glow-md);
+      color: var(--color-text);
+      padding: 20px 24px;
+      margin: 20px 0 24px;
+      font-size: 17px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 12px; }
+      .grid-2, .debate-grid, .split-cols { grid-template-columns: 1fr; }
+      .split-cols > div + div { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 24px 20px; }
+      .hero-name { font-size: 22px; }
+      .debate-vs .vs-badge { display: none; }
+    }
+    @media (max-width: 520px) {
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+      .donut-wrap { flex-direction: column; align-items: flex-start; }
+      .scenario-tabs .tabs { flex-direction: column; }
+    }
+  </style>
+</head>
+<body data-layout="masthead-feature-river">
+<nav class="spy-rail" id="spyRail" aria-label="Section navigation"></nav>
+
+<div class="masthead">
+  <div class="masthead-name">Ambarella</div>
+  <div class="masthead-sub">AMBA · Stock Analysis · July 2026</div>
+</div>
+
+<div class="page">
+
+  <div class="hero" id="hero">
+    <div class="hero-ticker">NASDAQ: AMBA &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+    <div class="hero-name">Ambarella, Inc.</div>
+    <div class="hero-tagline">Designs the tiny AI chips that let cameras, cars, and robots "see" and understand what's happening in front of them right on the device — no cloud connection needed.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">Edge AI Semiconductors</span>
+      <span class="pill pill-yellow">Pre-Profit, High Growth</span>
+      <span class="pill pill-red">Valuation / Concentration Risk</span>
+    </div>
+  </div>
+
+  <div class="tldr" id="tldr">
+    <h2>TL;DR</h2>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--green)">+</span><span>Ambarella designs low-power AI chips that process video and sensor data directly on cameras, cars, and industrial devices — no cloud round-trip required.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--yellow)">!</span><span>Fiscal 2026 revenue hit a record $390.7M, up 37%, with Edge AI now 80% of the business — but the company is still GAAP unprofitable even as losses narrow and non-GAAP net income has turned positive.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--color-secondary)">►</span><span>The underreported catalyst: a long-term Hanwha Group partnership spanning security, robotics, and industrial automation carries a potential revenue opportunity of up to $800M over more than a decade, on top of 15+ existing robotics design wins.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--red)">-</span><span>The main risk is concentration and valuation: heavy reliance on a single Asia-based fulfillment partner and significant export exposure sit under a stock that already trades at a rich multiple for a still-unprofitable business.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--green)">+</span><span>Verdict: Buy consensus, $95.00 average target vs. $66.28 current price (+43% implied upside). Next event: next quarterly earnings, expected around August-September 2026.</span></div>
+  </div>
+
+  <div class="section" id="snapshot">
+    <div class="section-title">Financial Snapshot</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Stock Price</div><div class="stat-value mono">$66.28</div><div class="stat-sub">As of Jul 29, 2026</div></div>
+      <div class="stat-card"><div class="stat-label">Market Cap</div><div class="stat-value mono">$2.91B</div><div class="stat-sub">—</div></div>
+      <div class="stat-card"><div class="stat-label">Revenue (TTM)</div><div class="stat-value mono val-green">$405.2M</div><div class="stat-sub">+28.1% YoY</div></div>
+      <div class="stat-card"><div class="stat-label">Net Income (TTM)</div><div class="stat-value mono val-yellow">-$69.6M</div><div class="stat-sub">Loss narrowing 35% YoY</div></div>
+      <div class="stat-card"><div class="stat-label">EPS (TTM)</div><div class="stat-value mono val-yellow">-$1.62</div><div class="stat-sub">Latest Q non-GAAP EPS: +$0.15</div></div>
+      <div class="stat-card"><div class="stat-label">Gross Margin</div><div class="stat-value mono val-green">58.9%</div><div class="stat-sub">GAAP; 60.5% non-GAAP</div></div>
+      <div class="stat-card" style="font-size:15px"><div class="stat-label">Forward Guidance</div><div class="stat-value mono val-green" style="font-size:15px">10-15% Growth</div><div class="stat-sub">FY2027 revenue growth target</div></div>
+      <div class="stat-card"><div class="stat-label">Analyst Target</div><div class="stat-value mono val-green">$95.00</div><div class="stat-sub">+43.3% implied</div></div>
+      <div class="stat-card" style="font-size:15px"><div class="stat-label">Next Event</div><div class="stat-value" style="font-size:15px">Q Earnings</div><div class="stat-sub">~Aug-Sep 2026 (est.)</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="mix">
+    <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+    <div class="exhibit-visual">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200" id="revenueDonut">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--border)" stroke-width="28"/>
+          <circle class="seg-hi" data-seg="auto" cx="100" cy="100" r="70" fill="none" stroke="var(--color-primary)" stroke-width="28"
+                  stroke-dasharray="198 440" stroke-dashoffset="0" stroke-linecap="butt"/>
+          <circle class="seg-hi" data-seg="iot" cx="100" cy="100" r="70" fill="none" stroke="var(--color-secondary)" stroke-width="28"
+                  stroke-dasharray="176 440" stroke-dashoffset="-198" stroke-linecap="butt"/>
+          <circle class="seg-hi" data-seg="robotics" cx="100" cy="100" r="70" fill="none" stroke="var(--color-accent)" stroke-width="28"
+                  stroke-dasharray="66 440" stroke-dashoffset="-374" stroke-linecap="butt"/>
+          <text x="100" y="104" text-anchor="middle" font-family="var(--font-family-display)" font-size="13" font-weight="700" fill="var(--color-text)">Revenue</text>
+        </svg>
+        <div class="donut-legend" id="revenueLegend">
+          <div class="legend-row" data-seg="auto"><div class="legend-dot" style="background:var(--color-primary)"></div><span>Automotive</span><span class="legend-pct">45%</span></div>
+          <div class="legend-row" data-seg="iot"><div class="legend-dot" style="background:var(--color-secondary)"></div><span>IoT (Security, Industrial, Consumer)</span><span class="legend-pct">40%</span></div>
+          <div class="legend-row" data-seg="robotics"><div class="legend-dot" style="background:var(--color-accent)"></div><span>Robotics &amp; Infrastructure (emerging)</span><span class="legend-pct">15%</span></div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Estimated mix based on management commentary that record automotive sales are driving current growth while robotics/infrastructure remains an early, fast-growing category. Exact dollar breakdown not fully disclosed.</p>
+      <div class="seg-row">
+        <div class="seg-label"><span>Automotive</span><span style="font-family:var(--font-family-mono)">45% → 52%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:45%;background:var(--color-primary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="52" style="width:0%;background:var(--color-primary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Record automotive sales are the current growth engine, driven by edge AI SoC design wins.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>IoT (Security, Industrial, Consumer)</span><span style="font-family:var(--font-family-mono)">40% → 33%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:40%;background:var(--color-secondary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="33" style="width:0%;background:var(--color-secondary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Includes portable video and security camera applications; steady growth, moderating share as robotics scales.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Robotics &amp; Infrastructure (emerging)</span><span style="font-family:var(--font-family-mono)">15% → 15%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:15%;background:var(--color-accent)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="15" style="width:0%;background:var(--color-accent);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Smallest today but home to the Hanwha partnership and first HAI infrastructure design win (N1655 SoC).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="story">
+    <div class="section-title">What Does This Company Actually Do?</div>
+    <div class="split-cols">
+      <div>
+        <h3>The Simple Story</h3>
+        <p>A security camera or a self-driving car's sensor captures huge amounts of video every second — sending all of that to the cloud to be analyzed would be too slow and too expensive. Ambarella makes small, power-sipping AI chips that let the camera or the car understand what it's seeing right there on the spot, instantly, without needing an internet connection.</p>
+      </div>
+      <div>
+        <h3>Who Actually Buys It</h3>
+        <p>Its customers are camera and car makers, security system companies, and increasingly robotics and industrial automation firms building machines that need to "see" and react in real time. A long-term partner, Hanwha Group, now spans security, robotics, and industrial automation applications.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="model">
+    <div class="section-title">Business Model</div>
+    <div class="split-cols">
+      <div>
+        <h3>How They Make Money</h3>
+        <ul>
+          <li>Sell Edge AI system-on-chips (SoCs) to camera, automotive, and industrial device makers</li>
+          <li>Higher-margin 5-nanometer AI SoCs are driving average selling prices (ASP) higher across both new and existing markets</li>
+          <li>New robotics and HAI (physical/robotic AI) infrastructure design wins expanding beyond the traditional camera-chip base</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Why the Model Is Clever</h3>
+        <ul>
+          <li>Both unit volume and ASP are each contributing roughly half of overall revenue growth — a healthier mix than volume growth alone</li>
+          <li>With 42M+ Edge AI SoCs already shipped and ~$1B in cumulative Edge AI revenue, Ambarella has a real track record that's hard for a new entrant to replicate quickly</li>
+          <li>A single chip platform architecture serves automotive, security, and robotics markets, spreading R&amp;D costs across multiple growth vectors</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="catalyst">
+    <div class="section-title lead-title">Hidden Catalyst Deep Dive</div>
+    <div class="pull-quote">A long-term Hanwha Group agreement covering security, robotics, and industrial automation carries a potential revenue opportunity of up to $800 million over more than a decade — though that figure is not guaranteed.</div>
+    <div class="split-cols" style="margin-bottom:24px">
+      <div>
+        <h3>The Opportunity</h3>
+        <p>Ambarella has quietly shifted from being seen as a camera-chip supplier into a broader "physical AI" platform company. Robotics design wins have already topped 15, with lifetime revenue above $100M and more than 30 customers still in the pipeline — and the company just achieved its first HAI infrastructure design win with the N1655 SoC, targeting AI appliances that use large-language-model-powered search and multimodal intelligence.</p>
+      </div>
+      <div>
+        <h3>Why This Company Wins</h3>
+        <p>Rosenblatt Securities named Ambarella one of its top technology picks for the second half of 2026, specifically citing its positioning in the fast-growing physical AI market, and maintained a $120 price target. With 370+ customer AI projects already in production, Ambarella brings a depth of real-world deployment experience that a robotics-focused newcomer without an existing camera-chip customer base would need years to build.</p>
+      </div>
+    </div>
+    <div class="report-table-wrap" style="margin-bottom:24px">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Hanwha Opportunity (not guaranteed)</td><td class="mono">Up to $800M over 10+ years</td></tr>
+          <tr><td class="row-label">Key Date / Event</td><td class="mono">~Aug-Sep 2026 — next quarterly earnings</td></tr>
+          <tr><td class="row-label">Company Readiness</td><td class="mono">Medium-High — partnership signed, wins already shipping</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-bottom:24px">
+      <div class="subhead">Timeline</div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot past"></div><div class="timeline-date">FY2026 (ended Jan 2026)</div><div class="timeline-event">Revenue grew 37% to a record $390.7M; Edge AI revenue grew 50% to reach 80% of total revenue.</div></div>
+        <div class="timeline-item"><div class="timeline-dot present"></div><div class="timeline-date">Now — Jul 2026</div><div class="timeline-event">Rosenblatt names AMBA a top physical AI pick with a $120 target; record automotive sales reported in the most recent quarter.</div></div>
+        <div class="timeline-item"><div class="timeline-dot future"></div><div class="timeline-date">FY2027</div><div class="timeline-event">Targeting 10-15% revenue growth as robotics and the Hanwha partnership begin contributing more meaningfully.</div></div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <h3 style="color:var(--color-success)">Positive</h3>
+        <div class="scenario-prob" style="color:var(--color-success)">40%</div>
+        <div class="scenario-target">+35% stock impact</div>
+        <ul><li>Hanwha partnership accelerates faster than the 10-year timeline implies</li><li>Robotics design wins convert to meaningful shipped revenue</li><li>Automotive momentum continues into the next quarter</li></ul>
+      </div>
+      <div class="scenario-card">
+        <h3 style="color:var(--color-warning)">Mixed</h3>
+        <div class="scenario-prob" style="color:var(--color-warning)">35%</div>
+        <div class="scenario-target">+5% to -15% stock impact</div>
+        <ul><li>Growth moderates toward the guided 10-15% FY2027 range</li><li>Robotics/Hanwha revenue stays pipeline rather than shipped</li><li>Valuation multiple compresses on slower growth</li></ul>
+      </div>
+      <div class="scenario-card">
+        <h3 style="color:var(--color-error)">Negative</h3>
+        <div class="scenario-prob" style="color:var(--color-error)">25%</div>
+        <div class="scenario-target">-30% stock impact</div>
+        <ul><li>A major automotive or IoT customer pulls back</li><li>Supply chain/DRAM cost pressure hits margins</li><li>Competitive share loss in core camera-chip markets</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="edge">
+    <div class="section-title">Competitive Edge</div>
+    <div class="item-list">
+      <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">Real Deployment Track Record</div><div class="item-desc">42M+ Edge AI SoCs shipped, ~$1B cumulative Edge AI revenue, and 370+ customer AI projects already in production.</div></div></div>
+      <div class="item-row"><div class="item-icon">→</div><div><div class="item-title">Hanwha Partnership</div><div class="item-desc">A long-term agreement spanning security, robotics, and industrial automation with a potential $800M revenue opportunity over 10+ years.</div></div></div>
+      <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">ASP-Driven Margin Expansion</div><div class="item-desc">Higher-margin 5nm AI SoCs are lifting average selling prices, with volume and ASP each contributing roughly half of revenue growth.</div></div></div>
+      <div class="item-row"><div class="item-icon">⚠</div><div><div class="item-title">Robotics Design Wins Already Shipping</div><div class="item-desc">15+ robotics design wins generating over $100M in lifetime revenue, with 30+ customers still in the pipeline — real traction, not just talk.</div></div></div>
+      <div class="item-row"><div class="item-icon">→</div><div><div class="item-title">Analyst Conviction on Physical AI</div><div class="item-desc">Rosenblatt named AMBA a top technology pick for H2 2026 specifically for its physical AI positioning, with a $120 price target.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="scorecard">
+    <div class="section-title">Analyst Scorecard</div>
+    <div class="radar-hint">click a point or label to see why it scored that way</div>
+    <div class="scorecard-body">
+      <div class="radar-wrap"><svg id="scorecardRadar" width="420" viewBox="0 0 400 400"></svg></div>
+      <div class="scorecard-why" id="scorecardWhy"></div>
+    </div>
+  </div>
+
+  <div class="section" id="situation">
+    <div class="section-title">Current Situation</div>
+    <div class="split-cols">
+      <div>
+        <h3 style="color:var(--color-success)">Growth Drivers</h3>
+        <div class="severity-list">
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Record Edge AI Revenue</div><div class="item-desc">Edge AI revenue grew 50% YoY and now represents 80% of total company revenue.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Record Automotive Sales</div><div class="item-desc">The most recent quarter's growth was led by record automotive sales and robust edge AI demand.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Hanwha Partnership</div><div class="item-desc">Up to $800M potential revenue opportunity over 10+ years across security, robotics, and industrial automation.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Narrowing Losses</div><div class="item-desc">Net losses narrowed 35% YoY, and the most recent quarter's non-GAAP net income turned positive.</div></div></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--color-error)">Risks</h3>
+        <div class="severity-list">
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">Single Fulfillment Partner Concentration [ACTIVE RISK]</div><div class="item-desc">Heavy revenue concentration with a single fulfillment partner in Asia, plus significant export market exposure, raises vulnerability to trade friction and sanctions.</div><div class="item-meta">Active as of Jul 2026 · Source: TipRanks</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">Valuation Stretch [ACTIVE RISK]</div><div class="item-desc">Trades at a high multiple on a still-unprofitable business; the stock fell 51.4% during the 2025 US Tariff Shock, showing real macro sensitivity.</div><div class="item-meta">Active as of Jul 2026 · Source: TIKR, Seeking Alpha</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--yellow)"></div><div><div class="item-title">Intense Competition [ACTIVE RISK]</div><div class="item-desc">The video/computer-vision/AI chip space is fast-moving with both large and small rivals, requiring continuous innovation to stay relevant.</div><div class="item-meta">Active as of Jul 2026 · Source: Company disclosures</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--yellow)"></div><div><div class="item-title">Supply Chain / DRAM Cost Risk [ACTIVE RISK]</div><div class="item-desc">Supply chain constraints and possible DRAM cost increases flagged; Summit Insights downgraded to Hold on these concerns.</div><div class="item-meta">Active as of Jul 2026 · Source: TIKR</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="scenario">
+    <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-tabs" data-tabgroup="overall">
+      <div class="tabs">
+        <div class="tab bull active" data-tab="bull">Bull <span class="p mono">30%</span></div>
+        <div class="tab base" data-tab="base">Base <span class="p mono">45%</span></div>
+        <div class="tab bear" data-tab="bear">Bear <span class="p mono">25%</span></div>
+      </div>
+      <div class="tab-panel show" data-panel="bull">
+        <h4 style="color:var(--color-success)">Bull Case · $100–$130</h4>
+        <div class="range">30% probability · 12-month price target</div>
+        <ul>
+          <li>Hanwha and robotics revenue ramp ahead of the implied 10-year schedule</li>
+          <li>Automotive design wins keep expanding with additional OEM customers</li>
+          <li>GAAP profitability arrives sooner than the current consensus timeline</li>
+          <li>The HAI infrastructure category (N1655 and successors) scales meaningfully</li>
+          <li>Multiple analysts follow Rosenblatt's lead in raising targets toward the $120 high</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="base">
+        <h4 style="color:var(--color-warning)">Base Case · $70–$100</h4>
+        <div class="range">45% probability · 12-month price target</div>
+        <ul>
+          <li>FY2027 growth lands within the guided 10-15% range</li>
+          <li>Robotics/Hanwha revenue builds gradually rather than in a step-change</li>
+          <li>Losses continue narrowing toward breakeven without a dramatic inflection</li>
+          <li>Buy consensus holds near current levels</li>
+          <li>Automotive and IoT segments both grow at a moderate, steady pace</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="bear">
+        <h4 style="color:var(--color-error)">Bear Case · $35–$55</h4>
+        <div class="range">25% probability · 12-month price target</div>
+        <ul>
+          <li>A major automotive or IoT customer pulls back orders</li>
+          <li>DRAM or supply chain cost pressure compresses gross margin</li>
+          <li>Valuation multiple compresses sharply on slower-than-hoped growth</li>
+          <li>Trade policy or export restrictions disrupt a portion of shipments</li>
+          <li>Competitive share loss in core camera-chip markets accelerates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="debate">
+    <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="debate-grid debate-vs">
+      <div class="debate-card optimist">
+        <h3>The Optimist Sees…</h3>
+        <ul>
+          <li>A genuine pivot from camera-chip supplier to physical AI platform, backed by 370+ production deployments</li>
+          <li>A potential $800M decade-long Hanwha opportunity stacked on top of an already-growing automotive business</li>
+          <li>15+ robotics design wins already generating real revenue, not just pipeline promises</li>
+          <li>Narrowing losses and a recent quarter of positive non-GAAP net income showing the path to profitability is real</li>
+          <li>Buy consensus and a $95.00 average target still imply over 43% upside from here</li>
+        </ul>
+      </div>
+      <div class="debate-card pessimist">
+        <h3>The Pessimist Sees…</h3>
+        <ul>
+          <li>A still-GAAP-unprofitable company trading at a rich multiple that assumes a lot goes right</li>
+          <li>Heavy dependence on a single Asia-based fulfillment partner in an era of rising trade friction</li>
+          <li>A stock that already fell over 50% during the 2025 tariff shock, showing real vulnerability to macro shocks</li>
+          <li>FY2027 growth guidance of just 10-15%, a meaningful deceleration from FY2026's 37%</li>
+          <li>The $800M Hanwha figure is explicitly "not guaranteed" and spans more than a decade — easy to overweight today</li>
+        </ul>
+      </div>
+      <div class="vs-badge">VS</div>
+    </div>
+  </div>
+
+  <div class="section" id="verdict">
+    <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="verdict">
+      <div class="verdict-title">The Verdict</div>
+      <p>Ambarella looks like a specialist instrument-maker who spent a decade perfecting one tool — on-device vision AI — and is now watching that exact tool get pulled into car dashboards, security systems, and robots all at once.</p>
+      <p>The long-term case is believable: a real track record of 42M+ chips shipped and 370+ production deployments, record automotive sales, and a Hanwha partnership that — even discounted heavily for its "not guaranteed" caveat — represents a genuinely large new market. If robotics design wins keep converting to revenue the way the first 15+ have, the growth story extends well past automotive and security cameras.</p>
+      <p>The near-term pain is real: this is still an unprofitable company at a premium valuation, concentrated through a single fulfillment partner, and FY2027 growth guidance of 10-15% is a real deceleration from FY2026's 37%. Investors comfortable with valuation and concentration risk can reasonably hold through the robotics/Hanwha ramp on a 12-24 month horizon; more conservative investors may prefer to wait for GAAP profitability or a valuation reset before adding.</p>
+    </div>
+  </div>
+
+  <div class="section" id="wall">
+    <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+    <div class="report-table-wrap">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Consensus Rating</td><td class="mono val-green">Buy</td><td>9 Buy · 5 Hold · 0 Sell (14-22 analysts across sources)</td></tr>
+          <tr><td class="row-label">Avg. Price Target</td><td class="mono val-green">$95.00</td><td>vs. current $66.28 (+43.3%)</td></tr>
+          <tr><td class="row-label">Target Range</td><td class="mono">$80 – $120</td><td>Rosenblatt at $120 (top physical AI pick); BofA more conservative at $96</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" style="border-top:1px solid var(--border);padding-top:20px;margin-top:32px">
+    <div style="font-family:var(--font-family-display);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Sources</div>
+    <ul style="font-size:13px;line-height:1.8;padding-left:18px;color:var(--muted)">
+      <li><a href="https://stockanalysis.com/stocks/amba/" style="color:var(--color-secondary)">Ambarella (AMBA) Stock Overview — StockAnalysis.com</a></li>
+      <li><a href="https://stockanalysis.com/stocks/amba/forecast/" style="color:var(--color-secondary)">AMBA Stock Forecast &amp; Price Targets — StockAnalysis.com</a></li>
+      <li><a href="https://www.sec.gov/Archives/edgar/data/1280263/000119312526076823/d108529dex991.htm" style="color:var(--color-secondary)">Ambarella Inc — Form 8-K, FY2026 — SEC EDGAR</a></li>
+      <li><a href="https://invezz.com/news/2026/06/30/ambarella-stock-gains-as-rosenblatt-sees-it-as-one-of-the-best-physical-ai-plays/" style="color:var(--color-secondary)">Ambarella Stock Jumps 28% As Rosenblatt Calls It a Top Physical AI Play — Invezz</a></li>
+      <li><a href="https://finance.yahoo.com/technology/ai/articles/why-ambarella-amba-40-2-151430973.html" style="color:var(--color-secondary)">Why Ambarella Is Up 40.2% After Record Auto AI Sales And Profit Turnaround — Yahoo Finance</a></li>
+      <li><a href="https://www.tipranks.com/stocks/amba/risk-factors" style="color:var(--color-secondary)">Ambarella Inc. (AMBA) Stock Risk Analysis — TipRanks</a></li>
+      <li><a href="https://www.tikr.com/blog/ambarella-fell-21-today-heres-how-much-the-stock-could-rise-in-2026" style="color:var(--color-secondary)">Ambarella Fell 21% Today: How Much Could the Stock Rise in 2026 — TIKR.com</a></li>
+      <li><a href="https://simplywall.st/stocks/us/semiconductors/nasdaq-amba/ambarella/news/how-investors-are-reacting-to-ambarella-amba-record-edge-ai" style="color:var(--color-secondary)">How Investors Are Reacting to Ambarella's Record Edge AI Revenue Surge — Simply Wall St</a></li>
+    </ul>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</p>
+  </div>
+
+</div>
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bar = entry.target;
+      const target = bar.dataset.target;
+      bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+      bar.style.width = target + '%';
+      observer.unobserve(bar);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+
+document.querySelectorAll('.scenario-tabs').forEach(function (group) {
+  group.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var name = tab.getAttribute('data-tab');
+      group.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      group.querySelectorAll('.tab-panel').forEach(function (p) {
+        p.classList.toggle('show', p.getAttribute('data-panel') === name);
+      });
+    });
+  });
+});
+
+(function () {
+  var legend = document.getElementById('revenueLegend');
+  var svg = document.getElementById('revenueDonut');
+  if (!legend || !svg) return;
+  legend.querySelectorAll('.legend-row').forEach(function (row) {
+    row.addEventListener('mouseenter', function () {
+      var seg = row.getAttribute('data-seg');
+      legend.querySelectorAll('.legend-row').forEach(function (r) {
+        r.classList.toggle('dim', r !== row);
+        r.classList.toggle('hi', r === row);
+      });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) {
+        var match = c.getAttribute('data-seg') === seg;
+        c.classList.toggle('seg-dim', !match);
+        c.classList.toggle('active-glow', match);
+      });
+    });
+    row.addEventListener('mouseleave', function () {
+      legend.querySelectorAll('.legend-row').forEach(function (r) { r.classList.remove('dim', 'hi'); });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) { c.classList.remove('seg-dim', 'active-glow'); });
+    });
+  });
+})();
+
+(function () {
+  var rail = document.getElementById('spyRail');
+  if (!rail) return;
+  var sections = [
+    ['hero', 'Hero'], ['tldr', 'TL;DR'], ['snapshot', 'Snapshot'], ['mix', 'Revenue Mix'],
+    ['story', 'What It Does'], ['model', 'Biz Model'], ['catalyst', 'Catalyst'], ['edge', 'Comp. Edge'],
+    ['scorecard', 'Scorecard'], ['situation', 'Growth/Risks'], ['scenario', 'Scenarios'],
+    ['debate', 'Debate'], ['verdict', 'Verdict'], ['wall', 'Consensus']
+  ];
+  var items = sections.map(function (s) {
+    var el = document.getElementById(s[0]);
+    if (!el) return null;
+    var item = document.createElement('div');
+    item.className = 'spy-item';
+    item.innerHTML = '<span class="spy-label">' + s[1] + '</span><span class="spy-dot"></span>';
+    item.addEventListener('click', function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    rail.appendChild(item);
+    return { id: s[0], el: el, item: item };
+  }).filter(Boolean);
+
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var match = items.find(function (i) { return i.el === entry.target; });
+        if (!match) return;
+        items.forEach(function (i) { i.item.classList.toggle('active', i === match); });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+  items.forEach(function (i) { obs.observe(i.el); });
+  if (items.length) items[0].item.classList.add('active');
+})();
+
+(function () {
+  var svgEl = document.getElementById('scorecardRadar');
+  var whyEl = document.getElementById('scorecardWhy');
+  if (!svgEl || !whyEl) return;
+
+  var METRICS = [
+    { label: 'Business Model', full: 'Business Model Strength', value: 7, why: 'An 80% Edge AI revenue mix, 58.9% gross margin, and 370+ customer AI projects in production show a genuine platform, though profitability still lags.' },
+    { label: 'Revenue Growth', full: 'Revenue Growth', value: 8, why: 'FY2026 revenue grew 37% to a record $390.7M, though FY2027 growth guidance moderates to 10-15%.' },
+    { label: 'Profitability', full: 'Profitability', value: 4, why: 'TTM net loss of $69.6M, though losses narrowed 35% YoY and non-GAAP net income turned positive in the most recent quarter.' },
+    { label: 'Competitive Moat', full: 'Competitive Moat', value: 6, why: 'Real scale with 42M+ SoCs shipped and $1B cumulative Edge AI revenue, but the video/AI chip space is fast-moving with both large and small rivals.' },
+    { label: 'Regulatory Safety', full: 'Regulatory Safety', value: 5, why: 'Heavy revenue concentration with a single Asia-based fulfillment partner and significant export market exposure creates real trade-policy vulnerability.' },
+    { label: 'Mgmt Execution', full: 'Management Execution', value: 7, why: 'Consistent guidance beats, the Hanwha partnership signed, and 15+ robotics design wins already converting to revenue.' },
+    { label: 'Long-Term Potential', full: 'Long-Term Potential', value: 8, why: 'A credible path from camera-chip supplier to a broader physical AI platform, anchored by a potential $800M decade-long Hanwha opportunity.' }
+  ];
+  var MAX = 10;
+  var dots = [];
+
+  function svgNode(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+  function average(data) {
+    var sum = data.reduce(function (acc, d) { return acc + d.value; }, 0);
+    return Math.round((sum / data.length) * 10) / 10;
+  }
+
+  function showOverall() {
+    var avg = average(METRICS);
+    var best = METRICS.reduce(function (a, b) { return b.value > a.value ? b : a; });
+    var worst = METRICS.reduce(function (a, b) { return b.value < a.value ? b : a; });
+    whyEl.innerHTML =
+      '<div class="wp-title">Overall</div>' +
+      '<span class="wp-score">' + avg + ' / 10 average</span>' +
+      '<p class="wp-text">A genuine platform story still building toward profitability — led by ' + best.full + ' (' + best.value + '/10). The one real soft spot is ' +
+      worst.full + ' (' + worst.value + '/10) — click any point on the chart for the reasoning behind each score.</p>';
+  }
+
+  function showWhy(d) {
+    whyEl.innerHTML =
+      '<button class="wp-back" type="button">&larr; Overall</button>' +
+      '<div class="wp-title">' + d.full + '</div>' +
+      '<span class="wp-score">' + d.value + ' / 10</span>' +
+      '<p class="wp-text">' + d.why + '</p>';
+    whyEl.querySelector('.wp-back').addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      showOverall();
+    });
+  }
+
+  var cx = 200, cy = 200, maxR = 140;
+  var n = METRICS.length;
+  var angleStep = (Math.PI * 2) / n;
+  var startAngle = -Math.PI / 2;
+
+  function pt(i, ratio) {
+    var a = startAngle + i * angleStep;
+    return [cx + maxR * ratio * Math.cos(a), cy + maxR * ratio * Math.sin(a)];
+  }
+
+  [0.25, 0.5, 0.75, 1].forEach(function (ratio) {
+    var pts = METRICS.map(function (_, i) { return pt(i, ratio).join(','); }).join(' ');
+    var poly = svgNode('polygon');
+    poly.setAttribute('points', pts);
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', 'var(--border)');
+    poly.setAttribute('stroke-width', ratio === 1 ? '1.2' : '1');
+    poly.setAttribute('stroke-dasharray', ratio === 1 ? 'none' : '2,3');
+    svgEl.appendChild(poly);
+  });
+
+  METRICS.forEach(function (_, i) {
+    var p = pt(i, 1);
+    var line = svgNode('line');
+    line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+    line.setAttribute('x2', p[0]); line.setAttribute('y2', p[1]);
+    line.setAttribute('stroke', 'var(--border)');
+    line.setAttribute('stroke-width', '1');
+    svgEl.appendChild(line);
+  });
+
+  var dataPts = METRICS.map(function (d, i) { return pt(i, d.value / MAX); });
+  var dataPoly = svgNode('polygon');
+  dataPoly.setAttribute('points', dataPts.map(function (p) { return p.join(','); }).join(' '));
+  dataPoly.setAttribute('fill', 'var(--color-accent)');
+  dataPoly.setAttribute('fill-opacity', '0.2');
+  dataPoly.setAttribute('stroke', 'var(--color-accent)');
+  dataPoly.setAttribute('stroke-width', '2');
+  svgEl.appendChild(dataPoly);
+
+  dataPts.forEach(function (p, i) {
+    var dot = svgNode('circle');
+    dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]);
+    dot.setAttribute('r', 7);
+    dot.setAttribute('fill', 'var(--color-accent)');
+    dot.setAttribute('class', 'radar-dot');
+    dot.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dot.classList.add('active');
+      showWhy(METRICS[i]);
+    });
+    svgEl.appendChild(dot);
+    dots.push(dot);
+  });
+
+  METRICS.forEach(function (d, i) {
+    var lp = pt(i, 1.26);
+    var anchor = 'middle';
+    if (lp[0] < cx - 5) anchor = 'end';
+    else if (lp[0] > cx + 5) anchor = 'start';
+    var text = svgNode('text');
+    text.setAttribute('x', lp[0]); text.setAttribute('y', lp[1]);
+    text.setAttribute('text-anchor', anchor);
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('class', 'radar-axis-label');
+    text.textContent = d.label;
+    text.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dots[i].classList.add('active');
+      showWhy(d);
+    });
+    svgEl.appendChild(text);
+  });
+
+  var bbox = svgEl.getBBox();
+  var pad = 16;
+  var vbW = bbox.width + pad * 2;
+  var vbH = bbox.height + pad * 2;
+  svgEl.setAttribute('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + vbW + ' ' + vbH);
+  var targetWidth = parseFloat(svgEl.getAttribute('width')) || 420;
+  svgEl.setAttribute('height', Math.round(targetWidth * (vbH / vbW)));
+
+  showOverall();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLAB — Stock Analysis · Jul26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    /* Theme: darkroom-safelight - applied by obs-theme-factory */
+    :root {
+      --bg-base: #160404; --bg-image: none; --bg-size: auto; --bg-position: 0 0; --bg-repeat: no-repeat;
+      --color-primary: #D4CCC0; --color-primary-light: rgba(212,204,192,0.1); --color-secondary: #8B2020; --color-accent: #B87722;
+      --color-bg: #160404; --color-surface: #220808; --color-surface-alt: #2E0C0C;
+      --color-text: #D4CCC0; --color-text-muted: #7A4848; --color-text-on-primary: #160404;
+      --color-border: #3A1010; --color-success: #3A6644; --color-warning: #B87722; --color-error: #CC2222;
+      --font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      --font-family-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --font-family-display: 'DM Serif Display', Georgia, serif;
+      --font-size-base: 16px; --font-weight-heading: 400; --font-weight-body: 400; --line-height: 1.6;
+      --radius: 0px; --radius-card: 0px; --radius-button: 0px;
+      --shadow-sm: 0 0 0 1px #3A1010;
+      --shadow-md: 0 0 0 1px #3A1010, 0 4px 16px rgba(0,0,0,0.7);
+      --shadow-lg: 0 0 0 1px #3A1010, 0 8px 32px rgba(0,0,0,0.8);
+      --shadow-xl: 0 0 0 1px #3A1010, 0 16px 48px rgba(0,0,0,0.9);
+      --shadow-colored: 0 0 12px rgba(139,32,32,0.4);
+      --shadow-inset: inset 0 0 8px rgba(0,0,0,0.6);
+      --gradient-hero: none; --gradient-card: none; --gradient-button: none; --gradient-text: none; --gradient-accent: none;
+      --glow-color: #8B2020; --glow-sm: 0 0 6px rgba(139,32,32,0.3); --glow-md: 0 0 16px rgba(139,32,32,0.4); --glow-lg: 0 0 32px rgba(139,32,32,0.5);
+      --glass-blur: 0; --glass-tint: none; --backdrop-filter: none; --text-shadow: none;
+      --border-gradient: none; --noise-opacity: 0;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 100ms; --duration-base: 200ms; --duration-slow: 400ms;
+      --easing: cubic-bezier(0.25, 0, 0.5, 1); --border-width: 1px;
+
+      --bg: var(--color-bg);
+      --card: var(--color-surface);
+      --card2: var(--color-surface-alt);
+      --border: var(--color-border);
+      --accent: var(--color-secondary);
+      --green: var(--color-success);
+      --red: var(--color-error);
+      --yellow: var(--color-warning);
+      --text: var(--color-text);
+      --muted: var(--color-text-muted);
+    }
+
+    /* Layout: timeline-river - applied by obs-layout-factory */
+    :root {
+      --layout-columns: 12;
+      --layout-gutter: 28px;
+      --layout-max-width: 980px;
+      --layout-margin-inline: 5vw;
+      --layout-space-2: 8px;
+      --layout-space-4: 24px;
+      --layout-space-6: 48px;
+      --layout-section-gap: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-family);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--text);
+      line-height: var(--line-height);
+      margin: 0;
+      padding: 20px;
+      background-color: var(--bg-base);
+    }
+
+    .page {
+      max-width: var(--layout-max-width);
+      margin: 0 auto;
+      padding-inline: var(--layout-margin-inline);
+    }
+
+    .hero {
+      background: var(--card);
+      border-top: 3px solid var(--color-secondary);
+      box-shadow: var(--shadow-lg);
+      color: var(--color-text);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+    }
+    .hero-ticker {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: var(--color-secondary);
+      text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-family-mono);
+    }
+    .hero-name {
+      font-size: 30px; font-weight: var(--font-weight-heading, 700); margin-bottom: 8px;
+      color: var(--color-primary); font-family: var(--font-family-display); letter-spacing: 0.01em;
+    }
+    .hero-tagline { font-size: 15px; color: var(--muted); max-width: 560px; margin-bottom: 20px; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      padding: 4px 14px; font-size: 11px; font-weight: 600; border: 1px solid;
+      letter-spacing: 0.04em; font-family: var(--font-family-mono); text-transform: uppercase;
+    }
+    .pill-blue { background: rgba(212,204,192,0.06); border-color: rgba(212,204,192,0.3); color: var(--color-primary); }
+    .pill-green { background: rgba(58,102,68,0.2); border-color: var(--color-success); color: #8FC79B; }
+    .pill-red { background: rgba(204,34,34,0.2); border-color: var(--color-error); color: #F09090; }
+    .pill-yellow { background: rgba(184,119,34,0.2); border-color: var(--color-warning); color: #E0AC5C; }
+
+    .section { margin-bottom: var(--layout-section-gap); }
+    .section-title {
+      font-family: var(--font-family-display); font-size: 15px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 14px;
+    }
+    .section-title.lead-title { font-size: 19px; letter-spacing: 1px; color: var(--color-primary); }
+
+    .card { background: var(--card); border-top: 3px solid var(--color-secondary); box-shadow: var(--shadow-sm); padding: 20px 22px; margin-bottom: 14px; }
+    .card h3 {
+      font-family: var(--font-family-display); font-size: 15px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-secondary); margin: 0 0 10px 0;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .stat-card { background: var(--card); border-top: 3px solid var(--color-secondary); box-shadow: var(--shadow-sm); padding: 16px 18px; }
+    .stat-label {
+      font-family: var(--font-family-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--color-secondary); margin-bottom: 6px;
+    }
+    .stat-value { font-family: var(--font-family-display); font-size: 24px; font-weight: var(--font-weight-heading, 700); color: var(--color-primary); }
+    .stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .val-green { color: #8FC79B; }
+    .val-red { color: #F09090; }
+    .val-yellow { color: #E0AC5C; }
+
+    .tldr { background: var(--card); border-top: 3px solid var(--color-secondary); box-shadow: var(--shadow-md); padding: 22px 24px; margin-bottom: 28px; }
+    .tldr h2 {
+      font-family: var(--font-family-display); font-size: 15px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-secondary); margin: 0 0 14px 0;
+    }
+    .tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+    .tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+    .scorecard-body { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+    .radar-hint { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+    .radar-wrap { flex-shrink: 0; display: flex; justify-content: center; width: 100%; max-width: 420px; }
+    #scorecardRadar { width: 100%; height: auto; display: block; }
+    .radar-axis-label { font-family: var(--font-family-display); font-size: 15px; font-weight: 700; fill: var(--color-primary); cursor: pointer; }
+    .radar-dot { cursor: pointer; transition: r 0.15s; }
+    .radar-dot:hover, .radar-dot.active { r: 10; }
+    .scorecard-why { flex: 1; min-width: 220px; border-left: 1px solid var(--border); padding: 4px 0 4px 26px; }
+    .scorecard-why .wp-title {
+      font-family: var(--font-family-display); font-size: 15px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--color-secondary); margin-bottom: 6px;
+    }
+    .scorecard-why .wp-score { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-accent); font-weight: 700; margin-bottom: 10px; display: block; }
+    .scorecard-why .wp-text { font-size: 15px; line-height: 1.65; margin: 0; }
+    .scorecard-why .wp-back {
+      display: block; font-family: var(--font-family-mono); font-size: 11px; color: var(--muted);
+      background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 10px; text-decoration: underline;
+    }
+    .scorecard-why .wp-back:hover { color: var(--color-secondary); }
+    @media (max-width: 640px) {
+      .scorecard-body { flex-direction: column; }
+      .scorecard-why { border-left: none; border-top: 1px solid var(--border); padding: 20px 0 0; margin-top: 20px; }
+    }
+
+    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .scenario-card { background: var(--card); border-top: 3px solid var(--color-secondary); box-shadow: var(--shadow-sm); padding: 18px 20px; }
+    .scenario-card h3 {
+      font-family: var(--font-family-display); font-size: 15px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 0.5px; text-transform: uppercase; margin: 0 0 6px 0;
+    }
+    .scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+    .scenario-bull h3 { color: #8FC79B; }
+    .scenario-base h3 { color: #E0AC5C; }
+    .scenario-bear h3 { color: #F09090; }
+
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+    .timeline-item { position: relative; margin-bottom: 20px; }
+    .timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+    .timeline-dot.past { background: var(--color-text-muted); border-color: var(--color-text-muted); }
+    .timeline-dot.present { background: var(--color-secondary); border-color: var(--color-secondary); width: 14px; height: 14px; left: -26px; box-shadow: var(--glow-sm); }
+    .timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+    .timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+    .timeline-event { font-size: 14px; line-height: 1.5; }
+
+    .verdict { background: var(--color-surface-alt); border-top: 3px solid var(--color-secondary); box-shadow: var(--shadow-md); padding: 28px 30px; }
+    .verdict-title {
+      font-family: var(--font-family-display); font-size: 17px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 16px;
+    }
+    .verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; color: var(--color-primary); }
+    .verdict p:last-child { margin-bottom: 0; }
+
+    .item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; }
+    .item-title {
+      font-family: var(--font-family-display); font-size: 14px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 0.3px; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 2px;
+    }
+    .item-desc { font-size: 14px; line-height: 1.55; }
+    .item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    .debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .debate-card { background: var(--card); border-top: 3px solid var(--color-secondary); box-shadow: var(--shadow-sm); padding: 20px 22px; }
+    .debate-card h3 {
+      font-family: var(--font-family-display); font-size: 15px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 0.5px; text-transform: uppercase; margin: 0 0 12px 0;
+    }
+    .debate-card.optimist h3 { color: #8FC79B; }
+    .debate-card.pessimist h3 { color: #F09090; }
+    .debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+    .debate-card li { margin-bottom: 6px; }
+    .debate-vs { position: relative; }
+    .debate-vs .vs-badge {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: var(--color-secondary); color: var(--color-primary); font-family: var(--font-family-mono);
+      font-size: 11px; font-weight: 700; width: 34px; height: 34px; display: flex;
+      align-items: center; justify-content: center; box-shadow: var(--shadow-md); z-index: 2; letter-spacing: 0.5px;
+    }
+    @media (max-width: 760px) { .debate-vs .vs-badge { display: none; } }
+
+    .donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .donut-legend { flex: 1; min-width: 180px; }
+    .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; padding: 2px 4px; cursor: pointer; transition: opacity 0.15s; }
+    .legend-row.dim { opacity: 0.35; }
+    .legend-row.hi { background: rgba(139,32,32,0.15); }
+    .legend-dot { width: 10px; height: 10px; flex-shrink: 0; }
+    .legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+    .seg-dim { opacity: 0.3; transition: opacity 0.15s; }
+    .seg-hi { transition: opacity 0.15s; }
+
+    .seg-row { margin-bottom: 16px; }
+    .seg-label {
+      display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px;
+      font-family: var(--font-family-mono); font-weight: 700; letter-spacing: 0.5px;
+    }
+    .seg-track { background: var(--card2); height: 8px; overflow: hidden; position: relative; }
+    .seg-fill { height: 100%; }
+    .seg-proj { height: 100%; opacity: 0.45; }
+    .seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .exhibit-visual { border: 1px solid var(--border); padding: 20px 22px; margin-bottom: 14px; }
+    .subhead {
+      font-family: var(--font-family-display); font-size: 15px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-secondary); margin: 0 0 10px 0;
+    }
+    .split-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+    .split-cols > div + div { border-left: 1px solid var(--border); padding-left: 24px; }
+    .split-cols h3 {
+      font-family: var(--font-family-display); font-size: 15px; font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-secondary); margin: 0 0 10px 0;
+    }
+    .split-cols p { font-size: 15px; line-height: 1.65; margin: 0; }
+    .split-cols ul { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.65; }
+    .split-cols li { margin-bottom: 6px; }
+
+    .item-list .item-row { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+    .item-list .item-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+    .severity-list .sev-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .severity-list .sev-row:last-child { border-bottom: none; }
+    .sev-stripe { width: 4px; align-self: stretch; flex-shrink: 0; min-height: 40px; }
+
+    .report-table-wrap { overflow-x: auto; }
+    .report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .report-table th {
+      font-family: var(--font-family-mono); font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 16px 8px 0;
+      border-bottom: 2px solid var(--color-secondary); white-space: nowrap;
+    }
+    .report-table td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .report-table tr:hover td { background: rgba(139,32,32,0.08); }
+    .report-table tr:last-child td { border-bottom: 1px solid var(--border); }
+    .report-table .row-label { font-family: var(--font-family-mono); font-weight: 700; letter-spacing: 0.3px; color: var(--color-primary); white-space: nowrap; }
+    .report-table .mono { font-family: var(--font-family-mono); font-weight: 700; }
+    .report-table ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.55; }
+    .report-table li { margin-bottom: 3px; }
+
+    .scenario-tabs .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .scenario-tabs .tab {
+      flex: 1; text-align: center; cursor: pointer; border: 1px solid var(--border);
+      padding: 10px 8px; background: var(--card); font-family: var(--font-family-mono); font-size: 12px; font-weight: 700;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .scenario-tabs .tab .p { font-family: var(--font-family-mono); font-weight: 700; display: block; font-size: 14px; margin-top: 3px; }
+    .scenario-tabs .tab.bull, .scenario-tabs .tab.positive { color: #8FC79B; }
+    .scenario-tabs .tab.base, .scenario-tabs .tab.mixed { color: #E0AC5C; }
+    .scenario-tabs .tab.bear, .scenario-tabs .tab.negative { color: #F09090; }
+    .scenario-tabs .tab.active.bull, .scenario-tabs .tab.active.positive { background: rgba(58,102,68,0.2); border-color: var(--color-success); }
+    .scenario-tabs .tab.active.base, .scenario-tabs .tab.active.mixed { background: rgba(184,119,34,0.2); border-color: var(--color-warning); }
+    .scenario-tabs .tab.active.bear, .scenario-tabs .tab.active.negative { background: rgba(204,34,34,0.2); border-color: var(--color-error); }
+    .scenario-tabs .tab-panel { display: none; background: var(--card); padding: 18px 20px; border-left: 3px solid var(--border); }
+    .scenario-tabs .tab-panel.show { display: block; }
+    .scenario-tabs .tab-panel h4 { margin: 0 0 4px; font-family: var(--font-family-display); font-size: 16px; letter-spacing: 0.3px; }
+    .scenario-tabs .tab-panel .range { font-family: var(--font-family-mono); font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+    .scenario-tabs .tab-panel ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+    .scenario-tabs .tab-panel li { margin-bottom: 5px; }
+
+    .spy-rail { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 9px; z-index: 40; }
+    .spy-rail .spy-item { display: flex; align-items: center; gap: 8px; cursor: pointer; justify-content: flex-end; }
+    .spy-rail .spy-dot { width: 6px; height: 6px; background: var(--border); flex-shrink: 0; transition: background 0.15s, transform 0.15s; }
+    .spy-rail .spy-item.active .spy-dot { background: var(--color-secondary); transform: scale(1.5); }
+    .spy-rail .spy-label { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); opacity: 0; white-space: nowrap; transition: opacity 0.15s; }
+    .spy-rail .spy-item.active .spy-label { opacity: 1; color: var(--color-primary); font-weight: 700; }
+    @media (max-width: 1180px) { .spy-rail { display: none; } }
+
+    .pull-quote {
+      background: var(--card2);
+      border-top: 3px solid var(--color-secondary);
+      box-shadow: var(--shadow-md);
+      color: var(--color-primary);
+      padding: 20px 24px;
+      margin: 20px 0 24px;
+      font-size: 17px;
+      font-family: var(--font-family-display);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 12px; }
+      .grid-2, .debate-grid, .split-cols { grid-template-columns: 1fr; }
+      .split-cols > div + div { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 24px 20px; }
+      .hero-name { font-size: 24px; }
+      .debate-vs .vs-badge { display: none; }
+    }
+    @media (max-width: 520px) {
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+      .donut-wrap { flex-direction: column; align-items: flex-start; }
+      .scenario-tabs .tabs { flex-direction: column; }
+    }
+  </style>
+</head>
+<body data-layout="timeline-river">
+<nav class="spy-rail" id="spyRail" aria-label="Section navigation"></nav>
+<div class="page">
+
+  <div class="hero" id="hero">
+    <div class="hero-ticker">NASDAQ: PLAB &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+    <div class="hero-name">Photronics, Inc.</div>
+    <div class="hero-tagline">Makes photomasks — the microscopic stencils used to "print" circuit patterns onto every computer chip and flat-panel display in the world.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">Semiconductor Materials (Photomasks)</span>
+      <span class="pill pill-yellow">Profitable, Under Stress</span>
+      <span class="pill pill-red">Securities Litigation Risk</span>
+    </div>
+  </div>
+
+  <div class="tldr" id="tldr">
+    <h2>TL;DR</h2>
+    <div class="tldr-item"><span class="tldr-sym" style="color:#8FC79B">+</span><span>Photronics makes photomasks — precision glass plates that act like stencils to print circuit patterns onto chips and flat-panel displays — a role few other independent companies can fill at scale.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:#E0AC5C">!</span><span>Q2 fiscal 2026 revenue missed estimates ($209.9M vs. $216M expected) on delayed high-end chip design releases, triggering a 36.4% single-day stock crash on May 28, 2026 and a subsequent securities class action lawsuit.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--color-accent)">►</span><span>The underreported catalyst: new advanced photomask capacity — the Allen, Texas facility and a newly installed advanced mask writer in Korea — is coming online just as EUV lithography and sub-4nm chip nodes intensify demand, a story completely buried under the litigation headlines.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:#F09090">-</span><span>The main risk is the active securities class action alleging the company misled investors about IC photomask demand — a real legal and reputational overhang with a lead-plaintiff deadline of September 4, 2026.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:#8FC79B">+</span><span>Verdict: Strong Buy consensus, $42.33 average target vs. $28.16 current price (+50% implied upside) — though targets may lag the litigation news. Next event: Q3 FY2026 earnings.</span></div>
+  </div>
+
+  <div class="section" id="snapshot">
+    <div class="section-title">Financial Snapshot</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Stock Price</div><div class="stat-value mono">$28.16</div><div class="stat-sub">As of Jul 29, 2026</div></div>
+      <div class="stat-card"><div class="stat-label">Market Cap</div><div class="stat-value mono">$1.66B</div><div class="stat-sub">—</div></div>
+      <div class="stat-card"><div class="stat-label">Revenue (TTM)</div><div class="stat-value mono val-yellow">$861.2M</div><div class="stat-sub">Roughly flat, +0.5% YoY</div></div>
+      <div class="stat-card"><div class="stat-label">Net Income (TTM)</div><div class="stat-value mono val-green">$159.1M</div><div class="stat-sub">+32.6% YoY</div></div>
+      <div class="stat-card"><div class="stat-label">EPS (TTM)</div><div class="stat-value mono val-green">$2.73</div><div class="stat-sub">+41.3% YoY</div></div>
+      <div class="stat-card"><div class="stat-label">Operating Margin</div><div class="stat-value mono val-green">24.5%</div><div class="stat-sub">P/E only 10.5x</div></div>
+      <div class="stat-card" style="font-size:15px"><div class="stat-label">Forward Guidance</div><div class="stat-value mono val-yellow" style="font-size:15px">$207M–$215M</div><div class="stat-sub">Q3 FY2026 revenue guide</div></div>
+      <div class="stat-card"><div class="stat-label">Analyst Target</div><div class="stat-value mono val-green">$42.33</div><div class="stat-sub">+50.3% implied</div></div>
+      <div class="stat-card" style="font-size:15px"><div class="stat-label">Next Event</div><div class="stat-value" style="font-size:15px">Q3 Earnings</div><div class="stat-sub">+ Litigation deadline Sep 4</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="mix">
+    <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+    <div class="exhibit-visual">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200" id="revenueDonut">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--border)" stroke-width="28"/>
+          <circle class="seg-hi" data-seg="ic" cx="100" cy="100" r="70" fill="none" stroke="var(--color-primary)" stroke-width="28"
+                  stroke-dasharray="286 440" stroke-dashoffset="0" stroke-linecap="butt"/>
+          <circle class="seg-hi" data-seg="fpd" cx="100" cy="100" r="70" fill="none" stroke="var(--color-secondary)" stroke-width="28"
+                  stroke-dasharray="154 440" stroke-dashoffset="-286" stroke-linecap="butt"/>
+          <text x="100" y="104" text-anchor="middle" font-family="var(--font-family-display)" font-size="13" font-weight="700" fill="var(--color-primary)">Revenue</text>
+        </svg>
+        <div class="donut-legend" id="revenueLegend">
+          <div class="legend-row" data-seg="ic"><div class="legend-dot" style="background:var(--color-primary)"></div><span>IC (Integrated Circuit) Photomasks</span><span class="legend-pct">65%</span></div>
+          <div class="legend-row" data-seg="fpd"><div class="legend-dot" style="background:var(--color-secondary)"></div><span>FPD (Flat Panel Display) Photomasks</span><span class="legend-pct">35%</span></div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Estimated split based on management's disclosure that IC revenue fell 5% YoY while FPD revenue grew 13% YoY in Q2 2026. Exact dollar breakdown not fully disclosed.</p>
+      <div class="seg-row">
+        <div class="seg-label"><span>IC (Integrated Circuit) Photomasks</span><span style="font-family:var(--font-family-mono)">65% → 60%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:65%;background:var(--color-primary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="60" style="width:0%;background:var(--color-primary);margin-top:3px;height:4px"></div>
+        <div class="seg-note">Currently declining on delayed high-end chip design releases; the segment at the center of the litigation.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>FPD (Flat Panel Display) Photomasks</span><span style="font-family:var(--font-family-mono)">35% → 40%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:35%;background:var(--color-secondary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="40" style="width:0%;background:var(--color-secondary);margin-top:3px;height:4px"></div>
+        <div class="seg-note">Growing 13% YoY, currently offsetting IC segment softness.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="story">
+    <div class="section-title">What Does This Company Actually Do?</div>
+    <div class="split-cols">
+      <div>
+        <h3>The Simple Story</h3>
+        <p>Making a computer chip is like printing a photograph, but at a microscopic scale. Photronics makes the "negatives" — precise glass plates called photomasks — that a chip factory shines light through to etch a circuit pattern onto silicon. Without a photomask, a chip factory has nothing to print with.</p>
+      </div>
+      <div>
+        <h3>Who Actually Buys It</h3>
+        <p>Its customers are semiconductor manufacturers and flat-panel display makers around the world, with about 82% of its revenue coming from international operations. It serves both leading-edge chipmakers pushing to the smallest process nodes and display makers building screens for phones, TVs, and monitors.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="model">
+    <div class="section-title">Business Model</div>
+    <div class="split-cols">
+      <div>
+        <h3>How They Make Money</h3>
+        <ul>
+          <li>Manufacture and sell custom photomasks to order for each customer's specific chip or display design</li>
+          <li>Serve two distinct end markets — integrated circuits (IC) and flat panel displays (FPD) — spreading demand across different customer bases</li>
+          <li>Advanced, leading-edge photomasks command higher prices than mainstream, commoditized ones</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Why the Model Is Clever</h3>
+        <ul>
+          <li>Photomask manufacturing requires extreme precision and capital investment that most chipmakers prefer to outsource rather than build in-house</li>
+          <li>A debt-free balance sheet (debt/equity of 0) gives real financial flexibility to keep investing through industry cycles</li>
+          <li>Global manufacturing footprint across the US, Asia, and Europe lets it serve customers close to their own fabs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="catalyst">
+    <div class="section-title lead-title">Hidden Catalyst Deep Dive</div>
+    <div class="pull-quote">The Allen, Texas facility is expected to contribute revenue in the second half of fiscal 2026, alongside a newly installed advanced mask writer at the Korea facility — new capacity arriving just as EUV lithography and sub-4nm nodes intensify demand for the most sophisticated photomasks.</div>
+    <div class="split-cols" style="margin-bottom:24px">
+      <div>
+        <h3>The Opportunity</h3>
+        <p>As chipmakers push to smaller process nodes and adopt EUV lithography, the photomasks required become dramatically more sophisticated and valuable. Photronics has been investing heavily — $330M in planned fiscal 2026 capital expenditure, nearly double the prior year's $188.1M — specifically to expand advanced photomask production capability in the US and Korea, positioning it to capture higher-value work as the industry's technical demands rise.</p>
+      </div>
+      <div>
+        <h3>Why This Company Wins</h3>
+        <p>AI chip demand is proliferating beyond data centers into PCs, smartphones, and automotive processors, meaningfully expanding the addressable market for sophisticated photomasks. As one of a small number of independent, scaled photomask makers globally, Photronics is positioned to capture that broader demand — a structural story that has been almost entirely overshadowed by the May 2026 stock crash and litigation headlines.</p>
+      </div>
+    </div>
+    <div class="report-table-wrap" style="margin-bottom:24px">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">FY2026 CapEx</td><td class="mono">$330M (vs. $188.1M in FY2025)</td></tr>
+          <tr><td class="row-label">Key Date / Event</td><td class="mono">H2 FY2026 — Allen, TX facility contributes revenue</td></tr>
+          <tr><td class="row-label">Company Readiness</td><td class="mono">Medium — capacity installing and coming online</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-bottom:24px">
+      <div class="subhead">Timeline</div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot past"></div><div class="timeline-date">May 28, 2026</div><div class="timeline-event">Q2 FY2026 earnings miss triggers a 36.4% single-day stock crash (from $53.51 to $34.02) on IC demand and design-release delays.</div></div>
+        <div class="timeline-item"><div class="timeline-dot present"></div><div class="timeline-date">Now — Jul 2026</div><div class="timeline-event">Multiple securities class action lawsuits filed; stock continues trading near $28, well below both pre-crash levels and current analyst targets.</div></div>
+        <div class="timeline-item"><div class="timeline-dot future"></div><div class="timeline-date">H2 FY2026 / Sep 4, 2026</div><div class="timeline-event">Allen, Texas facility begins contributing revenue; lead-plaintiff deadline in the securities litigation.</div></div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <h3 style="color:#8FC79B">Positive</h3>
+        <div class="scenario-prob" style="color:#8FC79B">35%</div>
+        <div class="scenario-target">+30% stock impact</div>
+        <ul><li>IC design releases resume on schedule</li><li>The Allen, Texas facility ramps as guided</li><li>The securities litigation resolves without a material financial impact</li></ul>
+      </div>
+      <div class="scenario-card">
+        <h3 style="color:#E0AC5C">Mixed</h3>
+        <div class="scenario-prob" style="color:#E0AC5C">40%</div>
+        <div class="scenario-target">+5% to -15% stock impact</div>
+        <ul><li>IC demand stabilizes but doesn't fully recover</li><li>Litigation drags on through 2026 as an uncertainty overhang</li><li>FPD growth partially offsets IC softness</li></ul>
+      </div>
+      <div class="scenario-card">
+        <h3 style="color:#F09090">Negative</h3>
+        <div class="scenario-prob" style="color:#F09090">25%</div>
+        <div class="scenario-target">-30% stock impact</div>
+        <ul><li>The securities litigation results in a material settlement or judgment</li><li>IC design delays extend further</li><li>China-related trade tension escalates and hits international revenue</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="edge">
+    <div class="section-title">Competitive Edge</div>
+    <div class="item-list">
+      <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">One of Few Independent Scaled Photomask Makers</div><div class="item-desc">Most chipmakers can't or don't want to build this specialized, capital-intensive capability in-house — a structural role a demand-timing miss doesn't erase.</div></div></div>
+      <div class="item-row"><div class="item-icon">→</div><div><div class="item-title">Debt-Free Balance Sheet</div><div class="item-desc">A debt/equity ratio of 0 gives real financial flexibility to keep investing through the current stress and industry cycles.</div></div></div>
+      <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">Nearly Doubled CapEx for Advanced Capacity</div><div class="item-desc">$330M in FY2026 capital investment, up from $188.1M, specifically targets higher-value advanced photomask production.</div></div></div>
+      <div class="item-row"><div class="item-icon">⚠</div><div><div class="item-title">Trailing P/E of Only 10.5x</div><div class="item-desc">Despite 24.5% operating margins and 32.6% net income growth, the post-crash valuation is unusually cheap relative to the underlying profitability.</div></div></div>
+      <div class="item-row"><div class="item-icon">→</div><div><div class="item-title">Dual IC/FPD Exposure</div><div class="item-desc">Serving both integrated circuit and flat-panel display customers spreads demand across two distinct end markets.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="scorecard">
+    <div class="section-title">Analyst Scorecard</div>
+    <div class="radar-hint">click a point or label to see why it scored that way</div>
+    <div class="scorecard-body">
+      <div class="radar-wrap"><svg id="scorecardRadar" width="420" viewBox="0 0 400 400"></svg></div>
+      <div class="scorecard-why" id="scorecardWhy"></div>
+    </div>
+  </div>
+
+  <div class="section" id="situation">
+    <div class="section-title">Current Situation</div>
+    <div class="split-cols">
+      <div>
+        <h3 style="color:#8FC79B">Growth Drivers</h3>
+        <div class="severity-list">
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">FPD Segment Growth</div><div class="item-desc">Flat panel display photomask revenue grew 13% YoY in Q2 2026, offsetting IC softness.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Advanced Capacity Investment</div><div class="item-desc">Nearly doubled CapEx to $330M for FY2026, targeting EUV-era advanced photomask production.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">New US and Korea Facilities</div><div class="item-desc">The Allen, Texas facility and an advanced mask writer in Korea come online through 2026.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">AI Chip Proliferation</div><div class="item-desc">AI chips spreading into PCs, smartphones, and automotive expand the addressable photomask market.</div></div></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:#F09090">Risks</h3>
+        <div class="severity-list">
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">Securities Class Action Lawsuit [ACTIVE RISK]</div><div class="item-desc">Filed alleging the company misled investors about IC photomask demand; the stock fell 36.4% in one day on the triggering earnings miss. Lead-plaintiff deadline is September 4, 2026.</div><div class="item-meta">Active as of Jul 2026 · Source: PR Newswire, multiple law firm filings</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">IC Segment Demand Miss [ACTIVE RISK]</div><div class="item-desc">IC revenue fell 5% YoY in Q2 2026 on delayed high-end chip design releases, tight memory conditions, and high fab utilization.</div><div class="item-meta">Active as of Jul 2026 · Source: Kavout, company earnings call</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--yellow)"></div><div><div class="item-title">China / International Geopolitical Exposure [ACTIVE RISK]</div><div class="item-desc">About 82% of FY2025 revenue came from international operations, with geopolitical and trade risk tied to China named as the most important short-term factor.</div><div class="item-meta">Active as of Jul 2026 · Source: Company 10-K, Simply Wall St</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--yellow)"></div><div><div class="item-title">Rising CapEx &amp; Depreciation [ACTIVE RISK]</div><div class="item-desc">FY2026 CapEx of $330M, up from $188.1M, will raise depreciation expense and pressure margins even as growth investments continue.</div><div class="item-meta">Active as of Jul 2026 · Source: Company guidance, GuruFocus</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="scenario">
+    <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-tabs" data-tabgroup="overall">
+      <div class="tabs">
+        <div class="tab bull active" data-tab="bull">Bull <span class="p mono">25%</span></div>
+        <div class="tab base" data-tab="base">Base <span class="p mono">45%</span></div>
+        <div class="tab bear" data-tab="bear">Bear <span class="p mono">30%</span></div>
+      </div>
+      <div class="tab-panel show" data-panel="bull">
+        <h4 style="color:#8FC79B">Bull Case · $40–$50</h4>
+        <div class="range">25% probability · 12-month price target</div>
+        <ul>
+          <li>The securities litigation resolves favorably or without material financial impact</li>
+          <li>IC demand recovers as delayed design releases resume</li>
+          <li>New US and Korea capacity ramps on schedule through H2 FY2026</li>
+          <li>FPD growth continues at or above the current 13% pace</li>
+          <li>The valuation gap versus a 10.5x P/E and 24.5% operating margin closes</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="base">
+        <h4 style="color:#E0AC5C">Base Case · $28–$40</h4>
+        <div class="range">45% probability · 12-month price target</div>
+        <ul>
+          <li>The litigation drags on through 2026 as an overhang without a material settlement yet</li>
+          <li>IC demand stabilizes gradually but doesn't fully recover near-term</li>
+          <li>FPD growth continues partially offsetting IC softness</li>
+          <li>Q3 FY2026 results land within the guided $207M-$215M range</li>
+          <li>Analyst ratings stay bullish but the stock remains under a cloud of uncertainty</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="bear">
+        <h4 style="color:#F09090">Bear Case · $15–$25</h4>
+        <div class="range">30% probability · 12-month price target</div>
+        <ul>
+          <li>The securities litigation results in a material settlement or judgment</li>
+          <li>IC demand deteriorates further as design release delays extend</li>
+          <li>China-related trade tension escalates, hitting international revenue</li>
+          <li>Rising depreciation from the $330M CapEx program compresses margins</li>
+          <li>Domestic competition in China's mainstream photomask segment intensifies pricing pressure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="debate">
+    <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="debate-grid debate-vs">
+      <div class="debate-card optimist">
+        <h3>The Optimist Sees…</h3>
+        <ul>
+          <li>A debt-free, profitable company trading at just 10.5x trailing earnings after an overdone crash</li>
+          <li>Real new capacity coming online in the US and Korea just as EUV/advanced-node demand intensifies</li>
+          <li>A structural role in the chip supply chain that a single demand-timing miss doesn't erase</li>
+          <li>FPD segment growth of 13% already offsetting the IC softness at the center of the controversy</li>
+          <li>Strong Buy consensus and a $42.33 average target still imply over 50% upside from here</li>
+        </ul>
+      </div>
+      <div class="debate-card pessimist">
+        <h3>The Pessimist Sees…</h3>
+        <ul>
+          <li>An active securities fraud lawsuit alleging management misled investors about demand — a genuine credibility and legal risk, not just noise</li>
+          <li>A 36.4% single-day stock crash that reflects a real, not overblown, deterioration in the IC business</li>
+          <li>Analyst price targets that may not have fully caught up to the post-crash, post-litigation reality</li>
+          <li>Roughly 82% international revenue exposure sitting under active China/geopolitical tension</li>
+          <li>Rising CapEx-driven depreciation that will pressure margins right as the IC segment is already struggling</li>
+        </ul>
+      </div>
+      <div class="vs-badge">VS</div>
+    </div>
+  </div>
+
+  <div class="section" id="verdict">
+    <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="verdict">
+      <div class="verdict-title">The Verdict</div>
+      <p>Photronics looks like a photograph still sitting in the developing tray — the image that emerges depends heavily on how the current chemical bath, the securities litigation and IC demand questions, resolves over the next few months.</p>
+      <p>The long-term case is believable: this remains a debt-free, profitable, structurally necessary supplier trading at just 10.5x earnings, with real new capacity coming online right as EUV and advanced-node demand intensifies. FPD growth is already proving the business isn't uniformly broken.</p>
+      <p>The near-term pain is real and serious: an active securities fraud lawsuit is not a routine risk-factor bullet point, and the 36.4% crash that triggered it reflects a genuine, not manufactured, demand problem in the IC segment. Investors comfortable with binary legal-outcome risk and continued IC uncertainty might consider a small position on a 12-24 month horizon; more conservative investors should wait for the litigation picture and IC demand trend to clarify before adding.</p>
+    </div>
+  </div>
+
+  <div class="section" id="wall">
+    <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+    <div class="report-table-wrap">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Consensus Rating</td><td class="mono val-green">Strong Buy</td><td>3 analysts polled by S&amp;P Global</td></tr>
+          <tr><td class="row-label">Avg. Price Target</td><td class="mono val-green">$42.33</td><td>vs. current $28.16 (+50.3%); may lag post-litigation reality</td></tr>
+          <tr><td class="row-label">Target Range</td><td class="mono">$41 – $44</td><td>Lake Street raised to $55 pre-crash (May 2026)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" style="border-top:1px solid var(--border);padding-top:20px;margin-top:32px">
+    <div style="font-family:var(--font-family-mono);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Sources</div>
+    <ul style="font-size:13px;line-height:1.8;padding-left:18px;color:var(--muted)">
+      <li><a href="https://stockanalysis.com/stocks/plab/" style="color:var(--color-primary)">Photronics (PLAB) Stock Overview — StockAnalysis.com</a></li>
+      <li><a href="https://stockanalysis.com/stocks/plab/forecast/" style="color:var(--color-primary)">PLAB Stock Forecast &amp; Price Targets — StockAnalysis.com</a></li>
+      <li><a href="https://www.kavout.com/market-lens/what-did-photronics-q2-fy2026-earnings-reveal" style="color:var(--color-primary)">What Did Photronics' Q2 FY2026 Earnings Reveal — Kavout</a></li>
+      <li><a href="https://www.prnewswire.com/news-releases/plab-stockholder-alert-shareholder-rights-law-firm-robbins-llp-informs-investors-of-the-class-action-lawsuit-against-photronics-inc-302820603.html" style="color:var(--color-primary)">PLAB Stockholder Alert: Class Action Lawsuit Against Photronics — PR Newswire / Robbins LLP</a></li>
+      <li><a href="https://simplywall.st/stocks/us/semiconductors/nasdaq-plab/photronics/news/photronics-plab-faces-a-fresh-test-after-q2-lawsuit-raised-n/amp" style="color:var(--color-primary)">Photronics Faces A Fresh Test After Q2 Lawsuit Raised New Valuation Questions — Simply Wall St</a></li>
+      <li><a href="https://markets.financialcontent.com/stocks/article/predictstreet-2025-12-10-photronics-inc-plab-a-deep-dive-into-the-photomask-giants-future" style="color:var(--color-primary)">Photronics, Inc. (PLAB): A Deep Dive into the Photomask Giant's Future — FinancialContent</a></li>
+      <li><a href="https://www.gurufocus.com/news/8913251/plab-swot-analysis-financial-resilience-amid-market-challenges-revealed-in-10q-filing" style="color:var(--color-primary)">PLAB SWOT Analysis: Financial Resilience Amid Market Challenges — GuruFocus</a></li>
+    </ul>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</p>
+  </div>
+
+</div>
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bar = entry.target;
+      const target = bar.dataset.target;
+      bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+      bar.style.width = target + '%';
+      observer.unobserve(bar);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+
+document.querySelectorAll('.scenario-tabs').forEach(function (group) {
+  group.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var name = tab.getAttribute('data-tab');
+      group.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      group.querySelectorAll('.tab-panel').forEach(function (p) {
+        p.classList.toggle('show', p.getAttribute('data-panel') === name);
+      });
+    });
+  });
+});
+
+(function () {
+  var legend = document.getElementById('revenueLegend');
+  var svg = document.getElementById('revenueDonut');
+  if (!legend || !svg) return;
+  legend.querySelectorAll('.legend-row').forEach(function (row) {
+    row.addEventListener('mouseenter', function () {
+      var seg = row.getAttribute('data-seg');
+      legend.querySelectorAll('.legend-row').forEach(function (r) {
+        r.classList.toggle('dim', r !== row);
+        r.classList.toggle('hi', r === row);
+      });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) {
+        var match = c.getAttribute('data-seg') === seg;
+        c.classList.toggle('seg-dim', !match);
+      });
+    });
+    row.addEventListener('mouseleave', function () {
+      legend.querySelectorAll('.legend-row').forEach(function (r) { r.classList.remove('dim', 'hi'); });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) { c.classList.remove('seg-dim'); });
+    });
+  });
+})();
+
+(function () {
+  var rail = document.getElementById('spyRail');
+  if (!rail) return;
+  var sections = [
+    ['hero', 'Hero'], ['tldr', 'TL;DR'], ['snapshot', 'Snapshot'], ['mix', 'Revenue Mix'],
+    ['story', 'What It Does'], ['model', 'Biz Model'], ['catalyst', 'Catalyst'], ['edge', 'Comp. Edge'],
+    ['scorecard', 'Scorecard'], ['situation', 'Growth/Risks'], ['scenario', 'Scenarios'],
+    ['debate', 'Debate'], ['verdict', 'Verdict'], ['wall', 'Consensus']
+  ];
+  var items = sections.map(function (s) {
+    var el = document.getElementById(s[0]);
+    if (!el) return null;
+    var item = document.createElement('div');
+    item.className = 'spy-item';
+    item.innerHTML = '<span class="spy-label">' + s[1] + '</span><span class="spy-dot"></span>';
+    item.addEventListener('click', function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    rail.appendChild(item);
+    return { id: s[0], el: el, item: item };
+  }).filter(Boolean);
+
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var match = items.find(function (i) { return i.el === entry.target; });
+        if (!match) return;
+        items.forEach(function (i) { i.item.classList.toggle('active', i === match); });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+  items.forEach(function (i) { obs.observe(i.el); });
+  if (items.length) items[0].item.classList.add('active');
+})();
+
+(function () {
+  var svgEl = document.getElementById('scorecardRadar');
+  var whyEl = document.getElementById('scorecardWhy');
+  if (!svgEl || !whyEl) return;
+
+  var METRICS = [
+    { label: 'Business Model', full: 'Business Model Strength', value: 7, why: 'A scaled, profitable, debt-free independent photomask maker with a structurally necessary role in chip and display manufacturing.' },
+    { label: 'Revenue Growth', full: 'Revenue Growth', value: 4, why: 'TTM revenue is roughly flat, with the IC segment actively declining 5% YoY on design release delays even as FPD grows 13%.' },
+    { label: 'Profitability', full: 'Profitability', value: 7, why: '24.5% operating margin and TTM net income up 32.6% YoY, with a trailing P/E of only 10.5x even after the recent crash.' },
+    { label: 'Competitive Moat', full: 'Competitive Moat', value: 6, why: 'One of few independent scaled photomask suppliers globally, though facing rising domestic competition in China\'s mainstream segment.' },
+    { label: 'Regulatory Safety', full: 'Regulatory Safety', value: 4, why: 'An active securities class action lawsuit plus roughly 82% international revenue exposure to China/geopolitical risk makes this a genuinely elevated near-term legal and regulatory risk.' },
+    { label: 'Mgmt Execution', full: 'Management Execution', value: 3, why: 'A securities lawsuit alleging misleading demand guidance, followed by a 36.4% one-day stock crash, is about as direct an execution and credibility hit as this scorecard captures.' },
+    { label: 'Long-Term Potential', full: 'Long-Term Potential', value: 6, why: 'EUV/advanced-node demand and new US/Korea capacity support a credible long-term growth case, though it is currently obscured by litigation and demand uncertainty.' }
+  ];
+  var MAX = 10;
+  var dots = [];
+
+  function svgNode(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+  function average(data) {
+    var sum = data.reduce(function (acc, d) { return acc + d.value; }, 0);
+    return Math.round((sum / data.length) * 10) / 10;
+  }
+
+  function showOverall() {
+    var avg = average(METRICS);
+    var best = METRICS.reduce(function (a, b) { return b.value > a.value ? b : a; });
+    var worst = METRICS.reduce(function (a, b) { return b.value < a.value ? b : a; });
+    whyEl.innerHTML =
+      '<div class="wp-title">Overall</div>' +
+      '<span class="wp-score">' + avg + ' / 10 average</span>' +
+      '<p class="wp-text">A profitable business under real legal and demand stress — led by ' + best.full + ' (' + best.value + '/10). The one real soft spot is ' +
+      worst.full + ' (' + worst.value + '/10) — click any point on the chart for the reasoning behind each score.</p>';
+  }
+
+  function showWhy(d) {
+    whyEl.innerHTML =
+      '<button class="wp-back" type="button">&larr; Overall</button>' +
+      '<div class="wp-title">' + d.full + '</div>' +
+      '<span class="wp-score">' + d.value + ' / 10</span>' +
+      '<p class="wp-text">' + d.why + '</p>';
+    whyEl.querySelector('.wp-back').addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      showOverall();
+    });
+  }
+
+  var cx = 200, cy = 200, maxR = 140;
+  var n = METRICS.length;
+  var angleStep = (Math.PI * 2) / n;
+  var startAngle = -Math.PI / 2;
+
+  function pt(i, ratio) {
+    var a = startAngle + i * angleStep;
+    return [cx + maxR * ratio * Math.cos(a), cy + maxR * ratio * Math.sin(a)];
+  }
+
+  [0.25, 0.5, 0.75, 1].forEach(function (ratio) {
+    var pts = METRICS.map(function (_, i) { return pt(i, ratio).join(','); }).join(' ');
+    var poly = svgNode('polygon');
+    poly.setAttribute('points', pts);
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', 'var(--border)');
+    poly.setAttribute('stroke-width', ratio === 1 ? '1.2' : '1');
+    poly.setAttribute('stroke-dasharray', ratio === 1 ? 'none' : '2,3');
+    svgEl.appendChild(poly);
+  });
+
+  METRICS.forEach(function (_, i) {
+    var p = pt(i, 1);
+    var line = svgNode('line');
+    line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+    line.setAttribute('x2', p[0]); line.setAttribute('y2', p[1]);
+    line.setAttribute('stroke', 'var(--border)');
+    line.setAttribute('stroke-width', '1');
+    svgEl.appendChild(line);
+  });
+
+  var dataPts = METRICS.map(function (d, i) { return pt(i, d.value / MAX); });
+  var dataPoly = svgNode('polygon');
+  dataPoly.setAttribute('points', dataPts.map(function (p) { return p.join(','); }).join(' '));
+  dataPoly.setAttribute('fill', 'var(--color-secondary)');
+  dataPoly.setAttribute('fill-opacity', '0.25');
+  dataPoly.setAttribute('stroke', 'var(--color-secondary)');
+  dataPoly.setAttribute('stroke-width', '2');
+  svgEl.appendChild(dataPoly);
+
+  dataPts.forEach(function (p, i) {
+    var dot = svgNode('circle');
+    dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]);
+    dot.setAttribute('r', 7);
+    dot.setAttribute('fill', 'var(--color-secondary)');
+    dot.setAttribute('class', 'radar-dot');
+    dot.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dot.classList.add('active');
+      showWhy(METRICS[i]);
+    });
+    svgEl.appendChild(dot);
+    dots.push(dot);
+  });
+
+  METRICS.forEach(function (d, i) {
+    var lp = pt(i, 1.26);
+    var anchor = 'middle';
+    if (lp[0] < cx - 5) anchor = 'end';
+    else if (lp[0] > cx + 5) anchor = 'start';
+    var text = svgNode('text');
+    text.setAttribute('x', lp[0]); text.setAttribute('y', lp[1]);
+    text.setAttribute('text-anchor', anchor);
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('class', 'radar-axis-label');
+    text.textContent = d.label;
+    text.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dots[i].classList.add('active');
+      showWhy(d);
+    });
+    svgEl.appendChild(text);
+  });
+
+  var bbox = svgEl.getBBox();
+  var pad = 16;
+  var vbW = bbox.width + pad * 2;
+  var vbH = bbox.height + pad * 2;
+  svgEl.setAttribute('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + vbW + ' ' + vbH);
+  var targetWidth = parseFloat(svgEl.getAttribute('width')) || 420;
+  svgEl.setAttribute('height', Math.round(targetWidth * (vbH / vbW)));
+
+  showOverall();
+})();
+</script>
+</body>
+</html>

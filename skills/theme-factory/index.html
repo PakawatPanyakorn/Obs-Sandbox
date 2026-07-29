@@ -735,6 +735,9 @@
           <button class="chip" data-value="date-desc" data-group="date">
             Date ↓ Newest
           </button>
+          <button class="chip" data-value="shade-desc" data-group="shade">
+            Shade ↓ Light→Dark
+          </button>
         </div>
       </div>
     </div>
@@ -5944,6 +5947,12 @@
       }
 
       /* ── Sort: favorites pinned first, then by activeSort ── */
+      function compareName(a, b) {
+        const aName = (a.theme.name || a.filename).toLowerCase();
+        const bName = (b.theme.name || b.filename).toLowerCase();
+        return aName.localeCompare(bName);
+      }
+
       function sortEntries(entries) {
         return [...entries].sort((a, b) => {
           const aFav = favorites.has(a.filename);
@@ -5951,9 +5960,7 @@
           if (aFav !== bFav) return aFav ? -1 : 1;
 
           if (activeSort === "name-asc" || activeSort === "name-desc") {
-            const aName = (a.theme.name || a.filename).toLowerCase();
-            const bName = (b.theme.name || b.filename).toLowerCase();
-            const cmp = aName.localeCompare(bName);
+            const cmp = compareName(a, b);
             return activeSort === "name-asc" ? cmp : -cmp;
           }
 
@@ -5962,6 +5969,20 @@
             const bTime = new Date(b.theme.createdAt || 0).getTime();
             const cmp = aTime - bTime;
             return activeSort === "date-asc" ? cmp : -cmp;
+          }
+
+          if (activeSort === "shade-asc" || activeSort === "shade-desc") {
+            const cmp = a.lum - b.lum || compareName(a, b);
+            return activeSort === "shade-asc" ? cmp : -cmp;
+          }
+
+          if (activeSort === "sat-asc" || activeSort === "sat-desc") {
+            const cmp = a.sat - b.sat || a.lum - b.lum || compareName(a, b);
+            return activeSort === "sat-asc" ? cmp : -cmp;
+          }
+
+          if (activeSort === "hue-asc") {
+            return a.hue - b.hue || a.lum - b.lum || compareName(a, b);
           }
 
           return 0;
@@ -6177,8 +6198,13 @@
         "name-desc": { next: "name-asc", label: "Name A→Z" },
         "date-desc": { next: "date-asc", label: "Date ↑ Oldest" },
         "date-asc": { next: "date-desc", label: "Date ↓ Newest" },
+        "shade-desc": { next: "shade-asc", label: "Shade ↑ Dark→Light" },
+        "shade-asc": { next: "sat-asc", label: "Vivid ↑ Muted→Vivid" },
+        "sat-asc": { next: "sat-desc", label: "Vivid ↓ Vivid→Muted" },
+        "sat-desc": { next: "hue-asc", label: "Hue ↻ Rainbow" },
+        "hue-asc": { next: "shade-desc", label: "Shade ↓ Light→Dark" },
       };
-      const SORT_GROUP_DEFAULT = { name: "name-asc", date: "date-desc" };
+      const SORT_GROUP_DEFAULT = { name: "name-asc", date: "date-desc", shade: "shade-desc" };
 
       (function wireSortChips() {
         const container = document.getElementById("filter-sort");
@@ -6311,7 +6337,7 @@
           const lum = (0.299 * ri + 0.587 * gi + 0.114 * bi) / 255;
           const mode = lum < 0.4 ? "dark" : "light";
 
-          const { h: hue } = hexToHsl(bg);
+          const { h: hue, s: sat } = hexToHsl(bg);
           const aesthetic = theme.design?.aesthetic || "";
           const personality = (Array.isArray(theme.design?.personality) ? theme.design.personality : []).filter(t => !TONE_WORDS.has(t));
 
@@ -6326,6 +6352,7 @@
             txt,
             lum,
             hue,
+            sat,
             mode,
             aesthetic,
             personality,

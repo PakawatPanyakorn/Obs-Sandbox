@@ -1,19 +1,5 @@
 # WL
 
-    - DASH
-    - UBER
-    - CIFR
-    - BRK.B
-    - ONDS
-    - CRWV
-    - NVDA
-    - AMD
-    - UNH
-    - NOW
-    - MU
-    - SAIL
-    - PAWN
-    - FORM
     - SIMO
     - KTOS
     - CAMY

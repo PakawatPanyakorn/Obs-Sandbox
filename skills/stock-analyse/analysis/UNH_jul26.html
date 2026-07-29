@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNH — Stock Analysis · Jul 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400&family=Cutive+Mono&display=swap" rel="stylesheet">
+<style>
+/* Theme: crypt-scholastic - applied by obs-theme-factory */
+:root {
+  --bg-base: #120A10;
+  --bg-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  --bg-size: 256px 256px; --bg-position: 0 0; --bg-repeat: repeat;
+
+  --color-primary: #8B1A3A; --color-primary-light: #2A0A18; --color-secondary: #2A5C2A; --color-accent: #C8A840;
+  --color-bg: #120A10; --color-surface: #1C1018; --color-surface-alt: #241420;
+  --color-text: #D8C8C0; --color-text-muted: #806870; --color-text-on-primary: #F0E8E0;
+  --color-border: #3A2030; --color-success: #3A6A3A; --color-warning: #B89020; --color-error: #9A1A2A;
+
+  --font-family: 'Gentium Plus', Georgia, serif;
+  --font-family-mono: 'Cutive Mono', 'Courier New', monospace;
+  --font-family-display: 'Cinzel', Georgia, serif;
+  --font-size-base: 17px; --font-weight-heading: 600; --font-weight-body: 400; --line-height: 1.75;
+
+  --radius: 2px; --radius-card: 3px; --radius-button: 2px;
+
+  --shadow-sm: 0 2px 6px rgba(6,2,8,0.8);
+  --shadow-md: 0 4px 18px rgba(6,2,8,0.85);
+  --shadow-lg: 0 8px 36px rgba(6,2,8,0.9);
+  --shadow-xl: 0 16px 52px rgba(6,2,8,0.92);
+  --shadow-colored: 0 0 0 1px var(--color-border); --shadow-inset: inset 0 2px 6px rgba(6,2,8,0.9);
+
+  --gradient-hero: linear-gradient(160deg, #241420 0%, #120A10 55%, #100810 100%);
+  --gradient-card: linear-gradient(180deg, #1E1018 0%, #180C16 100%);
+  --gradient-button: linear-gradient(135deg, #A82040 0%, #6A1028 100%);
+  --gradient-text: linear-gradient(135deg, #E8C860 0%, #C8A840 50%, #A08030 100%);
+  --gradient-accent: linear-gradient(90deg, #8B1A3A 0%, #2A5C2A 100%);
+
+  --glow-color: transparent; --glow-sm: 0 2px 8px rgba(0,0,0,0.15); --glow-md: 0 4px 20px rgba(0,0,0,0.25); --glow-lg: 0 8px 40px rgba(0,0,0,0.3);
+  --glass-blur: 0; --glass-tint: none; --backdrop-filter: none;
+  --text-shadow: 0 0 24px rgba(139,26,58,0.3); --border-gradient: linear-gradient(135deg, #8B1A3A, #C8A840, #2A5C2A); --noise-opacity: 0.05;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+  --duration-fast: 150ms; --duration-base: 280ms; --duration-slow: 480ms;
+  --easing: cubic-bezier(0.4, 0, 0.2, 1); --border-width: 1px;
+
+  --bg: var(--color-bg);
+  --card: var(--color-surface);
+  --card2: var(--color-surface-alt);
+  --border: var(--color-border);
+  --accent: var(--color-primary);
+  --green: var(--color-success);
+  --red: var(--color-error);
+  --yellow: var(--color-warning);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+}
+
+/* Layout: marginalia-annotated (data-dense-report family) - applied by obs-layout-factory */
+:root {
+  --layout-columns: 12;
+  --layout-gutter: 20px;
+  --layout-max-width: 1040px;
+  --layout-margin-inline: 5vw;
+  --layout-space-2: 8px;
+  --layout-space-4: 16px;
+  --layout-space-6: 32px;
+  --layout-section-gap: 48px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: var(--bg-base);
+  background-image: var(--bg-image);
+  background-size: var(--bg-size);
+  background-position: var(--bg-position);
+  background-repeat: var(--bg-repeat);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-body, 400);
+  color: var(--text);
+  line-height: var(--line-height);
+  margin: 0;
+  padding: 20px;
+}
+
+.page { max-width: var(--layout-max-width); margin: 0 auto; padding: 0 var(--layout-margin-inline); }
+
+/* Masthead — quiet identity band, per data-dense-report family blend */
+.masthead {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: var(--layout-space-4);
+  margin: 24px 0 var(--layout-space-6);
+}
+
+.hero {
+  background: var(--gradient-hero);
+  border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lg);
+  color: var(--text);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--border-gradient); }
+.hero-ticker { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: var(--color-accent); text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-family-display); }
+.hero-name { font-size: 27px; font-weight: var(--font-weight-heading, 600); margin-bottom: 8px; color: var(--text); font-family: var(--font-family-display); letter-spacing: 0.02em; text-shadow: var(--text-shadow); }
+.hero-tagline { font-size: 15px; color: color-mix(in srgb, var(--text) 78%, transparent); max-width: 560px; margin-bottom: 20px; font-style: italic; }
+.hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { padding: 4px 14px; border-radius: 50px; font-size: 11px; font-weight: 600; border: 1px solid; letter-spacing: 0.04em; font-family: var(--font-family-display); }
+.pill-blue { background: rgba(42,92,42,0.16); border-color: rgba(42,92,42,0.55); color: #7ac07a; }
+.pill-green { background: rgba(58,106,58,0.2); border-color: rgba(58,106,58,0.55); color: var(--color-success); }
+.pill-red { background: rgba(154,26,42,0.2); border-color: rgba(154,26,42,0.55); color: var(--color-error); }
+.pill-yellow { background: rgba(184,144,32,0.2); border-color: rgba(184,144,32,0.55); color: var(--color-warning); }
+
+.section { margin-bottom: var(--layout-section-gap); padding-top: var(--layout-space-6); border-top: 1px solid var(--border); }
+.section:first-of-type { border-top: none; padding-top: 0; }
+.section-title {
+  font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 600); letter-spacing: 2px; text-transform: uppercase;
+  color: var(--color-primary); margin-bottom: 14px;
+}
+.fig-caption { font-family: var(--font-family-mono); font-size: 11.5px; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+.fig-num { color: var(--color-accent); font-weight: 700; margin-right: 8px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.stat-card { background: var(--gradient-card); border: 1px solid var(--border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 16px 18px; }
+.stat-label { font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--color-accent); margin-bottom: 6px; }
+.stat-value { font-family: var(--font-family-display); font-size: 21px; font-weight: var(--font-weight-heading, 600); color: var(--text); }
+.stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+.val-green { color: var(--color-success); } .val-red { color: var(--color-error); } .val-yellow { color: var(--color-warning); }
+
+/* TL;DR — the report's one pull-quote moment (data-dense-report family), bumped to shadow-lg */
+.tldr { background: var(--gradient-card); border: 1px solid var(--border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-card); box-shadow: var(--shadow-lg); padding: 22px 24px; margin-bottom: 28px; }
+.tldr h2 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 600); letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 14px 0; }
+.tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+.tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+.radar-hint { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+.scorecard-body { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.radar-wrap { flex-shrink: 0; display: flex; justify-content: center; width: 100%; max-width: 420px; }
+#scorecardRadar { width: 100%; height: auto; display: block; }
+.radar-axis-label { font-family: var(--font-family-display); font-size: 14px; font-weight: 700; fill: var(--color-primary); cursor: pointer; }
+.radar-dot { cursor: pointer; transition: r 0.15s; }
+.radar-dot:hover, .radar-dot.active { r: 10; }
+.scorecard-why { flex: 1; min-width: 220px; border-left: 1px solid var(--border); padding: 4px 0 4px 26px; }
+.scorecard-why .wp-title { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px; }
+.scorecard-why .wp-score { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-accent); font-weight: 700; margin-bottom: 10px; display: block; }
+.scorecard-why .wp-text { font-size: 15px; line-height: 1.65; margin: 0; }
+.scorecard-why .wp-back { display: block; font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 10px; text-decoration: underline; }
+.scorecard-why .wp-back:hover { color: var(--color-accent); }
+@media (max-width: 640px) {
+  .scorecard-body { flex-direction: column; }
+  .scorecard-why { border-left: none; border-top: 1px solid var(--border); padding: 20px 0 0; margin-top: 20px; }
+}
+
+.scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.scenario-card { background: var(--gradient-card); border: 1px solid var(--border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 18px 20px; }
+.scenario-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 600); letter-spacing: 1px; text-transform: uppercase; margin: 0 0 6px 0; }
+.scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+.timeline-dot.past { background: var(--muted); border-color: var(--muted); }
+.timeline-dot.present { background: var(--color-primary); border-color: var(--color-primary); width: 14px; height: 14px; left: -26px; }
+.timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+.timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.timeline-event { font-size: 14px; line-height: 1.5; }
+
+.verdict { background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%); border: 1px solid var(--border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-card); box-shadow: var(--shadow-md); padding: 28px 30px; }
+.verdict-title { font-family: var(--font-family-display); font-size: 14px; font-weight: var(--font-weight-heading, 600); letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 16px; }
+.verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+.verdict p:last-child { margin-bottom: 0; }
+
+.item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; color: var(--color-accent); }
+.item-title { font-family: var(--font-family-display); font-size: 12px; font-weight: var(--font-weight-heading, 600); letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 2px; }
+.item-desc { font-size: 14px; line-height: 1.55; }
+.item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+.item-list .item-row { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.item-list .item-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+.severity-list .sev-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.severity-list .sev-row:last-child { border-bottom: none; }
+.sev-stripe { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 40px; }
+
+.debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.debate-card { background: var(--gradient-card); border: 1px solid var(--border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 20px 22px; }
+.debate-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 600); letter-spacing: 1px; text-transform: uppercase; margin: 0 0 12px 0; }
+.debate-card.optimist h3 { color: var(--color-success); }
+.debate-card.pessimist h3 { color: var(--color-error); }
+.debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+.debate-card li { margin-bottom: 6px; }
+.debate-vs { position: relative; }
+.debate-vs .vs-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--gradient-button); color: var(--color-text-on-primary); font-family: var(--font-family-display); font-size: 11px; font-weight: 700; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); z-index: 2; letter-spacing: 0.5px; }
+@media (max-width: 760px) { .debate-vs .vs-badge { display: none; } }
+
+.donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.donut-legend { flex: 1; min-width: 180px; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; border-radius: 3px; padding: 2px 4px; cursor: pointer; transition: background 0.15s, opacity 0.15s; }
+.legend-row.dim { opacity: 0.35; }
+.legend-row.hi { background: rgba(200,168,64,0.12); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+.seg-dim { opacity: 0.3; transition: opacity 0.15s; }
+.seg-hi { transition: opacity 0.15s; }
+.seg-row { margin-bottom: 16px; }
+.seg-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.5px; }
+.seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+.seg-fill { height: 100%; border-radius: 4px; }
+.seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+.seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.exhibit-visual { border: 1px solid var(--border); border-radius: var(--radius-card); padding: 20px 22px; margin-bottom: 14px; }
+.subhead { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 600); letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0; }
+.split-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+.split-cols > div + div { border-left: 1px solid var(--border); padding-left: var(--layout-gutter); }
+.split-cols h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 600); letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0; }
+.split-cols p { font-size: 15px; line-height: 1.65; margin: 0; }
+.split-cols ul { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.65; }
+.split-cols li { margin-bottom: 6px; }
+
+.report-table-wrap { overflow-x: auto; }
+.report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.report-table th { font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 16px 8px 0; border-bottom: 2px solid var(--color-primary); white-space: nowrap; }
+.report-table td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+.report-table tr:hover td { background: rgba(200,168,64,0.05); }
+.report-table .row-label { font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.3px; color: var(--text); white-space: nowrap; }
+.report-table .mono { font-family: var(--font-family-mono); font-weight: 700; }
+
+.scenario-tabs .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.scenario-tabs .tab { flex: 1; text-align: center; cursor: pointer; border: 1px solid var(--border); border-radius: var(--radius-card); padding: 10px 8px; background: var(--card); font-family: var(--font-family-display); font-size: 12px; font-weight: 700; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+.scenario-tabs .tab:hover { transform: translateY(-1px); }
+.scenario-tabs .tab .p { font-family: var(--font-family-mono); font-weight: 700; display: block; font-size: 14px; margin-top: 3px; }
+.scenario-tabs .tab.bull { color: var(--green); } .scenario-tabs .tab.base { color: var(--yellow); } .scenario-tabs .tab.bear { color: var(--red); }
+.scenario-tabs .tab.active.bull { background: rgba(58,106,58,0.16); border-color: var(--green); }
+.scenario-tabs .tab.active.base { background: rgba(184,144,32,0.16); border-color: var(--yellow); }
+.scenario-tabs .tab.active.bear { background: rgba(154,26,42,0.16); border-color: var(--red); }
+.scenario-tabs .tab-panel { display: none; background: var(--card); border-radius: var(--radius-card); padding: 18px 20px; border-left: 3px solid var(--border); }
+.scenario-tabs .tab-panel.show { display: block; }
+.scenario-tabs .tab-panel h4 { margin: 0 0 4px; font-family: var(--font-family-display); font-size: 14px; letter-spacing: 0.5px; }
+.scenario-tabs .tab-panel .range { font-family: var(--font-family-mono); font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+.scenario-tabs .tab-panel ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+.scenario-tabs .tab-panel li { margin-bottom: 5px; }
+
+.spy-rail { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 9px; z-index: 40; }
+.spy-rail .spy-item { display: flex; align-items: center; gap: 8px; cursor: pointer; justify-content: flex-end; }
+.spy-rail .spy-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.15s, transform 0.15s; }
+.spy-rail .spy-item.active .spy-dot { background: var(--color-accent); transform: scale(1.5); }
+.spy-rail .spy-label { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); opacity: 0; white-space: nowrap; transition: opacity 0.15s; }
+.spy-rail .spy-item.active .spy-label { opacity: 1; color: var(--color-primary); font-weight: 700; }
+@media (max-width: 1180px) { .spy-rail { display: none; } }
+
+.sources-list { font-size: 13px; line-height: 1.8; padding-left: 18px; color: var(--muted); }
+.sources-list a { color: var(--color-accent); }
+
+@media (max-width: 760px) {
+  body { padding: 12px; }
+  .grid-2, .debate-grid, .split-cols { grid-template-columns: 1fr; }
+  .split-cols > div + div { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+  .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+  .hero { padding: 24px 20px; }
+  .hero-name { font-size: 21px; }
+  .debate-vs .vs-badge { display: none; }
+}
+@media (max-width: 520px) {
+  .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+  .donut-wrap { flex-direction: column; align-items: flex-start; }
+  .scenario-tabs .tabs { flex-direction: column; }
+}
+</style>
+</head>
+<body data-layout="marginalia-annotated">
+<nav class="spy-rail" id="spyRail" aria-label="Section navigation"></nav>
+<div class="page">
+
+  <div class="masthead">
+    <span>UnitedHealth Group · UNH</span>
+    <span>Stock Analysis · Jul 2026</span>
+  </div>
+
+  <div class="hero" id="hero">
+    <div class="hero-ticker">NYSE: UNH &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+    <div class="hero-name">UnitedHealth Group Incorporated</div>
+    <div class="hero-tagline">The largest health insurance and healthcare-services company in the U.S. — covering tens of millions of people through insurance plans, doctors, pharmacies, and data services.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">Healthcare / Managed Care</span>
+      <span class="pill pill-yellow">Turnaround</span>
+      <span class="pill pill-red">DOJ Investigation Risk</span>
+    </div>
+  </div>
+
+  <div class="tldr" id="tldr">
+    <h2>TL;DR</h2>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--green)">+</span><span>UnitedHealth is the country's largest health insurer, and it just posted a sharp profit recovery — operating earnings roughly tripled year-over-year as the share of premiums paid out in claims improved.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--yellow)">!</span><span>The company is still under active Department of Justice criminal and civil investigation over Medicare billing practices, plus a separate antitrust probe — even as the underlying business is clearly healing.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--accent)">►</span><span>The overlooked detail: a friendlier 2027 Medicare Advantage reimbursement rate could add roughly $3.9 billion in revenue just as the company's own cost-cutting program takes hold — a double tailwind most coverage of the DOJ story misses.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--red)">-</span><span>The main risk in plain language: nobody yet knows how the federal investigations end, and a serious finding could bring real fines or clawbacks on top of the reputational damage already done.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--green)">+</span><span>Verdict: analysts' average target of about $475 sits above the current ~$428 price, with several firms raising targets past $500. Next event to watch: the next quarterly earnings report, expected around October 2026.</span></div>
+  </div>
+
+  <div class="section" id="snapshot">
+    <div class="section-title">Financial Snapshot</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 01</span>Core financial metrics as of the most recent reported quarter and trading session.</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Stock Price</div><div class="stat-value" style="font-family:var(--font-family-mono)">$428.15</div><div class="stat-sub">As of Jul 28, 2026</div></div>
+      <div class="stat-card"><div class="stat-label">Market Cap</div><div class="stat-value" style="font-family:var(--font-family-mono)">~$389B</div><div class="stat-sub">Near 52-week high</div></div>
+      <div class="stat-card"><div class="stat-label">Revenue (Q2 2026)</div><div class="stat-value val-yellow" style="font-family:var(--font-family-mono)">$112.0B</div><div class="stat-sub">+0.4% YoY</div></div>
+      <div class="stat-card"><div class="stat-label">Operating Earnings</div><div class="stat-value val-green" style="font-family:var(--font-family-mono)">$8.0B</div><div class="stat-sub">Up from $5.15B YoY</div></div>
+      <div class="stat-card"><div class="stat-label">Adjusted EPS (Q2)</div><div class="stat-value val-green" style="font-family:var(--font-family-mono)">$6.38</div><div class="stat-sub">Beat consensus $4.91</div></div>
+      <div class="stat-card"><div class="stat-label">Medical Care Ratio</div><div class="stat-value val-green" style="font-family:var(--font-family-mono)">86.7%</div><div class="stat-sub">Improved from 89.4% YoY</div></div>
+      <div class="stat-card"><div class="stat-label">FY26 Guidance (EPS)</div><div class="stat-value val-green" style="font-family:var(--font-family-mono)">$19.50–$20.00</div><div class="stat-sub">Raised from &gt;$18.25</div></div>
+      <div class="stat-card"><div class="stat-label">Analyst Target</div><div class="stat-value val-green" style="font-family:var(--font-family-mono)">$475.23</div><div class="stat-sub">~+11% vs. current price</div></div>
+      <div class="stat-card"><div class="stat-label">Next Event</div><div class="stat-value" style="font-size:15px">~Oct 2026</div><div class="stat-sub">Q3 2026 earnings (date TBD)</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="mix">
+    <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+    <div class="fig-caption"><span class="fig-num">FIG. 02</span>Revenue mix by business segment, current vs. two-year projected share. <em>Hover a segment below to trace it through the chart.</em></div>
+    <div class="exhibit-visual">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200" id="revenueDonut">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--border)" stroke-width="28"/>
+          <circle class="seg-hi" data-seg="uhc" cx="100" cy="100" r="70" fill="none" stroke="var(--color-primary)" stroke-width="28" stroke-dasharray="220 440" stroke-dashoffset="0" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+          <circle class="seg-hi" data-seg="optumrx" cx="100" cy="100" r="70" fill="none" stroke="var(--color-secondary)" stroke-width="28" stroke-dasharray="132 440" stroke-dashoffset="-220" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+          <circle class="seg-hi" data-seg="optumhealth" cx="100" cy="100" r="70" fill="none" stroke="var(--color-accent)" stroke-width="28" stroke-dasharray="66 440" stroke-dashoffset="-352" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+          <circle class="seg-hi" data-seg="optuminsight" cx="100" cy="100" r="70" fill="none" stroke="var(--color-success)" stroke-width="28" stroke-dasharray="22 440" stroke-dashoffset="-418" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+          <text x="100" y="104" text-anchor="middle" font-family="var(--font-family-display)" font-size="13" font-weight="600" fill="var(--text)">Revenue</text>
+        </svg>
+        <div class="donut-legend" id="revenueLegend">
+          <div class="legend-row" data-seg="uhc"><div class="legend-dot" style="background:var(--color-primary)"></div><span>UnitedHealthcare (Insurance)</span><span class="legend-pct">50%</span></div>
+          <div class="legend-row" data-seg="optumrx"><div class="legend-dot" style="background:var(--color-secondary)"></div><span>Optum Rx</span><span class="legend-pct">30%</span></div>
+          <div class="legend-row" data-seg="optumhealth"><div class="legend-dot" style="background:var(--color-accent)"></div><span>Optum Health</span><span class="legend-pct">15%</span></div>
+          <div class="legend-row" data-seg="optuminsight"><div class="legend-dot" style="background:var(--color-success)"></div><span>Optum Insight</span><span class="legend-pct">5%</span></div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Estimated mix based on UnitedHealth's historically disclosed four-segment structure (UnitedHealthcare, Optum Health, Optum Insight, Optum Rx). Exact current-period percentages were not confirmed in the sources used for this report.</p>
+      <div class="seg-row">
+        <div class="seg-label"><span>UnitedHealthcare (Insurance)</span><span style="font-family:var(--font-family-mono)">50% &rarr; 46%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:50%;background:var(--color-primary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="46" style="width:0%;background:var(--color-primary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Still the largest segment, but expected to shrink slightly in relative share as Optum grows faster.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Optum Rx</span><span style="font-family:var(--font-family-mono)">30% &rarr; 30%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:30%;background:var(--color-secondary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="30" style="width:0%;background:var(--color-secondary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">The pharmacy-benefit business, currently part of the broader DOJ scrutiny into billing practices.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Optum Health</span><span style="font-family:var(--font-family-mono)">15% &rarr; 18%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:15%;background:var(--color-accent)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="18" style="width:0%;background:var(--color-accent);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Care-delivery business cited by management and analysts as the key margin-expansion driver.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Optum Insight</span><span style="font-family:var(--font-family-mono)">5% &rarr; 6%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:5%;background:var(--color-success)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="6" style="width:0%;background:var(--color-success);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Smallest segment — healthcare data and technology services.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="story">
+    <div class="section-title">What Does This Company Actually Do?</div>
+    <div class="split-cols">
+      <div>
+        <h3>The Simple Story</h3>
+        <p>UnitedHealth sells health insurance to tens of millions of Americans through its UnitedHealthcare arm, and it also owns Optum, a separate business that runs pharmacies, doctors' offices, and health data systems. Think of it as one company that both insures your healthcare and, through Optum, increasingly provides the care and fills the prescriptions too.</p>
+      </div>
+      <div>
+        <h3>Who Actually Buys It</h3>
+        <p>Individuals, employers, and the government (through Medicare and Medicaid programs) buy UnitedHealth insurance plans. Pharmacies, doctors, hospitals, and other insurers are customers of Optum's data, pharmacy-benefit, and care-delivery services.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="model">
+    <div class="section-title">Business Model</div>
+    <div class="split-cols">
+      <div>
+        <h3>How They Make Money</h3>
+        <ul>
+          <li>Collecting insurance premiums through UnitedHealthcare and paying out claims for medical care</li>
+          <li>Managing prescription drug benefits and pharmacy operations through Optum Rx</li>
+          <li>Operating clinics, doctor networks, and care-delivery services through Optum Health</li>
+          <li>Selling healthcare data and technology services through Optum Insight</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Why the Model Is Clever</h3>
+        <ul>
+          <li>Owning both the insurance and the care-delivery side means UnitedHealth captures profit at multiple points in the healthcare dollar, not just the insurance markup</li>
+          <li>Massive scale (hundreds of billions in revenue) lets it negotiate better rates with hospitals and drug makers than smaller insurers can</li>
+          <li>The Optum businesses reduce dependence on the more volatile insurance underwriting cycle</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="catalyst">
+    <div class="section-title">Hidden Catalyst Deep Dive</div>
+
+    <div class="split-cols" style="margin-bottom:24px">
+      <div>
+        <h3>The Opportunity</h3>
+        <p>While the DOJ investigations dominate the headlines, the real underappreciated story is that UnitedHealth's core insurance math is already repairing itself faster than expected — the medical care ratio improved nearly three full points in a single year — and a friendlier 2027 Medicare Advantage reimbursement rate (a 2.48% increase, reversing an earlier near-zero proposal) could add billions in revenue just as the company's own cost-reduction program takes hold.</p>
+      </div>
+      <div>
+        <h3>Why This Company Wins</h3>
+        <p>UnitedHealth's sheer scale and the integrated Optum platform let it absorb regulatory and reimbursement shocks that smaller, less diversified insurers cannot, and management believes the company is positioned to gain market share as smaller competitors retreat from Medicare Advantage under the same pressures.</p>
+      </div>
+    </div>
+
+    <div class="report-table-wrap" style="margin-bottom:24px">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Est. Revenue Impact (2027 MA Rate)</td><td class="mono">+$3.9B</td></tr>
+          <tr><td class="row-label">Est. Operating Profit Impact</td><td class="mono">+$1B</td></tr>
+          <tr><td class="row-label">Key Date / Event</td><td class="mono">~Oct 2026 (Q3 earnings)</td></tr>
+          <tr><td class="row-label">Company Readiness</td><td class="mono">High (operations) / Uncertain (legal resolution)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-bottom:24px">
+      <div class="subhead">Timeline</div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot past"></div><div class="timeline-date">2025</div><div class="timeline-event">Stock falls nearly 55% from its all-time high amid DOJ investigations, a CEO change, and Medicare funding pressure.</div></div>
+        <div class="timeline-item"><div class="timeline-dot past"></div><div class="timeline-date">Jul 16, 2026</div><div class="timeline-event">Q2 2026 results beat estimates ($6.38 adjusted EPS vs. $4.91 consensus); full-year guidance raised to $19.50–$20.00 adjusted EPS.</div></div>
+        <div class="timeline-item"><div class="timeline-dot present"></div><div class="timeline-date">Jul 28, 2026</div><div class="timeline-event">Stock trades near $428, close to its 52-week high, as the market rewards the margin recovery even with DOJ probes still open.</div></div>
+        <div class="timeline-item"><div class="timeline-dot future"></div><div class="timeline-date">~Oct 2026</div><div class="timeline-event">Next quarterly earnings report — the next test of whether the recovery continues and how the DOJ investigations progress.</div></div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <h3 style="color:var(--color-success)">Positive</h3>
+        <div class="scenario-prob" style="color:var(--color-success)">30%</div>
+        <div class="scenario-target">+8% to +15% stock impact</div>
+        <ul><li>DOJ investigations conclude with limited financial impact</li><li>Margin recovery continues into Q3</li></ul>
+      </div>
+      <div class="scenario-card">
+        <h3 style="color:var(--color-warning)">Mixed</h3>
+        <div class="scenario-prob" style="color:var(--color-warning)">45%</div>
+        <div class="scenario-target">-5% to +8% stock impact</div>
+        <ul><li>Margin recovery continues but DOJ headlines periodically pressure the stock</li></ul>
+      </div>
+      <div class="scenario-card">
+        <h3 style="color:var(--color-error)">Negative</h3>
+        <div class="scenario-prob" style="color:var(--color-error)">25%</div>
+        <div class="scenario-target">-15% to -25% stock impact</div>
+        <ul><li>DOJ investigations result in material fines, clawbacks, or new charges</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="edge">
+    <div class="section-title">Competitive Edge</div>
+    <div class="item-list">
+      <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">Unmatched Scale</div><div class="item-desc">The largest U.S. health insurer by membership, giving it negotiating leverage with hospitals and drug makers that smaller insurers lack.</div></div></div>
+      <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">Integrated Optum Platform</div><div class="item-desc">Owning pharmacy, care-delivery, and data businesses alongside insurance captures profit at multiple points in the healthcare dollar.</div></div></div>
+      <div class="item-row"><div class="item-icon">→</div><div><div class="item-title">Rapid Margin Recovery</div><div class="item-desc">Medical care ratio improved nearly three points in a year, tripling operating earnings in a single quarter.</div></div></div>
+      <div class="item-row"><div class="item-icon">⚠</div><div><div class="item-title">Beneficiary of Competitor Retreat</div><div class="item-desc">An underappreciated edge: as smaller Medicare Advantage insurers pull back under funding pressure, UnitedHealth's scale lets it absorb the same pressure and potentially gain their share.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="scorecard">
+    <div class="section-title">Analyst Scorecard</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 03</span>Seven-metric scoring of business quality, each on a 0–10 scale where higher is always better.</div>
+    <div class="radar-hint">click a point or label to see why it scored that way</div>
+    <div class="scorecard-body">
+      <div class="radar-wrap"><svg id="scorecardRadar" width="420" viewBox="0 0 400 400"></svg></div>
+      <div class="scorecard-why" id="scorecardWhy"></div>
+    </div>
+  </div>
+
+  <div class="section" id="situation">
+    <div class="section-title">Current Situation</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 04</span>Growth drivers weighed against active, recency-verified risks.</div>
+    <div class="split-cols">
+      <div>
+        <h3 style="color:var(--color-success)">Growth Drivers</h3>
+        <div class="severity-list">
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Medical Care Ratio Improvement</div><div class="item-desc">Improved to 86.7% from 89.4% YoY, driving operating earnings to $8.0B from $5.15B.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Optum Segment Growth</div><div class="item-desc">Reduces dependence on insurance-only volatility; margin expansion flagged by multiple analysts.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">~$1B Cost-Reduction Program</div><div class="item-desc">Targeted for 2026, expected to improve the operating cost ratio by 10 basis points.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Improved 2027 MA Reimbursement</div><div class="item-desc">CMS's 2.48% Medicare Advantage rate increase could add ~$3.9B in revenue and ~$1B in operating profit.</div></div></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--color-error)">Risks</h3>
+        <div class="severity-list">
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">DOJ Medicare Billing Investigation [ACTIVE RISK]</div><div class="item-desc">Criminal and civil investigations into alleged inflated risk scores and diagnoses added without physician confirmation, extending to Optum Rx and physician reimbursement.</div><div class="item-meta">Active as of Jul 2026 · Source: Fierce Healthcare, Healthcare Dive</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">DOJ Antitrust Probe (Claritev) [ACTIVE RISK]</div><div class="item-desc">New civil investigative demands allege collusion with major insurers on pricing, broadening the federal scrutiny beyond the original Medicare billing matter.</div><div class="item-meta">Active as of Jul 16, 2026 · Source: Simply Wall St, SahmCapital</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">Membership Decline [ACTIVE RISK]</div><div class="item-desc">The company guided for a rare enrollment decline of 3+ million members in 2026 amid the DOJ scrutiny and earlier Medicare funding cuts.</div><div class="item-meta">Active as of 2026 · Source: Phemex</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--yellow)"></div><div><div class="item-title">Medicare Advantage Rate Pressure [REDUCED — see note]</div><div class="item-desc">An earlier CMS proposal implied a near-zero MA rate increase for FY2027; a more recent 2.48% increase announcement meaningfully eases this specific pressure.</div><div class="item-meta">Reduced as of 2026 · Source: 24/7 Wall St.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="scenario">
+    <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="fig-caption"><span class="fig-num">FIG. 05</span>Twelve-month price scenarios weighted by probability, in dollar terms.</div>
+    <div class="scenario-tabs" data-tabgroup="overall">
+      <div class="tabs">
+        <div class="tab bull active" data-tab="bull">Bull <span class="p mono">30%</span></div>
+        <div class="tab base" data-tab="base">Base <span class="p mono">45%</span></div>
+        <div class="tab bear" data-tab="bear">Bear <span class="p mono">25%</span></div>
+      </div>
+      <div class="tab-panel show" data-panel="bull">
+        <h4 style="color:var(--color-success)">Bull Case · $500–$560</h4>
+        <div class="range">30% probability · 12-month price target</div>
+        <ul>
+          <li>DOJ criminal and antitrust investigations conclude with limited fines and no criminal charges against the company</li>
+          <li>Medical care ratio keeps improving as the 2026 cost-reduction program takes full effect</li>
+          <li>The 2.48% Medicare Advantage reimbursement increase for 2027 flows through to revenue and margin as expected</li>
+          <li>Optum segment growth continues to reduce dependence on insurance-only volatility</li>
+          <li>The market re-rates UNH's valuation multiple back toward pre-crisis levels as legal uncertainty fades</li>
+          <li>Membership stabilizes or begins growing again after the 2026 pullback</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="base">
+        <h4 style="color:var(--color-warning)">Base Case · $440–$490</h4>
+        <div class="range">45% probability · 12-month price target</div>
+        <ul>
+          <li>DOJ investigations remain open and periodically pressure the stock without a near-term resolution</li>
+          <li>Margin recovery continues but at a more moderate pace than Q2 2026's improvement</li>
+          <li>Full-year 2026 results land within the raised $19.50–$20.00 adjusted EPS guidance range</li>
+          <li>Medicare Advantage rate environment stays roughly neutral to modestly favorable</li>
+          <li>Stock trades in a wide range reflecting both the recovery and the unresolved legal risk</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="bear">
+        <h4 style="color:var(--color-error)">Bear Case · $300–$380</h4>
+        <div class="range">25% probability · 12-month price target</div>
+        <ul>
+          <li>DOJ investigations escalate into formal charges, material fines, or clawback demands</li>
+          <li>New whistleblower or media revelations reignite public and political pressure on the company</li>
+          <li>Medical care ratio deteriorates again as utilization trends worsen</li>
+          <li>Medicare Advantage funding pressure resumes despite the 2027 rate increase</li>
+          <li>Membership losses accelerate beyond the already-guided decline</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="debate">
+    <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="debate-grid debate-vs">
+      <div class="debate-card optimist">
+        <h3>The Optimist Sees…</h3>
+        <ul>
+          <li>A medical care ratio that improved nearly three points in a year, tripling operating earnings in a single quarter</li>
+          <li>A friendlier 2027 Medicare Advantage rate environment reversing what looked like a much worse setup earlier in 2026</li>
+          <li>Management's own $1B cost-reduction program compounding on top of the natural margin recovery</li>
+          <li>Analysts raising price targets past $500 in the weeks following the Q2 beat</li>
+          <li>A scale and Optum platform advantage that lets UnitedHealth absorb shocks smaller competitors cannot</li>
+        </ul>
+      </div>
+      <div class="debate-card pessimist">
+        <h3>The Pessimist Sees…</h3>
+        <ul>
+          <li>Two separate, unresolved DOJ investigations — one criminal — that could still produce serious fines or charges</li>
+          <li>A guided membership decline of 3+ million people, a rare and telling signal for an insurer this size</li>
+          <li>A recent history that includes a nearly 55% stock decline, a CEO change, and sustained public and political scrutiny</li>
+          <li>Revenue growth that was essentially flat (+0.4% YoY) even as profit recovered, raising questions about the durability of the margin improvement</li>
+          <li>A broader political environment increasingly skeptical of large health insurers' claims and billing practices</li>
+        </ul>
+      </div>
+      <div class="vs-badge">VS</div>
+    </div>
+  </div>
+
+  <div class="section" id="verdict">
+    <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="verdict">
+      <p>UnitedHealth today is like a patient recovering well from surgery while still waiting on a second doctor's opinion — the vital signs look strong, but nobody signs the discharge papers until the outstanding questions are answered.</p>
+      <p>The long-term case is genuinely improving: a medical care ratio that's healed faster than expected, a friendlier 2027 Medicare Advantage rate, an internal cost-reduction program, and a scale advantage that positions UnitedHealth to gain share as smaller rivals retreat from the same pressures.</p>
+      <p>The near-term risk is impossible to wave away — two open DOJ investigations, one of them criminal, could still produce fines, clawbacks, or worse, and the reputational scars from 2025 haven't fully healed. This is a name suited to investors with a multi-year horizon who are comfortable holding through legal-headline volatility, not a low-drama blue-chip pick for the risk-averse.</p>
+    </div>
+  </div>
+
+  <div class="section" id="wall" style="margin-bottom:0">
+    <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+    <div class="report-table-wrap">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Consensus Rating</td><td class="mono">Buy</td><td>21% Strong Buy · 58% Buy · 13% Hold · 8% Sell</td></tr>
+          <tr><td class="row-label">Avg. Price Target</td><td class="mono val-green">$475.23</td><td>vs. current $428.15 (~+11%)</td></tr>
+          <tr><td class="row-label">Target Range</td><td class="mono">$313–$529</td><td>Low to high analyst estimate</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="sources" style="margin-bottom:0">
+    <div class="subhead">Sources</div>
+    <ul class="sources-list">
+      <li><a href="https://www.marketbeat.com/stocks/NYSE/UNH/forecast/" target="_blank" rel="noopener">MarketBeat — UNH forecast and price target</a></li>
+      <li><a href="https://www.unitedhealthgroup.com/newsroom/2026/2026-07-16-uhg-reports-second-quarter-2026-results.html" target="_blank" rel="noopener">UnitedHealth Group — Q2 2026 results</a></li>
+      <li><a href="https://www.cnbc.com/2026/07/16/unitedhealth-group-unh-earnings-q2-2026.html" target="_blank" rel="noopener">CNBC — UNH Q2 2026 earnings</a></li>
+      <li><a href="https://www.fiercehealthcare.com/payers/wsj-report-doj-interviewing-former-employees-about-medicare-billing-practices-unitedhealth" target="_blank" rel="noopener">Fierce Healthcare — DOJ probe extends to Optum Rx</a></li>
+      <li><a href="https://www.healthcaredive.com/news/unitedhealth-under-investigation-department-of-justice-medicare/753913/" target="_blank" rel="noopener">Healthcare Dive — UnitedHealth confirms DOJ investigation</a></li>
+      <li><a href="https://www.sahmcapital.com/news/content/unitedhealth-unh-faces-broader-doj-antitrust-probe-into-claritev-2026-07-16" target="_blank" rel="noopener">Sahm Capital — DOJ antitrust probe into Claritev</a></li>
+      <li><a href="https://phemex.com/academy/unitedhealth-group-unh-stock-2026" target="_blank" rel="noopener">Phemex — UNH stock 2026 risks and outlook</a></li>
+      <li><a href="https://247wallst.com/investing/2026/02/03/unitedhealth-stock-could-reach-new-heights-by-2030-heres-the-outlook/" target="_blank" rel="noopener">24/7 Wall St. — UNH long-term outlook</a></li>
+      <li><a href="https://www.trefis.com/stock/unh/articles/599622/unitedhealth-stock-on-the-edge-3-threats-you-need-to-know/2026-05-18" target="_blank" rel="noopener">Trefis — UnitedHealth stock threats</a></li>
+    </ul>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</p>
+  </div>
+
+</div>
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bar = entry.target;
+      const target = bar.dataset.target;
+      bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+      bar.style.width = target + '%';
+      observer.unobserve(bar);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+
+document.querySelectorAll('.scenario-tabs').forEach(function (group) {
+  group.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var name = tab.getAttribute('data-tab');
+      group.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      group.querySelectorAll('.tab-panel').forEach(function (p) {
+        p.classList.toggle('show', p.getAttribute('data-panel') === name);
+      });
+    });
+  });
+});
+
+(function () {
+  var legend = document.getElementById('revenueLegend');
+  var svg = document.getElementById('revenueDonut');
+  if (!legend || !svg) return;
+  legend.querySelectorAll('.legend-row').forEach(function (row) {
+    row.addEventListener('mouseenter', function () {
+      var seg = row.getAttribute('data-seg');
+      legend.querySelectorAll('.legend-row').forEach(function (r) {
+        r.classList.toggle('dim', r !== row);
+        r.classList.toggle('hi', r === row);
+      });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) {
+        var match = c.getAttribute('data-seg') === seg;
+        c.classList.toggle('seg-dim', !match);
+      });
+    });
+    row.addEventListener('mouseleave', function () {
+      legend.querySelectorAll('.legend-row').forEach(function (r) { r.classList.remove('dim', 'hi'); });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) { c.classList.remove('seg-dim'); });
+    });
+  });
+})();
+
+(function () {
+  var rail = document.getElementById('spyRail');
+  if (!rail) return;
+  var sections = [
+    ['hero', 'Hero'], ['tldr', 'TL;DR'], ['snapshot', 'Snapshot'], ['mix', 'Revenue Mix'],
+    ['story', 'What It Does'], ['model', 'Biz Model'], ['catalyst', 'Catalyst'], ['edge', 'Comp. Edge'],
+    ['scorecard', 'Scorecard'], ['situation', 'Growth/Risks'], ['scenario', 'Scenarios'],
+    ['debate', 'Debate'], ['verdict', 'Verdict'], ['wall', 'Consensus']
+  ];
+  var items = sections.map(function (s) {
+    var el = document.getElementById(s[0]);
+    if (!el) return null;
+    var item = document.createElement('div');
+    item.className = 'spy-item';
+    item.innerHTML = '<span class="spy-label">' + s[1] + '</span><span class="spy-dot"></span>';
+    item.addEventListener('click', function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    rail.appendChild(item);
+    return { id: s[0], el: el, item: item };
+  }).filter(Boolean);
+
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var match = items.find(function (i) { return i.el === entry.target; });
+        if (!match) return;
+        items.forEach(function (i) { i.item.classList.toggle('active', i === match); });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+  items.forEach(function (i) { obs.observe(i.el); });
+  if (items.length) items[0].item.classList.add('active');
+})();
+
+(function () {
+  var svgEl = document.getElementById('scorecardRadar');
+  var whyEl = document.getElementById('scorecardWhy');
+  if (!svgEl || !whyEl) return;
+
+  var METRICS = [
+    { label: 'Business Model', full: 'Business Model Strength', value: 8, why: 'The integrated UnitedHealthcare/Optum model spans insurance, pharmacy, care delivery, and data — difficult for less diversified competitors to replicate at scale.' },
+    { label: 'Revenue Growth', full: 'Revenue Growth', value: 5, why: 'Q2 2026 revenue grew just 0.4% YoY to $112.0B, reflecting the deliberate membership pullback amid DOJ scrutiny and Medicare funding pressure.' },
+    { label: 'Profitability', full: 'Profitability', value: 8, why: 'Operating earnings roughly tripled YoY to $8.0B in Q2 2026 as the medical care ratio improved to 86.7% from 89.4%.' },
+    { label: 'Competitive Moat', full: 'Competitive Moat', value: 7, why: 'Massive scale and the Optum platform are real advantages, though the DOJ antitrust probe into Claritev specifically challenges how that scale is used.' },
+    { label: 'Regulatory Safety', full: 'Regulatory Safety', value: 3, why: 'Active DOJ criminal and civil investigations into Medicare Advantage billing, plus a separate antitrust probe into Claritev, are serious, unresolved legal risks.' },
+    { label: 'Mgmt Execution', full: 'Management Execution', value: 7, why: 'Delivered a sharp margin recovery and raised full-year guidance to $19.50-$20.00 adjusted EPS despite operating under open federal investigations and a CEO transition.' },
+    { label: 'Long-Term Potential', full: 'Long-Term Potential', value: 7, why: 'A friendlier 2027 Medicare Advantage reimbursement rate (+2.48%) and continued Optum growth support recovery, if the legal overhang resolves manageably.' }
+  ];
+  var MAX = 10;
+  var dots = [];
+
+  function svgNode(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+  function average(data) {
+    var sum = data.reduce(function (acc, d) { return acc + d.value; }, 0);
+    return Math.round((sum / data.length) * 10) / 10;
+  }
+
+  function showOverall() {
+    var avg = average(METRICS);
+    var best = METRICS.reduce(function (a, b) { return b.value > a.value ? b : a; });
+    var worst = METRICS.reduce(function (a, b) { return b.value < a.value ? b : a; });
+    whyEl.innerHTML =
+      '<div class="wp-title">Overall</div>' +
+      '<span class="wp-score">' + avg + ' / 10 average</span>' +
+      '<p class="wp-text">A recovering, structurally strong business held back by one serious overhang — led by ' + best.full + ' (' + best.value + '/10). The one real soft spot is ' +
+      worst.full + ' (' + worst.value + '/10) — click any point on the chart for the reasoning behind each score.</p>';
+  }
+
+  function showWhy(d) {
+    whyEl.innerHTML =
+      '<button class="wp-back" type="button">&larr; Overall</button>' +
+      '<div class="wp-title">' + d.full + '</div>' +
+      '<span class="wp-score">' + d.value + ' / 10</span>' +
+      '<p class="wp-text">' + d.why + '</p>';
+    whyEl.querySelector('.wp-back').addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      showOverall();
+    });
+  }
+
+  var cx = 200, cy = 200, maxR = 140;
+  var n = METRICS.length;
+  var angleStep = (Math.PI * 2) / n;
+  var startAngle = -Math.PI / 2;
+
+  function pt(i, ratio) {
+    var a = startAngle + i * angleStep;
+    return [cx + maxR * ratio * Math.cos(a), cy + maxR * ratio * Math.sin(a)];
+  }
+
+  [0.25, 0.5, 0.75, 1].forEach(function (ratio) {
+    var pts = METRICS.map(function (_, i) { return pt(i, ratio).join(','); }).join(' ');
+    var poly = svgNode('polygon');
+    poly.setAttribute('points', pts);
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', 'var(--border)');
+    poly.setAttribute('stroke-width', ratio === 1 ? '1.2' : '1');
+    poly.setAttribute('stroke-dasharray', ratio === 1 ? 'none' : '2,3');
+    svgEl.appendChild(poly);
+  });
+
+  METRICS.forEach(function (_, i) {
+    var p = pt(i, 1);
+    var line = svgNode('line');
+    line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+    line.setAttribute('x2', p[0]); line.setAttribute('y2', p[1]);
+    line.setAttribute('stroke', 'var(--border)');
+    line.setAttribute('stroke-width', '1');
+    svgEl.appendChild(line);
+  });
+
+  var dataPts = METRICS.map(function (d, i) { return pt(i, d.value / MAX); });
+  var dataPoly = svgNode('polygon');
+  dataPoly.setAttribute('points', dataPts.map(function (p) { return p.join(','); }).join(' '));
+  dataPoly.setAttribute('fill', 'var(--color-accent)');
+  dataPoly.setAttribute('fill-opacity', '0.18');
+  dataPoly.setAttribute('stroke', 'var(--color-accent)');
+  dataPoly.setAttribute('stroke-width', '2');
+  svgEl.appendChild(dataPoly);
+
+  dataPts.forEach(function (p, i) {
+    var dot = svgNode('circle');
+    dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]);
+    dot.setAttribute('r', 7);
+    dot.setAttribute('fill', 'var(--color-accent)');
+    dot.setAttribute('class', 'radar-dot');
+    dot.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dot.classList.add('active');
+      showWhy(METRICS[i]);
+    });
+    svgEl.appendChild(dot);
+    dots.push(dot);
+  });
+
+  METRICS.forEach(function (d, i) {
+    var lp = pt(i, 1.26);
+    var anchor = 'middle';
+    if (lp[0] < cx - 5) anchor = 'end';
+    else if (lp[0] > cx + 5) anchor = 'start';
+    var text = svgNode('text');
+    text.setAttribute('x', lp[0]); text.setAttribute('y', lp[1]);
+    text.setAttribute('text-anchor', anchor);
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('class', 'radar-axis-label');
+    text.textContent = d.label;
+    text.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dots[i].classList.add('active');
+      showWhy(d);
+    });
+    svgEl.appendChild(text);
+  });
+
+  var bbox = svgEl.getBBox();
+  var pad = 16;
+  var vbW = bbox.width + pad * 2;
+  var vbH = bbox.height + pad * 2;
+  svgEl.setAttribute('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + vbW + ' ' + vbH);
+  var targetWidth = parseFloat(svgEl.getAttribute('width')) || 420;
+  svgEl.setAttribute('height', Math.round(targetWidth * (vbH / vbW)));
+
+  showOverall();
+})();
+</script>
+</body>
+</html>

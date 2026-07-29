@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIFR — Stock Analysis · Jul 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    /* Theme: neon-foundry - applied by obs-theme-factory */
+    :root {
+      --bg-base: #0E1014;
+      --bg-image: linear-gradient(rgba(255,107,53,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,53,0.03) 1px, transparent 1px);
+      --bg-size: 32px 32px; --bg-position: 0 0; --bg-repeat: repeat;
+
+      --color-primary: #FF6B35; --color-primary-light: #2A1A12; --color-secondary: #00C8A0; --color-accent: #FFD200;
+      --color-bg: #0E1014; --color-surface: #161820; --color-surface-alt: #1C1F28;
+      --color-text: #D8DCE8; --color-text-muted: #6A7088; --color-text-on-primary: #0E1014;
+      --color-border: #2A2E3A; --color-success: #00C8A0; --color-warning: #FFD200; --color-error: #FF3550;
+
+      --font-family: 'Barlow', 'Helvetica Neue', sans-serif;
+      --font-family-mono: 'Share Tech Mono', 'Courier New', monospace;
+      --font-family-display: 'Bebas Neue', 'Impact', sans-serif;
+      --font-size-base: 15px; --font-weight-heading: 400; --font-weight-body: 300; --line-height: 1.6;
+
+      --radius: 2px; --radius-card: 3px; --radius-button: 2px;
+
+      --shadow-sm: 0 1px 4px rgba(0,0,0,0.5), 0 0 0 1px #2A2E3A;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.6), 0 0 0 1px #2A2E3A;
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,107,53,0.15);
+      --shadow-xl: 0 16px 48px rgba(0,0,0,0.8);
+      --shadow-colored: 0 4px 24px rgba(255,107,53,0.3), 0 0 0 1px rgba(255,107,53,0.4);
+      --shadow-inset: inset 0 2px 6px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,107,53,0.04);
+
+      --gradient-hero: linear-gradient(160deg, #1C1F28 0%, #0E1014 50%, #12100E 100%);
+      --gradient-card: linear-gradient(180deg, #181B24 0%, #141720 100%);
+      --gradient-button: linear-gradient(135deg, #FF8050 0%, #E05020 100%);
+      --gradient-text: linear-gradient(90deg, #FF6B35 0%, #FFD200 100%);
+      --gradient-accent: linear-gradient(90deg, #FF6B35 0%, #00C8A0 100%);
+
+      --glow-color: #FF6B35; --glow-sm: 0 0 6px rgba(255,107,53,0.4);
+      --glow-md: 0 0 18px rgba(255,107,53,0.4), 0 0 36px rgba(255,107,53,0.15);
+      --glow-lg: 0 0 36px rgba(255,107,53,0.5), 0 0 72px rgba(255,107,53,0.2);
+      --glass-blur: 0; --glass-tint: none; --backdrop-filter: none;
+      --text-shadow: 0 0 20px rgba(255,107,53,0.5);
+      --border-gradient: linear-gradient(90deg, #FF6B35, #00C8A0);
+      --noise-opacity: 0;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 80ms; --duration-base: 160ms; --duration-slow: 280ms;
+      --easing: cubic-bezier(0.25, 0, 0.5, 1); --border-width: 1px;
+
+      --bg: var(--color-bg);
+      --card: var(--color-surface);
+      --card2: var(--color-surface-alt);
+      --border: var(--color-border);
+      --accent: var(--color-primary);
+      --green: var(--color-success);
+      --red: var(--color-error);
+      --yellow: var(--color-warning);
+      --text: var(--color-text);
+      --muted: var(--color-text-muted);
+    }
+
+    /* Layout: timeline-river - applied by obs-layout-factory */
+    :root {
+      --layout-columns: 12;
+      --layout-gutter: 28px;
+      --layout-max-width: 980px;
+      --layout-margin-inline: 5vw;
+      --layout-space-2: 8px;
+      --layout-space-4: 24px;
+      --layout-space-6: 48px;
+      --layout-section-gap: 64px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-family);
+      font-weight: var(--font-weight-body, 400);
+      color: var(--text);
+      line-height: var(--line-height);
+      margin: 0;
+      padding: 20px;
+      background-color: var(--color-bg);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+    }
+
+    .page {
+      max-width: var(--layout-max-width);
+      margin: 0 auto;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: var(--gradient-hero);
+      border-top: 3px solid var(--color-accent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      color: var(--color-text-on-primary);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, color-mix(in srgb, var(--color-primary-light) 12%, transparent) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-ticker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-family: var(--font-family-display);
+    }
+    .hero-name {
+      font-size: 28px;
+      font-weight: var(--font-weight-heading, 700);
+      margin-bottom: 8px;
+      color: var(--color-text-on-primary);
+      font-family: var(--font-family-display);
+      letter-spacing: 0.03em;
+      text-shadow: var(--text-shadow);
+    }
+    .hero-tagline {
+      font-size: 15px;
+      color: color-mix(in srgb, var(--color-text-on-primary) 78%, transparent);
+      max-width: 540px;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid;
+      letter-spacing: 0.04em;
+      font-family: var(--font-family-display);
+    }
+    .pill-blue {
+      background: color-mix(in srgb, var(--color-primary-light) 18%, transparent);
+      border-color: color-mix(in srgb, var(--color-primary-light) 45%, transparent);
+      color: var(--color-primary-light);
+    }
+    .pill-green {
+      background: color-mix(in srgb, var(--color-success) 25%, transparent);
+      border-color: color-mix(in srgb, var(--color-success) 60%, transparent);
+      color: color-mix(in srgb, var(--color-success) 55%, white);
+    }
+    .pill-red {
+      background: color-mix(in srgb, var(--color-error) 25%, transparent);
+      border-color: color-mix(in srgb, var(--color-error) 60%, transparent);
+      color: color-mix(in srgb, var(--color-error) 55%, white);
+    }
+    .pill-yellow {
+      background: color-mix(in srgb, var(--color-warning) 25%, transparent);
+      border-color: color-mix(in srgb, var(--color-warning) 60%, transparent);
+      color: color-mix(in srgb, var(--color-warning) 55%, white);
+    }
+
+    /* Section & Card Structure */
+    .section { margin-bottom: var(--layout-section-gap); }
+    .section-title {
+      font-family: var(--font-family-display);
+      font-size: 13px;
+      font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 14px;
+    }
+    .section-title.lead-title { font-size: 16px; text-shadow: var(--text-shadow); }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm);
+      padding: 20px 22px;
+      margin-bottom: 14px;
+    }
+    .card h3 {
+      font-family: var(--font-family-display);
+      font-size: 13px;
+      font-weight: var(--font-weight-heading, 700);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin: 0 0 10px 0;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    /* Stat Grid */
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .stat-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm);
+      padding: 16px 18px;
+    }
+    .stat-label {
+      font-family: var(--font-family-display);
+      font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px;
+    }
+    .stat-value {
+      font-family: var(--font-family-display);
+      font-size: 22px; font-weight: var(--font-weight-heading, 700); color: var(--color-text);
+    }
+    .stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .val-green { color: var(--color-success); }
+    .val-red { color: var(--color-error); }
+    .val-yellow { color: var(--color-warning); }
+
+    /* TL;DR Box */
+    .tldr {
+      background: var(--card);
+      border-radius: var(--radius);
+      border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm);
+      padding: 22px 24px;
+      margin-bottom: 28px;
+    }
+    .tldr h2 {
+      font-family: var(--font-family-display);
+      font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 2px;
+      text-transform: uppercase; color: var(--color-primary); margin: 0 0 14px 0;
+    }
+    .tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+    .tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+    /* Scorecard Radar */
+    .radar-hint { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+    .scorecard-body { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+    .radar-wrap { flex-shrink: 0; display: flex; justify-content: center; width: 100%; max-width: 480px; }
+    #scorecardRadar { width: 100%; height: auto; display: block; }
+    .radar-axis-label { font-family: var(--font-family-display); font-size: 15px; font-weight: 700; fill: var(--color-primary); cursor: pointer; }
+    .radar-dot { cursor: pointer; transition: r 0.15s; }
+    .radar-dot:hover, .radar-dot.active { r: 10; }
+    .scorecard-why { flex: 1; min-width: 220px; border-left: 1px solid var(--border); padding: 4px 0 4px 26px; }
+    .scorecard-why .wp-title { font-family: var(--font-family-display); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px; }
+    .scorecard-why .wp-score { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-accent); font-weight: 700; margin-bottom: 10px; display: block; }
+    .scorecard-why .wp-text { font-size: 15px; line-height: 1.65; margin: 0; }
+    .scorecard-why .wp-back { display: block; font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 10px; text-decoration: underline; }
+    .scorecard-why .wp-back:hover { color: var(--color-accent); }
+    @media (max-width: 640px) {
+      .scorecard-body { flex-direction: column; }
+      .scorecard-why { border-left: none; border-top: 1px solid var(--border); padding: 20px 0 0; margin-top: 20px; }
+    }
+
+    /* Scenario Cards */
+    .scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .scenario-card { background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 18px 20px; }
+    .scenario-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 1px; margin: 0 0 6px 0; }
+    .scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+    .scenario-bull h3 { color: var(--color-success); }
+    .scenario-base h3 { color: var(--color-warning); }
+    .scenario-bear h3 { color: var(--color-error); }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+    .timeline-item { position: relative; margin-bottom: 20px; }
+    .timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+    .timeline-dot.past { background: var(--color-text-muted); border-color: var(--color-text-muted); }
+    .timeline-dot.present { background: var(--color-primary); border-color: var(--color-primary); width: 14px; height: 14px; left: -26px; }
+    .timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+    .timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+    .timeline-event { font-size: 14px; line-height: 1.5; }
+
+    /* Verdict */
+    .verdict {
+      background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+      border-radius: var(--radius);
+      border-top: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm);
+      padding: 28px 30px;
+    }
+    .verdict-title { font-family: var(--font-family-display); font-size: 14px; font-weight: var(--font-weight-heading, 700); letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 16px; }
+    .verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+    .verdict p:last-child { margin-bottom: 0; }
+
+    /* Icon / Item rows */
+    .item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; }
+    .item-title { font-family: var(--font-family-display); font-size: 12px; font-weight: var(--font-weight-heading, 700); letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 2px; }
+    .item-desc { font-size: 14px; line-height: 1.55; }
+    .item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    /* Debate */
+    .debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .debate-card { background: var(--card); border-radius: var(--radius); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 20px 22px; }
+    .debate-card h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 1px; text-transform: uppercase; margin: 0 0 12px 0; }
+    .debate-card.optimist h3 { color: var(--color-success); }
+    .debate-card.pessimist h3 { color: var(--color-error); }
+    .debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+    .debate-card li { margin-bottom: 6px; }
+    .debate-vs { position: relative; }
+    .debate-vs .vs-badge {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: var(--color-primary); color: var(--color-text-on-primary);
+      font-family: var(--font-family-display); font-size: 11px; font-weight: 700;
+      width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; box-shadow: var(--shadow-md); z-index: 2; letter-spacing: 0.5px;
+    }
+    @media (max-width: 760px) { .debate-vs .vs-badge { display: none; } }
+
+    /* Donut */
+    .donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .donut-legend { flex: 1; min-width: 180px; }
+    .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; border-radius: 3px; padding: 2px 4px; cursor: pointer; transition: background 0.15s, opacity 0.15s; }
+    .legend-row.dim { opacity: 0.35; }
+    .legend-row.hi { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+    .seg-dim { opacity: 0.3; transition: opacity 0.15s; }
+    .seg-hi { transition: opacity 0.15s, filter 0.15s; }
+    .seg-hi.active-glow { filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent) 55%, transparent)); }
+
+    .seg-row { margin-bottom: 16px; }
+    .seg-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.5px; }
+    .seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+    .seg-fill { height: 100%; border-radius: 4px; }
+    .seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+    .seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* Flat / Tabular */
+    .exhibit-visual { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 14px; }
+    .subhead { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0; }
+
+    .split-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .split-cols > div + div { border-left: 1px solid var(--border); padding-left: 32px; }
+    .split-cols h3 { font-family: var(--font-family-display); font-size: 13px; font-weight: var(--font-weight-heading, 700); letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0; }
+    .split-cols p { font-size: 15px; line-height: 1.65; margin: 0; }
+    .split-cols ul { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.65; }
+    .split-cols li { margin-bottom: 6px; }
+
+    .item-list .item-row { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+    .item-list .item-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+    .severity-list .sev-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .severity-list .sev-row:last-child { border-bottom: none; }
+    .sev-stripe { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 40px; }
+
+    .report-table-wrap { overflow-x: auto; }
+    .report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .report-table th { font-family: var(--font-family-display); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 16px 8px 0; border-bottom: 2px solid var(--color-primary); white-space: nowrap; }
+    .report-table td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .report-table tr:hover td { background: color-mix(in srgb, var(--color-primary) 4%, transparent); }
+    .report-table tr:last-child td { border-bottom: 1px solid var(--border); }
+    .report-table .row-label { font-family: var(--font-family-display); font-weight: 700; letter-spacing: 0.3px; color: var(--text); white-space: nowrap; }
+    .report-table .mono { font-family: var(--font-family-mono); font-weight: 700; }
+    .report-table ul { margin: 0; padding-left: 16px; font-size: 13px; line-height: 1.55; }
+    .report-table li { margin-bottom: 3px; }
+
+    .fig-caption { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+    .fig-num { color: var(--color-accent); font-weight: 700; margin-right: 8px; }
+
+    .scenario-tabs .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .scenario-tabs .tab { flex: 1; text-align: center; cursor: pointer; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 8px; background: var(--card); font-family: var(--font-family-display); font-size: 12px; font-weight: 700; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+    .scenario-tabs .tab:hover { transform: translateY(-1px); }
+    .scenario-tabs .tab .p { font-family: var(--font-family-mono); font-weight: 700; display: block; font-size: 14px; margin-top: 3px; }
+    .scenario-tabs .tab.bull, .scenario-tabs .tab.positive { color: var(--green); }
+    .scenario-tabs .tab.base, .scenario-tabs .tab.mixed { color: var(--yellow); }
+    .scenario-tabs .tab.bear, .scenario-tabs .tab.negative { color: var(--red); }
+    .scenario-tabs .tab.active.bull, .scenario-tabs .tab.active.positive { background: color-mix(in srgb, var(--green) 14%, var(--card)); border-color: var(--green); }
+    .scenario-tabs .tab.active.base, .scenario-tabs .tab.active.mixed { background: color-mix(in srgb, var(--yellow) 14%, var(--card)); border-color: var(--yellow); }
+    .scenario-tabs .tab.active.bear, .scenario-tabs .tab.active.negative { background: color-mix(in srgb, var(--red) 14%, var(--card)); border-color: var(--red); }
+    .scenario-tabs .tab-panel { display: none; background: var(--card); border-radius: var(--radius); padding: 18px 20px; border-left: 3px solid var(--border); }
+    .scenario-tabs .tab-panel.show { display: block; }
+    .scenario-tabs .tab-panel h4 { margin: 0 0 4px; font-family: var(--font-family-display); font-size: 14px; letter-spacing: 0.5px; }
+    .scenario-tabs .tab-panel .range { font-family: var(--font-family-mono); font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+    .scenario-tabs .tab-panel ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+    .scenario-tabs .tab-panel li { margin-bottom: 5px; }
+
+    .lead-quote {
+      font-size: 17px; font-style: italic; line-height: 1.6; color: var(--color-text);
+      border-left: 3px solid var(--color-accent); padding: 10px 20px; margin: 20px 0;
+      background: color-mix(in srgb, var(--color-surface-alt) 60%, transparent);
+    }
+
+    .spy-rail { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 9px; z-index: 40; }
+    .spy-rail .spy-item { display: flex; align-items: center; gap: 8px; cursor: pointer; justify-content: flex-end; }
+    .spy-rail .spy-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.15s, transform 0.15s; }
+    .spy-rail .spy-item.active .spy-dot { background: var(--color-accent); transform: scale(1.5); }
+    .spy-rail .spy-label { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); opacity: 0; white-space: nowrap; transition: opacity 0.15s; }
+    .spy-rail .spy-item.active .spy-label { opacity: 1; color: var(--color-primary); font-weight: 700; }
+    @media (max-width: 1180px) { .spy-rail { display: none; } }
+
+    @media (max-width: 760px) {
+      body { padding: 12px; }
+      .grid-2, .debate-grid, .split-cols { grid-template-columns: 1fr; }
+      .split-cols > div + div { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 24px 20px; }
+      .hero-name { font-size: 22px; }
+      .debate-vs .vs-badge { display: none; }
+    }
+    @media (max-width: 520px) {
+      .grid-3, .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+      .donut-wrap { flex-direction: column; align-items: flex-start; }
+      .scenario-tabs .tabs { flex-direction: column; }
+    }
+  </style>
+</head>
+<body data-layout="timeline-river">
+<nav class="spy-rail" id="spyRail" aria-label="Section navigation"></nav>
+<div class="page">
+
+  <div class="hero" id="hero">
+    <div class="hero-ticker">NASDAQ: CIFR &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+    <div class="hero-name">Cipher Digital, Inc.</div>
+    <div class="hero-tagline">A company that used to run warehouses of computers mining Bitcoin — now it's renting those same buildings and power lines to Amazon and Google's AI cloud partner instead.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">AI Data Center Infrastructure</span>
+      <span class="pill pill-yellow">Turnaround</span>
+      <span class="pill pill-red">Execution Risk</span>
+    </div>
+  </div>
+
+  <div class="tldr" id="tldr">
+    <h2>TL;DR</h2>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>Cipher Digital (formerly Cipher Mining) is converting old bitcoin-mining sites into AI/data-center campuses leased to Amazon Web Services and Fluidstack.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--yellow)">!</span>
+      <span>The pivot is mid-flight: Q1 2026 revenue was still 99% bitcoin mining, but the AWS lease starts paying rent in August 2026.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--accent)">►</span>
+      <span>The underreported story: three hyperscale leases already lock in roughly $11.4B of contracted revenue over 10-15 years — visibility bitcoin miners never had.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--red)">-</span>
+      <span>The main risk: nearly $4.7B of debt against a company still losing money, and the entire growth story depends on hitting site-energization dates on schedule.</span>
+    </div>
+    <div class="tldr-item">
+      <span class="tldr-sym" style="color:var(--green)">+</span>
+      <span>Verdict: Street average target ~$31 vs. today's $20.42 (+52%). Next binary event: Q2 2026 earnings, Aug 4, 2026.</span>
+    </div>
+  </div>
+
+  <div class="section" id="snapshot">
+    <div class="section-title">Financial Snapshot</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 01</span>Core financial metrics as of the most recent quarter and trading session.</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Stock Price</div><div class="stat-value mono">$20.42</div><div class="stat-sub">As of Jul 28, 2026</div></div>
+      <div class="stat-card"><div class="stat-label">Market Cap</div><div class="stat-value mono">$8.3B</div><div class="stat-sub">~409M shares out.</div></div>
+      <div class="stat-card"><div class="stat-label">Revenue (TTM)</div><div class="stat-value mono val-green">$209.8M</div><div class="stat-sub">+38% YoY</div></div>
+      <div class="stat-card"><div class="stat-label">Net Income (TTM)</div><div class="stat-value mono val-red">-$897.6M</div><div class="stat-sub">Build-out losses</div></div>
+      <div class="stat-card"><div class="stat-label">EPS (TTM)</div><div class="stat-value mono val-red">-$2.26</div><div class="stat-sub">Loss per share</div></div>
+      <div class="stat-card"><div class="stat-label">Gross Margin</div><div class="stat-value mono val-yellow">12.4%</div><div class="stat-sub">TTM</div></div>
+      <div class="stat-card"><div class="stat-label">Forward Guidance</div><div class="stat-value mono val-yellow" style="font-size:15px">~$870M run-rate rev.</div><div class="stat-sub">~76% EBITDA margin, post-ramp</div></div>
+      <div class="stat-card"><div class="stat-label">Analyst Target</div><div class="stat-value mono val-green">$31.00</div><div class="stat-sub">+52% vs. current</div></div>
+      <div class="stat-card"><div class="stat-label">Next Event</div><div class="stat-value mono" style="font-size:15px">Aug 4, 2026</div><div class="stat-sub">Q2 2026 earnings</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="mix">
+    <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+    <div class="fig-caption"><span class="fig-num">FIG. 02</span>Revenue mix, current vs. two-year projected share. <em>Hover a segment below to trace it through the chart.</em></div>
+    <div class="exhibit-visual">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200" id="revenueDonut">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--border)" stroke-width="28"/>
+          <circle class="seg-hi" data-seg="mining" cx="100" cy="100" r="70" fill="none" stroke="var(--color-primary)" stroke-width="28"
+                  stroke-dasharray="435.6 440" stroke-dashoffset="0" stroke-linecap="butt"/>
+          <circle class="seg-hi" data-seg="hosting" cx="100" cy="100" r="70" fill="none" stroke="var(--color-secondary)" stroke-width="28"
+                  stroke-dasharray="4.4 440" stroke-dashoffset="-435.6" stroke-linecap="butt"/>
+          <text x="100" y="104" text-anchor="middle" font-family="var(--font-family-display)" font-size="13" font-weight="700" fill="var(--color-text)">Revenue</text>
+        </svg>
+        <div class="donut-legend" id="revenueLegend">
+          <div class="legend-row" data-seg="mining">
+            <div class="legend-dot" style="background:var(--color-primary)"></div>
+            <span>Bitcoin Mining</span>
+            <span class="legend-pct">99%</span>
+          </div>
+          <div class="legend-row" data-seg="hosting">
+            <div class="legend-dot" style="background:var(--color-secondary)"></div>
+            <span>AI/HPC Data Center Hosting</span>
+            <span class="legend-pct">1%</span>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Estimated mix based on Q1 2026 results (bitcoin mining was $34.8M of $35M total revenue) and management's guidance toward ~$870M in annual run-rate revenue once the AWS and Fluidstack leases ramp. Exact 2-year split not publicly disclosed.</p>
+
+      <div class="seg-row">
+        <div class="seg-label"><span>Bitcoin Mining</span><span style="font-family:var(--font-family-mono)">99% → 15%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:99%;background:var(--color-primary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="15" style="width:0%;background:var(--color-primary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Shrinks as legacy mining winds down; Black Pearl site was fully decommissioned in February 2026.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>AI/HPC Data Center Hosting</span><span style="font-family:var(--font-family-mono)">1% → 85%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:1%;background:var(--color-secondary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="85" style="width:0%;background:var(--color-secondary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Grows as the AWS (Aug 2026) and Fluidstack (Oct 2026) leases begin paying rent.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="story">
+    <div class="section-title">What Does This Company Actually Do?</div>
+    <div class="split-cols">
+      <div>
+        <h3>The Simple Story</h3>
+        <p>Cipher Digital used to run huge warehouses full of computers that solved puzzles to earn Bitcoin. Now it's turning those same buildings — and the expensive power hookups it already built — into data centers that AI companies rent by the year, the same way a landlord rents out floor space instead of running a factory on it.</p>
+      </div>
+      <div>
+        <h3>Who Actually Buys It</h3>
+        <p>The customers are hyperscale cloud and AI infrastructure companies: Amazon Web Services and Fluidstack, an AI cloud provider backed by Google. They sign 10-15 year leases for guaranteed blocks of power and floor space to run their own AI computers, instead of spending years building new sites from scratch.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="model">
+    <div class="section-title">Business Model</div>
+    <div class="split-cols">
+      <div>
+        <h3>How They Make Money</h3>
+        <ul>
+          <li>Legacy Bitcoin mining at its Odessa, Texas site — a shrinking share of revenue as capacity gets redirected</li>
+          <li>Long-term hyperscale data-center leases — fixed rent plus power pass-through from AWS and Fluidstack over 10-15 year terms</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Why the Model Is Clever</h3>
+        <ul>
+          <li>Converts a boom-bust commodity business — bitcoin mining margins swing with the price of Bitcoin — into contracted, multi-year rent income</li>
+          <li>Reuses power infrastructure and land already built for mining, cutting years off the timeline a hyperscaler would normally need to build a data center from scratch</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="catalyst">
+    <div class="section-title lead-title">Hidden Catalyst Deep Dive</div>
+
+    <div class="split-cols" style="margin-bottom:24px">
+      <div>
+        <h3>The Opportunity</h3>
+        <p>Cipher is converting its legacy bitcoin-mining power sites — already wired into the Texas grid — into AI/HPC data centers leased to hyperscalers. That single change moves the same megawatts from crypto-mining economics to data-center economics: three leases across 907MW already lock in roughly $11.4B in contracted base-term revenue, and management guides toward ~$870M in annual run-rate revenue with ~76% blended EBITDA margins once fully energized.</p>
+      </div>
+      <div>
+        <h3>Why This Company Wins</h3>
+        <p>Cipher already owns the land, power interconnects, and grid capacity that a hyperscaler would otherwise spend years permitting and building from scratch — repurposing it is faster and cheaper than greenfield construction. Google holds an equity stake in Cipher and has agreed to backstop the Fluidstack lease if Fluidstack can't perform, which meaningfully reduces counterparty risk most data-center landlords don't have.</p>
+      </div>
+    </div>
+
+    <div class="lead-quote">Every megawatt Cipher wired for mining Bitcoin is now wired for renting to Amazon and Google's AI cloud partner instead — the infrastructure didn't change, only who's paying rent on it.</div>
+
+    <div class="report-table-wrap" style="margin-bottom:24px">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Contracted Revenue Backlog</td><td class="mono">$11.4B</td></tr>
+          <tr><td class="row-label">Key Date / Event</td><td class="mono">Aug 2026 (AWS) · Oct 2026 (Fluidstack)</td></tr>
+          <tr><td class="row-label">Company Readiness</td><td class="mono">High — Black Pearl decommissioned, Barber Lake energizing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-bottom:24px">
+      <div class="subhead">Timeline</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot past"></div>
+          <div class="timeline-date">Feb 2026</div>
+          <div class="timeline-event">Black Pearl site fully decommissioned from bitcoin mining; Canaan closes purchase of a 49% stake in three mining operations for ~$39.75M.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot past"></div>
+          <div class="timeline-date">May 2026</div>
+          <div class="timeline-event">Q1 2026 results show $11.4B in contracted revenue and a third hyperscale lease signed — 100MW on a 15-year initial term.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot present"></div>
+          <div class="timeline-date">Now — Aug 2026</div>
+          <div class="timeline-event">AWS's 300MW, 15-year, ~$5.5B Barber Lake lease begins paying rent; Q2 2026 earnings (Aug 4) is the first quarter that can show real AI-hosting cash flow.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot future"></div>
+          <div class="timeline-date">Oct 2026</div>
+          <div class="timeline-event">Google-backed Fluidstack lease begins at the Colorado City, Texas campus — 168MW of IT capacity.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot future"></div>
+          <div class="timeline-date">2028</div>
+          <div class="timeline-event">Colchis, a 620-acre, 1GW site with a fully executed AEP direct-connect agreement, targeted for energization.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-tabs" data-tabgroup="catalyst">
+      <div class="tabs">
+        <div class="tab positive active" data-tab="positive">Positive <span class="p mono">45%</span></div>
+        <div class="tab mixed" data-tab="mixed">Mixed <span class="p mono">35%</span></div>
+        <div class="tab negative" data-tab="negative">Negative <span class="p mono">20%</span></div>
+      </div>
+      <div class="tab-panel show" data-panel="positive">
+        <h4 style="color:var(--color-success)">Positive · +60% Stock Impact</h4>
+        <div class="range">45% probability</div>
+        <ul>
+          <li>AWS Barber Lake and Fluidstack Colorado City both energize on schedule</li>
+          <li>Colchis's AEP interconnect stays on track for 2028</li>
+          <li>Management signs a fourth hyperscale lease on remaining capacity</li>
+          <li>Blended EBITDA margins print near the guided 76% in the first full AI-revenue quarter</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="mixed">
+        <h4 style="color:var(--color-warning)">Mixed · +10% to -10% Stock Impact</h4>
+        <div class="range">35% probability</div>
+        <ul>
+          <li>Leases energize but revenue ramps slower than management's guidance</li>
+          <li>Debt stays high but serviceable given the $1.26B cash cushion</li>
+          <li>Bitcoin mining wind-down completes without further write-downs</li>
+          <li>Insider selling continues but doesn't accelerate into a bigger overhang</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="negative">
+        <h4 style="color:var(--color-error)">Negative · -35% Stock Impact</h4>
+        <div class="range">20% probability</div>
+        <ul>
+          <li>Site energization slips past September 2026</li>
+          <li>AWS or Fluidstack delays or renegotiates lease terms</li>
+          <li>An additional dilutive capital raise is required to fund Colchis</li>
+          <li>A Texas grid or regulatory dispute freezes a site's build-out</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="edge">
+    <div class="section-title">Competitive Edge</div>
+    <div class="item-list">
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">Already-Built Power Infrastructure</div>
+          <div class="item-desc">Cipher's Texas sites already have grid interconnects and megawatts secured from their bitcoin-mining days, letting hyperscale tenants go live in months rather than the years a from-scratch data center build usually takes.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">★</div>
+        <div>
+          <div class="item-title">Google as Backstop</div>
+          <div class="item-desc">Google holds an equity stake in Cipher and has agreed to step into the Fluidstack lease if Fluidstack can't perform — a level of counterparty protection most data-center landlords don't have.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">→</div>
+        <div>
+          <div class="item-title">$11.4B Contracted Revenue Visibility</div>
+          <div class="item-desc">Three hyperscale leases across 907MW give Cipher a revenue backlog most bitcoin miners, and even many data-center developers, don't have.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">⚠</div>
+        <div>
+          <div class="item-title">Underappreciated: The Canaan Partnership</div>
+          <div class="item-desc">Selling a 49% stake in legacy mining operations to Canaan for ~$39.75M brought in a capital partner most investors haven't priced in, freeing management to focus capital on the AI buildout instead of propping up mining.</div>
+        </div>
+      </div>
+      <div class="item-row">
+        <div class="item-icon">→</div>
+        <div>
+          <div class="item-title">Multiple Hyperscale Relationships</div>
+          <div class="item-desc">With both AWS and Google/Fluidstack under contract, Cipher isn't dependent on a single tenant the way some data-center peers are.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="scorecard">
+    <div class="section-title">Analyst Scorecard</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 04</span>Seven-metric scoring of business quality, each on a 0–10 scale where higher is always better.</div>
+    <div class="radar-hint">click a point or label to see why it scored that way</div>
+    <div class="scorecard-body">
+      <div class="radar-wrap"><svg id="scorecardRadar" width="480" viewBox="0 0 400 400"></svg></div>
+      <div class="scorecard-why" id="scorecardWhy"></div>
+    </div>
+  </div>
+
+  <div class="section" id="situation">
+    <div class="section-title">Current Situation</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 05</span>Growth drivers weighed against active, recency-verified risks.</div>
+    <div class="split-cols">
+      <div>
+        <h3 style="color:var(--color-success)">Growth Drivers</h3>
+        <div class="severity-list">
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--green)"></div>
+            <div>
+              <div class="item-title">AWS Lease Goes Live</div>
+              <div class="item-desc">The 300MW, 15-year, ~$5.5B AWS lease at Barber Lake starts generating rent in August 2026 — the first real cash proof the AI pivot works.</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--green)"></div>
+            <div>
+              <div class="item-title">Google-Backed Fluidstack Deal</div>
+              <div class="item-desc">The 168MW Fluidstack lease at Colorado City begins October 2026, backed by Google, which also holds an equity stake in Cipher.</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--green)"></div>
+            <div>
+              <div class="item-title">$11.4B Contracted Backlog</div>
+              <div class="item-desc">Three hyperscale leases across 907MW lock in about $11.4B in base-term revenue over 10-15 years.</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--green)"></div>
+            <div>
+              <div class="item-title">Canaan Deal De-Risks the Balance Sheet</div>
+              <div class="item-desc">Selling a 49% stake in legacy mining operations to Canaan brought in a capital partner and freed power capacity to redeploy toward AI hosting.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--color-error)">Risks</h3>
+        <div class="severity-list">
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--red)"></div>
+            <div>
+              <div class="item-title">Site Energization Timing [ACTIVE RISK]</div>
+              <div class="item-desc">The AWS Barber Lake lease (rent from Aug 2026) and Fluidstack Colorado City lease (Oct 2026) must go live on schedule — delays past Aug/Sep 2026 are flagged by analysts as a sharp sell-off trigger.</div>
+              <div class="item-meta">Active as of Jul 2026 · Source: Seeking Alpha</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--red)"></div>
+            <div>
+              <div class="item-title">Heavy Debt Load [ACTIVE RISK]</div>
+              <div class="item-desc">Total debt near $4.7B against $1.26B cash, funded partly by an $810M note offering priced at 99.75% of face to finish the Stingray data center — leverage keeps climbing as build-out continues.</div>
+              <div class="item-meta">Active as of Jul 2026 · Source: StockTitan / company filings</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--yellow)"></div>
+            <div>
+              <div class="item-title">Texas Power & Regulatory Exposure [STATUS UNKNOWN — as of Jul 2026]</div>
+              <div class="item-desc">Cipher's biggest sites sit on the Texas ERCOT grid, where interconnection rules and power costs for large data-center loads remain in flux; no specific adverse ruling has been reported, but the exposure is unresolved.</div>
+              <div class="item-meta">Last checked Jul 2026 · Source: StocksToTrade / TradingKey</div>
+            </div>
+          </div>
+          <div class="sev-row">
+            <div class="sev-stripe" style="background:var(--red)"></div>
+            <div>
+              <div class="item-title">AI Infrastructure Sentiment Swings [ACTIVE RISK]</div>
+              <div class="item-desc">CIFR fell over 12% in a single day during a broad AI-infrastructure selloff on Jul 28, 2026, compounded by heavy insider selling (~$83.8M over 90 days) — the stock now moves with sector sentiment, not just company execution.</div>
+              <div class="item-meta">Active as of Jul 2026 · Source: Quiver Quantitative / MarketBeat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="scenario">
+    <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="fig-caption"><span class="fig-num">FIG. 06</span>Twelve-month price scenarios weighted by probability, in dollar terms.</div>
+    <div class="scenario-tabs" data-tabgroup="overall">
+      <div class="tabs">
+        <div class="tab bull active" data-tab="bull">Bull <span class="p mono">30%</span></div>
+        <div class="tab base" data-tab="base">Base <span class="p mono">45%</span></div>
+        <div class="tab bear" data-tab="bear">Bear <span class="p mono">25%</span></div>
+      </div>
+      <div class="tab-panel show" data-panel="bull">
+        <h4 style="color:var(--color-success)">Bull Case · $30–$48</h4>
+        <div class="range">30% probability · 12-month price target</div>
+        <ul>
+          <li>AWS and Fluidstack leases energize on schedule in Aug/Oct 2026</li>
+          <li>Colchis's 1GW AEP interconnect stays on track for 2028</li>
+          <li>Blended EBITDA margins land near the guided 76%</li>
+          <li>No further dilutive capital raises</li>
+          <li>Additional hyperscale leases signed on remaining undeveloped capacity</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="base">
+        <h4 style="color:var(--color-warning)">Base Case · $20–$30</h4>
+        <div class="range">45% probability · 12-month price target</div>
+        <ul>
+          <li>Leases energize with modest one-to-two-month slippage</li>
+          <li>Revenue ramps through 2026-2027 as guided but leverage stays elevated</li>
+          <li>Bitcoin mining wind-down completes without further write-downs</li>
+          <li>Insider selling continues but doesn't accelerate</li>
+          <li>Broader AI-infrastructure sentiment stays choppy but not hostile</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="bear">
+        <h4 style="color:var(--color-error)">Bear Case · $8–$18</h4>
+        <div class="range">25% probability · 12-month price target</div>
+        <ul>
+          <li>Site energization slips past Q3 2026</li>
+          <li>Additional debt or dilutive equity raise needed to fund Colchis buildout</li>
+          <li>Texas grid interconnection disputes delay capacity</li>
+          <li>AI-infrastructure sentiment sours broadly, as briefly happened Jul 28, 2026</li>
+          <li>A hyperscale tenant renegotiates or walks from a lease</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="debate">
+    <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="debate-grid debate-vs">
+      <div class="debate-card optimist">
+        <h3>The Optimist Sees…</h3>
+        <ul>
+          <li>The $11.4B contracted backlog across 907MW gives Cipher revenue visibility bitcoin miners never had</li>
+          <li>AWS's lease going live in August 2026 is the first hard proof the AI pivot converts into real cash flow, not just announcements</li>
+          <li>Google's equity stake and Fluidstack backstop meaningfully de-risk the second lease</li>
+          <li>Management has hit its lease-signing and site-decommissioning milestones on schedule so far</li>
+          <li>All 16 covering analysts rate CIFR a Buy, with targets as high as $48.50 — well above today's $20.42</li>
+        </ul>
+      </div>
+      <div class="debate-card pessimist">
+        <h3>The Pessimist Sees…</h3>
+        <ul>
+          <li>Total debt near $4.7B against a TTM net loss of nearly $900M is a lot of leverage for a still-unproven business model</li>
+          <li>Site energization has to happen exactly on schedule — any slip past Aug/Sep 2026 is flagged as a sell-off trigger</li>
+          <li>Insiders have sold roughly $83.8M of stock over the past 90 days, pulling shares down from a mid-June high near $29</li>
+          <li>The stock already fell over 12% in a single day (Jul 28, 2026) during a broader AI-infrastructure selloff — CIFR now trades on sector sentiment, not just company news</li>
+          <li>Texas power-market and regulatory exposure for large data-center loads remains an open question with no clear resolution</li>
+        </ul>
+      </div>
+      <div class="vs-badge">VS</div>
+    </div>
+  </div>
+
+  <div class="section" id="verdict">
+    <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="verdict" style="box-shadow:var(--shadow-sm)">
+      <div class="verdict-title">The Verdict</div>
+      <p>Cipher Digital is like a bitcoin miner who spent years building a warehouse full of expensive power hookups, and just realized landlords make steadier money renting that space out than gamblers do mining crypto with it.</p>
+      <p>The green case is real: $11.4B in contracted hyperscale revenue, an AWS lease going live in August 2026, and a Google-backed second tenant starting in October give Cipher a growth runway most bitcoin miners never had, at guided margins (~76% EBITDA) far above mining economics.</p>
+      <p>The near-term pain is also real: nearly $4.7B in debt, a company still losing almost $900M a year, heavy insider selling, and a stock price that now swings with AI-sector sentiment as much as company news. Long-term growth investors comfortable with volatility should think in a 12-24 month horizon tied to the lease-energization dates; short-term traders should treat the Aug 4 earnings print and the Aug/Oct 2026 energization windows as the key dates that will move the stock either way.</p>
+    </div>
+  </div>
+
+  <div class="section" id="wall">
+    <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-display);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+    <div class="report-table-wrap">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Consensus Rating</td><td class="mono">Strong Buy</td><td>16 Buy · 0 Hold · 0 Sell</td></tr>
+          <tr><td class="row-label">Avg. Price Target</td><td class="mono val-green">$31.00</td><td>vs. current $20.42 (+52%)</td></tr>
+          <tr><td class="row-label">Additional Signal</td><td class="mono val-red">$83.8M</td><td>Insider selling over past 90 days (Form 144 filings)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" style="border-top:1px solid var(--border);padding-top:20px;margin-top:32px">
+    <div style="font-family:var(--font-family-display);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Sources</div>
+    <ul style="font-size:13px;line-height:1.8;padding-left:18px;color:var(--muted)">
+      <li><a href="https://simplywall.st/stocks/us/software/nasdaq-cifr/cipher-digital" style="color:var(--color-primary)">Simply Wall St — Cipher Digital stock analysis</a></li>
+      <li><a href="https://www.quiverquant.com/news/CIPHER+MINING+($CIFR)+Releases+Q1+2026+Earnings" style="color:var(--color-primary)">Quiver Quantitative — Cipher Mining Q1 2026 earnings</a></li>
+      <li><a href="https://www.themarketsdaily.com/2026/07/28/cipher-mining-cifr-expected-to-release-quarterly-earnings-on-tuesday.html" style="color:var(--color-primary)">Markets Daily — Q2 2026 earnings date</a></li>
+      <li><a href="https://stockstotrade.com/news/cipher-mining-inc-cifr-news-2026_01_02/" style="color:var(--color-primary)">StocksToTrade — Ohio expansion / regulatory risk</a></li>
+      <li><a href="https://www.tradingkey.com/markets/stocks/cifr/risk-assesment" style="color:var(--color-primary)">TradingKey — CIFR risk assessment</a></li>
+      <li><a href="https://seekingalpha.com/article/4862566-cipher-mining-execution-replaces-speculation-in-2026" style="color:var(--color-primary)">Seeking Alpha — Execution Replaces Speculation In 2026</a></li>
+      <li><a href="https://public.com/stocks/cifr/forecast-price-target" style="color:var(--color-primary)">Public.com — CIFR forecast & price target</a></li>
+      <li><a href="https://www.benzinga.com/quote/CIFR/analyst-ratings" style="color:var(--color-primary)">Benzinga — CIFR analyst ratings</a></li>
+      <li><a href="https://finviz.com/news/215124/analysts-raise-price-target-for-cipher-mining-cifr" style="color:var(--color-primary)">Finviz — Analysts raise price target for Cipher Mining</a></li>
+      <li><a href="https://blockspace.media/insight/cipher-mining-adds-amazon-web-services-as-data-center-client-announces-1-gw-data-center-jv/" style="color:var(--color-primary)">Blockspace — Cipher adds AWS as data center client</a></li>
+      <li><a href="https://www.datacenterdynamics.com/en/news/aws-signs-300mw-hosting-deal-to-lease-capacity-from-cipher-mining/" style="color:var(--color-primary)">Data Center Dynamics — AWS 300MW hosting deal</a></li>
+      <li><a href="https://stockstotrade.com/news/cipher-digital-inc-cifr-news-2026_07_09/" style="color:var(--color-primary)">StocksToTrade — Debt fuels AI buildout</a></li>
+      <li><a href="https://stockstotrade.com/news/cipher-digital-inc-cifr-news-2026_07_02/" style="color:var(--color-primary)">StocksToTrade — Insider Form 144 sale</a></li>
+      <li><a href="https://www.marketbeat.com/instant-alerts/cipher-mining-nasdaqcifr-stock-price-down-73-on-insider-selling-2026-07-13/" style="color:var(--color-primary)">MarketBeat — CIFR down on insider selling</a></li>
+      <li><a href="https://stockanalysis.com/stocks/cifr/financials/" style="color:var(--color-primary)">StockAnalysis.com — CIFR financial summary (TTM)</a></li>
+      <li><a href="https://finance.yahoo.com/news/cipher-mining-inc-cifr-q4-190204581.html" style="color:var(--color-primary)">Yahoo Finance — Q4 2025 earnings call highlights</a></li>
+      <li><a href="https://www.investing.com/news/company-news/cipher-mining-q1-2026-slides-114b-contracted-revenue-hpc-shift-93CH-4659528" style="color:var(--color-primary)">Investing.com — Q1 2026 slides, $11.4B contracted revenue</a></li>
+    </ul>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</p>
+  </div>
+
+</div>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        const target = bar.dataset.target;
+        bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+        bar.style.width = target + '%';
+        observer.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.scenario-tabs').forEach(function (group) {
+    group.querySelectorAll('.tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var name = tab.getAttribute('data-tab');
+        group.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        group.querySelectorAll('.tab-panel').forEach(function (p) {
+          p.classList.toggle('show', p.getAttribute('data-panel') === name);
+        });
+      });
+    });
+  });
+
+  (function () {
+    var legend = document.getElementById('revenueLegend');
+    var svg = document.getElementById('revenueDonut');
+    if (!legend || !svg) return;
+    legend.querySelectorAll('.legend-row').forEach(function (row) {
+      row.addEventListener('mouseenter', function () {
+        var seg = row.getAttribute('data-seg');
+        legend.querySelectorAll('.legend-row').forEach(function (r) {
+          r.classList.toggle('dim', r !== row);
+          r.classList.toggle('hi', r === row);
+        });
+        svg.querySelectorAll('circle[data-seg]').forEach(function (c) {
+          var match = c.getAttribute('data-seg') === seg;
+          c.classList.toggle('seg-dim', !match);
+          c.classList.toggle('active-glow', match);
+        });
+      });
+      row.addEventListener('mouseleave', function () {
+        legend.querySelectorAll('.legend-row').forEach(function (r) { r.classList.remove('dim', 'hi'); });
+        svg.querySelectorAll('circle[data-seg]').forEach(function (c) { c.classList.remove('seg-dim', 'active-glow'); });
+      });
+    });
+  })();
+
+  (function () {
+    var rail = document.getElementById('spyRail');
+    if (!rail) return;
+    var sections = [
+      ['hero', 'Hero'], ['tldr', 'TL;DR'], ['snapshot', 'Snapshot'], ['mix', 'Revenue Mix'],
+      ['story', 'What It Does'], ['model', 'Biz Model'], ['catalyst', 'Catalyst'], ['edge', 'Comp. Edge'],
+      ['scorecard', 'Scorecard'], ['situation', 'Growth/Risks'], ['scenario', 'Scenarios'],
+      ['debate', 'Debate'], ['verdict', 'Verdict'], ['wall', 'Consensus']
+    ];
+    var items = sections.map(function (s) {
+      var el = document.getElementById(s[0]);
+      if (!el) return null;
+      var item = document.createElement('div');
+      item.className = 'spy-item';
+      item.innerHTML = '<span class="spy-label">' + s[1] + '</span><span class="spy-dot"></span>';
+      item.addEventListener('click', function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      rail.appendChild(item);
+      return { id: s[0], el: el, item: item };
+    }).filter(Boolean);
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var match = items.find(function (i) { return i.el === entry.target; });
+          if (!match) return;
+          items.forEach(function (i) { i.item.classList.toggle('active', i === match); });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    items.forEach(function (i) { obs.observe(i.el); });
+    if (items.length) items[0].item.classList.add('active');
+  })();
+
+  (function () {
+    var svgEl = document.getElementById('scorecardRadar');
+    var whyEl = document.getElementById('scorecardWhy');
+    if (!svgEl || !whyEl) return;
+
+    var METRICS = [
+      { label: 'Business Model', full: 'Business Model Strength', value: 6, why: 'Cipher is mid-pivot from a boom-bust commodity business (bitcoin mining) to contracted 10-15 year hyperscale leases worth $11.4B — the model is proven on paper but only $34.8M of Q1 2026\'s $35M revenue came from the new side.' },
+      { label: 'Revenue Growth', full: 'Revenue Growth', value: 8, why: 'TTM revenue grew 38% to $209.8M even before the AWS lease starts paying rent in August 2026, which management guides toward roughly $870M in annual run-rate revenue.' },
+      { label: 'Profitability', full: 'Profitability', value: 2, why: 'TTM net loss widened to $897.6M (EPS -$2.26) as the company pours capital into data-center build-out ahead of lease revenue.' },
+      { label: 'Competitive Moat', full: 'Competitive Moat', value: 6, why: 'Owning already-interconnected Texas power sites from its mining days lets Cipher energize hyperscale leases in months, not the years a greenfield data center takes — but other bitcoin miners are chasing the same pivot.' },
+      { label: 'Regulatory Safety', full: 'Regulatory Safety', value: 6, why: 'No active investigation is on record, but Cipher\'s largest sites sit on the Texas ERCOT grid, where data-center interconnection rules remain unsettled.' },
+      { label: 'Mgmt Execution', full: 'Management Execution', value: 7, why: 'Management has hit its milestones so far — Black Pearl decommissioned on schedule in February 2026, three hyperscale leases signed, and the Canaan stake sale closed at $39.75M.' },
+      { label: 'Long-Term Potential', full: 'Long-Term Potential', value: 8, why: 'The $11.4B contracted revenue backlog across 907MW, plus a targeted 76% blended EBITDA margin once leases ramp, gives Cipher a longer growth runway than its bitcoin-mining peers.' }
+    ];
+    var MAX = 10;
+    var dots = [];
+
+    function svgNode(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+    function average(data) {
+      var sum = data.reduce(function (acc, d) { return acc + d.value; }, 0);
+      return Math.round((sum / data.length) * 10) / 10;
+    }
+
+    function showOverall() {
+      var avg = average(METRICS);
+      var best = METRICS.reduce(function (a, b) { return b.value > a.value ? b : a; });
+      var worst = METRICS.reduce(function (a, b) { return b.value < a.value ? b : a; });
+      whyEl.innerHTML =
+        '<div class="wp-title">Overall</div>' +
+        '<span class="wp-score">' + avg + ' / 10 average</span>' +
+        '<p class="wp-text">Led by ' + best.full + ' (' + best.value + '/10), reflecting the contracted revenue backlog. The clear soft spot is ' +
+        worst.full + ' (' + worst.value + '/10) — click any point on the chart for the reasoning behind each score.</p>';
+    }
+
+    function showWhy(d) {
+      whyEl.innerHTML =
+        '<button class="wp-back" type="button">&larr; Overall</button>' +
+        '<div class="wp-title">' + d.full + '</div>' +
+        '<span class="wp-score">' + d.value + ' / 10</span>' +
+        '<p class="wp-text">' + d.why + '</p>';
+      whyEl.querySelector('.wp-back').addEventListener('click', function () {
+        dots.forEach(function (dd) { dd.classList.remove('active'); });
+        showOverall();
+      });
+    }
+
+    var cx = 200, cy = 200, maxR = 140;
+    var n = METRICS.length;
+    var angleStep = (Math.PI * 2) / n;
+    var startAngle = -Math.PI / 2;
+
+    function pt(i, ratio) {
+      var a = startAngle + i * angleStep;
+      return [cx + maxR * ratio * Math.cos(a), cy + maxR * ratio * Math.sin(a)];
+    }
+
+    [0.25, 0.5, 0.75, 1].forEach(function (ratio) {
+      var pts = METRICS.map(function (_, i) { return pt(i, ratio).join(','); }).join(' ');
+      var poly = svgNode('polygon');
+      poly.setAttribute('points', pts);
+      poly.setAttribute('fill', 'none');
+      poly.setAttribute('stroke', 'var(--border)');
+      poly.setAttribute('stroke-width', ratio === 1 ? '1.2' : '1');
+      poly.setAttribute('stroke-dasharray', ratio === 1 ? 'none' : '2,3');
+      svgEl.appendChild(poly);
+    });
+
+    METRICS.forEach(function (_, i) {
+      var p = pt(i, 1);
+      var line = svgNode('line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', p[0]); line.setAttribute('y2', p[1]);
+      line.setAttribute('stroke', 'var(--border)');
+      line.setAttribute('stroke-width', '1');
+      svgEl.appendChild(line);
+    });
+
+    var dataPts = METRICS.map(function (d, i) { return pt(i, d.value / MAX); });
+    var dataPoly = svgNode('polygon');
+    dataPoly.setAttribute('points', dataPts.map(function (p) { return p.join(','); }).join(' '));
+    dataPoly.setAttribute('fill', 'var(--color-accent)');
+    dataPoly.setAttribute('fill-opacity', '0.18');
+    dataPoly.setAttribute('stroke', 'var(--color-accent)');
+    dataPoly.setAttribute('stroke-width', '2');
+    svgEl.appendChild(dataPoly);
+
+    dataPts.forEach(function (p, i) {
+      var dot = svgNode('circle');
+      dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]);
+      dot.setAttribute('r', 7);
+      dot.setAttribute('fill', 'var(--color-accent)');
+      dot.setAttribute('class', 'radar-dot');
+      dot.addEventListener('click', function () {
+        dots.forEach(function (dd) { dd.classList.remove('active'); });
+        dot.classList.add('active');
+        showWhy(METRICS[i]);
+      });
+      svgEl.appendChild(dot);
+      dots.push(dot);
+    });
+
+    METRICS.forEach(function (d, i) {
+      var lp = pt(i, 1.26);
+      var anchor = 'middle';
+      if (lp[0] < cx - 5) anchor = 'end';
+      else if (lp[0] > cx + 5) anchor = 'start';
+      var text = svgNode('text');
+      text.setAttribute('x', lp[0]); text.setAttribute('y', lp[1]);
+      text.setAttribute('text-anchor', anchor);
+      text.setAttribute('dominant-baseline', 'middle');
+      text.setAttribute('class', 'radar-axis-label');
+      text.textContent = d.label;
+      text.addEventListener('click', function () {
+        dots.forEach(function (dd) { dd.classList.remove('active'); });
+        dots[i].classList.add('active');
+        showWhy(d);
+      });
+      svgEl.appendChild(text);
+    });
+
+    var bbox = svgEl.getBBox();
+    var pad = 16;
+    var vbW = bbox.width + pad * 2;
+    var vbH = bbox.height + pad * 2;
+    svgEl.setAttribute('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + vbW + ' ' + vbH);
+    var targetWidth = parseFloat(svgEl.getAttribute('width')) || 480;
+    svgEl.setAttribute('height', Math.round(targetWidth * (vbH / vbW)));
+
+    showOverall();
+  })();
+</script>
+</body>
+</html>

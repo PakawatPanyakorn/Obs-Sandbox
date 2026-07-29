@@ -22,3 +22,14 @@ Log of which theme-factory theme and layout-factory layout were used on each rep
 | ALAB | Jul 2026 | vault-theorem | data-dense-report-grid |
 | DASH | Jul 2026 | prism-ledger | masthead-feature-river |
 | MU | Jul 2026 | alpha-signal | cover-and-contents |
+| UBER | Jul 2026 | titanium-cloud | kpi-strip-hero-chart |
+| CIFR | Jul 2026 | neon-foundry | timeline-river |
+| BRK.B | Jul 2026 | embassy-gold | asymmetric-split |
+| CRWV | Jul 2026 | biolumen-depths | magazine-well |
+| NVDA | Jul 2026 | obsidian-mono | data-dense-report-grid |
+| AMD | Jul 2026 | cosmica | bento-mosaic |
+| UNH | Jul 2026 | crypt-scholastic | marginalia-annotated |
+| SAIL | Jul 2026 | argent-vigil | swiss-international-grid |
+| FCFS | Jul 2026 | harbor-clay | single-column-editorial |
+| PANW | Jul 2026 | prussian-blueprint | tufte-sidenote |
+| FORM | Jul 2026 | biolumen-depths | kpi-strip-hero-chart |

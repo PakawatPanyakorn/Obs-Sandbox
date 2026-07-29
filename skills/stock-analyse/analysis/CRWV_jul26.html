@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRWV — Stock Analysis · Jul 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Oxanium:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Theme: biolumen-depths - applied by obs-theme-factory */
+:root {
+  --bg-base: #020d1a;
+  --bg-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 22% 72%, transparent 19%, rgba(0,229,200,0.045) 20%, transparent 21%),
+    radial-gradient(circle at 22% 72%, transparent 34%, rgba(0,229,200,0.028) 35%, transparent 36%),
+    radial-gradient(circle at 22% 72%, transparent 52%, rgba(0,229,200,0.016) 53%, transparent 54%),
+    radial-gradient(ellipse 55% 45% at 82% 18%, rgba(30,143,255,0.07) 0%, transparent 65%);
+  --bg-size: 200px 200px, cover, cover, cover, cover;
+  --bg-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+  --bg-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+
+  --color-primary: #00e5c8; --color-primary-light: #003d38; --color-secondary: #1e8fff; --color-accent: #ff8c42;
+  --color-bg: #020d1a; --color-surface: #051828; --color-surface-alt: #071f34;
+  --color-text: #b8e8e8; --color-text-muted: #4a8899; --color-text-on-primary: #020d1a;
+  --color-border: #0d3a52; --color-success: #00cc88; --color-warning: #cc8800; --color-error: #ff4060;
+
+  --font-family: 'Oxanium', 'Share Tech', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-family-display: 'Exo 2', 'Audiowide', sans-serif;
+  --font-size-base: 16px; --font-weight-heading: 700; --font-weight-body: 400; --line-height: 1.65;
+
+  --radius: 2px; --radius-card: 3px; --radius-button: 2px;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.7);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.85);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.9);
+  --shadow-xl: 0 16px 64px rgba(0,0,0,0.95);
+  --shadow-colored: 0 4px 24px rgba(0,229,200,0.35), 0 2px 8px rgba(0,229,200,0.15);
+  --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.6), inset 0 0 8px rgba(0,229,200,0.05);
+
+  --gradient-hero: linear-gradient(180deg, #041428 0%, #020d1a 100%);
+  --gradient-card: none;
+  --gradient-button: linear-gradient(135deg, #00e5c8 0%, #00b8a0 100%);
+  --gradient-text: none;
+  --gradient-accent: linear-gradient(90deg, rgba(0,229,200,0.7) 0%, rgba(30,143,255,0.7) 100%);
+
+  --glow-color: #00e5c8; --glow-sm: 0 0 6px rgba(0,229,200,0.35), 0 0 12px rgba(0,229,200,0.15);
+  --glow-md: 0 0 16px rgba(0,229,200,0.45), 0 0 32px rgba(0,229,200,0.2);
+  --glow-lg: 0 0 32px rgba(0,229,200,0.55), 0 0 64px rgba(0,229,200,0.25), 0 0 100px rgba(0,229,200,0.1);
+  --glass-blur: 12px; --glass-tint: rgba(0,229,200,0.04); --backdrop-filter: blur(12px) saturate(150%);
+  --text-shadow: none; --border-gradient: linear-gradient(135deg, #00e5c8, #1e8fff); --noise-opacity: 0.04;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+  --duration-fast: 120ms; --duration-base: 200ms; --duration-slow: 400ms;
+  --easing: cubic-bezier(0.16, 1, 0.3, 1); --border-width: 1px;
+
+  --bg: var(--color-bg);
+  --card: var(--color-surface);
+  --card2: var(--color-surface-alt);
+  --border: var(--color-border);
+  --accent: var(--color-primary);
+  --green: var(--color-success);
+  --red: var(--color-error);
+  --yellow: var(--color-warning);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+}
+
+/* Layout: magazine-well - applied by obs-layout-factory */
+:root {
+  --layout-columns: 12;
+  --layout-gutter: 24px;
+  --layout-max-width: 1160px;
+  --layout-margin-inline: 5vw;
+  --layout-space-2: 8px;
+  --layout-space-4: 24px;
+  --layout-space-6: 48px;
+  --layout-section-gap: 64px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: var(--bg-base);
+  background-image: var(--bg-image);
+  background-size: var(--bg-size);
+  background-position: var(--bg-position);
+  background-repeat: var(--bg-repeat);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-body, 400);
+  color: var(--text);
+  line-height: var(--line-height);
+  margin: 0;
+  padding: 20px;
+  position: relative;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  background-image: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0,229,200,0.012) 2px, rgba(0,229,200,0.012) 3px);
+}
+
+.page { max-width: var(--layout-max-width); margin: 0 auto; padding: 0 var(--layout-margin-inline); }
+
+/* Masthead — quiet identity band */
+.masthead {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: var(--layout-space-4);
+  margin: 24px 0 var(--layout-space-6);
+}
+
+/* Hero Banner */
+.hero {
+  background: var(--gradient-hero);
+  border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(0,229,200,0.08);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-ticker { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: var(--color-primary); text-transform: uppercase; margin-bottom: 6px; font-family: var(--font-family-mono); }
+.hero-name { font-size: 28px; font-weight: var(--font-weight-heading, 700); margin-bottom: 8px; color: var(--text); font-family: var(--font-family-display); letter-spacing: 0.03em; }
+.hero-tagline { font-size: 15px; color: var(--muted); max-width: 560px; margin-bottom: 20px; font-style: italic; }
+.hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { padding: 4px 14px; border-radius: 50px; font-size: 11px; font-weight: 600; border: 1px solid; letter-spacing: 0.04em; font-family: var(--font-family-mono); }
+.pill-blue { background: rgba(30,143,255,0.14); border-color: rgba(30,143,255,0.5); color: #6fbaff; }
+.pill-green { background: rgba(0,204,136,0.14); border-color: rgba(0,204,136,0.5); color: var(--color-success); }
+.pill-red { background: rgba(255,64,96,0.14); border-color: rgba(255,64,96,0.5); color: var(--color-error); }
+.pill-yellow { background: rgba(204,136,0,0.14); border-color: rgba(204,136,0,0.5); color: var(--color-warning); }
+
+.section { margin-bottom: var(--layout-section-gap); }
+.section-title {
+  font-family: var(--font-family-mono); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--color-primary); margin-bottom: 14px; padding-left: 10px; border-left: 2px solid var(--color-primary);
+  box-shadow: -4px 0 10px rgba(0,229,200,0.18);
+}
+.section-title.lead-title { font-size: 16px; }
+.fig-caption { font-family: var(--font-family-mono); font-size: 11.5px; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+.fig-num { color: var(--color-accent); font-weight: 700; margin-right: 8px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.stat-card { background: linear-gradient(var(--card), var(--card)) padding-box, var(--border-gradient) border-box; border: 1px solid transparent; border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 16px 18px; }
+.stat-label { font-family: var(--font-family-mono); font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px; }
+.stat-value { font-family: var(--font-family-display); font-size: 22px; font-weight: var(--font-weight-heading, 700); color: var(--text); }
+.stat-sub { font-family: var(--font-family-mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+.val-green { color: var(--color-success); } .val-red { color: var(--color-error); } .val-yellow { color: var(--color-warning); }
+
+.tldr { background: var(--card); border-radius: var(--radius-card); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 22px 24px; margin-bottom: 28px; border: 1px solid var(--border); }
+.tldr h2 { font-family: var(--font-family-mono); font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 14px 0; }
+.tldr-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 15px; line-height: 1.55; }
+.tldr-sym { width: 16px; text-align: center; flex-shrink: 0; font-family: var(--font-family-mono); font-weight: 800; }
+
+.radar-hint { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); text-align: center; margin-bottom: 10px; }
+.scorecard-body { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.radar-wrap { flex-shrink: 0; display: flex; justify-content: center; width: 100%; max-width: 420px; }
+#scorecardRadar { width: 100%; height: auto; display: block; }
+.radar-axis-label { font-family: var(--font-family-mono); font-size: 13px; font-weight: 700; fill: var(--color-primary); cursor: pointer; }
+.radar-dot { cursor: pointer; transition: r 0.15s; }
+.radar-dot:hover, .radar-dot.active { r: 10; }
+.scorecard-why { flex: 1; min-width: 220px; border-left: 1px solid var(--border); padding: 4px 0 4px 26px; }
+.scorecard-why .wp-title { font-family: var(--font-family-mono); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 6px; }
+.scorecard-why .wp-score { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-accent); font-weight: 700; margin-bottom: 10px; display: block; }
+.scorecard-why .wp-text { font-size: 15px; line-height: 1.65; margin: 0; }
+.scorecard-why .wp-back { display: block; font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0; margin-bottom: 10px; text-decoration: underline; }
+.scorecard-why .wp-back:hover { color: var(--color-accent); }
+@media (max-width: 640px) {
+  .scorecard-body { flex-direction: column; }
+  .scorecard-why { border-left: none; border-top: 1px solid var(--border); padding: 20px 0 0; margin-top: 20px; }
+}
+
+.scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.scenario-card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 18px 20px; }
+.scenario-card h3 { font-family: var(--font-family-mono); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 6px 0; }
+.scenario-prob { font-family: var(--font-family-mono); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.scenario-target { font-family: var(--font-family-mono); font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.scenario-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.6; }
+
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot { position: absolute; left: -25px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border); background: var(--card2); }
+.timeline-dot.past { background: var(--muted); border-color: var(--muted); }
+.timeline-dot.present { background: var(--color-primary); border-color: var(--color-primary); width: 14px; height: 14px; left: -26px; box-shadow: var(--glow-sm); }
+.timeline-dot.future { background: var(--card); border-color: var(--color-accent); }
+.timeline-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.timeline-event { font-size: 14px; line-height: 1.5; }
+
+.verdict { background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%); border: 1px solid var(--border); border-radius: var(--radius-card); border-top: 3px solid var(--color-accent); box-shadow: var(--shadow-sm); padding: 28px 30px; }
+.verdict-title { font-family: var(--font-family-mono); font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 16px; }
+.verdict p { font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+.verdict p:last-child { margin-bottom: 0; }
+
+.item-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.item-icon { width: 20px; flex-shrink: 0; text-align: center; font-size: 14px; margin-top: 1px; color: var(--color-primary); }
+.item-title { font-family: var(--font-family-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 2px; }
+.item-desc { font-size: 14px; line-height: 1.55; }
+.item-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+.item-list .item-row { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.item-list .item-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+.severity-list .sev-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.severity-list .sev-row:last-child { border-bottom: none; }
+.sev-stripe { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; min-height: 40px; }
+
+.debate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.debate-card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--color-accent); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 20px 22px; }
+.debate-card h3 { font-family: var(--font-family-mono); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 12px 0; }
+.debate-card.optimist h3 { color: var(--color-success); }
+.debate-card.pessimist h3 { color: var(--color-error); }
+.debate-card ul { margin: 0; padding-left: 16px; font-size: 14px; line-height: 1.65; }
+.debate-card li { margin-bottom: 6px; }
+.debate-vs { position: relative; }
+.debate-vs .vs-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--color-primary); color: var(--color-text-on-primary); font-family: var(--font-family-mono); font-size: 11px; font-weight: 700; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--glow-sm); z-index: 2; letter-spacing: 0.5px; }
+@media (max-width: 760px) { .debate-vs .vs-badge { display: none; } }
+
+.donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.donut-legend { flex: 1; min-width: 180px; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; border-radius: 3px; padding: 2px 4px; cursor: pointer; transition: background 0.15s, opacity 0.15s; }
+.legend-row.dim { opacity: 0.35; }
+.legend-row.hi { background: rgba(0,229,200,0.1); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-pct { font-family: var(--font-family-mono); font-weight: 700; margin-left: auto; font-size: 13px; }
+.seg-dim { opacity: 0.3; transition: opacity 0.15s; }
+.seg-hi { transition: opacity 0.15s, filter 0.15s; }
+.seg-hi.active-glow { filter: drop-shadow(0 0 4px rgba(0,229,200,0.55)); }
+.seg-row { margin-bottom: 16px; }
+.seg-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-family-mono); font-weight: 700; letter-spacing: 0.5px; }
+.seg-track { background: var(--card2); border-radius: 4px; height: 8px; overflow: hidden; position: relative; }
+.seg-fill { height: 100%; border-radius: 4px; }
+.seg-proj { height: 100%; border-radius: 4px; opacity: 0.45; }
+.seg-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+.exhibit-visual { border: 1px solid var(--border); border-radius: var(--radius-card); padding: 20px 22px; margin-bottom: 14px; }
+.subhead { font-family: var(--font-family-mono); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0; }
+.split-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--layout-gutter); }
+.split-cols > div + div { border-left: 1px solid var(--border); padding-left: var(--layout-gutter); }
+.split-cols h3 { font-family: var(--font-family-mono); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin: 0 0 10px 0; }
+.split-cols p { font-size: 15px; line-height: 1.65; margin: 0; }
+.split-cols ul { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.65; }
+.split-cols li { margin-bottom: 6px; }
+
+.pullquote {
+  background: var(--card);
+  color: var(--color-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.4;
+  padding: 14px 20px;
+  border-left: 2px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+  margin: 20px 0;
+  max-width: 60ch;
+}
+
+.report-table-wrap { overflow-x: auto; }
+.report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.report-table th { font-family: var(--font-family-mono); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 16px 8px 0; border-bottom: 2px solid var(--color-primary); white-space: nowrap; }
+.report-table td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+.report-table tr:hover td { background: rgba(0,229,200,0.04); }
+.report-table .row-label { font-family: var(--font-family-mono); font-weight: 700; letter-spacing: 0.3px; color: var(--text); white-space: nowrap; }
+.report-table .mono { font-family: var(--font-family-mono); font-weight: 700; }
+
+.scenario-tabs .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.scenario-tabs .tab { flex: 1; text-align: center; cursor: pointer; border: 1px solid var(--border); border-radius: var(--radius-card); padding: 10px 8px; background: var(--card); font-family: var(--font-family-mono); font-size: 12px; font-weight: 700; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+.scenario-tabs .tab:hover { transform: translateY(-1px); }
+.scenario-tabs .tab .p { font-family: var(--font-family-mono); font-weight: 700; display: block; font-size: 14px; margin-top: 3px; }
+.scenario-tabs .tab.bull { color: var(--green); } .scenario-tabs .tab.base { color: var(--yellow); } .scenario-tabs .tab.bear { color: var(--red); }
+.scenario-tabs .tab.active.bull { background: rgba(0,204,136,0.14); border-color: var(--green); }
+.scenario-tabs .tab.active.base { background: rgba(204,136,0,0.14); border-color: var(--yellow); }
+.scenario-tabs .tab.active.bear { background: rgba(255,64,96,0.14); border-color: var(--red); }
+.scenario-tabs .tab-panel { display: none; background: var(--card); border-radius: var(--radius-card); padding: 18px 20px; border-left: 3px solid var(--border); }
+.scenario-tabs .tab-panel.show { display: block; }
+.scenario-tabs .tab-panel h4 { margin: 0 0 4px; font-family: var(--font-family-mono); font-size: 14px; letter-spacing: 0.5px; }
+.scenario-tabs .tab-panel .range { font-family: var(--font-family-mono); font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+.scenario-tabs .tab-panel ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; }
+.scenario-tabs .tab-panel li { margin-bottom: 5px; }
+
+.spy-rail { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 9px; z-index: 40; }
+.spy-rail .spy-item { display: flex; align-items: center; gap: 8px; cursor: pointer; justify-content: flex-end; }
+.spy-rail .spy-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.15s, transform 0.15s; }
+.spy-rail .spy-item.active .spy-dot { background: var(--color-primary); transform: scale(1.5); box-shadow: var(--glow-sm); }
+.spy-rail .spy-label { font-family: var(--font-family-mono); font-size: 10px; color: var(--muted); opacity: 0; white-space: nowrap; transition: opacity 0.15s; }
+.spy-rail .spy-item.active .spy-label { opacity: 1; color: var(--color-primary); font-weight: 700; }
+@media (max-width: 1180px) { .spy-rail { display: none; } }
+
+.rail-note { font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.7; }
+.sources-list { font-size: 13px; line-height: 1.8; padding-left: 18px; color: var(--muted); }
+.sources-list a { color: var(--color-primary); }
+
+@media (max-width: 760px) {
+  body { padding: 12px; }
+  .grid-2, .debate-grid, .split-cols { grid-template-columns: 1fr; }
+  .split-cols > div + div { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+  .stat-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+  .hero { padding: 24px 20px; }
+  .hero-name { font-size: 22px; }
+  .debate-vs .vs-badge { display: none; }
+}
+@media (max-width: 520px) {
+  .stat-grid, .scenario-grid { grid-template-columns: 1fr; }
+  .donut-wrap { flex-direction: column; align-items: flex-start; }
+  .scenario-tabs .tabs { flex-direction: column; }
+}
+</style>
+</head>
+<body data-layout="magazine-well">
+<nav class="spy-rail" id="spyRail" aria-label="Section navigation"></nav>
+<div class="page">
+
+  <div class="masthead">
+    <span>CoreWeave · CRWV</span>
+    <span>Stock Analysis · Jul 2026</span>
+  </div>
+
+  <div class="hero" id="hero">
+    <div class="hero-ticker">NASDAQ: CRWV &nbsp;|&nbsp; Stock Analysis &nbsp;|&nbsp; July 2026</div>
+    <div class="hero-name">CoreWeave, Inc.</div>
+    <div class="hero-tagline">A company that rents out powerful AI computer chips — like renting heavy construction equipment instead of buying it — so other companies can train and run artificial intelligence without building their own data centers.</div>
+    <div class="hero-pills">
+      <span class="pill pill-blue">AI Infrastructure</span>
+      <span class="pill pill-yellow">Pre-Profit</span>
+      <span class="pill pill-red">Hyperscaler Competition Risk</span>
+    </div>
+  </div>
+
+  <div class="tldr" id="tldr">
+    <h2>TL;DR</h2>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--green)">+</span><span>CoreWeave rents out Nvidia GPU computing power to AI companies — it's grown revenue over 100% year-over-year and built a $99.4 billion backlog of already-signed contracts.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--yellow)">!</span><span>Meta just launched its own GPU-rental service, and the stock crashed roughly 40% from its highs on fears that CoreWeave's biggest customers could become its competitors.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--accent)">►</span><span>The overlooked detail: Meta itself is locked into a $35 billion CoreWeave contract through 2032, and most analysts think Meta legally can't resell that leased capacity — meaning the "competitor" story may be bigger than the near-term revenue risk.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--red)">-</span><span>CoreWeave loses money today, depends heavily on a few huge customers (Microsoft alone was ~67% of 2025 revenue), and is funding massive data-center spending with debt.</span></div>
+    <div class="tldr-item"><span class="tldr-sym" style="color:var(--green)">+</span><span>Verdict: analysts' average target near $146 is roughly double the current ~$71 price. Next event to watch: Q2 2026 earnings on August 11, 2026.</span></div>
+  </div>
+
+  <div class="section" id="snapshot">
+    <div class="section-title">Financial Snapshot</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 01</span>Core financial metrics as of the most recent quarter and trading session.</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Stock Price</div><div class="stat-value" style="font-family:var(--font-family-mono)">$70.79</div><div class="stat-sub">As of Jul 27, 2026</div></div>
+      <div class="stat-card"><div class="stat-label">Market Cap</div><div class="stat-value" style="font-family:var(--font-family-mono)">$38.6B</div><div class="stat-sub">Down ~40% from 52-week high</div></div>
+      <div class="stat-card"><div class="stat-label">Revenue (TTM)</div><div class="stat-value val-green" style="font-family:var(--font-family-mono)">~$6.2B</div><div class="stat-sub">+112% YoY (Q1 2026)</div></div>
+      <div class="stat-card"><div class="stat-label">Net Income</div><div class="stat-value val-red" style="font-family:var(--font-family-mono)">-$740M</div><div class="stat-sub">~-36% net margin (Q1 2026)</div></div>
+      <div class="stat-card"><div class="stat-label">EPS</div><div class="stat-value" style="font-size:15px">[Data not found]</div><div class="stat-sub">No consensus GAAP EPS sourced</div></div>
+      <div class="stat-card"><div class="stat-label">Gross Margin</div><div class="stat-value val-green" style="font-family:var(--font-family-mono)">69.4%</div><div class="stat-sub">FY2025</div></div>
+      <div class="stat-card"><div class="stat-label">Forward Guidance</div><div class="stat-value val-yellow" style="font-size:15px">$31–35B capex</div><div class="stat-sub">2026 capital expenditure plan</div></div>
+      <div class="stat-card"><div class="stat-label">Analyst Target</div><div class="stat-value val-green" style="font-family:var(--font-family-mono)">~$146</div><div class="stat-sub">~+106% vs. current price</div></div>
+      <div class="stat-card"><div class="stat-label">Next Event</div><div class="stat-value" style="font-size:15px">Aug 11, 2026</div><div class="stat-sub">Q2 2026 earnings call</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="mix">
+    <div class="section-title">Revenue Mix <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[MODEL ESTIMATE]</span></div>
+    <div class="fig-caption"><span class="fig-num">FIG. 02</span>Revenue mix by major customer, current vs. two-year projected share. <em>Hover a segment below to trace it through the chart.</em></div>
+    <div class="exhibit-visual">
+      <div class="donut-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200" id="revenueDonut">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--border)" stroke-width="28"/>
+          <circle class="seg-hi" data-seg="microsoft" cx="100" cy="100" r="70" fill="none" stroke="var(--color-primary)" stroke-width="28" stroke-dasharray="272 440" stroke-dashoffset="0" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+          <circle class="seg-hi" data-seg="openai" cx="100" cy="100" r="70" fill="none" stroke="var(--color-secondary)" stroke-width="28" stroke-dasharray="88 440" stroke-dashoffset="-272" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+          <circle class="seg-hi" data-seg="meta-other" cx="100" cy="100" r="70" fill="none" stroke="var(--color-success)" stroke-width="28" stroke-dasharray="80 440" stroke-dashoffset="-360" stroke-linecap="butt" transform="rotate(-90 100 100)"/>
+          <text x="100" y="104" text-anchor="middle" font-family="var(--font-family-display)" font-size="13" font-weight="700" fill="var(--text)">Revenue</text>
+        </svg>
+        <div class="donut-legend" id="revenueLegend">
+          <div class="legend-row" data-seg="microsoft"><div class="legend-dot" style="background:var(--color-primary)"></div><span>Microsoft</span><span class="legend-pct">62%</span></div>
+          <div class="legend-row" data-seg="openai"><div class="legend-dot" style="background:var(--color-secondary)"></div><span>OpenAI</span><span class="legend-pct">20%</span></div>
+          <div class="legend-row" data-seg="meta-other"><div class="legend-dot" style="background:var(--color-success)"></div><span>Meta &amp; Other Customers</span><span class="legend-pct">18%</span></div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:14px 0 20px 0">Estimated mix based on disclosed customer-concentration figures (Microsoft ~67% of 2025 revenue) and reported multi-year contracts with OpenAI and Meta. Exact current-period revenue-by-customer breakdown is not publicly disclosed.</p>
+      <div class="seg-row">
+        <div class="seg-label"><span>Microsoft</span><span style="font-family:var(--font-family-mono)">62% &rarr; 45%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:62%;background:var(--color-primary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="45" style="width:0%;background:var(--color-primary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Largest customer today; diversification is expected to shrink its share even as absolute dollars grow.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>OpenAI</span><span style="font-family:var(--font-family-mono)">20% &rarr; 25%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:20%;background:var(--color-secondary)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="25" style="width:0%;background:var(--color-secondary);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Multi-year compute contracts anchor this share going forward.</div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label"><span>Meta &amp; Other Customers</span><span style="font-family:var(--font-family-mono)">18% &rarr; 30%</span></div>
+        <div class="seg-track"><div class="seg-fill" style="width:18%;background:var(--color-success)"></div></div>
+        <div class="seg-proj js-proj-bar" data-target="30" style="width:0%;background:var(--color-success);margin-top:3px;height:4px;border-radius:2px"></div>
+        <div class="seg-note">Meta's $35B multi-year contract through 2032, plus new customer wins, should grow this share even as Meta builds a competing product elsewhere.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="story">
+    <div class="section-title">What Does This Company Actually Do?</div>
+    <div class="split-cols">
+      <div>
+        <h3>The Simple Story</h3>
+        <p>Training and running today's AI models needs huge numbers of specialized computer chips called GPUs. Most companies don't want to buy and manage thousands of these chips themselves, so CoreWeave buys them, wires them together into giant data centers, and rents out the computing power by the hour — like renting a fleet of cranes instead of buying your own.</p>
+      </div>
+      <div>
+        <h3>Who Actually Buys It</h3>
+        <p>Its customers are the biggest names in AI: Microsoft, OpenAI, and Meta are its largest, using CoreWeave's capacity to train and run their AI models when they can't build enough of their own data centers fast enough. Contracts run for multiple years and are worth billions of dollars each.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="model">
+    <div class="section-title">Business Model</div>
+    <div class="split-cols">
+      <div>
+        <h3>How They Make Money</h3>
+        <ul>
+          <li>Multi-year contracts renting out GPU computing capacity, billed by usage or reserved capacity</li>
+          <li>Long-term deals with hyperscalers and AI labs (Microsoft, OpenAI, Meta) that lock in revenue for years</li>
+          <li>New bookings from data-center expansion as power capacity comes online</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Why the Model Is Clever</h3>
+        <ul>
+          <li>Contracted backlog ($99.4B) is revenue that's already sold, just waiting to be delivered — far more predictable than typical tech-company revenue</li>
+          <li>Deep, early relationship with Nvidia gives it faster access to the newest chips than many competitors</li>
+          <li>Purpose-built for AI workloads specifically, letting it move faster than general-purpose cloud providers retrofitting for AI</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="catalyst">
+    <div class="section-title lead-title">Hidden Catalyst Deep Dive</div>
+
+    <div class="split-cols" style="margin-bottom:24px">
+      <div>
+        <h3>The Opportunity</h3>
+        <p>On July 1, 2026, Meta announced "Meta Compute" — a service that rents out its own GPU capacity by the hour, the same business CoreWeave is in. The stock fell roughly 35% on the news and another 11.4% weeks later as the market priced in Meta becoming a direct competitor. But the detail getting lost: Meta is contractually locked into a $35 billion CoreWeave deal running through 2032, and most analysts covering the story argue Meta cannot legally resell that leased capacity to third parties. If that reading holds, the "competitor" narrative is more of a long-term strategic worry than a near-term hit to CoreWeave's contracted revenue.</p>
+      </div>
+      <div>
+        <h3>Why This Company Wins</h3>
+        <p>CoreWeave built its GPU fleet, power capacity, and Nvidia relationship years before hyperscalers turned their own infrastructure into a rentable product. A $99.4 billion backlog — nearly 16 times its trailing annual revenue — is already signed and largely insulated from short-term competitive noise, buying years of runway to prove out the model.</p>
+      </div>
+    </div>
+
+    <blockquote class="pullquote">"Meta may be entering the business CoreWeave is in — but Meta is also, contractually, one of CoreWeave's own customers through 2032."</blockquote>
+
+    <div class="report-table-wrap" style="margin-bottom:24px">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Revenue Backlog</td><td class="mono">$99.4B</td></tr>
+          <tr><td class="row-label">Key Date / Event</td><td class="mono">Aug 11, 2026 (Q2 earnings)</td></tr>
+          <tr><td class="row-label">Company Readiness</td><td class="mono">High (infra) / Early (profitability)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-bottom:24px">
+      <div class="subhead">Timeline</div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot past"></div><div class="timeline-date">Q1 2026</div><div class="timeline-event">Backlog reaches $99.4B; bookings in the quarter alone exceed $40B.</div></div>
+        <div class="timeline-item"><div class="timeline-dot past"></div><div class="timeline-date">Jun 22, 2026</div><div class="timeline-event">CoreWeave added to the Nasdaq-100 index, driving passive-fund buying.</div></div>
+        <div class="timeline-item"><div class="timeline-dot present"></div><div class="timeline-date">Now</div><div class="timeline-event">Stock down ~40% from its 52-week high after Meta's "Meta Compute" announcement, despite Meta remaining a $35B contracted customer through 2032.</div></div>
+        <div class="timeline-item"><div class="timeline-dot future"></div><div class="timeline-date">Aug 11, 2026</div><div class="timeline-event">Q2 2026 earnings call — first chance for management to directly address the Meta-competition narrative.</div></div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:20px">Catalyst Scenarios <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <h3 style="color:var(--color-success)">Positive</h3>
+        <div class="scenario-prob" style="color:var(--color-success)">30%</div>
+        <div class="scenario-target">+10% to +20% stock impact</div>
+        <ul><li>Q2 results show bookings/backlog still growing despite the Meta headlines</li><li>Management clarifies Meta cannot resell CoreWeave-leased capacity</li></ul>
+      </div>
+      <div class="scenario-card">
+        <h3 style="color:var(--color-warning)">Mixed</h3>
+        <div class="scenario-prob" style="color:var(--color-warning)">45%</div>
+        <div class="scenario-target">-5% to +8% stock impact</div>
+        <ul><li>Growth continues but decelerates as some customers test hyperscaler-native GPU rental</li></ul>
+      </div>
+      <div class="scenario-card">
+        <h3 style="color:var(--color-error)">Negative</h3>
+        <div class="scenario-prob" style="color:var(--color-error)">25%</div>
+        <div class="scenario-target">-15% to -25% stock impact</div>
+        <ul><li>A major customer (Microsoft or OpenAI) shifts workloads in-house or to a hyperscaler's own product</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="edge">
+    <div class="section-title">Competitive Edge</div>
+    <div class="item-list">
+      <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">Purpose-Built AI Infrastructure</div><div class="item-desc">Data centers designed from the ground up for AI workloads, not retrofitted general-purpose cloud servers.</div></div></div>
+      <div class="item-row"><div class="item-icon">★</div><div><div class="item-title">Early Nvidia Relationship</div><div class="item-desc">Preferential access to the newest GPU generations ahead of many competitors, including hyperscalers building their own supply chains.</div></div></div>
+      <div class="item-row"><div class="item-icon">→</div><div><div class="item-title">$99.4B Contracted Backlog</div><div class="item-desc">Revenue already sold and waiting to be delivered — a rare degree of forward visibility for a company this young.</div></div></div>
+      <div class="item-row"><div class="item-icon">⚠</div><div><div class="item-title">1+ Gigawatt of Active Power Capacity</div><div class="item-desc">An underappreciated edge: securing enough electrical power for data centers is now a bigger bottleneck than chip supply, and CoreWeave already has scale here that's slow for new entrants to replicate.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="scorecard">
+    <div class="section-title">Analyst Scorecard</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 03</span>Seven-metric scoring of business quality, each on a 0–10 scale where higher is always better.</div>
+    <div class="radar-hint">click a point or label to see why it scored that way</div>
+    <div class="scorecard-body">
+      <div class="radar-wrap"><svg id="scorecardRadar" width="420" viewBox="0 0 400 400"></svg></div>
+      <div class="scorecard-why" id="scorecardWhy"></div>
+    </div>
+  </div>
+
+  <div class="section" id="situation">
+    <div class="section-title">Current Situation</div>
+    <div class="fig-caption"><span class="fig-num">FIG. 04</span>Growth drivers weighed against active, recency-verified risks.</div>
+    <div class="split-cols">
+      <div>
+        <h3 style="color:var(--color-success)">Growth Drivers</h3>
+        <div class="severity-list">
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Record $99.4B Backlog</div><div class="item-desc">Nearly 4x YoY growth, with over $40B in new bookings in a single quarter.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Nasdaq-100 Inclusion</div><div class="item-desc">Added June 22, 2026 — drives passive index-fund buying and improves liquidity.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Locked-In Meta Contract</div><div class="item-desc">Meta remains a $35B customer through 2032 even as it competes elsewhere.</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--green)"></div><div><div class="item-title">Power Capacity Scale</div><div class="item-desc">Over 1GW active, targeting 8+GW by decade's end — a hard-to-replicate physical moat.</div></div></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--color-error)">Risks</h3>
+        <div class="severity-list">
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">Meta Cloud Competition [ACTIVE RISK]</div><div class="item-desc">Meta's July 2026 launch of its own GPU-rental service triggered a ~40% stock decline on fears it will erode CoreWeave's pricing power and customer base.</div><div class="item-meta">Active as of Jul 26, 2026 · Source: Motley Fool, TechTimes</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">Securities Fraud Class Action [ACTIVE RISK]</div><div class="item-desc">Investors allege CoreWeave overstated its ability to meet demand and understated reliance on a single third-party data-center supplier; lead-plaintiff motions filed and the case is ongoing.</div><div class="item-meta">Active as of Mar 2026 · Source: PRNewswire, Natural Law Review</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">Customer Concentration [ACTIVE RISK]</div><div class="item-desc">Microsoft alone accounted for ~67% of 2025 revenue — a pullback from any single large customer would hit results hard.</div><div class="item-meta">Active as of 2026 · Source: company filings, TrendSpider</div></div></div>
+          <div class="sev-row"><div class="sev-stripe" style="background:var(--red)"></div><div><div class="item-title">Debt-Funded Capex Burn [ACTIVE RISK]</div><div class="item-desc">2026 capex is guided to $31–35B against ~$6.2B TTM revenue; interest expense nearly tripled YoY to $311M as the company leans on debt.</div><div class="item-meta">Active as of Jul 2026 · Source: SEC 8-K, Motley Fool</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="scenario">
+    <div class="section-title">Scenario Analysis <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="fig-caption"><span class="fig-num">FIG. 05</span>Twelve-month price scenarios weighted by probability, in dollar terms.</div>
+    <div class="scenario-tabs" data-tabgroup="overall">
+      <div class="tabs">
+        <div class="tab bull active" data-tab="bull">Bull <span class="p mono">30%</span></div>
+        <div class="tab base" data-tab="base">Base <span class="p mono">40%</span></div>
+        <div class="tab bear" data-tab="bear">Bear <span class="p mono">30%</span></div>
+      </div>
+      <div class="tab-panel show" data-panel="bull">
+        <h4 style="color:var(--color-success)">Bull Case · $130–$160</h4>
+        <div class="range">30% probability · 12-month price target</div>
+        <ul>
+          <li>Q2 2026 earnings show the $99.4B backlog converting to revenue on schedule</li>
+          <li>Management convincingly shows Meta cannot compete for CoreWeave's existing locked-in customers</li>
+          <li>New multi-year contracts announced with additional hyperscalers or AI labs</li>
+          <li>Debt financing costs stabilize as revenue scale catches up with capex</li>
+          <li>Nasdaq-100 inclusion continues driving passive-fund buying</li>
+          <li>AI infrastructure demand keeps outpacing what hyperscalers can build in-house</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="base">
+        <h4 style="color:var(--color-warning)">Base Case · $85–$120</h4>
+        <div class="range">40% probability · 12-month price target</div>
+        <ul>
+          <li>Revenue growth decelerates from triple digits but stays well above 50% YoY</li>
+          <li>Meta competition remains a narrative/valuation overhang without denting near-term bookings</li>
+          <li>Customer concentration stays high but stable</li>
+          <li>Capex and debt levels stay elevated, keeping net margins negative through 2026</li>
+          <li>Stock trades roughly in line with backlog-to-revenue conversion progress</li>
+        </ul>
+      </div>
+      <div class="tab-panel" data-panel="bear">
+        <h4 style="color:var(--color-error)">Bear Case · $45–$70</h4>
+        <div class="range">30% probability · 12-month price target</div>
+        <ul>
+          <li>A top-3 customer meaningfully shifts workloads toward a hyperscaler's own in-house product</li>
+          <li>The securities fraud class action produces an adverse ruling or costly settlement</li>
+          <li>Debt-funded capex outpaces revenue growth, pressuring the balance sheet</li>
+          <li>Interest expense keeps rising faster than revenue, delaying any path to profitability</li>
+          <li>Industry-wide AI infrastructure spending growth slows, pressuring GPU utilization</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="debate">
+    <div class="section-title">Investor Debate <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="debate-grid debate-vs">
+      <div class="debate-card optimist">
+        <h3>The Optimist Sees…</h3>
+        <ul>
+          <li>A $99.4B backlog — nearly 16x trailing revenue — that's already sold and just needs delivering</li>
+          <li>The Meta selloff conflates a long-term strategic risk with a near-term revenue risk that likely isn't there through 2032</li>
+          <li>Analysts still see roughly 100%+ upside to the average price target after the crash</li>
+          <li>Nasdaq-100 inclusion and continued AI infrastructure demand support the stock structurally</li>
+          <li>Power capacity build-out (1GW+ active) is a genuine, hard-to-replicate physical moat</li>
+        </ul>
+      </div>
+      <div class="debate-card pessimist">
+        <h3>The Pessimist Sees…</h3>
+        <ul>
+          <li>Meta's entry proves CoreWeave's biggest customers can become its biggest competitors whenever it suits them</li>
+          <li>A -36% net margin and tripling interest expense show the growth is being bought with debt, not earned with profit</li>
+          <li>Two-thirds of 2025 revenue came from a single customer — Microsoft — a level of concentration few investors would accept elsewhere</li>
+          <li>An unresolved securities fraud class action alleges the company misrepresented its own capacity and supplier risk</li>
+          <li>If AI infrastructure spending growth slows even modestly, a company this leveraged has little room for error</li>
+        </ul>
+      </div>
+      <div class="vs-badge">VS</div>
+    </div>
+  </div>
+
+  <div class="section" id="verdict">
+    <div class="section-title">Bottom Line Verdict <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[EDITORIAL OPINION]</span></div>
+    <div class="verdict">
+      <p>CoreWeave is like a construction company that just signed sixteen years of contracted work, then watched its stock crash because one client mentioned it might someday build its own equipment too.</p>
+      <p>The long-term case rests on real, contracted demand: a $99.4 billion backlog, a head start in power capacity and Nvidia access, and continued AI infrastructure spending that no hyperscaler can fully build in-house fast enough. If that backlog converts to revenue roughly as scheduled, today's price looks cheap relative to where analysts see the stock in a year.</p>
+      <p>The near-term risk is just as real — this is a debt-funded, loss-making, customer-concentrated business whose largest clients are also becoming its competitors, and the Meta selloff shows how fast sentiment can turn. This is a name for investors with a high risk tolerance and at least a 2-3 year horizon, not a short-term trade on the current volatility.</p>
+    </div>
+  </div>
+
+  <div class="section" id="wall" style="margin-bottom:0">
+    <div class="section-title">Wall Street Consensus <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);font-family:var(--font-family-mono);text-transform:uppercase;margin-left:8px">[ANALYST ESTIMATE]</span></div>
+    <div class="report-table-wrap">
+      <table class="report-table">
+        <thead><tr><th>Metric</th><th>Value</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Consensus Rating</td><td class="mono">Buy</td><td>8 Strong Buy · 7 Buy · 5 Hold · 1 Sell (21 analysts)</td></tr>
+          <tr><td class="row-label">Avg. Price Target</td><td class="mono val-green">~$146</td><td>vs. current $70.79 (~+106%)</td></tr>
+          <tr><td class="row-label">Target Range</td><td class="mono">$138–$192</td><td>Low to high analyst estimate</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="sources" style="border-top:1px solid var(--border);padding-top:20px;margin-top:0;margin-bottom:0">
+    <div class="subhead">Sources</div>
+    <ul class="sources-list">
+      <li><a href="https://public.com/stocks/crwv/forecast-price-target" target="_blank" rel="noopener">Public.com — CRWV forecast &amp; price target</a></li>
+      <li><a href="https://www.wallstreetzen.com/stocks/us/nasdaq/crwv/stock-forecast" target="_blank" rel="noopener">WallStreetZen — CRWV stock forecast</a></li>
+      <li><a href="https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-First-Quarter-2026-Results/" target="_blank" rel="noopener">CoreWeave IR — Q1 2026 results</a></li>
+      <li><a href="https://www.fool.com/investing/2026/07/07/whats-wrong-with-coreweave-stock/" target="_blank" rel="noopener">The Motley Fool — What's wrong with CoreWeave stock</a></li>
+      <li><a href="https://www.fool.com/investing/2026/07/25/coreweave-stock-fell-114-on-friday-the-sell-off-is/" target="_blank" rel="noopener">The Motley Fool — CoreWeave capex sell-off</a></li>
+      <li><a href="https://www.techtimes.com/articles/319486/20260701/meta-enters-ai-cloud-market-neocloud-rivals-coreweave-nebius-crater.htm" target="_blank" rel="noopener">Tech Times — Meta enters AI cloud market</a></li>
+      <li><a href="https://www.foreignpolicyjournal.com/2026/07/26/coreweave-nasdaq-crwv-stock-price-sinks-despite-35-billion-meta-deal-as-hyperscaler-competition-intensifies/" target="_blank" rel="noopener">Foreign Policy Journal — CoreWeave sinks despite $35B Meta deal</a></li>
+      <li><a href="https://bergermontague.com/cases/coreweave-securities-fraud/" target="_blank" rel="noopener">Berger Montague — CoreWeave securities fraud class action</a></li>
+      <li><a href="https://natlawreview.com/press-releases/crwv-investor-alert-coreweave-inc-securities-fraud-class-action-focuses" target="_blank" rel="noopener">National Law Review — CRWV class action update</a></li>
+      <li><a href="https://247wallst.com/investing/2026/07/27/coreweave-is-71-after-falling-43-in-a-year-one-analyst-thinks-it-can-rocket-to-250/" target="_blank" rel="noopener">24/7 Wall St. — CoreWeave price analysis</a></li>
+      <li><a href="https://trendspider.com/markets/symbols/CRWV/fundamentals/" target="_blank" rel="noopener">TrendSpider — CRWV fundamental data</a></li>
+    </ul>
+    <p class="rail-note">This is not financial advice. For informational purposes only. Analysis produced: July 2026.</p>
+  </div>
+
+</div>
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bar = entry.target;
+      const target = bar.dataset.target;
+      bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+      bar.style.width = target + '%';
+      observer.unobserve(bar);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.js-proj-bar').forEach(el => observer.observe(el));
+
+document.querySelectorAll('.scenario-tabs').forEach(function (group) {
+  group.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var name = tab.getAttribute('data-tab');
+      group.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      group.querySelectorAll('.tab-panel').forEach(function (p) {
+        p.classList.toggle('show', p.getAttribute('data-panel') === name);
+      });
+    });
+  });
+});
+
+(function () {
+  var legend = document.getElementById('revenueLegend');
+  var svg = document.getElementById('revenueDonut');
+  if (!legend || !svg) return;
+  legend.querySelectorAll('.legend-row').forEach(function (row) {
+    row.addEventListener('mouseenter', function () {
+      var seg = row.getAttribute('data-seg');
+      legend.querySelectorAll('.legend-row').forEach(function (r) {
+        r.classList.toggle('dim', r !== row);
+        r.classList.toggle('hi', r === row);
+      });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) {
+        var match = c.getAttribute('data-seg') === seg;
+        c.classList.toggle('seg-dim', !match);
+        c.classList.toggle('active-glow', match);
+      });
+    });
+    row.addEventListener('mouseleave', function () {
+      legend.querySelectorAll('.legend-row').forEach(function (r) { r.classList.remove('dim', 'hi'); });
+      svg.querySelectorAll('circle[data-seg]').forEach(function (c) { c.classList.remove('seg-dim', 'active-glow'); });
+    });
+  });
+})();
+
+(function () {
+  var rail = document.getElementById('spyRail');
+  if (!rail) return;
+  var sections = [
+    ['hero', 'Hero'], ['tldr', 'TL;DR'], ['snapshot', 'Snapshot'], ['mix', 'Revenue Mix'],
+    ['story', 'What It Does'], ['model', 'Biz Model'], ['catalyst', 'Catalyst'], ['edge', 'Comp. Edge'],
+    ['scorecard', 'Scorecard'], ['situation', 'Growth/Risks'], ['scenario', 'Scenarios'],
+    ['debate', 'Debate'], ['verdict', 'Verdict'], ['wall', 'Consensus']
+  ];
+  var items = sections.map(function (s) {
+    var el = document.getElementById(s[0]);
+    if (!el) return null;
+    var item = document.createElement('div');
+    item.className = 'spy-item';
+    item.innerHTML = '<span class="spy-label">' + s[1] + '</span><span class="spy-dot"></span>';
+    item.addEventListener('click', function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    rail.appendChild(item);
+    return { id: s[0], el: el, item: item };
+  }).filter(Boolean);
+
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var match = items.find(function (i) { return i.el === entry.target; });
+        if (!match) return;
+        items.forEach(function (i) { i.item.classList.toggle('active', i === match); });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+  items.forEach(function (i) { obs.observe(i.el); });
+  if (items.length) items[0].item.classList.add('active');
+})();
+
+(function () {
+  var svgEl = document.getElementById('scorecardRadar');
+  var whyEl = document.getElementById('scorecardWhy');
+  if (!svgEl || !whyEl) return;
+
+  var METRICS = [
+    { label: 'Business Model', full: 'Business Model Strength', value: 6, why: 'CoreWeave has real, contracted GPU-cloud revenue and a $99.4B backlog, but remains a single-product business heavily dependent on Nvidia hardware and a handful of customers.' },
+    { label: 'Revenue Growth', full: 'Revenue Growth', value: 10, why: 'Q1 2026 revenue grew roughly 112% YoY on top of 168% growth in FY2025 — among the fastest of any public company at this revenue scale.' },
+    { label: 'Profitability', full: 'Profitability', value: 3, why: 'Net margin sits around -36% with a roughly $740M quarterly net loss, and interest expense nearly tripled YoY to $311M as debt-funded capex scales.' },
+    { label: 'Competitive Moat', full: 'Competitive Moat', value: 5, why: 'Over 1GW of built power capacity and multi-year contracts are real advantages, but Meta launching its own GPU-rental service in July 2026 shows the moat is more of an operational head start than a structural barrier.' },
+    { label: 'Regulatory Safety', full: 'Regulatory Safety', value: 5, why: 'An active securities fraud class action alleges CoreWeave understated its reliance on a single third-party data-center supplier — an unresolved legal overhang since the case was filed.' },
+    { label: 'Mgmt Execution', full: 'Management Execution', value: 6, why: 'Management delivered record bookings and Nasdaq-100 inclusion in June 2026, but has so far struggled to control the market narrative around Meta’s competitive entry.' },
+    { label: 'Long-Term Potential', full: 'Long-Term Potential', value: 7, why: 'A $99.4B backlog — nearly 16x trailing revenue — and continued AI infrastructure demand support years of growth if execution and financing hold up.' }
+  ];
+  var MAX = 10;
+  var dots = [];
+
+  function svgNode(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+  function average(data) {
+    var sum = data.reduce(function (acc, d) { return acc + d.value; }, 0);
+    return Math.round((sum / data.length) * 10) / 10;
+  }
+
+  function showOverall() {
+    var avg = average(METRICS);
+    var best = METRICS.reduce(function (a, b) { return b.value > a.value ? b : a; });
+    var worst = METRICS.reduce(function (a, b) { return b.value < a.value ? b : a; });
+    whyEl.innerHTML =
+      '<div class="wp-title">Overall</div>' +
+      '<span class="wp-score">' + avg + ' / 10 average</span>' +
+      '<p class="wp-text">A high-growth, high-risk profile led by ' + best.full + ' (' + best.value + '/10). The one glaring soft spot is ' +
+      worst.full + ' (' + worst.value + '/10) — click any point on the chart for the reasoning behind each score.</p>';
+  }
+
+  function showWhy(d) {
+    whyEl.innerHTML =
+      '<button class="wp-back" type="button">&larr; Overall</button>' +
+      '<div class="wp-title">' + d.full + '</div>' +
+      '<span class="wp-score">' + d.value + ' / 10</span>' +
+      '<p class="wp-text">' + d.why + '</p>';
+    whyEl.querySelector('.wp-back').addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      showOverall();
+    });
+  }
+
+  var cx = 200, cy = 200, maxR = 140;
+  var n = METRICS.length;
+  var angleStep = (Math.PI * 2) / n;
+  var startAngle = -Math.PI / 2;
+
+  function pt(i, ratio) {
+    var a = startAngle + i * angleStep;
+    return [cx + maxR * ratio * Math.cos(a), cy + maxR * ratio * Math.sin(a)];
+  }
+
+  [0.25, 0.5, 0.75, 1].forEach(function (ratio) {
+    var pts = METRICS.map(function (_, i) { return pt(i, ratio).join(','); }).join(' ');
+    var poly = svgNode('polygon');
+    poly.setAttribute('points', pts);
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', 'var(--border)');
+    poly.setAttribute('stroke-width', ratio === 1 ? '1.2' : '1');
+    poly.setAttribute('stroke-dasharray', ratio === 1 ? 'none' : '2,3');
+    svgEl.appendChild(poly);
+  });
+
+  METRICS.forEach(function (_, i) {
+    var p = pt(i, 1);
+    var line = svgNode('line');
+    line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+    line.setAttribute('x2', p[0]); line.setAttribute('y2', p[1]);
+    line.setAttribute('stroke', 'var(--border)');
+    line.setAttribute('stroke-width', '1');
+    svgEl.appendChild(line);
+  });
+
+  var dataPts = METRICS.map(function (d, i) { return pt(i, d.value / MAX); });
+  var dataPoly = svgNode('polygon');
+  dataPoly.setAttribute('points', dataPts.map(function (p) { return p.join(','); }).join(' '));
+  dataPoly.setAttribute('fill', 'var(--color-primary)');
+  dataPoly.setAttribute('fill-opacity', '0.18');
+  dataPoly.setAttribute('stroke', 'var(--color-primary)');
+  dataPoly.setAttribute('stroke-width', '2');
+  svgEl.appendChild(dataPoly);
+
+  dataPts.forEach(function (p, i) {
+    var dot = svgNode('circle');
+    dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]);
+    dot.setAttribute('r', 7);
+    dot.setAttribute('fill', 'var(--color-primary)');
+    dot.setAttribute('class', 'radar-dot');
+    dot.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dot.classList.add('active');
+      showWhy(METRICS[i]);
+    });
+    svgEl.appendChild(dot);
+    dots.push(dot);
+  });
+
+  METRICS.forEach(function (d, i) {
+    var lp = pt(i, 1.26);
+    var anchor = 'middle';
+    if (lp[0] < cx - 5) anchor = 'end';
+    else if (lp[0] > cx + 5) anchor = 'start';
+    var text = svgNode('text');
+    text.setAttribute('x', lp[0]); text.setAttribute('y', lp[1]);
+    text.setAttribute('text-anchor', anchor);
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('class', 'radar-axis-label');
+    text.textContent = d.label;
+    text.addEventListener('click', function () {
+      dots.forEach(function (dd) { dd.classList.remove('active'); });
+      dots[i].classList.add('active');
+      showWhy(d);
+    });
+    svgEl.appendChild(text);
+  });
+
+  var bbox = svgEl.getBBox();
+  var pad = 16;
+  var vbW = bbox.width + pad * 2;
+  var vbH = bbox.height + pad * 2;
+  svgEl.setAttribute('viewBox', (bbox.x - pad) + ' ' + (bbox.y - pad) + ' ' + vbW + ' ' + vbH);
+  var targetWidth = parseFloat(svgEl.getAttribute('width')) || 420;
+  svgEl.setAttribute('height', Math.round(targetWidth * (vbH / vbW)));
+
+  showOverall();
+})();
+</script>
+</body>
+</html>

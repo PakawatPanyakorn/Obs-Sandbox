@@ -4,7 +4,7 @@ A prize wall you want to touch — glossy pink, hard-pop shadows instead of glow
 
 ## Core Concept
 
-Cloud Candy commits to one idea: soft edges, hard consequences. Every corner is `--radius-button: 999px` or a fat 24px card radius, and the primary button doesn't glow like most "playful" dark-mode themes — it pops off the page with a flat 8px offset shadow (`--shadow-colored`) that compresses to 4px on press, like a real sticker peeling and reseating. That's the `personality: ["pastel", "tactile", "toy-box", "sticker"]` tag made literal: tactile isn't a mood word here, it's a shadow value. The three-blob radial-gradient mesh behind everything (pink top-left, mint top-right, butterscotch bottom-center) keeps the lilac canvas from reading as flat digital pastel — it's meant to feel like light through a candy-shop window, not a Figma fill.
+Cloud Candy commits to one idea: soft edges, hard consequences. Every corner is `--radius-button: 999px` or a fat 24px card radius, and the primary button doesn't glow like most "playful" dark-mode themes — it pops off the page with a flat 8px offset shadow (`--shadow-colored`) that compresses to 4px on press, like a real sticker peeling and reseating. That's the `personality: ["soft", "colorful", "warm"]` tags made literal: `soft` isn't a mood word here, it's a shadow value — the sticker-peel offset is where it lives. The three-blob radial-gradient mesh behind everything (pink top-left, mint top-right, butterscotch bottom-center) keeps the lilac canvas from reading as flat digital pastel — it's meant to feel like light through a candy-shop window, not a Figma fill.
 
 ## Color Role Guidance
 

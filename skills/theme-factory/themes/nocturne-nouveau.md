@@ -3,7 +3,7 @@
 Art Nouveau's organic floral palette (gold, teal, rose, violet) rendered on deep midnight indigo — sensuous color married to sharp, unrounded geometry, a deliberate tension rather than a soft cottagecore read.
 
 ## Core Concept
-Deep midnight-indigo canvas (`#0A0818`) under a 4-layer organic radial gradient — gold, teal, rose, violet, "Art Nouveau floral colour palette on deep midnight indigo." Italiana's elegant condensed display against Fraunces' optical-size serif body. The theme's defining tension: despite `personality: ornate, sensuous` and a lush multi-hue background, `borderRadius/cardRadius/buttonRadius` are all `0px` — every panel is sharp-cornered, giving the floral palette a stained-glass/leaded-window structure rather than a soft, rounded "pretty" read.
+Deep midnight-indigo canvas (`#0A0818`) under a 4-layer organic radial gradient — gold, teal, rose, violet, "Art Nouveau floral colour palette on deep midnight indigo." Italiana's elegant condensed display against Fraunces' optical-size serif body. The theme's defining tension: despite an `ornate` aesthetic, an `elegant, colorful` personality, and a lush multi-hue background, `borderRadius/cardRadius/buttonRadius` are all `0px` — every panel is sharp-cornered, giving the floral palette a stained-glass/leaded-window structure rather than a soft, rounded "pretty" read.
 
 ## Color Role Guidance
 

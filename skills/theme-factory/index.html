@@ -761,52 +761,44 @@
     </div>
 
     <script>
-      const TAG_COLORS = {
-        cyber: { fg: "#00e5ff", bg: "#00e5ff18", border: "#00e5ff55" },
-        retro: { fg: "#ff9d00", bg: "#ff9d0018", border: "#ff9d0055" },
-        cosmic: { fg: "#c084fc", bg: "#c084fc18", border: "#c084fc55" },
-        gothic: { fg: "#f472b6", bg: "#f472b618", border: "#f472b655" },
-        editorial: { fg: "#94a3b8", bg: "#94a3b818", border: "#94a3b855" },
-        brutalist: { fg: "#ef4444", bg: "#ef444418", border: "#ef444455" },
-        luxe: { fg: "#eab308", bg: "#eab30818", border: "#eab30855" },
-        nature: { fg: "#4ade80", bg: "#4ade8018", border: "#4ade8055" },
-        minimalist: { fg: "#e2e8f0", bg: "#e2e8f010", border: "#e2e8f035" },
-        finance: { fg: "#38bdf8", bg: "#38bdf818", border: "#38bdf855" },
-        corporate: { fg: "#a78bfa", bg: "#a78bfa18", border: "#a78bfa55" },
-        maximalist: { fg: "#ff2d78", bg: "#ff2d7818", border: "#ff2d7855" },
-        surreal: { fg: "#bfff00", bg: "#bfff0018", border: "#bfff0055" },
-      };
-
-      /* Darker palette for light-mode readability */
-      const TAG_COLORS_LIGHT = {
-        cyber:      { fg: "#007a99", bg: "#00c4dd12", border: "#00c4dd45" },
-        retro:      { fg: "#b36200", bg: "#ff9d0012", border: "#ff9d0045" },
-        cosmic:     { fg: "#7c3aed", bg: "#a855f712", border: "#a855f745" },
-        gothic:     { fg: "#be185d", bg: "#ec489912", border: "#ec489945" },
-        editorial:  { fg: "#475569", bg: "#64748b12", border: "#64748b45" },
-        brutalist:  { fg: "#b91c1c", bg: "#ef444412", border: "#ef444445" },
-        luxe:       { fg: "#92400e", bg: "#d9770612", border: "#d9770645" },
-        nature:     { fg: "#15803d", bg: "#22c55e12", border: "#22c55e45" },
-        minimalist: { fg: "#374151", bg: "#6b728012", border: "#6b728045" },
-        finance:    { fg: "#0369a1", bg: "#0ea5e912", border: "#0ea5e945" },
-        corporate:  { fg: "#6d28d9", bg: "#8b5cf612", border: "#8b5cf645" },
-        maximalist: { fg: "#9d174d", bg: "#ec489912", border: "#ec489945" },
-        surreal:    { fg: "#3d7600", bg: "#84cc1612", border: "#84cc1645" },
+      /* ── Tag colors — hue per tag, grouped into families so related tags read as
+         related. Value is a hue, or [hue, saturation] to override the default.
+         Lightness comes from the gallery mode, so one table serves light and dark. ── */
+      const TAG_SAT = 66;
+      const TAG_HUES = {
+        /* warm / material */
+        industrial: 18, crafted: 26, warm: 30, aged: 36, handmade: 44,
+        /* quiet / neutral — deliberately desaturated so they recede */
+        utilitarian: [176, 30], soft: [198, 26], "type-led": [202, 22],
+        calm: [208, 24], editorial: [210, 18], minimal: [214, 14],
+        monochrome: [218, 10],
+        /* loud / bright */
+        retro: 12, colorful: 328, playful: 338, bold: 350, brutalist: 358,
+        glowing: 96,
+        /* cold / structural */
+        technical: 196, analytical: 186, geometric: 226,
+        /* rich / formal */
+        historic: 280, corporate: 284, formal: 288, elegant: 296, ornate: 300,
+        /* night / dream */
+        futuristic: 236, moody: 244, glassmorphism: 248, dreamlike: 252,
       };
 
       function getTagColor(tag) {
         const isDark = document.documentElement.dataset.theme === "dark";
-        const map = isDark ? TAG_COLORS : TAG_COLORS_LIGHT;
-        if (map[tag]) return map[tag];
-        const h = [...tag].reduce(
-          (a, c) => (a * 31 + c.charCodeAt(0)) % 360,
-          7,
-        );
-        const l = isDark ? "68%" : "38%";
+        const spec = TAG_HUES[tag];
+        /* Unknown tag — fall back to a stable hash hue so it still renders. */
+        const [h, s] = Array.isArray(spec)
+          ? spec
+          : spec !== undefined
+            ? [spec, TAG_SAT]
+            : [[...tag].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 360, 7), 60];
+        /* Lightness is the darkest/lightest the hue can go while every tag still
+           clears WCAG AA (4.5:1) against the card surface at 0.68rem. */
+        const l = isDark ? "70%" : "30%";
         return {
-          fg: `hsl(${h},60%,${l})`,
-          bg: `hsla(${h},60%,${l},0.09)`,
-          border: `hsla(${h},60%,${l},0.35)`,
+          fg: `hsl(${h},${s}%,${l})`,
+          bg: `hsla(${h},${s}%,${l},0.09)`,
+          border: `hsla(${h},${s}%,${l},0.35)`,
         };
       }
 
@@ -868,7 +860,7 @@
             },
             design: {
               aesthetic: "technical",
-              personality: ["terminal", "retro", "hacker", "monochrome"],
+              personality: ["retro", "monochrome", "glowing"],
               borderStyle: "hairline",
               iconStyle: "unknown",
               imageStyle: "none",
@@ -935,12 +927,7 @@
             },
             design: {
               aesthetic: "technical",
-              personality: [
-                "neon",
-                "synthwave",
-                "retro-futuristic",
-                "electric",
-              ],
+              personality: ["retro", "glowing", "futuristic"],
               borderStyle: "hairline",
               iconStyle: "outlined",
               imageStyle: "illustrative",
@@ -1006,8 +993,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: ["professional", "grounded", "refined", "modern"],
+              aesthetic: "corporate",
+              personality: ["formal", "warm", "calm"],
               borderStyle: "subtle",
               iconStyle: "outlined",
               imageStyle: "photographic",
@@ -1113,8 +1100,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: ["luxe", "dark", "maximalist", "art-deco"],
+              aesthetic: "ornate",
+              personality: ["elegant", "moody", "historic"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "illustrative",
@@ -1217,7 +1204,7 @@
             },
             design: {
               aesthetic: "editorial",
-              personality: ["minimal", "literary", "stark", "typographic"],
+              personality: ["type-led", "monochrome", "calm"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -1321,12 +1308,7 @@
             },
             design: {
               aesthetic: "technical",
-              personality: [
-                "industrial",
-                "retro-futuristic",
-                "mechanical",
-                "intense",
-              ],
+              personality: ["industrial", "glowing", "bold"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -1431,12 +1413,7 @@
             },
             design: {
               aesthetic: "brutalist",
-              personality: [
-                "raw",
-                "uncompromising",
-                "structural",
-                "confrontational",
-              ],
+              personality: ["bold", "monochrome", "geometric"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -1543,12 +1520,7 @@
             },
             design: {
               aesthetic: "glassmorphism",
-              personality: [
-                "cosmic",
-                "maximalist",
-                "super-unrealistic",
-                "cinematic",
-              ],
+              personality: ["glowing", "dreamlike", "futuristic"],
               borderStyle: "hairline",
               iconStyle: "outlined",
               imageStyle: "abstract",
@@ -1651,7 +1623,7 @@
             },
             design: {
               aesthetic: "editorial",
-              personality: ["vintage", "literary", "aged", "naturalist"],
+              personality: ["aged", "warm", "type-led"],
               borderStyle: "subtle",
               iconStyle: "outlined",
               imageStyle: "illustrative",
@@ -1755,7 +1727,7 @@
             },
             design: {
               aesthetic: "minimal",
-              personality: ["austere", "silent", "precise", "monochrome"],
+              personality: ["monochrome", "calm", "geometric"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -1860,12 +1832,7 @@
             },
             design: {
               aesthetic: "corporate",
-              personality: [
-                "institutional",
-                "precise",
-                "authoritative",
-                "art-deco",
-              ],
+              personality: ["formal", "elegant", "historic"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -1974,7 +1941,7 @@
             },
             design: {
               aesthetic: "playful",
-              personality: ["hyper", "chromatic", "unrealistic", "electric"],
+              personality: ["colorful", "bold", "glowing"],
               borderStyle: "bold",
               iconStyle: "rounded",
               imageStyle: "abstract",
@@ -2079,8 +2046,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: ["steampunk", "industrial", "gothic", "alchemical"],
+              aesthetic: "ornate",
+              personality: ["warm", "industrial", "historic"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "illustrative",
@@ -2185,12 +2152,7 @@
             },
             design: {
               aesthetic: "brutalist",
-              personality: [
-                "bauhaus",
-                "constructivist",
-                "geometric",
-                "ideological",
-              ],
+              personality: ["geometric", "bold", "historic"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -2295,8 +2257,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: ["art-nouveau", "maximalist", "dark", "ornate"],
+              aesthetic: "ornate",
+              personality: ["elegant", "colorful", "historic"],
               borderStyle: "hairline",
               iconStyle: "outlined",
               imageStyle: "illustrative",
@@ -2401,12 +2363,7 @@
             },
             design: {
               aesthetic: "playful",
-              personality: [
-                "eco-futuristic",
-                "optimistic",
-                "cooperative",
-                "bright",
-              ],
+              personality: ["futuristic", "colorful", "warm"],
               borderStyle: "hairline",
               iconStyle: "rounded",
               imageStyle: "illustrative",
@@ -2510,8 +2467,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: ["gothic", "academic", "esoteric", "dark"],
+              aesthetic: "ornate",
+              personality: ["historic", "moody", "formal"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "illustrative",
@@ -2617,12 +2574,7 @@
             },
             design: {
               aesthetic: "editorial",
-              personality: [
-                "manga",
-                "japanese",
-                "graphic-novel",
-                "typographic",
-              ],
+              personality: ["bold", "type-led", "retro"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -2724,13 +2676,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: [
-                "medieval",
-                "manuscript",
-                "illuminated",
-                "scriptorial",
-              ],
+              aesthetic: "ornate",
+              personality: ["historic", "aged", "elegant"],
               borderStyle: "subtle",
               iconStyle: "sharp",
               imageStyle: "illustrative",
@@ -2835,7 +2782,7 @@
             },
             design: {
               aesthetic: "technical",
-              personality: ["dieselpunk", "phosphor", "monochrome", "crt"],
+              personality: ["retro", "monochrome", "glowing"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -2943,7 +2890,7 @@
             },
             design: {
               aesthetic: "glassmorphism",
-              personality: ["uv", "blacklight", "rave", "super-unrealistic"],
+              personality: ["glowing", "bold", "dreamlike"],
               borderStyle: "hairline",
               iconStyle: "outlined",
               imageStyle: "abstract",
@@ -3048,8 +2995,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "minimal",
-              personality: ["cottagecore", "soft", "botanical", "handmade"],
+              aesthetic: "crafted",
+              personality: ["handmade", "warm", "calm"],
               borderStyle: "hairline",
               iconStyle: "rounded",
               imageStyle: "illustrative",
@@ -3154,7 +3101,7 @@
             },
             design: {
               aesthetic: "corporate",
-              personality: ["modern", "product", "enterprise", "clean"],
+              personality: ["formal", "calm", "geometric"],
               borderStyle: "subtle",
               iconStyle: "outlined",
               imageStyle: "none",
@@ -3265,13 +3212,7 @@
             },
             design: {
               aesthetic: "glassmorphism",
-              personality: [
-                "dark",
-                "psychedelic",
-                "surreal",
-                "astral",
-                "super-unrealistic",
-              ],
+              personality: ["dreamlike", "glowing", "colorful"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "abstract",
@@ -3376,14 +3317,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: [
-                "light",
-                "formal",
-                "super-unrealistic",
-                "investment",
-                "luxe",
-              ],
+              aesthetic: "corporate",
+              personality: ["elegant", "formal", "analytical"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -3489,13 +3424,7 @@
             },
             design: {
               aesthetic: "technical",
-              personality: [
-                "light",
-                "formal",
-                "super-unrealistic",
-                "algorithm",
-                "quantitative",
-              ],
+              personality: ["analytical", "colorful", "futuristic"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -3600,14 +3529,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: [
-                "light",
-                "formal",
-                "super-unrealistic",
-                "finance",
-                "editorial",
-              ],
+              aesthetic: "corporate",
+              personality: ["analytical", "formal", "type-led"],
               borderStyle: "subtle",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -3714,13 +3637,7 @@
             },
             design: {
               aesthetic: "technical",
-              personality: [
-                "light",
-                "formal",
-                "super-unrealistic",
-                "strategy",
-                "trading",
-              ],
+              personality: ["analytical", "formal", "colorful"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -3826,13 +3743,7 @@
             },
             design: {
               aesthetic: "corporate",
-              personality: [
-                "light",
-                "formal",
-                "super-unrealistic",
-                "finance",
-                "wealth-management",
-              ],
+              personality: ["formal", "analytical", "elegant"],
               borderStyle: "hairline",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -3946,12 +3857,7 @@
             },
             design: {
               aesthetic: "playful",
-              personality: [
-                "surreal",
-                "maximalist",
-                "psychedelic",
-                "disorienting",
-              ],
+              personality: ["dreamlike", "colorful", "bold"],
               borderStyle: "subtle",
               iconStyle: "sharp",
               imageStyle: "illustrative",
@@ -4018,12 +3924,7 @@
             },
             design: {
               aesthetic: "editorial",
-              personality: [
-                "contemplative",
-                "scholarly",
-                "dignified",
-                "timeless",
-              ],
+              personality: ["formal", "historic", "calm"],
               borderStyle: "hairline",
               iconStyle: "outlined",
               imageStyle: "none",
@@ -4093,12 +3994,7 @@
             },
             design: {
               aesthetic: "playful",
-              personality: [
-                "geometric",
-                "bold",
-                "educational",
-                "primary-colors",
-              ],
+              personality: ["geometric", "bold", "colorful"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "abstract",
@@ -4167,8 +4063,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: ["formal", "serene", "restrained", "classical"],
+              aesthetic: "minimal",
+              personality: ["calm", "formal", "historic"],
               borderStyle: "subtle",
               iconStyle: "sharp",
               imageStyle: "illustrative",
@@ -4234,8 +4130,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: ["formal", "dusty", "restrained", "earthy"],
+              aesthetic: "crafted",
+              personality: ["moody", "warm", "calm"],
               borderStyle: "hairline",
               iconStyle: "outlined",
               imageStyle: "photographic",
@@ -4302,7 +4198,7 @@
             },
             design: {
               aesthetic: "technical",
-              personality: ["haunting", "scientific", "luminous", "alien"],
+              personality: ["glowing", "moody", "futuristic"],
               borderStyle: "hairline",
               iconStyle: "outlined",
               imageStyle: "abstract",
@@ -4335,7 +4231,7 @@
             },
             spacing: { borderRadius: "0px", cardRadius: "0px", buttonRadius: "0px", spaceUnit: "8px", density: "compact" },
             shadows: { sm: "2px 2px 0 #111111", md: "4px 4px 0 #111111", lg: "6px 6px 0 #111111", elevation: "flat" },
-            design: { aesthetic: "brutalist", personality: ["bold", "propagandist", "compressed", "stark"], borderStyle: "bold", iconStyle: "sharp", imageStyle: "illustrative", surfaceTexture: "noise", hierarchyClarity: "high", notes: "Diagonal slash dividers replace all horizontal rules. Hard ink shadows. Zero border-radius. Condensed display type. Cards mimic ROSTA Window panel cuts." },
+            design: { aesthetic: "brutalist", personality: ["bold", "type-led", "historic"], borderStyle: "bold", iconStyle: "sharp", imageStyle: "illustrative", surfaceTexture: "noise", hierarchyClarity: "high", notes: "Diagonal slash dividers replace all horizontal rules. Hard ink shadows. Zero border-radius. Condensed display type. Cards mimic ROSTA Window panel cuts." },
           },
         },
         {
@@ -4360,7 +4256,7 @@
             },
             spacing: { borderRadius: "0px", cardRadius: "0px", buttonRadius: "0px", spaceUnit: "8px", density: "comfortable" },
             shadows: { sm: "0 0 0 1px rgba(255,255,255,0.15)", md: "0 0 0 1px rgba(255,255,255,0.2), 0 4px 16px rgba(0,0,0,0.4)", lg: "0 0 0 1px rgba(255,255,255,0.25), 0 8px 32px rgba(0,0,0,0.5)", elevation: "subtle" },
-            design: { aesthetic: "technical", personality: ["precise", "architectural", "drafting", "analytical"], borderStyle: "hairline", iconStyle: "sharp", imageStyle: "abstract", surfaceTexture: "flat", hierarchyClarity: "high", notes: "UI chrome elements ARE technical annotations. Leader lines with arrowheads. Callout bubbles with section markers. Dimension ticks on card borders. Only line weights as decoration." },
+            design: { aesthetic: "technical", personality: ["analytical", "geometric", "monochrome"], borderStyle: "hairline", iconStyle: "sharp", imageStyle: "abstract", surfaceTexture: "flat", hierarchyClarity: "high", notes: "UI chrome elements ARE technical annotations. Leader lines with arrowheads. Callout bubbles with section markers. Dimension ticks on card borders. Only line weights as decoration." },
           },
         },
         {
@@ -4385,7 +4281,7 @@
             },
             spacing: { borderRadius: "0px", cardRadius: "2px", buttonRadius: "0px", spaceUnit: "8px", density: "compact" },
             shadows: { sm: "0 1px 3px rgba(100,80,40,0.12)", md: "0 2px 8px rgba(100,80,40,0.16)", lg: "0 4px 16px rgba(100,80,40,0.2)", elevation: "subtle" },
-            design: { aesthetic: "editorial", personality: ["ephemeral", "monochrome", "retro", "fading"], borderStyle: "hairline", iconStyle: "sharp", imageStyle: "none", surfaceTexture: "noise", hierarchyClarity: "medium", notes: "body has mask-image gradient that fades content to near-invisible at the bottom. Monospace throughout. Dashed perforation dividers. Receipt date-stamp header." },
+            design: { aesthetic: "editorial", personality: ["monochrome", "retro", "utilitarian"], borderStyle: "hairline", iconStyle: "sharp", imageStyle: "none", surfaceTexture: "noise", hierarchyClarity: "medium", notes: "body has mask-image gradient that fades content to near-invisible at the bottom. Monospace throughout. Dashed perforation dividers. Receipt date-stamp header." },
           },
         },
         {
@@ -4410,7 +4306,7 @@
             },
             spacing: { borderRadius: "0px", cardRadius: "0px", buttonRadius: "0px", spaceUnit: "8px", density: "compact" },
             shadows: { sm: "0 0 0 1px #3A1010", md: "0 0 0 1px #3A1010, 0 4px 16px rgba(0,0,0,0.7)", lg: "0 0 0 1px #3A1010, 0 8px 32px rgba(0,0,0,0.8)", elevation: "subtle" },
-            design: { aesthetic: "editorial", personality: ["photographic", "chemical", "monochrome", "developing"], borderStyle: "hairline", iconStyle: "sharp", imageStyle: "photographic", surfaceTexture: "flat", hierarchyClarity: "high", notes: "bg is darkroom red. Primary text = developed silver. Ghost opacity = underdeveloped. Frame numbers in safelight red. Contact sheet grid layout for cards." },
+            design: { aesthetic: "editorial", personality: ["monochrome", "moody", "aged"], borderStyle: "hairline", iconStyle: "sharp", imageStyle: "photographic", surfaceTexture: "flat", hierarchyClarity: "high", notes: "bg is darkroom red. Primary text = developed silver. Ghost opacity = underdeveloped. Frame numbers in safelight red. Contact sheet grid layout for cards." },
           },
         },
         {
@@ -4435,7 +4331,7 @@
             },
             spacing: { borderRadius: "0px", cardRadius: "0px", buttonRadius: "0px", spaceUnit: "8px", density: "comfortable" },
             shadows: { sm: "3px 3px 0 #FF3E85", md: "4px 4px 0 #FF3E85", lg: "6px 6px 0 #FF3E85", elevation: "flat" },
-            design: { aesthetic: "editorial", personality: ["printed", "misregistered", "lo-fi", "zine"], borderStyle: "bold", iconStyle: "sharp", imageStyle: "illustrative", surfaceTexture: "noise", hierarchyClarity: "high", notes: "3 inks max. All shadows use PINK offset (wrong drum) — simulates paper slip. Display text has pink ghost offset via text-shadow. Ink overlap zone = muddy purple (realistic riso behaviour)." },
+            design: { aesthetic: "crafted", personality: ["handmade", "type-led", "retro"], borderStyle: "bold", iconStyle: "sharp", imageStyle: "illustrative", surfaceTexture: "noise", hierarchyClarity: "high", notes: "3 inks max. All shadows use PINK offset (wrong drum) — simulates paper slip. Display text has pink ghost offset via text-shadow. Ink overlap zone = muddy purple (realistic riso behaviour)." },
           },
         },
         {
@@ -4460,7 +4356,7 @@
             },
             spacing: { borderRadius: "0px", cardRadius: "2px", buttonRadius: "0px", spaceUnit: "8px", density: "comfortable" },
             shadows: { sm: "1px 2px 4px rgba(30,20,0,0.2)", md: "2px 4px 10px rgba(30,20,0,0.25)", lg: "3px 6px 18px rgba(30,20,0,0.3)", elevation: "subtle" },
-            design: { aesthetic: "editorial", personality: ["bureaucratic", "postal", "ephemeral", "stamped"], borderStyle: "subtle", iconStyle: "sharp", imageStyle: "none", surfaceTexture: "noise", hierarchyClarity: "high", notes: "Cards have airmail diagonal stripe clip-paths at corners. Floating stamp element top-right. Status badges are rotated rubber-stamp style. Background is manila kraft noise." },
+            design: { aesthetic: "editorial", personality: ["aged", "utilitarian", "warm"], borderStyle: "subtle", iconStyle: "sharp", imageStyle: "none", surfaceTexture: "noise", hierarchyClarity: "high", notes: "Cards have airmail diagonal stripe clip-paths at corners. Floating stamp element top-right. Status badges are rotated rubber-stamp style. Background is manila kraft noise." },
           },
         },
         {
@@ -4492,7 +4388,7 @@
             },
             spacing: { borderRadius: "2px", cardRadius: "4px", buttonRadius: "2px", spaceUnit: "8px", density: "spacious" },
             shadows: { sm: "0 1px 6px rgba(0,0,0,0.4)", md: "0 2px 16px rgba(0,0,0,0.5)", lg: "0 4px 30px rgba(0,0,0,0.6)", colored: "0 2px 16px rgba(42,192,168,0.35)", elevation: "subtle" },
-            design: { aesthetic: "editorial", personality: ["aged", "archaeological", "geological", "patinated"], borderStyle: "hairline", iconStyle: "outlined", imageStyle: "none", surfaceTexture: "flat", hierarchyClarity: "high", notes: "THREE era zones: .era-brass (top), .era-patina (mid), .era-verdigris (bottom). Dark glass card surfaces (rgba) let the CSS gradient texture show through. Era colour variables shift gold→teal→deep-verdigris top to bottom." },
+            design: { aesthetic: "crafted", personality: ["aged", "historic", "moody"], borderStyle: "hairline", iconStyle: "outlined", imageStyle: "none", surfaceTexture: "flat", hierarchyClarity: "high", notes: "THREE era zones: .era-brass (top), .era-patina (mid), .era-verdigris (bottom). Dark glass card surfaces (rgba) let the CSS gradient texture show through. Era colour variables shift gold→teal→deep-verdigris top to bottom." },
           },
         },
         {
@@ -4591,8 +4487,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: ["heraldic", "forged", "martial", "gothic"],
+              aesthetic: "ornate",
+              personality: ["historic", "moody", "elegant"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -4698,7 +4594,7 @@
             },
             design: {
               aesthetic: "playful",
-              personality: ["pastel", "tactile", "toy-box", "sticker"],
+              personality: ["soft", "colorful", "warm"],
               borderStyle: "none",
               iconStyle: "rounded",
               imageStyle: "illustrative",
@@ -4804,7 +4700,7 @@
             },
             design: {
               aesthetic: "minimal",
-              personality: ["hygge", "quiet", "tactile", "unhurried"],
+              personality: ["calm", "soft", "warm"],
               borderStyle: "hairline",
               iconStyle: "outlined",
               imageStyle: "photographic",
@@ -4909,15 +4805,15 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "neumorphic",
-              personality: ["tactile", "pressed", "monochrome-warm", "physical"],
+              aesthetic: "minimal",
+              personality: ["soft", "warm", "monochrome"],
               borderStyle: "none",
               iconStyle: "rounded",
               imageStyle: "none",
               surfaceTexture: "flat",
               hierarchyClarity: "medium",
               notes:
-                "First theme in the library to claim the neumorphic aesthetic. Terracotta is used as text/icon color on extruded neutral surfaces, not as a large fill. Background lightness (~87%) sits slightly under the usual 90% light-theme floor by necessity — the technique needs headroom on both sides of the base tone for the shadow pair to read.",
+                "The library's only soft-UI/neumorphic treatment; files under the minimal aesthetic. Terracotta is used as text/icon color on extruded neutral surfaces, not as a large fill. Background lightness (~87%) sits slightly under the usual 90% light-theme floor by necessity — the technique needs headroom on both sides of the base tone for the shadow pair to read.",
             },
           },
         },
@@ -5016,7 +4912,7 @@
             },
             design: {
               aesthetic: "editorial",
-              personality: ["resort", "sun-bleached", "citrus", "breezy"],
+              personality: ["colorful", "warm", "soft"],
               borderStyle: "subtle",
               iconStyle: "rounded",
               imageStyle: "photographic",
@@ -5024,112 +4920,6 @@
               hierarchyClarity: "high",
               notes:
                 "Sky-to-sand gradient plus two soft cloud blobs form the page background — deliberately atmospheric daylight, not a neon mesh. Card surfaces stay flat/ungradiented so the gradient reads only at the page level, never stacked into every component.",
-            },
-          },
-        },
-        {
-          filename: "themes/aeroglass.html",
-          data: {
-            name: "aeroglass",
-            description:
-              "Light glossy Frutiger-Aero / Y2K tech-optimism theme — sky-blue-to-lime glass panels, specular highlights, bubble/droplet motifs recalling early-2000s consumer tech (Luna, Aqua, iTunes chrome). Jost display + DM Sans body + Nova Mono for system readouts. Pill buttons, frosted glass cards, no gradient-text headlines.",
-            createdAt: "2026-07-29T00:00:00.000Z",
-            source: "text",
-            sourceFile: "",
-            background: {
-              type: "gradient",
-              baseColor: "#EAF6FC",
-              image:
-                "linear-gradient(160deg, #EAF6FC 0%, #CBE9F8 45%, #8FCDEB 100%), radial-gradient(38% 55% at 12% 8%, rgba(255,255,255,0.85), transparent 70%), radial-gradient(10% 14% at 88% 78%, rgba(255,255,255,0.55), transparent 70%), radial-gradient(5% 6% at 72% 90%, rgba(255,255,255,0.45), transparent 70%)",
-              size: "auto",
-              position: "0 0",
-              repeat: "no-repeat",
-              patternType: "other",
-              patternColor: "rgba(255,255,255,0.6)",
-              patternOpacity: "0.5",
-              patternSpacing: "0px",
-              notes:
-                "Glass sweep gradient (sky blue to deeper blue) plus a large specular highlight top-left and two small bubble highlights bottom-right — simulates a curved glossy panel, not a flat gradient.",
-            },
-            colors: {
-              primary: "#2E8FD6",
-              primaryLight: "#CDEBFA",
-              secondary: "#8CC63F",
-              accent: "#F2924B",
-              background: "#EAF6FC",
-              surface: "#F6FBFE",
-              surfaceAlt: "#DCEFF8",
-              text: "#0B3050",
-              textMuted: "#4C7893",
-              textOnPrimary: "#FAFEFF",
-              border: "#BFE0F2",
-              success: "#2E9E5B",
-              warning: "#E0932E",
-              error: "#E2585B",
-            },
-            typography: {
-              fontFamily: "'DM Sans', sans-serif",
-              fontFamilyMono: "'Nova Mono', monospace",
-              fontFamilyDisplay: "'Jost', sans-serif",
-              scaleBase: "16px",
-              headingWeight: "600",
-              bodyWeight: "400",
-              lineHeight: "1.6",
-            },
-            spacing: {
-              borderRadius: "14px",
-              cardRadius: "20px",
-              buttonRadius: "999px",
-              spaceUnit: "8px",
-              density: "comfortable",
-            },
-            shadows: {
-              sm: "0 2px 6px rgba(11,48,80,0.08)",
-              md: "0 6px 18px rgba(11,48,80,0.10)",
-              lg: "0 14px 32px rgba(11,48,80,0.14)",
-              xl: "0 24px 48px rgba(11,48,80,0.16)",
-              colored: "0 10px 24px rgba(46,143,214,0.35)",
-              inset: "inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -6px 10px rgba(46,143,214,0.08)",
-              elevation: "layered",
-            },
-            gradients: {
-              hero: "linear-gradient(160deg, #EAF6FC 0%, #BEE4F6 45%, #6FB8E8 100%)",
-              card: "linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.10) 100%)",
-              button: "linear-gradient(180deg, #FFFFFF 0%, #D3EDFB 55%, #A9DCF3 100%)",
-              text: "none",
-              accent: "linear-gradient(90deg, #8CC63F 0%, #2E8FD6 100%)",
-            },
-            effects: {
-              luminescence: "subtle",
-              glowColor: "#2E8FD6",
-              glowBlur: "24",
-              glowSm: "0 2px 8px rgba(46,143,214,0.25)",
-              glowMd: "0 6px 20px rgba(46,143,214,0.30)",
-              glowLg: "0 14px 36px rgba(46,143,214,0.35)",
-              glassBlur: "16",
-              glassTint: "rgba(255,255,255,0.35)",
-              gradientBorder: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.05))",
-              noiseOpacity: "0.02",
-              textShadow: "0 1px 0 rgba(255,255,255,0.5)",
-              backdropFilter: "blur(16px) saturate(160%)",
-            },
-            motion: {
-              durationFast: "120ms",
-              durationBase: "220ms",
-              durationSlow: "380ms",
-              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-              feel: "expressive",
-            },
-            design: {
-              aesthetic: "glassmorphism",
-              personality: ["glossy", "optimistic", "aquatic", "chrome"],
-              borderStyle: "subtle",
-              iconStyle: "rounded",
-              imageStyle: "abstract",
-              surfaceTexture: "frosted",
-              hierarchyClarity: "high",
-              notes:
-                "Headline stays solid ink (#0B3050) with a soft glass text-shadow — never background-clip gradient text. Bubbles are fixed decorative elements sized/placed once, not scattered confetti. Buttons are pill-shaped per the era's chrome; cards stay 20px rounded rectangles.",
             },
           },
         },
@@ -5228,7 +5018,7 @@
             },
             design: {
               aesthetic: "playful",
-              personality: ["postmodern", "terrazzo", "squiggly", "confetti"],
+              personality: ["colorful", "bold", "retro"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "abstract",
@@ -5333,8 +5123,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: ["wabi-sabi", "ceramic", "gilded", "imperfect"],
+              aesthetic: "crafted",
+              personality: ["handmade", "calm", "elegant"],
               borderStyle: "hairline",
               iconStyle: "outlined",
               imageStyle: "photographic",
@@ -5440,7 +5230,7 @@
             },
             design: {
               aesthetic: "technical",
-              personality: ["analog", "tactile", "retro-futuristic", "console"],
+              personality: ["retro", "industrial", "utilitarian"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "abstract",
@@ -5548,7 +5338,7 @@
             },
             design: {
               aesthetic: "playful",
-              personality: ["blocky", "luminous", "nostalgic", "chiptune"],
+              personality: ["retro", "glowing", "geometric"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "abstract",
@@ -5653,13 +5443,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "flat",
-              personality: [
-                "systemic",
-                "utilitarian",
-                "wayfinding",
-                "confident",
-              ],
+              aesthetic: "minimal",
+              personality: ["utilitarian", "geometric", "calm"],
               borderStyle: "bold",
               iconStyle: "sharp",
               imageStyle: "none",
@@ -5667,119 +5452,6 @@
               hierarchyClarity: "high",
               notes:
                 "Route identity is carried by a small square line-chip beside each title, never by an asymmetric colored side-border — cards keep a uniform hairline all around. Buttons in a flat color use whichever of --color-text/--color-text-on-primary actually passes contrast against that specific fill; secondary's safety orange pairs with dark text, primary's cobalt pairs with white.",
-            },
-          },
-        },
-        {
-          filename: "themes/holo-y2k.html",
-          data: {
-            name: "holo-y2k",
-            description:
-              "Early-2000s holographic sticker sheen — pearl-lavender ground with faint grain (never a blob mesh), dark-plum text-on-color, one holo-foil gradient reserved for the primary CTA and wordmark only. Lilita One + Quicksand. Profile/sticker-board UI.",
-            createdAt: "2026-07-29T00:00:00.000Z",
-            source: "text",
-            sourceFile: "",
-            background: {
-              type: "noise",
-              baseColor: "#F6F1FB",
-              image:
-                "url(data:image/svg+xml noise) + linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,214,236,0.16) 100%)",
-              size: "256px 256px, cover",
-              position: "0 0, 0 0",
-              repeat: "repeat, no-repeat",
-              patternType: "noise",
-              patternColor: "rgba(155,93,229,0.045)",
-              patternOpacity: "0.045",
-              patternSpacing: "none",
-              notes:
-                "Deliberately NOT a purple-pink-cyan blob mesh — that combination is the generic 'AI aurora background' tell. Instead: solid pearl base, fine noise grain, one restrained 2-stop diagonal sheen. All three holo hues are saved for small elements (CTA, wordmark, one featured card) instead.",
-            },
-            colors: {
-              primary: "#9B5DE5",
-              primaryLight: "#EDE1FB",
-              secondary: "#38BDF8",
-              accent: "#FF6FB0",
-              background: "#F6F1FB",
-              surface: "#FFFFFF",
-              surfaceAlt: "#EFE6FB",
-              text: "#2B1F3D",
-              textMuted: "#7C6F94",
-              textOnPrimary: "#2B1F3D",
-              border: "#E3D6FB",
-              success: "#2F9E6E",
-              warning: "#B3790F",
-              error: "#D94F7A",
-            },
-            typography: {
-              fontFamily: "'Quicksand', 'Helvetica Neue', sans-serif",
-              fontFamilyMono: "'Quicksand', 'Helvetica Neue', sans-serif",
-              fontFamilyDisplay: "'Lilita One', 'Helvetica Neue', sans-serif",
-              scaleBase: "16px",
-              headingWeight: "700",
-              bodyWeight: "500",
-              lineHeight: "1.6",
-            },
-            spacing: {
-              borderRadius: "12px",
-              cardRadius: "20px",
-              buttonRadius: "100px",
-              spaceUnit: "8px",
-              density: "comfortable",
-            },
-            shadows: {
-              sm: "0 2px 8px rgba(155,93,229,0.14)",
-              md: "0 6px 18px rgba(155,93,229,0.18)",
-              lg: "0 12px 28px rgba(155,93,229,0.20)",
-              xl: "0 20px 44px rgba(155,93,229,0.22)",
-              colored: "0 10px 26px -8px rgba(155,93,229,0.5)",
-              inset: "none",
-              elevation: "layered",
-            },
-            gradients: {
-              hero: "none",
-              card: "none",
-              button:
-                "linear-gradient(120deg, #9B5DE5 0%, #38BDF8 55%, #FF6FB0 100%)",
-              text: "linear-gradient(120deg, #9B5DE5 0%, #38BDF8 55%, #FF6FB0 100%)",
-              accent: "none",
-            },
-            effects: {
-              luminescence: "medium",
-              glowColor: "#9B5DE5",
-              glowBlur: "20px",
-              glowSm: "0 2px 10px rgba(155,93,229,0.25)",
-              glowMd: "0 6px 20px rgba(155,93,229,0.3)",
-              glowLg: "0 14px 36px rgba(155,93,229,0.32)",
-              glassBlur: "16px",
-              glassTint: "rgba(255,255,255,0.5)",
-              gradientBorder:
-                "linear-gradient(120deg, #9B5DE5 0%, #38BDF8 55%, #FF6FB0 100%)",
-              noiseOpacity: "0.045",
-              textShadow: "none",
-              backdropFilter: "blur(16px) saturate(160%)",
-            },
-            motion: {
-              durationFast: "150ms",
-              durationBase: "260ms",
-              durationSlow: "420ms",
-              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-              feel: "expressive",
-            },
-            design: {
-              aesthetic: "glassmorphism",
-              personality: [
-                "iridescent",
-                "pearlescent",
-                "bubbly",
-                "nostalgic",
-              ],
-              borderStyle: "subtle",
-              iconStyle: "rounded",
-              imageStyle: "illustrative",
-              surfaceTexture: "frosted",
-              hierarchyClarity: "medium",
-              notes:
-                "The 3-stop holo gradient (violet-cyan-pink) is reserved for exactly two places: the primary CTA button and the wordmark chip. It never spans a full section background — that restraint is what keeps this distinct from a generic gradient-mesh hero. Text-on-color uses dark plum, not white, because all three brand hues sit at a mid-brightness that fails contrast with white.",
             },
           },
         },
@@ -5877,13 +5549,8 @@
               feel: "subtle",
             },
             design: {
-              aesthetic: "editorial",
-              personality: [
-                "handcrafted",
-                "indigo-dyed",
-                "motif-repeating",
-                "warm",
-              ],
+              aesthetic: "crafted",
+              personality: ["handmade", "warm", "historic"],
               borderStyle: "subtle",
               iconStyle: "outlined",
               imageStyle: "illustrative",
@@ -5891,6 +5558,324 @@
               hierarchyClarity: "medium",
               notes:
                 "Card and section-divider borders render dashed, not solid, to suggest a hand-stitched or wax-drawn line. Shadows are warm brown-tinted (built from the ink color, never neutral gray/black) to stay inside the dyed-fabric palette. Avoid pairing with moss-cottage or tobacco-road in the same project — both already own 'warm earthy handcraft' territory from a different angle.",
+            },
+          },
+        },
+        {
+          filename: "themes/nordic-noir.html",
+          data: {
+            name: "nordic-noir",
+            description:
+              "Scandinavian crime-thriller register — cold slate-blue-gray case-file surfaces, one alarm-red flag color, CCTV-static grain overlay with a soft interrogation-room vignette. Condensed procedural typography.",
+            createdAt: "2026-07-30T00:00:00.000Z",
+            source: "text",
+            sourceFile: "",
+            background: {
+              type: "noise",
+              baseColor: "#1B2228",
+              image:
+                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"), radial-gradient(ellipse at 50% 35%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.4) 100%)",
+              size: "180px 180px, 100% 100%",
+              position: "0 0, center",
+              repeat: "repeat, no-repeat",
+              patternType: "noise",
+              patternColor: "rgba(255,255,255,0.5)",
+              patternOpacity: "0.06",
+              patternSpacing: "180px",
+              notes:
+                "SVG feTurbulence grain blended with background-blend-mode:overlay reads as CCTV/surveillance static rather than a decorative filter. Paired with a soft radial vignette darkening the corners for an interrogation-room focal pull.",
+            },
+            colors: {
+              primary: "#4C6B7A",
+              primaryLight: "#D2DADE",
+              secondary: "#6F7F74",
+              accent: "#B3372C",
+              background: "#1B2228",
+              surface: "#232C33",
+              surfaceAlt: "#28323A",
+              text: "#E4E9EC",
+              textMuted: "#8B99A3",
+              textOnPrimary: "#F4F6F5",
+              border: "#2F3A41",
+              success: "#5C8F6A",
+              warning: "#B08A3E",
+              error: "#B3372C",
+            },
+            typography: {
+              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamilyMono: "'IBM Plex Mono', monospace",
+              fontFamilyDisplay: "'Barlow Condensed', sans-serif",
+              scaleBase: "16px",
+              headingWeight: "700",
+              bodyWeight: "400",
+              lineHeight: "1.6",
+            },
+            spacing: {
+              borderRadius: "2px",
+              cardRadius: "3px",
+              buttonRadius: "2px",
+              spaceUnit: "8px",
+              density: "comfortable",
+            },
+            shadows: {
+              sm: "0 1px 2px rgba(0,0,0,0.45)",
+              md: "0 4px 10px rgba(0,0,0,0.5)",
+              lg: "0 10px 24px rgba(0,0,0,0.55)",
+              xl: "0 20px 44px rgba(0,0,0,0.6)",
+              colored: "none",
+              inset: "inset 0 1px 3px rgba(0,0,0,0.5)",
+              elevation: "subtle",
+            },
+            gradients: {
+              hero: "none",
+              card: "none",
+              button: "none",
+              text: "none",
+              accent: "none",
+            },
+            effects: {
+              luminescence: "none",
+              glowColor: "#B3372C",
+              glowBlur: "0",
+              glowSm: "none",
+              glowMd: "none",
+              glowLg: "none",
+              glassBlur: "0",
+              glassTint: "none",
+              gradientBorder: "none",
+              noiseOpacity: "0.06",
+              textShadow: "none",
+              backdropFilter: "none",
+            },
+            motion: {
+              durationFast: "100ms",
+              durationBase: "180ms",
+              durationSlow: "300ms",
+              easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+              feel: "instant",
+            },
+            design: {
+              aesthetic: "editorial",
+              personality: ["moody", "calm", "utilitarian"],
+              borderStyle: "hairline",
+              iconStyle: "outlined",
+              imageStyle: "none",
+              surfaceTexture: "noise",
+              hierarchyClarity: "high",
+              notes:
+                "Accent and error share the same hex (#B3372C) — a single alarm-red signal for both CTA emphasis and error/flag states. Grain uses background-blend-mode:overlay against the base color rather than a flat opacity layer, so it reads as sensor noise, not a filter bolted on top.",
+            },
+          },
+        },
+        {
+          filename: "themes/circuit-sanctuary.html",
+          data: {
+            name: "circuit-sanctuary",
+            description:
+              "PCB fiberglass board — dark green board substrate, bright trace-green primary, copper secondary, solder-gold accent. Global trace-grid + via-dot background pattern. Quiet reverence for hardware, not neon cyberpunk.",
+            createdAt: "2026-07-30T00:00:00.000Z",
+            source: "text",
+            sourceFile: "",
+            background: {
+              type: "pattern",
+              baseColor: "#0E1F16",
+              image:
+                "linear-gradient(90deg, rgba(57,217,122,0.14) 1px, transparent 1px), linear-gradient(0deg, rgba(57,217,122,0.14) 1px, transparent 1px), radial-gradient(rgba(255,225,92,0.5) 1.4px, transparent 1.6px)",
+              size: "24px 24px, 24px 24px, 24px 24px",
+              position: "0 0, 0 0, 12px 12px",
+              repeat: "repeat, repeat, repeat",
+              patternType: "grid",
+              patternColor: "rgba(57,217,122,0.14)",
+              patternOpacity: "0.14",
+              patternSpacing: "24px",
+              notes:
+                "Two linear-gradient layers form the PCB trace grid; a repeating radial-gradient offset by half the grid pitch drops a solder-pad/via dot at every intersection. Global body-level pattern, not confined to a hero.",
+            },
+            colors: {
+              primary: "#39D97A",
+              primaryLight: "#CDF6DE",
+              secondary: "#C98A4B",
+              accent: "#FFE15C",
+              background: "#0E1F16",
+              surface: "#142A1E",
+              surfaceAlt: "#182F22",
+              text: "#D7F2DF",
+              textMuted: "#7FA98D",
+              textOnPrimary: "#0E1F16",
+              border: "#1E3B29",
+              success: "#39D97A",
+              warning: "#E0A94D",
+              error: "#E2483A",
+            },
+            typography: {
+              fontFamily: "'IBM Plex Mono', monospace",
+              fontFamilyMono: "'IBM Plex Mono', monospace",
+              fontFamilyDisplay: "'Fira Code', monospace",
+              scaleBase: "16px",
+              headingWeight: "600",
+              bodyWeight: "400",
+              lineHeight: "1.65",
+            },
+            spacing: {
+              borderRadius: "2px",
+              cardRadius: "2px",
+              buttonRadius: "2px",
+              spaceUnit: "4px",
+              density: "compact",
+            },
+            shadows: {
+              sm: "0 1px 2px rgba(0,0,0,0.5)",
+              md: "0 4px 12px rgba(0,0,0,0.55)",
+              lg: "0 10px 26px rgba(0,0,0,0.6)",
+              xl: "0 20px 46px rgba(0,0,0,0.65)",
+              colored: "0 0 16px rgba(57,217,122,0.35), 0 0 0 1px #39D97A",
+              inset: "inset 0 1px 3px rgba(0,0,0,0.6)",
+              elevation: "subtle",
+            },
+            gradients: {
+              hero: "none",
+              card: "none",
+              button: "none",
+              text: "none",
+              accent: "none",
+            },
+            effects: {
+              luminescence: "subtle",
+              glowColor: "#39D97A",
+              glowBlur: "8px",
+              glowSm: "0 0 4px rgba(57,217,122,0.25)",
+              glowMd: "0 0 8px rgba(57,217,122,0.3)",
+              glowLg: "0 0 16px rgba(57,217,122,0.35)",
+              glassBlur: "0",
+              glassTint: "none",
+              gradientBorder: "none",
+              noiseOpacity: "0",
+              textShadow: "none",
+              backdropFilter: "none",
+            },
+            motion: {
+              durationFast: "120ms",
+              durationBase: "220ms",
+              durationSlow: "380ms",
+              easing: "cubic-bezier(0.25, 0.1, 0.25, 1)",
+              feel: "subtle",
+            },
+            design: {
+              aesthetic: "technical",
+              personality: ["industrial", "analytical", "glowing"],
+              borderStyle: "hairline",
+              iconStyle: "sharp",
+              imageStyle: "none",
+              surfaceTexture: "flat",
+              hierarchyClarity: "high",
+              notes:
+                "Primary and success share the same hex (#39D97A) — trace-green doubles as the continuity/OK signal, mirroring a real multimeter continuity test. Background grid+via-dot pattern is structural (global board texture), not confined to one section. Glow is deliberately subtle — this is hardware reverence, not neon cyberpunk.",
+            },
+          },
+        },
+        {
+          filename: "themes/hazard-ward.html",
+          data: {
+            name: "hazard-ward",
+            description:
+              "Clinical incident-report register — pale near-white ground, near-black ink, hazard-stripe banner, redaction bars. Typewriter monospace throughout. Bureaucratic tension, not decoration.",
+            createdAt: "2026-07-30T00:00:00.000Z",
+            source: "text",
+            sourceFile: "",
+            background: {
+              type: "pattern",
+              baseColor: "#F2F3F1",
+              image:
+                "repeating-linear-gradient(45deg, rgba(22,24,26,0.035) 0 1px, transparent 1px 20px)",
+              size: "auto",
+              position: "0 0",
+              repeat: "repeat",
+              patternType: "stripes",
+              patternColor: "rgba(22,24,26,0.035)",
+              patternOpacity: "0.035",
+              patternSpacing: "20px",
+              notes:
+                "Faint diagonal watermark stripe across the whole page — security-paper texture at very low opacity, kept quiet so the bold black/yellow hazard tape stays a sharp, deliberate accent rather than being diluted into the ambient background.",
+            },
+            colors: {
+              primary: "#16181A",
+              primaryLight: "#C5C5C6",
+              secondary: "#F4C418",
+              accent: "#D1382C",
+              background: "#F2F3F1",
+              surface: "#FDFDFC",
+              surfaceAlt: "#E9EBE7",
+              text: "#16181A",
+              textMuted: "#6B7278",
+              textOnPrimary: "#F2F3F1",
+              border: "#D7D9D4",
+              success: "#3F7A4E",
+              warning: "#F4C418",
+              error: "#D1382C",
+            },
+            typography: {
+              fontFamily: "'Courier Prime', monospace",
+              fontFamilyMono: "'Courier Prime', monospace",
+              fontFamilyDisplay: "'Space Mono', monospace",
+              scaleBase: "16px",
+              headingWeight: "700",
+              bodyWeight: "400",
+              lineHeight: "1.6",
+            },
+            spacing: {
+              borderRadius: "0px",
+              cardRadius: "0px",
+              buttonRadius: "0px",
+              spaceUnit: "8px",
+              density: "compact",
+            },
+            shadows: {
+              sm: "0 1px 2px rgba(22,24,26,0.08)",
+              md: "0 2px 6px rgba(22,24,26,0.10)",
+              lg: "0 6px 16px rgba(22,24,26,0.12)",
+              xl: "0 12px 28px rgba(22,24,26,0.14)",
+              colored: "none",
+              inset: "inset 0 1px 2px rgba(22,24,26,0.15)",
+              elevation: "flat",
+            },
+            gradients: {
+              hero: "none",
+              card: "none",
+              button: "none",
+              text: "none",
+              accent: "none",
+            },
+            effects: {
+              luminescence: "none",
+              glowColor: "#D1382C",
+              glowBlur: "0",
+              glowSm: "none",
+              glowMd: "none",
+              glowLg: "none",
+              glassBlur: "0",
+              glassTint: "none",
+              gradientBorder: "none",
+              noiseOpacity: "0",
+              textShadow: "none",
+              backdropFilter: "none",
+            },
+            motion: {
+              durationFast: "80ms",
+              durationBase: "150ms",
+              durationSlow: "260ms",
+              easing: "ease-out",
+              feel: "instant",
+            },
+            design: {
+              aesthetic: "technical",
+              personality: ["utilitarian", "bold", "type-led"],
+              borderStyle: "hairline",
+              iconStyle: "sharp",
+              imageStyle: "none",
+              surfaceTexture: "flat",
+              hierarchyClarity: "high",
+              notes:
+                "Warning and secondary share the hazard-yellow hex, and error and accent share the alert-red hex — the same two colors on the physical hazard tape are reused as the UI's semantic status colors. Redaction bars (solid ink block, transparent text) are a first-class component, not a one-off decoration.",
             },
           },
         },
@@ -6273,7 +6258,6 @@
           () => activePersonality,
           (v) => { activePersonality = v; },
           (e) => e.personality,
-          15,
         );
       }
 

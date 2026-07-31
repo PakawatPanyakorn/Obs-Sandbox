@@ -96,8 +96,8 @@
       "feel": "subtle"
     },
     "design": {
-      "aesthetic": "flat",
-      "personality": ["systemic", "utilitarian", "wayfinding", "confident"],
+      "aesthetic": "minimal",
+      "personality": ["utilitarian", "geometric", "calm"],
       "borderStyle": "bold",
       "iconStyle": "sharp",
       "imageStyle": "none",
@@ -156,9 +156,15 @@
 
     h1, h2, h3 { font-family: var(--font-family-display); font-weight: 700; letter-spacing: -0.01em; }
 
+    /* Header band is full-bleed (the 4px rule reads as a signage edge, wall to wall) but its
+       content rides the same 1000px column as .tw-section so nothing sits adrift on wide screens. */
     .tw-header {
       background: var(--color-surface);
       border-bottom: 4px solid var(--color-text);
+    }
+    .tw-header-inner {
+      max-width: 1000px;
+      margin: 0 auto;
       padding: var(--space-12) var(--space-8) var(--space-8);
     }
     .tw-header-tag { font-family: var(--font-family-display); font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-primary); margin-bottom: var(--space-3); display: block; }
@@ -316,13 +322,15 @@
   </div>
 
   <header class="tw-header">
-    <span class="tw-header-tag">Metro Transit Authority · System Status</span>
-    <h1>Network Status</h1>
-    <p>Real-time departures across three lines. Tap a line for platform detail and service alerts.</p>
-    <div class="tw-line-row">
-      <span class="tw-line-chip"><span class="tw-dot" style="background:#1E4FD6"></span>Line 4</span>
-      <span class="tw-line-chip"><span class="tw-dot" style="background:#FF6A13"></span>Line 9</span>
-      <span class="tw-line-chip"><span class="tw-dot" style="background:#E0122B"></span>Line 2</span>
+    <div class="tw-header-inner">
+      <span class="tw-header-tag">Metro Transit Authority · System Status</span>
+      <h1>Network Status</h1>
+      <p>Real-time departures across three lines. Tap a line for platform detail and service alerts.</p>
+      <div class="tw-line-row">
+        <span class="tw-line-chip"><span class="tw-dot" style="background:#1E4FD6"></span>Line 4</span>
+        <span class="tw-line-chip"><span class="tw-dot" style="background:#FF6A13"></span>Line 9</span>
+        <span class="tw-line-chip"><span class="tw-dot" style="background:#E0122B"></span>Line 2</span>
+      </div>
     </div>
   </header>
 

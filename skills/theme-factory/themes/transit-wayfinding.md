@@ -3,7 +3,7 @@
 A metro system's own signage language borrowed for the screen — flat, rule-bound, and legible from across a platform.
 
 ## Core Concept
-Built on the Vignelli premise that a system earns trust by being boringly consistent: one grotesque-adjacent display face (Jost) for every label, a faint cobalt-tinted survey grid under an off-white ground (`background.patternType: grid`), and zero shadows beyond the barest card separation (`shadows.elevation: subtle`, `colored`/`inset` both `none`). Route identity is carried by a small circular `.tw-dot` chip beside each title — deliberately not an asymmetric colored side-border, which would read as a generic "accent card" rather than an actual line marker. The `flat` aesthetic and `systemic`/`confident` personality come from restraint: no gradients, no glow, one 4px rule under the header and nothing else competing for weight.
+Built on the Vignelli premise that a system earns trust by being boringly consistent: one grotesque-adjacent display face (Jost) for every label, a faint cobalt-tinted survey grid under an off-white ground (`background.patternType: grid`), and zero shadows beyond the barest card separation (`shadows.elevation: subtle`, `colored`/`inset` both `none`). Route identity is carried by a small circular `.tw-dot` chip beside each title — deliberately not an asymmetric colored side-border, which would read as a generic "accent card" rather than an actual line marker. The `minimal` aesthetic and `utilitarian`/`geometric` personality come from restraint: no gradients, no glow, one 4px rule under the header and nothing else competing for weight.
 
 ## Color Role Guidance
 

@@ -96,14 +96,14 @@
       "feel": "subtle"
     },
     "design": {
-      "aesthetic": "neumorphic",
-      "personality": ["tactile", "pressed", "monochrome-warm", "physical"],
+      "aesthetic": "minimal",
+      "personality": ["soft", "warm", "monochrome"],
       "borderStyle": "none",
       "iconStyle": "rounded",
       "imageStyle": "none",
       "surfaceTexture": "flat",
       "hierarchyClarity": "medium",
-      "notes": "First theme in the library to claim the neumorphic aesthetic. Terracotta is used as text/icon color on extruded neutral surfaces, not as a large fill — a saturated fill would break the single-hue-plus-shadow illusion. Background lightness (~87%) sits slightly under the usual 90% light-theme floor by necessity: the technique needs headroom on both the light and dark side of the base tone for the shadow pair to read."
+      "notes": "The library's only soft-UI/neumorphic treatment; files under the minimal aesthetic. Terracotta is used as text/icon color on extruded neutral surfaces, not as a large fill — a saturated fill would break the single-hue-plus-shadow illusion. Background lightness (~87%) sits slightly under the usual 90% light-theme floor by necessity: the technique needs headroom on both the light and dark side of the base tone for the shadow pair to read."
     }
   }</script>
   <style>
@@ -212,11 +212,16 @@
     .sc-input:focus { outline: none; }
 
     .sc-badge-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
-    .sc-badge { display: inline-flex; align-items: center; padding: 7px 16px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; background: var(--color-bg); box-shadow: var(--shadow-out-sm); color: var(--color-text-muted); }
+    .sc-badge { display: inline-flex; align-items: center; padding: 7px 16px; border: none; border-radius: 999px; font-family: inherit; font-size: 0.72rem; font-weight: 600; background: var(--color-bg); box-shadow: var(--shadow-out-sm); color: var(--color-text-muted); transition: box-shadow var(--duration-base) var(--ease), color var(--duration-base) var(--ease); }
+    button.sc-badge { cursor: pointer; }
+    button.sc-badge:focus-visible { outline: none; box-shadow: var(--shadow-out-md); }
+    .sc-badge-pressed { box-shadow: var(--shadow-in); color: var(--color-text); }
+    button.sc-badge-pressed:focus-visible { box-shadow: var(--shadow-in); }
     .sc-badge-primary { color: var(--color-primary); }
     .sc-badge-success { color: var(--color-success); }
     .sc-badge-warning { color: var(--color-warning); }
-    .sc-badge-pressed { box-shadow: var(--shadow-in); color: var(--color-text); }
+
+    .sc-badge-hint { margin-top: var(--space-4); font-family: var(--font-family-mono); font-size: 0.72rem; color: var(--color-text-muted); }
 
     .sc-extrusion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-5); }
     .sc-extrusion-tile { background: var(--color-bg); border-radius: var(--radius-lg); padding: var(--space-6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3); min-height: 96px; font-family: var(--font-family-mono); font-size: 0.72rem; color: var(--color-text-muted); text-align: center; }
@@ -411,13 +416,14 @@
 
   <div class="sc-section">
     <div class="sc-section-title">Studio Status</div>
-    <div class="sc-badge-row">
-      <span class="sc-badge sc-badge-primary">Firing</span>
-      <span class="sc-badge sc-badge-pressed">Reserved</span>
-      <span class="sc-badge sc-badge-success">Available</span>
-      <span class="sc-badge sc-badge-warning">Low Stock</span>
-      <span class="sc-badge">Cooling</span>
+    <div class="sc-badge-row" id="sc-status-row">
+      <button type="button" class="sc-badge sc-badge-primary" aria-pressed="false">Firing</button>
+      <button type="button" class="sc-badge sc-badge-pressed" aria-pressed="true">Reserved</button>
+      <button type="button" class="sc-badge sc-badge-success" aria-pressed="false">Available</button>
+      <button type="button" class="sc-badge sc-badge-warning" aria-pressed="false">Low Stock</button>
+      <button type="button" class="sc-badge" aria-pressed="false">Cooling</button>
     </div>
+    <p class="sc-badge-hint">Click a status to press it into the clay — outset resting, inset selected.</p>
   </div>
 
   <div class="sc-section">
@@ -429,6 +435,19 @@
       <div class="sc-extrusion-tile"><span style="color:var(--color-primary); font-family:var(--font-family-display); font-size:1rem;">Terracotta</span><span>Color as text/icon only, never a fill</span></div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      var row = document.getElementById('sc-status-row');
+      if (!row) return;
+      row.addEventListener('click', function (e) {
+        var badge = e.target.closest('button.sc-badge');
+        if (!badge || !row.contains(badge)) return;
+        var pressed = badge.classList.toggle('sc-badge-pressed');
+        badge.setAttribute('aria-pressed', String(pressed));
+      });
+    })();
+  </script>
 
   <script>
     (function () {

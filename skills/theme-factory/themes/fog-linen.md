@@ -4,7 +4,7 @@ A room with one lamp on — the library's first theme that gets quieter the long
 
 ## Core Concept
 
-Fog Linen commits to a single restraint: one hue (taupe-clay, ~30° warm neutral) carried at three lightness steps instead of three different colors. `primary` (#8B7E6A), `secondary` (#6E6255), and `accent` (#A69783) are the same family, not a triad — that's what `personality: ["hygge", "quiet", "tactile", "unhurried"]` actually cashes out to in code, not just mood words. Elevation is `flat` by policy: every card in `.fl-card-grid` is a horizontal rule and baseline-aligned row, not a boxed panel, because a "quiet room" doesn't stack shadows to create depth — it uses whitespace and a 1px `--color-border` hairline instead. The only texture in the whole theme is a 4px diagonal crosshatch at 5% opacity, deliberately calibrated to be felt more than seen.
+Fog Linen commits to a single restraint: one hue (taupe-clay, ~30° warm neutral) carried at three lightness steps instead of three different colors. `primary` (#8B7E6A), `secondary` (#6E6255), and `accent` (#A69783) are the same family, not a triad — that's what `personality: ["calm", "soft", "warm"]` actually cashes out to in code, not just mood words — `calm` here means the hygge/unhurried register, carried by tonal restraint rather than by any single token. Elevation is `flat` by policy: every card in `.fl-card-grid` is a horizontal rule and baseline-aligned row, not a boxed panel, because a "quiet room" doesn't stack shadows to create depth — it uses whitespace and a 1px `--color-border` hairline instead. The only texture in the whole theme is a 4px diagonal crosshatch at 5% opacity, deliberately calibrated to be felt more than seen.
 
 ## Color Role Guidance
 

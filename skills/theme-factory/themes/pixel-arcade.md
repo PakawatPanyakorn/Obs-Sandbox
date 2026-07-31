@@ -3,7 +3,7 @@
 The glow of a coin-op cabinet in a dark room — every corner notched instead of rounded, every shadow a hard offset instead of a blur.
 
 ## Core Concept
-A near-black CRT canvas (`#0D0B1A`) under fine horizontal scanlines (`background.patternType: lines-h`, 3px pitch) carries three saturated cartridge colors — hot magenta, cyan, lime — that never blend into each other. The theme's `playful`/`nostalgic` personality comes less from the palette and more from two structural choices: the `.pa-notch` clip-path replaces every border-radius with an 8-sided pixel-notch, and `--easing: steps(4, end)` makes hovers and transitions advance in visible frames rather than glide. Space Mono's exaggerated monospace quirks (`.pa-display`) and Share Tech Mono's raw digital body copy keep the whole page reading as a single low-res font family, the way an actual cabinet only ships with one bitmap face.
+A near-black CRT canvas (`#0D0B1A`) under fine horizontal scanlines (`background.patternType: lines-h`, 3px pitch) carries three saturated cartridge colors — hot magenta, cyan, lime — that never blend into each other. The theme's `playful` aesthetic and `retro` personality come less from the palette and more from two structural choices: the `.pa-notch` clip-path replaces every border-radius with an 8-sided pixel-notch, and `--easing: steps(4, end)` makes hovers and transitions advance in visible frames rather than glide. Space Mono's exaggerated monospace quirks (`.pa-display`) and Share Tech Mono's raw digital body copy keep the whole page reading as a single low-res font family, the way an actual cabinet only ships with one bitmap face.
 
 ## Color Role Guidance
 

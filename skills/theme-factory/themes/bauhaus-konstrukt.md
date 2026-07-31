@@ -3,7 +3,7 @@
 The Bauhaus as historical institution, not as a shape-toy — a 1923 Weimar workshop-catalogue voice (German color labels, manifesto-style body copy) rendered in the same red/blue/yellow triad as [[bauhaus-geometry]] but with an ideological, brutalist register instead of a playful, educational one.
 
 ## Core Concept
-Warm ivory canvas (`#F5F0E8`) with a near-invisible 45° diagonal stripe pattern (`patternType: lines-h`, opacity `0.04`) evoking constructivist poster paper. League Spartan at 900-weight for display, Archivo at 300-weight for body — the same heavy/light contrast as `bauhaus-geometry` but paired here with genuine period voice: German color names (Rot/Blau/Gelb/Weiss/Schwarz), a real manifesto sentence ("form derives from process, not tradition"), workshop department cards (`Vorkurs`, `Werkstatt`). `aesthetic: brutalist` (not `playful`) and `personality: ideological` are the load-bearing difference from its sibling theme.
+Warm ivory canvas (`#F5F0E8`) with a near-invisible 45° diagonal stripe pattern (`patternType: lines-h`, opacity `0.04`) evoking constructivist poster paper. League Spartan at 900-weight for display, Archivo at 300-weight for body — the same heavy/light contrast as `bauhaus-geometry` but paired here with genuine period voice: German color names (Rot/Blau/Gelb/Weiss/Schwarz), a real manifesto sentence ("form derives from process, not tradition"), workshop department cards (`Vorkurs`, `Werkstatt`). `aesthetic: brutalist` (not `playful`) and the `historic` personality tag are the load-bearing difference from its sibling theme.
 
 ## Color Role Guidance
 
@@ -28,7 +28,7 @@ Warm ivory canvas (`#F5F0E8`) with a near-invisible 45° diagonal stripe pattern
 - Brutalist-leaning product/portfolio sites that want flat, unapologetic primary-color blocking without softness.
 
 ## When NOT To Use
-- Playful, consumer, or shape-system-driven content — for that register, [[bauhaus-geometry]] (same triad, `playful`/`educational` personality, 16-shape semantic system) is the better-fitting sibling theme.
+- Playful, consumer, or shape-system-driven content — for that register, [[bauhaus-geometry]] (same triad, `playful` aesthetic with a `colorful` rather than `historic` register, 16-shape semantic system) is the better-fitting sibling theme.
 - Any content needing gradients, glow, or soft elevation — this theme has none of those by design (`elevation: layered` refers to shadow offset stacking, not blur-based depth).
 - Fast, snappy interaction feel — `motion.feel: instant` with `durationSlow: 180ms` and `easing: linear` is deliberately blunt, not springy or delightful.
 

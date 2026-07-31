@@ -20,7 +20,7 @@ Dark earth-brown canvas (`#1c1915`) with a warm amber glow specifically position
 ### accent (`#a0745a` terracotta)
 - When to use: earth/clay tones — a warm counterpoint between amber and mauve, grounding the palette in "furrow" (tilled earth) imagery.
 - Surface area: small to moderate — an earthy highlight, not a fill.
-- Don't: don't brighten accent toward a cheerful orange — restraint (per `personality: restrained`) applies to every color in this palette, not just primary.
+- Don't: don't brighten accent toward a cheerful orange — restraint (per `personality: calm`) applies to every color in this palette, not just primary.
 
 ## When To Use
 - Rural, agricultural, countryside, or "end of day" narrative content — the theme's own dusk/furrow imagery is literal.

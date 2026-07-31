@@ -28,7 +28,7 @@ Near-black space canvas (`#06041A`) under a 4-layer radial nebula mesh (violet, 
 - Content that can sustain real backdrop-filter blur — panels are meant to look like they're floating over the nebula, not sitting on a flat dark background.
 
 ## When NOT To Use
-- Content needing calm, grounded, or non-maximalist visual language — `hierarchyClarity: medium` (not high) and `personality: maximalist` mean this theme accepts some visual noise as part of its identity.
+- Content needing calm, grounded, or non-maximalist visual language — `hierarchyClarity: medium` (not high) and `personality: glowing, dreamlike` mean this theme accepts some visual noise as part of its identity.
 - Static/print or low-fidelity rendering contexts — `backdropFilter`, multi-layer glow, and the 4-layer nebula gradient all depend on real compositing; they degrade to a flat dark-purple background without it.
 - Light-mode or daytime contexts — there is no light variant; the entire effect depends on near-black space.
 

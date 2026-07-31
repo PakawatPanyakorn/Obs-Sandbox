@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="nordic-noir">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: Nordic Noir</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script id="theme-data" type="application/json">
+  {
+    "name": "nordic-noir",
+    "description": "Scandinavian crime-thriller register — cold slate-blue-gray case-file surfaces, one alarm-red flag color, CCTV-static grain overlay with a soft interrogation-room vignette. Condensed procedural typography.",
+    "createdAt": "2026-07-30T00:00:00.000Z",
+    "source": "text",
+    "sourceFile": "",
+    "background": {
+      "type": "noise",
+      "baseColor": "#1B2228",
+      "image": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"), radial-gradient(ellipse at 50% 35%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.4) 100%)",
+      "size": "180px 180px, 100% 100%",
+      "position": "0 0, center",
+      "repeat": "repeat, no-repeat",
+      "patternType": "noise",
+      "patternColor": "rgba(255,255,255,0.5)",
+      "patternOpacity": "0.06",
+      "patternSpacing": "180px",
+      "notes": "SVG feTurbulence grain blended with background-blend-mode:overlay reads as CCTV/surveillance static rather than a decorative filter. Paired with a soft radial vignette darkening the corners for an interrogation-room focal pull."
+    },
+    "colors": {
+      "primary": "#4C6B7A",
+      "primaryLight": "#D2DADE",
+      "secondary": "#6F7F74",
+      "accent": "#B3372C",
+      "background": "#1B2228",
+      "surface": "#232C33",
+      "surfaceAlt": "#28323A",
+      "text": "#E4E9EC",
+      "textMuted": "#8B99A3",
+      "textOnPrimary": "#F4F6F5",
+      "border": "#2F3A41",
+      "success": "#5C8F6A",
+      "warning": "#B08A3E",
+      "error": "#B3372C"
+    },
+    "typography": {
+      "fontFamily": "'IBM Plex Sans', sans-serif",
+      "fontFamilyMono": "'IBM Plex Mono', monospace",
+      "fontFamilyDisplay": "'Barlow Condensed', sans-serif",
+      "scaleBase": "16px",
+      "headingWeight": "700",
+      "bodyWeight": "400",
+      "lineHeight": "1.6"
+    },
+    "spacing": {
+      "borderRadius": "2px",
+      "cardRadius": "3px",
+      "buttonRadius": "2px",
+      "spaceUnit": "8px",
+      "density": "comfortable"
+    },
+    "shadows": {
+      "sm": "0 1px 2px rgba(0,0,0,0.45)",
+      "md": "0 4px 10px rgba(0,0,0,0.5)",
+      "lg": "0 10px 24px rgba(0,0,0,0.55)",
+      "xl": "0 20px 44px rgba(0,0,0,0.6)",
+      "colored": "none",
+      "inset": "inset 0 1px 3px rgba(0,0,0,0.5)",
+      "elevation": "subtle"
+    },
+    "gradients": {
+      "hero": "none",
+      "card": "none",
+      "button": "none",
+      "text": "none",
+      "accent": "none"
+    },
+    "effects": {
+      "luminescence": "none",
+      "glowColor": "#B3372C",
+      "glowBlur": "0",
+      "glowSm": "none",
+      "glowMd": "none",
+      "glowLg": "none",
+      "glassBlur": "0",
+      "glassTint": "none",
+      "gradientBorder": "none",
+      "noiseOpacity": "0.06",
+      "textShadow": "none",
+      "backdropFilter": "none"
+    },
+    "motion": {
+      "durationFast": "100ms",
+      "durationBase": "180ms",
+      "durationSlow": "300ms",
+      "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "feel": "instant"
+    },
+    "design": {
+      "aesthetic": "editorial",
+      "personality": ["moody", "calm", "utilitarian"],
+      "borderStyle": "hairline",
+      "iconStyle": "outlined",
+      "imageStyle": "none",
+      "surfaceTexture": "noise",
+      "hierarchyClarity": "high",
+      "notes": "Accent and error share the same hex (#B3372C) — a single alarm-red signal for both CTA emphasis and error/flag states, an evidence-tag color on an otherwise monochrome-cool palette. Grain uses background-blend-mode:overlay against the base color rather than a flat opacity layer, so it reads as sensor noise, not a filter bolted on top."
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #1B2228;
+      --bg-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), radial-gradient(ellipse at 50% 35%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.4) 100%);
+      --bg-size: 180px 180px, 100% 100%;
+      --bg-position: 0 0, center;
+      --bg-repeat: repeat, no-repeat;
+
+      --color-primary: #4C6B7A;
+      --color-primary-light: #D2DADE;
+      --color-secondary: #6F7F74;
+      --color-accent: #B3372C;
+      --color-bg: #1B2228;
+      --color-surface: #232C33;
+      --color-surface-alt: #28323A;
+      --color-text: #E4E9EC;
+      --color-text-muted: #8B99A3;
+      --color-text-on-primary: #F4F6F5;
+      --color-border: #2F3A41;
+      --color-success: #5C8F6A;
+      --color-warning: #B08A3E;
+      --color-error: #B3372C;
+
+      --font-family: 'IBM Plex Sans', sans-serif;
+      --font-family-mono: 'IBM Plex Mono', monospace;
+      --font-family-display: 'Barlow Condensed', sans-serif;
+      --font-size-base: 16px;
+      --font-weight-heading: 700;
+      --font-weight-body: 400;
+      --line-height: 1.6;
+
+      --radius: 2px;
+      --radius-card: 3px;
+      --radius-button: 2px;
+
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.45);
+      --shadow-md: 0 4px 10px rgba(0,0,0,0.5);
+      --shadow-lg: 0 10px 24px rgba(0,0,0,0.55);
+      --shadow-xl: 0 20px 44px rgba(0,0,0,0.6);
+      --shadow-colored: none;
+      --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.5);
+
+      --gradient-hero: none;
+      --gradient-card: none;
+      --gradient-button: none;
+      --gradient-text: none;
+      --gradient-accent: none;
+
+      --glow-color: #B3372C;
+      --glow-sm: none; --glow-md: none; --glow-lg: none;
+      --glass-blur: 0; --glass-tint: none;
+      --backdrop-filter: none; --text-shadow: none;
+      --border-gradient: none; --noise-opacity: 0.06;
+
+      --space-1: 4px; --space-2: 8px; --space-3: 12px;
+      --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --duration-fast: 100ms; --duration-base: 180ms; --duration-slow: 300ms;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1);
+      --border-width: 1px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
+      background-position: var(--bg-position);
+      background-repeat: var(--bg-repeat);
+      background-blend-mode: overlay, normal;
+      color: var(--color-text);
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── GIMMICK: rec dot — small pulsing case-open indicator ── */
+    .rec-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      margin-right: 0.5rem;
+      vertical-align: middle;
+      animation: rec-pulse 2.2s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) { .rec-dot { animation: none; } }
+    @keyframes rec-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+    .tf-header {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      border-radius: var(--radius-card);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+    }
+    .tf-header .tag-line {
+      font-family: var(--font-family-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.6rem;
+    }
+    .tf-header h1 {
+      font-family: var(--font-family-display);
+      font-size: 2.6rem;
+      font-weight: var(--font-weight-heading);
+      letter-spacing: 0.01em;
+      margin-bottom: 0.3rem;
+    }
+    .tf-header p { color: var(--color-text-muted); font-size: 0.9rem; }
+
+    .tf-section { margin-bottom: 2rem; }
+    .tf-section-title {
+      font-family: var(--font-family-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tf-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; }
+    .tf-swatch { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .tf-swatch-color { height: 64px; width: 100%; }
+    .tf-swatch-label { background: var(--color-surface); padding: 0.4rem 0.5rem; font-size: 0.7rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .tf-swatch-label strong { display: block; color: var(--color-text); font-size: 0.75rem; margin-bottom: 0.1rem; }
+
+    .tf-type-scale { display: flex; flex-direction: column; gap: 0.6rem; }
+    .tf-type-scale .t-h1 { font-size: 2.5rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); }
+    .tf-type-scale .t-h2 { font-size: 1.75rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); }
+    .tf-type-scale .t-h3 { font-size: 1.2rem; font-weight: var(--font-weight-heading); font-family: var(--font-family-display); }
+    .tf-type-scale .t-body { font-size: 1rem; }
+    .tf-type-scale .t-small { font-size: 0.85rem; color: var(--color-text-muted); }
+    .tf-type-scale .t-mono { font-family: var(--font-family-mono); font-size: 0.85rem; background: var(--color-surface-alt); padding: 0.3rem 0.6rem; border-radius: var(--radius); border: 1px solid var(--color-border); }
+
+    .tf-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .tf-btn {
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-button);
+      font-family: var(--font-family-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: opacity var(--duration-fast) var(--easing);
+    }
+    .tf-btn:hover { opacity: 0.85; }
+    .tf-btn-primary { background: var(--color-accent); color: var(--color-text-on-primary); box-shadow: var(--shadow-sm); }
+    .tf-btn-secondary { background: var(--color-primary); color: var(--color-text-on-primary); box-shadow: var(--shadow-sm); }
+    .tf-btn-outline { background: transparent; color: var(--color-text); border-color: var(--color-border); }
+    .tf-btn-ghost { background: var(--color-surface-alt); color: var(--color-text-muted); }
+
+    /* ── GIMMICK: case-file card — mono case number tab, top border flag ── */
+    .case-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-top: 2px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .case-card.flagged { border-top-color: var(--color-accent); }
+    .case-number {
+      font-family: var(--font-family-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .case-card h3 { font-family: var(--font-family-display); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--color-text); }
+    .case-card p { color: var(--color-text-muted); font-size: 0.88rem; line-height: var(--line-height); }
+    .tf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+
+    .tf-form { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; }
+    .tf-form label { font-family: var(--font-family-mono); font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 0.3rem; display: block; }
+    .tf-form input, .tf-form select {
+      width: 100%; padding: 0.5rem 0.75rem;
+      border: 1px solid var(--color-border); border-radius: var(--radius);
+      background: var(--color-surface); color: var(--color-text);
+      font-family: var(--font-family); font-size: 0.9rem; outline: none;
+      transition: border-color var(--duration-fast);
+    }
+    .tf-form input:focus, .tf-form select:focus { border-color: var(--color-primary); }
+
+    /* ── GIMMICK: case-status tabs (squared, not rotated — this is a cold procedural stamp, not postal whimsy) ── */
+    .tf-badges { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .case-tab {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      font-family: var(--font-family-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      border: 1px solid;
+    }
+    .case-tab.unresolved { color: var(--color-accent); border-color: var(--color-accent); background: rgba(179,55,44,0.1); }
+    .case-tab.cold { color: var(--color-text-muted); border-color: var(--color-border); background: var(--color-surface-alt); }
+    .case-tab.reopened { color: var(--color-warning); border-color: var(--color-warning); background: rgba(176,138,62,0.1); }
+    .case-tab.closed { color: var(--color-success); border-color: var(--color-success); background: rgba(92,143,106,0.1); }
+
+    .tf-effects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .tf-effect-tile { border-radius: var(--radius-card); padding: 1.25rem; border: 1px solid var(--color-border); background: var(--color-surface); display: flex; flex-direction: column; gap: 0.5rem; }
+    .tf-effect-tile .tile-label { font-family: var(--font-family-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); }
+    .tf-effect-tile .tile-value { font-size: 0.72rem; color: var(--color-text-muted); font-family: var(--font-family-mono); word-break: break-all; }
+    .tf-gradient-hero { height: 80px; border-radius: var(--radius-card); background: var(--color-surface-alt); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--color-text); font-weight: 600; font-family: var(--font-family-display); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .tf-glow-demo { background: var(--color-surface); border-radius: var(--radius-card); padding: 1rem 1.5rem; text-align: center; box-shadow: var(--shadow-md); border: 1px solid var(--color-border); font-weight: 600; color: var(--color-accent); }
+    .tf-glass-demo { border-radius: var(--radius-card); padding: 1rem 1.5rem; background: var(--color-surface-alt); border: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-muted); }
+    .tf-inset-demo { background: var(--color-surface-alt); border-radius: var(--radius); padding: 0.6rem 1rem; box-shadow: var(--shadow-inset); border: 1px solid var(--color-border); font-size: 0.85rem; color: var(--color-text-muted); font-family: var(--font-family-mono); }
+    .tf-btn-gradient { background: var(--color-accent); color: var(--color-text-on-primary); box-shadow: var(--shadow-md); }
+
+    /* Doc viewer (house style, not optional) */
+    .tf-doc-toggle {
+      position: fixed; top: 1rem; right: 1rem; z-index: 20;
+      appearance: none; cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      background-color: #fff; border: 1px solid #111; border-radius: 2px; color: #111;
+      padding: 0.5rem 0.75rem; transition: background-color .12s, color .12s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    }
+    .tf-doc-toggle:hover { background-color: #111; color: #fff; }
+    .tf-doc-overlay { position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .tf-doc-overlay[hidden] { display: none; }
+    .tf-doc-panel { background: #fff; color: #111; width: min(760px, 100%); max-height: 85vh; border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,.35); display: flex; flex-direction: column; overflow: hidden; }
+    .tf-doc-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid #e2e2e2; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; }
+    .tf-doc-panel-title { font-size: 0.8rem; font-weight: 700; color: #111; }
+    .tf-doc-close { appearance: none; background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #666; padding: 0.25rem 0.5rem; }
+    .tf-doc-close:hover { color: #111; }
+    .tf-doc-body { margin: 0; padding: 1.25rem; overflow: auto; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; font-size: 0.86rem; line-height: 1.65; color: #222; }
+    .tf-doc-body > *:first-child { margin-top: 0; }
+    .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { font-weight: 700; line-height: 1.3; margin: 1.1em 0 0.4em; color: #111; }
+    .tf-doc-body h1 { font-size: 1.3rem; }
+    .tf-doc-body h2 { font-size: 1.05rem; border-bottom: 1px solid #e8e8e8; padding-bottom: 0.35em; }
+    .tf-doc-body h3 { font-size: 0.92rem; }
+    .tf-doc-body h4 { font-size: 0.86rem; }
+    .tf-doc-body p { margin: 0 0 0.85em; }
+    .tf-doc-body ul { margin: 0 0 0.85em 1.25em; padding: 0; }
+    .tf-doc-body li { margin-bottom: 0.35em; }
+    .tf-doc-body hr { border: none; border-top: 1px solid #e8e8e8; margin: 1.1em 0; }
+    .tf-doc-body strong { font-weight: 700; }
+    .tf-doc-body em { font-style: italic; }
+    .tf-doc-body code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em; background: #f2f2f2; padding: 0.1em 0.35em; border-radius: 3px; }
+    @media (prefers-color-scheme: dark) {
+      .tf-doc-panel { background: #1c1c22; color: #ddd; }
+      .tf-doc-panel-head { border-bottom-color: #333; }
+      .tf-doc-panel-title { color: #eee; }
+      .tf-doc-close { color: #999; }
+      .tf-doc-close:hover { color: #fff; }
+      .tf-doc-body { color: #ccc; }
+      .tf-doc-body h1, .tf-doc-body h2, .tf-doc-body h3, .tf-doc-body h4 { color: #f0f0f0; }
+      .tf-doc-body h2 { border-bottom-color: #333; }
+      .tf-doc-body hr { border-top-color: #333; }
+      .tf-doc-body code { background: #2a2a30; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="tf-doc-toggle" id="doc-toggle" type="button" title="View this preset's own .md documentation">&#128196; View Doc</button>
+  <div class="tf-doc-overlay" id="doc-overlay" hidden>
+    <div class="tf-doc-panel" role="dialog" aria-modal="true" aria-label="Preset documentation">
+      <div class="tf-doc-panel-head">
+        <span class="tf-doc-panel-title" id="doc-title">Documentation</span>
+        <button class="tf-doc-close" id="doc-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="tf-doc-body" id="doc-body">Loading…</div>
+    </div>
+  </div>
+
+  <div class="tf-header">
+    <div class="tag-line">Dark · Editorial — Procedural</div>
+    <h1><span class="rec-dot"></span>Nordic Noir</h1>
+    <p>Case file 04471 — cold slate-blue-gray surfaces, CCTV grain, one alarm-red flag color</p>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Color Palette</div>
+    <div class="tf-swatches">
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary)"></div><div class="tf-swatch-label"><strong>primary</strong>#4C6B7A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-primary-light)"></div><div class="tf-swatch-label"><strong>primaryLight</strong>#D2DADE</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-secondary)"></div><div class="tf-swatch-label"><strong>secondary</strong>#6F7F74</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-accent)"></div><div class="tf-swatch-label"><strong>accent</strong>#B3372C</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-bg)"></div><div class="tf-swatch-label"><strong>background</strong>#1B2228</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface)"></div><div class="tf-swatch-label"><strong>surface</strong>#232C33</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-surface-alt)"></div><div class="tf-swatch-label"><strong>surfaceAlt</strong>#28323A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text)"></div><div class="tf-swatch-label"><strong>text</strong>#E4E9EC</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-text-muted)"></div><div class="tf-swatch-label"><strong>textMuted</strong>#8B99A3</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-border)"></div><div class="tf-swatch-label"><strong>border</strong>#2F3A41</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-success)"></div><div class="tf-swatch-label"><strong>success</strong>#5C8F6A</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-warning)"></div><div class="tf-swatch-label"><strong>warning</strong>#B08A3E</div></div>
+      <div class="tf-swatch"><div class="tf-swatch-color" style="background:var(--color-error)"></div><div class="tf-swatch-label"><strong>error</strong>#B3372C</div></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Typography</div>
+    <div class="tf-type-scale">
+      <div class="t-h1">The Fjord Went Quiet</div>
+      <div class="t-h2">Section Heading</div>
+      <div class="t-h3">Subsection Heading</div>
+      <div class="t-body">Body text — Barlow Condensed for display, IBM Plex Sans for reading. Three witnesses. One tide table. No alibi holds past the harbor light.</div>
+      <div class="t-small">Small / muted — timestamps, evidence tags, route codes</div>
+      <div class="t-mono">CASE-04471 · SECTOR-7 · 02:14:08</div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Buttons</div>
+    <div class="tf-buttons">
+      <button class="tf-btn tf-btn-primary">Open Case</button>
+      <button class="tf-btn tf-btn-secondary">Archive</button>
+      <button class="tf-btn tf-btn-outline">Flag</button>
+      <button class="tf-btn tf-btn-ghost">Dismiss</button>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Cards — Case Files</div>
+    <div class="tf-cards">
+      <div class="case-card flagged">
+        <div class="case-number">CASE-04471</div>
+        <h3>Card Title</h3>
+        <p>Standard case-file card. Flagged cases carry an accent-red top border; unflagged cases stay quiet.</p>
+      </div>
+      <div class="case-card">
+        <div class="case-number">CASE-04455</div>
+        <h3>Data Card</h3>
+        <p>Every value comes from a CSS variable — swap themes by swapping :root.</p>
+      </div>
+      <div class="case-card" style="background:var(--color-surface-alt)">
+        <div class="case-number">CASE-04398</div>
+        <h3>Alt Surface</h3>
+        <p>surfaceAlt — archive shelving, secondary panels, older files pulled from storage.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Form Elements</div>
+    <div class="tf-form">
+      <div><label>Witness Statement</label><input type="text" placeholder="Enter value…"></div>
+      <div><label>Case Status</label><select><option>Open</option><option>Cold</option><option>Reopened</option><option>Closed</option></select></div>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Badges — Case Status</div>
+    <div class="tf-badges">
+      <span class="case-tab unresolved">Unresolved</span>
+      <span class="case-tab cold">Cold Case</span>
+      <span class="case-tab reopened">Reopened</span>
+      <span class="case-tab closed">Closed</span>
+    </div>
+  </div>
+
+  <div class="tf-section">
+    <div class="tf-section-title">Gradients &amp; Effects</div>
+    <div class="tf-effects-grid">
+      <div class="tf-effect-tile" style="grid-column:1/-1"><div class="tile-label">Hero Surface</div><div class="tf-gradient-hero">Case File — Hero Surface</div><div class="tile-value">var(--color-surface-alt) — no gradient, flat by design</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Alarm Red</div><div style="font-family:var(--font-family-display);font-size:1.6rem;font-weight:700;color:var(--color-accent);text-transform:uppercase">Flag Color</div><div class="tile-value">var(--color-accent) = var(--color-error)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Flag Button</div><button class="tf-btn tf-btn-gradient" style="width:100%">Flag Case</button><div class="tile-value">var(--color-accent)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Case Emphasis</div><div class="tf-glow-demo">Priority Case</div><div class="tile-value">var(--shadow-md), no glow — elevation via lightness</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Archive Surface</div><div class="tf-glass-demo">surfaceAlt panel</div><div class="tile-value">var(--color-surface-alt)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Inset / Well</div><div class="tf-inset-demo">evidence_log.txt</div><div class="tile-value">var(--shadow-inset)</div></div>
+      <div class="tf-effect-tile"><div class="tile-label">Colored Shadow</div><div style="padding:0.75rem 1rem;border-radius:var(--radius-card);background:var(--color-accent);color:var(--color-text-on-primary);font-weight:600;font-size:0.85rem;text-align:center">Flag Card</div><div class="tile-value">shadow-colored: none — flat by design</div></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function mdEscape(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function mdInline(s) {
+        s = mdEscape(s);
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+        return s;
+      }
+      function renderMarkdown(md) {
+        var lines = md.replace(/\r\n/g, '\n').split('\n');
+        var html = '';
+        var inList = false;
+        var para = [];
+        function flushPara() {
+          if (para.length) { html += '<p>' + mdInline(para.join(' ')) + '</p>'; para = []; }
+        }
+        function closeList() {
+          if (inList) { html += '</ul>'; inList = false; }
+        }
+        lines.forEach(function (line) {
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          var li = line.match(/^[-*]\s+(.*)$/);
+          var hr = /^(---|\*\*\*)\s*$/.test(line.trim());
+          if (h) {
+            flushPara(); closeList();
+            var level = h[1].length;
+            html += '<h' + level + '>' + mdInline(h[2]) + '</h' + level + '>';
+          } else if (li) {
+            flushPara();
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + mdInline(li[1]) + '</li>';
+          } else if (hr) {
+            flushPara(); closeList();
+            html += '<hr>';
+          } else if (line.trim() === '') {
+            flushPara(); closeList();
+          } else {
+            para.push(line.trim());
+          }
+        });
+        flushPara(); closeList();
+        return html;
+      }
+      var mdPath = location.pathname.split('/').pop().replace(/\.html?$/i, '.md');
+      var btn = document.getElementById('doc-toggle');
+      var overlay = document.getElementById('doc-overlay');
+      var closeBtn = document.getElementById('doc-close');
+      var body = document.getElementById('doc-body');
+      var title = document.getElementById('doc-title');
+      var loaded = false;
+      function openOverlay() {
+        overlay.hidden = false;
+        if (loaded) return;
+        loaded = true;
+        title.textContent = mdPath;
+        fetch(mdPath).then(function (res) {
+          if (!res.ok) throw new Error('not ok');
+          return res.text();
+        }).then(function (text) {
+          body.innerHTML = renderMarkdown(text);
+        }).catch(function () {
+          overlay.hidden = true;
+          loaded = false;
+          window.open(mdPath, '_blank');
+        });
+      }
+      btn.addEventListener('click', openOverlay);
+      closeBtn.addEventListener('click', function () { overlay.hidden = true; });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !overlay.hidden) overlay.hidden = true; });
+    })();
+  </script>
+
+</body>
+</html>
